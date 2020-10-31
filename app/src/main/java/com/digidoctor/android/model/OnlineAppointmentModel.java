@@ -1,0 +1,101 @@
+package com.digidoctor.android.model;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class OnlineAppointmentModel {
+    @SerializedName("appointmentId")
+    @Expose
+    private String appointmentId;
+    @SerializedName("visitDate")
+    @Expose
+    private String visitDate;
+    @SerializedName("visitTime")
+    @Expose
+    private String visitTime;
+    @SerializedName("msg")
+    @Expose
+    private String msg;
+    @SerializedName("doctorName")
+    @Expose
+    private String doctorName;
+    @SerializedName("clinicName")
+    @Expose
+    private String clinicName;
+    private String profilePhotoPath;
+    private String latitude;
+    private String longititude;
+    private String clinicMobileNo;
+    private String address;
+    private String degree;
+    private String specialityName;
+    private String appointmentStatus;
+
+    public String getAppointmentStatus() {
+        return appointmentStatus;
+    }
+
+    public String getSpecialityName() {
+        return specialityName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongititude() {
+        return longititude;
+    }
+
+    public String getClinicMobileNo() {
+        return clinicMobileNo;
+    }
+
+    public String getProfilePhotoPath() {
+        return profilePhotoPath;
+    }
+
+    String memberName;
+
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public String getVisitDate() {
+        return visitDate;
+    }
+
+    public String getVisitTime() {
+        return visitTime;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public String getClinicName() {
+        return clinicName;
+    }
+
+    public String getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(String appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
+
+}

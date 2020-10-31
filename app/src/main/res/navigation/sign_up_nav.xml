@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sign_up_nav"
+    app:startDestination="@id/getStartedFragment">
+
+    <fragment
+        android:id="@+id/getStartedFragment"
+        android:name="com.digidoctor.android.view.fragments.GetStartedFragment"
+        android:label="fragment_get_started"
+        tools:layout="@layout/fragment_get_started" >
+        <action
+            android:id="@+id/action_getStartedFragment_to_inputMobileNumberFragment"
+            app:destination="@id/inputMobileNumberFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/inputMobileNumberFragment"
+        android:name="com.digidoctor.android.view.fragments.InputMobileNumberFragment"
+        android:label="fragment_input_mobile_number"
+        tools:layout="@layout/fragment_input_mobile_number" >
+        <action
+            android:id="@+id/action_inputMobileNumberFragment_to_patientDashboard"
+            app:destination="@id/patientDashboard"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_inputMobileNumberFragment_to_inputOtpFragment"
+            app:destination="@id/inputOtpFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <activity
+        android:id="@+id/patientDashboard"
+        android:name="com.digidoctor.android.view.activity.PatientDashboard"
+        android:label="PatientDashboard" />
+    <fragment
+        android:id="@+id/inputOtpFragment"
+        android:name="com.digidoctor.android.view.fragments.InputOtpFragment"
+        tools:layout="@layout/fragment_input_otp" >
+        <action
+            android:id="@+id/action_inputOtpFragment_to_patientDashboard"
+            app:destination="@id/patientDashboard"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+</navigation>

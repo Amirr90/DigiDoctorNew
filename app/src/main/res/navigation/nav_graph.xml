@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/patientDashboardFragment">
+
+    <fragment
+        android:id="@+id/patientDashboardFragment"
+        android:name="com.digidoctor.android.view.fragments.PatientDashboardFragment"
+        android:label="fragment_patient_dashboard"
+        tools:layout="@layout/fragment_patient_dashboard" >
+        <action
+            android:id="@+id/action_patientDashboardFragment_to_symptomsFragment2"
+            app:destination="@id/symptomsFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in" />
+        <action
+            android:id="@+id/action_patientDashboardFragment_to_specialitiesFragment2"
+            app:destination="@id/specialitiesFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/symptomsFragment2"
+        android:name="com.digidoctor.android.view.fragments.SymptomsFragment"
+        android:label="@string/symptoms"
+        tools:layout="@layout/fragment_symptoms">
+        <action
+            android:id="@+id/action_symptomsFragment2_to_recommendedDoctorsFragment2"
+            app:destination="@id/recommendedDoctorsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/specialitiesFragment2"
+        android:name="com.digidoctor.android.view.fragments.SpecialitiesFragment"
+        android:label="Select Specialities"
+        tools:layout="@layout/fragment_specialities">
+        <action
+            android:id="@+id/action_specialitiesFragment2_to_subSpecialistFragment2"
+            app:destination="@id/subSpecialistFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/subSpecialistFragment"
+        android:name="com.digidoctor.android.view.fragments.SubSpecialistFragment"
+        android:label="fragment_sub_specialist"
+        tools:layout="@layout/fragment_sub_specialist" >
+        <action
+            android:id="@+id/action_subSpecialistFragment_to_chooseTimeFragment2"
+            app:destination="@id/chooseTimeFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_subSpecialistFragment_to_doctorsNotFoundFragment"
+            app:destination="@id/doctorsNotFoundFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseTimeFragment2"
+        android:name="com.digidoctor.android.view.fragments.ChooseTimeFragment"
+        android:label="@string/select_time">
+        <action
+            android:id="@+id/action_chooseTimeFragment2_to_bookAppointmentFragment2"
+            app:destination="@id/bookAppointmentFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookAppointmentFragment"
+        android:name="com.digidoctor.android.view.fragments.BookAppointmentFragment"
+        android:label="@string/book_appointment">
+        <action
+            android:id="@+id/action_bookAppointmentFragment_to_appointmentDoneFragment"
+            app:destination="@id/appointmentDoneFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popUpTo="@id/patientDashboardFragment" />
+        <action
+            android:id="@+id/action_bookAppointmentFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_bookAppointmentFragment_to_signUpJourneyActivity"
+            app:destination="@id/signUpJourneyActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookedAppointmentDetailFragment"
+        android:name="com.digidoctor.android.view.fragments.BookedAppointmentDetailFragment"
+        android:label="@string/appointment_booked_successfully" />
+    <fragment
+        android:id="@+id/recommendedDoctorsFragment"
+        android:name="com.digidoctor.android.view.fragments.RecommendedDoctorsFragment"
+        android:label="@string/recommended_doctors">
+        <action
+            android:id="@+id/action_recommendedDoctorsFragment_to_doctorShortProfileFragment"
+            app:destination="@id/doctorShortProfileFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_recommendedDoctorsFragment_to_doctorsNotFoundFragment"
+            app:destination="@id/doctorsNotFoundFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_in" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorShortProfileFragment"
+        android:name="com.digidoctor.android.view.fragments.DoctorShortProfileFragment"
+        android:label="@string/profile">
+        <action
+            android:id="@+id/action_doctorShortProfileFragment_to_chooseTimeFragment2"
+            app:destination="@id/chooseTimeFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorsNotFoundFragment"
+        android:name="com.digidoctor.android.view.fragments.DoctorsNotFoundFragment"
+        android:label="fragment_doctors_not_found"
+        tools:layout="@layout/fragment_doctors_not_found" />
+    <fragment
+        android:id="@+id/appointmentDoneFragment"
+        android:name="com.digidoctor.android.view.fragments.AppointmentDoneFragment"
+        android:label="fragment_appointment_done"
+        tools:layout="@layout/fragment_appointment_done" >
+        <action
+            android:id="@+id/action_appointmentDoneFragment_to_bookedAppointmentDetailFragment"
+            app:destination="@id/bookedAppointmentDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@id/patientDashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.digidoctor.android.view.fragments.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
+    <activity
+        android:id="@+id/signUpJourneyActivity"
+        android:name="com.digidoctor.android.view.activity.SignUpJourneyActivity"
+        android:label="activity_sign_up_journey"
+        tools:layout="@layout/activity_sign_up_journey" />
+</navigation>

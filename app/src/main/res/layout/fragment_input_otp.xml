@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.fragments.InputOtpFragment">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Phone Verification"
+                android:textAlignment="center"
+                android:textColor="#262E3F"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Enter your OTP code here"
+                android:textColor="#3F4E6E"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="45dp"
+                android:layout_marginRight="70dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:padding="@dimen/_10sdp"
+                android:weightSum="4">
+
+                <EditText
+                    android:id="@+id/tvOTP1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="13dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/color_primary_edittext"
+                    android:gravity="center"
+                    android:inputType="phone"
+                    android:maxLength="1"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingRight="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white" />
+
+                <EditText
+                    android:id="@+id/tvOTP2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="13dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/color_primary_edittext"
+                    android:gravity="center"
+                    android:inputType="phone"
+                    android:maxLength="1"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingRight="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white" />
+
+                <EditText
+                    android:id="@+id/tvOTP3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="13dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/color_primary_edittext"
+                    android:gravity="center"
+                    android:inputType="phone"
+                    android:maxLength="1"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingRight="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white" />
+
+                <EditText
+                    android:id="@+id/tvOTP4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/color_primary_edittext"
+                    android:gravity="center"
+                    android:inputType="phone"
+                    android:maxLength="1"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingRight="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="62dp"
+                android:fontFamily="@font/poppins"
+                android:text="Didn’t you received any code?"
+                android:textColor="#3F4E6E"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="resend a new code."
+                android:textColor="#EDA537"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </FrameLayout>
+</layout>

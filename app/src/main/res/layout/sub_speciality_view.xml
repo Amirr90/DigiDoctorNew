@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="doctor"
+            type="com.digidoctor.android.model.DoctorModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:elevation="5dp"
+        app:cardCornerRadius="8dp"
+        android:padding="@dimen/_10sdp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_10sdp">
+
+                <ImageView
+                    android:id="@+id/imageView20"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:loadDoctorImage="@{doctor.profilePhotoPath}"
+                    android:padding="2dp"
+                    app:srcCompat="@drawable/doc_image" />
+
+                <TextView
+                    android:id="@+id/textView76"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toLeftOf="@+id/ivShareDocProfile"
+                    android:layout_toRightOf="@+id/imageView20"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:singleLine="true"
+                    android:text="@{doctor.drName}"
+                    android:textColor="@color/TextPrimaryColor"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView77"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView76"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toLeftOf="@+id/ivShareDocProfile"
+                    android:layout_toRightOf="@+id/imageView20"
+                    android:fontFamily="@font/poppins"
+                    android:singleLine="true"
+                    android:text="@{doctor.speciality+`,`+doctor.yearOfExperience}"
+                    android:textColor="@color/TextSecondaryColor"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:fontFamily="@font/poppins_semibold"
+                    android:id="@+id/textView78"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView77"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@+id/imageView20"
+                    android:singleLine="true"
+                    android:text="@{doctor.hospitalName}"
+                    android:textColor="@color/PrimaryColor"
+                    android:textSize="14dp" />
+
+                <ImageView
+                    android:id="@+id/ivShareDocProfile"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="3dp"
+                    app:srcCompat="@drawable/share_doc_profile_image" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imageView29"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/group" />
+
+                    <TextView
+                        android:fontFamily="@font/poppins"
+                        android:id="@+id/textView79"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/imageView29"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="@{String.valueOf(doctor.noofPatients)+` Patients`}"
+                        android:textColor="#3F4E6E"
+                        android:textSize="14dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivGraduated"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/graduated" />
+
+                    <TextView
+                        android:fontFamily="@font/poppins"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/ivGraduated"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="@{doctor.degree}"
+                        android:textColor="#3F4E6E"
+                        android:textSize="14dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivLocationPin"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/location_pin" />
+
+                    <TextView
+                        android:fontFamily="@font/poppins"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/ivLocationPin"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="@{doctor.address}"
+                        android:textColor="#3F4E6E"
+                        android:textSize="12dp" />
+                </RelativeLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/GreyColo" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <ImageView
+                        android:id="@+id/imageView30"
+                        android:layout_width="9dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        app:srcCompat="@drawable/rupee_indian" />
+
+                    <TextView
+                        android:fontFamily="@font/poppins_bold"
+                        android:id="@+id/textView82"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:text="@{String.valueOf(doctor.drFee)}"
+                        android:textColor="#262E3F"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:fontFamily="@font/poppins"
+                        android:id="@+id/textView83"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/consulation_fee"
+                        android:textColor="#262E3F"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:background="@color/GreyColo" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:visibility="gone"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_10sdp"
+                        android:id="@+id/button4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_for_search"
+                        android:backgroundTint="@color/PrimaryColor"
+                        android:text="@string/video_consult"
+                        android:textColor="@android:color/white" />
+
+
+                    <Button
+                        android:fontFamily="@font/poppins_semibold"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_10sdp"
+                        android:id="@+id/btnBookAppointment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:textSize="10dp"
+                        android:background="@drawable/round_for_search"
+                        android:backgroundTint="#EDA537"
+                        android:text="@string/book_appointment"
+                        android:textColor="@android:color/white" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
