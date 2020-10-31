@@ -1,0 +1,135 @@
+package com.digidoctor.android.view.fragments;
+
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
+
+import com.digidoctor.android.R;
+import com.digidoctor.android.adapters.PopularDoctorsAdapter;
+import com.digidoctor.android.adapters.RecommendedDoctorsAdapter;
+import com.digidoctor.android.databinding.FragmentRecommendedDoctorsBinding;
+import com.digidoctor.android.model.DoctorModel;
+import com.digidoctor.android.model.DoctorModelRes;
+import com.digidoctor.android.utility.AdapterInterface;
+import com.digidoctor.android.utility.AppUtils;
+import com.digidoctor.android.view.activity.PatientDashboard;
+import com.digidoctor.android.viewHolder.PatientViewModel;
+
+import java.util.List;
+
+import static com.digidoctor.android.utility.NewDashboardUtils.getJSONFromModel;
+import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
+
+
+public class RecommendedDoctorsFragment extends Fragment implements AdapterInterface {
+
+    private static final String TAG = "RecommendedDoctorsFragm";
+    PatientViewModel viewModel;
+    NavController navController;
+    RecommendedDoctorsAdapter doctorsAdapter;
+    PopularDoctorsAdapter popularDoctorsAdapter;
+
+    FragmentRecommendedDoctorsBinding recommendedDoctorsBinding;
+
+    String symptomID;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        recommendedDoctorsBinding = FragmentRecommendedDoctorsBinding.inflate(inflater, container, false);
+        return recommendedDoctorsBinding.getRoot();
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (getArguments() != null) {
+            symptomID = getArguments().getString("id");
+        } else symptomID = "";
+        navController = Navigation.findNavController(view);
+
+
+        viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
+
+        doctorsAdapter = new RecommendedDoctorsAdapter(this);
+        popularDoctorsAdapter = new PopularDoctorsAdapter(this);
+        recommendedDoctorsBinding.recommendedRec.setAdapter(doctorsAdapter);
+        recommendedDoctorsBinding.popularRec.setAdapter(popularDoctorsAdapter);
+
+        viewModel.getRecommendedDoctorsData(symptomID, null).observe(getViewLifecycleOwner(), new Observer<List<DoctorModelRes>>() {
+            @Override
+            public void onChanged(List<DoctorModelRes> doctorModelRes) {
+                List<DoctorModel> recDocList = doctorModelRes.get(0).getRecomendedDoctor();
+                List<DoctorModel> popDocList = doctorModelRes.get(0).getPopularDoctor();
+
+                recommendedDoctorsBinding.tvRecommendedDoc.setVisibility(recDocList.isEmpty() ? View.GONE : View.VISIBLE);
+                recommendedDoctorsBinding.tvPopularDoc.setVisibility(popDocList.isEmpty() ? View.GONE : View.VISIBLE);
+
+
+                recommendedDoctorsBinding.rlNoDocFound2.setVisibility(recDocList.isEmpty() && popDocList.isEmpty() ? View.VISIBLE : View.GONE);
+                recommendedDoctorsBinding.llViewHolder.setVisibility(recDocList.isEmpty() && popDocList.isEmpty() ? View.GONE : View.VISIBLE);
+
+                doctorsAdapter.submitList(recDocList);
+                popularDoctorsAdapter.submitList(popDocList);
+
+            }
+        });
+
+        recommendedDoctorsBinding.editTextTextSearchRecDoc.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    RecommendedDoctorsFragment.this.performSearch(v.getText().toString());
+                    hideSoftKeyboard(PatientDashboard.getInstance());
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+    }
+
+    @Override
+
+    public void onItemClicked(Object o) {
+        DoctorModel doctorModel = (DoctorModel) o;
+        Bundle bundle = new Bundle();
+        bundle.putString("docModel", getJSONFromModel(doctorModel));
+        Log.d(TAG, "onItemClicked: " + doctorModel.toString());
+        Log.d(TAG, "onItemClicked: " + getJSONFromModel(doctorModel));
+        navController.navigate(R.id.action_recommendedDoctorsFragment_to_doctorShortProfileFragment, bundle);
+    }
+
+    private void performSearch(String docName) {
+        recommendedDoctorsBinding.tvPopularDoc.setVisibility(View.GONE);
+        viewModel.getRecommendedDoctorsData(symptomID, docName).observe(getViewLifecycleOwner(), new Observer<List<DoctorModelRes>>() {
+            @Override
+            public void onChanged(List<DoctorModelRes> doctorModelRes) {
+                List<DoctorModel> recDocList = doctorModelRes.get(0).getRecomendedDoctor();
+                List<DoctorModel> popDocList = doctorModelRes.get(0).getPopularDoctor();
+                recommendedDoctorsBinding.tvRecommendedDoc.setVisibility(recDocList.isEmpty() ? View.GONE : View.VISIBLE);
+                doctorsAdapter.submitList(recDocList);
+                popularDoctorsAdapter.submitList(popDocList);
+
+            }
+        });
+    }
+
+}
