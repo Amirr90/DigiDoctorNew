@@ -1,71 +1,345 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
 
-    <FrameLayout
+    <androidx.core.widget.NestedScrollView
+        android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.fragments.ProfileFragment">
 
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
-            android:orientation="vertical"
-            android:padding="@dimen/_10sdp">
+            android:layout_height="match_parent">
 
-            <EditText
-                android:layout_margin="@dimen/_10sdp"
-                android:id="@+id/editTextTextPersonName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:padding="@dimen/_10sdp"
-                android:text="Name" />
 
-            <EditText
-                android:layout_margin="@dimen/_10sdp"
-                android:id="@+id/editTextTextPersonName3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:padding="@dimen/_10sdp"
-                android:text="Name" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_marginTop="40dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="111dp"
+                android:layout_height="111dp"
+                app:civ_border_overlay="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/profile_demo_image"
+                app:civ_border_color="@color/PrimaryColor"
+                app:civ_border_width="1dp" />
 
-            <EditText
-                android:layout_margin="@dimen/_10sdp"
-                android:id="@+id/editTextTextPersonName2"
-                android:layout_width="match_parent"
+            <TextView
+                android:textColor="#0A586C"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="14dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:padding="@dimen/_10sdp"
-                android:text="Name" />
+                android:layout_below="@id/profile_image"
+                android:layout_centerHorizontal="true"
+                android:text="Change Photo" />
 
-            <EditText
-                android:layout_margin="@dimen/_10sdp"
-                android:id="@+id/editTextTextPersonName4"
+            <LinearLayout
+                android:layout_marginTop="50dp"
+                android:paddingRight="16dp"
+                android:paddingLeft="26dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:padding="@dimen/_10sdp"
-                android:text="Name" />
+                android:layout_height="match_parent"
+                android:layout_below="@id/textView5"
+                android:orientation="vertical">
 
-            <Button
-                android:layout_margin="@dimen/_10sdp"
-                android:id="@+id/button"
+                <RelativeLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivName"
+                        android:layout_width="14dp"
+                        android:layout_height="17dp"
+                        app:srcCompat="@drawable/user_small_icon" />
+
+                    <TextView
+                        android:textSize="12dp"
+                        android:textColor="#BCBCBC"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/ivName"
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Full Name" />
+
+                    <EditText
+                        android:hint="Your Full Name"
+                        android:textSize="14dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:id="@+id/editTextTextPersonName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvName"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/ivName"
+                        android:background="@null"
+                        android:inputType="textPersonName"
+                        android:textColor="#262E3F"
+                        android:textColorHint="#BCBCBC" />
+
+                    <View
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/editTextTextPersonName"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/GreyColo"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivEmail"
+                        android:layout_width="14dp"
+                        android:layout_height="17dp"
+                        app:srcCompat="@drawable/email" />
+
+                    <TextView
+                        android:textSize="12dp"
+                        android:textColor="#BCBCBC"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/ivEmail"
+                        android:id="@+id/tvEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email" />
+
+                    <EditText
+                        android:hint="Your Email ID"
+                        android:textSize="14dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:id="@+id/editTextTextPersonEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvEmail"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/ivEmail"
+                        android:background="@null"
+                        android:inputType="textEmailAddress"
+                        android:textColor="#262E3F"
+                        android:textColorHint="#BCBCBC" />
+
+                    <View
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/editTextTextPersonEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/GreyColo"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivNumber"
+                        android:layout_width="14dp"
+                        android:layout_height="17dp"
+                        app:srcCompat="@drawable/smartphone" />
+
+                    <TextView
+                        android:textSize="12dp"
+                        android:textColor="#BCBCBC"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/ivNumber"
+                        android:id="@+id/tvNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mobile_number" />
+
+                    <EditText
+                        android:hint="Your Mobile no."
+                        android:id="@+id/editTextTextPersonNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvNumber"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_toRightOf="@+id/ivNumber"
+                        android:background="@null"
+                        android:fontFamily="@font/poppins_medium"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:textColor="#262E3F"
+                        android:textColorHint="#BCBCBC"
+                        android:textSize="14dp" />
+
+                    <View
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/editTextTextPersonNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/GreyColo"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivDob"
+                        android:layout_width="14dp"
+                        android:layout_height="17dp"
+                        app:srcCompat="@drawable/cake" />
+
+                    <TextView
+                        android:textSize="12dp"
+                        android:textColor="#BCBCBC"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/ivDob"
+                        android:id="@+id/tvDob"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dob" />
+
+                    <EditText
+                        android:hint="Your Date of Birth"
+                        android:textSize="14dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:id="@+id/editTextTextPersonDob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvDob"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/ivDob"
+                        android:background="@null"
+                        android:inputType="textPersonName"
+                        android:textColor="#262E3F"
+                        android:textColorHint="#BCBCBC" />
+
+                    <View
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/editTextTextPersonDob"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/GreyColo"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivGender"
+                        android:layout_width="14dp"
+                        android:layout_height="17dp"
+                        app:srcCompat="@drawable/gender" />
+
+                    <TextView
+                        android:textSize="12dp"
+                        android:textColor="#BCBCBC"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/ivGender"
+                        android:id="@+id/tvGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gender" />
+
+                    <EditText
+                        android:hint="Your Gender"
+                        android:textSize="14dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:id="@+id/editTextTextPersonGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvGender"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/ivGender"
+                        android:background="@null"
+                        android:inputType="textPersonName"
+                        android:textColor="#262E3F"
+                        android:textColorHint="#BCBCBC" />
+
+                    <View
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/editTextTextPersonGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/GreyColo"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                android:padding="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_10sdp"
-                android:text="save" />
-        </LinearLayout>
-    </FrameLayout>
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivAddress"
+                    android:layout_width="14dp"
+                    android:layout_height="17dp"
+                    app:srcCompat="@drawable/address" />
+
+                <TextView
+                    android:textSize="12dp"
+                    android:textColor="#BCBCBC"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/ivAddress"
+                    android:id="@+id/tvAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/address" />
+
+                    <EditText
+                        android:hint="Your Address"
+                        android:textSize="14dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:id="@+id/editTextTextPersonAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvAddress"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/ivAddress"
+                        android:background="@null"
+                        android:inputType="textPersonName"
+                        android:textColor="#262E3F"
+                        android:textColorHint="#BCBCBC" />
+
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/editTextTextPersonAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/GreyColo"/>
+            </RelativeLayout>
+
+
+                <Button
+                    android:id="@+id/btnUpdateProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/round_for_search"
+                    android:backgroundTint="@color/YellowColo"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/update"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

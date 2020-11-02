@@ -13,6 +13,7 @@ import com.digidoctor.android.databinding.TimingViewPrimaryNewBinding;
 import com.digidoctor.android.databinding.TimingViewSecondaryNewBinding;
 import com.digidoctor.android.model.GetAppointmentSlotsDataRes;
 import com.digidoctor.android.model.GetAppointmentSlotsModel;
+import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.utility.AdapterInterface;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
@@ -53,6 +54,7 @@ public class TimeSlotsAdapter extends RecyclerView.Adapter<TimeSlotsAdapter.Slot
                 public void onItemClicked(Object o) {
                     adapterInterface.onItemClicked(o);
                 }
+
             });
             holder.primaryNewBinding.Rec.setAdapter(adapterSecondary);
             holder.primaryNewBinding.getRoot().setAnimation(fadeIn(PatientDashboard.getInstance()));

@@ -3,88 +3,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/PrimaryColor"
     tools:context=".view.fragments.InputMobileNumberFragment">
 
 
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:background="@color/PrimaryColor"
-           android:gravity="center_horizontal"
-           android:orientation="vertical"
-           android:paddingBottom="10dp">
+ <ScrollView
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content">
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:background="@color/PrimaryColor"
+         android:gravity="center_horizontal"
+         android:orientation="vertical"
+         android:paddingBottom="10dp">
 
-           <ImageView
-               android:id="@+id/imageView38"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginTop="100dp"
-               android:src="@drawable/logo_digi_doctor" />
+         <ImageView
+             android:id="@+id/imageView38"
+             android:layout_width="238dp"
+             android:layout_height="97dp"
+             android:layout_marginTop="80dp"
+             android:src="@drawable/logo" />
 
-           <TextView
-               android:id="@+id/textView67"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginTop="18dp"
-               android:fontFamily="@font/poppins_semibold"
-               android:text="Enter your phone number"
-               android:textColor="@android:color/white"
-               android:textSize="18dp"
-               android:textStyle="bold" />
+         <TextView
+             android:id="@+id/textView67"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="18dp"
+             android:fontFamily="@font/poppins_semibold"
+             android:text="Enter your phone number"
+             android:textColor="@android:color/white"
+             android:textSize="18dp"
+             android:textStyle="bold" />
 
-           <TextView
-               android:id="@+id/textView110"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginTop="16dp"
-               android:fontFamily="@font/poppins_medium"
-               android:gravity="center"
-               android:paddingLeft="55dp"
-               android:paddingRight="50dp"
-               android:text="We will send a code ( via SMS text message) to your phone number"
-               android:textColor="@android:color/white"
-               android:textSize="14dp" />
+         <TextView
+             android:id="@+id/textView110"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="16dp"
+             android:fontFamily="@font/poppins_medium"
+             android:gravity="center"
+             android:paddingLeft="55dp"
+             android:paddingRight="50dp"
+             android:text="We will send a code ( via SMS text message) to your phone number"
+             android:textColor="@android:color/white"
+             android:textSize="14dp" />
 
-           <androidx.cardview.widget.CardView
-               android:layout_width="match_parent"
-               android:layout_height="50dp"
-               android:layout_marginLeft="26dp"
-               android:layout_marginTop="45dp"
-               android:layout_marginRight="26dp">
+         <androidx.cardview.widget.CardView
+             android:layout_width="match_parent"
+             android:layout_height="50dp"
+             android:layout_marginLeft="26dp"
+             android:layout_marginTop="45dp"
+             android:layout_marginRight="26dp">
 
-               <EditText
-                   android:id="@+id/editTextGetMobileNumber"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:background="@null"
-                   android:ems="10"
-                   android:maxLength="10"
-                   android:inputType="phone"
-                   android:paddingLeft="18dp"
-                   android:hint="@string/mobile_number"
-                   android:textColor="#3F4E6E"
-                   android:textSize="17dp" />
-           </androidx.cardview.widget.CardView>
+             <EditText
+                 android:id="@+id/editTextGetMobileNumber"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:background="@null"
+                 android:ems="10"
+                 android:maxLength="10"
+                 android:inputType="phone"
+                 android:paddingLeft="18dp"
+                 android:hint="@string/mobile_number"
+                 android:textColor="#3F4E6E"
+                 android:textSize="17dp" />
+         </androidx.cardview.widget.CardView>
 
-           <Button
-               android:id="@+id/btnNext"
-               android:layout_width="match_parent"
-               android:layout_height="42dp"
-               android:layout_marginLeft="26dp"
-               android:layout_marginTop="25dp"
-               android:layout_marginRight="26dp"
-               android:background="@drawable/round_for_search"
-               android:backgroundTint="@color/YellowColo"
-               android:fontFamily="@font/poppins_semibold"
-               android:text="@string/next"
-               android:textAllCaps="false"
-               android:textColor="@android:color/white"
-               android:textSize="14dp"
-               android:textStyle="bold" />
+         <Button
+             android:id="@+id/btnNext"
+             android:layout_width="match_parent"
+             android:layout_height="42dp"
+             android:layout_marginLeft="26dp"
+             android:layout_marginTop="25dp"
+             android:layout_marginRight="26dp"
+             android:background="@drawable/round_for_search"
+             android:backgroundTint="@color/YellowColo"
+             android:fontFamily="@font/poppins_semibold"
+             android:text="@string/next"
+             android:textAllCaps="false"
+             android:textColor="@android:color/white"
+             android:textSize="14dp"
+             android:textStyle="bold" />
 
 
-       </LinearLayout>
+     </LinearLayout>
+ </ScrollView>
 
        <TextView
            android:visibility="gone"

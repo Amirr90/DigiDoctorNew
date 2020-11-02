@@ -14,6 +14,7 @@ import com.digidoctor.android.model.GetAppointmentSlotsRes;
 import com.digidoctor.android.model.RegistrationRes;
 import com.digidoctor.android.model.SpecialityRes;
 import com.digidoctor.android.model.SymptomsRes;
+import com.digidoctor.android.model.User;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.digidoctor.android.utility.utils.TOKEN;
+import static com.digidoctor.android.utility.utils.USER;
 import static com.digidoctor.android.utility.utils.fcmToken;
 import static com.digidoctor.android.utility.utils.isNetworkConnected;
 
@@ -296,9 +298,7 @@ public class ApiUtils {
 
 
     public static void checkLogin(String mobileNo,
-                                  String otp,
-                                  final Activity activity,
-                                  final ApiCallbackInterface apiCallbackInterface) {
+                                  String otp, final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
 
 
         String serviceProviderTypeId = "6";
@@ -340,4 +340,40 @@ public class ApiUtils {
     }
 
 
+    public static void patientRegistration(String name, String email, String dob, String gender, String address, String password,
+                                           final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+
+        User user = PatientDashboard.getInstance().getUser();
+
+        String callingCodeId = "101";
+        Api iRestInterfaces = URLUtils.getAPIService();
+        final Call<ApiResponse> checkLogin = iRestInterfaces.patientRegistration(callingCodeId,
+                user.getMobileNo(),
+                email,
+                name,
+                gender,
+                dob);
+
+        checkLogin.enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                AppUtils.hideDialog();
+                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                    if (response.body().getResponseCode() == 1) {
+                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
+
+                } else {
+                    if (activity != null)
+                        AppUtils.showToastSort(activity, response.body().getResponseMessage());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onError(t.getLocalizedMessage());
+            }
+        });
+    }
 }

@@ -1,11 +1,14 @@
 package com.digidoctor.android.view.fragments;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,15 +25,21 @@ import com.digidoctor.android.utility.utils;
 import java.util.List;
 
 import static com.digidoctor.android.utility.ApiUtils.checkLogin;
+import static com.digidoctor.android.utility.ApiUtils.getOTP;
 import static com.digidoctor.android.utility.utils.USER;
 
 
 public class InputOtpFragment extends Fragment {
 
+    private static final String TAG = "InputOtpFragment";
+
 
     FragmentInputOtpBinding inputOtpBinding;
     NavController navController;
     String number;
+    CountDownTimer countDownTimer;
+    public int counter = 30;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,6 +56,10 @@ public class InputOtpFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
         number = getArguments().getString("number");
+
+
+        startTimer();
+
         inputOtpBinding.tvOTP1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -152,6 +165,59 @@ public class InputOtpFragment extends Fragment {
 
             }
         });
+
+
+        inputOtpBinding.tvResendCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reSendCode();
+            }
+        });
+        inputOtpBinding.tvSlogen.setText("An OTP has been sent to mobile\n +91" + number + "");
+    }
+
+    private void reSendCode() {
+
+
+        getOTP(number, requireActivity(), new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                counter = 30;
+                countDownTimer.cancel();
+                inputOtpBinding.tvResendCode.setVisibility(View.GONE);
+                startTimer();
+            }
+
+            @Override
+            public void onError(String s) {
+                Toast.makeText(requireActivity(), R.string.retry, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onOtp Resend: " + s);
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Toast.makeText(requireActivity(), R.string.retry, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onOtp Resend: " + throwable.getLocalizedMessage());
+            }
+        });
+    }
+
+    private void startTimer() {
+        countDownTimer = new CountDownTimer(32000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                inputOtpBinding.tvTimer.setVisibility(View.VISIBLE);
+                inputOtpBinding.tvTimer.setText(String.valueOf(counter));
+                counter--;
+            }
+
+            @Override
+            public void onFinish() {
+                inputOtpBinding.tvTimer.setVisibility(View.GONE);
+                inputOtpBinding.tvResendCode.setVisibility(View.VISIBLE);
+            }
+        }.start();
     }
 
     private void checkOTP() {
@@ -179,6 +245,7 @@ public class InputOtpFragment extends Fragment {
 
 
                 navController.navigate(R.id.action_inputOtpFragment_to_patientDashboard);
+                countDownTimer.cancel();
                 requireActivity().finish();
             }
 

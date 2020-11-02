@@ -351,7 +351,7 @@
     <string name="passwordChangedSuccessfully">Password Changed Successfully</string>
     <string name="enterOldPassword">Enter old password</string>
     <string name="enterNewPassword">Enter new password</string>
-    <string name="password_dont_match">Password don\'t match</string>
+    <string name="password_dont_match">Password not match</string>
     <string name="effects_amp_suggestive_actions"><![CDATA[Effects & Suggestive Actions]]></string>
     <string name="effects">Effects</string>
     <string name="suggestive_actions">Suggestive Actions</string>
@@ -844,5 +844,10 @@
     <string name="tab_text_3">Get sample collection at your place, You stay at home.</string>
     <string name="booking_details">Booking Details</string>
     <string name="failed_to_book">Failed To Book Appointment</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="profile_saved">Profile saved Successfully</string>
+    <string name="gender">Gender</string>
 
 </resources>

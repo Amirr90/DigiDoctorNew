@@ -116,4 +116,15 @@ public interface Api {
             @Field("otp") String otp,
             @Field("appType") String appType
     );
+
+    @FormUrlEncoded
+    @POST("patientRegistration")
+    Call<ApiResponse> patientRegistration(
+            @Field("callingCodeId") String callingCodeId,
+            @Field("mobileNo") String mobileNo,
+            @Field("emailId") String emailId,
+            @Field("name") String name,
+            @Field("gender") String gender,
+            @Field("dob") String dob
+    );
 }

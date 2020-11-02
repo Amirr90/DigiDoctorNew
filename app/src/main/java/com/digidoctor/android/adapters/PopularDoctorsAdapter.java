@@ -35,7 +35,13 @@ public class PopularDoctorsAdapter extends ListAdapter<DoctorModel, PopularDocto
 
         DoctorModel doctorModel = getItem(position);
         holder.popularDocViewBinding.setDoctor(doctorModel);
-        holder.popularDocViewBinding.textView77.setVisibility(null != doctorModel.getSpeciality() ? View.VISIBLE : View.GONE);
+
+
+        if (null != doctorModel.getSpeciality() && !doctorModel.getSpeciality().isEmpty())
+            holder.popularDocViewBinding.textView77.setVisibility(View.VISIBLE);
+
+        else holder.popularDocViewBinding.textView77.setVisibility(View.GONE);
+
 
     }
 

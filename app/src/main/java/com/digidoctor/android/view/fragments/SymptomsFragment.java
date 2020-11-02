@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.SymptomsAdapter;
@@ -22,6 +23,7 @@ import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.utility.AdapterInterface;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -33,9 +35,13 @@ public class SymptomsFragment extends Fragment {
     NavController navController;
     private static final String TAG = "SymptomsFragment";
 
+    public static List<String> symptomsIds = new ArrayList<>();
+    ;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         symptoms2Binding = FragmentSymptomsBinding.inflate(inflater, container, false);
         return symptoms2Binding.getRoot();
     }
@@ -44,25 +50,26 @@ public class SymptomsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         navController = Navigation.findNavController(view);
 
 
         symptomsAdapter = new SymptomsAdapter(new AdapterInterface() {
             @Override
             public void onItemClicked(Object o) {
-                try {
-                    SymptomModel symptomModel = (SymptomModel) o;
-                    Bundle bundle = new Bundle();
-                    bundle.putString("id", String.valueOf(symptomModel.getProblemId()));
-                    navController.navigate(R.id.action_symptomsFragment2_to_recommendedDoctorsFragment2, bundle);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    SymptomModel symptomModel = (SymptomModel) o;
-                    Log.d(TAG, "onItemClicked: " + e.getLocalizedMessage());
-                    Log.d(TAG, "onItemClicked: " + symptomModel.toString());
-                }
+                SymptomModel symptomModel = (SymptomModel) o;
+                if (null == symptomModel)
+                    return;
+                String id = String.valueOf(symptomModel.getProblemId());
+                if (symptomsIds.contains(id)) {
+                    symptomsIds.remove(id);
+                } else symptomsIds.add(id);
+
             }
+
         });
+
         symptoms2Binding.symptomsRec.setAdapter(symptomsAdapter);
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
@@ -81,5 +88,32 @@ public class SymptomsFragment extends Fragment {
             }
         });
 
+        symptoms2Binding.btnProceedOnSymptomPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (symptomsIds.isEmpty()) {
+                    Toast.makeText(requireActivity(), R.string.select_symptoms, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                StringBuilder ids = new StringBuilder();
+                for (String id : symptomsIds)
+                    ids.append(id + ",");
+                try {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", ids.toString());
+                    Log.d(TAG, "onClick: SymptomsId: " + ids.toString());
+                    navController.navigate(R.id.action_symptomsFragment2_to_recommendedDoctorsFragment2, bundle);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "onItemClicked: " + e.getLocalizedMessage());
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        symptomsIds.clear();
     }
 }

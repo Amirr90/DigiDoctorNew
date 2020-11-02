@@ -11,6 +11,8 @@ import com.digidoctor.android.databinding.SymptomsViewBinding;
 import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.utility.AdapterInterface;
 
+import static com.digidoctor.android.view.fragments.SymptomsFragment.symptomsIds;
+
 
 public class SymptomsAdapter extends ListAdapter<SymptomModel, SymptomsAdapter.SymptomVH> {
     AdapterInterface adapterInterface;
@@ -35,6 +37,8 @@ public class SymptomsAdapter extends ListAdapter<SymptomModel, SymptomsAdapter.S
     public void onBindViewHolder(@NonNull SymptomVH holder, int position) {
         SymptomModel symptomModel = getItem(position);
         holder.symptomsViewBinding.setSymptoms(symptomModel);
+        if (null != symptomsIds)
+            holder.symptomsViewBinding.radioButton5.setChecked(symptomsIds.contains(String.valueOf(symptomModel.getProblemId())) ? true : false);
 
     }
 
