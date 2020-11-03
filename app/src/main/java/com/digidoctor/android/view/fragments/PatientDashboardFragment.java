@@ -1,6 +1,10 @@
 package com.digidoctor.android.view.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,11 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.ClinicAdapter;
@@ -25,7 +26,6 @@ import com.digidoctor.android.model.DashboardModel1;
 import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.PicassoImageLoadingService;
-import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 import com.squareup.picasso.Picasso;
@@ -36,29 +36,34 @@ import java.util.List;
 import ss.com.bannerslider.ImageLoadingService;
 import ss.com.bannerslider.Slider;
 
-import static com.digidoctor.android.utility.utils.IS_LOGIN;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
 
 public class PatientDashboardFragment extends Fragment {
 
-    FragmentPatientDashboardBinding dashboard2Binding;
+    public static FragmentPatientDashboardBinding dashboard2Binding;
     DashboardPatientAdapter1 adapter1;
     HealthProductAdapter adapter2;
     ClinicAdapter adapter3;
     PatientViewModel viewModel;
+
+    NavController navController;
 
 
     ImageLoadingService imageLoadingService;
 
     User user;
 
+    String lat, lng;
+
     private static final String TAG = "PatientDashboardFragmen";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         dashboard2Binding = FragmentPatientDashboardBinding.inflate(inflater, container, false);
+
         return dashboard2Binding.getRoot();
     }
 
@@ -66,12 +71,12 @@ public class PatientDashboardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        navController = Navigation.findNavController(view);
         user = getPrimaryUser(requireActivity());
         if (null != user) {
             dashboard2Binding.setUser(user);
             Log.d(TAG, "PrimaryUser: " + user.toString());
         }
-
 
         imageLoadingService = new PicassoImageLoadingService(PatientDashboard.getInstance());
         Slider.init(imageLoadingService);
@@ -96,7 +101,28 @@ public class PatientDashboardFragment extends Fragment {
         adapter1.submitList(dashboardModel1s);
 
 
-        viewModel.getDashboardData().observe(getViewLifecycleOwner(), new Observer<PatientDashboardModel>() {
+        try {
+            dashboard2Binding.tvLocation.setText(PatientDashboard.getInstance().getAreaName());
+            dashboard2Binding.tvCity.setText(PatientDashboard.getInstance().getCityName());
+            lat = PatientDashboard.getInstance().getLat();
+            lng = PatientDashboard.getInstance().getLng();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        loadData(lat, lng);
+
+        dashboard2Binding.profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_patientDashboardFragment_to_profileFragment);
+            }
+        });
+
+    }
+
+    public void loadData(String lat, String lng) {
+        Log.d(TAG, "loadData: lat,lng :" + lat + "," + lng);
+        viewModel.getDashboardData(lat, lng).observe(getViewLifecycleOwner(), new Observer<PatientDashboardModel>() {
             @Override
             public void onChanged(PatientDashboardModel patientDashboardModel) {
                 dashboard2Binding.getRoot().setVisibility(View.VISIBLE);
@@ -114,8 +140,8 @@ public class PatientDashboardFragment extends Fragment {
             }
         });
 
-
     }
+
 
     private void setSlider(List<BannerModel> bannerDetails) {
 
@@ -136,4 +162,6 @@ public class PatientDashboardFragment extends Fragment {
         super.onStop();
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
+
+
 }

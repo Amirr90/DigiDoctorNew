@@ -169,15 +169,16 @@ public class PatientRepo {
 
     }
 
-    public LiveData<PatientDashboardModel> getDashboardData() {
+    public LiveData<PatientDashboardModel> getDashboardData(String lat, String lng) {
         if (patientDashboardModelMutableLiveData == null) {
             patientDashboardModelMutableLiveData = new MutableLiveData<>();
-            loadPatientDashboardData();
+
         }
+        loadPatientDashboardData(lat, lng);
         return patientDashboardModelMutableLiveData;
     }
 
-    private void loadPatientDashboardData() {
+    private void loadPatientDashboardData(String lat, String lng) {
         if (PatientDashboard.getInstance() != null)
             AppUtils.showRequestDialog(PatientDashboard.getInstance());
         List<DashboardModel1> dashboardModel1s = new ArrayList<>();
@@ -185,11 +186,9 @@ public class PatientRepo {
         dashboardModel1s.add(new DashboardModel1("Symptoms"));
         dashboardModel1s.add(new DashboardModel1("Tests"));
         dashboardModel1s.add(new DashboardModel1("Pharmacy"));
-        String lat = "";
-        String lon = "";
 
         String mobile = "9044865611";
-        getPatientDasboard(lat, lon, mobile, new ApiCallbackInterface() {
+        getPatientDasboard(lat, lng, mobile, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 AppUtils.hideDialog();

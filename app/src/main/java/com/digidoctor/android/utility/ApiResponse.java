@@ -7,6 +7,11 @@ public class ApiResponse {
     int responseCode;
     String responseMessage;
     List<?> responseValue;
+    String token;
+
+    public String getToken() {
+        return token;
+    }
 
     public int getResponseCode() {
         return responseCode;

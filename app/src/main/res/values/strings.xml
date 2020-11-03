@@ -849,5 +849,14 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="profile_saved">Profile saved Successfully</string>
     <string name="gender">Gender</string>
+    <string name="name_required">Name required</string>
+    <string name="email_required">Email required</string>
+    <string name="date_of_birth_required">Date of Birth required</string>
+    <string name="select_gender">Select Gender</string>
+    <string name="address_required">Address required</string>
+    <string name="mobile_required">Mobile number required</string>
+    <string name="mobilel_required">Mobile number required</string>
+    <string name="set_date">Set Date</string>
+    <string name="enable_location">Enable Location</string>
 
 </resources>

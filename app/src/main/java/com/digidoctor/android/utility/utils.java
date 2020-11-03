@@ -40,6 +40,8 @@ public class utils {
     public static final String IS_LOGIN = "isLogin";
     public static final String USER = "user";
     public static final String TOKEN = "token";
+    public static final String MOBILE_NUMBER = "number";
+    public static final int REQ_PERMISSION_CODE = 1;
 
     public static String getCurrentDateInMonthDateFormat(long timeStamp) {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);

@@ -26,6 +26,7 @@ import java.util.List;
 
 import static com.digidoctor.android.utility.ApiUtils.checkLogin;
 import static com.digidoctor.android.utility.ApiUtils.getOTP;
+import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.USER;
 
 
@@ -242,6 +243,8 @@ public class InputOtpFragment extends Fragment {
                 utils.setBoolean(utils.IS_LOGIN, true, requireActivity());
 
                 utils.savePrimaryUserData(USER, requireActivity(), user);
+
+                utils.setString(MOBILE_NUMBER, number, requireActivity());
 
 
                 navController.navigate(R.id.action_inputOtpFragment_to_patientDashboard);

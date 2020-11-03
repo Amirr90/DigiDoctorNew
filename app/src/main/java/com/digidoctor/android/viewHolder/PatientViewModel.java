@@ -17,8 +17,8 @@ public class PatientViewModel extends ViewModel {
 
     PatientRepo repo = new PatientRepo();
 
-    public LiveData<PatientDashboardModel> getDashboardData() {
-        return repo.getDashboardData();
+    public LiveData<PatientDashboardModel> getDashboardData(String lat, String lng) {
+        return repo.getDashboardData(lat, lng);
     }
 
     public LiveData<List<SpecialityModel>> getSpecialityData() {
@@ -35,6 +35,6 @@ public class PatientViewModel extends ViewModel {
     }
 
     public LiveData<List<DoctorModelRes>> getRecommendedDoctorsData(String id, String docName) {
-        return repo.gerRecommendedDoctorsData(id,docName);
+        return repo.gerRecommendedDoctorsData(id, docName);
     }
 }

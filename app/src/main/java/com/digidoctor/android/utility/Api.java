@@ -125,6 +125,7 @@ public interface Api {
             @Field("emailId") String emailId,
             @Field("name") String name,
             @Field("gender") String gender,
-            @Field("dob") String dob
+            @Field("dob") String dob,
+            @Field("address") String address
     );
 }

@@ -32,7 +32,8 @@ import static com.digidoctor.android.utility.utils.isNetworkConnected;
 
 public class ApiUtils {
 
-    public static void getPatientDasboard(String lat, String lon, String userMobileNumber, final ApiCallbackInterface apiCallbackInterface) {
+    public static void getPatientDasboard(String lat, String lon, String userMobileNumber,
+                                          final ApiCallbackInterface apiCallbackInterface) {
 
         try {
             final Api api = URLUtils.getAPIService();
@@ -318,6 +319,7 @@ public class ApiUtils {
                     if (response.body().getResponseCode() == 1) {
                         utils.setString(TOKEN, response.body().getToken(), activity);
 
+
                         apiCallbackInterface.onSuccess(response.body().getResponseValue());
 
                         Toast.makeText(activity, response.body().getResponseMessage(), Toast.LENGTH_SHORT).show();
@@ -340,26 +342,37 @@ public class ApiUtils {
     }
 
 
-    public static void patientRegistration(String name, String email, String dob, String gender, String address, String password,
+    public static void patientRegistration(String mobile, String name, String email, String dob, String gender, String address,
                                            final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
-
-        User user = PatientDashboard.getInstance().getUser();
 
         String callingCodeId = "101";
         Api iRestInterfaces = URLUtils.getAPIService();
-        final Call<ApiResponse> checkLogin = iRestInterfaces.patientRegistration(callingCodeId,
-                user.getMobileNo(),
+        final Call<ApiResponse> register = iRestInterfaces.patientRegistration(callingCodeId,
+                mobile,
                 email,
                 name,
                 gender,
-                dob);
+                dob,
+                address);
 
-        checkLogin.enqueue(new Callback<ApiResponse>() {
+        register.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 AppUtils.hideDialog();
                 if (response.isSuccessful() && response.body().getResponseCode() == 1) {
                     if (response.body().getResponseCode() == 1) {
+
+
+
+                        //Adding Token After Registration
+                        try {
+
+                            utils.setString(TOKEN, response.body().getToken(), activity);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
                     } else apiCallbackInterface.onError(response.body().getResponseMessage());
 
                 } else {

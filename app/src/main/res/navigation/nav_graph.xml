@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/patientDashboardFragment"
         android:name="com.digidoctor.android.view.fragments.PatientDashboardFragment"
-        android:label="fragment_patient_dashboard"
-        tools:layout="@layout/fragment_patient_dashboard" >
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_patient_dashboard">
         <action
             android:id="@+id/action_patientDashboardFragment_to_symptomsFragment2"
             app:destination="@id/symptomsFragment2"
@@ -23,6 +23,20 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_patientDashboardFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_patientDashboardFragment_to_requestLocationFragment"
+            app:destination="@id/requestLocationFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
     <fragment
         android:id="@+id/symptomsFragment2"
@@ -168,4 +182,9 @@
         android:name="com.digidoctor.android.view.activity.SignUpJourneyActivity"
         android:label="activity_sign_up_journey"
         tools:layout="@layout/activity_sign_up_journey" />
+    <fragment
+        android:id="@+id/requestLocationFragment"
+        android:name="com.digidoctor.android.view.fragments.RequestLocationFragment"
+        android:label="fragment_request_location"
+        tools:layout="@layout/fragment_request_location" />
 </navigation>
