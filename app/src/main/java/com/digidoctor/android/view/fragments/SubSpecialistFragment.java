@@ -41,6 +41,8 @@ public class SubSpecialistFragment extends Fragment {
 
     PatientViewModel viewModel;
 
+
+
     String id;
 
 
@@ -49,6 +51,7 @@ public class SubSpecialistFragment extends Fragment {
                              Bundle savedInstanceState) {
         subSpecialistBinding = FragmentSubSpecialistBinding.inflate(inflater, container, false);
         return subSpecialistBinding.getRoot();
+
     }
 
     @Override

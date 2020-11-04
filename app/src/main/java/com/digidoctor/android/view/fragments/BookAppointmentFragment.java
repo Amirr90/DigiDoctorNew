@@ -37,6 +37,7 @@ import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_CASH;
 import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_RAZOR_PAY;
 import static com.digidoctor.android.utility.utils.TOKEN;
 import static com.digidoctor.android.utility.utils.getJSONFromModel;
+import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
 
 
@@ -72,7 +73,7 @@ public class BookAppointmentFragment extends Fragment {
 
 
         //getting current user
-        user = PatientDashboard.getInstance().getUser();
+       user = getPrimaryUser(requireActivity());
         if (user == null)
             user = new User();
 

@@ -37,6 +37,20 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_patientDashboardFragment_to_appointmentsFragment"
+            app:destination="@id/appointmentsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_patientDashboardFragment_to_prescriptionHistoryFragment"
+            app:destination="@id/prescriptionHistoryFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/symptomsFragment2"
@@ -67,8 +81,8 @@
     <fragment
         android:id="@+id/subSpecialistFragment"
         android:name="com.digidoctor.android.view.fragments.SubSpecialistFragment"
-        android:label="fragment_sub_specialist"
-        tools:layout="@layout/fragment_sub_specialist" >
+        android:label="@string/search_doctor"
+        tools:layout="@layout/fragment_sub_specialist">
         <action
             android:id="@+id/action_subSpecialistFragment_to_chooseTimeFragment2"
             app:destination="@id/chooseTimeFragment2"
@@ -187,4 +201,14 @@
         android:name="com.digidoctor.android.view.fragments.RequestLocationFragment"
         android:label="fragment_request_location"
         tools:layout="@layout/fragment_request_location" />
+    <fragment
+        android:id="@+id/appointmentsFragment"
+        android:name="com.digidoctor.android.view.fragments.AppointmentsFragment"
+        android:label="@string/my_appointments"
+        tools:layout="@layout/fragment_appointments" />
+    <fragment
+        android:id="@+id/prescriptionHistoryFragment"
+        android:name="com.digidoctor.android.view.fragments.PrescriptionHistoryFragment"
+        android:label="@string/prescription_history"
+        tools:layout="@layout/fragment_prescription_history" />
 </navigation>

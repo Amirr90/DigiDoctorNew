@@ -104,6 +104,7 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
         });
 
 
+
     }
 
     @Override

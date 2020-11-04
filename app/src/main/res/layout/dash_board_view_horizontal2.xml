@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="clinics"
             type="com.digidoctor.android.model.TopClinicsModel" />
     </data>
+
     <androidx.cardview.widget.CardView
         android:layout_width="118dp"
         android:layout_height="wrap_content"
@@ -59,7 +61,7 @@
                     android:id="@+id/textView65"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hazrat Ganj, Lucknow"
+                    android:text="@{clinics.cityName+`,`+clinics.stateName}"
                     android:textSize="8dp" />
             </LinearLayout>
 

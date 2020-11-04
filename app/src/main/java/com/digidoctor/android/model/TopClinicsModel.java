@@ -15,6 +15,16 @@ public class TopClinicsModel {
     String name;
     String address;
     String ProfilePhotoPath;
+    String stateName;
+    String cityName;
+
+    public String getStateName() {
+        return stateName;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
 
     public String getName() {
         return name;
@@ -68,5 +78,16 @@ public class TopClinicsModel {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "TopClinicsModel{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", ProfilePhotoPath='" + ProfilePhotoPath + '\'' +
+                ", stateName='" + stateName + '\'' +
+                ", cityName='" + cityName + '\'' +
+                '}';
     }
 }

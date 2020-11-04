@@ -18,6 +18,8 @@
             android:layout_alignParentTop="true"
             android:orientation="vertical">
 
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,14 +32,14 @@
 
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName4"
+                    android:id="@+id/editTextTextSearchSymptom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="15dp"
                     android:background="@drawable/round_for_search"
                     android:backgroundTint="@android:color/white"
-                    android:drawableRight="@drawable/video_camera"
+                    android:drawableRight="@drawable/magnifier"
                     android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="Search Specialities Here"
@@ -51,6 +53,12 @@
                     android:textColorHint="#A2B3B8"
                     android:textSize="14dp" />
             </LinearLayout>
+            <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/symptomsRec"

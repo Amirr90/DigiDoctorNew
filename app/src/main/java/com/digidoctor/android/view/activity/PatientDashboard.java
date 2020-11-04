@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,8 +22,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.adapters.NavAdapter;
 import com.digidoctor.android.databinding.ActivityDashBoardBinding;
+import com.digidoctor.android.interfaces.NavigationInterface;
+import com.digidoctor.android.model.NavModel;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.utility.AdapterInterface;
 import com.digidoctor.android.utility.GetAddressIntentService;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -34,11 +37,14 @@ import com.google.android.gms.location.LocationServices;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.view.fragments.BookAppointmentFragment.bookAppointment;
 import static com.digidoctor.android.view.fragments.PatientDashboardFragment.dashboard2Binding;
 
-public class PatientDashboard extends AppCompatActivity implements PaymentResultWithDataListener {
+public class PatientDashboard extends AppCompatActivity implements PaymentResultWithDataListener, NavigationInterface {
 
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 101;
@@ -63,6 +69,9 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
     public String cityName;
     public String areaName;
+
+    NavAdapter navAdapter;
+    List<NavModel> navModels;
 
     public String getCityName() {
         if (cityName == null)
@@ -103,6 +112,8 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         NavigationUI.setupActionBarWithNavController(this, navController);
 
 
+        getSupportActionBar().hide();
+
         addressResultReceiver = new LocationAddressResultReceiver(new Handler());
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         locationCallback = new LocationCallback() {
@@ -113,6 +124,32 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             }
         };
         startLocationUpdates();
+
+        setNavRec();
+    }
+
+    private void setNavRec() {
+        //mainBinding.navRec.setVisibility(user.getIsExists() == 0 ? View.GONE : View.VISIBLE);
+        mainBinding.imageView6.setVisibility(user.getIsExists() == 0 ? View.GONE : View.VISIBLE);
+
+        mainBinding.setUser(getPrimaryUser(this));
+        navModels = new ArrayList<>();
+        navAdapter = new NavAdapter(navModels, PatientDashboard.this);
+        mainBinding.navRec.setAdapter(navAdapter);
+        loadNavData();
+    }
+
+    private void loadNavData() {
+        navModels.add(new NavModel(getString(R.string.appointment), R.drawable.appointments));
+        navModels.add(new NavModel(getString(R.string.lab_tests), R.drawable.appointments));
+        navModels.add(new NavModel(getString(R.string.orders), R.drawable.appointments));
+        navModels.add(new NavModel(getString(R.string.prescription_history), R.drawable.appointments));
+        navModels.add(new NavModel(getString(R.string.investigation_history), R.drawable.appointments));
+        navModels.add(new NavModel(getString(R.string.notifications), R.drawable.appointments));
+        navModels.add(new NavModel(getString(R.string.settings), R.drawable.appointments));
+        navModels.add(new NavModel(getString(R.string.about_us), R.drawable.appointments));
+        navAdapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -225,6 +262,22 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             }
         }
     }
+
+    @Override
+    public void onNavigationItemClicked(int pos) {
+        mainBinding.drawerLayout.close();
+        switch (pos) {
+            case 0:
+                navController.navigate(R.id.action_patientDashboardFragment_to_appointmentsFragment);
+                break;
+            case 3:
+                navController.navigate(R.id.action_patientDashboardFragment_to_prescriptionHistoryFragment);
+                break;
+            default:
+                Toast.makeText(instance, "Coming Soon", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private class LocationAddressResultReceiver extends ResultReceiver {
         LocationAddressResultReceiver(Handler handler) {

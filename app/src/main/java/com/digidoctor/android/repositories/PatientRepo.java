@@ -98,18 +98,18 @@ public class PatientRepo {
         });
     }
 
-    public LiveData<List<SymptomModel>> getSymptomsData() {
+    public LiveData<List<SymptomModel>> getSymptomsData(String symptomName) {
         if (symptomsModelMutableLiveData == null) {
             symptomsModelMutableLiveData = new MutableLiveData<>();
         }
-        loadSymptomsData();
+        loadSymptomsData(symptomName);
         return symptomsModelMutableLiveData;
     }
 
-    private void loadSymptomsData() {
+    private void loadSymptomsData(String symptomName) {
 
 
-        getSymptomWithIconsData(new ApiCallbackInterface() {
+        getSymptomWithIconsData(symptomName, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 try {
@@ -135,16 +135,16 @@ public class PatientRepo {
 
     }
 
-    public LiveData<List<SpecialityModel>> getSpecialityData() {
+    public LiveData<List<SpecialityModel>> getSpecialityData(String specialityName) {
         if (specialityModelMutableLiveData == null)
             specialityModelMutableLiveData = new MutableLiveData<>();
-        loadSpecialityData();
+        loadSpecialityData(specialityName);
         return specialityModelMutableLiveData;
     }
 
-    private void loadSpecialityData() {
+    private void loadSpecialityData(String specialityName) {
 
-        specialityData(new ApiCallbackInterface() {
+        specialityData(specialityName, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 try {

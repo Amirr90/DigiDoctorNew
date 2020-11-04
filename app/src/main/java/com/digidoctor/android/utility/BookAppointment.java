@@ -45,9 +45,18 @@ public class BookAppointment {
     private String token;
     private String email;
     private String drFee;
+    private String paymentId;
     Activity activity;
     BookAppointmentInterface bookAppointmentInterface;
 
+
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
+    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -344,7 +353,8 @@ public class BookAppointment {
                 getDtDataTable(),
                 getAppointmentId(),
                 getDob(),
-                getGender()
+                getGender(),
+                getPaymentId()
         );
         call.enqueue(new Callback<OnlineAppointmentRes>() {
             @Override

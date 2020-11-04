@@ -49,4 +49,10 @@ public class CustomLoadImage {
         }
         Log.d(TAG, "loadSpeImage: err");
     }
+
+    @BindingAdapter("android:loadNavImage")
+    public static void loadNavImage(ImageView imageView, int imagePath) {
+        imageView.setImageResource(imagePath);
+        Log.d(TAG, "loadNavImage: " + imagePath);
+    }
 }

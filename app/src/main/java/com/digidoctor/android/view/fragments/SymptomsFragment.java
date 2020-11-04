@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.digidoctor.android.adapters.SymptomsAdapter;
 import com.digidoctor.android.databinding.FragmentSymptomsBinding;
 import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.utility.AdapterInterface;
+import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
 import java.util.ArrayList;
@@ -36,7 +39,8 @@ public class SymptomsFragment extends Fragment {
     private static final String TAG = "SymptomsFragment";
 
     public static List<String> symptomsIds = new ArrayList<>();
-    ;
+
+    String symptomName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,12 +78,7 @@ public class SymptomsFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
-        viewModel.getSymptomsData().observe(getViewLifecycleOwner(), new Observer<List<SymptomModel>>() {
-            @Override
-            public void onChanged(List<SymptomModel> symptomModels) {
-                symptomsAdapter.submitList(symptomModels);
-            }
-        });
+        getSymptomData(symptomName);
 
         symptoms2Binding.btnProceedOnSymptomPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +86,7 @@ public class SymptomsFragment extends Fragment {
                 navController.navigate(R.id.action_symptomsFragment2_to_recommendedDoctorsFragment2);
             }
         });
+
 
         symptoms2Binding.btnProceedOnSymptomPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +107,39 @@ public class SymptomsFragment extends Fragment {
                     e.printStackTrace();
                     Log.d(TAG, "onItemClicked: " + e.getLocalizedMessage());
                 }
+            }
+        });
+
+
+        symptoms2Binding.editTextTextSearchSymptom.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                if (charSequence != null && charSequence.length() > 3) {
+                    symptoms2Binding.progressBar2.setVisibility(View.VISIBLE);
+                    getSymptomData(charSequence.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void getSymptomData(String symptomName) {
+
+        viewModel.getSymptomsData(symptomName).observe(getViewLifecycleOwner(), new Observer<List<SymptomModel>>() {
+            @Override
+            public void onChanged(List<SymptomModel> symptomModels) {
+                symptomsAdapter.submitList(symptomModels);
+                symptoms2Binding.progressBar2.setVisibility(View.GONE);
             }
         });
     }

@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,10 +31,12 @@ import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
 
 
 public class SpecialitiesFragment extends Fragment {
-    FragmentSpecialitiesBinding specialitiesBinding;
 
+    FragmentSpecialitiesBinding specialitiesBinding;
     SpecialityAdapter specialityAdapter;
     PatientViewModel viewModel;
+
+    String specialityName;
 
 
     @Override
@@ -52,17 +56,9 @@ public class SpecialitiesFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
-        viewModel.getSpecialityData().observe(getViewLifecycleOwner(), new Observer<List<SpecialityModel>>() {
-            @Override
-            public void onChanged(List<SpecialityModel> specialityModels) {
-                if (null != specialityModels) {
-                    specialityAdapter.submitList(specialityModels);
-                } else PatientDashboard.getInstance().onSupportNavigateUp();
+        getSpecialityData(specialityName);
 
-            }
-        });
-
-        specialitiesBinding.editTextTextPersonName4.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        specialitiesBinding.editTextTextSearchSpeciality.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -75,6 +71,40 @@ public class SpecialitiesFragment extends Fragment {
         });
 
 
+        specialitiesBinding.editTextTextSearchSpeciality.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                if (charSequence != null && charSequence.length() > 3) {
+                    specialitiesBinding.progressBar3.setVisibility(View.VISIBLE);
+                    getSpecialityData(charSequence.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+    }
+
+    private void getSpecialityData(String specialityName) {
+        viewModel.getSpecialityData(specialityName).observe(getViewLifecycleOwner(), new Observer<List<SpecialityModel>>() {
+            @Override
+            public void onChanged(List<SpecialityModel> specialityModels) {
+                if (null != specialityModels) {
+                    specialityAdapter.submitList(specialityModels);
+                    specialitiesBinding.progressBar3.setVisibility(View.GONE);
+                } else PatientDashboard.getInstance().onSupportNavigateUp();
+
+            }
+        });
     }
 
     private void performSearch(String s) {

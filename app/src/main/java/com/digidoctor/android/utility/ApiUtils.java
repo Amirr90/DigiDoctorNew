@@ -70,12 +70,12 @@ public class ApiUtils {
     }
 
 
-    public static void specialityData(final ApiCallbackInterface apiCallbackInterface) {
+    public static void specialityData(String specialityName, final ApiCallbackInterface apiCallbackInterface) {
         try {
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
             final Api api = URLUtils.getAPIService();
-            Call<SpecialityRes> specialityResCall = api.getSpeciality("");
+            Call<SpecialityRes> specialityResCall = api.getSpeciality("", specialityName);
             specialityResCall.enqueue(new Callback<SpecialityRes>() {
                 @Override
                 public void onResponse(Call<SpecialityRes> call, Response<SpecialityRes> response) {
@@ -196,7 +196,7 @@ public class ApiUtils {
     }
 
 
-    public static void getSymptomWithIconsData(final ApiCallbackInterface apiCallbackInterface) {
+    public static void getSymptomWithIconsData(String symptomName, final ApiCallbackInterface apiCallbackInterface) {
         try {
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
@@ -204,7 +204,8 @@ public class ApiUtils {
             Call<SymptomsRes> specialityResCall = api.getProblemsWithIcon(
                     "",
                     "9044865611",
-                    "0");
+                    "0",
+                    symptomName);
             specialityResCall.enqueue(new Callback<SymptomsRes>() {
                 @Override
                 public void onResponse(Call<SymptomsRes> call, Response<SymptomsRes> response) {
@@ -347,21 +348,21 @@ public class ApiUtils {
 
         String callingCodeId = "101";
         Api iRestInterfaces = URLUtils.getAPIService();
-        final Call<ApiResponse> register = iRestInterfaces.patientRegistration(callingCodeId,
+        final Call<CheckLoginRes> register = iRestInterfaces.patientRegistration(callingCodeId,
                 mobile,
                 email,
                 name,
                 gender,
                 dob,
-                address);
+                address,
+                "");
 
-        register.enqueue(new Callback<ApiResponse>() {
+        register.enqueue(new Callback<CheckLoginRes>() {
             @Override
-            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+            public void onResponse(Call<CheckLoginRes> call, Response<CheckLoginRes> response) {
                 AppUtils.hideDialog();
                 if (response.isSuccessful() && response.body().getResponseCode() == 1) {
                     if (response.body().getResponseCode() == 1) {
-
 
 
                         //Adding Token After Registration
@@ -383,7 +384,7 @@ public class ApiUtils {
             }
 
             @Override
-            public void onFailure(Call<ApiResponse> call, Throwable t) {
+            public void onFailure(Call<CheckLoginRes> call, Throwable t) {
                 AppUtils.hideDialog();
                 apiCallbackInterface.onError(t.getLocalizedMessage());
             }

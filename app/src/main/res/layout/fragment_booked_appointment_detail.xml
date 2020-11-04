@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,7 +10,7 @@
             type="com.digidoctor.android.model.OnlineAppointmentModel" />
 
         <variable
-            name="cancelAppointment"
+            name="appointment"
             type="com.digidoctor.android.utility.AppointmentInterface" />
     </data>
 
@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:padding="@dimen/_10sdp">
+
 
                 <ImageView
                     android:id="@+id/imageView20"
@@ -70,7 +71,7 @@
 
 
                 <RelativeLayout
-
+                    android:id="@+id/rlInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/imageView20"
@@ -112,6 +113,50 @@
                         android:textColor="#3F4E6E"
                         android:textSize="12dp" />
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/rlInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:onClick="@{()->appointment.onCall(appointmentModel.clinicMobileNo)}"
+                        android:paddingLeft="15dp"
+                        android:drawableLeft="@drawable/phone_call"
+                        android:layout_marginRight="7dp"
+                        android:background="@drawable/rectangle_outline"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12dp"
+                        android:textColor="#0A586C"
+                        android:gravity="center"
+                        android:id="@+id/tvCallNow"
+                        android:layout_width="112dp"
+                        android:layout_height="44dp"
+                        android:text="@string/call_now" />
+
+                    <TextView
+                        android:onClick="@{()->appointment.onGetDirection(appointmentModel)}"
+
+                        android:drawableLeft="@drawable/directional_sign"
+                        android:paddingLeft="15dp"
+                        android:layout_marginLeft="7dp"
+                        android:background="@drawable/rectangle_outline"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12dp"
+                        android:textColor="#0A586C"
+                        android:gravity="center"
+                        android:layout_toRightOf="@+id/tvCallNow"
+                        android:id="@+id/textView17"
+                        android:layout_width="150dp"
+                        android:layout_height="44dp"
+                        android:text="@string/get_direction" />
+                </RelativeLayout>
+
 
             </RelativeLayout>
 
@@ -230,7 +275,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/round_for_search"
                     android:backgroundTint="#FF5733"
-                    android:onClick="@{()->cancelAppointment.onCancelAppointmentClicked(appointmentModel)}"
+                    android:onClick="@{()->appointment.onCancelAppointmentClicked(appointmentModel)}"
                     android:text="@string/cancelAppointment"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white" />
@@ -242,7 +287,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/round_for_search"
                     android:backgroundTint="@color/YellowColo"
-                    android:onClick="@{()->cancelAppointment.onReScheduleClicked(appointmentModel)}"
+                    android:onClick="@{()->appointment.onReScheduleClicked(appointmentModel)}"
                     android:text="@string/re__schedule"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white" />
@@ -267,7 +312,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_for_search"
                 android:backgroundTint="@color/PrimaryColor"
-                android:text="@string/call_clinic"
+                android:text="@string/re__schedule"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
 
@@ -279,7 +324,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_for_search"
                 android:backgroundTint="@color/YellowColo"
-                android:text="@string/get_direction"
+                android:text="@string/cancel"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
         </LinearLayout>

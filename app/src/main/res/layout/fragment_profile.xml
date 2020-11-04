@@ -238,6 +238,7 @@
                         android:fontFamily="@font/poppins_medium"
                         android:hint="Your Date of Birth"
                         android:paddingRight="10dp"
+                        android:text="@{user.dob}"
                         android:textColor="#262E3F"
                         android:textColorHint="#BCBCBC"
                         android:textSize="14dp" />
@@ -354,6 +355,7 @@
                         android:fontFamily="@font/poppins_medium"
                         android:hint="Your Address"
                         android:inputType="textPersonName"
+                        android:text="@{user.address}"
                         android:textColor="#262E3F"
                         android:textColorHint="#BCBCBC"
                         android:textSize="14dp" />

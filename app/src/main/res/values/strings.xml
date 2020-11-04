@@ -858,5 +858,21 @@
     <string name="mobilel_required">Mobile number required</string>
     <string name="set_date">Set Date</string>
     <string name="enable_location">Enable Location</string>
+    <string name="your_name">Your full name</string>
+    <string name="lab_tests">Lab Tests</string>
+    <string name="orders">Orders</string>
+    <string name="about_us">About Us</string>
+    <string name="complete_ypur_profile">Complete Your Profile</string>
+    <string name="complete_profile">Complete Profile</string>
+    <string name="self">Self</string>
+    <string name="call_now">Call Now</string>
+    <string name="search_doctor">Search Doctors</string>
+
+    <string-array name="navigation_drawer_items_array">
+        <item>Connect</item>
+        <item>Fixtures</item>
+        <item>Table</item>
+    </string-array>
+
 
 </resources>

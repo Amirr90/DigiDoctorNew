@@ -21,12 +21,12 @@ public class PatientViewModel extends ViewModel {
         return repo.getDashboardData(lat, lng);
     }
 
-    public LiveData<List<SpecialityModel>> getSpecialityData() {
-        return repo.getSpecialityData();
+    public LiveData<List<SpecialityModel>> getSpecialityData(String specialityName) {
+        return repo.getSpecialityData(specialityName);
     }
 
-    public LiveData<List<SymptomModel>> getSymptomsData() {
-        return repo.getSymptomsData();
+    public LiveData<List<SymptomModel>> getSymptomsData(String symptomName) {
+        return repo.getSymptomsData(symptomName);
     }
 
 

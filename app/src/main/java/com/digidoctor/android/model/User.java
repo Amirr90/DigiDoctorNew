@@ -6,6 +6,22 @@ import com.google.gson.annotations.SerializedName;
 public class User {
 
 
+    @SerializedName("address")
+    @Expose
+    private String address;
+
+    @SerializedName("dob")
+    @Expose
+    private String dob;
+
+    public String getDob() {
+        return dob;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
     @SerializedName("gender")
     @Expose
     private Integer gender;
@@ -39,6 +55,7 @@ public class User {
     @SerializedName("mobileNo")
     @Expose
     private String mobileNo;
+
     @SerializedName("emailId")
     @Expose
     private String emailId;
@@ -104,7 +121,8 @@ public class User {
 
     public String getName() {
         if (null == name)
-            return "";
+            return "No Name" +
+                    "";
         else
             return name;
     }
@@ -140,12 +158,16 @@ public class User {
 
     @Override
     public String toString() {
-        return "CheckLoginModel{" +
-                "id=" + id +
+        return "User{" +
+                "address='" + address + '\'' +
+                ", dob='" + dob + '\'' +
+                ", gender=" + gender +
+                ", id=" + id +
+                ", isExists=" + isExists +
                 ", primaryStatus=" + primaryStatus +
                 ", userLoginId=" + userLoginId +
                 ", name='" + name + '\'' +
-                ", mobile_no='" + mobileNo + '\'' +
+                ", mobileNo='" + mobileNo + '\'' +
                 ", emailId='" + emailId + '\'' +
                 ", serviceProviderType='" + serviceProviderType + '\'' +
                 ", isEraUser=" + isEraUser +

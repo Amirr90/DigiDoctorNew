@@ -36,7 +36,9 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("getSpeciality")
-    Call<SpecialityRes> getSpeciality(@Field("userMobileNo") String memberId);
+    Call<SpecialityRes> getSpeciality(
+            @Field("userMobileNo") String memberId,
+            @Field("problemName") String problemName);
 
     @FormUrlEncoded
     @POST("getDoctorProfileBySymptom")
@@ -52,7 +54,8 @@ public interface Api {
     Call<SymptomsRes> getProblemsWithIcon(
             @Header("x-access-token") String token,
             @Field("userMobileNo") String userMobile,
-            @Field("specialityId") String id);
+            @Field("specialityId") String id,
+            @Field("problemName") String problemName);
 
 
     @FormUrlEncoded
@@ -96,7 +99,9 @@ public interface Api {
             @Field("dtDataTable") String dtDataTable,
             @Field("appointmentId") String appointmentId,
             @Field("dob") String dob,
-            @Field("gender") String gender
+            @Field("gender") String gender,
+            @Field("paymentId") String paymentId
+
 
     );
 
@@ -119,13 +124,14 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("patientRegistration")
-    Call<ApiResponse> patientRegistration(
+    Call<CheckLoginRes> patientRegistration(
             @Field("callingCodeId") String callingCodeId,
             @Field("mobileNo") String mobileNo,
             @Field("emailId") String emailId,
             @Field("name") String name,
             @Field("gender") String gender,
             @Field("dob") String dob,
-            @Field("address") String address
+            @Field("address") String address,
+            @Field("profilePhotoPath") String profilePhotoPath
     );
 }

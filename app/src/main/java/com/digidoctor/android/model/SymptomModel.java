@@ -34,8 +34,7 @@ public class SymptomModel {
         SymptomModel that = (SymptomModel) o;
         return getProblemId() == that.getProblemId() &&
                 getIsVisible() == that.getIsVisible() &&
-                getProblemName().equals(that.getProblemName()) &&
-                getDisplayIcon().equals(that.getDisplayIcon());
+                getProblemName().equals(that.getProblemName());
     }
 
     @Override

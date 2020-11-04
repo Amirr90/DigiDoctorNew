@@ -1,5 +1,7 @@
 package com.digidoctor.android.view.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +49,7 @@ public class BookedAppointmentDetailFragment extends Fragment implements Appoint
 
         bookedAppointmentDetailBinding.setAppointmentModel(appointmentModel);
 
-        bookedAppointmentDetailBinding.setCancelAppointment(this);
+        bookedAppointmentDetailBinding.setAppointment(this);
 
     }
 
@@ -60,6 +62,32 @@ public class BookedAppointmentDetailFragment extends Fragment implements Appoint
     @Override
     public void onReScheduleClicked(Object o) {
 
+    }
+
+    @Override
+    public void onCall(String number) {
+        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+        callIntent.setData(Uri.parse("tel:" + number));//change the number
+        startActivity(callIntent);
+    }
+
+    @Override
+    public void onGetDirection(Object o) {
+
+        OnlineAppointmentModel model = (OnlineAppointmentModel) o;
+        String lat = String.valueOf(model.getLatitude());
+        String lng = String.valueOf(model.getLongititude());
+
+        // Create a Uri from an intent string. Use the result to create an Intent.
+        Uri gmmIntentUri = Uri.parse("google.streetview:cbll=" + lat + "," + lng);
+
+        // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        // Make the Intent explicit by setting the Google Maps package
+        mapIntent.setPackage("com.google.android.apps.maps");
+
+        // Attempt to start an activity that can handle the Intent
+        startActivity(mapIntent);
     }
 
 }

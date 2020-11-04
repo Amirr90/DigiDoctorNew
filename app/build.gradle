@@ -78,4 +78,12 @@ dependencies {
 
 
 
+    // Material Navigation View Library
+    implementation 'com.shreyaspatil:MaterialNavigationView:1.2'
+
+    // Material Design Library
+    implementation 'com.google.android.material:material:1.0.0'
+
+
+
 }

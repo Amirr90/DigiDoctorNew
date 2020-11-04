@@ -42,7 +42,7 @@
                         android:layout_marginRight="15dp"
                         android:background="@drawable/round_for_search"
                         android:backgroundTint="@android:color/white"
-                        android:drawableRight="@drawable/video_camera"
+                        android:drawableRight="@drawable/magnifier"
                         android:drawablePadding="10dp"
                         android:ems="10"
                         android:hint="Search Specialities Here"

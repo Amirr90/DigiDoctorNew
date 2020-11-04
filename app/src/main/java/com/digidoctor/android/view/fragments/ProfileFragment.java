@@ -30,6 +30,9 @@ import com.digidoctor.android.view.activity.PatientDashboard;
 import java.util.List;
 
 import static com.digidoctor.android.utility.ApiUtils.patientRegistration;
+import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
+import static com.digidoctor.android.utility.utils.USER;
+import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
 
 public class ProfileFragment extends Fragment implements MyDialogInterface {
@@ -57,8 +60,10 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        user = PatientDashboard.getInstance().getUser();
+        user = getPrimaryUser(requireActivity());
 
+        updateVisibility(user);
+        Log.d(TAG, "onViewCreated: isExist" + user.getIsExists() + "\n" + user.toString());
 
         if (user.getIsExists() == 1) {
             profileBinding.setUser(user);
@@ -66,6 +71,7 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
         }
 
         profileBinding.setMobile(utils.getString(utils.MOBILE_NUMBER, requireActivity()));
+
         Log.d(TAG, "onViewCreated: Mobile " + utils.getString(utils.MOBILE_NUMBER, requireActivity()));
 
         profileBinding.btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
@@ -83,24 +89,41 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
 
     }
 
+    private void updateVisibility(User user) {
+        profileBinding.ivDobDialog.setVisibility(user.getIsExists() == 0 ? View.VISIBLE : View.GONE);
+        profileBinding.ivGenderDialog.setVisibility(user.getIsExists() == 0 ? View.VISIBLE : View.GONE);
+    }
+
     private void updateProfile() {
         Toast.makeText(requireContext(), "Updating Profile", Toast.LENGTH_SHORT).show();
     }
 
     private void registerUser() {
         AppUtils.showRequestDialog(requireActivity());
-        patientRegistration(mobile, name, email, dob, gender, address, requireActivity(), new ApiCallbackInterface() {
+        patientRegistration(mobile, name, email, dob, GENDER, address, requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> obj) {
                 Toast.makeText(requireActivity(), R.string.profile_saved, Toast.LENGTH_SHORT).show();
                 AppUtils.hideDialog();
                 try {
+                    List<User> users = (List<User>) obj;
+
+
+                    user = users.get(0);
+
                     profileBinding.setUser(user);
-                    PatientDashboard.getInstance().setUser((User) obj);
+
+                    Log.d(TAG, "onSuccess: " + users.get(0).toString());
+
+                    PatientDashboard.getInstance().setUser(user);
+
+                    utils.savePrimaryUserData(USER, requireActivity(), user);
+
+                    utils.setString(MOBILE_NUMBER, mobile, requireActivity());
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.d(TAG, "onSuccess: " + e.getLocalizedMessage());
+                    Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
                 }
             }
 
@@ -191,7 +214,6 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
         optionDialog.show();
 
 
-
     }
 
     @Override
@@ -221,7 +243,7 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
                         int day = myDatePicker.getDayOfMonth();
                         int year = myDatePicker.getYear();
 
-                        profileBinding.editTextTextPersonDob.setText(day + "-" + month + "-" + year);
+                        profileBinding.editTextTextPersonDob.setText(year + "-" + month + "-" + day);
 
                         dialog.cancel();
 
