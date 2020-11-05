@@ -6,6 +6,7 @@ import com.digidoctor.android.model.DocBySpecialityRes;
 import com.digidoctor.android.model.DocBySymptomsRes;
 import com.digidoctor.android.model.GenerateOtpRes;
 import com.digidoctor.android.model.GetAppointmentSlotsRes;
+import com.digidoctor.android.model.GetPatientMedicationRes;
 import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.RegistrationRes;
 import com.digidoctor.android.model.SpecialityRes;
@@ -46,7 +47,10 @@ public interface Api {
             @Header("x-access-token") String token,
             @Field("userMobileNo") String userMobile,
             @Field("symptomId") String id,
-            @Field("doctorName") String doctorName
+            @Field("doctorName") String doctorName,
+            @Field("dob") String dob,
+            @Field("gender") String gender,
+            @Field("age") String age
     );
 
     @FormUrlEncoded
@@ -134,4 +138,13 @@ public interface Api {
             @Field("address") String address,
             @Field("profilePhotoPath") String profilePhotoPath
     );
+
+    @FormUrlEncoded
+    @POST("getPatientMedicationDetails")
+    Call<GetPatientMedicationRes> getPatientMedicationDetails(
+            @Header("x-access-token") String token,
+            @Field("userMobileNo") String userMobileNo,
+            @Field("memberId") String memberId
+    );
+
 }

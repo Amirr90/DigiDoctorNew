@@ -129,7 +129,7 @@
                            android:background="@drawable/round_for_search"
                            android:backgroundTint="#F1F4F9"
                            android:fontFamily="@font/poppins_semibold"
-                           android:text="@string/add_other_patient"
+                           android:text="@string/select_member"
                            android:textAllCaps="false"
                            android:textColor="#3F4E6E"
                            android:textSize="12dp"

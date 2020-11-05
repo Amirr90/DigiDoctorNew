@@ -1,21 +1,30 @@
 package com.digidoctor.android.viewHolder;
 
+import android.app.Activity;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.DoctorModelRes;
+import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.repositories.PatientRepo;
 
+import java.util.HashMap;
 import java.util.List;
 
 
 public class PatientViewModel extends ViewModel {
 
     PatientRepo repo = new PatientRepo();
+
+
+    public LiveData<List<GetPatientMedicationMainModel>> getPrescriptionData(Activity activity) {
+        return repo.getPrescriptionData(activity);
+    }
 
     public LiveData<PatientDashboardModel> getDashboardData(String lat, String lng) {
         return repo.getDashboardData(lat, lng);
@@ -34,7 +43,7 @@ public class PatientViewModel extends ViewModel {
         return repo.getDocBySpeciality(id, docName);
     }
 
-    public LiveData<List<DoctorModelRes>> getRecommendedDoctorsData(String id, String docName) {
-        return repo.gerRecommendedDoctorsData(id, docName);
+    public LiveData<List<DoctorModelRes>> getRecommendedDoctorsData(HashMap<String, String> map) {
+        return repo.gerRecommendedDoctorsData(map);
     }
 }

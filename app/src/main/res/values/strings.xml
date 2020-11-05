@@ -867,6 +867,8 @@
     <string name="self">Self</string>
     <string name="call_now">Call Now</string>
     <string name="search_doctor">Search Doctors</string>
+    <string name="child">Child</string>
+    <string name="select_age">Select Age</string>
 
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>

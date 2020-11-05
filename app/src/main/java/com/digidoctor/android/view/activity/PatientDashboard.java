@@ -268,10 +268,13 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         mainBinding.drawerLayout.close();
         switch (pos) {
             case 0:
-                navController.navigate(R.id.action_patientDashboardFragment_to_appointmentsFragment);
+                navController.navigate(R.id.appointmentsFragment);
                 break;
             case 3:
-                navController.navigate(R.id.action_patientDashboardFragment_to_prescriptionHistoryFragment);
+                if (user.getIsExists() == 1)
+                    navController.navigate(R.id.prescriptionHistoryFragment);
+                else navController.navigate(R.id.profileFragment);
+
                 break;
             default:
                 Toast.makeText(instance, "Coming Soon", Toast.LENGTH_SHORT).show();

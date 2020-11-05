@@ -43,6 +43,12 @@ public class utils {
     public static final String MOBILE_NUMBER = "number";
     public static final int REQ_PERMISSION_CODE = 1;
 
+    public static final String KEY_SYMPTOM_ID = "symptomId";
+    public static final String KEY_DOC_NAME = "docName";
+    public static final String KEY_DOB = "dob";
+    public static final String KEY_GENDER = "gender";
+    public static final String KEY_AGE = "age";
+
     public static String getCurrentDateInMonthDateFormat(long timeStamp) {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(timeStamp * 1000L);

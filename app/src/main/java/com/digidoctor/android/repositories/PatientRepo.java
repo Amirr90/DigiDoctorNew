@@ -1,5 +1,6 @@
 package com.digidoctor.android.repositories;
 
+import android.app.Activity;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
@@ -9,6 +10,7 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.model.DashboardModel1;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.DoctorModelRes;
+import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SymptomModel;
@@ -17,10 +19,12 @@ import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.digidoctor.android.utility.ApiUtils.getDocBySpecialityById;
 import static com.digidoctor.android.utility.ApiUtils.getPatientDasboard;
+import static com.digidoctor.android.utility.ApiUtils.getPatientMedicationDetails;
 import static com.digidoctor.android.utility.ApiUtils.getRecommendedDoc;
 import static com.digidoctor.android.utility.ApiUtils.getSymptomWithIconsData;
 import static com.digidoctor.android.utility.ApiUtils.specialityData;
@@ -32,19 +36,52 @@ public class PatientRepo {
     public MutableLiveData<List<SymptomModel>> symptomsModelMutableLiveData;
     public MutableLiveData<List<DoctorModel>> doctorModelMutableLiveData;
     public MutableLiveData<List<DoctorModelRes>> recommendedDoctorModelMutableLiveData;
+    public MutableLiveData<List<GetPatientMedicationMainModel>> prescriptionModelMutableLiveData;
 
 
-    public LiveData<List<DoctorModelRes>> gerRecommendedDoctorsData(String id, String docName) {
+    public LiveData<List<GetPatientMedicationMainModel>> getPrescriptionData(Activity activity) {
+        if (prescriptionModelMutableLiveData == null) {
+            prescriptionModelMutableLiveData = new MutableLiveData<>();
+        }
+        loadPrescriptionData(activity);
+        return prescriptionModelMutableLiveData;
+
+    }
+
+    private void loadPrescriptionData(final Activity activity) {
+
+        getPatientMedicationDetails(activity, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                List<GetPatientMedicationMainModel> patientMedicationMainModels = (List<GetPatientMedicationMainModel>) o;
+                if (patientMedicationMainModels != null) {
+                    prescriptionModelMutableLiveData.setValue(patientMedicationMainModels);
+                }
+            }
+
+            @Override
+            public void onError(String s) {
+                Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Toast.makeText(activity, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public LiveData<List<DoctorModelRes>> gerRecommendedDoctorsData(HashMap<String, String> map) {
         if (recommendedDoctorModelMutableLiveData == null) {
             recommendedDoctorModelMutableLiveData = new MutableLiveData<>();
         }
-        loadRecommendedDocData(id, docName);
+        loadRecommendedDocData(map);
         return recommendedDoctorModelMutableLiveData;
 
     }
 
-    private void loadRecommendedDocData(String id, String docName) {
-        getRecommendedDoc(id, docName, new ApiCallbackInterface() {
+    private void loadRecommendedDocData(HashMap<String, String> map) {
+        getRecommendedDoc(map, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 List<DoctorModelRes> doctorModelRes = (List<DoctorModelRes>) o;

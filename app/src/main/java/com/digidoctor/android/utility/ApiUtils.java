@@ -11,6 +11,7 @@ import com.digidoctor.android.model.DocBySymptomsRes;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.GenerateOtpRes;
 import com.digidoctor.android.model.GetAppointmentSlotsRes;
+import com.digidoctor.android.model.GetPatientMedicationRes;
 import com.digidoctor.android.model.RegistrationRes;
 import com.digidoctor.android.model.SpecialityRes;
 import com.digidoctor.android.model.SymptomsRes;
@@ -18,15 +19,23 @@ import com.digidoctor.android.model.User;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.digidoctor.android.utility.utils.KEY_AGE;
+import static com.digidoctor.android.utility.utils.KEY_DOB;
+import static com.digidoctor.android.utility.utils.KEY_DOC_NAME;
+import static com.digidoctor.android.utility.utils.KEY_GENDER;
+import static com.digidoctor.android.utility.utils.KEY_SYMPTOM_ID;
+import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.TOKEN;
 import static com.digidoctor.android.utility.utils.USER;
 import static com.digidoctor.android.utility.utils.fcmToken;
+import static com.digidoctor.android.utility.utils.getString;
 import static com.digidoctor.android.utility.utils.isNetworkConnected;
 
 
@@ -163,7 +172,7 @@ public class ApiUtils {
     }
 
 
-    public static void getRecommendedDoc(String id, String docName, final ApiCallbackInterface apiCallbackInterface) {
+    public static void getRecommendedDoc(HashMap<String, String> map, final ApiCallbackInterface apiCallbackInterface) {
         try {
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
@@ -171,7 +180,12 @@ public class ApiUtils {
             Call<DocBySymptomsRes> specialityResCall = api.getDoctorProfileBySymptom(
                     "",
                     "",
-                    id, docName);
+                    map.get(KEY_SYMPTOM_ID),
+                    map.get(KEY_DOC_NAME),
+                    map.get(KEY_DOB),
+                    map.get(KEY_GENDER),
+                    map.get(KEY_AGE)
+            );
             specialityResCall.enqueue(new Callback<DocBySymptomsRes>() {
                 @Override
                 public void onResponse(Call<DocBySymptomsRes> call, Response<DocBySymptomsRes> response) {
@@ -387,6 +401,44 @@ public class ApiUtils {
             public void onFailure(Call<CheckLoginRes> call, Throwable t) {
                 AppUtils.hideDialog();
                 apiCallbackInterface.onError(t.getLocalizedMessage());
+            }
+        });
+    }
+
+
+    public static void getPatientMedicationDetails(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+        if (PatientDashboard.getInstance() != null)
+            AppUtils.showRequestDialog(activity);
+
+        Api iRestInterfaces = URLUtils.getAPIService();
+        Call<GetPatientMedicationRes> call = iRestInterfaces.getPatientMedicationDetails(
+                getString(TOKEN, activity),
+                getString(MOBILE_NUMBER, activity),
+               // getString("id", activity)
+                "207549"
+        );
+
+        call.enqueue(new Callback<GetPatientMedicationRes>() {
+            @Override
+            public void onResponse(Call<GetPatientMedicationRes> call, Response<GetPatientMedicationRes> response) {
+
+                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                    AppUtils.hideDialog();
+
+                    if (activity != null)
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                } else {
+
+                    AppUtils.hideDialog();
+                    if (activity != null)
+                        AppUtils.showToastSort(activity, response.body().getResponseMessage());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<GetPatientMedicationRes> call, Throwable t) {
+                AppUtils.hideDialog();
             }
         });
     }

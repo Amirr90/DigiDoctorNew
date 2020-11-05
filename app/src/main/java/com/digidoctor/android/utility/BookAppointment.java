@@ -19,7 +19,7 @@ import retrofit2.Response;
 import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_CASH;
 import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_RAZOR_PAY;
 
-public class BookAppointment {
+public class BookAppointment extends Credentials {
 
     private static final String TAG = "BookAppointment";
 
@@ -280,9 +280,25 @@ public class BookAppointment {
 
     private void startRazorPayBooking() {
 
+       /* try {
+            JSONObject orderRequest = new JSONObject();
+            orderRequest.put("amount", 50000); // amount in the smallest currency unit
+            orderRequest.put("currency", "INR");
+            orderRequest.put("receipt", "order_rcptid_11");
+
+            Order order = razorpay.Orders.create(orderRequest);
+        } catch (RazorpayException e) {
+            // Handle Exception
+            System.out.println(e.getMessage());
+        }*/
+
+
         Checkout.preload(activity);
         Checkout checkout = new Checkout();
-        checkout.setKeyID("rzp_test_VdBuKnBx67uxF8");
+        //checkout.setKeyID("rzp_test_VdBuKnBx67uxF8");
+
+        checkout.setKeyID("rzp_test_ErUo3tsXqnIjiP");
+
 
         String image = "https://digidoctor.in/assets/images/logonew.png";
 
