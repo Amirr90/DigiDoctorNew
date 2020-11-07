@@ -1,83 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.fragments.AppointmentDoneFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <data>
+
+        <variable
+            name="appointment"
+            type="com.digidoctor.android.model.OnlineAppointmentModel" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".view.fragments.AppointmentDoneFragment">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="240dp"
-            android:layout_height="240dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:src="@drawable/appointment_done" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imageView2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="42dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginRight="42dp"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="center"
-            android:text="Congratulations Your Appointment is Booked."
-            android:textColor="#262E3F"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textView6"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="17dp"
-            android:layout_marginRight="28dp"
-            android:fontFamily="@font/poppins_medium"
-            android:gravity="center"
-            android:text="your appointment is with Dr. Saurabh Agrawal booked for 26th Oct 2020, 11: 30 AM."
-            android:textColor="#3F4E6E"
-            android:textSize="14dp" />
-
-        <TextView
-            android:layout_centerHorizontal="true"
-            android:textSize="14dp"
-            android:fontFamily="@font/poppins_semibold"
-            android:textStyle="bold"
-            android:textColor="#3F4E6E"
-            android:gravity="center"
-            android:layout_marginTop="50dp"
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textView7"
-            android:text="Thank you for using our services." />
-
-        <Button
-            android:layout_below="@+id/textView8"
-            android:id="@+id/btnBookingDetails"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/round_for_search"
-            android:backgroundTint="@color/PrimaryColor"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="@string/booking_details"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="12dp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-</FrameLayout>
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/appointment_done" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageView2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="42dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
+                android:text="Congratulations Your Appointment is Booked."
+                android:textColor="#262E3F"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView6"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginRight="28dp"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="@{`your appointment is with `+appointment.doctorName+` booked for `+appointment.visitDate+`, `+appointment.visitTime+``}"
+                android:textColor="#3F4E6E"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView7"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
+                android:text="Thank you for using our services."
+                android:textColor="#3F4E6E"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnBookingDetails"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_below="@+id/textView8"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/round_for_search"
+                android:backgroundTint="@color/PrimaryColor"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/booking_details"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </FrameLayout>
+</layout>

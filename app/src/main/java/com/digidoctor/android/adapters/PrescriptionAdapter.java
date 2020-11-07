@@ -10,10 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.PrescriptionViewBinding;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
+import com.digidoctor.android.utility.AdapterInterface;
 
 public class PrescriptionAdapter extends ListAdapter<GetPatientMedicationMainModel, PrescriptionAdapter.PrescriptionVH> {
-    public PrescriptionAdapter() {
+    AdapterInterface adapterInterface;
+
+    public PrescriptionAdapter(AdapterInterface adapterInterface) {
         super(GetPatientMedicationMainModel.itemCallback);
+        this.adapterInterface = adapterInterface;
     }
 
     @NonNull
@@ -21,6 +25,8 @@ public class PrescriptionAdapter extends ListAdapter<GetPatientMedicationMainMod
     public PrescriptionVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         PrescriptionViewBinding prescriptionViewBinding = PrescriptionViewBinding.inflate(inflater, parent, false);
+
+        prescriptionViewBinding.setAdapterInterface(adapterInterface);
         return new PrescriptionVH(prescriptionViewBinding);
     }
 

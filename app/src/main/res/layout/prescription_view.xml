@@ -8,6 +8,9 @@
             name="getPatientMedicationMainModel"
             type="com.digidoctor.android.model.GetPatientMedicationMainModel" />
 
+        <variable
+            name="adapterInterface"
+            type="com.digidoctor.android.utility.AdapterInterface" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -23,6 +26,7 @@
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="@{()->adapterInterface.onItemClicked(getPatientMedicationMainModel)}"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingBottom="13dp">

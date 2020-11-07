@@ -5,19 +5,36 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.model.CheckSlotAvailabilityDataRes;
 import com.digidoctor.android.model.OnlineAppointmentRes;
+import com.digidoctor.android.model.ResponseModel;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.digidoctor.android.utility.ApiUtils.checkTimeSlotAvailability;
+import static com.digidoctor.android.utility.ApiUtils.getTransactionNo;
 import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_CASH;
 import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_RAZOR_PAY;
+import static com.digidoctor.android.utility.utils.APPOINTMENT_DATE;
+import static com.digidoctor.android.utility.utils.APPOINTMENT_TIME;
+import static com.digidoctor.android.utility.utils.KEY_AMOUNT;
+import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
+import static com.digidoctor.android.utility.utils.KEY_DOC_ID;
+import static com.digidoctor.android.utility.utils.KEY_IS_ERA_USER;
+import static com.digidoctor.android.utility.utils.KEY_PATIENT_NAME;
+import static com.digidoctor.android.utility.utils.MEMBER_ID;
+import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 
 public class BookAppointment extends Credentials {
 
@@ -46,9 +63,18 @@ public class BookAppointment extends Credentials {
     private String email;
     private String drFee;
     private String paymentId;
+    private String trxId;
     Activity activity;
     BookAppointmentInterface bookAppointmentInterface;
 
+
+    public String getTrxId() {
+        return trxId;
+    }
+
+    public void setTrxId(String trxId) {
+        this.trxId = trxId;
+    }
 
     public String getPaymentId() {
         return paymentId;
@@ -266,40 +292,100 @@ public class BookAppointment extends Credentials {
     }
 
 
-    public void initBooking(int payMode, BookAppointmentInterface bookAppointmentInterface) {
+    public void initBooking(final int payMode, final BookAppointmentInterface bookAppointmentInterface) {
         this.bookAppointmentInterface = bookAppointmentInterface;
-        switch (payMode) {
-            case PAY_MODE_CASH:
-                startBookingAppointment();
-                break;
-            case PAY_MODE_RAZOR_PAY: {
-                startRazorPayBooking();
+
+
+        //CheckTimeSlot Availability
+
+        final Map<String, String> map = new HashMap<>();
+        map.put(MOBILE_NUMBER, getMobileNo());
+        map.put(MEMBER_ID, getMemberId());
+        map.put(KEY_DOC_ID, getServiceProviderDetailsId());
+        map.put(APPOINTMENT_DATE, getAppointDate());
+        map.put(APPOINTMENT_TIME, getAppointTime());
+        map.put(KEY_IS_ERA_USER, getIsEraUser());
+        map.put(KEY_APPOINTMENT_ID, getAppointmentId());
+        checkTimeSlotAvailability(map, activity, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> obj) {
+                Log.d(TAG, "onSuccess: " + obj);
+
+                List<CheckSlotAvailabilityDataRes> response = (List<CheckSlotAvailabilityDataRes>) obj;
+                if (response != null) {
+
+                    if (response.get(0).getIsAvailable() == 1) {
+                        switch (payMode) {
+                            case PAY_MODE_CASH:
+                                startBookingAppointment();
+                                break;
+                            case PAY_MODE_RAZOR_PAY: {
+                                getTrxId(map);
+
+                            }
+                        }
+                    } else {
+                        bookAppointmentInterface.onFailed(activity.getString(R.string.slot_not_available));
+                    }
+                }
             }
-        }
+
+            @Override
+            public void onError(String s) {
+                Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onError: " + s);
+                bookAppointmentInterface.onFailed(s);
+
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Log.d(TAG, "onFailed: " + throwable.getLocalizedMessage());
+                Toast.makeText(activity, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                bookAppointmentInterface.onFailed(throwable.getLocalizedMessage());
+            }
+        });
+
+
     }
 
-    private void startRazorPayBooking() {
+    private void getTrxId(Map<String, String> map) {
 
-       /* try {
-            JSONObject orderRequest = new JSONObject();
-            orderRequest.put("amount", 50000); // amount in the smallest currency unit
-            orderRequest.put("currency", "INR");
-            orderRequest.put("receipt", "order_rcptid_11");
+        map.put(KEY_PATIENT_NAME, getPatientName());
+        map.put(KEY_AMOUNT, getDrFee());
 
-            Order order = razorpay.Orders.create(orderRequest);
-        } catch (RazorpayException e) {
-            // Handle Exception
-            System.out.println(e.getMessage());
-        }*/
+        getTransactionNo(map, activity, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                List<ResponseModel.HashModel> models = (List<ResponseModel.HashModel>) o;
+                if (null != models) {
+                    String tId = models.get(0).getTaxId();
+                    startRazorPayBooking(tId);
+                }
 
+            }
+
+            @Override
+            public void onError(String s) {
+                bookAppointmentInterface.onFailed(s);
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                bookAppointmentInterface.onFailed(throwable.getLocalizedMessage());
+
+            }
+        });
+    }
+
+    private void startRazorPayBooking(String tId) {
 
         Checkout.preload(activity);
         Checkout checkout = new Checkout();
         //checkout.setKeyID("rzp_test_VdBuKnBx67uxF8");
 
         checkout.setKeyID("rzp_test_ErUo3tsXqnIjiP");
-
-
+        setTrxId(tId);
         String image = "https://digidoctor.in/assets/images/logonew.png";
 
         try {

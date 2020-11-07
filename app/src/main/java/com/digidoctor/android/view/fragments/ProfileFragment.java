@@ -33,6 +33,7 @@ import static com.digidoctor.android.utility.ApiUtils.patientRegistration;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.USER;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
+import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
 
 
 public class ProfileFragment extends Fragment implements MyDialogInterface {
@@ -103,11 +104,11 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
         patientRegistration(mobile, name, email, dob, GENDER, address, requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> obj) {
+                hideSoftKeyboard(requireActivity());
                 Toast.makeText(requireActivity(), R.string.profile_saved, Toast.LENGTH_SHORT).show();
                 AppUtils.hideDialog();
                 try {
                     List<User> users = (List<User>) obj;
-
 
                     user = users.get(0);
 

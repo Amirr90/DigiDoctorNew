@@ -150,29 +150,28 @@ public class GetPatientMedicationMainModel {
         this.medicineDetails = medicineDetails;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GetPatientMedicationMainModel that = (GetPatientMedicationMainModel) o;
-        return getName().equals(that.getName()) &&
-                getProblemName().equals(that.getProblemName()) &&
-                getDrName().equals(that.getDrName()) &&
-                getStartDate().equals(that.getStartDate()) &&
-                getSpecialty().equals(that.getSpecialty()) &&
-                getLocation().equals(that.getLocation()) &&
-                getTestName().equals(that.getTestName()) &&
-                getFilePath().equals(that.getFilePath()) &&
-                getProfilePhotoPath().equals(that.getProfilePhotoPath()) &&
-                getAppointmentId().equals(that.getAppointmentId()) &&
-                getType().equals(that.getType()) &&
-                getMedicineDetails().equals(that.getMedicineDetails()) &&
-                getAdviseDetails().equals(that.getAdviseDetails()) &&
-                getAge().equals(that.getAge()) &&
-                getGender().equals(that.getGender()) &&
-                getAddress().equals(that.getAddress()) &&
-                getMemberId().equals(that.getMemberId());
+        if (!(o instanceof GetPatientMedicationMainModel)) return false;
+        GetPatientMedicationMainModel mainModel = (GetPatientMedicationMainModel) o;
+        return Objects.equals(getName(), mainModel.getName()) &&
+                getProblemName().equals(mainModel.getProblemName()) &&
+                Objects.equals(getDrName(), mainModel.getDrName()) &&
+                Objects.equals(getStartDate(), mainModel.getStartDate()) &&
+                Objects.equals(getSpecialty(), mainModel.getSpecialty()) &&
+                Objects.equals(getLocation(), mainModel.getLocation()) &&
+                Objects.equals(getTestName(), mainModel.getTestName()) &&
+                Objects.equals(getFilePath(), mainModel.getFilePath()) &&
+                Objects.equals(getProfilePhotoPath(), mainModel.getProfilePhotoPath()) &&
+                Objects.equals(getAppointmentId(), mainModel.getAppointmentId()) &&
+                Objects.equals(getType(), mainModel.getType()) &&
+                Objects.equals(getMedicineDetails(), mainModel.getMedicineDetails()) &&
+                Objects.equals(getAdviseDetails(), mainModel.getAdviseDetails()) &&
+                Objects.equals(getAge(), mainModel.getAge()) &&
+                Objects.equals(getGender(), mainModel.getGender()) &&
+                Objects.equals(getAddress(), mainModel.getAddress()) &&
+                Objects.equals(getMemberId(), mainModel.getMemberId());
     }
 
     @Override

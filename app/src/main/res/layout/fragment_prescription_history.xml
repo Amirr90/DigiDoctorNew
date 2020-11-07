@@ -1,111 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    tools:context=".view.fragments.PrescriptionHistoryFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="user"
+            type="com.digidoctor.android.model.User" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottom_round"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingTop="@dimen/_20sdp"
-        android:paddingRight="10dp"
-        android:paddingBottom="@dimen/_20sdp">
+        tools:context=".view.fragments.PrescriptionHistoryFragment">
 
-
-        <EditText
-            android:id="@+id/editTextTextSearchSymptom"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/round_for_search"
-            android:backgroundTint="@android:color/white"
-            android:drawableRight="@drawable/magnifier"
-            android:drawablePadding="10dp"
-            android:ems="10"
-            android:hint="Search Prescription Here"
-            android:imeOptions="actionSearch"
-            android:inputType="textPersonName"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            android:singleLine="true"
-            android:textColorHint="#A2B3B8"
-            android:textSize="14dp" />
-    </LinearLayout>
+            android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_marginTop="25dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottom_round"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="@dimen/_20sdp"
+                android:paddingRight="10dp"
+                android:paddingBottom="@dimen/_20sdp">
 
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Hello Smith,"
-            android:textColor="#262E3F"
-            android:textSize="19dp"
-            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView16"
-            android:fontFamily="@font/poppins"
-            android:text="How are you today?"
-            android:textColor="#3F4E6E"
-            android:textSize="14dp" />
+                <EditText
+                    android:id="@+id/editTextTextSearchSymptom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/round_for_search"
+                    android:backgroundTint="@android:color/white"
+                    android:drawableRight="@drawable/magnifier"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="Search Prescription Here"
+                    android:imeOptions="actionSearch"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp"
+                    android:singleLine="true"
+                    android:textColorHint="#A2B3B8"
+                    android:textSize="14dp" />
+            </LinearLayout>
 
-        <Button
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:id="@+id/textView19"
-            android:layout_width="140dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/round_for_search"
-            android:backgroundTint="@color/colorPrimary"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Add Manually"
-            android:textColor="@android:color/white"
-            android:textSize="14dp"
-            android:textStyle="bold" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="15dp">
 
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@{`Helloo `+user.name+`,`}"
+                    android:textColor="#262E3F"
+                    android:textSize="19dp"
+                    android:textStyle="bold" />
 
-    <TextView
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:textSize="19dp"
-        android:textStyle="bold"
-        android:fontFamily="@font/poppins_semibold"
-        android:textColor="#262E3F"
-        android:layout_marginTop="26dp"
-        android:id="@+id/textView20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Manually Your Prescriptions" />
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView16"
+                    android:fontFamily="@font/poppins"
+                    android:text="How are you today?"
+                    android:textColor="#3F4E6E"
+                    android:textSize="14dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/prescriptionRec"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/prescription_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+                <Button
+                    android:id="@+id/textView19"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/round_for_search"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Add Manually"
+                    android:textColor="@android:color/white"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
-</LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginRight="15dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Manually Your Prescriptions"
+                android:textColor="#262E3F"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/prescriptionRec"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/prescription_view" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

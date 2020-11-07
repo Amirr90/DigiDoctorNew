@@ -37,6 +37,10 @@ import com.google.android.gms.location.LocationServices;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -187,11 +191,31 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     }
 
     @Override
-    public void onPaymentSuccess(String s, PaymentData paymentData) {
-        Log.d(TAG, "onPaymentSuccess: " + s);
+    public void onPaymentSuccess(String status, PaymentData paymentData) {
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("transactionNo", bookAppointment.getTrxId());
+            jsonObject.put("paymentAmount", bookAppointment.getDrFee());
+            jsonObject.put("paymentStatus", "success");
+            jsonObject.put("bankRefNo", status);
+            jsonObject.put("isErauser", bookAppointment.getIsEraUser());
+            jsonArray.put(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        Log.d(TAG, "dtDataTable: " + jsonArray.toString());
+
+        Log.d(TAG, "onPaymentSuccess: " + status);
+
         Toast.makeText(this, this.getString(R.string.transaction_successful), Toast.LENGTH_LONG).show();
-        bookAppointment.setDtDataTable(paymentData.getData().toString());
+
+        bookAppointment.setDtDataTable(jsonArray.toString());
+
         bookAppointment.startBookingAppointment();
+
         Log.d(TAG, "onPaymentSuccessData: " + paymentData.getData());
     }
 
@@ -312,14 +336,21 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         final String[] address = currentAdd.split(",");
 
 
-        dashboard2Binding.tvLocation.setText(address[1]);
-        dashboard2Binding.tvCity.setText(address[0]);
+        try {
+            dashboard2Binding.tvLocation.setText(address[1]);
+            dashboard2Binding.tvCity.setText(address[0]);
 
-        setLat(lat);
-        setLng(lng);
+            setLat(lat);
+            setLng(lng);
 
-        setAreaName(address[1]);
-        setCityName(address[0]);
+            setAreaName(address[1]);
+            setCityName(address[0]);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override

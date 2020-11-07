@@ -15,13 +15,16 @@ import android.view.ViewGroup;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentAppointmentDoneBinding;
+import com.digidoctor.android.model.OnlineAppointmentModel;
+import com.google.gson.Gson;
 
 public class AppointmentDoneFragment extends Fragment {
 
 
     FragmentAppointmentDoneBinding appointmentDoneBinding;
     NavController navController;
-    String appointmentModel;
+    String appointmentModelString;
+    OnlineAppointmentModel onlineAppointmentModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,17 +38,24 @@ public class AppointmentDoneFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        appointmentModel = getArguments().getString("appointmentModel");
+        appointmentModelString = getArguments().getString("appointmentModel");
+
+        Gson gson = new Gson();
+        onlineAppointmentModel = gson.fromJson(appointmentModelString, OnlineAppointmentModel.class);
+
+
         navController = Navigation.findNavController(view);
         appointmentDoneBinding.btnBookingDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Bundle bundle = new Bundle();
-                bundle.putString("appointmentModel", appointmentModel);
+                bundle.putString("appointmentModel", appointmentModelString);
                 navController.navigate(R.id.action_appointmentDoneFragment_to_bookedAppointmentDetailFragment, bundle);
             }
         });
+
+        appointmentDoneBinding.setAppointment(onlineAppointmentModel);
 
     }
 

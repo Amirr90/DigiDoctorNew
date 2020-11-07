@@ -42,6 +42,15 @@ public class utils {
     public static final String TOKEN = "token";
     public static final String MOBILE_NUMBER = "number";
     public static final int REQ_PERMISSION_CODE = 1;
+    public static final String MEMBER_ID = "memberId";
+    public static final String KEY_AMOUNT = "amount";
+    public static final String KEY_PATIENT_NAME = "patientName";
+    public static final String KEY_DOC_ID = "docId";
+    public static final String APPOINTMENT_DATE = "appointmentDate";
+    public static final String APPOINTMENT_TIME = "appointmentTime";
+    public static final String KEY_IS_ERA_USER = "isEraUser";
+    public static final String KEY_APPOINTMENT_ID = "appointmentId";
+    public static final String KEY_PRESCRIPTION_ID = "prescriptionId";
 
     public static final String KEY_SYMPTOM_ID = "symptomId";
     public static final String KEY_DOC_NAME = "docName";

@@ -19,12 +19,18 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.PrescriptionAdapter;
 import com.digidoctor.android.databinding.FragmentPrescriptionHistoryBinding;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
+import com.digidoctor.android.model.User;
+import com.digidoctor.android.utility.AdapterInterface;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
 import java.util.List;
 
+import static com.digidoctor.android.utility.utils.KEY_PRESCRIPTION_ID;
+import static com.digidoctor.android.utility.utils.getJSONFromModel;
+import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
-public class PrescriptionHistoryFragment extends Fragment {
+
+public class PrescriptionHistoryFragment extends Fragment implements AdapterInterface {
 
 
     FragmentPrescriptionHistoryBinding prescriptionHistoryBinding;
@@ -32,6 +38,9 @@ public class PrescriptionHistoryFragment extends Fragment {
     PrescriptionAdapter prescriptionAdapter;
 
     PatientViewModel viewModel;
+
+
+    User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +59,7 @@ public class PrescriptionHistoryFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
 
-        prescriptionAdapter=new PrescriptionAdapter();
+        prescriptionAdapter = new PrescriptionAdapter(this);
 
 
         prescriptionHistoryBinding.prescriptionRec.setAdapter(prescriptionAdapter);
@@ -64,6 +73,30 @@ public class PrescriptionHistoryFragment extends Fragment {
                 }
             }
         });
+
+
+        try {
+            user = getPrimaryUser(requireActivity());
+            prescriptionHistoryBinding.setUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    @Override
+    public void onItemClicked(Object o) {
+
+        try {
+            GetPatientMedicationMainModel getPatientMedicationMainModels = (GetPatientMedicationMainModel) o;
+
+            Bundle bundle = new Bundle();
+            bundle.putString("presModel", getJSONFromModel(getPatientMedicationMainModels));
+            navController.navigate(R.id.action_prescriptionHistoryFragment_to_visitFragment, bundle);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }

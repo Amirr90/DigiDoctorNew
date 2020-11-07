@@ -77,6 +77,7 @@
     <string name="select_state_">Select State</string>
     <string name="select_district_">Select District</string>
     <string name="address">Address</string>
+    <string name="visit_details">Visit Details</string>
     <string name="pincode">Pincode</string>
     <string name="select_doctor">Select Doctor</string>
     <string name="appointment_details">Appointment Details</string>
@@ -869,6 +870,9 @@
     <string name="search_doctor">Search Doctors</string>
     <string name="child">Child</string>
     <string name="select_age">Select Age</string>
+    <string name="physical_examination">Physical Examination</string>
+    <string name="recomendation">Recommendation</string>
+    <string name="see_reports">See Reports</string>
 
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>

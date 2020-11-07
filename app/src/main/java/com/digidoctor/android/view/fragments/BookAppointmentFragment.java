@@ -21,15 +21,16 @@ import com.digidoctor.android.databinding.FragmentBookAppointmentBinding;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.utility.ApiCallbackInterface;
+import com.digidoctor.android.utility.ApiUtils;
+import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.BookAppointment;
 import com.digidoctor.android.utility.BookAppointmentInterface;
-import com.digidoctor.android.utility.OnlineAppointmentInterface;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.gson.Gson;
-import com.razorpay.PaymentData;
-import com.razorpay.PaymentResultListener;
-import com.razorpay.PaymentResultWithDataListener;
+
+import java.util.List;
 
 import static com.digidoctor.android.utility.AppUtils.getDayOfWeekDayFromDate;
 import static com.digidoctor.android.utility.AppUtils.parseDateToFormatDMY;
@@ -73,7 +74,7 @@ public class BookAppointmentFragment extends Fragment {
 
 
         //getting current user
-       user = getPrimaryUser(requireActivity());
+        user = getPrimaryUser(requireActivity());
         if (user == null)
             user = new User();
 
@@ -132,6 +133,41 @@ public class BookAppointmentFragment extends Fragment {
             }
         });
 
+
+        appointmentBinding.btnAddOtherMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getMemberList();
+            }
+        });
+
+    }
+
+    private void getMemberList() {
+
+        ApiUtils.GetMembersRes(requireActivity(), new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                List<User> userList = (List<User>) o;
+                if (null != userList && !userList.isEmpty()) {
+                    showMemberDialog(userList);
+                    Toast.makeText(requireActivity(), "" + userList.size(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(String s) {
+
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+
+            }
+        });
+    }
+
+    private void showMemberDialog(List<User> userList) {
     }
 
     private void bookAppointment(int payMode) {

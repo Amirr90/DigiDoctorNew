@@ -210,5 +210,18 @@
         android:id="@+id/prescriptionHistoryFragment"
         android:name="com.digidoctor.android.view.fragments.PrescriptionHistoryFragment"
         android:label="@string/prescription_history"
-        tools:layout="@layout/fragment_prescription_history" />
+        tools:layout="@layout/fragment_prescription_history" >
+        <action
+            android:id="@+id/action_prescriptionHistoryFragment_to_visitFragment"
+            app:destination="@id/visitFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/visitFragment"
+        android:name="com.digidoctor.android.view.fragments.VisitFragment"
+        android:label="@string/visit_details"
+        tools:layout="@layout/fragment_visit" />
 </navigation>
