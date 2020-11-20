@@ -1,7 +1,6 @@
 package com.digidoctor.android.adapters;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.PrescriptionViewBinding;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
-import com.digidoctor.android.utility.AdapterInterface;
+import com.digidoctor.android.interfaces.AdapterInterface;
 
 public class PrescriptionAdapter extends ListAdapter<GetPatientMedicationMainModel, PrescriptionAdapter.PrescriptionVH> {
     AdapterInterface adapterInterface;

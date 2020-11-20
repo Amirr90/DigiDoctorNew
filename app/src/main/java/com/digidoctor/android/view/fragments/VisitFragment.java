@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentVisitBinding;
@@ -74,6 +75,19 @@ public class VisitFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+        fragmentVisitBinding.tvViewImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (null != getPatientMedicationMainModels.getFilePath() && !getPatientMedicationMainModels.getFilePath().isEmpty()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("filePath", getPatientMedicationMainModels.getFilePath());
+                    navController.navigate(R.id.action_visitFragment_to_showFileOrPdfFragment, bundle);
+
+                }
+            }
+        });
 
     }
 

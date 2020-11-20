@@ -123,6 +123,8 @@ public class GetPatientMedicationMainModel {
     }
 
     public String getSpecialty() {
+        if (null == specialty || specialty.isEmpty())
+            return "Not defined";
         return specialty;
     }
 

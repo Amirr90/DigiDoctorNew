@@ -1,8 +1,10 @@
 package com.digidoctor.android.view.fragments;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,11 +23,10 @@ import com.digidoctor.android.databinding.FragmentBookAppointmentBinding;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.User;
-import com.digidoctor.android.utility.ApiCallbackInterface;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.utility.ApiUtils;
-import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.BookAppointment;
-import com.digidoctor.android.utility.BookAppointmentInterface;
+import com.digidoctor.android.interfaces.BookAppointmentInterface;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.gson.Gson;
@@ -39,6 +40,7 @@ import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_RAZOR_PA
 import static com.digidoctor.android.utility.utils.TOKEN;
 import static com.digidoctor.android.utility.utils.getJSONFromModel;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
+import static com.digidoctor.android.utility.utils.getUserForBooking;
 import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
 
 
@@ -54,7 +56,7 @@ public class BookAppointmentFragment extends Fragment {
 
     DoctorModel doctorModel;
 
-    User user;
+    User user, bookingUser;
 
     public static BookAppointment bookAppointment;
 
@@ -73,8 +75,10 @@ public class BookAppointmentFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
 
-        //getting current user
+        //getting  user
         user = getPrimaryUser(requireActivity());
+        bookingUser = getUserForBooking(requireActivity());
+
         if (user == null)
             user = new User();
 
@@ -97,11 +101,14 @@ public class BookAppointmentFragment extends Fragment {
         appointmentBinding.setDoModel(doctorModel);
 
 
-        appointmentBinding.tvPatientName.setText(user.getName());
+        Log.d(TAG, "onViewCreated: Booking User " + bookingUser.toString());
+
+
+        appointmentBinding.setBookingUser(bookingUser);
+
         appointmentBinding.tvBookAppointmentTimeDate.setText(getDayOfWeekDayFromDate(date) + "  " + time);
-        appointmentBinding.editTextTextPersonName2.setText(user.getName());
-        appointmentBinding.editTextMobile.setText(user.getMobileNo());
-        appointmentBinding.editTextTexEmail.setText(user.getEmailId());
+
+        changeButtonBackground();
 
 
         //init  booking process
@@ -134,57 +141,58 @@ public class BookAppointmentFragment extends Fragment {
         });
 
 
-        appointmentBinding.btnAddOtherMember.setOnClickListener(new View.OnClickListener() {
+        appointmentBinding.btnSelectOtherMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getMemberList();
+                navController.navigate(R.id.action_bookAppointmentFragment_to_showMemberListFragment);
+            }
+        });
+        appointmentBinding.btnSelf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bookingUser = getPrimaryUser(requireActivity());
+
+                appointmentBinding.setBookingUser(bookingUser);
+
+                changeButtonBackground();
             }
         });
 
+
     }
 
-    private void getMemberList() {
+    @SuppressLint("UseCompatLoadingForColorStateLists")
+    private void changeButtonBackground() {
+        try {
+            appointmentBinding.btnSelf.setTextColor(bookingUser.getPrimaryStatus() == 1 ? getResources().getColorStateList(R.color.white) : getResources().getColorStateList(R.color.textColor));
+            appointmentBinding.btnSelectOtherMember.setTextColor(bookingUser.getPrimaryStatus() == 1 ? getResources().getColorStateList(R.color.textColor) : getResources().getColorStateList(R.color.white));
 
-        ApiUtils.GetMembersRes(requireActivity(), new ApiCallbackInterface() {
-            @Override
-            public void onSuccess(List<?> o) {
-                List<User> userList = (List<User>) o;
-                if (null != userList && !userList.isEmpty()) {
-                    showMemberDialog(userList);
-                    Toast.makeText(requireActivity(), "" + userList.size(), Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onError(String s) {
-
-            }
-
-            @Override
-            public void onFailed(Throwable throwable) {
-
-            }
-        });
+            appointmentBinding.btnSelf.setBackgroundTintList(bookingUser.getPrimaryStatus() == 1 ? getResources().getColorStateList(R.color.YellowColo) : getResources().getColorStateList(R.color.greyLight));
+            appointmentBinding.btnSelectOtherMember.setBackgroundTintList(bookingUser.getPrimaryStatus() == 1 ? getResources().getColorStateList(R.color.greyLight) : getResources().getColorStateList(R.color.YellowColo));
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void showMemberDialog(List<User> userList) {
-    }
 
     private void bookAppointment(int payMode) {
         bookAppointment = new BookAppointment(requireActivity());
 
+
         //Setting Parameters
         bookAppointment.setUserMobileNo(user.getMobileNo());
-        bookAppointment.setMemberId(String.valueOf(user.getId()));
-        bookAppointment.setPatientName(user.getName());
+        bookAppointment.setMemberId(bookingUser.getPrimaryStatus() == 1 ? String.valueOf(bookingUser.getId()) : String.valueOf(bookingUser.getMemberId()));
+        bookAppointment.setPatientName(bookingUser.getName());
         bookAppointment.setServiceProviderDetailsId(String.valueOf(doctorModel.getId()));
         bookAppointment.setAppointDate(parseDateToFormatDMY(date));
         bookAppointment.setAppointTime(time);
         bookAppointment.setAppointmentId("0");
-        bookAppointment.setMobileNo(user.getMobileNo());
-        bookAppointment.setEmail(user.getEmailId());
+        bookAppointment.setDob(bookingUser.getDob());
+        bookAppointment.setMobileNo(bookingUser.getMobileNo());
+        bookAppointment.setEmail(bookingUser.getEmailId());
         bookAppointment.setToken(utils.getString(TOKEN, requireActivity()));
-        bookAppointment.setGender(String.valueOf(user.getGender()));
+        bookAppointment.setGender(String.valueOf(bookingUser.getGender()));
         bookAppointment.setIsEraUser(String.valueOf(doctorModel.getIsEraUser()));
         bookAppointment.setDrFee(String.valueOf(doctorModel.getDrFee()));
 
@@ -201,12 +209,12 @@ public class BookAppointmentFragment extends Fragment {
 
             @Override
             public void onFailed(String msg) {
-                Toast.makeText(PatientDashboard.getInstance(), "Failed to book Appointment\n" + msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PatientDashboard.getInstance(), msg, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(String errorMsg) {
-                Toast.makeText(PatientDashboard.getInstance(), "Error While Booking Appointment\n" + errorMsg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PatientDashboard.getInstance(), errorMsg, Toast.LENGTH_SHORT).show();
 
             }
         });

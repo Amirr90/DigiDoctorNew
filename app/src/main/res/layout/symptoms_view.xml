@@ -10,7 +10,7 @@
 
         <variable
             name="adapterInterface"
-            type="com.digidoctor.android.utility.AdapterInterface" />
+            type="com.digidoctor.android.interfaces.AdapterInterface" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -60,6 +60,7 @@
                 android:id="@+id/radioButton5"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
+                android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="@android:color/transparent"

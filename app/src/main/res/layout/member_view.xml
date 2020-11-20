@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="member"
+            type="com.digidoctor.android.model.User" />
+
+        <variable
+            name="adapterInterface"
+            type="com.digidoctor.android.interfaces.AdapterInterface" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="8dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:onClick="@{()->adapterInterface.onItemClicked(member)}"
+            android:orientation="horizontal"
+            android:paddingLeft="14dp"
+            android:paddingTop="11dp"
+            android:paddingRight="14dp"
+            android:paddingBottom="11dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivMember"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_centerVertical="true"
+                android:loadCustomUserImage="@{member.profilePhotoPath}"
+                android:src="@drawable/profile_demo_image"
+                app:civ_border_color="@color/PrimaryColor"
+                app:civ_border_overlay="true"
+                app:civ_border_width="1dp" />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
+                android:layout_toRightOf="@+id/ivMember"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@{member.name}"
+                android:textColor="#3F4E6E"
+                android:textStyle="normal" />
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="right"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</layout>

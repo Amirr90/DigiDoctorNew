@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentInputMobileNumberBinding;
-import com.digidoctor.android.utility.ApiCallbackInterface;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
 
 import java.util.List;
 

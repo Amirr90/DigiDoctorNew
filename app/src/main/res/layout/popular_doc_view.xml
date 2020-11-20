@@ -9,7 +9,7 @@
 
         <variable
             name="recommendedInterface"
-            type="com.digidoctor.android.utility.AdapterInterface" />
+            type="com.digidoctor.android.interfaces.AdapterInterface" />
     </data>
 
     <androidx.cardview.widget.CardView

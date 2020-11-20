@@ -22,8 +22,7 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.SymptomsAdapter;
 import com.digidoctor.android.databinding.FragmentSymptomsBinding;
 import com.digidoctor.android.model.SymptomModel;
-import com.digidoctor.android.utility.AdapterInterface;
-import com.digidoctor.android.utility.utils;
+import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
 import java.util.ArrayList;

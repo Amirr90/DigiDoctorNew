@@ -97,12 +97,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/profile_image_nav"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="25dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/nav_view_rec_item" />
 
             </RelativeLayout>
-
 
 
         </com.google.android.material.navigation.NavigationView>

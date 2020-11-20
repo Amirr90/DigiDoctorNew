@@ -1,4 +1,4 @@
-package com.digidoctor.android.utility;
+package com.digidoctor.android.interfaces;
 
 import java.util.List;
 

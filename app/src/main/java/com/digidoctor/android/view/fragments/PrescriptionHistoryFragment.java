@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +19,11 @@ import com.digidoctor.android.adapters.PrescriptionAdapter;
 import com.digidoctor.android.databinding.FragmentPrescriptionHistoryBinding;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.User;
-import com.digidoctor.android.utility.AdapterInterface;
+import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
 import java.util.List;
 
-import static com.digidoctor.android.utility.utils.KEY_PRESCRIPTION_ID;
 import static com.digidoctor.android.utility.utils.getJSONFromModel;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 

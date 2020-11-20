@@ -5,11 +5,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.interfaces.Api;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
+import com.digidoctor.android.interfaces.BookAppointmentInterface;
 import com.digidoctor.android.model.CheckSlotAvailabilityDataRes;
 import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.ResponseModel;
+import com.digidoctor.android.view.activity.PatientDashboard;
 import com.razorpay.Checkout;
-import com.razorpay.PaymentResultListener;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
@@ -35,6 +38,7 @@ import static com.digidoctor.android.utility.utils.KEY_IS_ERA_USER;
 import static com.digidoctor.android.utility.utils.KEY_PATIENT_NAME;
 import static com.digidoctor.android.utility.utils.MEMBER_ID;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
+import static com.digidoctor.android.utility.utils.logout;
 
 public class BookAppointment extends Credentials {
 
@@ -299,13 +303,14 @@ public class BookAppointment extends Credentials {
         //CheckTimeSlot Availability
 
         final Map<String, String> map = new HashMap<>();
-        map.put(MOBILE_NUMBER, getMobileNo());
+        map.put(MOBILE_NUMBER, getUserMobileNo());
         map.put(MEMBER_ID, getMemberId());
         map.put(KEY_DOC_ID, getServiceProviderDetailsId());
         map.put(APPOINTMENT_DATE, getAppointDate());
         map.put(APPOINTMENT_TIME, getAppointTime());
         map.put(KEY_IS_ERA_USER, getIsEraUser());
         map.put(KEY_APPOINTMENT_ID, getAppointmentId());
+
         checkTimeSlotAvailability(map, activity, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> obj) {
@@ -332,9 +337,16 @@ public class BookAppointment extends Credentials {
 
             @Override
             public void onError(String s) {
-                Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "onError: " + s);
                 bookAppointmentInterface.onFailed(s);
+                try {
+                    if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
+                        logout(PatientDashboard.getInstance(), true);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
 
@@ -368,6 +380,14 @@ public class BookAppointment extends Credentials {
             @Override
             public void onError(String s) {
                 bookAppointmentInterface.onFailed(s);
+                try {
+                    if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
+                        logout(PatientDashboard.getInstance(), true);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -382,12 +402,13 @@ public class BookAppointment extends Credentials {
 
         Checkout.preload(activity);
         Checkout checkout = new Checkout();
-        //checkout.setKeyID("rzp_test_VdBuKnBx67uxF8");
+        checkout.setKeyID("rzp_test_VdBuKnBx67uxF8");
 
-        checkout.setKeyID("rzp_test_ErUo3tsXqnIjiP");
+        //checkout.setKeyID("rzp_live_BwhTaXRxeklaAI");
         setTrxId(tId);
         String image = "https://digidoctor.in/assets/images/logonew.png";
 
+        int amount = Integer.parseInt(getDrFee()) * 100;
         try {
             JSONObject options = new JSONObject();
             options.put("name", getPatientName());
@@ -395,7 +416,7 @@ public class BookAppointment extends Credentials {
             options.put("image", image);
             options.put("theme.color", "#3399cc");
             options.put("currency", "INR");
-            options.put("amount", "100");//pass amount in currency subunits
+            options.put("amount", "" + amount);//pass amount in currency subunits
             options.put("prefill.email", getEmail());
             options.put("prefill.contact", getMobileNo());
             checkout.open(activity, options);
@@ -433,8 +454,9 @@ public class BookAppointment extends Credentials {
 
     public void startBookingAppointment() {
 
+
         AppUtils.showRequestDialog(activity);
-        Api iRestInterfaces = URLUtils.getAPIService();
+        Api iRestInterfaces = URLUtils.getTestUrl();
         Call<OnlineAppointmentRes> call = iRestInterfaces.onlineAppointment(
                 getToken(),
                 getUserMobileNo(),

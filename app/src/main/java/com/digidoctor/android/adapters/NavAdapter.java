@@ -17,6 +17,7 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.NavVH> {
     List<NavModel> navModelList;
     NavigationInterface adapterInterface;
 
+
     public NavAdapter(List<NavModel> navModelList, NavigationInterface adapterInterface) {
         this.navModelList = navModelList;
         this.adapterInterface = adapterInterface;

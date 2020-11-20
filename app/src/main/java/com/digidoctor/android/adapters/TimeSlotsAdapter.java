@@ -13,8 +13,7 @@ import com.digidoctor.android.databinding.TimingViewPrimaryNewBinding;
 import com.digidoctor.android.databinding.TimingViewSecondaryNewBinding;
 import com.digidoctor.android.model.GetAppointmentSlotsDataRes;
 import com.digidoctor.android.model.GetAppointmentSlotsModel;
-import com.digidoctor.android.model.SymptomModel;
-import com.digidoctor.android.utility.AdapterInterface;
+import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
 import java.util.List;
@@ -122,6 +121,8 @@ public class TimeSlotsAdapter extends RecyclerView.Adapter<TimeSlotsAdapter.Slot
                 }
             });
 
+            changeSlotsColorState(timeDetailsModelList, holder);
+
         }
 
         private void changeLayoutColor(SlotsSecondaryVH holder, Drawable drawable, int color) {
@@ -142,6 +143,10 @@ public class TimeSlotsAdapter extends RecyclerView.Adapter<TimeSlotsAdapter.Slot
                 this.viewSecondaryNewBinding = viewSecondaryNewBinding;
             }
         }
+    }
+
+    private void changeSlotsColorState(List<GetAppointmentSlotsModel> timeDetailsModelList, TimeSlotsAdapterSecondary.SlotsSecondaryVH holder) {
+
     }
 
 

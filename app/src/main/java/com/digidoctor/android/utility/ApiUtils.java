@@ -5,12 +5,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.interfaces.Api;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.CheckLoginRes;
 import com.digidoctor.android.model.CheckSlotAvailabilityRes;
 import com.digidoctor.android.model.DashBoardRes;
 import com.digidoctor.android.model.DocBySpecialityRes;
 import com.digidoctor.android.model.DocBySymptomsRes;
-import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.GenerateOtpRes;
 import com.digidoctor.android.model.GetAppointmentSlotsRes;
 import com.digidoctor.android.model.GetMembersRes;
@@ -22,9 +23,7 @@ import com.digidoctor.android.model.SymptomsRes;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -46,11 +45,11 @@ import static com.digidoctor.android.utility.utils.KEY_SYMPTOM_ID;
 import static com.digidoctor.android.utility.utils.MEMBER_ID;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.TOKEN;
-import static com.digidoctor.android.utility.utils.USER;
 import static com.digidoctor.android.utility.utils.fcmToken;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.getString;
 import static com.digidoctor.android.utility.utils.isNetworkConnected;
+import static com.digidoctor.android.utility.utils.logout;
 
 
 public class ApiUtils {
@@ -72,6 +71,7 @@ public class ApiUtils {
                             apiCallbackInterface.onSuccess(response.body().getResponseValue());
                         } else {
                             apiCallbackInterface.onError(response.body().getResponseMessage());
+
                             if (isNetworkConnected(PatientDashboard.getInstance())) {
 
                             } else {
@@ -105,7 +105,6 @@ public class ApiUtils {
                     AppUtils.hideDialog();
                     if (response.code() == 200) {
                         if (response.body().getResponseCode() == 1) {
-
                             apiCallbackInterface.onSuccess(response.body().getResponseValue());
                         } else apiCallbackInterface.onError(response.body().getResponseMessage());
                     } else apiCallbackInterface.onError(response.errorBody().toString());
@@ -258,30 +257,30 @@ public class ApiUtils {
     }
 
 
-    public static void cancelAppointment(String appointmentId) {
-        if (PatientDashboard.getInstance() != null)
-            AppUtils.showRequestDialog(PatientDashboard.getInstance());
+    public static void cancelAppointment(String appointmentId, Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+        AppUtils.showRequestDialog(activity);
 
+        User user = getPrimaryUser(activity);
         Api iRestInterfaces = URLUtils.getAPIService();
         Call<RegistrationRes> call = iRestInterfaces.cancelAppointment(
-                "",
-                "9044865611",
+                getString(TOKEN, activity),
+                user.getMobileNo(),
                 appointmentId);
 
         call.enqueue(new Callback<RegistrationRes>() {
             @Override
             public void onResponse(Call<RegistrationRes> call, Response<RegistrationRes> response) {
-
                 if (response.isSuccessful() && response.body().getResponseCode() == 1) {
                     AppUtils.hideDialog();
                     if (PatientDashboard.getInstance() != null)
                         AppUtils.showToastSort(PatientDashboard.getInstance(), PatientDashboard.getInstance().getString(R.string.appointment_canceled));
+                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
 
                 } else {
-
                     AppUtils.hideDialog();
                     if (PatientDashboard.getInstance() != null)
                         AppUtils.showToastSort(PatientDashboard.getInstance(), response.body().getResponseMessage());
+                    apiCallbackInterface.onError(response.body().getResponseMessage());
                 }
 
             }
@@ -289,6 +288,9 @@ public class ApiUtils {
             @Override
             public void onFailure(Call<RegistrationRes> call, Throwable t) {
                 AppUtils.hideDialog();
+                Log.d("TAG", "onFailure: " + t.getLocalizedMessage());
+                apiCallbackInterface.onFailed(t);
+
             }
         });
     }
@@ -328,8 +330,7 @@ public class ApiUtils {
 
 
     public static void GetMembersRes(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
-        if (PatientDashboard.getInstance() != null)
-            AppUtils.showRequestDialog(activity);
+        AppUtils.showRequestDialog(activity);
 
         User user = getPrimaryUser(activity);
         Api iRestInterfaces = URLUtils.getAPIService();
@@ -345,15 +346,10 @@ public class ApiUtils {
 
                 if (response.isSuccessful() && response.body().getResponseCode() == 1) {
                     AppUtils.hideDialog();
-
-                    if (activity != null)
-                        AppUtils.showToastSort(activity, activity.getString(R.string.otp_sent_to_your));
                     apiCallbackInterface.onSuccess(response.body().getResponseValue());
                 } else {
-
                     AppUtils.hideDialog();
-                    if (activity != null)
-                        AppUtils.showToastSort(activity, response.body().getResponseMessage());
+                    AppUtils.showToastSort(activity, response.body().getResponseMessage());
                 }
 
             }
@@ -390,7 +386,8 @@ public class ApiUtils {
 
                         apiCallbackInterface.onSuccess(response.body().getResponseValue());
 
-                        Toast.makeText(activity, response.body().getResponseMessage(), Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(activity, R.string.logged_in, Toast.LENGTH_SHORT).show();
 
                     } else apiCallbackInterface.onError(response.body().getResponseMessage());
 
@@ -464,7 +461,7 @@ public class ApiUtils {
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
             Log.d("TAG", "checkTimeSlotAvailability: " + map.toString());
-            final Api api = URLUtils.getAPIService();
+            final Api api = URLUtils.getTestUrl();
             Call<CheckSlotAvailabilityRes> specialityResCall = api.checkTimeSlotAvailability(
                     getString(TOKEN, activity),
                     map.get(MOBILE_NUMBER),
@@ -524,8 +521,7 @@ public class ApiUtils {
                 } else {
 
                     AppUtils.hideDialog();
-                    if (activity != null)
-                        AppUtils.showToastSort(activity, response.body().getResponseMessage());
+                    apiCallbackInterface.onError(response.body().getResponseMessage());
                 }
 
             }
@@ -577,4 +573,45 @@ public class ApiUtils {
             e.printStackTrace();
         }
     }
+
+
+    public static void addMember(final Activity activity, Map<String, String> map, final ApiCallbackInterface apiCallbackInterface) {
+        AppUtils.showRequestDialog(activity);
+
+        User user = getPrimaryUser(activity);
+        Api iRestInterfaces = URLUtils.getAPIService();
+        Call<RegistrationRes> call = iRestInterfaces.addMember(
+                getString(TOKEN, activity),
+                getString(MOBILE_NUMBER, activity),
+                String.valueOf(user.getUserLoginId()),
+                map.get("name"),
+                map.get("mobile"),
+                map.get("gender"),
+                map.get("dob"),
+                map.get("profilePath"),
+                "0",
+                map.get("address")
+        );
+
+        call.enqueue(new Callback<RegistrationRes>() {
+            @Override
+            public void onResponse(Call<RegistrationRes> call, Response<RegistrationRes> response) {
+
+                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                } else {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(response.body().getResponseMessage());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RegistrationRes> call, Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+    }
+
 }

@@ -5,6 +5,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class GetAppointmentSlotsModel {
 
+
+    boolean isBooked = false;
+
+    public boolean isBooked() {
+        return isBooked;
+    }
+
+    public void setBooked(boolean booked) {
+        isBooked = booked;
+    }
+
     private boolean isSelected = false;
 
     @SerializedName("slotId")

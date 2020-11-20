@@ -14,7 +14,9 @@ import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SymptomModel;
-import com.digidoctor.android.utility.ApiCallbackInterface;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
+import com.digidoctor.android.model.User;
+import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
@@ -28,6 +30,7 @@ import static com.digidoctor.android.utility.ApiUtils.getPatientMedicationDetail
 import static com.digidoctor.android.utility.ApiUtils.getRecommendedDoc;
 import static com.digidoctor.android.utility.ApiUtils.getSymptomWithIconsData;
 import static com.digidoctor.android.utility.ApiUtils.specialityData;
+import static com.digidoctor.android.utility.utils.logout;
 
 public class PatientRepo {
 
@@ -37,7 +40,49 @@ public class PatientRepo {
     public MutableLiveData<List<DoctorModel>> doctorModelMutableLiveData;
     public MutableLiveData<List<DoctorModelRes>> recommendedDoctorModelMutableLiveData;
     public MutableLiveData<List<GetPatientMedicationMainModel>> prescriptionModelMutableLiveData;
+    public MutableLiveData<List<User>> memberModelMutableLiveData;
 
+
+    public LiveData<List<User>> getMemberList(Activity activity) {
+        if (memberModelMutableLiveData == null) {
+            memberModelMutableLiveData = new MutableLiveData<>();
+        }
+        loadMemberData(activity);
+        return memberModelMutableLiveData;
+
+    }
+
+    private void loadMemberData(final Activity activity) {
+        ApiUtils.GetMembersRes(activity, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                List<User> userList = (List<User>) o;
+                if (null != userList && !userList.isEmpty()) {
+                    memberModelMutableLiveData.setValue(userList);
+                }
+            }
+
+            @Override
+            public void onError(String s) {
+                Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
+                try {
+                    if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
+                        logout(PatientDashboard.getInstance(), true);
+                        Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Toast.makeText(activity, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
 
     public LiveData<List<GetPatientMedicationMainModel>> getPrescriptionData(Activity activity) {
         if (prescriptionModelMutableLiveData == null) {
@@ -62,6 +107,15 @@ public class PatientRepo {
             @Override
             public void onError(String s) {
                 Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
+                try {
+                    if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
+                        logout(PatientDashboard.getInstance(), true);
+                        Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -97,6 +151,16 @@ public class PatientRepo {
             @Override
             public void onError(String s) {
                 Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
+
+                try {
+                    if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
+                        logout(PatientDashboard.getInstance(), true);
+                        Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -125,6 +189,16 @@ public class PatientRepo {
             @Override
             public void onError(String s) {
                 Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
+                try {
+                    if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
+                        logout(PatientDashboard.getInstance(), true);
+                        Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
@@ -160,6 +234,15 @@ public class PatientRepo {
             @Override
             public void onError(String s) {
                 Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
+                try {
+                    if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
+                        logout(PatientDashboard.getInstance(), true);
+                        Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -195,6 +278,15 @@ public class PatientRepo {
             @Override
             public void onError(String s) {
 
+                try {
+                    if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
+                        logout(PatientDashboard.getInstance(), true);
+                        Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -218,7 +310,7 @@ public class PatientRepo {
     private void loadPatientDashboardData(String lat, String lng) {
         if (PatientDashboard.getInstance() != null)
             AppUtils.showRequestDialog(PatientDashboard.getInstance());
-        List<DashboardModel1> dashboardModel1s = new ArrayList<>();
+        final List<DashboardModel1> dashboardModel1s = new ArrayList<>();
         dashboardModel1s.add(new DashboardModel1("Specialities"));
         dashboardModel1s.add(new DashboardModel1("Symptoms"));
         dashboardModel1s.add(new DashboardModel1("Tests"));
@@ -238,8 +330,17 @@ public class PatientRepo {
             @Override
             public void onError(String s) {
                 AppUtils.hideDialog();
-                if (PatientDashboard.getInstance() != null)
-                    Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
+                try {
+                    if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
+                        logout(PatientDashboard.getInstance(), true);
+                        Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+
             }
 
             @Override

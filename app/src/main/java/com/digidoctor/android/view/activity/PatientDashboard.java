@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,11 +25,12 @@ import androidx.navigation.ui.NavigationUI;
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.NavAdapter;
 import com.digidoctor.android.databinding.ActivityDashBoardBinding;
+import com.digidoctor.android.databinding.FragmentShowFileOrPdfBinding;
 import com.digidoctor.android.interfaces.NavigationInterface;
 import com.digidoctor.android.model.NavModel;
 import com.digidoctor.android.model.User;
-import com.digidoctor.android.utility.AdapterInterface;
 import com.digidoctor.android.utility.GetAddressIntentService;
+import com.digidoctor.android.utility.utils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -36,6 +38,8 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +48,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.digidoctor.android.utility.AppUtils.hideDialog;
+import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.view.fragments.BookAppointmentFragment.bookAppointment;
 import static com.digidoctor.android.view.fragments.PatientDashboardFragment.dashboard2Binding;
@@ -145,13 +151,14 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
     private void loadNavData() {
         navModels.add(new NavModel(getString(R.string.appointment), R.drawable.appointments));
-        navModels.add(new NavModel(getString(R.string.lab_tests), R.drawable.appointments));
-        navModels.add(new NavModel(getString(R.string.orders), R.drawable.appointments));
-        navModels.add(new NavModel(getString(R.string.prescription_history), R.drawable.appointments));
-        navModels.add(new NavModel(getString(R.string.investigation_history), R.drawable.appointments));
-        navModels.add(new NavModel(getString(R.string.notifications), R.drawable.appointments));
-        navModels.add(new NavModel(getString(R.string.settings), R.drawable.appointments));
-        navModels.add(new NavModel(getString(R.string.about_us), R.drawable.appointments));
+        navModels.add(new NavModel(getString(R.string.lab_tests), R.drawable.lab_test_icon));
+        navModels.add(new NavModel(getString(R.string.orders), R.drawable.order));
+        navModels.add(new NavModel(getString(R.string.prescription_history), R.drawable.prescription));
+        navModels.add(new NavModel(getString(R.string.investigation_history), R.drawable.investigation));
+        navModels.add(new NavModel(getString(R.string.notifications), R.drawable.notification));
+        navModels.add(new NavModel(getString(R.string.settings), R.drawable.settings));
+        navModels.add(new NavModel(getString(R.string.about_us), R.drawable.aboutus));
+        navModels.add(new NavModel(getString(R.string.logout), R.drawable.aboutus));
         navAdapter.notifyDataSetChanged();
 
     }
@@ -298,6 +305,11 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 if (user.getIsExists() == 1)
                     navController.navigate(R.id.prescriptionHistoryFragment);
                 else navController.navigate(R.id.profileFragment);
+                break;
+            case 8:
+                showRequestDialog(this);
+                if (utils.logout(this))
+                    hideDialog();
 
                 break;
             default:
@@ -364,5 +376,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         super.onPause();
         fusedLocationClient.removeLocationUpdates(locationCallback);
     }
+
 
 }

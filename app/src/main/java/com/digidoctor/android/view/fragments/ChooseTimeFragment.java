@@ -21,8 +21,8 @@ import com.digidoctor.android.databinding.FragmentChooseTimeBinding;
 import com.digidoctor.android.model.CalendarModel;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.GetAppointmentSlotsDataRes;
-import com.digidoctor.android.utility.AdapterInterface;
-import com.digidoctor.android.utility.ApiCallbackInterface;
+import com.digidoctor.android.interfaces.AdapterInterface;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.NewDashboardUtils;
 import com.digidoctor.android.view.activity.PatientDashboard;
@@ -37,6 +37,7 @@ import java.util.List;
 
 import static com.digidoctor.android.utility.ApiUtils.getDoctorsTimeSlots;
 import static com.digidoctor.android.utility.AppUtils.getCurrentDateInWeekMonthDayFormat;
+import static com.digidoctor.android.utility.utils.logout;
 
 public class ChooseTimeFragment extends Fragment {
 
@@ -64,7 +65,6 @@ public class ChooseTimeFragment extends Fragment {
         if (PatientDashboard.getInstance() != null)
             activity = PatientDashboard.getInstance();
         return chooseTimeBinding.getRoot();
-
     }
 
     @Override
@@ -94,6 +94,7 @@ public class ChooseTimeFragment extends Fragment {
             public void onItemClicked(CalendarModel calendarModel, int pos) {
                 date = getDateToSend(pos);
                 getDocTimerSlot(date);
+
             }
         });
 
@@ -113,6 +114,7 @@ public class ChooseTimeFragment extends Fragment {
                     public void onSuccess(List<?> o) {
                         AppUtils.hideDialog();
                         List<GetAppointmentSlotsDataRes> slots = (List<GetAppointmentSlotsDataRes>) o;
+                        slotsDataRes.clear();
                         slotsDataRes.addAll(slots);
                         slotsAdapter = new TimeSlotsAdapter(slotsDataRes, new AdapterInterface() {
                             @Override
@@ -148,6 +150,16 @@ public class ChooseTimeFragment extends Fragment {
                         Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
                         if (null != slotsAdapter)
                             slotsAdapter.notifyDataSetChanged();
+
+                        try {
+                            if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
+                                logout(PatientDashboard.getInstance(), true);
+                                Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override

@@ -100,6 +100,7 @@
     </fragment>
     <fragment
         android:id="@+id/chooseTimeFragment2"
+        tools:layout="@layout/fragment_choose_time"
         android:name="com.digidoctor.android.view.fragments.ChooseTimeFragment"
         android:label="@string/select_time">
         <action
@@ -113,7 +114,8 @@
     <fragment
         android:id="@+id/bookAppointmentFragment"
         android:name="com.digidoctor.android.view.fragments.BookAppointmentFragment"
-        android:label="@string/book_appointment">
+        android:label="@string/book_appointment"
+        tools:layout="@layout/fragment_book_appointment">
         <action
             android:id="@+id/action_bookAppointmentFragment_to_appointmentDoneFragment"
             app:destination="@id/appointmentDoneFragment"
@@ -131,13 +133,38 @@
         <action
             android:id="@+id/action_bookAppointmentFragment_to_signUpJourneyActivity"
             app:destination="@id/signUpJourneyActivity" />
+        <action
+            android:id="@+id/action_bookAppointmentFragment_to_showMemberListFragment"
+            app:destination="@id/showMemberListFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/bookedAppointmentDetailFragment"
         android:name="com.digidoctor.android.view.fragments.BookedAppointmentDetailFragment"
-        android:label="@string/appointment_booked_successfully" />
+        android:label="@string/appointment_booked_successfully"
+        tools:layout="@layout/fragment_booked_appointment_detail">
+        <action
+            android:id="@+id/action_bookedAppointmentDetailFragment_to_cancelAppointmentFragment2"
+            app:destination="@id/cancelAppointmentFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@id/patientDashboardFragment" />
+        <action
+            android:id="@+id/action_bookedAppointmentDetailFragment_to_reScheduleFragment"
+            app:destination="@id/reScheduleFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/recommendedDoctorsFragment"
+        tools:layout="@layout/fragment_recommended_doctors"
         android:name="com.digidoctor.android.view.fragments.RecommendedDoctorsFragment"
         android:label="@string/recommended_doctors">
         <action
@@ -157,6 +184,7 @@
     </fragment>
     <fragment
         android:id="@+id/doctorShortProfileFragment"
+        tools:layout="@layout/fragment_doctor_short_profile"
         android:name="com.digidoctor.android.view.fragments.DoctorShortProfileFragment"
         android:label="@string/profile">
         <action
@@ -176,7 +204,7 @@
         android:id="@+id/appointmentDoneFragment"
         android:name="com.digidoctor.android.view.fragments.AppointmentDoneFragment"
         android:label="fragment_appointment_done"
-        tools:layout="@layout/fragment_appointment_done" >
+        tools:layout="@layout/fragment_appointment_done">
         <action
             android:id="@+id/action_appointmentDoneFragment_to_bookedAppointmentDetailFragment"
             app:destination="@id/bookedAppointmentDetailFragment"
@@ -210,7 +238,7 @@
         android:id="@+id/prescriptionHistoryFragment"
         android:name="com.digidoctor.android.view.fragments.PrescriptionHistoryFragment"
         android:label="@string/prescription_history"
-        tools:layout="@layout/fragment_prescription_history" >
+        tools:layout="@layout/fragment_prescription_history">
         <action
             android:id="@+id/action_prescriptionHistoryFragment_to_visitFragment"
             app:destination="@id/visitFragment"
@@ -223,5 +251,55 @@
         android:id="@+id/visitFragment"
         android:name="com.digidoctor.android.view.fragments.VisitFragment"
         android:label="@string/visit_details"
-        tools:layout="@layout/fragment_visit" />
+        tools:layout="@layout/fragment_visit">
+        <action
+            android:id="@+id/action_visitFragment_to_showFileOrPdfFragment"
+            app:destination="@id/showFileOrPdfFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/showFileOrPdfFragment"
+        android:name="com.digidoctor.android.view.fragments.ShowFileOrPdfFragment"
+        android:label="@string/show_files"
+        tools:layout="@layout/fragment_show_file_or_pdf" />
+    <fragment
+        android:id="@+id/showMemberListFragment"
+        android:name="com.digidoctor.android.view.fragments.ShowMemberListFragment"
+        android:label="@string/select_member"
+        tools:layout="@layout/fragment_show_member_list">
+        <action
+            android:id="@+id/action_showMemberListFragment_to_addMemberFragment"
+            app:destination="@id/addMemberFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMemberFragment"
+        android:name="com.digidoctor.android.view.fragments.AddMemberFragment"
+        android:label="@string/add_member"
+        tools:layout="@layout/fragment_add_member" />
+    <fragment
+        android:id="@+id/cancelAppointmentFragment2"
+        android:name="com.digidoctor.android.view.fragments.CancelAppointmentFragment"
+        android:label="CancelAppointmentFragment"
+        tools:layout="@layout/fragment_cancel_appointment" />
+    <fragment
+        android:id="@+id/reScheduleFragment"
+        android:name="com.digidoctor.android.view.fragments.ReScheduleFragment"
+        android:label="@string/re__schedule_appointment"
+        tools:layout="@layout/fragment_re_schedule">
+        <action
+            android:id="@+id/action_reScheduleFragment_to_cancelAppointmentFragment2"
+            app:destination="@id/cancelAppointmentFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@id/patientDashboardFragment" />
+    </fragment>
 </navigation>

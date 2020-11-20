@@ -1,4 +1,4 @@
-package com.digidoctor.android.utility;
+package com.digidoctor.android.interfaces;
 
 import com.digidoctor.android.model.CheckLoginRes;
 import com.digidoctor.android.model.CheckSlotAvailabilityRes;
@@ -109,7 +109,6 @@ public interface Api {
             @Field("gender") String gender,
             @Field("paymentId") String paymentId
 
-
     );
 
     @FormUrlEncoded
@@ -187,4 +186,24 @@ public interface Api {
             @Field("userLoginId") String userLoginId
     );
 
+
+    @FormUrlEncoded
+    @POST("addMember")
+    Call<RegistrationRes> addMember(
+            @Header("x-access-token") String token,
+            @Field("userMobileNo") String userMobileNo,
+            @Field("userLoginId") String userLoginId,
+            @Field("name") String name,
+            @Field("mobileNo") String mobileNo,
+            @Field("gender") String gender,
+            @Field("dob") String dob,
+            @Field("profilePhotoPath") String profilePhotoPath,
+            @Field("CountryId") String CountryId,
+            @Field("address") String address
+    );
+
+
+
 }
+
+

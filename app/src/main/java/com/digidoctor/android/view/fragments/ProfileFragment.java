@@ -22,7 +22,7 @@ import com.digidoctor.android.databinding.FragmentProfileBinding;
 import com.digidoctor.android.databinding.GenderViewBinding;
 import com.digidoctor.android.interfaces.MyDialogInterface;
 import com.digidoctor.android.model.User;
-import com.digidoctor.android.utility.ApiCallbackInterface;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
@@ -30,10 +30,12 @@ import com.digidoctor.android.view.activity.PatientDashboard;
 import java.util.List;
 
 import static com.digidoctor.android.utility.ApiUtils.patientRegistration;
+import static com.digidoctor.android.utility.utils.BOOKING_USER;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.USER;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
+import static com.digidoctor.android.utility.utils.logout;
 
 
 public class ProfileFragment extends Fragment implements MyDialogInterface {
@@ -96,6 +98,7 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
     }
 
     private void updateProfile() {
+
         Toast.makeText(requireContext(), "Updating Profile", Toast.LENGTH_SHORT).show();
     }
 
@@ -118,7 +121,11 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
 
                     PatientDashboard.getInstance().setUser(user);
 
+                    //setting primary user info
                     utils.savePrimaryUserData(USER, requireActivity(), user);
+
+                    //setting user info for Booking Appointment
+                    utils.setUserForBooking(BOOKING_USER, requireActivity(), user);
 
                     utils.setString(MOBILE_NUMBER, mobile, requireActivity());
 
@@ -132,6 +139,15 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
             public void onError(String s) {
                 AppUtils.hideDialog();
                 Toast.makeText(requireActivity(), R.string.retry, Toast.LENGTH_SHORT).show();
+                try {
+                    if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
+                        logout(PatientDashboard.getInstance(), true);
+                        Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
 

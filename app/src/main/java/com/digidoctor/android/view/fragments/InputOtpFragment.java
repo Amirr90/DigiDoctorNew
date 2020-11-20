@@ -19,13 +19,14 @@ import androidx.navigation.Navigation;
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentInputOtpBinding;
 import com.digidoctor.android.model.User;
-import com.digidoctor.android.utility.ApiCallbackInterface;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.utility.utils;
 
 import java.util.List;
 
 import static com.digidoctor.android.utility.ApiUtils.checkLogin;
 import static com.digidoctor.android.utility.ApiUtils.getOTP;
+import static com.digidoctor.android.utility.utils.BOOKING_USER;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.USER;
 
@@ -243,6 +244,9 @@ public class InputOtpFragment extends Fragment {
                 utils.setBoolean(utils.IS_LOGIN, true, requireActivity());
 
                 utils.savePrimaryUserData(USER, requireActivity(), user);
+
+                utils.setUserForBooking(BOOKING_USER, requireActivity(), user);
+
 
                 utils.setString(MOBILE_NUMBER, number, requireActivity());
 

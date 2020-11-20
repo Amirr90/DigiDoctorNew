@@ -3,6 +3,7 @@
 
     <data>
 
+        <import type="android.graphics.Color"/>
         <variable
             name="timeDetailsModel"
             type="com.digidoctor.android.model.GetAppointmentSlotsModel" />
@@ -18,7 +19,6 @@
         android:backgroundTint="#F1F4F9">
 
         <TextView
-            android:textSize="10dp"
             android:id="@+id/timingText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,8 +26,9 @@
             android:gravity="center_horizontal"
             android:padding="10dp"
             android:text="@{timeDetailsModel.slotTime}"
-            android:textColor="#3F4E6E" />
+           android:textColor="@{Color.parseColor(timeDetailsModel.booked?`#F44336`:`#32CD32`)}"
+            android:textSize="10dp" />
     </LinearLayout>
-
+<!--    android:textColor="@{timeDetailsModel.booked?`#F44336`:`#3F4E6E`}"-->
 
 </layout>

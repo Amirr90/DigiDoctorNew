@@ -11,7 +11,7 @@
 
         <variable
             name="appointment"
-            type="com.digidoctor.android.utility.AppointmentInterface" />
+            type="com.digidoctor.android.interfaces.AppointmentInterface" />
     </data>
 
     <RelativeLayout
@@ -253,45 +253,7 @@
 
             </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/llCancelRescheduleAppointment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="42dp"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingTop="@dimen/dimen_16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="@dimen/dimen_16dp"
-                android:visibility="gone">
 
-                <Button
-                    android:id="@+id/btnCancelAppointment"
-                    android:layout_width="0dp"
-                    android:layout_height="42dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/round_for_search"
-                    android:backgroundTint="#FF5733"
-                    android:onClick="@{()->appointment.onCancelAppointmentClicked(appointmentModel)}"
-                    android:text="@string/cancelAppointment"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/white" />
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="42dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/round_for_search"
-                    android:backgroundTint="@color/YellowColo"
-                    android:onClick="@{()->appointment.onReScheduleClicked(appointmentModel)}"
-                    android:text="@string/re__schedule"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -305,7 +267,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button6"
+                android:onClick="@{()->appointment.onReScheduleClicked(appointmentModel)}"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
                 android:layout_marginRight="5dp"
@@ -317,7 +279,8 @@
                 android:textColor="@android:color/white" />
 
             <Button
-                android:id="@+id/button7"
+                android:onClick="@{()->appointment.onCancelAppointmentClicked(appointmentModel)}"
+                android:id="@+id/btnCancelAppointment"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
                 android:layout_marginLeft="5dp"

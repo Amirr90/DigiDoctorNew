@@ -4,6 +4,18 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class OnlineAppointmentModel {
+
+    int doctorId;
+    int isEraUser;
+
+    public int getDoctorId() {
+        return doctorId;
+    }
+
+    public int getIsEraUser() {
+        return isEraUser;
+    }
+
     @SerializedName("appointmentId")
     @Expose
     private String appointmentId;
@@ -98,4 +110,26 @@ public class OnlineAppointmentModel {
     }
 
 
+    @Override
+    public String toString() {
+        return "OnlineAppointmentModel{" +
+                "doctorId=" + doctorId +
+                ", isEraUser=" + isEraUser +
+                ", appointmentId='" + appointmentId + '\'' +
+                ", visitDate='" + visitDate + '\'' +
+                ", visitTime='" + visitTime + '\'' +
+                ", msg='" + msg + '\'' +
+                ", doctorName='" + doctorName + '\'' +
+                ", clinicName='" + clinicName + '\'' +
+                ", profilePhotoPath='" + profilePhotoPath + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longititude='" + longititude + '\'' +
+                ", clinicMobileNo='" + clinicMobileNo + '\'' +
+                ", address='" + address + '\'' +
+                ", degree='" + degree + '\'' +
+                ", specialityName='" + specialityName + '\'' +
+                ", appointmentStatus='" + appointmentStatus + '\'' +
+                ", memberName='" + memberName + '\'' +
+                '}';
+    }
 }

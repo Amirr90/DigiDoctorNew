@@ -1,8 +1,10 @@
 package com.digidoctor.android.view.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.databinding.ActivitySignUpJourneyBinding;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.navigation.NavController;
@@ -23,12 +25,15 @@ public class SignUpJourneyActivity extends AppCompatActivity {
 
     NavController navController;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_journey);
 
         navController = Navigation.findNavController(this, R.id.signUp_nav_fragment);
+
+
     }
 
     @Override
@@ -36,11 +41,11 @@ public class SignUpJourneyActivity extends AppCompatActivity {
         super.onStart();
 
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         return navController.navigateUp();
     }
-
 
 
 }

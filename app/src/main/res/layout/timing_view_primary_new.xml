@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.graphics.Color" />
+
         <variable
             name="timing"
             type="com.digidoctor.android.model.GetAppointmentSlotsDataRes" />
@@ -26,8 +29,8 @@
                 android:drawablePadding="@dimen/_10sdp"
                 android:drawableTint="@color/PrimaryColor"
                 android:paddingLeft="@dimen/_5sdp"
-                android:paddingRight="@dimen/_5sdp"
                 android:paddingTop="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
                 android:text="@{timing.slotType}"
                 android:textColor="#262E3F"
                 android:textSize="16dp"

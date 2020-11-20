@@ -11,6 +11,7 @@ import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SymptomModel;
+import com.digidoctor.android.model.User;
 import com.digidoctor.android.repositories.PatientRepo;
 
 import java.util.HashMap;
@@ -21,6 +22,12 @@ public class PatientViewModel extends ViewModel {
 
     PatientRepo repo = new PatientRepo();
 
+
+    public LiveData<List<User>> getMemberList(Activity activity) {
+        return repo.getMemberList(activity);
+
+
+    }
 
     public LiveData<List<GetPatientMedicationMainModel>> getPrescriptionData(Activity activity) {
         return repo.getPrescriptionData(activity);

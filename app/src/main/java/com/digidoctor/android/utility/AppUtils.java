@@ -28,6 +28,9 @@ public class AppUtils {
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
     private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
     static ProgressDialog progressDialog;
+
+
+
     public static void showRequestDialog(Activity activity) {
 
         //Log.d("Token-Number", AppSettings.getString(AppSettings.token));
@@ -122,6 +125,7 @@ public class AppUtils {
         }
 
         return dayName;
+
     }
 
     public static String getCurrentDateInWeekMonthDayFormat() {

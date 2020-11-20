@@ -39,6 +39,7 @@
             app:popExitAnim="@anim/fade_out" />
     </fragment>
     <activity
+
         android:id="@+id/patientDashboard"
         android:name="com.digidoctor.android.view.activity.PatientDashboard"
         android:label="PatientDashboard" />

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.SymptomsViewBinding;
 import com.digidoctor.android.model.SymptomModel;
-import com.digidoctor.android.utility.AdapterInterface;
+import com.digidoctor.android.interfaces.AdapterInterface;
 
 import static com.digidoctor.android.view.fragments.SymptomsFragment.symptomsIds;
 

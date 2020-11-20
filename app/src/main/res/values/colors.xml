@@ -4,7 +4,6 @@
     <color name="colorPrimaryDark">#084251</color>
     <color name="colorAccent">#0a586c</color>
 
-
     <color name="TextPrimaryColor">#262e3f</color>
     <color name="TextSecondaryColor">#3f4e6e</color>
     <color name="PrimaryColor">#0a586c</color>
@@ -15,4 +14,8 @@
     <color name="TextGrayColo">#B33F4E6E</color>
     <color name="white">#FFFFFF</color>
     <color name="textColorBlack">#262E3F</color>
+    <color name="greyLight">#F1F4F9</color>
+    <color name="textColor">#3F4E6E</color>
+    <color name="red">#F44336</color>
+
 </resources>

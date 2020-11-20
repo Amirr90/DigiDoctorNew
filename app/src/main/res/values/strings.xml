@@ -873,6 +873,22 @@
     <string name="physical_examination">Physical Examination</string>
     <string name="recomendation">Recommendation</string>
     <string name="see_reports">See Reports</string>
+    <string name="see_mannual_pres">See Your manually added prescriptions here.</string>
+    <string name="show_files">Show Files</string>
+    <string name="add_patients">Add Patients</string>
+    <string name="gender_here">Your Gender here</string>
+    <string name="your_dob">Your DOB here</string>
+    <string name="your_address">Your Address here</string>
+    <string name="save_patient">Save Patient</string>
+    <string name="cancel_appointment">Cancel Appointment</string>
+    <string name="cancel_appointment_tag">Do You  really want to cancel this appointment??</string>
+    <string name="goto_dashboard">Go To Dashboard</string>
+    <string name="re__schedule_appointment">Re-Schedule Appointment</string>
+    <string name="appointment_re_scheduled_successfully">Appointment Re-Scheduled Successfully</string>
+    <string name="appointment_cancelled_successcully">Appointment cancelled Successfully</string>
+    <string name="want_to_logout">Want to logout??</string>
+    <string name="logged_out_sucvcessfully">Logged out successfully</string>
+    <string name="logged_in">Logged in</string>
 
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>

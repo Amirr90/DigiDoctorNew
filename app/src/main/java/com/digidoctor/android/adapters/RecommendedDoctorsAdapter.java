@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.DocViewBinding;
 import com.digidoctor.android.model.DoctorModel;
-import com.digidoctor.android.utility.AdapterInterface;
+import com.digidoctor.android.interfaces.AdapterInterface;
 
 
 public class RecommendedDoctorsAdapter extends ListAdapter<DoctorModel, RecommendedDoctorsAdapter.RecommendedVH> {
