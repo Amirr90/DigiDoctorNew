@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,10 +9,9 @@
 
 
 
- <ScrollView
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content">
-     <LinearLayout
+
+     <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_margin="16dp"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:background="@color/PrimaryColor"
@@ -21,41 +21,56 @@
 
          <ImageView
              android:id="@+id/imageView38"
-             android:layout_width="238dp"
+             android:layout_width="0dp"
              android:layout_height="97dp"
-             android:layout_marginTop="80dp"
-             android:src="@drawable/logo" />
+             android:layout_marginStart="32dp"
+             android:layout_marginTop="32dp"
+             android:layout_marginEnd="32dp"
+             android:src="@drawable/logo"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent" />
 
          <TextView
+             android:gravity="center"
              android:id="@+id/textView67"
-             android:layout_width="wrap_content"
+             android:layout_width="0dp"
              android:layout_height="wrap_content"
-             android:layout_marginTop="18dp"
+             android:layout_marginTop="32dp"
              android:fontFamily="@font/poppins_semibold"
              android:text="Enter your phone number"
              android:textColor="@android:color/white"
-             android:textSize="18dp"
-             android:textStyle="bold" />
+             android:textSize="18sp"
+             android:textStyle="bold"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@+id/imageView38" />
 
          <TextView
              android:id="@+id/textView110"
-             android:layout_width="wrap_content"
+             android:layout_width="0dp"
              android:layout_height="wrap_content"
-             android:layout_marginTop="16dp"
+             android:layout_marginTop="20dp"
              android:fontFamily="@font/poppins_medium"
              android:gravity="center"
              android:paddingLeft="55dp"
              android:paddingRight="50dp"
              android:text="We will send a code ( via SMS text message) to your phone number"
              android:textColor="@android:color/white"
-             android:textSize="14dp" />
+             android:textSize="14sp"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintHorizontal_bias="0.0"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@+id/textView67" />
 
          <androidx.cardview.widget.CardView
+             android:id="@+id/cardView"
              android:layout_width="match_parent"
              android:layout_height="50dp"
-             android:layout_marginLeft="26dp"
-             android:layout_marginTop="45dp"
-             android:layout_marginRight="26dp">
+             android:layout_marginTop="50dp"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@+id/textView110">
 
              <EditText
                  android:id="@+id/editTextGetMobileNumber"
@@ -63,21 +78,19 @@
                  android:layout_height="match_parent"
                  android:background="@null"
                  android:ems="10"
-                 android:maxLength="10"
-                 android:inputType="phone"
-                 android:paddingLeft="18dp"
                  android:hint="@string/mobile_number"
+                 android:inputType="phone"
+                 android:maxLength="10"
+                 android:paddingLeft="18dp"
                  android:textColor="#3F4E6E"
                  android:textSize="17dp" />
          </androidx.cardview.widget.CardView>
 
          <Button
              android:id="@+id/btnNext"
-             android:layout_width="match_parent"
+             android:layout_width="0dp"
              android:layout_height="42dp"
-             android:layout_marginLeft="26dp"
-             android:layout_marginTop="25dp"
-             android:layout_marginRight="26dp"
+             android:layout_marginTop="32dp"
              android:background="@drawable/round_for_search"
              android:backgroundTint="@color/YellowColo"
              android:fontFamily="@font/poppins_semibold"
@@ -85,24 +98,26 @@
              android:textAllCaps="false"
              android:textColor="@android:color/white"
              android:textSize="14dp"
+             android:textStyle="bold"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+         <TextView
+             android:visibility="gone"
+             android:id="@+id/tvSkip"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentBottom="true"
+             android:layout_centerHorizontal="true"
+             android:layout_margin="20dp"
+             android:layout_marginTop="60dp"
+             android:fontFamily="@font/poppins_semibold"
+             android:text="@string/skip"
+             android:textColor="@android:color/white"
+             android:textSize="14dp"
              android:textStyle="bold" />
 
+     </androidx.constraintlayout.widget.ConstraintLayout>
+ </LinearLayout>
 
-     </LinearLayout>
- </ScrollView>
-
-       <TextView
-           android:visibility="gone"
-           android:id="@+id/tvSkip"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_alignParentBottom="true"
-           android:layout_centerHorizontal="true"
-           android:layout_margin="20dp"
-           android:layout_marginTop="60dp"
-           android:fontFamily="@font/poppins_semibold"
-           android:text="@string/skip"
-           android:textColor="@android:color/white"
-           android:textSize="14dp"
-           android:textStyle="bold" />
-   </RelativeLayout>

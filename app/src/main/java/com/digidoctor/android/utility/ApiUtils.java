@@ -461,7 +461,7 @@ public class ApiUtils {
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
             Log.d("TAG", "checkTimeSlotAvailability: " + map.toString());
-            final Api api = URLUtils.getTestUrl();
+            final Api api = URLUtils.getAPIService();
             Call<CheckSlotAvailabilityRes> specialityResCall = api.checkTimeSlotAvailability(
                     getString(TOKEN, activity),
                     map.get(MOBILE_NUMBER),

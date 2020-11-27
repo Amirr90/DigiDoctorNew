@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
+    android:label="@string/add_prescription"
     app:startDestination="@id/patientDashboardFragment">
 
     <fragment
@@ -47,6 +48,13 @@
         <action
             android:id="@+id/action_patientDashboardFragment_to_prescriptionHistoryFragment"
             app:destination="@id/prescriptionHistoryFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_patientDashboardFragment_to_chooseVitalHistoryTypeFragment"
+            app:destination="@id/chooseVitalHistoryTypeFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
@@ -100,9 +108,9 @@
     </fragment>
     <fragment
         android:id="@+id/chooseTimeFragment2"
-        tools:layout="@layout/fragment_choose_time"
         android:name="com.digidoctor.android.view.fragments.ChooseTimeFragment"
-        android:label="@string/select_time">
+        android:label="@string/select_time"
+        tools:layout="@layout/fragment_choose_time">
         <action
             android:id="@+id/action_chooseTimeFragment2_to_bookAppointmentFragment2"
             app:destination="@id/bookAppointmentFragment"
@@ -164,9 +172,9 @@
     </fragment>
     <fragment
         android:id="@+id/recommendedDoctorsFragment"
-        tools:layout="@layout/fragment_recommended_doctors"
         android:name="com.digidoctor.android.view.fragments.RecommendedDoctorsFragment"
-        android:label="@string/recommended_doctors">
+        android:label="@string/recommended_doctors"
+        tools:layout="@layout/fragment_recommended_doctors">
         <action
             android:id="@+id/action_recommendedDoctorsFragment_to_doctorShortProfileFragment"
             app:destination="@id/doctorShortProfileFragment"
@@ -184,9 +192,9 @@
     </fragment>
     <fragment
         android:id="@+id/doctorShortProfileFragment"
-        tools:layout="@layout/fragment_doctor_short_profile"
         android:name="com.digidoctor.android.view.fragments.DoctorShortProfileFragment"
-        android:label="@string/profile">
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_doctor_short_profile">
         <action
             android:id="@+id/action_doctorShortProfileFragment_to_chooseTimeFragment2"
             app:destination="@id/chooseTimeFragment2"
@@ -242,6 +250,13 @@
         <action
             android:id="@+id/action_prescriptionHistoryFragment_to_visitFragment"
             app:destination="@id/visitFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_prescriptionHistoryFragment_to_addPrescriptionManuallyFragment"
+            app:destination="@id/addPrescriptionManuallyFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
@@ -302,4 +317,14 @@
             app:popExitAnim="@anim/fade_out"
             app:popUpTo="@id/patientDashboardFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/chooseVitalHistoryTypeFragment"
+        android:name="com.digidoctor.android.view.fragments.ChooseVitalHistoryTypeFragment"
+        android:label="fragment_choose_vital_history_type"
+        tools:layout="@layout/fragment_choose_vital_history_type" />
+    <fragment
+        android:id="@+id/addPrescriptionManuallyFragment"
+        android:name="com.digidoctor.android.view.fragments.AddPrescriptionManuallyFragment"
+        android:label="add"
+        tools:layout="@layout/fragment_add_prescription_manually" />
 </navigation>

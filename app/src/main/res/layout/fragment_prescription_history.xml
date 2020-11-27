@@ -52,7 +52,7 @@
                     android:paddingBottom="10dp"
                     android:singleLine="true"
                     android:textColorHint="#A2B3B8"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -69,7 +69,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@{`Helloo `+user.name+`,`}"
                     android:textColor="#262E3F"
-                    android:textSize="19dp"
+                    android:textSize="19sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -80,10 +80,10 @@
                     android:fontFamily="@font/poppins"
                     android:text="How are you today?"
                     android:textColor="#3F4E6E"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
 
                 <Button
-                    android:id="@+id/textView19"
+                    android:id="@+id/tvAddManually"
                     android:layout_width="140dp"
                     android:layout_height="40dp"
                     android:layout_alignParentRight="true"
@@ -93,11 +93,11 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:text="Add Manually"
+                    android:text="@string/add_manually"
                     android:textColor="@android:color/white"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -127,32 +127,32 @@
                         app:srcCompat="@drawable/prescription_vector" />
 
                     <TextView
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_toRightOf="@+id/imageView12"
                         android:id="@+id/textView24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_toRightOf="@+id/imageView12"
                         android:fontFamily="@font/poppins_semibold"
                         android:text="@string/see_mannual_pres"
                         android:textColor="#FFFFFF"
-                        android:textSize="15dp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
 
                     <Button
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
                         android:id="@+id/btnViewManualPres"
                         android:layout_width="wrap_content"
                         android:layout_height="42dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
                         android:background="@drawable/round_for_search"
                         android:backgroundTint="@color/YellowColo"
                         android:fontFamily="@font/poppins_semibold"
                         android:text="@string/view"
                         android:textAllCaps="false"
                         android:textColor="@android:color/white"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -167,18 +167,18 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Manually Your Prescriptions"
                 android:textColor="#262E3F"
-                android:textSize="19dp"
+                android:textSize="19sp"
                 android:textStyle="bold" />
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:paddingBottom="40dp"
                 android:id="@+id/prescriptionRec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:nestedScrollingEnabled="false"
+                android:paddingBottom="40dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/prescription_view" />
         </LinearLayout>

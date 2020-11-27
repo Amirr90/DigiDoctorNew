@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -456,7 +457,7 @@ public class BookAppointment extends Credentials {
 
 
         AppUtils.showRequestDialog(activity);
-        Api iRestInterfaces = URLUtils.getTestUrl();
+        Api iRestInterfaces = URLUtils.getAPIService();
         Call<OnlineAppointmentRes> call = iRestInterfaces.onlineAppointment(
                 getToken(),
                 getUserMobileNo(),
@@ -482,17 +483,19 @@ public class BookAppointment extends Credentials {
         );
         call.enqueue(new Callback<OnlineAppointmentRes>() {
             @Override
-            public void onResponse(Call<OnlineAppointmentRes> call, Response<OnlineAppointmentRes> response) {
+            public void onResponse(@NotNull Call<OnlineAppointmentRes> call, @NotNull Response<OnlineAppointmentRes> response) {
                 AppUtils.hideDialog();
                 if (response.code() == 200) {
+                    assert response.body() != null;
                     if (response.body().getResponseCode() == 1) {
                         bookAppointmentInterface.onAppointmentBooked(response.body().getResponseValue().get(0));
                     } else bookAppointmentInterface.onError(response.body().getResponseMessage());
-                } else bookAppointmentInterface.onError(response.errorBody().toString());
+                } else
+                    bookAppointmentInterface.onError(Objects.requireNonNull(response.errorBody()).toString());
             }
 
             @Override
-            public void onFailure(Call<OnlineAppointmentRes> call, Throwable t) {
+            public void onFailure(@NotNull Call<OnlineAppointmentRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
                 bookAppointmentInterface.onFailed(t.getLocalizedMessage());
             }

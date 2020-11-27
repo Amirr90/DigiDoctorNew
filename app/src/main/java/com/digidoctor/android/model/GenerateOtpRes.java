@@ -6,6 +6,16 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class GenerateOtpRes {
+
+
+    String errorMessage;
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+
+
     @SerializedName("responseCode")
     @Expose
     private Integer responseCode;

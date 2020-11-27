@@ -155,10 +155,12 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         navModels.add(new NavModel(getString(R.string.orders), R.drawable.order));
         navModels.add(new NavModel(getString(R.string.prescription_history), R.drawable.prescription));
         navModels.add(new NavModel(getString(R.string.investigation_history), R.drawable.investigation));
+        navModels.add(new NavModel(getString(R.string.vitals_hitory), R.drawable.investigation));
         navModels.add(new NavModel(getString(R.string.notifications), R.drawable.notification));
         navModels.add(new NavModel(getString(R.string.settings), R.drawable.settings));
         navModels.add(new NavModel(getString(R.string.about_us), R.drawable.aboutus));
         navModels.add(new NavModel(getString(R.string.logout), R.drawable.aboutus));
+
         navAdapter.notifyDataSetChanged();
 
     }
@@ -304,6 +306,11 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             case 3:
                 if (user.getIsExists() == 1)
                     navController.navigate(R.id.prescriptionHistoryFragment);
+                else navController.navigate(R.id.profileFragment);
+                break;
+            case 5:
+                if (user.getIsExists() == 1)
+                    navController.navigate(R.id.chooseVitalHistoryTypeFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
             case 8:

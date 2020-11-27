@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -81,6 +82,20 @@ public class PrescriptionHistoryFragment extends Fragment implements AdapterInte
         }
 
 
+        prescriptionHistoryBinding.tvAddManually.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_prescriptionHistoryFragment_to_addPrescriptionManuallyFragment);
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 
     @Override
