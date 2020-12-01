@@ -30,6 +30,7 @@ import static com.digidoctor.android.utility.utils.setString;
 public class SplashScreen extends AppCompatActivity {
 
     ActivityMainBinding activityMainBinding;
+    //Hello Updated 11:51 Am
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
