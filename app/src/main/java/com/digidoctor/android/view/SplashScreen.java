@@ -50,10 +50,10 @@ public class SplashScreen extends AppCompatActivity {
                 boolean loggedIn = getLoginStatus(IS_LOGIN, SplashScreen.this);
                 Intent intent;
                 if (loggedIn) {
-                    // TODO: 26-10-2020 Navigate Dashboard
+
                     intent = new Intent(SplashScreen.this, PatientDashboard.class);
                 } else {
-                    // TODO: 26-10-2020 Navigate toSignUp Journey
+
                     intent = new Intent(SplashScreen.this, SignUpJourneyActivity.class);
                 }
 
