@@ -18,6 +18,8 @@ import androidx.navigation.Navigation;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentInputOtpBinding;
+import com.digidoctor.android.model.GenerateOtpModel;
+import com.digidoctor.android.model.Login;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.utility.utils;
@@ -26,8 +28,13 @@ import java.util.List;
 
 import static com.digidoctor.android.utility.ApiUtils.checkLogin;
 import static com.digidoctor.android.utility.ApiUtils.getOTP;
+import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
+import static com.digidoctor.android.utility.utils.APP_TYPE;
 import static com.digidoctor.android.utility.utils.BOOKING_USER;
+import static com.digidoctor.android.utility.utils.DEVICE_TYPE;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
+import static com.digidoctor.android.utility.utils.SERVICE_PROVIDER_ID_TYPE;
+import static com.digidoctor.android.utility.utils.TOKEN;
 import static com.digidoctor.android.utility.utils.USER;
 
 
@@ -40,7 +47,11 @@ public class InputOtpFragment extends Fragment {
     NavController navController;
     String number;
     CountDownTimer countDownTimer;
-    public int counter = 30;
+    public int counter = 31;
+
+    GenerateOtpModel generateOtpModel;
+
+    Login login = new Login();
 
 
     @Override
@@ -55,13 +66,16 @@ public class InputOtpFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        generateOtpModel = new GenerateOtpModel();
+
         navController = Navigation.findNavController(view);
 
         number = getArguments().getString("number");
-
+        generateOtpModel.setMobileNo(number);
 
         startTimer();
 
+        inputOtpBinding.tvSlogen.setText("An OTP has been sent to mobile\\n(+91" + number + ")");
         inputOtpBinding.tvOTP1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -181,10 +195,10 @@ public class InputOtpFragment extends Fragment {
     private void reSendCode() {
 
 
-        getOTP(number, requireActivity(), new ApiCallbackInterface() {
+        getOTP(generateOtpModel, requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
-                counter = 30;
+                counter = 31;
                 countDownTimer.cancel();
                 inputOtpBinding.tvResendCode.setVisibility(View.GONE);
                 startTimer();
@@ -205,6 +219,7 @@ public class InputOtpFragment extends Fragment {
     }
 
     private void startTimer() {
+
         countDownTimer = new CountDownTimer(32000, 1000) {
 
             @Override
@@ -223,6 +238,8 @@ public class InputOtpFragment extends Fragment {
     }
 
     private void checkOTP() {
+        showRequestDialog(requireActivity());
+
         String otp1, otp2, otp3, otp4;
         otp1 = inputOtpBinding.tvOTP1.getText().toString().trim();
         otp2 = inputOtpBinding.tvOTP2.getText().toString().trim();
@@ -234,7 +251,15 @@ public class InputOtpFragment extends Fragment {
         String otp = otp1 + otp2 + otp3 + otp4;
 
 
-        checkLogin(number, otp, requireActivity(), new ApiCallbackInterface() {
+        login.setOtp(otp);
+        login.setMobileNo(number);
+        login.setServiceProviderTypeID(SERVICE_PROVIDER_ID_TYPE);
+        login.setDeviceType(String.valueOf(DEVICE_TYPE));
+        login.setAppType(APP_TYPE);
+        login.setDeviceToken(utils.getString(TOKEN, requireActivity()));
+
+
+        checkLogin(login, requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 List<User> loginModelList = (List<User>) o;

@@ -3,19 +3,25 @@ package com.digidoctor.android.interfaces;
 import com.digidoctor.android.model.CheckLoginRes;
 import com.digidoctor.android.model.CheckSlotAvailabilityRes;
 import com.digidoctor.android.model.DashBoardRes;
+import com.digidoctor.android.model.Dashboard;
 import com.digidoctor.android.model.DocBySpecialityRes;
 import com.digidoctor.android.model.DocBySymptomsRes;
+import com.digidoctor.android.model.GenerateOtpModel;
 import com.digidoctor.android.model.GenerateOtpRes;
 import com.digidoctor.android.model.GetAppointmentSlotsRes;
 import com.digidoctor.android.model.GetMembersRes;
 import com.digidoctor.android.model.GetPatientMedicationRes;
+import com.digidoctor.android.model.Login;
 import com.digidoctor.android.model.OnlineAppointmentRes;
+import com.digidoctor.android.model.Registration;
 import com.digidoctor.android.model.RegistrationRes;
 import com.digidoctor.android.model.ResponseModel;
+import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SpecialityRes;
 import com.digidoctor.android.model.SymptomsRes;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
@@ -23,11 +29,9 @@ import retrofit2.http.POST;
 
 public interface Api {
 
-    @FormUrlEncoded
     @POST("patientDasboard")
     Call<DashBoardRes> patientDasboard(
-            @Field("Lat") String lat,
-            @Field("Long") String lon);
+            @Body Dashboard dashboard);
 
     @FormUrlEncoded
     @POST("getDoctorProfileBySpeciality")
@@ -38,11 +42,10 @@ public interface Api {
             @Field("doctorName") String doctorName
     );
 
-    @FormUrlEncoded
+
     @POST("getSpeciality")
     Call<SpecialityRes> getSpeciality(
-            @Field("userMobileNo") String memberId,
-            @Field("problemName") String problemName);
+            @Body SpecialityModel specialityModel);
 
     @FormUrlEncoded
     @POST("getDoctorProfileBySymptom")
@@ -111,35 +114,18 @@ public interface Api {
 
     );
 
-    @FormUrlEncoded
     @POST("generateOTPForPatient")
     Call<GenerateOtpRes> generateOTPForPatient(
-            @Field("mobileNo") String mobileNo);
+            @Body GenerateOtpModel otpModel);
 
-    @FormUrlEncoded
     @POST("checkLogin")
     Call<CheckLoginRes> checkLogin(
-            @Field("mobileNo") String mobileNo,
-            @Field("password") String password,
-            @Field("serviceProviderTypeId") String serviceProviderTypeId,
-            @Field("deviceToken") String deviceToken,
-            @Field("deviceType") String deviceType,
-            @Field("otp") String otp,
-            @Field("appType") String appType
-    );
+            @Body Login login);
 
-    @FormUrlEncoded
+
     @POST("patientRegistration")
     Call<CheckLoginRes> patientRegistration(
-            @Field("callingCodeId") String callingCodeId,
-            @Field("mobileNo") String mobileNo,
-            @Field("emailId") String emailId,
-            @Field("name") String name,
-            @Field("gender") String gender,
-            @Field("dob") String dob,
-            @Field("address") String address,
-            @Field("profilePhotoPath") String profilePhotoPath
-    );
+            @Body Registration registration);
 
     @FormUrlEncoded
     @POST("getPatientMedicationDetails")

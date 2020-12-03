@@ -22,17 +22,21 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentProfileBinding;
 import com.digidoctor.android.databinding.GenderViewBinding;
 import com.digidoctor.android.interfaces.MyDialogInterface;
+import com.digidoctor.android.model.Registration;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import static com.digidoctor.android.utility.ApiUtils.patientRegistration;
 import static com.digidoctor.android.utility.utils.BOOKING_USER;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
+import static com.digidoctor.android.utility.utils.TOKEN;
 import static com.digidoctor.android.utility.utils.USER;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
@@ -49,10 +53,11 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
     String GENDER;
     AlertDialog optionDialog;
 
+    Registration registration = new Registration();
     private static final String TAG = "ProfileFragment";
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         profileBinding = FragmentProfileBinding.inflate(inflater, container, false);
         profileBinding.setDialogInterface(this);
@@ -110,8 +115,9 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
     }
 
     private void registerUser() {
+
         AppUtils.showRequestDialog(requireActivity());
-        patientRegistration(mobile, name, email, dob, GENDER, address, requireActivity(), new ApiCallbackInterface() {
+        patientRegistration(registration, requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> obj) {
                 hideSoftKeyboard(requireActivity());
@@ -195,7 +201,16 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
         } else if (TextUtils.isEmpty(mobile)) {
             Toast.makeText(requireActivity(), R.string.mobilel_required, Toast.LENGTH_SHORT).show();
             return false;
-        } else return true;
+        } else {
+            registration.setName(name);
+            registration.setEmailID(email);
+            registration.setDob(dob);
+            registration.setGender(Long.parseLong(GENDER));
+            registration.setAddress(address);
+            registration.setMobileNo(mobile);
+            registration.setDeviceToken(utils.getString(TOKEN, requireActivity()));
+            return true;
+        }
     }
 
     @Override

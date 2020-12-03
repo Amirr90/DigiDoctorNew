@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/BackgroundColor"
             android:orientation="vertical"
             tools:context=".view.fragments.ChooseTimeFragment">
@@ -37,7 +37,7 @@
                     android:paddingLeft="5dp"
                     android:text="@{docModel.drName}"
                     android:textColor="@android:color/white"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -46,10 +46,11 @@
                     android:paddingLeft="5dp"
                     android:text="@{docModel.speciality}"
                     android:textColor="@android:color/white"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -65,7 +66,7 @@
                     android:text="@string/you_can_send"
                     android:textAlignment="center"
                     android:textColor="#262E3F"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textStyle="normal" />
 
                 <LinearLayout
@@ -199,7 +200,7 @@
                             android:gravity="center_horizontal"
                             android:text="@string/video"
                             android:textColor="#3F4E6E"
-                            android:textSize="18dp" />
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -227,7 +228,7 @@
                     android:padding="@dimen/_5sdp"
                     android:text="August 2020"
                     android:textColor="#262E3F"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView

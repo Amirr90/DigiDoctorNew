@@ -59,7 +59,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:textSize="14dp"
                     android:id="@+id/textView72"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -70,7 +69,8 @@
                     android:paddingRight="@dimen/_10sdp"
                     android:text="@{speciality.description}"
                     android:textAlignment="center"
-                    android:textColor="@color/TextSecondaryColor" />
+                    android:textColor="@color/TextSecondaryColor"
+                    android:textSize="14dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>

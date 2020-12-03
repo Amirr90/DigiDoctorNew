@@ -3,6 +3,7 @@ package com.digidoctor.android.view.fragments;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.wifi.hotspot2.pps.HomeSp;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ import com.digidoctor.android.databinding.VitalHistoryTypeViewBinding;
 import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.model.SelectVitalCategoryModel;
 import com.digidoctor.android.model.VitalTypeModel;
+import com.digidoctor.android.view.activity.PatientDashboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +63,17 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
         typeAdapter = new VitalTypeAdapter(vitalTypeModelList, this);
         vitalHistoryTypeBinding.recVitalType.setAdapter(typeAdapter);
         loadData();
+
+        vitalHistoryTypeBinding.imageView13.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    PatientDashboard.getInstance().onSupportNavigateUp();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void loadData() {

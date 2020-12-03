@@ -10,18 +10,25 @@ import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.CheckLoginRes;
 import com.digidoctor.android.model.CheckSlotAvailabilityRes;
 import com.digidoctor.android.model.DashBoardRes;
+import com.digidoctor.android.model.Dashboard;
 import com.digidoctor.android.model.DocBySpecialityRes;
 import com.digidoctor.android.model.DocBySymptomsRes;
+import com.digidoctor.android.model.GenerateOtpModel;
 import com.digidoctor.android.model.GenerateOtpRes;
 import com.digidoctor.android.model.GetAppointmentSlotsRes;
 import com.digidoctor.android.model.GetMembersRes;
 import com.digidoctor.android.model.GetPatientMedicationRes;
+import com.digidoctor.android.model.Login;
+import com.digidoctor.android.model.Registration;
 import com.digidoctor.android.model.RegistrationRes;
 import com.digidoctor.android.model.ResponseModel;
+import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SpecialityRes;
 import com.digidoctor.android.model.SymptomsRes;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.view.activity.PatientDashboard;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,14 +61,12 @@ import static com.digidoctor.android.utility.utils.logout;
 
 public class ApiUtils {
 
-    public static void getPatientDasboard(String lat, String lon, String userMobileNumber,
+    public static void getPatientDasboard(Dashboard dashboard,
                                           final ApiCallbackInterface apiCallbackInterface) {
 
         try {
-            final Api api = URLUtils.getAPIService();
-            Call<DashBoardRes> dashBoardResCall = api.patientDasboard(
-
-                    lat, lon);
+            final Api api = URLUtils.getAPIServiceNewAPI();
+            Call<DashBoardRes> dashBoardResCall = api.patientDasboard(dashboard);
 
             dashBoardResCall.enqueue(new Callback<DashBoardRes>() {
                 @Override
@@ -94,24 +99,29 @@ public class ApiUtils {
 
 
     public static void specialityData(String specialityName, final ApiCallbackInterface apiCallbackInterface) {
+
+        SpecialityModel specialityModel = new SpecialityModel();
+
+        specialityModel.setProblemName(specialityName);
         try {
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
-            final Api api = URLUtils.getAPIService();
-            Call<SpecialityRes> specialityResCall = api.getSpeciality("", specialityName);
+
+            final Api api = URLUtils.getAPIServiceNewAPI();
+            Call<SpecialityRes> specialityResCall = api.getSpeciality(specialityModel);
             specialityResCall.enqueue(new Callback<SpecialityRes>() {
                 @Override
-                public void onResponse(Call<SpecialityRes> call, Response<SpecialityRes> response) {
+                public void onResponse(@NotNull Call<SpecialityRes> call, @NotNull Response<SpecialityRes> response) {
                     AppUtils.hideDialog();
-                    if (response.code() == 200) {
+                    if (response.code() == 200 && null != response.body()) {
                         if (response.body().getResponseCode() == 1) {
                             apiCallbackInterface.onSuccess(response.body().getResponseValue());
                         } else apiCallbackInterface.onError(response.body().getResponseMessage());
-                    } else apiCallbackInterface.onError(response.errorBody().toString());
+                    } else apiCallbackInterface.onError(response.message());
                 }
 
                 @Override
-                public void onFailure(Call<SpecialityRes> call, Throwable t) {
+                public void onFailure(@NotNull Call<SpecialityRes> call, @NotNull Throwable t) {
                     AppUtils.hideDialog();
                     apiCallbackInterface.onError(t.getLocalizedMessage());
                 }
@@ -295,34 +305,38 @@ public class ApiUtils {
         });
     }
 
-    public static void getOTP(String mobileNo, final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+    public static void getOTP(GenerateOtpModel generateOtpModel, final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
         if (PatientDashboard.getInstance() != null)
             AppUtils.showRequestDialog(activity);
 
-        Api iRestInterfaces = URLUtils.getAPIService();
-        Call<GenerateOtpRes> call = iRestInterfaces.generateOTPForPatient(mobileNo);
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Call<GenerateOtpRes> call = iRestInterfaces.generateOTPForPatient(generateOtpModel);
 
         call.enqueue(new Callback<GenerateOtpRes>() {
             @Override
-            public void onResponse(Call<GenerateOtpRes> call, Response<GenerateOtpRes> response) {
+            public void onResponse(@NotNull Call<GenerateOtpRes> call, @NotNull Response<GenerateOtpRes> response) {
 
-                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
-                    AppUtils.hideDialog();
+                assert response.body() != null;
+                if (response.code() == 200) {
+                    if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                        AppUtils.hideDialog();
 
-                    if (activity != null)
-                        AppUtils.showToastSort(activity, activity.getString(R.string.otp_sent_to_your));
-                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                } else {
+                        if (activity != null)
+                            AppUtils.showToastSort(activity, activity.getString(R.string.otp_sent_to_your));
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else {
 
-                    AppUtils.hideDialog();
-                    if (activity != null)
-                        AppUtils.showToastSort(activity, response.body().getResponseMessage());
-                }
+                        AppUtils.hideDialog();
+                        if (activity != null)
+                            AppUtils.showToastSort(activity, response.body().getResponseMessage());
+                    }
+                } else
+                    Toast.makeText(activity, "error  " + response.code(), Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
-            public void onFailure(Call<GenerateOtpRes> call, Throwable t) {
+            public void onFailure(@NotNull Call<GenerateOtpRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
             }
         });
@@ -362,44 +376,41 @@ public class ApiUtils {
     }
 
 
-    public static void checkLogin(String mobileNo,
-                                  String otp, final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+    public static void checkLogin(Login login, final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
 
 
-        String serviceProviderTypeId = "6";
-        String deviceType = "1";
-        Api iRestInterfaces = URLUtils.getAPIService();
-        final Call<CheckLoginRes> checkLogin = iRestInterfaces.checkLogin(mobileNo, "", serviceProviderTypeId,
-                utils.getString(fcmToken, activity),
-                deviceType,
-                otp,
-                "DD");
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+
+        final Call<CheckLoginRes> checkLogin = iRestInterfaces.checkLogin(login);
 
         checkLogin.enqueue(new Callback<CheckLoginRes>() {
             @Override
-            public void onResponse(Call<CheckLoginRes> call, Response<CheckLoginRes> response) {
+            public void onResponse(@NotNull Call<CheckLoginRes> call, @NotNull Response<CheckLoginRes> response) {
                 AppUtils.hideDialog();
-                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
-                    if (response.body().getResponseCode() == 1) {
-                        utils.setString(TOKEN, response.body().getToken(), activity);
+                assert response.body() != null;
+                if (response.code() == 200) {
+                    if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                        if (response.body().getResponseCode() == 1) {
 
+                            utils.setString(TOKEN, response.body().getToken(), activity);
 
-                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
 
+                            Toast.makeText(activity, R.string.logged_in, Toast.LENGTH_SHORT).show();
 
-                        Toast.makeText(activity, R.string.logged_in, Toast.LENGTH_SHORT).show();
+                        } else apiCallbackInterface.onError(response.body().getResponseMessage());
 
-                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
-
-                } else {
-                    if (activity != null)
-                        AppUtils.showToastSort(activity, response.body().getResponseMessage());
-                }
+                    } else {
+                        if (activity != null)
+                            AppUtils.showToastSort(activity, response.body().getResponseMessage());
+                    }
+                } else
+                    Toast.makeText(activity, "error " + response.code(), Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
-            public void onFailure(Call<CheckLoginRes> call, Throwable t) {
+            public void onFailure(@NotNull Call<CheckLoginRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
                 apiCallbackInterface.onError(t.getLocalizedMessage());
             }
@@ -407,19 +418,11 @@ public class ApiUtils {
     }
 
 
-    public static void patientRegistration(String mobile, String name, String email, String dob, String gender, String address,
+    public static void patientRegistration(Registration registration,
                                            final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
 
-        String callingCodeId = "101";
         Api iRestInterfaces = URLUtils.getAPIService();
-        final Call<CheckLoginRes> register = iRestInterfaces.patientRegistration(callingCodeId,
-                mobile,
-                email,
-                name,
-                gender,
-                dob,
-                address,
-                "");
+        final Call<CheckLoginRes> register = iRestInterfaces.patientRegistration(registration);
 
         register.enqueue(new Callback<CheckLoginRes>() {
             @Override

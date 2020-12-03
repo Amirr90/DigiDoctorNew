@@ -158,7 +158,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/enter_some_more"
+                        android:text="Patient's information : "
                         android:textColor="#262E3F"
                         android:textSize="17dp"
                         android:textStyle="bold" />

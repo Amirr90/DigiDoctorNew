@@ -279,6 +279,7 @@
                 android:textColor="@android:color/white" />
 
             <Button
+
                 android:onClick="@{()->appointment.onCancelAppointmentClicked(appointmentModel)}"
                 android:id="@+id/btnCancelAppointment"
                 android:layout_width="0dp"

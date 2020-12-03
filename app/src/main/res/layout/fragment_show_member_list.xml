@@ -22,12 +22,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Add Member,"
+            android:text="Add Family Member"
             android:textColor="#262E3F"
             android:textSize="20dp"
             android:textStyle="bold" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/textView32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +54,7 @@
             android:paddingTop="7dp"
             android:paddingRight="20dp"
             android:paddingBottom="7dp"
-            android:text="@string/add_patients"
+            android:text="ADD"
             android:textColor="@android:color/white"
             android:textSize="12dp"
             android:textStyle="bold" />

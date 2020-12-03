@@ -45,7 +45,7 @@
                         android:drawableRight="@drawable/magnifier"
                         android:drawablePadding="10dp"
                         android:ems="10"
-                        android:hint="Search Specialities Here"
+                        android:hint="Search Symptoms Here"
                         android:imeOptions="actionSearch"
                         android:inputType="textPersonName"
                         android:paddingLeft="20dp"

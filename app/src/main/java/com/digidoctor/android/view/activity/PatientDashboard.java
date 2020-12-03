@@ -313,7 +313,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     navController.navigate(R.id.chooseVitalHistoryTypeFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
-            case 8:
+            case 9:
                 showRequestDialog(this);
                 if (utils.logout(this))
                     hideDialog();

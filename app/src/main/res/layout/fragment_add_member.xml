@@ -41,9 +41,9 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:text="Change Photo"
+                    android:text="Upload Profile Photo"
                     android:textColor="#0A586C"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -62,7 +62,7 @@
                         android:fontFamily="@font/poppins_bold"
                         android:text="@string/full_name"
                         android:textColor="#626262"
-                        android:textSize="17dp"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -85,7 +85,7 @@
                         android:fontFamily="@font/poppins_bold"
                         android:text="@string/gender"
                         android:textColor="#626262"
-                        android:textSize="17dp"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -105,9 +105,9 @@
                         android:drawableLeft="@drawable/smartphone_small"
                         android:drawablePadding="10dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Mobile No."
+                        android:text="Mobile Number"
                         android:textColor="#626262"
-                        android:textSize="17dp"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -117,7 +117,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
                         android:hint="@string/mobile_number"
-                        android:inputType="textPersonName"
+                        android:inputType="textPhonetic"
                         android:textColor="#424242"
                         android:textColorHint="#D2D2D2" />
 
@@ -130,7 +130,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/dob"
                         android:textColor="#626262"
-                        android:textSize="17dp"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -152,7 +152,7 @@
                         android:fontFamily="@font/poppins_bold"
                         android:text="@string/address"
                         android:textColor="#626262"
-                        android:textSize="17dp"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -181,9 +181,9 @@
             android:background="@drawable/round_for_search"
             android:backgroundTint="@color/YellowColo"
             android:fontFamily="@font/poppins_bold"
-            android:text="@string/save_patient"
+            android:text="@string/save_member"
             android:textColor="@android:color/white"
-            android:textSize="12dp"
+            android:textSize="14sp"
             android:textStyle="bold" />
     </RelativeLayout>
 

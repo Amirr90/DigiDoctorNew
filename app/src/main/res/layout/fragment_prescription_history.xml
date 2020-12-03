@@ -84,7 +84,7 @@
 
                 <Button
                     android:id="@+id/tvAddManually"
-                    android:layout_width="140dp"
+                    android:layout_width="170dp"
                     android:layout_height="40dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -103,6 +103,7 @@
 
 
             <androidx.cardview.widget.CardView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="145dp"
                 android:layout_marginLeft="16dp"
@@ -112,6 +113,7 @@
                 app:cardCornerRadius="15dp">
 
                 <RelativeLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#0A586C"
@@ -165,7 +167,7 @@
                 android:layout_marginTop="26dp"
                 android:layout_marginRight="15dp"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="Manually Your Prescriptions"
+                android:text="Prescription History"
                 android:textColor="#262E3F"
                 android:textSize="19sp"
                 android:textStyle="bold" />

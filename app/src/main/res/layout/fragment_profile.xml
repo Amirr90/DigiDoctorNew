@@ -49,7 +49,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="Change Photo"
+                android:text="Upload Profile Photo"
                 android:textColor="#0A586C"
                 android:textSize="14dp"
                 android:textStyle="bold" />
@@ -224,7 +224,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@+id/ivDob"
-                        android:text="@string/dob"
+                        android:text="Date of Birth"
                         android:textColor="#BCBCBC"
                         android:textSize="12dp" />
 

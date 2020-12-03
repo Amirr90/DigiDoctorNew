@@ -55,7 +55,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
         });
 
         if (selectedPosition == position) {
-
             setTextColor(holder, PatientDashboard.getInstance().getResources().getColor(R.color.white),
                     PatientDashboard.getInstance().getResources().getColor(R.color.white));
             holder.calenderViewBinding.getRoot().setBackground(PatientDashboard.getInstance().getResources().getDrawable(R.drawable.rectangle_outline_new_ui_color_yellow));

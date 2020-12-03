@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentInputMobileNumberBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
+import com.digidoctor.android.model.GenerateOtpModel;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class InputMobileNumberFragment extends Fragment {
 
     FragmentInputMobileNumberBinding numberBinding;
     NavController navController;
+    GenerateOtpModel generateOtpModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +43,8 @@ public class InputMobileNumberFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
+
+        generateOtpModel = new GenerateOtpModel();
         numberBinding.tvSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,15 +59,17 @@ public class InputMobileNumberFragment extends Fragment {
                 String number = numberBinding.editTextGetMobileNumber.getText().toString().trim();
                 if (TextUtils.isEmpty(number))
                     Toast.makeText(requireActivity(), R.string.mobile_number, Toast.LENGTH_SHORT).show();
-                else
+                else {
+                    generateOtpModel.setMobileNo(number);
                     sendOTP(number);
+                }
             }
         });
 
     }
 
     private void sendOTP(final String number) {
-        getOTP(number, requireActivity(), new ApiCallbackInterface() {
+        getOTP(generateOtpModel, requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 Bundle bundle = new Bundle();

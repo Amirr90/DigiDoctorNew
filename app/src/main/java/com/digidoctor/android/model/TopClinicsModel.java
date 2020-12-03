@@ -44,8 +44,8 @@ public class TopClinicsModel {
         if (o == null || getClass() != o.getClass()) return false;
         TopClinicsModel that = (TopClinicsModel) o;
         return getName().equals(that.getName()) &&
-                getAddress().equals(that.getAddress()) &&
-                getProfilePhotoPath().equals(that.getProfilePhotoPath());
+                getAddress().equals(that.getAddress()) /*&&
+                getProfilePhotoPath().equals(that.getProfilePhotoPath())*/;
     }
 
     @Override

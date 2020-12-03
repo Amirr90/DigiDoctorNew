@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.model.Dashboard;
 import com.digidoctor.android.model.DashboardModel1;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.DoctorModelRes;
@@ -303,11 +304,16 @@ public class PatientRepo {
             patientDashboardModelMutableLiveData = new MutableLiveData<>();
 
         }
-        loadPatientDashboardData(lat, lng);
+
+        Dashboard dashboard = new Dashboard();
+        dashboard.setLat(lat);
+        dashboard.setLat(lng);
+
+        loadPatientDashboardData(dashboard);
         return patientDashboardModelMutableLiveData;
     }
 
-    private void loadPatientDashboardData(String lat, String lng) {
+    private void loadPatientDashboardData(Dashboard dashboard) {
         if (PatientDashboard.getInstance() != null)
             AppUtils.showRequestDialog(PatientDashboard.getInstance());
         final List<DashboardModel1> dashboardModel1s = new ArrayList<>();
@@ -316,8 +322,8 @@ public class PatientRepo {
         dashboardModel1s.add(new DashboardModel1("Tests"));
         dashboardModel1s.add(new DashboardModel1("Pharmacy"));
 
-        String mobile = "9044865611";
-        getPatientDasboard(lat, lng, mobile, new ApiCallbackInterface() {
+
+        getPatientDasboard(dashboard, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 AppUtils.hideDialog();

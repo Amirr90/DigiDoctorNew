@@ -14,14 +14,43 @@ import com.digidoctor.android.view.activity.PatientDashboard;
 import java.util.Objects;
 
 
-
 public class SpecialityModel {
 
     private static final String TAG = "SpecialityModel";
+
     int id;
     String specialityName;
     String imagePath;
     String description;
+    private String problemName;
+
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setSpecialityName(String specialityName) {
+        this.specialityName = specialityName;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getProblemName() {
+        if (null == problemName)
+            return "";
+        else
+            return problemName;
+    }
+
+    public void setProblemName(String problemName) {
+        this.problemName = problemName;
+    }
 
     public int getId() {
         return id;
@@ -46,9 +75,9 @@ public class SpecialityModel {
         if (o == null || getClass() != o.getClass()) return false;
         SpecialityModel that = (SpecialityModel) o;
         return getId() == that.getId() &&
-                getSpecialityName().equals(that.getSpecialityName()) &&
+                getSpecialityName().equals(that.getSpecialityName()) /*&&
                 getImagePath().equals(that.getImagePath()) &&
-                getDescription().equals(that.getDescription());
+                getDescription().equals(that.getDescription())*/;
     }
 
     @Override

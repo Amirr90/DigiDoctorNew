@@ -66,6 +66,7 @@
             android:src="@drawable/no_doc_image" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,7 +86,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="We can't find any doctor now."
+            android:text="No Doctors Found!"
             android:textColor="#262E3F"
             android:textSize="17dp" />
     </RelativeLayout>

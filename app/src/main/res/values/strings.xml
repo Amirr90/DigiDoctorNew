@@ -89,7 +89,7 @@
     <string name="side_effects_checker">Side Effects Checker</string>
     <string name="find_labs_stores">Find Labs/Stores</string>
     <string name="online_nconsultation_appointment">Online Consultation</string>
-    <string name="add_manually">Add Manually</string>
+    <string name="add_manually">Add Prescription</string>
     <string name="ongoing_medication">Ongoing Medication</string>
     <string name="prescription">Prescription</string>
     <string name="rx_history">RX History</string>
@@ -104,7 +104,7 @@
     <string name="strength">Strength</string>
     <string name="unit">Unit</string>
     <string name="frequency">Frequency</string>
-    <string name="duration">Duration</string>
+    <string name="duration">Duration (in days)</string>
     <string name="dose">Dose</string>
     <string name="consultation_history">Consultation History</string>
     <string name="submit_request">Submit Request</string>
@@ -764,7 +764,7 @@
     <string name="open_on_saturday">Open on Saturday</string>
     <string name="open_on_sunday">Open on Sunday</string>
     <string name="make_this_as_my_default_address">Make this as my default address</string>
-    <string name="mobile_number">Phone Number</string>
+    <string name="mobile_number">Enter Mobile Number</string>
     <string name="quantity">Quantity :</string>
     <string name="terms_and_condition">Terms And Condition</string>
     <string name="payment">Payment</string>
@@ -789,7 +789,7 @@
     <string name="select_categories">Select Categories</string>
     <string name="_01">01</string>
     <string name="select_address">Select Address</string>
-    <string name="add_more">+ Add More</string>
+    <string name="add_more">+ Add More Medicine</string>
     <string name="validity_date">Validity Date :</string>
     <string name="add_new_address">Add New Address</string>
     <string name="house_no_building">House No, Building</string>
@@ -822,7 +822,7 @@
     <string name="images">Image</string>
     <string name="video">Video</string>
     <string name="enter_patient_details">Enter Patients Details</string>
-    <string name="appointment_book_for">Appointment book for</string>
+    <string name="appointment_book_for">Book Appointment For</string>
     <string name="add_other_patient">Add Other Patient</string>
     <string name="enter_some_more">Enter some more information about patient :</string>
     <string name="your_email">Your Email</string>
@@ -834,7 +834,7 @@
     <string name="recommended_doctors">Recommended Doctors</string>
     <string name="popular_doctors">Popular Doctors</string>
     <string name="working_time">Working Time</string>
-    <string name="about_doc">About Doctor</string>
+    <string name="about_doc">About the Doctor</string>
     <string name="no_doc_found">Doctors not found</string>
     <string name="re__schedule">Re-Schedule</string>
     <string name="welcome_back">Welcome Back</string>
@@ -843,7 +843,7 @@
     <string name="tab_text_1">Book an appointment with your nearest and top doctor.</string>
     <string name="tab_text_2">Too busy to see a doctor? Consent online with doctor at your place.</string>
     <string name="tab_text_3">Get sample collection at your place, You stay at home.</string>
-    <string name="booking_details">Booking Details</string>
+    <string name="booking_details">Appointment Details</string>
     <string name="failed_to_book">Failed To Book Appointment</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -873,12 +873,12 @@
     <string name="physical_examination">Physical Examination</string>
     <string name="recomendation">Recommendation</string>
     <string name="see_reports">See Reports</string>
-    <string name="see_mannual_pres">See Your manually added prescriptions here.</string>
+    <string name="see_mannual_pres">See your manually added prescriptions here.</string>
     <string name="show_files">Show Files</string>
     <string name="add_patients">Add Patients</string>
-    <string name="gender_here">Your Gender here</string>
-    <string name="your_dob">Your DOB here</string>
-    <string name="your_address">Your Address here</string>
+    <string name="gender_here">Gender</string>
+    <string name="your_dob">DOB here</string>
+    <string name="your_address">Address here</string>
     <string name="save_patient">Save Patient</string>
     <string name="cancel_appointment">Cancel Appointment</string>
     <string name="cancel_appointment_tag">Do You  really want to cancel this appointment??</string>
@@ -890,7 +890,7 @@
     <string name="logged_out_sucvcessfully">Logged out successfully</string>
     <string name="logged_in">Logged in</string>
     <string name="vitals_hitory">Vital History</string>
-    <string name="choose_vital_histroy">Choose a Vitals History</string>
+    <string name="choose_vital_histroy">Vital Input</string>
     <string name="trends">Trends</string>
     <string name="trends_description">Trends description here</string>
     <string name="graph_description">Grapgh dcescription here</string>
@@ -900,11 +900,12 @@
     <string name="customize_description">Customize description here</string>
     <string name="blood_pressure_chart">Blood Pressure Chart</string>
     <string name="add_prescription">Add Prescription</string>
-    <string name="doctor_information">Add Doctor Informations</string>
-    <string name="medicine_prescription">Medicine Prescription</string>
+    <string name="doctor_information">Doctor Information</string>
+    <string name="medicine_prescription">Medicine Details</string>
     <string name="attach_prescription">Attach Prescription File</string>
     <string name="upload_files">Upload Files</string>
     <string name="browse">Browse</string>
+    <string name="save_member">Save Member</string>
 
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>
