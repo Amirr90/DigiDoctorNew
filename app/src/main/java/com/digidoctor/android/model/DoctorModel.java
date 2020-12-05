@@ -60,7 +60,7 @@ public class DoctorModel {
     }
 
     public int getDrFee() {
-        return DrFee;
+        return 10;
     }
 
     public int getNoofPatients() {

@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -40,7 +42,6 @@ public class SubSpecialistFragment extends Fragment {
     SubSpecialityAdapter adapter;
 
     PatientViewModel viewModel;
-
 
 
     String id;
@@ -97,6 +98,25 @@ public class SubSpecialistFragment extends Fragment {
                     return true;
                 }
                 return false;
+            }
+        });
+
+        subSpecialistBinding.editTextTextSearchDocBySpeciality.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (null != charSequence) {
+                    SubSpecialistFragment.this.performSearch(charSequence.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 

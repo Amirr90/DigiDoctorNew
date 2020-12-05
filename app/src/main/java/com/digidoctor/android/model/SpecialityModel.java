@@ -25,6 +25,29 @@ public class SpecialityModel {
     private String problemName;
 
 
+    private Integer specialityID;
+    private String doctorName;
+
+
+    public Integer getSpecialityID() {
+        return specialityID;
+    }
+
+    public void setSpecialityID(Integer specialityID) {
+        this.specialityID = specialityID;
+    }
+
+    public String getDoctorName() {
+        if (null == doctorName)
+            return "";
+        else
+            return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

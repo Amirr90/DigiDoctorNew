@@ -1,5 +1,6 @@
 package com.digidoctor.android.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 
 
 public class SubSpecialityAdapter extends ListAdapter<DoctorModel, SubSpecialityAdapter.SubSpecialityVH> {
+    private static final String TAG = "SubSpecialityAdapter";
     SubSpecialityInterface subSpecialityInterface;
 
     public SubSpecialityAdapter(SubSpecialityInterface subSpecialityInterface) {
@@ -44,6 +46,8 @@ public class SubSpecialityAdapter extends ListAdapter<DoctorModel, SubSpeciality
 
                 Gson gson = new Gson();
                 String jsonString = gson.toJson(doctorModel);
+                Log.d(TAG, "onClickDoctorModel: "+doctorModel.toString());
+                Log.d(TAG, "onClickDoctor: " + jsonString.toString());
                 try {
                     JSONObject request = new JSONObject(jsonString);
                     subSpecialityInterface.onItemClick(request.toString());

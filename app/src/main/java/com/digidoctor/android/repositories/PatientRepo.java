@@ -259,6 +259,7 @@ public class PatientRepo {
     public LiveData<List<SpecialityModel>> getSpecialityData(String specialityName) {
         if (specialityModelMutableLiveData == null)
             specialityModelMutableLiveData = new MutableLiveData<>();
+
         loadSpecialityData(specialityName);
         return specialityModelMutableLiveData;
     }
@@ -356,6 +357,8 @@ public class PatientRepo {
                     Toast.makeText(PatientDashboard.getInstance(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 }
 

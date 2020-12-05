@@ -81,7 +81,9 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
         Log.d(TAG, "onViewCreated: isExist" + user.getIsExists() + "\n" + user.toString());
 
         if (user.getIsExists() == 1) {
+
             profileBinding.setUser(user);
+
             Log.d(TAG, "onViewCreated: Profile" + user.toString());
         }
 

@@ -22,11 +22,8 @@ public class PatientViewModel extends ViewModel {
 
     PatientRepo repo = new PatientRepo();
 
-
     public LiveData<List<User>> getMemberList(Activity activity) {
         return repo.getMemberList(activity);
-
-
     }
 
     public LiveData<List<GetPatientMedicationMainModel>> getPrescriptionData(Activity activity) {

@@ -67,6 +67,8 @@ public class utils {
     public static final String BOOKING_USER = "bookingUser";
     public static final String RE_SCHEDULE = "reschedule";
     public static final String KEY_CANCEL = "cancel";
+
+
     public static final Integer DEVICE_TYPE = 1;
     public static final String APP_TYPE = "DD";
     public static final String SERVICE_PROVIDER_ID_TYPE = "6";

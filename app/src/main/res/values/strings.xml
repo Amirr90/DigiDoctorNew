@@ -14,7 +14,7 @@
     <string name="are_you_new_here">Are you new here?</string>
     <string name="login_with">Login with</string>
     <string name="otp_that_we_send_to_your_mobile"><b>OTP</b> that we send to your mobile</string>
-    <string name="mobile_no">Mobile No.</string>
+    <string name="mobile_no">Mobile number</string>
     <string name="get_otp">Get OTP</string>
     <string name="click_on_get_otp_to_">Click on <b>Get OTP</b> to receive <b>OTP</b> to your registered <b>Mobile No.</b></string>
     <string name="login">Login</string>
@@ -29,7 +29,7 @@
     <string name="enterPassword">Enter Password</string>
     <string name="noInternetConnection">No Internet Connection</string>
     <string name="full_name">Full Name</string>
-    <string name="dob">DOB</string>
+    <string name="dob">Date of Birth</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="enterFullName">Enter full name</string>
@@ -877,7 +877,7 @@
     <string name="show_files">Show Files</string>
     <string name="add_patients">Add Patients</string>
     <string name="gender_here">Gender</string>
-    <string name="your_dob">DOB here</string>
+    <string name="your_dob">Date of Birth here</string>
     <string name="your_address">Address here</string>
     <string name="save_patient">Save Patient</string>
     <string name="cancel_appointment">Cancel Appointment</string>

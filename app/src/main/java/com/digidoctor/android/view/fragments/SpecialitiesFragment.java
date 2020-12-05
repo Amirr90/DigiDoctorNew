@@ -52,7 +52,7 @@ public class SpecialitiesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        specialityAdapter = new SpecialityAdapter();
+        specialityAdapter = new SpecialityAdapter(requireActivity());
         specialitiesBinding.specRec.setAdapter(specialityAdapter);
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);

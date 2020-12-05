@@ -23,18 +23,16 @@ import com.digidoctor.android.databinding.FragmentBookAppointmentBinding;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.User;
-import com.digidoctor.android.interfaces.ApiCallbackInterface;
-import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.BookAppointment;
 import com.digidoctor.android.interfaces.BookAppointmentInterface;
+import com.digidoctor.android.utility.BookAppointment2;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.gson.Gson;
 
-import java.util.List;
-
 import static com.digidoctor.android.utility.AppUtils.getDayOfWeekDayFromDate;
 import static com.digidoctor.android.utility.AppUtils.parseDateToFormatDMY;
+import static com.digidoctor.android.utility.AppUtils.parseUserDate;
 import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_CASH;
 import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_RAZOR_PAY;
 import static com.digidoctor.android.utility.utils.TOKEN;
@@ -188,7 +186,11 @@ public class BookAppointmentFragment extends Fragment {
         bookAppointment.setAppointDate(parseDateToFormatDMY(date));
         bookAppointment.setAppointTime(time);
         bookAppointment.setAppointmentId("0");
-        bookAppointment.setDob(bookingUser.getDob());
+        bookAppointment.setGuardianTypeId("0");
+        bookAppointment.setDtPaymentTable("");
+        bookAppointment.setTrxId("");
+        bookAppointment.setMemberId(String.valueOf(bookingUser.getId()));
+        bookAppointment.setDob(parseUserDate(bookingUser.getDob()));
         bookAppointment.setMobileNo(bookingUser.getMobileNo());
         bookAppointment.setEmail(bookingUser.getEmailId());
         bookAppointment.setToken(utils.getString(TOKEN, requireActivity()));

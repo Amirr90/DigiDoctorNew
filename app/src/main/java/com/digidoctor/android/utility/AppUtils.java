@@ -111,6 +111,22 @@ public class AppUtils {
             e.printStackTrace();
         }
         return str;
+    } public static String parseUserDate(String oldDate) {
+        String inputPattern = "dd/MM/yy";
+        String outputPattern = "yyyy-MM-dd";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(oldDate);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
     }
 
     public static String getDayOfWeekDayFromDate(String date) {

@@ -2,6 +2,7 @@ package com.digidoctor.android.interfaces;
 
 import com.digidoctor.android.model.CheckLoginRes;
 import com.digidoctor.android.model.CheckSlotAvailabilityRes;
+import com.digidoctor.android.model.CheckTimeSlotModel;
 import com.digidoctor.android.model.DashBoardRes;
 import com.digidoctor.android.model.Dashboard;
 import com.digidoctor.android.model.DocBySpecialityRes;
@@ -10,15 +11,21 @@ import com.digidoctor.android.model.GenerateOtpModel;
 import com.digidoctor.android.model.GenerateOtpRes;
 import com.digidoctor.android.model.GetAppointmentSlotsRes;
 import com.digidoctor.android.model.GetMembersRes;
+import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.GetPatientMedicationRes;
 import com.digidoctor.android.model.Login;
 import com.digidoctor.android.model.OnlineAppointmentRes;
+import com.digidoctor.android.model.OnlineAppointmentSlots;
 import com.digidoctor.android.model.Registration;
 import com.digidoctor.android.model.RegistrationRes;
 import com.digidoctor.android.model.ResponseModel;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SpecialityRes;
+import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.model.SymptomsRes;
+import com.digidoctor.android.model.TransactionModel;
+import com.digidoctor.android.utility.BookAppointment;
+import com.digidoctor.android.utility.BookAppointment2;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -33,13 +40,10 @@ public interface Api {
     Call<DashBoardRes> patientDasboard(
             @Body Dashboard dashboard);
 
-    @FormUrlEncoded
+
     @POST("getDoctorProfileBySpeciality")
     Call<DocBySpecialityRes> getDoctorProfileBySpeciality(
-            @Header("x-access-token") String token,
-            @Field("userMobileNo") String userMobile,
-            @Field("specialityId") String id,
-            @Field("doctorName") String doctorName
+            @Body SpecialityModel specialityModel
     );
 
 
@@ -47,36 +51,19 @@ public interface Api {
     Call<SpecialityRes> getSpeciality(
             @Body SpecialityModel specialityModel);
 
-    @FormUrlEncoded
     @POST("getDoctorProfileBySymptom")
     Call<DocBySymptomsRes> getDoctorProfileBySymptom(
-            @Header("x-access-token") String token,
-            @Field("userMobileNo") String userMobile,
-            @Field("symptomId") String id,
-            @Field("doctorName") String doctorName,
-            @Field("dob") String dob,
-            @Field("gender") String gender,
-            @Field("age") String age
-    );
+            @Body SymptomModel symptomModel);
 
-    @FormUrlEncoded
+
     @POST("getProblemsWithIcon")
     Call<SymptomsRes> getProblemsWithIcon(
-            @Header("x-access-token") String token,
-            @Field("userMobileNo") String userMobile,
-            @Field("specialityId") String id,
-            @Field("problemName") String problemName);
+            @Body SymptomModel symptomModel);
 
 
-    @FormUrlEncoded
     @POST("getOnlineAppointmentSlots")
     Call<GetAppointmentSlotsRes> getOnlineAppointmentSlots(
-            @Header("x-access-token") String token,
-            @Field("userMobileNo") String userMobileNo,
-            @Field("serviceProviderDetailsId") String serviceProviderDetailsId,
-            @Field("appointDate") String appointDate,
-            @Field("isEraUser") String isEraUser
-    );
+            @Body OnlineAppointmentSlots slots);
 
     @FormUrlEncoded
     @POST("cancelAppointment")
@@ -114,6 +101,10 @@ public interface Api {
 
     );
 
+
+    @POST("onlineAppointment")
+    Call<OnlineAppointmentRes> onlineAppointment2(@Body BookAppointment2 appointment);
+
     @POST("generateOTPForPatient")
     Call<GenerateOtpRes> generateOTPForPatient(
             @Body GenerateOtpModel otpModel);
@@ -127,41 +118,19 @@ public interface Api {
     Call<CheckLoginRes> patientRegistration(
             @Body Registration registration);
 
-    @FormUrlEncoded
     @POST("getPatientMedicationDetails")
     Call<GetPatientMedicationRes> getPatientMedicationDetails(
-            @Header("x-access-token") String token,
-            @Field("userMobileNo") String userMobileNo,
-            @Field("memberId") String memberId
-    );
+            @Body GetPatientMedicationMainModel model);
 
 
-    @FormUrlEncoded
     @POST("checkTimeSlotAvailability")
     Call<CheckSlotAvailabilityRes> checkTimeSlotAvailability(
-            @Header("x-access-token") String token,
-            @Field("userMobileNo") String userMobileNo,
-            @Field("memberId") String memberId,
-            @Field("serviceProviderDetailsId") String serviceProviderDetailsId,
-            @Field("appointDate") String appointDate,
-            @Field("appointTime") String appointTime,
-            @Field("isEraUser") String isEraUser,
-            @Field("appointmentId") String appointmentId
-    );
+            @Body CheckTimeSlotModel model);
 
 
-    @FormUrlEncoded
     @POST("getTransactionNo")
     Call<ResponseModel> getBookingTransactionId(
-            @Field("paymentAmount") String paymentAmount,
-            @Field("patientName") String patientName,
-            @Field("memberId") String memberId,
-            @Field("userMobileNo") String userMobileNo,
-            @Field("appointDate") String appointDate,
-            @Field("appointTime") String appointTime,
-            @Field("serviceProviderDetailsId") String serviceProviderDetailsId,
-            @Field("isEraUser") String isEraUser
-    );
+            @Body TransactionModel transactionModel);
 
 
     @FormUrlEncoded

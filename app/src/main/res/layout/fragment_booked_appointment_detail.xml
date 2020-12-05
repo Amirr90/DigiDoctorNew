@@ -140,7 +140,6 @@
 
                     <TextView
                         android:onClick="@{()->appointment.onGetDirection(appointmentModel)}"
-
                         android:drawableLeft="@drawable/directional_sign"
                         android:paddingLeft="15dp"
                         android:layout_marginLeft="7dp"

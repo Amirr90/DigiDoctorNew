@@ -11,6 +11,15 @@ import java.util.Objects;
 
 public class GetPatientMedicationMainModel {
 
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
+
+    public void setAppointmentId(Integer appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
     @SerializedName("name")
     @Expose
     private String name;
@@ -55,7 +64,6 @@ public class GetPatientMedicationMainModel {
     String age;
     String gender;
     String address;
-
     String memberId;
 
     public String getMemberId() {

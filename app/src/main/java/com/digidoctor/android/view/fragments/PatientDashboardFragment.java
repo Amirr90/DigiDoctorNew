@@ -45,6 +45,7 @@ public class PatientDashboardFragment extends Fragment {
     DashboardPatientAdapter1 adapter1;
     HealthProductAdapter adapter2;
     ClinicAdapter adapter3;
+
     PatientViewModel viewModel;
 
     NavController navController;
@@ -90,6 +91,7 @@ public class PatientDashboardFragment extends Fragment {
         dashboard2Binding.rec2.setAdapter(adapter2);
         dashboard2Binding.rec3.setAdapter(adapter3);
 
+
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
 
@@ -98,6 +100,8 @@ public class PatientDashboardFragment extends Fragment {
         dashboardModel1s.add(new DashboardModel1("Symptoms"));
         dashboardModel1s.add(new DashboardModel1("Tests"));
         dashboardModel1s.add(new DashboardModel1("Pharmacy"));
+
+
         adapter1.submitList(dashboardModel1s);
 
 
@@ -125,7 +129,9 @@ public class PatientDashboardFragment extends Fragment {
         viewModel.getDashboardData(lat, lng).observe(getViewLifecycleOwner(), new Observer<PatientDashboardModel>() {
             @Override
             public void onChanged(PatientDashboardModel patientDashboardModel) {
+
                 dashboard2Binding.getRoot().setVisibility(View.VISIBLE);
+
                 if (patientDashboardModel != null) {
                     String image = patientDashboardModel.getTopImage().get(0).getTopImage();
                     if (null != image && !image.isEmpty())

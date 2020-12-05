@@ -11,6 +11,31 @@ public class SymptomModel {
     int isVisible;
     String displayIcon;
 
+
+    public void setProblemName(String problemName) {
+        this.problemName = problemName;
+    }
+
+    private String symptomID;
+    private String doctorName;
+
+
+    public String getSymptomID() {
+        return symptomID;
+    }
+
+    public void setSymptomID(String symptomID) {
+        this.symptomID = symptomID;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
     public int getProblemId() {
         return problemId;
     }

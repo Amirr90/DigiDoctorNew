@@ -12,11 +12,14 @@ import com.digidoctor.android.model.CheckSlotAvailabilityDataRes;
 import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.ResponseModel;
 import com.digidoctor.android.view.activity.PatientDashboard;
+import com.google.gson.Gson;
 import com.razorpay.Checkout;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +43,8 @@ import static com.digidoctor.android.utility.utils.KEY_PATIENT_NAME;
 import static com.digidoctor.android.utility.utils.MEMBER_ID;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.logout;
+import static com.digidoctor.android.utility.utils.setString;
+import static com.digidoctor.android.view.fragments.BookAppointmentFragment.bookAppointment;
 
 public class BookAppointment extends Credentials {
 
@@ -60,7 +65,7 @@ public class BookAppointment extends Credentials {
     private String appointTime;
     private String isEraUser;
     private String problemName;
-    private String dtDataTable;
+    private String dtPaymentTable;
     private String appointmentId;
     private String dob;
     private String gender;
@@ -69,6 +74,7 @@ public class BookAppointment extends Credentials {
     private String drFee;
     private String paymentId;
     private String trxId;
+
     Activity activity;
     BookAppointmentInterface bookAppointmentInterface;
 
@@ -126,7 +132,9 @@ public class BookAppointment extends Credentials {
     }
 
     public String getPatientName() {
-        return patientName;
+        if (null == patientName)
+            return "";
+        else return patientName;
     }
 
     public String getMobileNo() {
@@ -195,15 +203,18 @@ public class BookAppointment extends Credentials {
         return problemName;
     }
 
-    public String getDtDataTable() {
-        if (dtDataTable == null)
+    public String getDtPaymentTable() {
+        if (dtPaymentTable == null)
             return "";
         else
-            return dtDataTable;
+            return dtPaymentTable;
     }
 
     public String getAppointmentId() {
-        return appointmentId;
+        if (null == appointmentId)
+            return "";
+        else
+            return appointmentId;
     }
 
     public String getDob() {
@@ -280,8 +291,8 @@ public class BookAppointment extends Credentials {
         this.problemName = problemName;
     }
 
-    public void setDtDataTable(String dtDataTable) {
-        this.dtDataTable = dtDataTable;
+    public void setDtPaymentTable(String dtPaymentTable) {
+        this.dtPaymentTable = dtPaymentTable;
     }
 
     public void setAppointmentId(String appointmentId) {
@@ -323,7 +334,8 @@ public class BookAppointment extends Credentials {
                     if (response.get(0).getIsAvailable() == 1) {
                         switch (payMode) {
                             case PAY_MODE_CASH:
-                                startBookingAppointment();
+                                startBookingAppointment(null
+                                );
                                 break;
                             case PAY_MODE_RAZOR_PAY: {
                                 getTrxId(map);
@@ -373,6 +385,8 @@ public class BookAppointment extends Credentials {
                 List<ResponseModel.HashModel> models = (List<ResponseModel.HashModel>) o;
                 if (null != models) {
                     String tId = models.get(0).getTaxId();
+                    utils.setString("txid", tId, activity);
+                    Log.d(TAG, "txid:"+tId);
                     startRazorPayBooking(tId);
                 }
 
@@ -403,10 +417,10 @@ public class BookAppointment extends Credentials {
 
         Checkout.preload(activity);
         Checkout checkout = new Checkout();
-        checkout.setKeyID("rzp_test_VdBuKnBx67uxF8");
+        checkout.setKeyID("rzp_test_41Dk0t9QjLuFZl");
 
         //checkout.setKeyID("rzp_live_BwhTaXRxeklaAI");
-        setTrxId(tId);
+        bookAppointment.setTrxId(tId);
         String image = "https://digidoctor.in/assets/images/logonew.png";
 
         int amount = Integer.parseInt(getDrFee()) * 100;
@@ -429,7 +443,7 @@ public class BookAppointment extends Credentials {
 
     @Override
     public String toString() {
-        return "BookAppointment{" +
+        return "{" +
                 "userMobileNo='" + userMobileNo + '\'' +
                 ", memberId='" + memberId + '\'' +
                 ", patientName='" + patientName + '\'' +
@@ -445,42 +459,49 @@ public class BookAppointment extends Credentials {
                 ", appointTime='" + appointTime + '\'' +
                 ", isEraUser='" + isEraUser + '\'' +
                 ", problemName='" + problemName + '\'' +
-                ", dtDataTable='" + dtDataTable + '\'' +
+                ", dtPaymentTable='" + dtPaymentTable + '\'' +
                 ", appointmentId='" + appointmentId + '\'' +
                 ", dob='" + dob + '\'' +
                 ", gender='" + gender + '\'' +
+                ", token='" + token + '\'' +
+                ", email='" + email + '\'' +
+                ", drFee='" + drFee + '\'' +
+                ", paymentId='" + paymentId + '\'' +
+                ", trxId='" + trxId + '\'' +
                 ", activity=" + activity +
+                ", bookAppointmentInterface=" + bookAppointmentInterface +
                 '}';
     }
 
-    public void startBookingAppointment() {
+    public void startBookingAppointment(String rzrId) {
+
+
+        List<Map<String, String>> mapList = new ArrayList<>();
+        Map<String, String> dtTable = new HashMap<>();
+        JSONArray jsonArray = new JSONArray();
+
+        dtTable.put("paymentStatus", "success");
+        dtTable.put("bankRefNo", rzrId);
+        dtTable.put("paymentAmount", getDrFee());
+        dtTable.put("transactionNo", getTrxId());
+        Log.d(TAG, "transactionNo: " + utils.getString("txid", activity));
+        dtTable.put("isErauser", getIsEraUser());
+
+        mapList.add(dtTable);
+
+        jsonArray.put(mapList);
+        Log.d(TAG, "table: " + jsonArray.toString());
+        setDtPaymentTable(jsonArray.toString());
+
+        BookAppointment2 appointment = getBookingAppointmentData();
+        Log.d(TAG, "startBookingAppointment: " + appointment.toString());
 
 
         AppUtils.showRequestDialog(activity);
-        Api iRestInterfaces = URLUtils.getAPIService();
-        Call<OnlineAppointmentRes> call = iRestInterfaces.onlineAppointment(
-                getToken(),
-                getUserMobileNo(),
-                getMemberId(),
-                getPatientName(),
-                getMobileNo(),
-                getGuardianTypeId(),
-                getGuardianName(),
-                getStateId(),
-                getCityId(),
-                getAddress(),
-                getPincode(),
-                getServiceProviderDetailsId(),
-                getAppointDate(),
-                getAppointTime(),
-                getIsEraUser(),
-                getProblemName(),
-                getDtDataTable(),
-                getAppointmentId(),
-                getDob(),
-                getGender(),
-                getPaymentId()
-        );
+
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+
+        Call<OnlineAppointmentRes> call = iRestInterfaces.onlineAppointment2(appointment);
         call.enqueue(new Callback<OnlineAppointmentRes>() {
             @Override
             public void onResponse(@NotNull Call<OnlineAppointmentRes> call, @NotNull Response<OnlineAppointmentRes> response) {
@@ -500,6 +521,17 @@ public class BookAppointment extends Credentials {
                 bookAppointmentInterface.onFailed(t.getLocalizedMessage());
             }
         });
+    }
+
+    private BookAppointment2 getBookingAppointmentData() {
+        Gson gson = new Gson();
+        BookAppointment appointment = this;
+
+        BookAppointment2 appointment2 = gson.fromJson(appointment.toString(), BookAppointment2.class);
+        Log.d(TAG, "getBookingAppointmentData: " + appointment2.toString());
+
+        return appointment2;
+
     }
 
 

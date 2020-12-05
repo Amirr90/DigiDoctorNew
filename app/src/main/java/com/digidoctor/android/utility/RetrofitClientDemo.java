@@ -24,19 +24,19 @@ public class RetrofitClientDemo {
         httpClient.dispatcher(dispatcher);
 
 
-      /*  if (retrofit == null) {
+        if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient.build())
                     .build();
-        } */
+        }
 
-        retrofit = new Retrofit.Builder()
+    /*    retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
-                .build();
+                .build();*/
 
 
         return retrofit;

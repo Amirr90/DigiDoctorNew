@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,7 +24,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.NavAdapter;
 import com.digidoctor.android.databinding.ActivityDashBoardBinding;
-import com.digidoctor.android.databinding.FragmentShowFileOrPdfBinding;
 import com.digidoctor.android.interfaces.NavigationInterface;
 import com.digidoctor.android.model.NavModel;
 import com.digidoctor.android.model.User;
@@ -38,15 +36,14 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
@@ -201,29 +198,47 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
     @Override
     public void onPaymentSuccess(String status, PaymentData paymentData) {
-        JSONArray jsonArray = new JSONArray();
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("transactionNo", bookAppointment.getTrxId());
-            jsonObject.put("paymentAmount", bookAppointment.getDrFee());
-            jsonObject.put("paymentStatus", "success");
-            jsonObject.put("bankRefNo", status);
-            jsonObject.put("isErauser", bookAppointment.getIsEraUser());
+        Toast.makeText(this, this.getString(R.string.transaction_successful), Toast.LENGTH_LONG).show();
+
+
+        //"dtDataTable": "[{\"vitalId\":56,\"vitalValue\":100}]"
+
+
+  /*      try {
+            jsonObject.put("\"transactionNo\"", "\"" + bookAppointment.getTrxId() + "\"");
+            jsonObject.put("\"paymentAmount\"", "\"" + bookAppointment.getDrFee() + "\"");
+            jsonObject.put("\"paymentStatus\"", "\"success\"");
+            jsonObject.put("\"bankRefNo\"", "\"" + status + "\"");
+            jsonObject.put("\"isErauser\"", "\"" + bookAppointment.getIsEraUser() + "\"");
             jsonArray.put(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
-        Log.d(TAG, "dtDataTable: " + jsonArray.toString());
+*/
+
+
+
+      /*  try {
+            jsonObject.put("transactionNo", bookAppointment.getTrxId());
+            jsonObject.put("paymentAmount", bookAppointment.getDrFee());
+            jsonObject.put("paymentStatus", "success");
+            jsonObject.put("bankRefNo", status);
+            jsonObject.put("isErauser", bookAppointment.getIsEraUser());
+            jsonArray.put(jsonObject);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.d(TAG, "onPaymentSuccessJSon: " + e.getLocalizedMessage());
+
+        }*/
+
+
 
         Log.d(TAG, "onPaymentSuccess: " + status);
 
-        Toast.makeText(this, this.getString(R.string.transaction_successful), Toast.LENGTH_LONG).show();
-
-        bookAppointment.setDtDataTable(jsonArray.toString());
-
-        bookAppointment.startBookingAppointment();
+        bookAppointment.startBookingAppointment(paymentData.getPaymentId());
 
         Log.d(TAG, "onPaymentSuccessData: " + paymentData.getData());
     }

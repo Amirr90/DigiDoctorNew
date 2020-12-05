@@ -48,11 +48,14 @@ public class DoctorShortProfileFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
         if (getArguments() != null) {
+
             Gson gson = new Gson();
             doctorModel = gson.fromJson(getArguments().getString("docModel"), DoctorModel.class);
+
             Log.d(TAG, "onViewCreated: " + doctorModel.toString());
             shortProfileBinding.setDocMo(doctorModel);
         } else PatientDashboard.getInstance().onSupportNavigateUp();
+
 
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);

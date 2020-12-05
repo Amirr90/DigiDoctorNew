@@ -34,6 +34,7 @@ import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.AppUtils;
+import com.digidoctor.android.utility.BookAppointment;
 import com.digidoctor.android.utility.NewDashboardUtils;
 import com.digidoctor.android.utility.URLUtils;
 import com.digidoctor.android.utility.utils;

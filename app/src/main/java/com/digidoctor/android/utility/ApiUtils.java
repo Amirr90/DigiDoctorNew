@@ -8,7 +8,9 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.CheckLoginRes;
+import com.digidoctor.android.model.CheckSlotAvailabilityDataRes;
 import com.digidoctor.android.model.CheckSlotAvailabilityRes;
+import com.digidoctor.android.model.CheckTimeSlotModel;
 import com.digidoctor.android.model.DashBoardRes;
 import com.digidoctor.android.model.Dashboard;
 import com.digidoctor.android.model.DocBySpecialityRes;
@@ -17,14 +19,19 @@ import com.digidoctor.android.model.GenerateOtpModel;
 import com.digidoctor.android.model.GenerateOtpRes;
 import com.digidoctor.android.model.GetAppointmentSlotsRes;
 import com.digidoctor.android.model.GetMembersRes;
+import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.GetPatientMedicationRes;
 import com.digidoctor.android.model.Login;
+import com.digidoctor.android.model.OnlineAppointmentModel;
+import com.digidoctor.android.model.OnlineAppointmentSlots;
 import com.digidoctor.android.model.Registration;
 import com.digidoctor.android.model.RegistrationRes;
 import com.digidoctor.android.model.ResponseModel;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SpecialityRes;
+import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.model.SymptomsRes;
+import com.digidoctor.android.model.TransactionModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
@@ -101,8 +108,8 @@ public class ApiUtils {
     public static void specialityData(String specialityName, final ApiCallbackInterface apiCallbackInterface) {
 
         SpecialityModel specialityModel = new SpecialityModel();
-
         specialityModel.setProblemName(specialityName);
+
         try {
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
@@ -134,26 +141,27 @@ public class ApiUtils {
 
 
     public static void getDocBySpecialityById(String id, String docName, final ApiCallbackInterface apiCallbackInterface) {
+
+        SpecialityModel specialityModel = new SpecialityModel();
+        specialityModel.setSpecialityID(Integer.parseInt(id));
+        specialityModel.setDoctorName(docName);
+
         try {
-            final Api api = URLUtils.getAPIService();
-            Call<DocBySpecialityRes> specialityResCall = api.getDoctorProfileBySpeciality(
-                    "",
-                    "",
-                    id,
-                    docName);
+            final Api api = URLUtils.getAPIServiceNewAPI();
+            Call<DocBySpecialityRes> specialityResCall = api.getDoctorProfileBySpeciality(specialityModel);
             specialityResCall.enqueue(new Callback<DocBySpecialityRes>() {
                 @Override
-                public void onResponse(Call<DocBySpecialityRes> call, Response<DocBySpecialityRes> response) {
-                    if (response.code() == 200) {
+                public void onResponse(@NotNull Call<DocBySpecialityRes> call, @NotNull Response<DocBySpecialityRes> response) {
+                    if (response.code() == 200 && response.body() != null) {
                         if (response.body().getResponseCode() == 1) {
 
                             apiCallbackInterface.onSuccess(response.body().getResponseValue());
                         } else apiCallbackInterface.onError(response.body().getResponseMessage());
-                    } else apiCallbackInterface.onError(response.errorBody().toString());
+                    } else apiCallbackInterface.onError(response.message());
                 }
 
                 @Override
-                public void onFailure(Call<DocBySpecialityRes> call, Throwable t) {
+                public void onFailure(@NotNull Call<DocBySpecialityRes> call, @NotNull Throwable t) {
                     apiCallbackInterface.onError(t.getLocalizedMessage());
                 }
             });
@@ -167,11 +175,14 @@ public class ApiUtils {
     public static void getDoctorsTimeSlots(String docId, String date, String isEraUser, final ApiCallbackInterface apiCallbackInterface) {
         try {
 
-            final Api api = URLUtils.getAPIService();
-            Call<GetAppointmentSlotsRes> getAppointmentSlotsResCall = api.getOnlineAppointmentSlots(
-                    "",
-                    "9044865611",
-                    docId, date, isEraUser);
+            final Api api = URLUtils.getAPIServiceNewAPI();
+
+            OnlineAppointmentSlots slotsModel = new OnlineAppointmentSlots();
+            slotsModel.setAppointDate(date);
+            slotsModel.setServiceProviderDetailsId(docId);
+            slotsModel.setIsEraUser(isEraUser);
+
+            Call<GetAppointmentSlotsRes> getAppointmentSlotsResCall = api.getOnlineAppointmentSlots(slotsModel);
             getAppointmentSlotsResCall.enqueue(new Callback<GetAppointmentSlotsRes>() {
                 @Override
                 public void onResponse(Call<GetAppointmentSlotsRes> call, Response<GetAppointmentSlotsRes> response) {
@@ -196,24 +207,21 @@ public class ApiUtils {
 
 
     public static void getRecommendedDoc(HashMap<String, String> map, final ApiCallbackInterface apiCallbackInterface) {
+
+        SymptomModel symptomModel = new SymptomModel();
+        symptomModel.setSymptomID(map.get(KEY_SYMPTOM_ID));
+        symptomModel.setDoctorName(map.get(KEY_DOC_NAME));
+
         try {
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
             final Api api = URLUtils.getAPIService();
-            Call<DocBySymptomsRes> specialityResCall = api.getDoctorProfileBySymptom(
-                    "",
-                    "",
-                    map.get(KEY_SYMPTOM_ID),
-                    map.get(KEY_DOC_NAME),
-                    map.get(KEY_DOB),
-                    map.get(KEY_GENDER),
-                    map.get(KEY_AGE)
-            );
+            Call<DocBySymptomsRes> specialityResCall = api.getDoctorProfileBySymptom(symptomModel);
             specialityResCall.enqueue(new Callback<DocBySymptomsRes>() {
                 @Override
-                public void onResponse(Call<DocBySymptomsRes> call, Response<DocBySymptomsRes> response) {
+                public void onResponse(@NotNull Call<DocBySymptomsRes> call, @NotNull Response<DocBySymptomsRes> response) {
                     AppUtils.hideDialog();
-                    if (response.code() == 200) {
+                    if (response.code() == 200 && response.body() != null) {
                         if (response.body().getResponseCode() == 1) {
                             apiCallbackInterface.onSuccess(response.body().getResponseValue());
                         } else apiCallbackInterface.onError(response.body().getResponseMessage());
@@ -221,7 +229,7 @@ public class ApiUtils {
                 }
 
                 @Override
-                public void onFailure(Call<DocBySymptomsRes> call, Throwable t) {
+                public void onFailure(@NotNull Call<DocBySymptomsRes> call, @NotNull Throwable t) {
                     AppUtils.hideDialog();
                     apiCallbackInterface.onError(t.getLocalizedMessage());
                 }
@@ -234,28 +242,30 @@ public class ApiUtils {
 
 
     public static void getSymptomWithIconsData(String symptomName, final ApiCallbackInterface apiCallbackInterface) {
+
         try {
+
+            SymptomModel symptomModel = new SymptomModel();
+            symptomModel.setProblemName(symptomName);
+
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
-            final Api api = URLUtils.getAPIService();
-            Call<SymptomsRes> specialityResCall = api.getProblemsWithIcon(
-                    "",
-                    "9044865611",
-                    "0",
-                    symptomName);
+
+            final Api api = URLUtils.getAPIServiceNewAPI();
+            Call<SymptomsRes> specialityResCall = api.getProblemsWithIcon(symptomModel);
             specialityResCall.enqueue(new Callback<SymptomsRes>() {
                 @Override
-                public void onResponse(Call<SymptomsRes> call, Response<SymptomsRes> response) {
+                public void onResponse(@NotNull Call<SymptomsRes> call, @NotNull Response<SymptomsRes> response) {
                     AppUtils.hideDialog();
-                    if (response.code() == 200) {
+                    if (response.code() == 200 && null != response.body()) {
                         if (response.body().getResponseCode() == 1) {
                             apiCallbackInterface.onSuccess(response.body().getResponseValue());
                         } else apiCallbackInterface.onError(response.body().getResponseMessage());
-                    } else apiCallbackInterface.onError(response.errorBody().toString());
+                    } else apiCallbackInterface.onError(response.message());
                 }
 
                 @Override
-                public void onFailure(Call<SymptomsRes> call, Throwable t) {
+                public void onFailure(@NotNull Call<SymptomsRes> call, @NotNull Throwable t) {
                     AppUtils.hideDialog();
                     apiCallbackInterface.onError(t.getLocalizedMessage());
                 }
@@ -463,31 +473,38 @@ public class ApiUtils {
         try {
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
-            Log.d("TAG", "checkTimeSlotAvailability: " + map.toString());
-            final Api api = URLUtils.getAPIService();
-            Call<CheckSlotAvailabilityRes> specialityResCall = api.checkTimeSlotAvailability(
-                    getString(TOKEN, activity),
-                    map.get(MOBILE_NUMBER),
-                    map.get(MEMBER_ID),
-                    map.get(KEY_DOC_ID),
-                    map.get(APPOINTMENT_DATE),
-                    map.get(APPOINTMENT_TIME),
-                    map.get(KEY_IS_ERA_USER),
-                    map.get(KEY_APPOINTMENT_ID)
-            );
+
+
+            CheckTimeSlotModel model = new CheckTimeSlotModel();
+            model.setMemberId(map.get(MEMBER_ID));
+            model.setServiceProviderDetailsId(map.get(KEY_DOC_ID));
+            model.setAppointDate(map.get(APPOINTMENT_DATE));
+            model.setAppointTime(map.get(APPOINTMENT_TIME));
+            model.setUserMobileNo(map.get(MOBILE_NUMBER));
+            model.setIsEraUser(map.get(KEY_IS_ERA_USER));
+            model.setAppointmentId(map.get(KEY_APPOINTMENT_ID));
+
+            Log.d("TAG", "checkTimeSlotAvailability: " + model.toString());
+            final Api api = URLUtils.getAPIServiceNewAPI();
+
+            Call<CheckSlotAvailabilityRes> specialityResCall = api.checkTimeSlotAvailability(model);
             specialityResCall.enqueue(new Callback<CheckSlotAvailabilityRes>() {
                 @Override
-                public void onResponse(Call<CheckSlotAvailabilityRes> call, Response<CheckSlotAvailabilityRes> response) {
+                public void onResponse(@NotNull Call<CheckSlotAvailabilityRes> call, Response<CheckSlotAvailabilityRes> response) {
                     AppUtils.hideDialog();
                     if (response.code() == 200) {
+                        assert response.body() != null;
                         if (response.body().getResponseCode() == 1) {
                             apiCallbackInterface.onSuccess(response.body().getResponseValue());
                         } else apiCallbackInterface.onError(response.body().getResponseMessage());
-                    } else apiCallbackInterface.onError(response.errorBody().toString());
+                    } else {
+                        assert response.errorBody() != null;
+                        apiCallbackInterface.onError(response.errorBody().toString());
+                    }
                 }
 
                 @Override
-                public void onFailure(Call<CheckSlotAvailabilityRes> call, Throwable t) {
+                public void onFailure(@NotNull Call<CheckSlotAvailabilityRes> call, @NotNull Throwable t) {
                     AppUtils.hideDialog();
                     apiCallbackInterface.onError(t.getLocalizedMessage());
 
@@ -504,13 +521,12 @@ public class ApiUtils {
         if (PatientDashboard.getInstance() != null)
             AppUtils.showRequestDialog(activity);
 
-        Api iRestInterfaces = URLUtils.getAPIService();
-        Call<GetPatientMedicationRes> call = iRestInterfaces.getPatientMedicationDetails(
-                getString(TOKEN, activity),
-                getString(MOBILE_NUMBER, activity),
-                // getString("id", activity)
-                "207549"
-        );
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+
+        GetPatientMedicationMainModel model = new GetPatientMedicationMainModel();
+        model.setMemberId("207549");
+
+        Call<GetPatientMedicationRes> call = iRestInterfaces.getPatientMedicationDetails(model);
 
         call.enqueue(new Callback<GetPatientMedicationRes>() {
             @Override
@@ -539,20 +555,22 @@ public class ApiUtils {
     public static void getTransactionNo(Map<String, String> map, Activity activity, final ApiCallbackInterface apiCallbackInterface) {
         try {
 
+            TransactionModel transactionModel = new TransactionModel();
+
+            transactionModel.setPaymentAmount(map.get(KEY_AMOUNT));
+            transactionModel.setPatientName(map.get(KEY_PATIENT_NAME));
+            transactionModel.setMemberID(map.get(MEMBER_ID));
+            transactionModel.setUserMobileNo(map.get(MOBILE_NUMBER));
+            transactionModel.setAppointDate(map.get(APPOINTMENT_DATE));
+            transactionModel.setAppointTime(map.get(APPOINTMENT_TIME));
+            transactionModel.setServiceProviderDetailsID(map.get(KEY_DOC_ID));
+            transactionModel.setIsEraUser(map.get(KEY_IS_ERA_USER));
+
             AppUtils.showRequestDialog(activity);
             Log.d("TAG", "checkTimeSlotAvailability: " + map.toString());
-            final Api api = URLUtils.getAPIService();
-            Call<ResponseModel> specialityResCall = api.getBookingTransactionId(
-                    map.get(KEY_AMOUNT),
-                    map.get(KEY_PATIENT_NAME),
-                    map.get(MEMBER_ID),
-                    map.get(MOBILE_NUMBER),
-                    map.get(APPOINTMENT_DATE),
-                    map.get(APPOINTMENT_TIME),
-                    map.get(KEY_DOC_ID),
-                    map.get(KEY_IS_ERA_USER)
 
-            );
+            final Api api = URLUtils.getAPIServiceNewAPI();
+            Call<ResponseModel> specialityResCall = api.getBookingTransactionId(transactionModel);
             specialityResCall.enqueue(new Callback<ResponseModel>() {
                 @Override
                 public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {

@@ -36,6 +36,7 @@ import static com.digidoctor.android.utility.utils.logout;
 public class BookedAppointmentDetailFragment extends Fragment implements AppointmentInterface {
 
     private static final String TAG = "BookedAppointmentDetail";
+
     OnlineAppointmentModel appointmentModel;
 
     FragmentBookedAppointmentDetailBinding bookedAppointmentDetailBinding;
