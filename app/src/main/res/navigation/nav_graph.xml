@@ -321,10 +321,23 @@
         android:id="@+id/chooseVitalHistoryTypeFragment"
         android:name="com.digidoctor.android.view.fragments.ChooseVitalHistoryTypeFragment"
         android:label="fragment_choose_vital_history_type"
-        tools:layout="@layout/fragment_choose_vital_history_type" />
+        tools:layout="@layout/fragment_choose_vital_history_type" >
+        <action
+            android:id="@+id/action_chooseVitalHistoryTypeFragment_to_addVitalsFragment"
+            app:destination="@id/addVitalsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/addPrescriptionManuallyFragment"
         android:name="com.digidoctor.android.view.fragments.AddPrescriptionManuallyFragment"
         android:label="add"
         tools:layout="@layout/fragment_add_prescription_manually" />
+    <fragment
+        android:id="@+id/addVitalsFragment"
+        android:name="com.digidoctor.android.view.fragments.AddVitalsFragment"
+        android:label="fragment_add_vitala"
+        tools:layout="@layout/fragment_add_vitala" />
 </navigation>

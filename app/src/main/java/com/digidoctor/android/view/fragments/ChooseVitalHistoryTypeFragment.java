@@ -180,6 +180,9 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
 
     @Override
     public void onItemClicked(Object o) {
+        VitalTypeModel model = (VitalTypeModel) o;
+        if (model.getTitle().equalsIgnoreCase("Customize"))
+            navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_addVitalsFragment);
         showSelectVitalCategoryList();
     }
 

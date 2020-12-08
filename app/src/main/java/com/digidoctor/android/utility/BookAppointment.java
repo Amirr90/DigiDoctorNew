@@ -386,7 +386,7 @@ public class BookAppointment extends Credentials {
                 if (null != models) {
                     String tId = models.get(0).getTaxId();
                     utils.setString("txid", tId, activity);
-                    Log.d(TAG, "txid:"+tId);
+                    Log.d(TAG, "txid:" + tId);
                     startRazorPayBooking(tId);
                 }
 
@@ -476,22 +476,8 @@ public class BookAppointment extends Credentials {
     public void startBookingAppointment(String rzrId) {
 
 
-        List<Map<String, String>> mapList = new ArrayList<>();
-        Map<String, String> dtTable = new HashMap<>();
-        JSONArray jsonArray = new JSONArray();
-
-        dtTable.put("paymentStatus", "success");
-        dtTable.put("bankRefNo", rzrId);
-        dtTable.put("paymentAmount", getDrFee());
-        dtTable.put("transactionNo", getTrxId());
-        Log.d(TAG, "transactionNo: " + utils.getString("txid", activity));
-        dtTable.put("isErauser", getIsEraUser());
-
-        mapList.add(dtTable);
-
-        jsonArray.put(mapList);
-        Log.d(TAG, "table: " + jsonArray.toString());
-        setDtPaymentTable(jsonArray.toString());
+        String dtTableData = "[{\"paymentStatus\":\"success\",\"bankRefNo\":\"" + rzrId + "\",\"paymentAmount\":\"" + getDrFee() + "\",\"transactionNo\":\"" + getTrxId() + "\",\"isErauser\":" + getIsEraUser() + "}]";
+        setDtPaymentTable(dtTableData);
 
         BookAppointment2 appointment = getBookingAppointmentData();
         Log.d(TAG, "startBookingAppointment: " + appointment.toString());

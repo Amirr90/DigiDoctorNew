@@ -35,6 +35,7 @@ import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.BookAppointment;
+import com.digidoctor.android.utility.BookAppointment2;
 import com.digidoctor.android.utility.NewDashboardUtils;
 import com.digidoctor.android.utility.URLUtils;
 import com.digidoctor.android.utility.utils;
@@ -42,6 +43,7 @@ import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.view.fragments.ChooseTimeFragment;
 import com.google.gson.Gson;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -197,7 +199,7 @@ public class ReScheduleFragment extends Fragment {
                                         Toast.makeText(requireContext(), R.string.appointment_re_scheduled_successfully, Toast.LENGTH_SHORT).show();
                                         Bundle bundle = new Bundle();
                                         bundle.putString("key", RE_SCHEDULE);
-                                        navController.navigate(R.id.action_reScheduleFragment_to_cancelAppointmentFragment2,bundle);
+                                        navController.navigate(R.id.action_reScheduleFragment_to_cancelAppointmentFragment2, bundle);
                                     }
 
                                     @Override
@@ -225,44 +227,44 @@ public class ReScheduleFragment extends Fragment {
     private void reScheduleAppointment(String time, final BookAppointmentInterface bookAppointmentInterface) {
         User primaryUser = getPrimaryUser(requireActivity());
         User bookingUser = getUserForBooking(requireActivity());
+
+
+        BookAppointment2 appointment2 = new BookAppointment2();
+
+        appointment2.setMemberId((bookingUser.getPrimaryStatus() == 1 ? String.valueOf(bookingUser.getId()) : String.valueOf(bookingUser.getMemberId())));
+        appointment2.setPatientName(bookingUser.getName());
+        appointment2.setMobileNo(bookingUser.getMobileNo());
+        appointment2.setAddress(bookingUser.getAddress());
+        appointment2.setGuardianTypeId("0");
+        appointment2.setGuardianName("");
+        appointment2.setStateID("0");
+        appointment2.setCityID("0");
+        appointment2.setServiceProviderDetailsId(String.valueOf(appointmentModel.getDoctorId()));
+        appointment2.setAppointDate(parseDateToFormatDMY(date));
+        appointment2.setAppointTime(time);
+        appointment2.setIsEraUser(String.valueOf(appointmentModel.getIsEraUser()));
+        appointment2.setProblemName("");
+        appointment2.setAppointmentId(appointmentModel.getAppointmentId());
+        appointment2.setDob(bookingUser.getDob());
+        appointment2.setGender(String.valueOf(bookingUser.getGender()));
+
+
         AppUtils.showRequestDialog(requireActivity());
-        Api iRestInterfaces = URLUtils.getAPIService();
-        Call<OnlineAppointmentRes> call = iRestInterfaces.onlineAppointment(
-                utils.getString(TOKEN, requireActivity()),
-                primaryUser.getMobileNo(),
-                String.valueOf(bookingUser.getMemberId()),
-                bookingUser.getName(),
-                bookingUser.getMobileNo(),
-                "0",
-                "",
-                "0",
-                "0",
-                bookingUser.getAddress(),
-                "",
-                String.valueOf(appointmentModel.getDoctorId()),
-                parseDateToFormatDMY(date),
-                time,
-                String.valueOf(appointmentModel.getIsEraUser()),
-                "",
-                "",
-                appointmentModel.getAppointmentId(),
-                bookingUser.getDob(),
-                String.valueOf(bookingUser.getGender()),
-                ""
-        );
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Call<OnlineAppointmentRes> call = iRestInterfaces.onlineAppointment2(appointment2);
         call.enqueue(new Callback<OnlineAppointmentRes>() {
             @Override
-            public void onResponse(Call<OnlineAppointmentRes> call, Response<OnlineAppointmentRes> response) {
+            public void onResponse(@NotNull Call<OnlineAppointmentRes> call, @NotNull Response<OnlineAppointmentRes> response) {
                 AppUtils.hideDialog();
-                if (response.code() == 200) {
+                if (response.code() == 200 && response.body() != null) {
                     if (response.body().getResponseCode() == 1) {
                         bookAppointmentInterface.onAppointmentBooked(response.body().getResponseValue().get(0));
                     } else bookAppointmentInterface.onError(response.body().getResponseMessage());
-                } else bookAppointmentInterface.onError(response.errorBody().toString());
+                } else bookAppointmentInterface.onError(response.message());
             }
 
             @Override
-            public void onFailure(Call<OnlineAppointmentRes> call, Throwable t) {
+            public void onFailure(@NotNull Call<OnlineAppointmentRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
                 bookAppointmentInterface.onFailed(t.getLocalizedMessage());
             }

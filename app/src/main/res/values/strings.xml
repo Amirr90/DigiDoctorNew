@@ -195,7 +195,6 @@
     <string name="bp_chart">BP Chart</string>
     <string name="systolic">Systolic</string>
     <string name="diastolic">Diastolic</string>
-    <string name="pulse_rate">Pulse Rate</string>
     <string name="vitals">Vitals</string>
     <string name="blood_pressure_stages_chart">Blood Pressure Stages Chart</string>
     <string name="from">From</string>
@@ -906,6 +905,7 @@
     <string name="upload_files">Upload Files</string>
     <string name="browse">Browse</string>
     <string name="save_member">Save Member</string>
+    <string name="pulse_rate">Pulse Rate</string>
 
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>

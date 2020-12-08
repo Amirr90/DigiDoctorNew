@@ -14,6 +14,7 @@ import com.digidoctor.android.model.GetMembersRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.GetPatientMedicationRes;
 import com.digidoctor.android.model.Login;
+import com.digidoctor.android.model.MemberModel;
 import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.OnlineAppointmentSlots;
 import com.digidoctor.android.model.Registration;
@@ -74,7 +75,7 @@ public interface Api {
     );
 
 
-    @FormUrlEncoded
+   /* @FormUrlEncoded
     @POST("onlineAppointment")
     Call<OnlineAppointmentRes> onlineAppointment(
             @Header("x-access-token") String token,
@@ -100,7 +101,7 @@ public interface Api {
             @Field("paymentId") String paymentId
 
     );
-
+*/
 
     @POST("onlineAppointment")
     Call<OnlineAppointmentRes> onlineAppointment2(@Body BookAppointment2 appointment);
@@ -133,29 +134,13 @@ public interface Api {
             @Body TransactionModel transactionModel);
 
 
-    @FormUrlEncoded
     @POST("getMembers")
     Call<GetMembersRes> getMembers(
-            @Header("x-access-token") String token,
-            @Field("userMobileNo") String userMobileNo,
-            @Field("userLoginId") String userLoginId
-    );
+            @Body MemberModel memberModel);
 
-
-    @FormUrlEncoded
     @POST("addMember")
     Call<RegistrationRes> addMember(
-            @Header("x-access-token") String token,
-            @Field("userMobileNo") String userMobileNo,
-            @Field("userLoginId") String userLoginId,
-            @Field("name") String name,
-            @Field("mobileNo") String mobileNo,
-            @Field("gender") String gender,
-            @Field("dob") String dob,
-            @Field("profilePhotoPath") String profilePhotoPath,
-            @Field("CountryId") String CountryId,
-            @Field("address") String address
-    );
+            @Body MemberModel memberModel);
 
 
 }

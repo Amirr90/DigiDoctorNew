@@ -22,6 +22,7 @@ import com.digidoctor.android.model.GetMembersRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.GetPatientMedicationRes;
 import com.digidoctor.android.model.Login;
+import com.digidoctor.android.model.MemberModel;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.OnlineAppointmentSlots;
 import com.digidoctor.android.model.Registration;
@@ -357,12 +358,13 @@ public class ApiUtils {
         AppUtils.showRequestDialog(activity);
 
         User user = getPrimaryUser(activity);
-        Api iRestInterfaces = URLUtils.getAPIService();
-        Call<GetMembersRes> call = iRestInterfaces.getMembers(
-                getString(TOKEN, activity),
-                getString(MOBILE_NUMBER, activity),
-                String.valueOf(user.getUserLoginId())
-        );
+
+        MemberModel memberModel=new MemberModel();
+
+        memberModel.setUserLoginId(String.valueOf(user.getUserLoginId()));
+
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Call<GetMembersRes> call = iRestInterfaces.getMembers(memberModel);
 
         call.enqueue(new Callback<GetMembersRes>() {
             @Override
@@ -490,7 +492,7 @@ public class ApiUtils {
             Call<CheckSlotAvailabilityRes> specialityResCall = api.checkTimeSlotAvailability(model);
             specialityResCall.enqueue(new Callback<CheckSlotAvailabilityRes>() {
                 @Override
-                public void onResponse(@NotNull Call<CheckSlotAvailabilityRes> call, Response<CheckSlotAvailabilityRes> response) {
+                public void onResponse(@NotNull Call<CheckSlotAvailabilityRes> call, @NotNull Response<CheckSlotAvailabilityRes> response) {
                     AppUtils.hideDialog();
                     if (response.code() == 200) {
                         assert response.body() != null;
@@ -600,36 +602,39 @@ public class ApiUtils {
         AppUtils.showRequestDialog(activity);
 
         User user = getPrimaryUser(activity);
-        Api iRestInterfaces = URLUtils.getAPIService();
-        Call<RegistrationRes> call = iRestInterfaces.addMember(
-                getString(TOKEN, activity),
-                getString(MOBILE_NUMBER, activity),
-                String.valueOf(user.getUserLoginId()),
-                map.get("name"),
-                map.get("mobile"),
-                map.get("gender"),
-                map.get("dob"),
-                map.get("profilePath"),
-                "0",
-                map.get("address")
-        );
+
+        MemberModel memberModel = new MemberModel();
+
+        memberModel.setUserLoginId(String.valueOf(user.getUserLoginId()));
+        memberModel.setName(map.get("name"));
+        memberModel.setMobileNo(map.get("mobile"));
+        memberModel.setGender(map.get("gender"));
+        memberModel.setDob(map.get("dob"));
+        memberModel.setProfilePhotoPath(map.get("profilePath"));
+        memberModel.setCountryId(map.get("0"));
+        memberModel.setAddress(map.get("address"));
+
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Call<RegistrationRes> call = iRestInterfaces.addMember(memberModel);
 
         call.enqueue(new Callback<RegistrationRes>() {
             @Override
-            public void onResponse(Call<RegistrationRes> call, Response<RegistrationRes> response) {
+            public void onResponse(@NotNull Call<RegistrationRes> call, @NotNull Response<RegistrationRes> response) {
 
-                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
-                    AppUtils.hideDialog();
-                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                } else {
-                    AppUtils.hideDialog();
-                    apiCallbackInterface.onError(response.body().getResponseMessage());
+                if (response.code() == 200 && response.body() != null) {
+                    if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onError(response.body().getResponseMessage());
+                    }
                 }
 
             }
 
             @Override
-            public void onFailure(Call<RegistrationRes> call, Throwable t) {
+            public void onFailure(@NotNull Call<RegistrationRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
             }
         });
