@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="vital"
+            type="com.digidoctor.android.model.VitalModel" />
     </data>
 
     <FrameLayout
@@ -31,7 +34,7 @@
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
-            <ScrollView
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/btnAddVital"
@@ -85,7 +88,7 @@
                             android:layout_marginStart="15dp"
                             android:fontFamily="@font/poppins_bold"
                             android:gravity="center"
-                            android:text="Blood Pressure Chart"
+                            android:text="@string/blood_pressure"
                             android:textColor="#23384D"
                             android:textSize="17sp"
                             android:textStyle="bold"
@@ -105,8 +108,9 @@
                             android:inputType="phone"
                             android:maxLength="3"
                             android:paddingStart="20dp"
+                            android:text="@={vital.sys}"
                             android:textColor="#3F4E6E"
-                            android:textSize="9sp"
+                            android:textSize="14sp"
                             app:layout_constraintEnd_toStartOf="@+id/textView54"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintHorizontal_chainStyle="packed"
@@ -124,8 +128,9 @@
                             android:inputType="phone"
                             android:maxLength="3"
                             android:paddingStart="20dp"
+                            android:text="@={vital.dia}"
                             android:textColor="#3F4E6E"
-                            android:textSize="9sp"
+                            android:textSize="14sp"
                             app:layout_constraintBottom_toBottomOf="@+id/textView53"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -186,12 +191,13 @@
                             android:layout_marginEnd="4dp"
                             android:background="@drawable/border_rectangle"
                             android:gravity="center_vertical"
-                            android:hint="Pulse Rate Value"
+                            android:hint="@string/pulse_rate_value"
                             android:inputType="phone"
                             android:maxLength="3"
                             android:paddingStart="20dp"
+                            android:text="@={vital.pulseRate}"
                             android:textColor="#3F4E6E"
-                            android:textSize="9sp"
+                            android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/linearLayout3"
                             app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
@@ -231,7 +237,7 @@
                             android:layout_marginStart="15dp"
                             android:fontFamily="@font/poppins_bold"
                             android:gravity="center"
-                            android:text="Temperature"
+                            android:text="@string/temperature"
                             android:textColor="#23384D"
                             android:textSize="17sp"
                             android:textStyle="bold"
@@ -247,12 +253,13 @@
                             android:layout_marginEnd="4dp"
                             android:background="@drawable/border_rectangle"
                             android:gravity="center_vertical"
-                            android:hint="Temperature Value"
+                            android:hint="@string/temperature_value"
                             android:inputType="phone"
                             android:maxLength="5"
                             android:paddingStart="20dp"
+                            android:text="@={vital.temperature}"
                             android:textColor="#3F4E6E"
-                            android:textSize="9sp"
+                            android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/linearLayout4"
                             app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
@@ -291,7 +298,7 @@
                             android:layout_marginStart="15dp"
                             android:fontFamily="@font/poppins_bold"
                             android:gravity="center"
-                            android:text="Random Blood Sugar"
+                            android:text="@string/random_blood_sugar"
                             android:textColor="#23384D"
                             android:textSize="17sp"
                             android:textStyle="bold"
@@ -306,12 +313,13 @@
                             android:layout_marginTop="15dp"
                             android:background="@drawable/border_rectangle"
                             android:gravity="center_vertical"
-                            android:hint="Blood Sugar Value"
+                            android:hint="@string/blood_sugar_value"
                             android:inputType="phone"
                             android:maxLength="3"
                             android:paddingStart="20dp"
+                            android:text="@={vital.randomBloodSugar}"
                             android:textColor="#3F4E6E"
-                            android:textSize="9sp"
+                            android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/linearLayout6"
                             app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
@@ -353,7 +361,7 @@
                             android:layout_marginStart="15dp"
                             android:fontFamily="@font/poppins_bold"
                             android:gravity="center"
-                            android:text="SpO2"
+                            android:text="@string/spo2"
                             android:textColor="#23384D"
                             android:textSize="17sp"
                             android:textStyle="bold"
@@ -368,11 +376,12 @@
                             android:layout_marginTop="15dp"
                             android:background="@drawable/border_rectangle"
                             android:gravity="center_vertical"
-                            android:hint="SpO2 Value"
+                            android:hint="@string/spo2_value"
                             android:inputType="phone"
                             android:paddingStart="20dp"
+                            android:text="@={vital.spo2}"
                             android:textColor="#3F4E6E"
-                            android:textSize="9sp"
+                            android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/linearLayout8"
                             app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
@@ -426,12 +435,13 @@
                             android:layout_marginTop="15dp"
                             android:background="@drawable/border_rectangle"
                             android:gravity="center_vertical"
-                            android:hint="Respiratory Rate Value"
+                            android:hint="@string/respiratory_rate_value"
                             android:inputType="phone"
                             android:maxLength="5"
                             android:paddingStart="20dp"
+                            android:text="@={vital.respiratoryRate}"
                             android:textColor="#3F4E6E"
-                            android:textSize="9sp"
+                            android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/linearLayout9"
                             app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
@@ -440,7 +450,7 @@
                 </LinearLayout>
 
 
-            </ScrollView>
+            </androidx.core.widget.NestedScrollView>
         </RelativeLayout>
 
 

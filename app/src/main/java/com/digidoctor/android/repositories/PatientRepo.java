@@ -17,6 +17,8 @@ import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.model.VitalModel;
+import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.view.activity.PatientDashboard;
@@ -31,6 +33,8 @@ import static com.digidoctor.android.utility.ApiUtils.getPatientMedicationDetail
 import static com.digidoctor.android.utility.ApiUtils.getRecommendedDoc;
 import static com.digidoctor.android.utility.ApiUtils.getSymptomWithIconsData;
 import static com.digidoctor.android.utility.ApiUtils.specialityData;
+import static com.digidoctor.android.utility.AppUtils.hideDialog;
+import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
 import static com.digidoctor.android.utility.utils.logout;
 
 public class PatientRepo {
@@ -42,7 +46,43 @@ public class PatientRepo {
     public MutableLiveData<List<DoctorModelRes>> recommendedDoctorModelMutableLiveData;
     public MutableLiveData<List<GetPatientMedicationMainModel>> prescriptionModelMutableLiveData;
     public MutableLiveData<List<User>> memberModelMutableLiveData;
+    public MutableLiveData<List<VitalResponse.VitalDateVise>> vitalsMutableLiveData;
 
+
+    public LiveData<List<VitalResponse.VitalDateVise>> getVitals(VitalModel vitalModel, Activity activity) {
+        if (vitalsMutableLiveData == null) {
+            vitalsMutableLiveData = new MutableLiveData<>();
+        }
+        loadVitalData(vitalModel, activity);
+        return vitalsMutableLiveData;
+
+    }
+
+    private void loadVitalData(final VitalModel vitalModel, final Activity activity) {
+
+        showRequestDialog(activity);
+        ApiUtils.getVitalsList(vitalModel, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                hideDialog();
+                List<VitalResponse.VitalDateVise> vitalResponse=(List<VitalResponse.VitalDateVise>)o;
+                vitalsMutableLiveData.setValue(vitalResponse);
+            }
+
+            @Override
+            public void onError(String s) {
+                hideDialog();
+                Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                hideDialog();
+                Toast.makeText(activity, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
 
     public LiveData<List<User>> getMemberList(Activity activity) {
         if (memberModelMutableLiveData == null) {
@@ -316,7 +356,7 @@ public class PatientRepo {
 
     private void loadPatientDashboardData(Dashboard dashboard) {
         if (PatientDashboard.getInstance() != null)
-            AppUtils.showRequestDialog(PatientDashboard.getInstance());
+            showRequestDialog(PatientDashboard.getInstance());
         final List<DashboardModel1> dashboardModel1s = new ArrayList<>();
         dashboardModel1s.add(new DashboardModel1("Specialities"));
         dashboardModel1s.add(new DashboardModel1("Symptoms"));

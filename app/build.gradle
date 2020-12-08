@@ -97,5 +97,10 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.8.5'
 
 
+    //highChart
+    implementation 'com.highsoft.highcharts:highcharts:8.1.2'
+
+
+
 
 }

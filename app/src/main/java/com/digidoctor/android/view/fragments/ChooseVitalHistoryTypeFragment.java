@@ -131,6 +131,7 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
             @Override
             public void onClick(View view) {
                 optionDialog.dismiss();
+                navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_vitalChartFragment);
             }
         });
         optionDialog.show();
@@ -183,7 +184,7 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
         VitalTypeModel model = (VitalTypeModel) o;
         if (model.getTitle().equalsIgnoreCase("Customize"))
             navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_addVitalsFragment);
-        showSelectVitalCategoryList();
+        else showSelectVitalCategoryList();
     }
 
     private class SelectVitalCategoryListAdapter extends RecyclerView.Adapter<SelectVitalCategoryListAdapter.CategoryVH> {

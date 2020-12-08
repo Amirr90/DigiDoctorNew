@@ -15,6 +15,7 @@ import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.GetPatientMedicationRes;
 import com.digidoctor.android.model.Login;
 import com.digidoctor.android.model.MemberModel;
+import com.digidoctor.android.model.NewResponseModel;
 import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.OnlineAppointmentSlots;
 import com.digidoctor.android.model.Registration;
@@ -25,6 +26,8 @@ import com.digidoctor.android.model.SpecialityRes;
 import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.model.SymptomsRes;
 import com.digidoctor.android.model.TransactionModel;
+import com.digidoctor.android.model.VitalModel;
+import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.utility.BookAppointment;
 import com.digidoctor.android.utility.BookAppointment2;
 
@@ -141,6 +144,15 @@ public interface Api {
     @POST("addMember")
     Call<RegistrationRes> addMember(
             @Body MemberModel memberModel);
+
+
+    @POST("addVital")
+    Call<ResponseModel> addVitals(
+            @Body VitalModel model);
+
+    @POST("getPatientVitalList")
+    Call<VitalResponse> getVitals(
+            @Body VitalModel model);
 
 
 }

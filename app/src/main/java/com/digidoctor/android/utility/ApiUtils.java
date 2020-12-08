@@ -23,6 +23,7 @@ import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.GetPatientMedicationRes;
 import com.digidoctor.android.model.Login;
 import com.digidoctor.android.model.MemberModel;
+import com.digidoctor.android.model.NewResponseModel;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.OnlineAppointmentSlots;
 import com.digidoctor.android.model.Registration;
@@ -34,11 +35,15 @@ import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.model.SymptomsRes;
 import com.digidoctor.android.model.TransactionModel;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.model.VitalModel;
+import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -359,7 +364,7 @@ public class ApiUtils {
 
         User user = getPrimaryUser(activity);
 
-        MemberModel memberModel=new MemberModel();
+        MemberModel memberModel = new MemberModel();
 
         memberModel.setUserLoginId(String.valueOf(user.getUserLoginId()));
 
@@ -636,6 +641,56 @@ public class ApiUtils {
             @Override
             public void onFailure(@NotNull Call<RegistrationRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
+            }
+        });
+    }
+
+    public static void addVitals(VitalModel model, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Call<ResponseModel> call = iRestInterfaces.addVitals(model);
+
+        call.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseModel> call, @NotNull Response<ResponseModel> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    ResponseModel responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(responseModel.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(responseModel.getResponseMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseModel> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void getVitalsList(VitalModel model, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Call<VitalResponse> call = iRestInterfaces.getVitals(model);
+
+        call.enqueue(new Callback<VitalResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<VitalResponse> call, @NotNull Response<VitalResponse> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    VitalResponse responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(responseModel.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(responseModel.getResponseMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<VitalResponse> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
             }
         });
     }

@@ -534,7 +534,7 @@
     <string name="other_vital">Other Vital</string>
     <string name="spo2">SpO2</string>
     <string name="temperature">Temperature</string>
-    <string name="blood_sugar_value">Blood Sugar Value</string>
+
     <string name="diagnosis_time_per_patient">Diagnosis time per patient (in minutes)</string>
     <string name="enter_diagnosis_time">Enter Diagnosis Time</string>
     <string name="please_add_slot">Please add slot</string>
@@ -906,6 +906,15 @@
     <string name="browse">Browse</string>
     <string name="save_member">Save Member</string>
     <string name="pulse_rate">Pulse Rate</string>
+    <string name="please_fill_diastolic">please enter diastolic value</string>
+    <string name="please_fill_syslolic">please enter systolic value</string>
+    <string name="respiratory_rate_value">Respiratory Rate Value</string>
+    <string name="spo2_value">SpO2 Value</string>
+    <string name="pulse_rate_value">Pulse Rate Value</string>
+    <string name="temperature_value">Temperature Value</string>
+    <string name="blood_sugar_value">Blood Sugar Value</string>
+    <string name="_140_90mmhg_higher">140/90mmHg Higher</string>
+    <string name="_90_60mmhg_lower">90/60mmHg lower</string>
 
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>

@@ -115,6 +115,17 @@ public class utils {
         return false;
     }
 
+    public static String getDateInDMYFormatFromTimestamp(long currentTimeMillis) {
+        try {
+            String value = new java.text.SimpleDateFormat("yyyy-MM-dd").
+                    format(new java.util.Date(currentTimeMillis));
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
     public static String parseDateToDMYFormat(String oldDate) {
         String inputPattern = "yyyy/MM/dd";
         String outputPattern = "dd/MM/yyyy";
