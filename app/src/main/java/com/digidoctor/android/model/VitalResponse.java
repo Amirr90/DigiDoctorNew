@@ -26,8 +26,12 @@ public class VitalResponse {
 
     public static class VitalDateVise {
         String vitalDate;
+        String vitalDateForGraph;
         List<VitalValueModel> vitalDetails;
 
+        public String getVitalDateForGraph() {
+            return vitalDateForGraph;
+        }
 
         @Override
         public boolean equals(Object o) {

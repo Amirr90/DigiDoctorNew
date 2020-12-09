@@ -1,18 +1,18 @@
 package com.digidoctor.android.view.fragments;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentAddVitalaBinding;
@@ -20,6 +20,7 @@ import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.utility.ApiUtils;
+import com.digidoctor.android.view.activity.PatientDashboard;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -74,11 +75,17 @@ public class AddVitalsFragment extends Fragment {
                 vitalModel = addVitalsBinding.getVital();
                 Log.d(TAG, "onClickVitalModel: " + vitalModel.toString());
 
-                if (checkFields(vitalModel)) {
-                    if (isNetworkConnected(requireContext()))
-                        addVitals(vitalModel);
-                    else
-                        Toast.makeText(requireActivity(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                try {
+                    if (checkFields(vitalModel)) {
+                        if (isNetworkConnected(requireContext()))
+                            addVitals(vitalModel);
+                        else
+                            Toast.makeText(requireActivity(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "onClick: " + e.getLocalizedMessage());
+                    Toast.makeText(requireActivity(), "Enter some vital value before adding !!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -97,8 +104,9 @@ public class AddVitalsFragment extends Fragment {
     }
 
     private boolean checkFields(VitalModel vitalModel) {
-
-        if (vitalModel.getSys().isEmpty()
+        if (null == vitalModel)
+            return false;
+        else if (vitalModel.getSys().isEmpty()
                 && vitalModel.getDia().isEmpty()
                 && vitalModel.getPulseRate().isEmpty()
                 && vitalModel.getTemperature().isEmpty()
@@ -128,7 +136,9 @@ public class AddVitalsFragment extends Fragment {
             User user = getPrimaryUser(requireActivity());
 
             vitalModel1.setMemberId(String.valueOf(user.getId()));
+
             vitalModel1.setDtDataTable(getDtTableValue(vitalModel));
+
             vitalModel1.setDate(getDateInDMYFormatFromTimestamp(System.currentTimeMillis()));
             vitalModel1.setTime(time);
 
@@ -142,6 +152,8 @@ public class AddVitalsFragment extends Fragment {
                 @Override
                 public void onSuccess(List<?> o) {
                     hideDialog();
+                    Toast.makeText(requireActivity(), getString(R.string.vital_added_successfully), Toast.LENGTH_SHORT).show();
+                    PatientDashboard.getInstance().onSupportNavigateUp();
                 }
 
                 @Override
@@ -209,12 +221,18 @@ public class AddVitalsFragment extends Fragment {
 
 
         JSONObject jsonObject7 = new JSONObject();
-        jsonObject7.put("vitalId", "206");
-        jsonObject7.put("vitalValue", vitalModel.getPulseRate());
+        jsonObject7.put("vitalId", "7");
+        jsonObject7.put("vitalValue", vitalModel.getRespiratoryRate());
         dtTableArray.put(jsonObject7);
 
 
         return dtTableArray.toString();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 }

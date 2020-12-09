@@ -63,4 +63,9 @@ public class HealthProductDetailsModel {
             Picasso.get().load(imagePath).placeholder(R.drawable.defualt_clinics_image).into(imageView);
         }
     }
+
+    @BindingAdapter("android:loadHealthProductImage")
+    public static void loadImage(ImageView imageView, int imagePath) {
+        imageView.setImageResource(imagePath);
+    }
 }

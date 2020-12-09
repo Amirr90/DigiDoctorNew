@@ -26,7 +26,7 @@ public class VitalModel extends BaseObservable {
 
     @Bindable
     public String getSys() {
-        return sys;
+        return (null == sys ? "" : sys);
     }
 
     public void setSys(String sys) {
@@ -36,7 +36,7 @@ public class VitalModel extends BaseObservable {
 
     @Bindable
     public String getDia() {
-        return dia;
+        return (null == dia ? "" : dia);
     }
 
     public void setDia(String dia) {
@@ -46,7 +46,7 @@ public class VitalModel extends BaseObservable {
 
     @Bindable
     public String getPulseRate() {
-        return pulseRate;
+        return (null == pulseRate ? "" : pulseRate);
     }
 
     public void setPulseRate(String pulseRate) {

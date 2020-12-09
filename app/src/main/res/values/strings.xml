@@ -915,6 +915,7 @@
     <string name="blood_sugar_value">Blood Sugar Value</string>
     <string name="_140_90mmhg_higher">140/90mmHg Higher</string>
     <string name="_90_60mmhg_lower">90/60mmHg lower</string>
+    <string name="respiratory_rate">Respiratory rate</string>
 
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>

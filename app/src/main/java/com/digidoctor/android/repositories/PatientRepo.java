@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.Dashboard;
 import com.digidoctor.android.model.DashboardModel1;
 import com.digidoctor.android.model.DoctorModel;
@@ -15,7 +16,6 @@ import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SymptomModel;
-import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;

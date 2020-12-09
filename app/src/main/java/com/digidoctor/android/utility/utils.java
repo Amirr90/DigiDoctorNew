@@ -36,7 +36,6 @@ import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
-import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
 
 public class utils {
 
@@ -67,6 +66,15 @@ public class utils {
     public static final String BOOKING_USER = "bookingUser";
     public static final String RE_SCHEDULE = "reschedule";
     public static final String KEY_CANCEL = "cancel";
+    public static final String VITAL_ID = "vitalId";
+    public static final String VITAL_NAME = "vitalName";
+    public static final String VITAL_IMAGE = "vitalImage";
+    public static final String PULSE_RATE_ID = "3";
+    public static final String BLOOD_SUGAR_ID = "10";
+    public static final String SPO2_ID = "56";
+    public static final String RESPIRATORY_ID = "7";
+    public static final String TEMPERATURE_ID = "5";
+    public static final String BP_ID = "-1";
 
 
     public static final Integer DEVICE_TYPE = 1;
@@ -126,6 +134,7 @@ public class utils {
         }
 
     }
+
     public static String parseDateToDMYFormat(String oldDate) {
         String inputPattern = "yyyy/MM/dd";
         String outputPattern = "dd/MM/yyyy";
@@ -298,7 +307,7 @@ public class utils {
         }
     }
 
-    public static void logout(final Activity activity,boolean status) {
+    public static void logout(final Activity activity, boolean status) {
         try {
 
             utils.setBoolean(utils.IS_LOGIN, false, activity);
@@ -314,6 +323,16 @@ public class utils {
         }
     }
 
+    public static String getVitalMaxValue(String vitalId) {
+        if (vitalId.equalsIgnoreCase(BP_ID))
+            return "140/90mmg Higher";
+        else return "";
+    }
 
+    public static String getVitalMinValue(String vitalId) {
+        if (vitalId.equalsIgnoreCase(BP_ID))
+            return "90/60mmg Lower";
+        else return "";
+    }
 }
 

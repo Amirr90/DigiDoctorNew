@@ -25,7 +25,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
                 android:layout_alignParentBottom="true"
-                android:layout_margin="@dimen/_22sdp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/round_border"
                 android:backgroundTint="#EDA537"
                 android:fontFamily="@font/poppins_medium"
@@ -41,14 +44,13 @@
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="17dp"
                 android:layout_marginRight="14dp"
-                android:layout_marginBottom="17dp"
-                android:background="@android:color/white"
-                android:paddingLeft="14dp"
-                android:paddingTop="17dp"
-                android:paddingRight="14dp"
-                android:paddingBottom="17dp">
+                android:background="@android:color/white">
 
                 <LinearLayout
+                    android:paddingLeft="14dp"
+                    android:paddingTop="17dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="17dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -64,7 +66,7 @@
                             android:layout_width="34dp"
                             android:layout_height="34dp"
                             android:background="@drawable/round_circle"
-                            android:backgroundTint="#EDF6FF"
+                            android:backgroundTint="#FFEDD4"
                             android:orientation="horizontal"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
@@ -97,14 +99,15 @@
                             app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
 
                         <EditText
+                            android:maxLines="1"
                             android:id="@+id/textView53"
                             android:layout_width="0dp"
-                            android:layout_height="34dp"
+                            android:layout_height="45dp"
                             android:layout_marginTop="15dp"
                             android:layout_marginEnd="4dp"
                             android:background="@drawable/border_rectangle"
                             android:gravity="center_vertical"
-                            android:hint="Systolic"
+                            android:hint="@string/systolic"
                             android:inputType="phone"
                             android:maxLength="3"
                             android:paddingStart="20dp"
@@ -118,13 +121,14 @@
                             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
                         <EditText
+                            android:maxLines="1"
                             android:id="@+id/textView54"
                             android:layout_width="0dp"
-                            android:layout_height="34dp"
+                            android:layout_height="45dp"
                             android:layout_marginStart="4dp"
                             android:background="@drawable/border_rectangle"
                             android:gravity="center_vertical"
-                            android:hint="Diastolic"
+                            android:hint="@string/diastolic"
                             android:inputType="phone"
                             android:maxLength="3"
                             android:paddingStart="20dp"
@@ -141,9 +145,10 @@
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="17dp"
+                        android:layout_marginTop="12dp"
                         android:paddingTop="@dimen/_10sdp"
                         android:paddingBottom="@dimen/_10sdp">
 
@@ -152,7 +157,7 @@
                             android:layout_width="34dp"
                             android:layout_height="34dp"
                             android:background="@drawable/round_circle"
-                            android:backgroundTint="#EDF6FF"
+                            android:backgroundTint="#EAE2FF"
                             android:orientation="horizontal"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -162,7 +167,7 @@
                             android:id="@+id/imageView24"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:src="@drawable/bp_chart_icon"
+                            android:src="@drawable/pulse_rate_icon"
                             app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
                             app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
                             app:layout_constraintStart_toStartOf="@+id/linearLayout3"
@@ -184,9 +189,10 @@
                             app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
 
                         <EditText
+                            android:maxLines="1"
                             android:id="@+id/textView59"
                             android:layout_width="0dp"
-                            android:layout_height="34dp"
+                            android:layout_height="45dp"
                             android:layout_marginTop="15dp"
                             android:layout_marginEnd="4dp"
                             android:background="@drawable/border_rectangle"
@@ -216,7 +222,8 @@
                             android:layout_width="34dp"
                             android:layout_height="34dp"
                             android:background="@drawable/round_circle"
-                            android:backgroundTint="#EDF6FF"
+                            android:backgroundTint="#FFE4E8"
+                            android:orientation="vertical"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -224,7 +231,7 @@
                             android:id="@+id/imageView25"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:src="@drawable/bp_chart_icon"
+                            android:src="@drawable/thermometer"
                             app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
                             app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
                             app:layout_constraintStart_toStartOf="@+id/linearLayout4"
@@ -246,9 +253,10 @@
                             app:layout_constraintTop_toTopOf="@+id/linearLayout4" />
 
                         <EditText
+                            android:maxLines="1"
                             android:id="@+id/textView63"
                             android:layout_width="0dp"
-                            android:layout_height="34dp"
+                            android:layout_height="45dp"
                             android:layout_marginTop="15dp"
                             android:layout_marginEnd="4dp"
                             android:background="@drawable/border_rectangle"
@@ -277,7 +285,8 @@
                             android:layout_width="34dp"
                             android:layout_height="34dp"
                             android:background="@drawable/round_circle"
-                            android:backgroundTint="#EDF6FF"
+                            android:backgroundTint="#E5FFEF"
+                            android:orientation="vertical"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -285,11 +294,12 @@
                             android:id="@+id/imageView31"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:src="@drawable/bp_chart_icon"
+                            android:src="@drawable/blood_sugar_icon"
                             app:layout_constraintBottom_toBottomOf="@+id/linearLayout6"
                             app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
                             app:layout_constraintStart_toStartOf="@+id/linearLayout6"
-                            app:layout_constraintTop_toTopOf="@+id/linearLayout6" />
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout6"
+                            android:contentDescription="TODO" />
 
                         <TextView
                             android:id="@+id/textView64"
@@ -307,9 +317,10 @@
                             app:layout_constraintTop_toTopOf="@+id/linearLayout6" />
 
                         <EditText
+                            android:maxLines="1"
                             android:id="@+id/textView69"
                             android:layout_width="0dp"
-                            android:layout_height="34dp"
+                            android:layout_height="45dp"
                             android:layout_marginTop="15dp"
                             android:background="@drawable/border_rectangle"
                             android:gravity="center_vertical"
@@ -337,7 +348,8 @@
                             android:layout_width="34dp"
                             android:layout_height="34dp"
                             android:background="@drawable/round_circle"
-                            android:backgroundTint="#EDF6FF"
+                            android:backgroundTint="#E2EEFF"
+                            android:orientation="vertical"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
@@ -349,7 +361,7 @@
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_weight="1"
-                            android:src="@drawable/bp_chart_icon"
+                            android:src="@drawable/spo_icon"
                             app:layout_constraintBottom_toBottomOf="@+id/linearLayout8"
                             app:layout_constraintEnd_toEndOf="@+id/linearLayout8"
                             app:layout_constraintStart_toStartOf="parent"
@@ -372,7 +384,7 @@
                         <EditText
                             android:id="@+id/textView73"
                             android:layout_width="0dp"
-                            android:layout_height="34dp"
+                            android:layout_height="45dp"
                             android:layout_marginTop="15dp"
                             android:background="@drawable/border_rectangle"
                             android:gravity="center_vertical"
@@ -399,7 +411,8 @@
                             android:layout_width="34dp"
                             android:layout_height="34dp"
                             android:background="@drawable/round_circle"
-                            android:backgroundTint="#EDF6FF"
+                            android:backgroundTint="#E3D9FF"
+                            android:orientation="vertical"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -408,7 +421,7 @@
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_weight="1"
-                            android:src="@drawable/bp_chart_icon"
+                            android:src="@drawable/respiratory_icon"
                             app:layout_constraintBottom_toBottomOf="@+id/linearLayout9"
                             app:layout_constraintEnd_toEndOf="@+id/linearLayout9"
                             app:layout_constraintStart_toStartOf="@+id/linearLayout9"
@@ -429,9 +442,10 @@
                             app:layout_constraintTop_toTopOf="@+id/linearLayout9" />
 
                         <EditText
+                            android:maxLines="1"
                             android:id="@+id/textView75"
                             android:layout_width="0dp"
-                            android:layout_height="34dp"
+                            android:layout_height="45dp"
                             android:layout_marginTop="15dp"
                             android:background="@drawable/border_rectangle"
                             android:gravity="center_vertical"

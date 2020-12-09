@@ -5,12 +5,19 @@ public class SelectVitalCategoryModel {
     private int image;
     private boolean isSelected;
     private String color;
+    private String vitalId;
 
-    public SelectVitalCategoryModel(String title, int image, boolean isSelected, String color) {
+    public SelectVitalCategoryModel(String title, int image, boolean isSelected, String color, String vitalId) {
         this.title = title;
         this.image = image;
         this.isSelected = isSelected;
         this.color = color;
+        this.vitalId = vitalId;
+    }
+
+
+    public String getVitalId() {
+        return vitalId;
     }
 
     public String getTitle() {

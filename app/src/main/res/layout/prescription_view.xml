@@ -13,14 +13,7 @@
             type="com.digidoctor.android.interfaces.AdapterInterface" />
     </data>
 
- <!--   <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:elevation="0.2dp">
 
-
-    </androidx.cardview.widget.CardView>-->
 
     <RelativeLayout
 
@@ -73,7 +66,6 @@
             android:layout_toRightOf="@id/llImage"
             android:fontFamily="@font/poppins"
             android:text="@{getPatientMedicationMainModel.startDate}"
-
             android:textColor="#3F4E6E"
             android:textSize="15dp"
             android:textStyle="normal" />
