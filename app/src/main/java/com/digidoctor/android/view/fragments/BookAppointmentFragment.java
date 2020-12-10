@@ -20,15 +20,16 @@ import androidx.navigation.Navigation;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentBookAppointmentBinding;
+import com.digidoctor.android.interfaces.BookAppointmentInterface;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.BookAppointment;
-import com.digidoctor.android.interfaces.BookAppointmentInterface;
-import com.digidoctor.android.utility.BookAppointment2;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.gson.Gson;
+
+import org.jetbrains.annotations.NotNull;
 
 import static com.digidoctor.android.utility.AppUtils.getDayOfWeekDayFromDate;
 import static com.digidoctor.android.utility.AppUtils.parseDateToFormatDMY;
@@ -60,18 +61,26 @@ public class BookAppointmentFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         appointmentBinding = FragmentBookAppointmentBinding.inflate(inflater, container, false);
         return appointmentBinding.getRoot();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(view);
 
+
+        if (null == getArguments()) {
+            Toast.makeText(requireActivity(), R.string.date_taime_not_selected, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        date = getArguments().getString("date");
+        time = getArguments().getString("time");
 
         //getting  user
         user = getPrimaryUser(requireActivity());
@@ -86,10 +95,6 @@ public class BookAppointmentFragment extends Fragment {
             showCompleteProfileDialog();
             return;
         }
-
-
-        date = getArguments().getString("date");
-        time = getArguments().getString("time");
 
 
         String docString = getArguments().getString("docModel");

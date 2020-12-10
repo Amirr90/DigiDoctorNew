@@ -30,8 +30,11 @@ import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 import com.squareup.picasso.Picasso;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import ss.com.bannerslider.ImageLoadingService;
 import ss.com.bannerslider.Slider;
@@ -61,7 +64,7 @@ public class PatientDashboardFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         dashboard2Binding = FragmentPatientDashboardBinding.inflate(inflater, container, false);
 
@@ -96,10 +99,10 @@ public class PatientDashboardFragment extends Fragment {
 
 
         List<DashboardModel1> dashboardModel1s = new ArrayList<>();
-        dashboardModel1s.add(new DashboardModel1("Specialities"));
-        dashboardModel1s.add(new DashboardModel1("Symptoms"));
-        dashboardModel1s.add(new DashboardModel1("Tests"));
-        dashboardModel1s.add(new DashboardModel1("Pharmacy"));
+        dashboardModel1s.add(new DashboardModel1(getString(R.string.speciality), getString(R.string.find_doctors_by)));
+        dashboardModel1s.add(new DashboardModel1(getString(R.string.symptoms), getString(R.string.find_doctors_by)));
+        dashboardModel1s.add(new DashboardModel1(getString(R.string.tests), getString(R.string.lab)));
+        dashboardModel1s.add(new DashboardModel1(getString(R.string.pharmacy), getString(R.string.digi)));
 
 
         adapter1.submitList(dashboardModel1s);
@@ -160,7 +163,8 @@ public class PatientDashboardFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
+
     }
 
 }

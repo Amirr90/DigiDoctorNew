@@ -21,10 +21,10 @@ import androidx.fragment.app.Fragment;
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentProfileBinding;
 import com.digidoctor.android.databinding.GenderViewBinding;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.MyDialogInterface;
 import com.digidoctor.android.model.Registration;
 import com.digidoctor.android.model.User;
-import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
@@ -32,6 +32,7 @@ import com.digidoctor.android.view.activity.PatientDashboard;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.digidoctor.android.utility.ApiUtils.patientRegistration;
 import static com.digidoctor.android.utility.utils.BOOKING_USER;
@@ -68,7 +69,7 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 
     @Override

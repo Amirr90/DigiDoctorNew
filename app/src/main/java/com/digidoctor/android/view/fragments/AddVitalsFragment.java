@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
@@ -45,9 +46,9 @@ public class AddVitalsFragment extends Fragment {
     NavController navController;
     VitalModel vitalModel;
 
-    private int mDay = 0, mMonth = 0, mYear = 0, hour = 0, minutes = 0;
-    private Calendar c;
-    private String date, time;
+    int hour = 0, minutes = 0;
+    Calendar c;
+    private String time;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -96,10 +97,6 @@ public class AddVitalsFragment extends Fragment {
         c = Calendar.getInstance();
         hour = c.get(Calendar.HOUR_OF_DAY);
         minutes = c.get(Calendar.MINUTE);
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-
         time = hour + ":" + minutes;
     }
 
@@ -174,8 +171,6 @@ public class AddVitalsFragment extends Fragment {
             e.printStackTrace();
             Log.d(TAG, "addVitalsError : " + e.getLocalizedMessage());
         }
-
-
     }
 
 
@@ -233,6 +228,6 @@ public class AddVitalsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 }

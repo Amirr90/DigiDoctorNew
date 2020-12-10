@@ -1,6 +1,10 @@
 package com.digidoctor.android.view.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,20 +13,15 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentVisitBinding;
 import com.digidoctor.android.databinding.VisitViewBinding;
 import com.digidoctor.android.model.GetPatientMedicationAdviceModel;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.GetPatientMedicationMedicineModel;
-import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.google.gson.Gson;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -36,12 +35,12 @@ public class VisitFragment extends Fragment {
     NavController navController;
     GetPatientMedicationMainModel getPatientMedicationMainModels;
     List<GetPatientMedicationAdviceModel> adviseDetails;
-    private List<GetPatientMedicationMedicineModel> medicineDetails;
+    List<GetPatientMedicationMedicineModel> medicineDetails;
 
     MedicationAdapter medicationAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentVisitBinding = FragmentVisitBinding.inflate(getLayoutInflater());
         return fragmentVisitBinding.getRoot();
@@ -53,6 +52,8 @@ public class VisitFragment extends Fragment {
 
         navController = Navigation.findNavController(view);
 
+        if (null == getArguments())
+            return;
         modelString = getArguments().getString("presModel");
 
 

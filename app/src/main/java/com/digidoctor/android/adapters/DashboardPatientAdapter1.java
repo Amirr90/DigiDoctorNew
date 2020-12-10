@@ -52,6 +52,10 @@ public class DashboardPatientAdapter1 extends ListAdapter<DashboardModel1, Dashb
 
             }
         });
+
+        holder.dashBoardViewBinding.textView55.setText(dashboardModel1.getDescription());
+
+
     }
 
     public class DashboardModelVH extends RecyclerView.ViewHolder {

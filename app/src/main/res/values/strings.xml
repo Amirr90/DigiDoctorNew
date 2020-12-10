@@ -891,10 +891,10 @@
     <string name="vitals_hitory">Vital History</string>
     <string name="choose_vital_histroy">Vital Input</string>
     <string name="trends">Trends</string>
-    <string name="trends_description">Trends description here</string>
+    <string name="trends_description">Vital History Graph</string>
     <string name="graph_description">Grapgh dcescription here</string>
-    <string name="live">Live</string>
-    <string name="live_description">Live description here</string>
+    <string name="live">Get Live Vital</string>
+    <string name="live_description">Get Vital Via Machine</string>
     <string name="customize">Customize</string>
     <string name="customize_description">Customize description here</string>
     <string name="blood_pressure_chart">Blood Pressure Chart</string>
@@ -906,8 +906,8 @@
     <string name="browse">Browse</string>
     <string name="save_member">Save Member</string>
     <string name="pulse_rate">Pulse Rate</string>
-    <string name="please_fill_diastolic">please enter diastolic value</string>
-    <string name="please_fill_syslolic">please enter systolic value</string>
+    <string name="please_fill_diastolic">please enter diastolic BP</string>
+    <string name="please_fill_syslolic">please enter systolic BP</string>
     <string name="respiratory_rate_value">Respiratory Rate Value</string>
     <string name="spo2_value">SpO2 Value</string>
     <string name="pulse_rate_value">Pulse Rate Value</string>
@@ -916,6 +916,23 @@
     <string name="_140_90mmhg_higher">140/90mmHg Higher</string>
     <string name="_90_60mmhg_lower">90/60mmHg lower</string>
     <string name="respiratory_rate">Respiratory rate</string>
+    <string name="your_appointment_has_been_done_successfully">Your Appointment has been done successfully!</string>
+    <string name="thank_you_for_using_our_services">Thank you for using our services.</string>
+    <string name="input_vitals">Input Vitals</string>
+    <string name="vital_trends">Vital Trends</string>
+    <string name="input_vitals_description">Input Your Vitals</string>
+    <string name="find_doctors_by">Find Doctors by</string>
+    <string name="lab">Lab</string>
+    <string name="digi">Digi</string>
+    <string name="speciality">Speciality</string>
+    <string name="tests">Tests</string>
+    <string name="pharmacy">Pharmacy</string>
+    <string name="prescription_details">Prescription Details</string>
+    <string name="doctor_s_information">Doctor\'s Information</string>
+    <string name="doctor_s_name">Doctor’s Name</string>
+    <string name="dose_remark">Dose Remark</string>
+    <string name="date_taime_not_selected">date, Time not selected</string>
+    <string name="failed_to_authenticate_token">Failed to authenticate token !!</string>
 
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>

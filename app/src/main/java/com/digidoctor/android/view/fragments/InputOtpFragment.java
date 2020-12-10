@@ -1,5 +1,6 @@
 package com.digidoctor.android.view.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -18,11 +19,13 @@ import androidx.navigation.Navigation;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentInputOtpBinding;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.GenerateOtpModel;
 import com.digidoctor.android.model.Login;
 import com.digidoctor.android.model.User;
-import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.utility.utils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -55,13 +58,14 @@ public class InputOtpFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inputOtpBinding = FragmentInputOtpBinding.inflate(inflater, container, false);
         return inputOtpBinding.getRoot();
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -70,6 +74,8 @@ public class InputOtpFragment extends Fragment {
 
         navController = Navigation.findNavController(view);
 
+        if (null == getArguments())
+            return;
         number = getArguments().getString("number");
         generateOtpModel.setMobileNo(number);
 
@@ -82,6 +88,7 @@ public class InputOtpFragment extends Fragment {
 
             }
 
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence != null) {

@@ -78,6 +78,7 @@ public class utils {
 
 
     public static final Integer DEVICE_TYPE = 1;
+    public static final String BLE_DEVICE_TYPE = "deviceType";
     public static final String APP_TYPE = "DD";
     public static final String SERVICE_PROVIDER_ID_TYPE = "6";
 

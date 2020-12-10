@@ -19,6 +19,8 @@ import com.digidoctor.android.databinding.FragmentInputMobileNumberBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.GenerateOtpModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import static com.digidoctor.android.utility.ApiUtils.getOTP;
@@ -31,7 +33,7 @@ public class InputMobileNumberFragment extends Fragment {
     GenerateOtpModel generateOtpModel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         numberBinding = FragmentInputMobileNumberBinding.inflate(inflater, container, false);

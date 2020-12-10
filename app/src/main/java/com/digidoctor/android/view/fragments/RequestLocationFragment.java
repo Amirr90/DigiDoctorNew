@@ -4,6 +4,9 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,14 +17,12 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentRequestLocationBinding;
 import com.digidoctor.android.view.activity.PatientDashboard;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 import static com.digidoctor.android.utility.utils.REQ_PERMISSION_CODE;
 
@@ -32,7 +33,7 @@ public class RequestLocationFragment extends Fragment {
     NavController navController;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         requestLocationBinding = FragmentRequestLocationBinding.inflate(getLayoutInflater());
@@ -72,7 +73,7 @@ public class RequestLocationFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
     }
 
 }

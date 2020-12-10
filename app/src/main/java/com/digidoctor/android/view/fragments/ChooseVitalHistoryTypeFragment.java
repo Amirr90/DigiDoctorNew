@@ -84,7 +84,13 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
 
     private void loadData() {
         vitalTypeModelList.add(new VitalTypeModel(
-                getString(R.string.trends),
+                getString(R.string.input_vitals),
+                getString(R.string.input_vitals_description),
+                R.drawable.customize_icon));
+
+
+        vitalTypeModelList.add(new VitalTypeModel(
+                getString(R.string.vital_trends),
                 getString(R.string.trends_description),
                 R.drawable.trends_icon));
 
@@ -93,11 +99,6 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
                 getString(R.string.live_description),
                 R.drawable.live_icon));
 
-
-        vitalTypeModelList.add(new VitalTypeModel(
-                getString(R.string.customize),
-                getString(R.string.customize_description),
-                R.drawable.customize_icon));
 
         typeAdapter.notifyDataSetChanged();
     }
@@ -174,10 +175,10 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
     @Override
     public void onItemClicked(Object o) {
         VitalTypeModel model = (VitalTypeModel) o;
-        if (model.getTitle().equalsIgnoreCase("Customize"))
+        if (model.getTitle().equalsIgnoreCase(getString(R.string.input_vitals)))
             navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_addVitalsFragment);
 
-        else if (model.getTitle().equalsIgnoreCase("Live"))
+        else if (model.getTitle().equalsIgnoreCase(getString(R.string.live)))
             navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_selectDeviceFragment);
         else showSelectVitalCategoryList();
     }
@@ -234,7 +235,6 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
             }
         }
     }
-
 
 
 }

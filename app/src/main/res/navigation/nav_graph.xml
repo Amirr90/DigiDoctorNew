@@ -192,7 +192,7 @@
     </fragment>
     <fragment
         android:id="@+id/doctorShortProfileFragment"
-        android:name="com.digidoctor.android.view.fragments.DoctorShortProfileFragment"
+        android:name="com.digidoctor.android.view.fragments.DoctorProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_doctor_short_profile">
         <action
@@ -320,7 +320,7 @@
     <fragment
         android:id="@+id/chooseVitalHistoryTypeFragment"
         android:name="com.digidoctor.android.view.fragments.ChooseVitalHistoryTypeFragment"
-        android:label="Vital Input"
+        android:label="Vital"
         tools:layout="@layout/fragment_choose_vital_history_type">
         <action
             android:id="@+id/action_chooseVitalHistoryTypeFragment_to_addVitalsFragment"
@@ -363,5 +363,18 @@
         android:id="@+id/selectDeviceFragment"
         android:name="com.digidoctor.android.view.fragments.SelectDeviceFragment"
         android:label="Select Device"
-        tools:layout="@layout/fragment_select_device" />
+        tools:layout="@layout/fragment_select_device" >
+        <action
+            android:id="@+id/action_selectDeviceFragment_to_searchBluetoothDeviceFragment"
+            app:destination="@id/searchBluetoothDeviceFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchBluetoothDeviceFragment"
+        android:name="com.digidoctor.android.view.fragments.SearchBluetoothDeviceFragment"
+        android:label="Seaching Device"
+        tools:layout="@layout/fragment_search_blutooth_device" />
 </navigation>

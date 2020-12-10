@@ -35,7 +35,7 @@
                 android:fontFamily="@font/poppins_bold"
                 android:text="Sorry!"
                 android:textColor="#262E3F"
-                android:textSize="17dp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -47,7 +47,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="We can't find any doctor now."
                 android:textColor="#262E3F"
-                android:textSize="17dp" />
+                android:textSize="17sp" />
         </RelativeLayout>
 
 

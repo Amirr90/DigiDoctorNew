@@ -4,6 +4,11 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,41 +16,27 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.CalendarAdapter;
 import com.digidoctor.android.adapters.TimeSlotsAdapter;
-import com.digidoctor.android.databinding.FragmentBookedAppointmentDetailBinding;
 import com.digidoctor.android.databinding.FragmentReScheduleBinding;
-import com.digidoctor.android.databinding.FragmentReScheduleBindingImpl;
 import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.BookAppointmentInterface;
 import com.digidoctor.android.model.CalendarModel;
-import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.GetAppointmentSlotsDataRes;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.AppUtils;
-import com.digidoctor.android.utility.BookAppointment;
 import com.digidoctor.android.utility.BookAppointment2;
 import com.digidoctor.android.utility.NewDashboardUtils;
 import com.digidoctor.android.utility.URLUtils;
-import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
-import com.digidoctor.android.view.fragments.ChooseTimeFragment;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,8 +50,6 @@ import static com.digidoctor.android.utility.ApiUtils.getDoctorsTimeSlots;
 import static com.digidoctor.android.utility.AppUtils.getCurrentDateInWeekMonthDayFormat;
 import static com.digidoctor.android.utility.AppUtils.parseDateToFormatDMY;
 import static com.digidoctor.android.utility.utils.RE_SCHEDULE;
-import static com.digidoctor.android.utility.utils.TOKEN;
-import static com.digidoctor.android.utility.utils.getNextWeekDays;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.getUserForBooking;
 import static com.digidoctor.android.utility.utils.logout;
@@ -82,7 +71,7 @@ public class ReScheduleFragment extends Fragment {
     List<GetAppointmentSlotsDataRes> slotsDataRes = new ArrayList<>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         reScheduleBinding = FragmentReScheduleBinding.inflate(inflater, container, false);
         return reScheduleBinding.getRoot();
@@ -97,6 +86,8 @@ public class ReScheduleFragment extends Fragment {
         date = getDateToSend(0);
 
         //getting Model
+        if (null == getArguments())
+            return;
         String jsonString = getArguments().getString("model");
         appointmentModel = new OnlineAppointmentModel();
         Gson gson = new Gson();
@@ -225,7 +216,6 @@ public class ReScheduleFragment extends Fragment {
     }
 
     private void reScheduleAppointment(String time, final BookAppointmentInterface bookAppointmentInterface) {
-        User primaryUser = getPrimaryUser(requireActivity());
         User bookingUser = getUserForBooking(requireActivity());
 
 

@@ -8,25 +8,33 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
-import com.digidoctor.android.databinding.FragmentAddPrescriptionManuallyBinding;
+import com.digidoctor.android.databinding.FragmentSearchBlutoothDeviceBinding;
 
 import org.jetbrains.annotations.NotNull;
 
 
-public class AddPrescriptionManuallyFragment extends Fragment {
-
-    FragmentAddPrescriptionManuallyBinding addPrescriptionManuallyBinding;
+public class SearchBluetoothDeviceFragment extends Fragment {
+    FragmentSearchBlutoothDeviceBinding bluetoothDeviceBinding;
+    NavController navController;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        addPrescriptionManuallyBinding = FragmentAddPrescriptionManuallyBinding.inflate(getLayoutInflater());
-        return addPrescriptionManuallyBinding.getRoot();
+        bluetoothDeviceBinding = FragmentSearchBlutoothDeviceBinding.inflate(getLayoutInflater());
+        return bluetoothDeviceBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(view);
+
+        searchBLEDevice();
+    }
+
+    private void searchBLEDevice() {
     }
 }

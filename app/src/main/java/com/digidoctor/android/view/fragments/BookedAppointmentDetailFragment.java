@@ -19,23 +19,22 @@ import androidx.navigation.Navigation;
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentBookedAppointmentDetailBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
-import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.interfaces.AppointmentInterface;
+import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.gson.Gson;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 import static com.digidoctor.android.utility.ApiUtils.cancelAppointment;
 import static com.digidoctor.android.utility.utils.KEY_CANCEL;
-import static com.digidoctor.android.utility.utils.RE_SCHEDULE;
 import static com.digidoctor.android.utility.utils.getJSONFromModel;
 import static com.digidoctor.android.utility.utils.logout;
 
 
 public class BookedAppointmentDetailFragment extends Fragment implements AppointmentInterface {
-
-    private static final String TAG = "BookedAppointmentDetail";
 
     OnlineAppointmentModel appointmentModel;
 
@@ -44,7 +43,7 @@ public class BookedAppointmentDetailFragment extends Fragment implements Appoint
     NavController navController;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         bookedAppointmentDetailBinding = FragmentBookedAppointmentDetailBinding.inflate(inflater, container, false);
         return bookedAppointmentDetailBinding.getRoot();
@@ -56,6 +55,8 @@ public class BookedAppointmentDetailFragment extends Fragment implements Appoint
 
         navController = Navigation.findNavController(view);
 
+        if (null == getArguments())
+            return;
         String docString = getArguments().getString("appointmentModel");
         Gson gson = new Gson();
         appointmentModel = gson.fromJson(docString, OnlineAppointmentModel.class);
@@ -86,7 +87,7 @@ public class BookedAppointmentDetailFragment extends Fragment implements Appoint
                             @Override
                             public void onError(String s) {
                                 try {
-                                    if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
+                                    if (s.equalsIgnoreCase(getString(R.string.failed_to_authenticate_token))) {
                                         logout(PatientDashboard.getInstance(), true);
                                     }
 

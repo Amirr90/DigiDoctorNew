@@ -1,6 +1,9 @@
 package com.digidoctor.android.view.fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,19 +14,18 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.PrescriptionAdapter;
 import com.digidoctor.android.databinding.FragmentPrescriptionHistoryBinding;
+import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.User;
-import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
+import java.util.Objects;
 
 import static com.digidoctor.android.utility.utils.getJSONFromModel;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
@@ -42,7 +44,7 @@ public class PrescriptionHistoryFragment extends Fragment implements AdapterInte
     User user;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         prescriptionHistoryBinding = FragmentPrescriptionHistoryBinding.inflate(getLayoutInflater());
         return prescriptionHistoryBinding.getRoot();
@@ -95,7 +97,8 @@ public class PrescriptionHistoryFragment extends Fragment implements AdapterInte
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
+
     }
 
     @Override

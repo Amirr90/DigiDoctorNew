@@ -14,6 +14,8 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentDoctorsNotFoundBinding;
 import com.digidoctor.android.databinding.FragmentSymptomsBinding;
 
+import org.jetbrains.annotations.NotNull;
+
 
 public class DoctorsNotFoundFragment extends Fragment {
 
@@ -21,7 +23,7 @@ public class DoctorsNotFoundFragment extends Fragment {
     FragmentDoctorsNotFoundBinding doctorsNotFoundBinding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         doctorsNotFoundBinding = FragmentDoctorsNotFoundBinding.inflate(inflater, container, false);
         return doctorsNotFoundBinding.getRoot();

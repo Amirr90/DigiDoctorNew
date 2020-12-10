@@ -16,10 +16,8 @@ import com.google.gson.Gson;
 import com.razorpay.Checkout;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +41,6 @@ import static com.digidoctor.android.utility.utils.KEY_PATIENT_NAME;
 import static com.digidoctor.android.utility.utils.MEMBER_ID;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.logout;
-import static com.digidoctor.android.utility.utils.setString;
 import static com.digidoctor.android.view.fragments.BookAppointmentFragment.bookAppointment;
 
 public class BookAppointment extends Credentials {
@@ -323,7 +320,7 @@ public class BookAppointment extends Credentials {
         map.put(KEY_IS_ERA_USER, getIsEraUser());
         map.put(KEY_APPOINTMENT_ID, getAppointmentId());
 
-        checkTimeSlotAvailability(map, activity, new ApiCallbackInterface() {
+        checkTimeSlotAvailability(map, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> obj) {
                 Log.d(TAG, "onSuccess: " + obj);

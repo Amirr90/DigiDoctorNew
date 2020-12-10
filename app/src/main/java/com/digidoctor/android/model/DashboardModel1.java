@@ -8,9 +8,16 @@ import java.util.Objects;
 public class DashboardModel1 {
 
     String title;
+    String description;
 
-    public DashboardModel1(String title) {
+    public DashboardModel1(String title, String description) {
         this.title = title;
+        this.description = description;
+    }
+
+
+    public String getDescription() {
+        return description;
     }
 
     public String getTitle() {

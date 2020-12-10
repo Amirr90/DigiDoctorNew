@@ -1,29 +1,25 @@
 package com.digidoctor.android.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.databinding.DataBindingUtil;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.databinding.DataBindingUtil;
+
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.ActivityMainBinding;
-import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.view.activity.SignUpJourneyActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
-import static com.digidoctor.android.utility.utils.IS_FIRST_TIME;
 import static com.digidoctor.android.utility.utils.IS_LOGIN;
-import static com.digidoctor.android.utility.utils.fadeOut;
 import static com.digidoctor.android.utility.utils.fcmToken;
-import static com.digidoctor.android.utility.utils.getBoolean;
 import static com.digidoctor.android.utility.utils.getLoginStatus;
 import static com.digidoctor.android.utility.utils.setString;
 

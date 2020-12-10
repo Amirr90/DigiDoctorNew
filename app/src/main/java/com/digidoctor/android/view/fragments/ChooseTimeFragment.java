@@ -2,6 +2,10 @@ package com.digidoctor.android.view.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,25 +13,21 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.CalendarAdapter;
 import com.digidoctor.android.adapters.TimeSlotsAdapter;
 import com.digidoctor.android.databinding.FragmentChooseTimeBinding;
+import com.digidoctor.android.interfaces.AdapterInterface;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.CalendarModel;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.GetAppointmentSlotsDataRes;
-import com.digidoctor.android.interfaces.AdapterInterface;
-import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.NewDashboardUtils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.gson.Gson;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,7 +59,7 @@ public class ChooseTimeFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         chooseTimeBinding = FragmentChooseTimeBinding.inflate(inflater, container, false);
         if (PatientDashboard.getInstance() != null)
@@ -77,6 +77,8 @@ public class ChooseTimeFragment extends Fragment {
         if (PatientDashboard.getInstance() != null)
             AppUtils.showRequestDialog(PatientDashboard.getInstance());
 
+        if (null == getArguments())
+            return;
 
         String jsonString = getArguments().getString("docModel");
         doctorModel = new DoctorModel();

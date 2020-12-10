@@ -24,7 +24,7 @@ import com.google.gson.Gson;
 import static com.digidoctor.android.utility.NewDashboardUtils.getJSONFromModel;
 
 
-public class DoctorShortProfileFragment extends Fragment {
+public class DoctorProfileFragment extends Fragment {
     private static final String TAG = "DoctorShortProfileFragm";
 
     FragmentDoctorShortProfileBinding shortProfileBinding;

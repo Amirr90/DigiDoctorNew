@@ -20,11 +20,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.VitalListAdapter;
 import com.digidoctor.android.databinding.FragmentVitalChartBinding;
-import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
-import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
@@ -42,6 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static com.digidoctor.android.utility.utils.VITAL_ID;
 import static com.digidoctor.android.utility.utils.VITAL_IMAGE;
@@ -127,33 +126,11 @@ public class VitalChartFragment extends Fragment {
 
                         setVitalChartData(vitalResponse);
 
-                        //getChartData(vitalModel);
 
                     }
                 });
     }
 
-
-    private void getChartData(VitalModel vitalModel) {
-        ApiUtils.getVitalsList(vitalModel, new ApiCallbackInterface() {
-            @Override
-            public void onSuccess(List<?> o) {
-                List<VitalResponse.VitalDateVise> vitalResponse = (List<VitalResponse.VitalDateVise>) o;
-                setVitalChartData(vitalResponse);
-                Log.d(TAG, "onSuccess: " + vitalResponse.get(0).getVitalDetails().get(1).getVitalValue());
-            }
-
-            @Override
-            public void onError(String s) {
-                Toast.makeText(requireActivity(), s, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailed(Throwable throwable) {
-                Toast.makeText(requireActivity(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     private void initGraph() {
         chartBinding.chartView.theme = "sand-signika";
@@ -240,6 +217,6 @@ public class VitalChartFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 }

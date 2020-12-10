@@ -1,14 +1,6 @@
 package com.digidoctor.android.view.fragments;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -19,14 +11,23 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.digidoctor.android.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.digidoctor.android.adapters.SpecialityAdapter;
 import com.digidoctor.android.databinding.FragmentSpecialitiesBinding;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
+import java.util.Objects;
 
 import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
 
@@ -41,7 +42,7 @@ public class SpecialitiesFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         specialitiesBinding = FragmentSpecialitiesBinding.inflate(inflater, container, false);
         return specialitiesBinding.getRoot();
@@ -98,8 +99,9 @@ public class SpecialitiesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
+
     private void getSpecialityData(String specialityName) {
         viewModel.getSpecialityData(specialityName).observe(getViewLifecycleOwner(), new Observer<List<SpecialityModel>>() {
             @Override

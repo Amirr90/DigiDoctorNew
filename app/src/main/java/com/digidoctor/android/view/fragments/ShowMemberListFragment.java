@@ -1,6 +1,9 @@
 package com.digidoctor.android.view.fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,26 +13,19 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.MemberAdapter;
 import com.digidoctor.android.databinding.FragmentShowMemberListBinding;
 import com.digidoctor.android.interfaces.AdapterInterface;
-import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.User;
-import com.digidoctor.android.utility.ApiUtils;
-import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 import static com.digidoctor.android.utility.utils.BOOKING_USER;
-import static com.digidoctor.android.utility.utils.USER;
 import static com.digidoctor.android.utility.utils.setUserForBooking;
 
 
@@ -42,7 +38,7 @@ public class ShowMemberListFragment extends Fragment implements AdapterInterface
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         showMemberListBinding = FragmentShowMemberListBinding.inflate(getLayoutInflater());
         return showMemberListBinding.getRoot();

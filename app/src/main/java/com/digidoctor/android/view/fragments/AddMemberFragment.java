@@ -1,6 +1,11 @@
 package com.digidoctor.android.view.fragments;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,19 +13,13 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentAddMemberBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
-import org.w3c.dom.Text;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,11 +38,10 @@ public class AddMemberFragment extends Fragment {
 
 
     String name, mobile, dob, address, Gender;
-    int gender;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         addMemberBinding = FragmentAddMemberBinding.inflate(getLayoutInflater());
@@ -57,7 +55,8 @@ public class AddMemberFragment extends Fragment {
 
         navController = Navigation.findNavController(view);
 
-        from = getArguments().getString("from");
+        if (null != getArguments())
+            from = getArguments().getString("from");
 
 
         addMemberBinding.btnSavePatient.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +77,7 @@ public class AddMemberFragment extends Fragment {
         map.put("mobile", mobile);
         map.put("dob", dob);
         map.put("address", address);
-        map.put("gender", Gender == "male" ? "1" : "2");
+        map.put("gender", Gender.equalsIgnoreCase("male") ? "1" : "2");
 
         ApiUtils.addMember(requireActivity(), map, new ApiCallbackInterface() {
             @Override

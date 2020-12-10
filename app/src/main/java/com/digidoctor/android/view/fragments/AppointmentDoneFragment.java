@@ -1,6 +1,9 @@
 package com.digidoctor.android.view.fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,14 +12,14 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentAppointmentDoneBinding;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.google.gson.Gson;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class AppointmentDoneFragment extends Fragment {
 
@@ -27,7 +30,7 @@ public class AppointmentDoneFragment extends Fragment {
     OnlineAppointmentModel onlineAppointmentModel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         appointmentDoneBinding = FragmentAppointmentDoneBinding.inflate(inflater, container, false);
@@ -38,6 +41,8 @@ public class AppointmentDoneFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if (null == getArguments())
+            return;
         appointmentModelString = getArguments().getString("appointmentModel");
 
         Gson gson = new Gson();
@@ -62,12 +67,13 @@ public class AppointmentDoneFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 }

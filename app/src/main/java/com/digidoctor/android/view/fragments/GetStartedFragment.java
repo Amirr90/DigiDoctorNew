@@ -1,6 +1,9 @@
 package com.digidoctor.android.view.fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,21 +12,17 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentGetStartedBinding;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.SignUpJourneyActivity;
 import com.digidoctor.android.view.activity.ui.main.SectionsPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
-import com.mazenrashed.dotsindicator.DotsIndicator;
+
+import org.jetbrains.annotations.NotNull;
 
 import static com.digidoctor.android.utility.utils.IS_FIRST_TIME;
 import static com.digidoctor.android.utility.utils.fadeIn;
-import static com.digidoctor.android.utility.utils.setString;
 
 
 public class GetStartedFragment extends Fragment {
@@ -33,7 +32,7 @@ public class GetStartedFragment extends Fragment {
     NavController navController;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getStartedBinding = FragmentGetStartedBinding.inflate(inflater, container, false);
         return getStartedBinding.getRoot();
@@ -46,7 +45,7 @@ public class GetStartedFragment extends Fragment {
         utils.setBoolean(IS_FIRST_TIME, false, requireActivity());
 
         navController = Navigation.findNavController(view);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(requireContext(), ((SignUpJourneyActivity) getContext()).getSupportFragmentManager());
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(requireContext(), ((SignUpJourneyActivity) requireContext()).getSupportFragmentManager());
         getStartedBinding.viewPager.setAdapter(sectionsPagerAdapter);
         getStartedBinding.tabs.setupWithViewPager(getStartedBinding.viewPager);
 

@@ -357,13 +357,11 @@ public class PatientRepo {
     private void loadPatientDashboardData(Dashboard dashboard) {
         if (PatientDashboard.getInstance() != null)
             showRequestDialog(PatientDashboard.getInstance());
-        final List<DashboardModel1> dashboardModel1s = new ArrayList<>();
+       /* final List<DashboardModel1> dashboardModel1s = new ArrayList<>();
         dashboardModel1s.add(new DashboardModel1("Specialities"));
         dashboardModel1s.add(new DashboardModel1("Symptoms"));
         dashboardModel1s.add(new DashboardModel1("Tests"));
-        dashboardModel1s.add(new DashboardModel1("Pharmacy"));
-
-
+        dashboardModel1s.add(new DashboardModel1("Pharmacy"));*/
         getPatientDasboard(dashboard, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {

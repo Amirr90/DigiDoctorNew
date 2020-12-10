@@ -9,7 +9,7 @@
             type="com.digidoctor.android.model.DashboardModel1" />
     </data>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -17,58 +17,69 @@
         android:layout_marginBottom="5dp"
         android:paddingBottom="5dp">
 
+
         <ImageView
             android:id="@+id/imageView21"
             android:layout_width="68dp"
             android:layout_height="68dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="10dp"
             android:elevation="@dimen/_5sdp"
+            app:layout_constraintBottom_toTopOf="@+id/cv1"
+            app:layout_constraintStart_toStartOf="@+id/cv1"
+            app:layout_constraintTop_toTopOf="@+id/cv1"
             app:srcCompat="@drawable/specialities" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv1"
             android:layout_width="match_parent"
             android:layout_height="112dp"
-            android:layout_marginLeft="@dimen/_3sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_3sdp"
-            android:layout_marginBottom="@dimen/_3sdp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:elevation="20dp"
+            android:focusable="true"
             android:paddingBottom="@dimen/_10sdp"
-            app:cardCornerRadius="8dp">
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="50dp"
-                android:orientation="vertical"
-                android:paddingBottom="5dp">
-
-                <TextView
-                    android:id="@+id/textView55"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins"
-                    android:paddingRight="@dimen/_5sdp"
-                    android:text="Find Doctors by"
-                    android:textColor="@color/TextPrimaryColor"
-                    android:textSize="16dp"
-                    android:textStyle="normal" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_bold"
-                    android:paddingRight="@dimen/_5sdp"
-                    android:text="@{dashboard1.title}"
-                    android:textColor="@color/TextPrimaryColor"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/textView55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:elevation="@dimen/dimen_10dp"
+            android:fontFamily="@font/poppins"
+            android:paddingRight="@dimen/_5sdp"
+            android:text="@string/find_doctors_by"
+            android:textColor="@color/TextPrimaryColor"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/imageView21"
+            app:layout_constraintTop_toBottomOf="@+id/imageView21" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/dimen_10dp"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingRight="@dimen/_5sdp"
+            android:text="@{dashboard1.title}"
+            android:textColor="@color/TextPrimaryColor"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView55"
+            app:layout_constraintTop_toBottomOf="@+id/textView55" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+
+

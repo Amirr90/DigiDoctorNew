@@ -78,34 +78,6 @@ public interface Api {
     );
 
 
-   /* @FormUrlEncoded
-    @POST("onlineAppointment")
-    Call<OnlineAppointmentRes> onlineAppointment(
-            @Header("x-access-token") String token,
-            @Field("userMobileNo") String userMobileNo,
-            @Field("memberId") String memberId,
-            @Field("patientName") String patientName,
-            @Field("mobileNo") String mobileNo,
-            @Field("guardianTypeId") String guardianTypeId,
-            @Field("guardianName") String guardianName,
-            @Field("stateId") String stateId,
-            @Field("cityId") String cityId,
-            @Field("address") String address,
-            @Field("pincode") String pincode,
-            @Field("serviceProviderDetailsId") String serviceProviderDetailsId,
-            @Field("appointDate") String appointDate,
-            @Field("appointTime") String appointTime,
-            @Field("isEraUser") String isEraUser,
-            @Field("problemName") String problemName,
-            @Field("dtPaymentTable") String dtDataTable,
-            @Field("appointmentId") String appointmentId,
-            @Field("dob") String dob,
-            @Field("gender") String gender,
-            @Field("paymentId") String paymentId
-
-    );
-*/
-
     @POST("onlineAppointment")
     Call<OnlineAppointmentRes> onlineAppointment2(@Body BookAppointment2 appointment);
 

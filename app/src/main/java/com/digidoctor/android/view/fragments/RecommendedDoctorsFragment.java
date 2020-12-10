@@ -28,6 +28,8 @@ import com.digidoctor.android.model.User;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -60,7 +62,7 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         recommendedDoctorsBinding = FragmentRecommendedDoctorsBinding.inflate(inflater, container, false);
         return recommendedDoctorsBinding.getRoot();

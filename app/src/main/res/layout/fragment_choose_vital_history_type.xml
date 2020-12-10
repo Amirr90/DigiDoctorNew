@@ -17,6 +17,7 @@
 
             <ImageView
 
+                android:visibility="gone"
                 android:id="@+id/imageView13"
                 android:layout_width="11dp"
                 android:layout_height="20dp"
@@ -27,6 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/textView35"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
