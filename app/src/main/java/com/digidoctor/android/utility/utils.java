@@ -136,9 +136,39 @@ public class utils {
 
     }
 
+    public static String getDateInDMYFormatFromTimestampInDayMonthFormat(long currentTimeMillis) {
+        try {
+            String value = new java.text.SimpleDateFormat("MMMM dd").
+                    format(new java.util.Date(currentTimeMillis));
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
     public static String parseDateToDMYFormat(String oldDate) {
         String inputPattern = "yyyy/MM/dd";
         String outputPattern = "dd/MM/yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(oldDate);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+    public static String parseDateToYMDToMMDD(String oldDate) {
+        String inputPattern = "yyyy/MM/dd";
+        String outputPattern = "MMMM dd";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 

@@ -157,9 +157,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         navModels.add(new NavModel(getString(R.string.settings), R.drawable.settings));
         navModels.add(new NavModel(getString(R.string.about_us), R.drawable.aboutus));
         navModels.add(new NavModel(getString(R.string.logout), R.drawable.aboutus));
-
         navAdapter.notifyDataSetChanged();
-
     }
 
     @Override

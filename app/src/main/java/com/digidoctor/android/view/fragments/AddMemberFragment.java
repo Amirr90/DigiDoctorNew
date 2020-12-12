@@ -77,7 +77,7 @@ public class AddMemberFragment extends Fragment {
         map.put("mobile", mobile);
         map.put("dob", dob);
         map.put("address", address);
-        map.put("gender", Gender.equalsIgnoreCase("male") ? "1" : "2");
+        map.put("gender", Gender.equalsIgnoreCase(getString(R.string.male)) ? "1" : "2");
 
         ApiUtils.addMember(requireActivity(), map, new ApiCallbackInterface() {
             @Override
@@ -90,7 +90,7 @@ public class AddMemberFragment extends Fragment {
             public void onError(String s) {
                 Toast.makeText(requireActivity(), s, Toast.LENGTH_SHORT).show();
                 try {
-                    if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
+                    if (s.equalsIgnoreCase(getString(R.string.failed_to_authenticate_token))) {
                         logout(PatientDashboard.getInstance(), true);
                         Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
                     }

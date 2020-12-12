@@ -21,6 +21,7 @@ import com.digidoctor.android.model.GetMembersRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.GetPatientMedicationRes;
 import com.digidoctor.android.model.Login;
+import com.digidoctor.android.model.MedicineRes;
 import com.digidoctor.android.model.MemberModel;
 import com.digidoctor.android.model.OnlineAppointmentSlots;
 import com.digidoctor.android.model.Registration;
@@ -672,6 +673,31 @@ public class ApiUtils {
 
             @Override
             public void onFailure(@NotNull Call<VitalResponse> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void getMedicineData(final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Call<MedicineRes> call = iRestInterfaces.getMedicationData();
+
+        call.enqueue(new Callback<MedicineRes>() {
+            @Override
+            public void onResponse(@NotNull Call<MedicineRes> call, @NotNull Response<MedicineRes> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    MedicineRes responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(responseModel.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(responseModel.getResponseMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<MedicineRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
                 apiCallbackInterface.onFailed(t);
             }

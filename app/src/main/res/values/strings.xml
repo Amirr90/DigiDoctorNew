@@ -672,7 +672,7 @@
     <string name="quantity_required">Please enter quantity!</string>
     <string name="quantity_must_be_greater">Quantity must be greater than 0!</string>
     <string name="other_details">Other Details</string>
-    <string name="updating_timimg">Updating Docror\'s Timing, Please wait...</string>
+    <string name="updating_timimg">Updating Doctor\'s Timing, Please wait...</string>
     <string name="updated_successfully">Timing Updated Successfully</string>
     <string name="add_new_time_slot">Add New Time Slot</string>
     <string name="password_required">Password Required to Add Doctor</string>
@@ -933,6 +933,8 @@
     <string name="dose_remark">Dose Remark</string>
     <string name="date_taime_not_selected">date, Time not selected</string>
     <string name="failed_to_authenticate_token">Failed to authenticate token !!</string>
+    <string name="add_family_member">Add Family Member</string>
+    <string name="you_want_to_add_new_patient_member">You want to add new patient member.</string>
 
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.DoctorModelRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
+import com.digidoctor.android.model.MedicineModel;
 import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SymptomModel;
@@ -23,6 +24,11 @@ import java.util.List;
 public class PatientViewModel extends ViewModel {
 
     PatientRepo repo = new PatientRepo();
+
+
+    public LiveData<List<MedicineModel.MedicineDetailModel>> getInputMedicine( ){
+        return repo.getInputMedicine();
+    }
 
     public LiveData<List<VitalResponse.VitalDateVise>> getVitals(VitalModel vitalModel, Activity activity) {
         return repo.getVitals(vitalModel, activity);

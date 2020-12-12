@@ -1,6 +1,7 @@
 package com.digidoctor.android.view.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +27,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import static com.digidoctor.android.utility.utils.BOOKING_USER;
+import static com.digidoctor.android.utility.utils.getUserForBooking;
 import static com.digidoctor.android.utility.utils.setUserForBooking;
 
 
 public class ShowMemberListFragment extends Fragment implements AdapterInterface {
+    private static final String TAG = "ShowMemberListFragment";
 
     FragmentShowMemberListBinding showMemberListBinding;
     NavController navController;
@@ -82,6 +85,7 @@ public class ShowMemberListFragment extends Fragment implements AdapterInterface
             User user = (User) o;
             setUserForBooking(BOOKING_USER, requireActivity(), user);
             PatientDashboard.getInstance().onSupportNavigateUp();
+            Log.d(TAG, "userForBooking: " + getUserForBooking(requireActivity()).toString());
 
         } catch (Exception e) {
             e.printStackTrace();

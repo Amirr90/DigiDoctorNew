@@ -1,7 +1,5 @@
 package com.digidoctor.android.model;
 
-import androidx.databinding.BindingAdapter;
-
 public class NavModel {
     String title;
     int image;

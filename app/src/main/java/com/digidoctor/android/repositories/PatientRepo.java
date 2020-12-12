@@ -9,10 +9,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.Dashboard;
-import com.digidoctor.android.model.DashboardModel1;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.DoctorModelRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
+import com.digidoctor.android.model.MedicineModel;
 import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SymptomModel;
@@ -47,7 +47,27 @@ public class PatientRepo {
     public MutableLiveData<List<GetPatientMedicationMainModel>> prescriptionModelMutableLiveData;
     public MutableLiveData<List<User>> memberModelMutableLiveData;
     public MutableLiveData<List<VitalResponse.VitalDateVise>> vitalsMutableLiveData;
+    public MutableLiveData<List<MedicineModel.MedicineDetailModel>> medicineMutableLiveData;
 
+
+    public LiveData<List<MedicineModel.MedicineDetailModel>> getInputMedicine() {
+        if (medicineMutableLiveData == null) {
+            medicineMutableLiveData = new MutableLiveData<>();
+        }
+        loadMedicineData(null);
+        return medicineMutableLiveData;
+
+    }
+
+    public void loadMedicineData(MedicineModel.MedicineDetailModel medicineDetailModel) {
+        List<MedicineModel.MedicineDetailModel> models = new ArrayList<>();
+        models.add(medicineDetailModel);
+
+        if (medicineMutableLiveData == null) {
+            medicineMutableLiveData = new MutableLiveData<>();
+        }
+        medicineMutableLiveData.setValue(models);
+    }
 
     public LiveData<List<VitalResponse.VitalDateVise>> getVitals(VitalModel vitalModel, Activity activity) {
         if (vitalsMutableLiveData == null) {
@@ -65,7 +85,7 @@ public class PatientRepo {
             @Override
             public void onSuccess(List<?> o) {
                 hideDialog();
-                List<VitalResponse.VitalDateVise> vitalResponse=(List<VitalResponse.VitalDateVise>)o;
+                List<VitalResponse.VitalDateVise> vitalResponse = (List<VitalResponse.VitalDateVise>) o;
                 vitalsMutableLiveData.setValue(vitalResponse);
             }
 

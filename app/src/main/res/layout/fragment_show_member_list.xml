@@ -22,31 +22,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Add Family Member"
+            android:text="@string/add_family_member"
             android:textColor="#262E3F"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/textView32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView27"
             android:layout_marginTop="1dp"
-            android:layout_toLeftOf="@+id/btnAddOtherPatients"
+            android:layout_toStartOf="@+id/btnAddOtherPatients"
             android:fontFamily="@font/poppins"
             android:paddingTop="5dp"
-            android:text="You want to add new patient member."
+            android:text="@string/you_want_to_add_new_patient_member"
             android:textColor="#262E3F"
-            android:textSize="17dp"
-            android:textStyle="normal" />
+            android:textSize="17sp"
+            android:textStyle="normal"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btnAddOtherPatients"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:background="@drawable/round_for_search"
             android:backgroundTint="@color/YellowColo"
             android:fontFamily="@font/poppins_semibold"
@@ -54,19 +54,19 @@
             android:paddingTop="7dp"
             android:paddingRight="20dp"
             android:paddingBottom="7dp"
-            android:text="ADD"
+            android:text="@string/add"
             android:textColor="@android:color/white"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textStyle="bold" />
     </RelativeLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="18dp"
         android:id="@+id/recMemberList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/mainLayout"
+        android:layout_marginTop="18dp"
         android:nestedScrollingEnabled="true"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"

@@ -14,8 +14,8 @@ import com.digidoctor.android.model.GetMembersRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.GetPatientMedicationRes;
 import com.digidoctor.android.model.Login;
+import com.digidoctor.android.model.MedicineRes;
 import com.digidoctor.android.model.MemberModel;
-import com.digidoctor.android.model.NewResponseModel;
 import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.OnlineAppointmentSlots;
 import com.digidoctor.android.model.Registration;
@@ -28,7 +28,6 @@ import com.digidoctor.android.model.SymptomsRes;
 import com.digidoctor.android.model.TransactionModel;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
-import com.digidoctor.android.utility.BookAppointment;
 import com.digidoctor.android.utility.BookAppointment2;
 
 import retrofit2.Call;
@@ -125,6 +124,9 @@ public interface Api {
     @POST("getPatientVitalList")
     Call<VitalResponse> getVitals(
             @Body VitalModel model);
+
+    @POST("getAllMedicationDataList")
+    Call<MedicineRes> getMedicationData();
 
 
 }
