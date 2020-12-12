@@ -25,23 +25,25 @@
 
         <TextView
             android:id="@+id/tvMedicineName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/poppins_bold"
             android:text="@{medicineDetails.medicineName}"
             android:textColor="#262E3F"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView15"
+            app:layout_constraintEnd_toStartOf="@+id/imageView18"
             app:layout_constraintStart_toEndOf="@+id/imageView15"
             app:layout_constraintTop_toTopOf="@+id/imageView15" />
 
         <TextView
-            android:fontFamily="@font/poppins_medium"
             android:id="@+id/textView40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+            android:fontFamily="@font/poppins_medium"
             android:text="@string/frequency"
             android:textColor="#CC9F9F9F"
             android:textSize="13sp"
@@ -49,11 +51,11 @@
             app:layout_constraintTop_toBottomOf="@+id/tvMedicineName" />
 
         <TextView
-            android:fontFamily="@font/poppins_medium"
             android:id="@+id/textView43"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:fontFamily="@font/poppins_medium"
             android:text="@string/duration"
             android:textColor="#CC9F9F9F"
             android:textSize="13sp"
@@ -65,12 +67,13 @@
 
         <TextView
             android:id="@+id/textView44"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/poppins"
-            android:text="@{medicineDetails.medicineName}"
+            android:gravity="center"
+            android:text="@{medicineDetails.frequencyName}"
             android:textColor="#414141"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -80,9 +83,11 @@
 
         <TextView
             android:id="@+id/textView45"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/poppins"
+            android:gravity="center"
             android:text="@{medicineDetails.days}"
             android:textColor="#414141"
             android:textSize="15sp"

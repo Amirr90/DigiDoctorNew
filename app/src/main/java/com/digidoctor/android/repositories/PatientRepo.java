@@ -60,12 +60,14 @@ public class PatientRepo {
     }
 
     public void loadMedicineData(MedicineModel.MedicineDetailModel medicineDetailModel) {
+
         List<MedicineModel.MedicineDetailModel> models = new ArrayList<>();
         models.add(medicineDetailModel);
 
         if (medicineMutableLiveData == null) {
             medicineMutableLiveData = new MutableLiveData<>();
         }
+
         medicineMutableLiveData.setValue(models);
     }
 

@@ -18,8 +18,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.MedicineAdapter;
@@ -55,6 +53,8 @@ public class AddPrescriptionManuallyFragment extends Fragment {
 
     MedicineAdapter adapter;
 
+    List<MedicineModel.MedicineDetailModel> medicineDetailModels;
+
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -67,7 +67,6 @@ public class AddPrescriptionManuallyFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
         prescriptionModel = new PrescriptionModel();
         prescriptionModel.setStartDate(getDateInDMYFormatFromTimestampInDayMonthFormat(System.currentTimeMillis()));
@@ -96,9 +95,12 @@ public class AddPrescriptionManuallyFragment extends Fragment {
         });
 
 
-        adapter = new MedicineAdapter();
+        medicineDetailModels = new ArrayList<>();
+        adapter = new MedicineAdapter(medicineDetailModels);
         addPrescriptionManuallyBinding.recInputMedicine.setAdapter(adapter);
-        viewModel.getInputMedicine().observe(getViewLifecycleOwner(), new Observer<List<MedicineModel.MedicineDetailModel>>() {
+
+
+      /*  viewModel.getInputMedicine().observe(getViewLifecycleOwner(), new Observer<List<MedicineModel.MedicineDetailModel>>() {
             @Override
             public void onChanged(List<MedicineModel.MedicineDetailModel> medicineDetailModels) {
 
@@ -106,10 +108,8 @@ public class AddPrescriptionManuallyFragment extends Fragment {
 
                 adapter.submitList(medicineDetailModels);
 
-                Log.d(TAG, "onChanged: " + medicineDetailModels.toString());
-
             }
-        });
+        });*/
 
     }
 
@@ -121,7 +121,10 @@ public class AddPrescriptionManuallyFragment extends Fragment {
         medicineDetailModel.setFrequencyName(addPrescriptionManuallyBinding.etFrequency.getText().toString().trim());
         medicineDetailModel.setDays(addPrescriptionManuallyBinding.etDays.getText().toString().trim());
 
-        patientRepo.loadMedicineData(medicineDetailModel);
+
+        if (!adapter.addItems(medicineDetailModel))
+            Toast.makeText(requireActivity(), "Medicine already added", Toast.LENGTH_SHORT).show();
+
 
         Log.d(TAG, "addMedicineDataClicked: " + medicineDetailModel.toString());
 

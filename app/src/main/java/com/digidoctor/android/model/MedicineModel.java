@@ -129,39 +129,7 @@ public class MedicineModel {
                     '}';
         }
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof MedicineDetailModel)) return false;
-            MedicineDetailModel that = (MedicineDetailModel) o;
-            return getId().equals(that.getId()) &&
-                    Objects.equals(getMedicineName(), that.getMedicineName()) &&
-                    getStrength().equals(that.getStrength()) &&
-                    getDoseUnitId().equals(that.getDoseUnitId()) &&
-                    getUnitName().equals(that.getUnitName()) &&
-                    getFrequencyId().equals(that.getFrequencyId()) &&
-                    Objects.equals(getFrequencyName(), that.getFrequencyName()) &&
-                    getDosageId().equals(that.getDosageId()) &&
-                    getFormName().equals(that.getFormName()) &&
-                    Objects.equals(getDays(), that.getDays());
-        }
 
-        @Override
-        public int hashCode() {
-            return Objects.hash(getId(), getMedicineName(), getStrength(), getDoseUnitId(), getUnitName(), getFrequencyId(), getFrequencyName(), getDosageId(), getFormName(), getDays());
-        }
-
-        public static DiffUtil.ItemCallback<MedicineDetailModel> itemCallback = new DiffUtil.ItemCallback<MedicineDetailModel>() {
-            @Override
-            public boolean areItemsTheSame(@NonNull MedicineDetailModel oldItem, @NonNull MedicineDetailModel newItem) {
-                return oldItem.getMedicineName().equalsIgnoreCase(newItem.getMedicineName());
-            }
-
-            @Override
-            public boolean areContentsTheSame(@NonNull MedicineDetailModel oldItem, @NonNull MedicineDetailModel newItem) {
-                return oldItem.equals(newItem);
-            }
-        };
     }
 
     public class MedicineFrequencyModel {
