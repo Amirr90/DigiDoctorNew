@@ -924,7 +924,7 @@
     <string name="find_doctors_by">Find Doctors by</string>
     <string name="lab">Lab</string>
     <string name="digi">Digi</string>
-    <string name="speciality">Speciality</string>
+    <string name="speciality">specialty</string>
     <string name="tests">Tests</string>
     <string name="pharmacy">Pharmacy</string>
     <string name="prescription_details">Prescription Details</string>
@@ -935,6 +935,22 @@
     <string name="failed_to_authenticate_token">Failed to authenticate token !!</string>
     <string name="add_family_member">Add Family Member</string>
     <string name="you_want_to_add_new_patient_member">You want to add new patient member.</string>
+    <string name="add_man">Add Manually</string>
+    <string name="completed">Completed</string>
+    <string name="date_and_time">Date and Time</string>
+    <string name="booked_for">Booked for</string>
+    <string name="medical_problem">Medical Problem</string>
+    <string name="add_pathology_informations">Add Pathology Informations</string>
+    <string name="test_informations">Test Informations</string>
+    <string name="attach_prescription_file">Attach Prescription File</string>
+    <string name="upload_profile_photo">Upload Profile Photo</string>
+    <string name="enter_valid_mobile_number">Enter valid mobile number</string>
+    <string name="order_medicine_and_health_products">Order Medicine and Health Products</string>
+    <string name="find_top_clinic_near_you">Find Top Clinic near You</string>
+    <string name="otp_will_be_send_to_your_mobile_number">OTP will be send to your mobile number</string>
+    <string name="enter_your_mobile_number">Enter your mobile number</string>
+    <string name="members">members</string>
+    <string name="search_specialty_here">Search specialty Here</string>
 
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>

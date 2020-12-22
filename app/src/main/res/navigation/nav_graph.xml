@@ -59,6 +59,13 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_patientDashboardFragment_to_investigationFragment"
+            app:destination="@id/investigationFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/symptomsFragment2"
@@ -241,7 +248,15 @@
         android:id="@+id/appointmentsFragment"
         android:name="com.digidoctor.android.view.fragments.AppointmentsFragment"
         android:label="@string/my_appointments"
-        tools:layout="@layout/fragment_appointments" />
+        tools:layout="@layout/fragment_appointment" >
+        <action
+            android:id="@+id/action_appointmentsFragment_to_appointmentDetailFragment"
+            app:destination="@id/appointmentDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/prescriptionHistoryFragment"
         android:name="com.digidoctor.android.view.fragments.PrescriptionHistoryFragment"
@@ -347,7 +362,7 @@
     <fragment
         android:id="@+id/addPrescriptionManuallyFragment"
         android:name="com.digidoctor.android.view.fragments.AddPrescriptionManuallyFragment"
-        android:label="add"
+        android:label="@string/add_prescription"
         tools:layout="@layout/fragment_add_prescription_manually" />
     <fragment
         android:id="@+id/addVitalsFragment"
@@ -377,4 +392,42 @@
         android:name="com.digidoctor.android.view.fragments.SearchBluetoothDeviceFragment"
         android:label="Seaching Device"
         tools:layout="@layout/fragment_search_blutooth_device" />
+    <fragment
+        android:id="@+id/investigationFragment"
+        android:name="com.digidoctor.android.view.fragments.InvestigationFragment"
+        android:label="@string/add_investigation"
+        tools:layout="@layout/fragment_investigation" >
+        <action
+            android:id="@+id/action_investigationFragment_to_addInvestigationFragment"
+            app:destination="@id/addInvestigationFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/appointmentDetailFragment"
+        android:name="com.digidoctor.android.view.fragments.AppointmentDetailFragment"
+        android:label="@string/appointment_details"
+        tools:layout="@layout/fragment_appointment_detail">
+        <action
+            android:id="@+id/action_appointmentDetailFragment_to_reScheduleFragment"
+            app:destination="@id/reScheduleFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_appointmentDetailFragment_to_visitFragment"
+            app:destination="@id/visitFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/addInvestigationFragment"
+        android:name="com.digidoctor.android.view.fragments.AddInvestigationFragment"
+        android:label="@string/add_investigation"
+        tools:layout="@layout/fragment_add_investigation" />
 </navigation>

@@ -1,6 +1,7 @@
 package com.digidoctor.android.view.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Objects;
 
+import static com.digidoctor.android.utility.utils.fadeIn;
 import static com.digidoctor.android.utility.utils.getJSONFromModel;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
@@ -39,7 +41,6 @@ public class PrescriptionHistoryFragment extends Fragment implements AdapterInte
     PrescriptionAdapter prescriptionAdapter;
 
     PatientViewModel viewModel;
-
 
     User user;
 
@@ -55,6 +56,7 @@ public class PrescriptionHistoryFragment extends Fragment implements AdapterInte
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        prescriptionHistoryBinding.getRoot().setAnimation(fadeIn(requireActivity()));
         navController = Navigation.findNavController(view);
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
@@ -84,12 +86,7 @@ public class PrescriptionHistoryFragment extends Fragment implements AdapterInte
         }
 
 
-        prescriptionHistoryBinding.tvAddManually.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_prescriptionHistoryFragment_to_addPrescriptionManuallyFragment);
-            }
-        });
+        prescriptionHistoryBinding.tvAddManually.setOnClickListener(view1 -> navController.navigate(R.id.action_prescriptionHistoryFragment_to_addPrescriptionManuallyFragment));
 
 
     }
@@ -106,9 +103,9 @@ public class PrescriptionHistoryFragment extends Fragment implements AdapterInte
 
         try {
             GetPatientMedicationMainModel getPatientMedicationMainModels = (GetPatientMedicationMainModel) o;
-
             Bundle bundle = new Bundle();
             bundle.putString("presModel", getJSONFromModel(getPatientMedicationMainModels));
+            Log.d("TAG", "onItemClickedString: " + getJSONFromModel(getPatientMedicationMainModels));
             navController.navigate(R.id.action_prescriptionHistoryFragment_to_visitFragment, bundle);
         } catch (Exception e) {
             e.printStackTrace();

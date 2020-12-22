@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="buttonListener"
+            type="com.digidoctor.android.interfaces.ButtonListener" />
+
+        <variable
+            name="addInvestigation"
+            type="com.digidoctor.android.model.AddInvestigationModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.fragments.AddInvestigationFragment">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F2F6FE">
+
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="80dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center"
+                    android:text="@string/add_investigation_details"
+                    android:textColor="#262E3F"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+
+                    android:id="@+id/constraintLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:background="@android:color/white"
+                    android:paddingLeft="@dimen/_16sdp"
+                    android:paddingRight="@dimen/_16sdp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView19">
+
+                    <TextView
+                        android:id="@+id/textView38"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="@string/add_pathology_informations"
+                        android:textColor="#262E3F"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/editTextTextPersonName3"
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rectangle_outline_gray"
+                        android:drawableStart="@drawable/hospital"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:ems="10"
+                        android:hint="@string/pathology_hospital_name"
+                        android:inputType="textPersonName"
+                        android:padding="@dimen/dimen_10dp"
+                        android:text="@={addInvestigation.pathologyName}"
+                        android:textColorHint="#BCBCBC"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView38" />
+
+
+                    <EditText
+                        android:id="@+id/etDiagnose"
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rectangle_outline_gray"
+                        android:drawableStart="@drawable/receipt"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:ems="10"
+                        android:gravity="top"
+                        android:hint="@string/receipt_no"
+                        android:inputType="textMultiLine"
+                        android:padding="@dimen/dimen_10dp"
+                        android:text="@={addInvestigation.receiptNo}"
+                        android:textColorHint="#BCBCBC"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+
+                    <TextView
+                        android:id="@+id/tvDateTime"
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="25dp"
+                        android:background="@drawable/rectangle_outline_gray"
+                        android:drawableLeft="@drawable/test_icon"
+                        android:drawableRight="@drawable/calender_medium_icon"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:hint="@string/test_date"
+                        android:onClick="@{()->buttonListener.OnButtonClick(`date`)}"
+                        android:padding="@dimen/dimen_10dp"
+                        android:text="@={addInvestigation.testDate}"
+                        android:textColor="#CC3F3F3F"
+                        android:textColorHint="#BCBCBC"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.625"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/etDiagnose"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clMedication"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/white"
+                    android:paddingLeft="@dimen/_16sdp"
+                    android:paddingRight="@dimen/_16sdp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+                    <TextView
+                        android:id="@+id/textView41"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="@string/test_informations"
+                        android:textColor="#262E3F"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/tcAutoMedicine"
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rectangle_outline_gray"
+                        android:drawableStart="@drawable/test_icon"
+                        android:drawableEnd="@drawable/arrow_down"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:ems="10"
+                        android:hint="@string/test_name"
+                        android:inputType="textPersonName"
+                        android:padding="@dimen/dimen_10dp"
+                        android:text="@={addInvestigation.testName}"
+                        android:textColorHint="#BCBCBC"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.75"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView41" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/etUnit"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rectangle_outline_gray"
+                        android:drawableRight="@drawable/arrow_down"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:ems="10"
+                        android:gravity="top"
+                        android:hint="@string/unit"
+                        android:inputType="text"
+                        android:padding="@dimen/dimen_10dp"
+                        android:text="@={addInvestigation.unit}"
+                        android:textColorHint="#BCBCBC"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/etFrequency"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/etFrequency"
+                        app:layout_constraintTop_toTopOf="@+id/etFrequency"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <EditText
+                        android:id="@+id/editText4"
+
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rectangle_outline_gray"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:ems="10"
+                        android:gravity="top"
+                        android:hint="@string/range"
+                        android:inputType="textPersonName"
+                        android:padding="@dimen/dimen_10dp"
+                        android:text="@={addInvestigation.range}"
+                        android:textColorHint="#BCBCBC"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/etFrequency" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/etFrequency"
+
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/rectangle_outline_gray"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:ems="10"
+                        android:gravity="top"
+                        android:hint="@string/value"
+                        android:inputType="numberDecimal"
+                        android:padding="@dimen/dimen_10dp"
+                        android:text="@={addInvestigation.value}"
+                        android:textColorHint="#BCBCBC"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toStartOf="@+id/etUnit"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tcAutoMedicine" />
+
+
+                    <Button
+                        android:id="@+id/btnAddTestInformation"
+                        android:layout_width="170dp"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/round_for_search"
+                        android:backgroundTint="@color/YellowColo"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="@string/add_more"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recInputMedicine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/clMedication"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/add_prescription_view" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+
+                    android:id="@+id/constraintLayout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/white"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recInputMedicine">
+
+                    <TextView
+                        android:id="@+id/textView42"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="@string/attach_prescription_file"
+                        android:textColor="#262E3F"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView47"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/upload_files"
+                        android:textColor="#38404B"
+                        android:textSize="13sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView42" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvSelectImage"
+                        android:layout_width="272dp"
+                        android:layout_height="123dp"
+                        android:layout_marginTop="12dp"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView47">
+
+                        <ImageView
+                            android:id="@+id/imageView17"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/capture_image_icon" />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/textView48"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="@string/or"
+                        android:textColor="#262E3F"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cvSelectImage" />
+
+
+                    <Button
+                        android:id="@+id/btnBrowseImage"
+                        android:layout_width="94dp"
+                        android:layout_height="32dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/round_for_search"
+                        android:backgroundTint="@color/PrimaryColor"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="@string/browse"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView48" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="80dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/btnBrowseImage">
+
+                        <Button
+                            android:id="@+id/btnSubmitInvestigation"
+                            android:layout_width="0dp"
+                            android:layout_height="42dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_for_search"
+                            android:backgroundTint="@color/PrimaryColor"
+                            android:onClick="@{()->buttonListener.OnButtonClick(`btnSubmitInvestigation`)}"
+                            android:text="@string/submit"
+                            android:textAllCaps="false"
+                            android:textColor="@android:color/white" />
+
+                        <Button
+                            android:id="@+id/btnCancelAppointment"
+                            android:layout_width="0dp"
+                            android:layout_height="42dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_for_search"
+                            android:backgroundTint="@color/YellowColo"
+                            android:text="@string/cancel"
+                            android:textAllCaps="false"
+                            android:textColor="@android:color/white" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </FrameLayout>
+</layout>

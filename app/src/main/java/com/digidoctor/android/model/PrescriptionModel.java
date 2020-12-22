@@ -16,6 +16,28 @@ public class PrescriptionModel extends BaseObservable {
     public String dtDataTable;
     public String dtFileDataTable;
     public String drName;
+    public String diagnosis;
+    public String medicineName;
+
+
+
+    @Bindable
+    public String getMedicineName() {
+        return medicineName;
+    }
+
+    public void setMedicineName(String medicineName) {
+        this.medicineName = medicineName;
+    }
+
+    @Bindable
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
 
     @Bindable
     public String getDrName() {
@@ -106,8 +128,26 @@ public class PrescriptionModel extends BaseObservable {
     public void setDtFileDataTable(String dtFileDataTable) {
         this.dtFileDataTable = dtFileDataTable;
     }
-
     private void notifyAllData() {
         notifyPropertyChanged(BR._all);
+    }
+
+
+    @Override
+    public String toString() {
+        return "PrescriptionModel{" +
+                "memberId='" + memberId + '\'' +
+                ", problemId='" + problemId + '\'' +
+                ", problemName='" + problemName + '\'' +
+                ", serviceProviderDetailsId='" + serviceProviderDetailsId + '\'' +
+                ", serviceProviderName='" + serviceProviderName + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", dtDataTable='" + dtDataTable + '\'' +
+                ", dtFileDataTable='" + dtFileDataTable + '\'' +
+                ", drName='" + drName + '\'' +
+                ", diagnosis='" + diagnosis + '\'' +
+                ", medicineName='" + medicineName + '\'' +
+                '}';
     }
 }

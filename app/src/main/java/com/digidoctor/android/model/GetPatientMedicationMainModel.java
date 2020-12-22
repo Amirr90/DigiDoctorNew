@@ -201,4 +201,28 @@ public class GetPatientMedicationMainModel {
             return oldItem.equals(newItem);
         }
     };
+
+
+    @Override
+    public String toString() {
+        return "GetPatientMedicationMainModel{" +
+                "name='" + name + '\'' +
+                ", problemName='" + problemName + '\'' +
+                ", drName='" + drName + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", specialty='" + specialty + '\'' +
+                ", location='" + location + '\'' +
+                ", testName='" + testName + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", profilePhotoPath='" + profilePhotoPath + '\'' +
+                ", appointmentId=" + appointmentId +
+                ", type=" + type +
+                ", medicineDetails=" + medicineDetails +
+                ", adviseDetails=" + adviseDetails +
+                ", age='" + age + '\'' +
+                ", gender='" + gender + '\'' +
+                ", address='" + address + '\'' +
+                ", memberId='" + memberId + '\'' +
+                '}';
+    }
 }

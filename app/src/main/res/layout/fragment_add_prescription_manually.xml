@@ -96,8 +96,10 @@
                     android:ems="10"
                     android:gravity="top"
                     android:hint="@string/diagnosis_provisional_diagnosis"
-                    android:inputType="textPersonName"
+                    android:inputType="textMultiLine"
+                    android:maxLength="550"
                     android:padding="@dimen/dimen_10dp"
+                    android:text="@={prescriptionModel.diagnosis}"
                     android:textColorHint="#BCBCBC"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -113,11 +115,11 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="25dp"
                     android:background="@drawable/rectangle_outline_gray"
-                    android:drawableRight="@drawable/calender_medium_icon"
                     android:padding="@dimen/dimen_10dp"
                     android:text="@={prescriptionModel.startDate}"
                     android:textColor="#CC3F3F3F"
                     android:textSize="14sp"
+                    app:drawableRightCompat="@drawable/calender_medium_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +129,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
+                android:id="@+id/clMedication"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -266,7 +268,7 @@
                 android:paddingRight="10dp"
                 android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/clMedication"
                 tools:itemCount="2"
                 tools:listitem="@layout/add_prescription_view" />
 
@@ -308,7 +310,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView42" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView2"
+                    android:id="@+id/cvSelectImage"
                     android:layout_width="300dp"
                     android:layout_height="150dp"
                     android:layout_marginTop="12dp"
@@ -336,11 +338,11 @@
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+                    app:layout_constraintTop_toBottomOf="@+id/cvSelectImage" />
 
 
                 <Button
-                    android:id="@+id/btnEnableLocation"
+                    android:id="@+id/btnBrowseImage"
                     android:layout_width="94dp"
                     android:layout_height="32dp"
                     android:layout_marginTop="8dp"
@@ -369,9 +371,10 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnEnableLocation">
+                    app:layout_constraintTop_toBottomOf="@+id/btnBrowseImage">
 
                     <Button
+                        android:id="@+id/btnSubmitPrescription"
                         android:layout_width="0dp"
                         android:layout_height="42dp"
                         android:layout_marginEnd="5dp"
@@ -396,7 +399,6 @@
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

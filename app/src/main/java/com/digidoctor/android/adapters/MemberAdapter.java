@@ -34,7 +34,6 @@ public class MemberAdapter extends ListAdapter<User, MemberAdapter.MemberVH> {
     public void onBindViewHolder(@NonNull MemberVH holder, int position) {
 
         try {
-
             User member = getItem(position);
             holder.memberViewBinding.setMember(member);
         } catch (Exception e) {

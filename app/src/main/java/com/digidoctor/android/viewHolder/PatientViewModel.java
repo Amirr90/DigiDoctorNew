@@ -5,9 +5,11 @@ import android.app.Activity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.DoctorModelRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
+import com.digidoctor.android.model.InvestigationModel;
 import com.digidoctor.android.model.MedicineModel;
 import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.SpecialityModel;
@@ -26,7 +28,15 @@ public class PatientViewModel extends ViewModel {
     PatientRepo repo = new PatientRepo();
 
 
-    public LiveData<List<MedicineModel.MedicineDetailModel>> getInputMedicine( ){
+    public LiveData<List<AppointmentModel>> getAppointmentList(User user) {
+        return repo.getAppointmentList(user);
+    }
+
+    public LiveData<List<InvestigationModel>> getInvestigationData(User user) {
+        return repo.getInvestigationData(user);
+    }
+
+    public LiveData<List<MedicineModel.MedicineDetailModel>> getInputMedicine() {
         return repo.getInputMedicine();
     }
 

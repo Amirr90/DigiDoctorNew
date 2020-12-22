@@ -7,6 +7,46 @@ public class OnlineAppointmentModel {
 
     int doctorId;
     int isEraUser;
+    String patientName;
+    int expiredStatus;
+    boolean isPrescribed;
+    String appointmentIdView;
+    String specialty;
+    String appointDate;
+    String appointTime;
+    String problemName;
+
+    public String getProblemName() {
+        return problemName;
+    }
+
+    public String getAppointDate() {
+        return appointDate;
+    }
+
+    public String getAppointTime() {
+        return appointTime;
+    }
+
+    public String getSpecialty() {
+        return specialty;
+    }
+
+    public String getAppointmentIdView() {
+        return appointmentIdView;
+    }
+
+    public boolean isPrescribed() {
+        return isPrescribed;
+    }
+
+    public int getExpiredStatus() {
+        return expiredStatus;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
 
     public int getDoctorId() {
         return doctorId;
@@ -115,6 +155,7 @@ public class OnlineAppointmentModel {
         return "OnlineAppointmentModel{" +
                 "doctorId=" + doctorId +
                 ", isEraUser=" + isEraUser +
+                ", patientName='" + patientName + '\'' +
                 ", appointmentId='" + appointmentId + '\'' +
                 ", visitDate='" + visitDate + '\'' +
                 ", visitTime='" + visitTime + '\'' +

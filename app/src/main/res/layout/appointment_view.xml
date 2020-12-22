@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="clickListener"
+            type="com.digidoctor.android.interfaces.OnClickListener" />
+
+        <variable
+            name="appointment"
+            type="com.digidoctor.android.model.AppointmentModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/rectangle_outline_gray"
+        android:onClick="@{()->clickListener.onItemClick(appointment)}"
+        android:paddingLeft="12dp"
+        android:paddingTop="16dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="16dp">
+
+
+        <TextView
+            android:id="@+id/tvDay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+
+            android:gravity="center"
+            android:text="Tue"
+            android:textColor="#262E3F"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvDate"
+            app:layout_constraintEnd_toEndOf="@+id/tvDate"
+            app:layout_constraintStart_toStartOf="@+id/tvDate"
+            app:layout_constraintTop_toTopOf="@+id/view4"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:text="06"
+            android:textColor="#EDA537"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tvMonth"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDay" />
+
+        <TextView
+            android:id="@+id/tvMonth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+
+            android:gravity="center"
+            android:text="Oct"
+            android:textColor="#262E3F"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/view4"
+            app:layout_constraintEnd_toEndOf="@+id/tvDate"
+            app:layout_constraintStart_toStartOf="@+id/tvDate"
+            app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="0.8dp"
+            android:layout_height="@dimen/_80sdp"
+            android:background="#707070"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvDate"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView114"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@{appointment.doctorName}"
+            android:textColor="#262E3F"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/view4"
+            app:layout_constraintTop_toTopOf="@+id/view4" />
+
+        <TextView
+            android:id="@+id/textView115"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/poppins"
+            android:text="@{appointment.specialty}"
+            android:textColor="#3F4E6E"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@+id/textView114"
+            app:layout_constraintTop_toBottomOf="@+id/textView114" />
+
+        <TextView
+            android:id="@+id/textView116"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="11dp"
+            android:fontFamily="@font/poppins"
+            android:text="@{appointment.appointTime}"
+            android:textColor="#3F4E6E"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/view4"
+            app:layout_constraintStart_toStartOf="@+id/textView115"
+            app:layout_constraintTop_toBottomOf="@+id/textView115" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/round_for_search"
+            android:backgroundTint="@{appointment.expiredStatus.equalsIgnoreCase(`1`)?Color.parseColor(`#FF3737`):appointment.isPrescribed==false?Color.parseColor(`#EDA537`):Color.parseColor(`#39B54A`)}"
+            android:fontFamily="@font/poppins"
+            android:gravity="center_horizontal"
+            android:paddingLeft="15dp"
+            android:paddingTop="4dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="4dp"
+            android:text="@{appointment.expiredStatus.equalsIgnoreCase(`1`)?`Expired`:appointment.isPrescribed==true?`Prescribed`:`Confirmed`}"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView116"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="47dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

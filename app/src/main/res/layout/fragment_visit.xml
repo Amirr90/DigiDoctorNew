@@ -32,6 +32,7 @@
                 android:layout_marginRight="15dp"
                 android:background="@drawable/border_rectangle"
                 android:clickable="true"
+                android:focusable="true"
                 android:paddingBottom="23dp">
 
 
@@ -95,8 +96,9 @@
                     android:layout_width="19dp"
                     android:layout_height="18dp"
                     android:layout_below="@id/view1"
-                    android:layout_marginLeft="28dp"
+                    android:layout_marginStart="28dp"
                     android:layout_marginTop="13dp"
+                    android:setCustomVisibility="@{medication.testName}"
                     android:src="@drawable/check_up_icon"
                     android:tint="@color/GreyColo" />
 
@@ -109,6 +111,7 @@
                     android:layout_marginTop="13dp"
                     android:layout_toRightOf="@+id/imageView9"
                     android:fontFamily="@font/poppins"
+                    android:setCustomVisibility="@{medication.testName}"
                     android:text="@{medication.testName}"
                     android:textColor="#3F4E6E"
                     android:textSize="14dp" />
@@ -160,7 +163,7 @@
                 android:setCustomVisibility="@{medication.problemName}"
                 android:text="@{medication.problemName}"
                 android:textColor="#3F4E6E"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:textStyle="normal"
                 app:autoSizeTextType="uniform" />
 
@@ -173,7 +176,9 @@
                 android:layout_marginRight="15dp"
                 android:background="@drawable/border_rectangle"
                 android:clickable="true"
+                android:focusable="true"
                 android:paddingBottom="23dp"
+                android:setCustomVisibility="@{medication.filePath}"
                 android:visibility="visible">
 
 

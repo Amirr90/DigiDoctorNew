@@ -10,6 +10,51 @@ import java.util.Objects;
 
 public class User {
 
+
+    public void setMemberId(int memberId) {
+        this.memberId = memberId;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public void setIsExists(Integer isExists) {
+        this.isExists = isExists;
+    }
+
+    public void setPrimaryStatus(Integer primaryStatus) {
+        this.primaryStatus = primaryStatus;
+    }
+
+    public void setIsEraUser(Integer isEraUser) {
+        this.isEraUser = isEraUser;
+    }
+
+    public void setCountryCallingCode(String countryCallingCode) {
+        this.countryCallingCode = countryCallingCode;
+    }
+
+    public void setProfilePhotoPath(String profilePhotoPath) {
+        this.profilePhotoPath = profilePhotoPath;
+    }
+
+    public void setClinicDetails(String clinicDetails) {
+        this.clinicDetails = clinicDetails;
+    }
+
+    public void setDoctorsCount(Integer doctorsCount) {
+        this.doctorsCount = doctorsCount;
+    }
+
     int memberId;
 
     public int getMemberId() {

@@ -279,7 +279,6 @@ public class InputOtpFragment extends Fragment {
 
                 utils.setUserForBooking(BOOKING_USER, requireActivity(), user);
 
-
                 utils.setString(MOBILE_NUMBER, number, requireActivity());
 
 

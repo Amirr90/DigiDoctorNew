@@ -102,12 +102,7 @@ public class BookedAppointmentDetailFragment extends Fragment implements Appoint
                             }
                         });
                     }
-                }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        })
+                }).setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.dismiss())
                 .show();
 
     }

@@ -38,7 +38,7 @@
              android:layout_height="wrap_content"
              android:layout_marginTop="32dp"
              android:fontFamily="@font/poppins_semibold"
-             android:text="Enter your mobile number"
+             android:text="@string/enter_your_mobile_number"
              android:textColor="@android:color/white"
              android:textSize="18sp"
              android:textStyle="bold"
@@ -53,9 +53,9 @@
              android:layout_marginTop="20dp"
              android:fontFamily="@font/poppins_medium"
              android:gravity="center"
-             android:paddingLeft="55dp"
-             android:paddingRight="50dp"
-             android:text="OTP will be send to your mobile number"
+             android:paddingStart="55dp"
+             android:paddingEnd="50dp"
+             android:text="@string/otp_will_be_send_to_your_mobile_number"
              android:textColor="@android:color/white"
              android:textSize="14sp"
              app:layout_constraintEnd_toEndOf="parent"
@@ -81,9 +81,9 @@
                  android:hint="@string/mobile_number"
                  android:inputType="phone"
                  android:maxLength="10"
-                 android:paddingLeft="18dp"
+                 android:paddingStart="18dp"
                  android:textColor="#3F4E6E"
-                 android:textSize="17dp" />
+                 android:textSize="17sp" />
          </androidx.cardview.widget.CardView>
 
          <Button
@@ -94,12 +94,13 @@
              android:background="@drawable/round_for_search"
              android:backgroundTint="@color/YellowColo"
              android:fontFamily="@font/poppins_semibold"
-             android:text="Continue"
+             android:text="@string/continue_"
              android:textAllCaps="false"
              android:textColor="@android:color/white"
-             android:textSize="14dp"
+             android:textSize="14sp"
              android:textStyle="bold"
              app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintHorizontal_bias="0.0"
              app:layout_constraintStart_toStartOf="parent"
              app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
@@ -115,7 +116,7 @@
              android:fontFamily="@font/poppins_semibold"
              android:text="@string/skip"
              android:textColor="@android:color/white"
-             android:textSize="14dp"
+             android:textSize="14sp"
              android:textStyle="bold" />
 
      </androidx.constraintlayout.widget.ConstraintLayout>

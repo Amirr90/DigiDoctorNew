@@ -24,7 +24,7 @@
                 android:paddingBottom="@dimen/_40sdp"
                 android:background="@color/BackgroundColor"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -44,29 +44,28 @@
 
 
                     <RelativeLayout
-                        android:layout_marginRight="18dp"
-                        android:layout_toRightOf="@+id/profile_image"
-                        android:paddingLeft="@dimen/_10sdp"
+                        android:layout_marginEnd="18dp"
+                        android:layout_toEndOf="@+id/profile_image"
+                        android:paddingStart="@dimen/_10sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:layout_alignParentRight="true"
-                            android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                            android:layout_alignParentEnd="true"
                             android:id="@+id/tvLocation"
                             android:textColor="@color/PrimaryColor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
-                            android:textSize="14dp"
-                            />
+                            android:textSize="14sp"
+                            app:drawableStartCompat="@drawable/ic_baseline_location_on_24" />
 
                         <TextView
                             android:layout_centerVertical="true"
-                            android:textSize="8dp"
+                            android:textSize="8sp"
                             android:layout_below="@+id/tvLocation"
                             android:id="@+id/tvCity"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             />
@@ -107,17 +106,17 @@
 
                 <TextView
                     android:fontFamily="@font/poppins_semibold"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:paddingRight="@dimen/dimen_10dp"
                     android:paddingLeft="@dimen/dimen_10dp"
                     android:layout_marginTop="40dp"
                     android:textStyle="bold"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textColor="#2B3344"
                     android:id="@+id/textView57"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Order Medicine and Health Products" />
+                    android:text="@string/order_medicine_and_health_products" />
 
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -132,17 +131,17 @@
 
 
                 <TextView
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
                     android:textStyle="bold"
                     android:fontFamily="@font/poppins_semibold"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:textColor="#2B3344"
-                    android:paddingLeft="@dimen/_10sdp"
-                    android:paddingRight="@dimen/_100sdp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_100sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Find Top Clinic near You" />
+                    android:text="@string/find_top_clinic_near_you" />
 
 
                 <androidx.recyclerview.widget.RecyclerView

@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -19,10 +20,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.model.PrescriptionDtTableModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.view.activity.SignUpJourneyActivity;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -364,6 +368,103 @@ public class utils {
         if (vitalId.equalsIgnoreCase(BP_ID))
             return "90/60mmg Lower";
         else return "";
+    }
+
+    public static String getDtTableData(List<PrescriptionDtTableModel> medicineDetailModels) {
+
+        JSONArray dtDataTable = new JSONArray();
+        for (PrescriptionDtTableModel model : medicineDetailModels) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("dosageFormId", model.getDosageFormId());
+                jsonObject.put("medicineName", model.getMedicineName());
+                jsonObject.put("medicineId", model.getMedicineId());
+                jsonObject.put("strength", model.getStrength());
+                jsonObject.put("frequencyId", model.getFrequencyId());
+                jsonObject.put("doseUnitId", model.getDoseUnitId());
+                jsonObject.put("durationInDays", model.getDays());
+                dtDataTable.put(jsonObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.d("TAG", "getDtTableDataError: " + e.getLocalizedMessage());
+            }
+        }
+
+
+        return dtDataTable.toString();
+    }
+
+
+    public static String getDayFromDate(String incomingDate) {
+        String inputPattern = "yyyy/MM/dd";
+        String outputPattern = "EEE";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(incomingDate);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+    public static String getYearFromDate(String incomingDate) {
+        String inputPattern = "yyyy/MM/dd";
+        String outputPattern = "yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(incomingDate);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+    public static String getMonthFromDate(String incomingDate) {
+        String inputPattern = "yyyy/MM/dd";
+        String outputPattern = "MMM";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(incomingDate);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+    public static String getDateFromDate(String incomingDate) {
+        String inputPattern = "yyyy/MM/dd";
+        String outputPattern = "d";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(incomingDate);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
     }
 }
 

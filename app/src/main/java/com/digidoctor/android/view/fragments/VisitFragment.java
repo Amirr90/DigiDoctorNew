@@ -59,6 +59,7 @@ public class VisitFragment extends Fragment {
 
         Gson gson = new Gson();
         getPatientMedicationMainModels = gson.fromJson(modelString, GetPatientMedicationMainModel.class);
+        Log.d(TAG, "getPatientMedicationMainModels: " + getPatientMedicationMainModels.toString());
 
         //setting Data
 
@@ -67,7 +68,8 @@ public class VisitFragment extends Fragment {
             medicineDetails = getPatientMedicationMainModels.getMedicineDetails();
 
             fragmentVisitBinding.setMedication(getPatientMedicationMainModels);
-            fragmentVisitBinding.setAdviseDetails(adviseDetails.get(0));
+            if (adviseDetails.size() > 0)
+                fragmentVisitBinding.setAdviseDetails(adviseDetails.get(0));
 
             medicationAdapter = new MedicationAdapter(medicineDetails);
             fragmentVisitBinding.medicationRec.setAdapter(medicationAdapter);
@@ -75,18 +77,16 @@ public class VisitFragment extends Fragment {
 
         } catch (Exception e) {
             e.printStackTrace();
+            Log.d(TAG, "onViewCreatedError: " + e.getLocalizedMessage());
         }
 
 
-        fragmentVisitBinding.tvViewImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (null != getPatientMedicationMainModels.getFilePath() && !getPatientMedicationMainModels.getFilePath().isEmpty()) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("filePath", getPatientMedicationMainModels.getFilePath());
-                    navController.navigate(R.id.action_visitFragment_to_showFileOrPdfFragment, bundle);
+        fragmentVisitBinding.tvViewImage.setOnClickListener(view1 -> {
+            if (null != getPatientMedicationMainModels.getFilePath() && !getPatientMedicationMainModels.getFilePath().isEmpty()) {
+                Bundle bundle = new Bundle();
+                bundle.putString("filePath", getPatientMedicationMainModels.getFilePath());
+                navController.navigate(R.id.action_visitFragment_to_showFileOrPdfFragment, bundle);
 
-                }
             }
         });
 
@@ -113,7 +113,6 @@ public class VisitFragment extends Fragment {
             try {
                 GetPatientMedicationMedicineModel medicineModel = medicineDetails.get(position);
                 holder.visitViewBinding.setMedicineDetail(medicineModel);
-
 
             } catch (Exception e) {
                 e.printStackTrace();

@@ -26,6 +26,11 @@ android {
         dataBinding true
         viewBinding true
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -99,6 +104,9 @@ dependencies {
 
     //highChart
     implementation 'com.highsoft.highcharts:highcharts:8.1.2'
+
+    //Images like whatsApp
+    implementation 'com.fxn769:pix:1.5.3'
 
 
 

@@ -2,13 +2,15 @@ package com.digidoctor.android.adapters;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.AddPrescriptionViewBinding;
-import com.digidoctor.android.model.MedicineModel;
+import com.digidoctor.android.interfaces.OnClickListener;
+import com.digidoctor.android.model.PrescriptionDtTableModel;
 
 import java.util.List;
 /*
@@ -52,10 +54,12 @@ public class MedicineAdapter extends ListAdapter<MedicineModel.MedicineDetailMod
 
 public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.MedicineVH> {
     private static final String TAG = "MedicineAdapter";
-    List<MedicineModel.MedicineDetailModel> medicineModelList;
+    List<PrescriptionDtTableModel> medicineModelList;
+    OnClickListener onClickListener;
 
-    public MedicineAdapter(List<MedicineModel.MedicineDetailModel> medicineModelList) {
+    public MedicineAdapter(List<PrescriptionDtTableModel> medicineModelList, OnClickListener onClickListener) {
         this.medicineModelList = medicineModelList;
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -63,18 +67,26 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.Medici
     public MedicineAdapter.MedicineVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         AddPrescriptionViewBinding viewBinding = AddPrescriptionViewBinding.inflate(inflater, parent, false);
+
         return new MedicineVH(viewBinding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MedicineAdapter.MedicineVH holder, int position) {
-        MedicineModel.MedicineDetailModel medicineDetailModel = medicineModelList.get(position);
+    public void onBindViewHolder(@NonNull MedicineAdapter.MedicineVH holder, final int position) {
+        PrescriptionDtTableModel medicineDetailModel = medicineModelList.get(position);
         try {
             holder.viewBinding.setMedicineDetails(medicineDetailModel);
         } catch (Exception e) {
             e.printStackTrace();
             Log.d(TAG, "Error On Setting Medicine details : " + e.getLocalizedMessage());
         }
+
+        holder.viewBinding.ivDeleteItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickListener.onItemClick(position);
+            }
+        });
     }
 
     @Override
@@ -82,24 +94,29 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.Medici
         return medicineModelList.size();
     }
 
-    public boolean addItems(MedicineModel.MedicineDetailModel medicineDetailModel) {
+    public boolean addItems(PrescriptionDtTableModel medicineDetailModel) {
         if (medicineModelList.contains(medicineDetailModel))
             return false;
         else {
             medicineModelList.add(medicineDetailModel);
-            notifyDataSetChanged();
+            notifyItemInserted(0);
+           // notifyDataSetChanged();
             return true;
         }
     }
 
-    public boolean deleteItems(MedicineModel.MedicineDetailModel medicineDetailModel) {
-        if (medicineModelList.contains(medicineDetailModel)) {
-            medicineModelList.remove(medicineDetailModel);
+    public List<PrescriptionDtTableModel> deleteItems(int position) {
+        if (medicineModelList.size() >= position) {
+            medicineModelList.remove(position);
+            notifyItemRemoved(0);
             notifyDataSetChanged();
-            return true;
-        } else {
-            return false;
+
         }
+        return medicineModelList;
+    }
+
+    public List<PrescriptionDtTableModel> getMedicineData() {
+        return medicineModelList;
     }
 
     public class MedicineVH extends RecyclerView.ViewHolder {

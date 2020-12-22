@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -29,6 +32,8 @@ import com.digidoctor.android.model.NavModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.GetAddressIntentService;
 import com.digidoctor.android.utility.utils;
+import com.digidoctor.android.view.fragments.AddPrescriptionManuallyFragment;
+import com.fxn.pix.Pix;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -37,17 +42,14 @@ import com.google.android.gms.location.LocationServices;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
+import static com.digidoctor.android.view.fragments.AddPrescriptionManuallyFragment.REQ_CAPTURE_FROM_CAMERA;
 import static com.digidoctor.android.view.fragments.BookAppointmentFragment.bookAppointment;
 import static com.digidoctor.android.view.fragments.PatientDashboardFragment.dashboard2Binding;
 
@@ -79,6 +81,10 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
     NavAdapter navAdapter;
     List<NavModel> navModels;
+
+    MenuItem allMembers;
+
+    Menu menu;
 
     public String getCityName() {
         if (cityName == null)
@@ -119,7 +125,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         NavigationUI.setupActionBarWithNavController(this, navController);
 
 
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         addressResultReceiver = new LocationAddressResultReceiver(new Handler());
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -153,6 +159,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         navModels.add(new NavModel(getString(R.string.prescription_history), R.drawable.prescription));
         navModels.add(new NavModel(getString(R.string.investigation_history), R.drawable.investigation));
         navModels.add(new NavModel(getString(R.string.vitals_hitory), R.drawable.investigation));
+        navModels.add(new NavModel(getString(R.string.add_family_member), R.drawable.profile));
         navModels.add(new NavModel(getString(R.string.notifications), R.drawable.notification));
         navModels.add(new NavModel(getString(R.string.settings), R.drawable.settings));
         navModels.add(new NavModel(getString(R.string.about_us), R.drawable.aboutus));
@@ -163,10 +170,44 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     @Override
     protected void onStart() {
         super.onStart();
+        /*MenuItem menuItem = menu.findItem(R.id.showMemberListFragment);
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            Toast.makeText(PatientDashboard.this, "DestinationId " + destination.getLabel(), Toast.LENGTH_SHORT).show();
+            if (null != destination.getLabel() && destination.getLabel().equals(getString(R.string.add_member)) && null != menuItem) {
+                menuItem.setVisible(true);
+            } else {
+                assert menuItem != null;
+                menuItem.setVisible(false);
+            }
+        });*/
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        /*getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        allMembers = menu.findItem(R.id.showMemberListFragment);
+        return super.onCreateOptionsMenu(menu);*/
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        super.onCreateOptionsMenu(menu);
+        this.menu = menu;
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onSupportNavigateUp() {
+        try {
+            utils.hideSoftKeyboard(PatientDashboard.this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return navController.navigateUp();
     }
 
@@ -197,42 +238,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     @Override
     public void onPaymentSuccess(String status, PaymentData paymentData) {
         Toast.makeText(this, this.getString(R.string.transaction_successful), Toast.LENGTH_LONG).show();
-
-
-        //"dtDataTable": "[{\"vitalId\":56,\"vitalValue\":100}]"
-
-
-  /*      try {
-            jsonObject.put("\"transactionNo\"", "\"" + bookAppointment.getTrxId() + "\"");
-            jsonObject.put("\"paymentAmount\"", "\"" + bookAppointment.getDrFee() + "\"");
-            jsonObject.put("\"paymentStatus\"", "\"success\"");
-            jsonObject.put("\"bankRefNo\"", "\"" + status + "\"");
-            jsonObject.put("\"isErauser\"", "\"" + bookAppointment.getIsEraUser() + "\"");
-            jsonArray.put(jsonObject);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-*/
-
-
-
-      /*  try {
-            jsonObject.put("transactionNo", bookAppointment.getTrxId());
-            jsonObject.put("paymentAmount", bookAppointment.getDrFee());
-            jsonObject.put("paymentStatus", "success");
-            jsonObject.put("bankRefNo", status);
-            jsonObject.put("isErauser", bookAppointment.getIsEraUser());
-            jsonArray.put(jsonObject);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.d(TAG, "onPaymentSuccessJSon: " + e.getLocalizedMessage());
-
-        }*/
-
-
 
         Log.d(TAG, "onPaymentSuccess: " + status);
 
@@ -321,12 +326,22 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     navController.navigate(R.id.prescriptionHistoryFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
+            case 4:
+                if (user.getIsExists() == 1)
+                    navController.navigate(R.id.investigationFragment);
+                else navController.navigate(R.id.profileFragment);
+                break;
             case 5:
                 if (user.getIsExists() == 1)
                     navController.navigate(R.id.chooseVitalHistoryTypeFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
-            case 9:
+            case 6:
+                if (user.getIsExists() == 1)
+                    navController.navigate(R.id.addMemberFragment);
+                else navController.navigate(R.id.profileFragment);
+                break;
+            case 10:
                 showRequestDialog(this);
                 if (utils.logout(this))
                     hideDialog();
@@ -398,4 +413,25 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_CAPTURE_FROM_CAMERA) {
+            ArrayList<String> returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
+            if (null != returnValue && returnValue.isEmpty()) {
+                Toast.makeText(instance, "try again", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            try {
+                if (returnValue != null)
+                    AddPrescriptionManuallyFragment.getInstance().setImage(returnValue);
+                else Log.d(TAG, "imagePaTH is null : ");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package com.digidoctor.android.interfaces;
 
+import com.digidoctor.android.model.AddInvestigationModel;
+import com.digidoctor.android.model.AppointmentRes;
 import com.digidoctor.android.model.CheckLoginRes;
 import com.digidoctor.android.model.CheckSlotAvailabilityRes;
 import com.digidoctor.android.model.CheckTimeSlotModel;
@@ -13,11 +15,14 @@ import com.digidoctor.android.model.GetAppointmentSlotsRes;
 import com.digidoctor.android.model.GetMembersRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.GetPatientMedicationRes;
+import com.digidoctor.android.model.InvestigationDataRes;
+import com.digidoctor.android.model.InvestigationRes;
 import com.digidoctor.android.model.Login;
 import com.digidoctor.android.model.MedicineRes;
 import com.digidoctor.android.model.MemberModel;
 import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.OnlineAppointmentSlots;
+import com.digidoctor.android.model.PrescriptionModel;
 import com.digidoctor.android.model.Registration;
 import com.digidoctor.android.model.RegistrationRes;
 import com.digidoctor.android.model.ResponseModel;
@@ -26,16 +31,21 @@ import com.digidoctor.android.model.SpecialityRes;
 import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.model.SymptomsRes;
 import com.digidoctor.android.model.TransactionModel;
+import com.digidoctor.android.model.UploadImageRes;
+import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.utility.BookAppointment2;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface Api {
 
@@ -80,9 +90,11 @@ public interface Api {
     @POST("onlineAppointment")
     Call<OnlineAppointmentRes> onlineAppointment2(@Body BookAppointment2 appointment);
 
+
     @POST("generateOTPForPatient")
     Call<GenerateOtpRes> generateOTPForPatient(
             @Body GenerateOtpModel otpModel);
+
 
     @POST("checkLogin")
     Call<CheckLoginRes> checkLogin(
@@ -93,9 +105,14 @@ public interface Api {
     Call<CheckLoginRes> patientRegistration(
             @Body Registration registration);
 
+
     @POST("getPatientMedicationDetails")
     Call<GetPatientMedicationRes> getPatientMedicationDetails(
             @Body GetPatientMedicationMainModel model);
+
+    @POST("updateMember")
+    Call<CheckLoginRes> updateMember(
+            @Body User model);
 
 
     @POST("checkTimeSlotAvailability")
@@ -125,9 +142,34 @@ public interface Api {
     Call<VitalResponse> getVitals(
             @Body VitalModel model);
 
+    @POST("getpatientInvestigationDetails")
+    Call<InvestigationRes> getInvestigationData(
+            @Body User model);
+
+    @POST("getPatientAppointmentList")
+    Call<AppointmentRes> getAppointmentData(
+            @Body User model);
+
+    @POST("patientMedication")
+    Call<VitalResponse> addPrescription(
+            @Body PrescriptionModel model);
+
+    @POST("addInvestigation")
+    Call<VitalResponse> addInvestigation(
+            @Body AddInvestigationModel model);
+
+
+    @Multipart
+    @POST("saveMultipleFile")
+    Call<UploadImageRes> uploadImage(
+            @Part MultipartBody.Part[] multipleFile
+    );
+
     @POST("getAllMedicationDataList")
     Call<MedicineRes> getMedicationData();
 
+    @POST("getPatientInvestigationOnloadDetails")
+    Call<InvestigationDataRes> investigationData(@Body User model);
 
 }
 

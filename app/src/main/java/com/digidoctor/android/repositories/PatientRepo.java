@@ -1,6 +1,7 @@
 package com.digidoctor.android.repositories;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
@@ -8,10 +9,12 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
+import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.Dashboard;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.DoctorModelRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
+import com.digidoctor.android.model.InvestigationModel;
 import com.digidoctor.android.model.MedicineModel;
 import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.SpecialityModel;
@@ -48,7 +51,68 @@ public class PatientRepo {
     public MutableLiveData<List<User>> memberModelMutableLiveData;
     public MutableLiveData<List<VitalResponse.VitalDateVise>> vitalsMutableLiveData;
     public MutableLiveData<List<MedicineModel.MedicineDetailModel>> medicineMutableLiveData;
+    public MutableLiveData<List<InvestigationModel>> investigationMutableLiveData;
+    public MutableLiveData<List<AppointmentModel>> appointmentMutableLiveData;
 
+
+    public LiveData<List<AppointmentModel>> getAppointmentList(User user) {
+        if (appointmentMutableLiveData == null) {
+            appointmentMutableLiveData = new MutableLiveData<>();
+        }
+        loadAppointmentData(user);
+        return appointmentMutableLiveData;
+
+    }
+
+    private void loadAppointmentData(User user) {
+        ApiUtils.getAppointmentData(user, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> obj) {
+                List<AppointmentModel> models = (List<AppointmentModel>) obj;
+                appointmentMutableLiveData.setValue(models);
+            }
+
+            @Override
+            public void onError(String s) {
+                Log.d("InvestigationData", "onError: " + s);
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Log.d("InvestigationData", "onFailed: " + throwable.getLocalizedMessage());
+            }
+        });
+    }
+
+    public LiveData<List<InvestigationModel>> getInvestigationData(User user) {
+        if (investigationMutableLiveData == null) {
+            investigationMutableLiveData = new MutableLiveData<>();
+        }
+        loadInvestigationData(user);
+        return investigationMutableLiveData;
+
+    }
+
+    private void loadInvestigationData(User user) {
+
+        ApiUtils.getInvestigationData(user, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> obj) {
+                List<InvestigationModel> models = (List<InvestigationModel>) obj;
+                investigationMutableLiveData.setValue(models);
+            }
+
+            @Override
+            public void onError(String s) {
+                Log.d("InvestigationData", "onError: " + s);
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Log.d("InvestigationData", "onFailed: " + throwable.getLocalizedMessage());
+            }
+        });
+    }
 
     public LiveData<List<MedicineModel.MedicineDetailModel>> getInputMedicine() {
         if (medicineMutableLiveData == null) {

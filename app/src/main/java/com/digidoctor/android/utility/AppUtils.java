@@ -2,9 +2,12 @@ package com.digidoctor.android.utility;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.util.Log;
+import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.digidoctor.android.R;
@@ -18,9 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class AppUtils {
+    private static final String TAG = "AppUtils";
     public static Toast mToast;
 
     private static final int SECOND_MILLIS = 1000;
@@ -30,6 +32,26 @@ public class AppUtils {
     static ProgressDialog progressDialog;
 
 
+
+    public static String getMimeType(Context context, Uri uri) {
+        /*String type = null;
+        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+        if (extension != null) {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        }
+        return type;*/
+        String mimeType = null;
+        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            ContentResolver cr = context.getContentResolver();
+            mimeType = cr.getType(uri);
+        } else {
+            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri
+                    .toString());
+            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                    fileExtension.toLowerCase());
+        }
+        return mimeType;
+    }
 
     public static void showRequestDialog(Activity activity) {
 
@@ -112,8 +134,26 @@ public class AppUtils {
         }
         return str;
     } public static String parseUserDate(String oldDate) {
+            String inputPattern = "dd/MM/yy";
+            String outputPattern = "yyyy-MM-dd";
+            SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+            SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+            Date date = null;
+            String str = null;
+
+            try {
+                date = inputFormat.parse(oldDate);
+                str = outputFormat.format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return str;
+    }
+
+    public static String parseDateInDayMonthNameYearName(String oldDate) {
         String inputPattern = "dd/MM/yy";
-        String outputPattern = "yyyy-MM-dd";
+        String outputPattern = "dd MMMM yyyy";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
@@ -128,6 +168,27 @@ public class AppUtils {
         }
         return str;
     }
+
+    public static String parseDate(String inDate,String outPattern) {
+
+        String inputPattern = "dd/MM/yy";
+       // String outputPattern = "dd MMMM yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(inDate);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+
+    }
+
 
     public static String getDayOfWeekDayFromDate(String date) {
         String dayName = "";
@@ -162,4 +223,6 @@ public class AppUtils {
         mToast = Toast.makeText(context, text, Toast.LENGTH_LONG);
         mToast.show();
     }
+
+
 }

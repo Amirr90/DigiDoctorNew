@@ -14,7 +14,6 @@
     </data>
 
 
-
     <RelativeLayout
 
         android:layout_width="match_parent"
@@ -47,15 +46,18 @@
         </LinearLayout>
 
         <TextView
+            android:layout_toLeftOf="@+id/imageView8"
             android:id="@+id/textView21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="19dp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:layout_toRightOf="@id/llImage"
             android:fontFamily="@font/poppins_semibold"
+            android:singleLine="true"
             android:text="@{getPatientMedicationMainModel.problemName}"
             android:textColor="#262E3F"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
 
@@ -67,7 +69,7 @@
             android:fontFamily="@font/poppins"
             android:text="@{getPatientMedicationMainModel.startDate}"
             android:textColor="#3F4E6E"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="normal" />
 
         <ImageView

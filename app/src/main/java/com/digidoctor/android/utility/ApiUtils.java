@@ -1,12 +1,17 @@
 package com.digidoctor.android.utility;
 
 import android.app.Activity;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
+import com.digidoctor.android.model.AddInvestigationModel;
+import com.digidoctor.android.model.AppointmentRes;
 import com.digidoctor.android.model.CheckLoginRes;
 import com.digidoctor.android.model.CheckSlotAvailabilityRes;
 import com.digidoctor.android.model.CheckTimeSlotModel;
@@ -20,10 +25,13 @@ import com.digidoctor.android.model.GetAppointmentSlotsRes;
 import com.digidoctor.android.model.GetMembersRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.GetPatientMedicationRes;
+import com.digidoctor.android.model.InvestigationDataRes;
+import com.digidoctor.android.model.InvestigationRes;
 import com.digidoctor.android.model.Login;
 import com.digidoctor.android.model.MedicineRes;
 import com.digidoctor.android.model.MemberModel;
 import com.digidoctor.android.model.OnlineAppointmentSlots;
+import com.digidoctor.android.model.PrescriptionModel;
 import com.digidoctor.android.model.Registration;
 import com.digidoctor.android.model.RegistrationRes;
 import com.digidoctor.android.model.ResponseModel;
@@ -32,6 +40,7 @@ import com.digidoctor.android.model.SpecialityRes;
 import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.model.SymptomsRes;
 import com.digidoctor.android.model.TransactionModel;
+import com.digidoctor.android.model.UploadImageRes;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
@@ -39,9 +48,11 @@ import com.digidoctor.android.view.activity.PatientDashboard;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -618,7 +629,8 @@ public class ApiUtils {
                         AppUtils.hideDialog();
                         apiCallbackInterface.onError(response.body().getResponseMessage());
                     }
-                }
+                } else
+                    apiCallbackInterface.onError(response.message());
 
             }
 
@@ -643,7 +655,8 @@ public class ApiUtils {
                     } else {
                         apiCallbackInterface.onError(responseModel.getResponseMessage());
                     }
-                }
+                } else
+                    apiCallbackInterface.onError(response.message());
             }
 
             @Override
@@ -679,6 +692,165 @@ public class ApiUtils {
         });
     }
 
+    public static void getInvestigationData(User model, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Call<InvestigationRes> call = iRestInterfaces.getInvestigationData(model);
+
+        call.enqueue(new Callback<InvestigationRes>() {
+            @Override
+            public void onResponse(@NotNull Call<InvestigationRes> call, @NotNull Response<InvestigationRes> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    InvestigationRes responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(responseModel.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(responseModel.getResponseMessage());
+                    }
+                } else
+                    apiCallbackInterface.onError(response.message());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<InvestigationRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void getAppointmentData(User model, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Call<AppointmentRes> call = iRestInterfaces.getAppointmentData(model);
+
+        call.enqueue(new Callback<AppointmentRes>() {
+            @Override
+            public void onResponse(@NotNull Call<AppointmentRes> call, @NotNull Response<AppointmentRes> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    AppointmentRes responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(responseModel.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(responseModel.getResponseMessage());
+                    }
+                } else
+                    apiCallbackInterface.onError(response.message());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<AppointmentRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+
+    public static void addPrescription(PrescriptionModel model, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Call<VitalResponse> call = iRestInterfaces.addPrescription(model);
+
+        call.enqueue(new Callback<VitalResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<VitalResponse> call, @NotNull Response<VitalResponse> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    VitalResponse prescriptionResponse = response.body();
+                    if (prescriptionResponse.getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(prescriptionResponse.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(prescriptionResponse.getResponseMessage());
+                    }
+                } else apiCallbackInterface.onError("" + response.code());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<VitalResponse> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void submitInvestigation(AddInvestigationModel model, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Call<VitalResponse> call = iRestInterfaces.addInvestigation(model);
+
+        call.enqueue(new Callback<VitalResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<VitalResponse> call, @NotNull Response<VitalResponse> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    VitalResponse prescriptionResponse = response.body();
+                    if (prescriptionResponse.getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(prescriptionResponse.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(prescriptionResponse.getResponseMessage());
+                    }
+                } else apiCallbackInterface.onError("" + response.code());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<VitalResponse> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static String getPath(Uri uri, Activity activity) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = activity.getContentResolver().query(uri, projection, null, null, null);
+        if (cursor == null) return null;
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String s = cursor.getString(column_index);
+        cursor.close();
+        return s;
+    }
+
+    public static void uploadPrescriptionFile(MultipartBody.Part[] filePath, final ApiCallbackInterface apiCallbackInterface, Activity activity) throws IOException {
+        /*File file = new File(filePath);
+
+        Log.d("TAG", "uploadPrescriptionFile: " + file);
+
+        MultipartBody.Part[] fileParts = new MultipartBody.Part[1];
+        try {
+            MediaType mediaType = MediaType.parse("image/*");
+            RequestBody fileBody;
+            fileBody = RequestBody.create(mediaType, file);
+            fileParts[0] = MultipartBody.Part.createFormData("multipleFile", file.getName(), fileBody);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+*/
+
+
+        //  Log.d("TAG", "uploadPrescriptionFile: " + filePath);
+
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPIForDoctor();
+        Call<UploadImageRes> call = iRestInterfaces.uploadImage(filePath);
+
+        call.enqueue(new Callback<UploadImageRes>() {
+            @Override
+            public void onResponse(@NotNull Call<UploadImageRes> call, @NotNull Response<UploadImageRes> response) {
+
+                if ((response.code() == 200 && null != response.body())) {
+                    UploadImageRes prescriptionResponse = response.body();
+                    if (prescriptionResponse.getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(prescriptionResponse.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(prescriptionResponse.getResponseMessage());
+                    }
+                } else apiCallbackInterface.onError("image Not supported");
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<UploadImageRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
     public static void getMedicineData(final ApiCallbackInterface apiCallbackInterface) {
         Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
         Call<MedicineRes> call = iRestInterfaces.getMedicationData();
@@ -700,6 +872,90 @@ public class ApiUtils {
             public void onFailure(@NotNull Call<MedicineRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
                 apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void investigationData(final ApiCallbackInterface apiCallbackInterface) {
+        User user = new User();
+        user.setMemberId(0);
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Call<InvestigationDataRes> call = iRestInterfaces.investigationData(user);
+
+
+        call.enqueue(new Callback<InvestigationDataRes>() {
+            @Override
+            public void onResponse(@NotNull Call<InvestigationDataRes> call, @NotNull Response<InvestigationDataRes> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    InvestigationDataRes responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(responseModel.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(responseModel.getResponseMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<InvestigationDataRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    @EverythingIsNonNull
+    public static void getPatientMedicationDetail(String appId, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        GetPatientMedicationMainModel model = new GetPatientMedicationMainModel();
+        model.setAppointmentId(Integer.parseInt(appId));
+        Call<GetPatientMedicationRes> call = iRestInterfaces.getPatientMedicationDetails(model);
+
+        call.enqueue(new Callback<GetPatientMedicationRes>() {
+            @Override
+            public void onResponse(@NotNull Call<GetPatientMedicationRes> call, Response<GetPatientMedicationRes> response) {
+
+                if (response.isSuccessful() && null != response.body()) {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                } else {
+
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(response.message());
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<GetPatientMedicationRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+    }
+
+    @EverythingIsNonNull
+    public static void updateMember(User model, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+
+        Call<CheckLoginRes> call = iRestInterfaces.updateMember(model);
+
+        call.enqueue(new Callback<CheckLoginRes>() {
+            @Override
+            public void onResponse(@NotNull Call<CheckLoginRes> call, Response<CheckLoginRes> response) {
+
+                if (response.isSuccessful() && null != response.body()) {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                } else {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(response.message());
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<CheckLoginRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
             }
         });
     }

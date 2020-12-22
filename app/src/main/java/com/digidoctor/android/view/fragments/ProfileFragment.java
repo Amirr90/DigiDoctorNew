@@ -1,9 +1,7 @@
 package com.digidoctor.android.view.fragments;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,6 +23,7 @@ import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.MyDialogInterface;
 import com.digidoctor.android.model.Registration;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
@@ -92,18 +91,19 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
 
         Log.d(TAG, "onViewCreated: Mobile " + utils.getString(utils.MOBILE_NUMBER, requireActivity()));
 
-        profileBinding.btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (user.getIsExists() == 0) {
-                    if (isAllFieldFilled()) {
-                        registerUser();
-                    } else
-                        Toast.makeText(requireActivity(), R.string.please_fill_all_fields, Toast.LENGTH_SHORT).show();
-                } else updateProfile();
-            }
+        profileBinding.btnUpdateProfile.setOnClickListener(view12 -> {
+            if (user.getIsExists() == 0) {
+                if (isAllFieldFilled()) {
+                    registerUser();
+                } else
+                    Toast.makeText(requireActivity(), R.string.please_fill_all_fields, Toast.LENGTH_SHORT).show();
+            } else updateProfile("");
         });
 
+
+        profileBinding.textView5.setOnClickListener(view1 -> {
+            Toast.makeText(requireActivity(), "In Process", Toast.LENGTH_SHORT).show();
+        });
 
     }
 
@@ -112,9 +112,48 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
         profileBinding.ivGenderDialog.setVisibility(user.getIsExists() == 0 ? View.VISIBLE : View.GONE);
     }
 
-    private void updateProfile() {
+    private void updateProfile(String profilePath) {
+        User updatedUser = new User();
 
-        Toast.makeText(requireContext(), "Updating Profile", Toast.LENGTH_SHORT).show();
+        updatedUser.setMemberId(user.getId());
+        updatedUser.setName(profileBinding.editTextTextPersonName.getText().toString());
+        updatedUser.setMobileNo(profileBinding.editTextTextPersonNumber.getText().toString());
+        updatedUser.setEmailId(profileBinding.editTextTextPersonEmail.getText().toString());
+        updatedUser.setGender(profileBinding.editTextTextPersonEmail.getText().toString().equalsIgnoreCase("male") ? 1 : 2);
+        updatedUser.setDob(AppUtils.parseUserDate(profileBinding.editTextTextPersonDob.getText().toString()));
+        updatedUser.setAddress(profileBinding.editTextTextPersonAddress.getText().toString());
+        updatedUser.setProfilePhotoPath(profilePath);
+
+
+        AppUtils.showRequestDialog(requireActivity());
+        ApiUtils.updateMember(updatedUser, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                Toast.makeText(requireActivity(), "Updated Successfully", Toast.LENGTH_SHORT).show();
+                AppUtils.hideDialog();
+                PatientDashboard.getInstance().onSupportNavigateUp();
+                //utils.
+
+                List<User> updatedUsers = (List<User>) o;
+                for (User user : updatedUsers)
+                    if (user.getPrimaryStatus() == 1)
+                        utils.savePrimaryUserData(USER, requireActivity(), user);
+
+
+            }
+
+            @Override
+            public void onError(String s) {
+                Toast.makeText(requireActivity(), getString(R.string.retry), Toast.LENGTH_SHORT).show();
+                AppUtils.hideDialog();
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Toast.makeText(requireActivity(), getString(R.string.retry), Toast.LENGTH_SHORT).show();
+                AppUtils.hideDialog();
+            }
+        });
     }
 
     private void registerUser() {
@@ -231,23 +270,17 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
         GenderViewBinding genderViewBinding = GenderViewBinding.bind(formElementsView);
 
 
-        genderViewBinding.llMale.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GENDER = "1";
-                profileBinding.editTextTextPersonGender.setText(R.string.male);
-                optionDialog.dismiss();
-            }
+        genderViewBinding.llMale.setOnClickListener(view -> {
+            GENDER = "1";
+            profileBinding.editTextTextPersonGender.setText(R.string.male);
+            optionDialog.dismiss();
         });
 
-        genderViewBinding.llFemale.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GENDER = "2";
-                profileBinding.editTextTextPersonGender.setText(R.string.female);
-                optionDialog.dismiss();
+        genderViewBinding.llFemale.setOnClickListener(view -> {
+            GENDER = "2";
+            profileBinding.editTextTextPersonGender.setText(R.string.female);
+            optionDialog.dismiss();
 
-            }
         });
 
         // the alert dialog
@@ -273,23 +306,20 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
 
         // so that the calendar view won't appear
         myDatePicker.setCalendarViewShown(false);
+        myDatePicker.setMaxDate(System.currentTimeMillis());
 
         // the alert dialog
         new AlertDialog.Builder(requireActivity()).setView(view)
                 .setTitle(R.string.set_date)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @TargetApi(11)
-                    public void onClick(DialogInterface dialog, int id) {
+                .setPositiveButton(R.string.ok, (dialog, id) -> {
 
-                        int month = myDatePicker.getMonth() + 1;
-                        int day = myDatePicker.getDayOfMonth();
-                        int year = myDatePicker.getYear();
+                    int month = myDatePicker.getMonth() + 1;
+                    int day = myDatePicker.getDayOfMonth();
+                    int year = myDatePicker.getYear();
 
-                        profileBinding.editTextTextPersonDob.setText(year + "-" + month + "-" + day);
+                    profileBinding.editTextTextPersonDob.setText(year + "-" + month + "-" + day);
 
-                        dialog.cancel();
-
-                    }
+                    dialog.cancel();
 
                 }).show();
     }

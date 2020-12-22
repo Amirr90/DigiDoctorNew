@@ -1,21 +1,27 @@
 package com.digidoctor.android.view.fragments;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentAddMemberBinding;
+import com.digidoctor.android.databinding.GenderViewBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
+import com.digidoctor.android.interfaces.MyDialogInterface;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
@@ -24,11 +30,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import static com.digidoctor.android.utility.utils.fadeIn;
 import static com.digidoctor.android.utility.utils.logout;
 
 
-public class AddMemberFragment extends Fragment {
+public class AddMemberFragment extends Fragment implements MyDialogInterface {
 
     FragmentAddMemberBinding addMemberBinding;
 
@@ -40,11 +48,15 @@ public class AddMemberFragment extends Fragment {
     String name, mobile, dob, address, Gender;
 
 
+    String GENDER;
+    AlertDialog optionDialog;
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         addMemberBinding = FragmentAddMemberBinding.inflate(getLayoutInflater());
+        addMemberBinding.setDialogInterface(this);
         return addMemberBinding.getRoot();
 
     }
@@ -55,19 +67,23 @@ public class AddMemberFragment extends Fragment {
 
         navController = Navigation.findNavController(view);
 
+        addMemberBinding.getRoot().setAnimation(fadeIn(requireActivity()));
+
         if (null != getArguments())
             from = getArguments().getString("from");
 
 
-        addMemberBinding.btnSavePatient.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isAllFieldsFilled()) {
-                    addMember();
-                }
+
+        addMemberBinding.btnSavePatient.setOnClickListener(view1 -> {
+            if (isAllFieldsFilled()) {
+                addMember();
             }
         });
 
+
+        addMemberBinding.textView5.setOnClickListener(view1 -> {
+            Toast.makeText(requireActivity(), "In Process", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void addMember() {
@@ -123,6 +139,9 @@ public class AddMemberFragment extends Fragment {
         } else if (TextUtils.isEmpty(mobile)) {
             Toast.makeText(requireActivity(), R.string.mobile_required, Toast.LENGTH_SHORT).show();
             return false;
+        } else if (mobile.length() < 10) {
+            Toast.makeText(requireActivity(), R.string.enter_valid_mobile_number, Toast.LENGTH_SHORT).show();
+            return false;
         } else if (TextUtils.isEmpty(dob)) {
             Toast.makeText(requireActivity(), R.string.select_age, Toast.LENGTH_SHORT).show();
             return false;
@@ -132,5 +151,82 @@ public class AddMemberFragment extends Fragment {
         } else {
             return true;
         }
+    }
+
+
+    @Override
+    public void onAgeItemClick() {
+        showSelectAgeDialog();
+    }
+
+    @Override
+    public void onGenderItemClick() {
+        showSelectGenderDialog();
+
+    }
+
+    private void showSelectGenderDialog() {
+
+
+        LayoutInflater inflater = (LayoutInflater) requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View formElementsView = inflater.inflate(R.layout.gender_view, null, false);
+
+        GenderViewBinding genderViewBinding = GenderViewBinding.bind(formElementsView);
+
+
+        genderViewBinding.llMale.setOnClickListener(view -> {
+            GENDER = "1";
+            addMemberBinding.etGender.setText(R.string.male);
+            optionDialog.dismiss();
+        });
+
+        genderViewBinding.llFemale.setOnClickListener(view -> {
+            GENDER = "2";
+            addMemberBinding.etGender.setText(R.string.female);
+            optionDialog.dismiss();
+
+        });
+
+        // the alert dialog
+        optionDialog = new AlertDialog.Builder(requireActivity()).create();
+        optionDialog.setView(formElementsView);
+        optionDialog.show();
+
+
+    }
+
+    private void showSelectAgeDialog() {
+
+        LayoutInflater inflater = (LayoutInflater) requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.date_picker, null, false);
+
+        // the time picker on the alert dialog, this is how to get the value
+        final DatePicker myDatePicker = (DatePicker) view.findViewById(R.id.myDatePicker);
+
+        // so that the calendar view won't appear
+        myDatePicker.setCalendarViewShown(false);
+        myDatePicker.setMaxDate(System.currentTimeMillis());
+
+        // the alert dialog
+        new AlertDialog.Builder(requireActivity()).setView(view)
+                .setTitle(R.string.set_date)
+                .setPositiveButton(R.string.ok, (dialog, id) -> {
+
+                    int month = myDatePicker.getMonth() + 1;
+                    int day = myDatePicker.getDayOfMonth();
+                    int year = myDatePicker.getYear();
+
+                    addMemberBinding.etDob.setText(year + "-" + month + "-" + day);
+
+                    dialog.cancel();
+
+                }).show();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 }
