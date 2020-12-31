@@ -8,48 +8,174 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp">
+        android:layout_height="match_parent">
 
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animationView"
-            android:layout_width="279dp"
-            android:layout_height="279dp"
-            android:layout_marginTop="105dp"
+        <ScrollView
+            android:id="@+id/dataView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/btnScan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/loadingView">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/btLoading"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="24dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView145"
+                    app:layout_constraintEnd_toEndOf="@+id/textView145"
+                    app:layout_constraintTop_toTopOf="@+id/textView145"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/bt_loading" />
+                <TextView
+                    android:id="@+id/textView145"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="#399C9A9A"
+                    android:fontFamily="@font/poppins"
+                    android:padding="10dp"
+                    android:text="Scan  Result"
+                    android:textSize="17sp"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView145"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/bt_paired_devices_view" />
+
+                <TextView
+                    android:id="@+id/textView144"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="#399C9A9A"
+                    android:fontFamily="@font/poppins"
+                    android:padding="10dp"
+                    android:text="Paired Devices"
+                    android:textSize="17sp"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView4" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView144"
+                    tools:itemCount="15"
+                    tools:listitem="@layout/bt_paired_devices_view" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btnScan"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/round_for_search"
+            android:backgroundTint="@color/PrimaryColor"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/scan"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loadingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="@dimen/dimen_10dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/bluetooth_loading_json" />
+            app:layout_constraintVertical_bias="0.0">
 
-        <TextView
-            android:textColor="#262E3F"
-            android:textSize="26sp"
-            android:fontFamily="@font/poppins_medium"
-            android:id="@+id/textView74"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:text="Please Wait!"
-            app:layout_constraintEnd_toEndOf="@+id/animationView"
-            app:layout_constraintStart_toStartOf="@+id/animationView"
-            app:layout_constraintTop_toBottomOf="@+id/animationView" />
 
-        <TextView
-            android:textColor="#262E3F"
-            android:textSize="16sp"
-            android:fontFamily="@font/poppins_medium"
-            android:gravity="center"
-            android:id="@+id/textView87"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="It will be taken few minutes to connecting."
-            app:layout_constraintEnd_toEndOf="@+id/animationView"
-            app:layout_constraintStart_toStartOf="@+id/animationView"
-            app:layout_constraintTop_toBottomOf="@+id/textView74" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="279dp"
+                android:layout_height="279dp"
+                android:layout_marginTop="105dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/bluetooth_loading_json" />
+
+            <TextView
+                android:id="@+id/textView74"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Please Wait!"
+                android:textColor="#262E3F"
+                android:textSize="26sp"
+                app:layout_constraintEnd_toEndOf="@+id/animationView"
+                app:layout_constraintStart_toStartOf="@+id/animationView"
+                app:layout_constraintTop_toBottomOf="@+id/animationView" />
+
+            <TextView
+                android:id="@+id/textView87"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="It will be taken few minutes to connecting."
+                android:textColor="#262E3F"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/animationView"
+                app:layout_constraintStart_toStartOf="@+id/animationView"
+                app:layout_constraintTop_toBottomOf="@+id/textView74" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

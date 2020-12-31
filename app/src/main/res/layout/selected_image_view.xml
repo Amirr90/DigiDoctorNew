@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="uri"
+            type="android.net.Uri" />
+
+        <variable
+            name="imageClickListener"
+            type="com.digidoctor.android.interfaces.ImageClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <ImageView
+            android:id="@+id/imageView48"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/greyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_liveo_close" />
+
+        <ImageView
+            android:id="@+id/imageView47"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="4dp"
+            android:onClick="@{()->imageClickListener.onViewButtonClick(uri)}"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView48"
+            app:srcCompat="@drawable/diagnosis_demo_image" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

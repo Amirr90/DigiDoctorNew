@@ -17,10 +17,10 @@
 
 
         <RelativeLayout
-            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="13dp">
+            android:layout_margin="13dp"
+            android:padding="10dp">
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -89,7 +89,6 @@
                             android:textSize="14sp" />
 
 
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -133,7 +132,7 @@
                             android:layout_marginBottom="20dp"
                             android:hint="@string/your_address"
                             android:inputType="textPersonName"
-                            android:textColor="#D2D2D2"
+                            android:textColor="#424242"
                             android:textColorHint="#D2D2D2"
                             android:textSize="14sp" />
 
@@ -186,15 +185,15 @@
                             android:layout_marginStart="22dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="20dp"
-                            android:drawableEnd="@drawable/calender_medium_icon"
                             android:gravity="center_vertical"
                             android:hint="@string/your_dob"
                             android:onClick="@{()->dialogInterface.onAgeItemClick()}"
                             android:paddingStart="5dp"
-                            android:paddingRight="10dp"
+                            android:paddingEnd="10dp"
                             android:textColor="#424242"
                             android:textColorHint="#D2D2D2"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            app:drawableEndCompat="@drawable/calender_medium_icon" />
 
 
                     </LinearLayout>

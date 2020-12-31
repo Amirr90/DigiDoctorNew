@@ -26,18 +26,21 @@ import com.digidoctor.android.model.PrescriptionModel;
 import com.digidoctor.android.model.Registration;
 import com.digidoctor.android.model.RegistrationRes;
 import com.digidoctor.android.model.ResponseModel;
+import com.digidoctor.android.model.SaveMultipleFileRes;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SpecialityRes;
 import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.model.SymptomsRes;
 import com.digidoctor.android.model.TransactionModel;
-import com.digidoctor.android.model.UploadImageRes;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.utility.BookAppointment2;
 
+import java.util.Map;
+
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -46,6 +49,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 
 public interface Api {
 
@@ -60,7 +64,7 @@ public interface Api {
     );
 
 
-    @POST("getSpeciality")
+    @POST("getAllDepartment")
     Call<SpecialityRes> getSpeciality(
             @Body SpecialityModel specialityModel);
 
@@ -154,23 +158,35 @@ public interface Api {
     Call<VitalResponse> addPrescription(
             @Body PrescriptionModel model);
 
-    @POST("addInvestigation")
+    @POST("patientInvestigation")
     Call<VitalResponse> addInvestigation(
             @Body AddInvestigationModel model);
 
 
     @Multipart
     @POST("saveMultipleFile")
-    Call<UploadImageRes> uploadImage(
+    Call<SaveMultipleFileRes> uploadImage(
+            @PartMap() Map<String, RequestBody> partMap,
             @Part MultipartBody.Part[] multipleFile
+
+
     );
 
     @POST("getAllMedicationDataList")
     Call<MedicineRes> getMedicationData();
 
+    @POST("deleteMember")
+    Call<CheckLoginRes> deleteMember(@Body User user);
+
     @POST("getPatientInvestigationOnloadDetails")
     Call<InvestigationDataRes> investigationData(@Body User model);
 
+
+    @Multipart
+    @POST("saveMultipleFile")
+    Call<SaveMultipleFileRes> saveMultipleFile(
+            @Part MultipartBody.Part[] multipleFile
+    );
 }
 
 

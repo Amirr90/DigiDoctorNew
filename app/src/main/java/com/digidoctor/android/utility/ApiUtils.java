@@ -1,9 +1,7 @@
 package com.digidoctor.android.utility;
 
 import android.app.Activity;
-import android.database.Cursor;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -35,24 +33,30 @@ import com.digidoctor.android.model.PrescriptionModel;
 import com.digidoctor.android.model.Registration;
 import com.digidoctor.android.model.RegistrationRes;
 import com.digidoctor.android.model.ResponseModel;
+import com.digidoctor.android.model.SaveMultipleFileRes;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SpecialityRes;
 import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.model.SymptomsRes;
 import com.digidoctor.android.model.TransactionModel;
-import com.digidoctor.android.model.UploadImageRes;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -316,8 +320,6 @@ public class ApiUtils {
     }
 
     public static void getOTP(GenerateOtpModel generateOtpModel, final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
-        if (PatientDashboard.getInstance() != null)
-            AppUtils.showRequestDialog(activity);
 
         Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
         Call<GenerateOtpRes> call = iRestInterfaces.generateOTPForPatient(generateOtpModel);
@@ -795,47 +797,48 @@ public class ApiUtils {
         });
     }
 
-    public static String getPath(Uri uri, Activity activity) {
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = activity.getContentResolver().query(uri, projection, null, null, null);
-        if (cursor == null) return null;
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        String s = cursor.getString(column_index);
-        cursor.close();
-        return s;
-    }
 
-    public static void uploadPrescriptionFile(MultipartBody.Part[] filePath, final ApiCallbackInterface apiCallbackInterface, Activity activity) throws IOException {
-        /*File file = new File(filePath);
-
-        Log.d("TAG", "uploadPrescriptionFile: " + file);
-
+    public static void uploadProfileImage(File imagFile, final ApiCallbackInterface apiCallbackInterface) throws IOException {
         MultipartBody.Part[] fileParts = new MultipartBody.Part[1];
         try {
             MediaType mediaType = MediaType.parse("image/*");
+
             RequestBody fileBody;
-            fileBody = RequestBody.create(mediaType, file);
-            fileParts[0] = MultipartBody.Part.createFormData("multipleFile", file.getName(), fileBody);
+
+            fileBody = RequestBody.create(mediaType, imagFile);
+
+            fileParts[0] = MultipartBody.Part.createFormData("files", imagFile.getName(), fileBody);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-*/
 
-
-        //  Log.d("TAG", "uploadPrescriptionFile: " + filePath);
+        Map<String, RequestBody> map = new HashMap<>();
+        map.put("files", toRequestBody("files"));
 
         Api iRestInterfaces = URLUtils.getAPIServiceNewAPIForDoctor();
-        Call<UploadImageRes> call = iRestInterfaces.uploadImage(filePath);
+        Call<SaveMultipleFileRes> call = iRestInterfaces.uploadImage(map, fileParts);
 
-        call.enqueue(new Callback<UploadImageRes>() {
+
+        call.enqueue(new Callback<SaveMultipleFileRes>() {
             @Override
-            public void onResponse(@NotNull Call<UploadImageRes> call, @NotNull Response<UploadImageRes> response) {
+            public void onResponse(@NotNull Call<SaveMultipleFileRes> call, @NotNull Response<SaveMultipleFileRes> response) {
 
                 if ((response.code() == 200 && null != response.body())) {
-                    UploadImageRes prescriptionResponse = response.body();
+                    SaveMultipleFileRes prescriptionResponse = response.body();
                     if (prescriptionResponse.getResponseCode() == 1) {
-                        apiCallbackInterface.onSuccess(prescriptionResponse.getResponseValue());
+                        try {
+                            JSONArray jsonArray = new JSONArray(response.body().getResponseData());
+                            String fileName = jsonArray.getJSONObject(0).getString("filePath");
+                            List<String> strings = new ArrayList<>();
+                            strings.add(fileName);
+                            apiCallbackInterface.onSuccess(strings);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            apiCallbackInterface.onError(e.getLocalizedMessage());
+                        }
+
                     } else {
                         apiCallbackInterface.onError(prescriptionResponse.getResponseMessage());
                     }
@@ -844,11 +847,80 @@ public class ApiUtils {
             }
 
             @Override
-            public void onFailure(@NotNull Call<UploadImageRes> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<SaveMultipleFileRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
                 apiCallbackInterface.onFailed(t);
             }
         });
+    }
+
+    public static void uploadMultipleFile(List<String> uris, Activity activity, final ApiCallbackInterface apiCallbackInterface) throws IOException {
+
+        MultipartBody.Part[] fileParts = new MultipartBody.Part[uris.size()];
+
+        for (int a = 0; a < uris.size(); a++) {
+
+            File imagFile = FileUtil.from(activity, Uri.parse(uris.get(a)));
+
+            try {
+                MediaType mediaType = MediaType.parse("image/*");
+
+                RequestBody fileBody;
+
+                fileBody = RequestBody.create(mediaType, imagFile);
+
+                fileParts[a] = MultipartBody.Part.createFormData("files", imagFile.getName(), fileBody);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        Map<String, RequestBody> map = new HashMap<>();
+        map.put("files", toRequestBody("files"));
+
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPIForDoctor();
+        Call<SaveMultipleFileRes> call = iRestInterfaces.uploadImage(map, fileParts);
+
+        AppUtils.showRequestDialog(activity);
+        call.enqueue(new Callback<SaveMultipleFileRes>() {
+            @Override
+            public void onResponse(@NotNull Call<SaveMultipleFileRes> call, @NotNull Response<SaveMultipleFileRes> response) {
+
+                AppUtils.hideDialog();
+                if ((response.code() == 200 && null != response.body())) {
+                    SaveMultipleFileRes prescriptionResponse = response.body();
+                    if (prescriptionResponse.getResponseCode() == 1) {
+                        try {
+                            JSONArray jsonArray = new JSONArray(response.body().getResponseData());
+                            Log.d("TAG", "UploadImageRes: " + jsonArray.toString());
+                            List<String> strings = new ArrayList<>();
+                            strings.add(jsonArray.toString());
+                            apiCallbackInterface.onSuccess(strings);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            apiCallbackInterface.onError(e.getLocalizedMessage());
+                        }
+
+                    } else {
+                        apiCallbackInterface.onError(prescriptionResponse.getResponseMessage());
+                    }
+                } else apiCallbackInterface.onError("image Not supported");
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<SaveMultipleFileRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static RequestBody toRequestBody(String value) {
+        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), value);
+        return body;
     }
 
     public static void getMedicineData(final ApiCallbackInterface apiCallbackInterface) {
@@ -870,6 +942,32 @@ public class ApiUtils {
 
             @Override
             public void onFailure(@NotNull Call<MedicineRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+
+    public static void deleteMember(User user, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Call<CheckLoginRes> call = iRestInterfaces.deleteMember(user);
+
+        call.enqueue(new Callback<CheckLoginRes>() {
+            @Override
+            public void onResponse(@NotNull Call<CheckLoginRes> call, @NotNull Response<CheckLoginRes> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    CheckLoginRes responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(responseModel.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(responseModel.getResponseMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<CheckLoginRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
                 apiCallbackInterface.onFailed(t);
             }
@@ -943,14 +1041,18 @@ public class ApiUtils {
             @Override
             public void onResponse(@NotNull Call<CheckLoginRes> call, Response<CheckLoginRes> response) {
 
-                if (response.isSuccessful() && null != response.body()) {
-                    AppUtils.hideDialog();
-                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                } else {
-                    AppUtils.hideDialog();
-                    apiCallbackInterface.onError(response.message());
-                }
+                if (response.code() == 200)
+                    if (response.isSuccessful() && null != response.body()) {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onError(response.message());
+                    }
 
+                else {
+                    apiCallbackInterface.onError(String.valueOf(response.code()));
+                }
             }
 
             @Override

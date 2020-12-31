@@ -50,7 +50,6 @@ import static com.digidoctor.android.utility.ApiUtils.getDoctorsTimeSlots;
 import static com.digidoctor.android.utility.AppUtils.getCurrentDateInWeekMonthDayFormat;
 import static com.digidoctor.android.utility.AppUtils.parseDateToFormatDMY;
 import static com.digidoctor.android.utility.utils.RE_SCHEDULE;
-import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.getUserForBooking;
 import static com.digidoctor.android.utility.utils.logout;
 
@@ -222,21 +221,21 @@ public class ReScheduleFragment extends Fragment {
         BookAppointment2 appointment2 = new BookAppointment2();
 
         appointment2.setMemberId((bookingUser.getPrimaryStatus() == 1 ? String.valueOf(bookingUser.getId()) : String.valueOf(bookingUser.getMemberId())));
-        appointment2.setPatientName(bookingUser.getName());
+        // appointment2.setPatientName(bookingUser.getName());
         appointment2.setMobileNo(bookingUser.getMobileNo());
-        appointment2.setAddress(bookingUser.getAddress());
-        appointment2.setGuardianTypeId("0");
-        appointment2.setGuardianName("");
-        appointment2.setStateID("0");
-        appointment2.setCityID("0");
+        // appointment2.setAddress(bookingUser.getAddress());
+        //  appointment2.setGuardianTypeId("0");
+        // appointment2.setGuardianName("");
+        // appointment2.setStateID("0");
+        // appointment2.setCityID("0");
         appointment2.setServiceProviderDetailsId(String.valueOf(appointmentModel.getDoctorId()));
         appointment2.setAppointDate(parseDateToFormatDMY(date));
         appointment2.setAppointTime(time);
         appointment2.setIsEraUser(String.valueOf(appointmentModel.getIsEraUser()));
-        appointment2.setProblemName("");
+        //appointment2.setProblemName("");
         appointment2.setAppointmentId(appointmentModel.getAppointmentId());
-        appointment2.setDob(bookingUser.getDob());
-        appointment2.setGender(String.valueOf(bookingUser.getGender()));
+        //appointment2.setDob(bookingUser.getDob());
+        // appointment2.setGender(String.valueOf(bookingUser.getGender()));
 
 
         AppUtils.showRequestDialog(requireActivity());

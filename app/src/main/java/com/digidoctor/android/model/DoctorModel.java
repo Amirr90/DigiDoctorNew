@@ -14,7 +14,7 @@ import java.util.Objects;
 public class DoctorModel {
 
     int id;
-    int DrFee;
+    int drFee;
     int noofPatients;
     int isEraUser;
     int rating;
@@ -28,7 +28,7 @@ public class DoctorModel {
     String profilePhotoPath;
     String departmentName;
     String description;
-    //List<TimeSlotsModel> timeSlots;
+
 
 
     public String getDescription() {
@@ -46,21 +46,16 @@ public class DoctorModel {
     public int getReview() {
         return review;
     }
-
     public int getIsEraUser() {
         return isEraUser;
     }
-/*
-    public List<TimeSlotsModel> getTimeSlots() {
-        return timeSlots;
-    }*/
 
     public int getId() {
         return id;
     }
 
     public int getDrFee() {
-        return 10;
+        return drFee;
     }
 
     public int getNoofPatients() {
@@ -149,7 +144,7 @@ public class DoctorModel {
     public String toString() {
         return "DoctorModel{" +
                 "id=" + id +
-                ", DrFee=" + DrFee +
+                ", DrFee=" + drFee +
                 ", noofPatients=" + noofPatients +
                 ", drName='" + drName + '\'' +
                 ", speciality='" + speciality + '\'' +

@@ -1,9 +1,12 @@
 package com.digidoctor.android.view.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,42 +15,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.MedicineAdapter;
+import com.digidoctor.android.adapters.SelectedImageAdapter;
 import com.digidoctor.android.databinding.FragmentAddPrescriptionManuallyBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
+import com.digidoctor.android.interfaces.ImageClickListener;
 import com.digidoctor.android.interfaces.OnClickListener;
 import com.digidoctor.android.model.MedicineModel;
 import com.digidoctor.android.model.PrescriptionDtTableModel;
 import com.digidoctor.android.model.PrescriptionModel;
-import com.digidoctor.android.model.UploadImageModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.view.activity.PatientDashboard;
-import com.fxn.pix.Options;
-import com.fxn.pix.Pix;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
-import static com.digidoctor.android.utility.utils.getDateInDMYFormatFromTimestamp;
+import static com.digidoctor.android.utility.utils.getDate;
 import static com.digidoctor.android.utility.utils.getDateInDMYFormatFromTimestampInDayMonthFormat;
 import static com.digidoctor.android.utility.utils.getDtTableData;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
@@ -55,7 +55,7 @@ import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
 import static com.digidoctor.android.utility.utils.parseDateToYMDToMMDD;
 
 
-public class AddPrescriptionManuallyFragment extends Fragment implements OnClickListener {
+public class AddPrescriptionManuallyFragment extends Fragment implements OnClickListener, ImageClickListener {
     private static final String TAG = "AddPrescriptionManually";
     public static final int REQ_CAPTURE_FROM_CAMERA = 10;
 
@@ -80,7 +80,16 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
 
     String Prescription_Url = null;
 
-    Bitmap bitmap;
+
+    List<MedicineModel.MedicineFrequencyModel> frequencyList;
+
+    ArrayList<String> imagePicked;
+
+
+    SelectedImageAdapter imageAdapter;
+
+
+    Boolean isUploadPrescription = false;
 
 
     @Override
@@ -105,6 +114,12 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
 
         addPrescriptionManuallyBinding.tvDateTime.setOnClickListener(view1 -> showDatePickerDialog());
 
+        //setting Selected ImageRec
+        imagePicked = new ArrayList<>();
+        imageAdapter = new SelectedImageAdapter(imagePicked, this);
+        addPrescriptionManuallyBinding.recSelectedImage.setAdapter(imageAdapter);
+        updateSelectedImageRecVisibility();
+
 
         //Setting AutoComplete Text View
         setMedicineDataToAutoCompleteTv();
@@ -119,33 +134,43 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
 
 
         //selection Image for Prescription
-        addPrescriptionManuallyBinding.btnBrowseImage.setOnClickListener(view13 -> selectImage(REQ_CAPTURE_FROM_CAMERA));
-        addPrescriptionManuallyBinding.cvSelectImage.setOnClickListener(view14 -> selectImage(REQ_CAPTURE_FROM_CAMERA));
+        addPrescriptionManuallyBinding.btnBrowseImage.setOnClickListener(view13 -> {
+            if (imageAdapter.getItemCount() == 0) {
+                selectImage();
+            } else {
+                Toast.makeText(requireActivity(), "Image Already selected", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+        addPrescriptionManuallyBinding.cvSelectImage.setOnClickListener(view14 -> {
+            if (imageAdapter.getItemCount() == 0) {
+                selectImage();
+            } else {
+                Toast.makeText(requireActivity(), "Image Already selected", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         //Adding Prescription
         addPrescriptionManuallyBinding.btnSubmitPrescription.setOnClickListener(view15 -> {
             prescriptionModel = addPrescriptionManuallyBinding.getPrescriptionModel();
             Log.d(TAG, "ImageUrl: " + Prescription_Url);
-            if (Prescription_Url == null) {
+
+            if (isUploadPrescription) {
+                if (checkFieldsFroUploadPrescription()) {
+                    try {
+                        uploadPrescription();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "uploadPresError: " + e.getLocalizedMessage());
+                    }
+                }
+            } else {
                 if (checkAllField(prescriptionModel)) {
                     submitPrescription(prescriptionModel);
                 }
-            } else {
-                try {
-                    if (checkAllField(prescriptionModel)) {
-                        uploadPrescription();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(requireActivity(), "try again", Toast.LENGTH_SHORT).show();
-                    AppUtils.hideDialog();
-                    Log.d(TAG, "Failed To upload Image: " + e.getLocalizedMessage());
-                }
             }
 
-           /* if (checkAllField(prescriptionModel))
-                submitPrescription(prescriptionModel);*/
         });
 
 
@@ -156,38 +181,25 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
 
     }
 
+    private boolean checkFieldsFroUploadPrescription() {
+        if (null == prescriptionModel.drName || prescriptionModel.drName.isEmpty()) {
+            Toast.makeText(requireActivity(), "please enter Doctor's name", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (null == prescriptionModel.diagnosis || prescriptionModel.diagnosis.isEmpty()) {
+            Toast.makeText(requireActivity(), "please enter Doctor's diagnosis", Toast.LENGTH_SHORT).show();
+            return false;
+        } else return true;
+    }
+
     private void uploadPrescription() throws IOException {
-
-        File file = new File(Prescription_Url);
-        Log.d(TAG, "uploadPrescription: " + file);
-
-        MultipartBody.Part[] fileParts = new MultipartBody.Part[1];
-
-        try {
-
-            MediaType mediaType = MediaType.parse("image/*");
-
-            RequestBody fileBody;
-
-            fileBody = RequestBody.create(mediaType, file);
-
-            fileParts[0] = MultipartBody.Part.createFormData("multipleFile", file.getName(), fileBody);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        AppUtils.showRequestDialog(requireActivity());
-        ApiUtils.uploadPrescriptionFile(fileParts, new ApiCallbackInterface() {
+        ApiUtils.uploadMultipleFile(imagePicked, requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
+                List<String> filePaths = (List<String>) o;
+                prescriptionModel.setDtFileDataTable(filePaths.get(0));
+                adapter.deleteAllItems();
+                submitPrescription(prescriptionModel);
 
-                AppUtils.hideDialog();
-                List<UploadImageModel> imageModels = (List<UploadImageModel>) o;
-                Log.d(TAG, "Prescription Uploaded: " + imageModels.get(0).getFilePath());
-                if (null != imageModels && imageModels.size() > 0) {
-                    prescriptionModel.setFilePath(imageModels.get(0).getFilePath());
-                    addMedicineData();
-                }
             }
 
             @Override
@@ -199,7 +211,7 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
             public void onFailed(Throwable throwable) {
                 Toast.makeText(requireActivity(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
-        }, requireActivity());
+        });
     }
 
     private void submitPrescription(PrescriptionModel prescriptionModel) {
@@ -207,8 +219,6 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
         prescriptionModel.setDtDataTable(getDtTableData(adapter.getMedicineData()));
         prescriptionModel.setServiceProviderName(prescriptionModel.getDrName());
 
-
-        Toast.makeText(requireActivity(), "Submitting", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "submitPrescriptionModel: " + prescriptionModel.toString());
 
 
@@ -217,7 +227,7 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
 
         prescriptionModel.setMemberId(String.valueOf(user.getId()));
         prescriptionModel.setProblemName(prescriptionModel.getDiagnosis());
-        prescriptionModel.setStartDate(getDateInDMYFormatFromTimestamp(System.currentTimeMillis()));
+        prescriptionModel.setStartDate(getDate(addPrescriptionManuallyBinding.tvDateTime.getText().toString()));
 
 
         AppUtils.showRequestDialog(requireActivity());
@@ -279,18 +289,54 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
         }
     }
 
-    private void selectImage(int imageCode) {
-        Options options = Options.init()
-                .setRequestCode(REQ_CAPTURE_FROM_CAMERA)
-                .setCount(1)
-                .setFrontfacing(false)
-                .setExcludeVideos(false)
-                .setVideoDurationLimitinSeconds(30)
-                .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
-                .setPath("/DigiDoctor/images");
-
-        Pix.start(requireActivity(), options);
+    private void selectImage() {
+        ImagePicker.Companion.with(this)
+                .crop(8f, 8f)                    //Crop image(Optional), Check Customization for more option
+                .compress(512)            //Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
+                .start();
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (null != data) {
+                try {
+                    Uri uri = data.getData();
+                    imagePicked.add(uri.toString());
+                    updateImageRecyclerView(imagePicked);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+    }
+
+    private void updateImageRecyclerView(ArrayList<String> imagePicked) {
+
+        if (!imageAdapter.addMoreImage(imagePicked)) {
+            Toast.makeText(requireActivity(), "Image Already Selected", Toast.LENGTH_SHORT).show();
+            imageAdapter.notifyDataSetChanged();
+        }
+        updateSelectedImageRecVisibility();
+    }
+
+    public void updateSelectedImageRecVisibility() {
+        addPrescriptionManuallyBinding.textView47.setText(imageAdapter.getItemCount() == 0 ? getString(R.string.select_image) : getString(R.string.selected_images));
+        addPrescriptionManuallyBinding.recSelectedImage.setVisibility(imageAdapter.getItemCount() == 0 ? View.GONE : View.VISIBLE);
+        addPrescriptionManuallyBinding.cvSelectImage.setVisibility(imageAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        addPrescriptionManuallyBinding.clMedication.setVisibility(imageAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        addPrescriptionManuallyBinding.recInputMedicine.setVisibility(imageAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        if (imageAdapter.getItemCount() == 0)
+            isUploadPrescription = false;
+        else isUploadPrescription = true;
+
+    }
+
 
     private void addMedicineData() {
         dtTableModel.setMedicineName(addPrescriptionManuallyBinding.tcAutoMedicine.getText().toString());
@@ -325,10 +371,26 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
         } else if (TextUtils.isEmpty(medicineFrequency)) {
             Toast.makeText(requireActivity(), "please add medicine frequency", Toast.LENGTH_SHORT).show();
             return false;
+        } else if (!isValidFrequencySelected(medicineFrequency)) {
+            Toast.makeText(requireActivity(), "please select valid medicine frequency", Toast.LENGTH_SHORT).show();
+            return false;
         } else if (TextUtils.isEmpty(medicineDays)) {
             Toast.makeText(requireActivity(), "please add medicine day(s)", Toast.LENGTH_SHORT).show();
             return false;
         } else return true;
+    }
+
+    private boolean isValidFrequencySelected(String medicineFrequency) {
+        if (null == frequencyList || frequencyList.isEmpty())
+            return false;
+
+        for (MedicineModel.MedicineFrequencyModel frequencyModel : frequencyList) {
+            if (frequencyModel.getName().equalsIgnoreCase(medicineFrequency)) {
+                return true;
+            }
+
+        }
+        return false;
     }
 
     private void setMedicineDataToAutoCompleteTv() {
@@ -343,8 +405,10 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
                 bindMedicineData(medicineList);
 
 
-                List<MedicineModel.MedicineFrequencyModel> frequencyList = responseValue.get(0).getFrequencyList();
-                bindFrequencyData(frequencyList);
+                if (!responseValue.get(0).getFrequencyList().isEmpty()) {
+                    frequencyList = responseValue.get(0).getFrequencyList();
+                    bindFrequencyData(frequencyList);
+                }
 
 
             }
@@ -365,7 +429,8 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
 
     }
 
-    private void bindFrequencyData(final List<MedicineModel.MedicineFrequencyModel> frequencyList) {
+    private void bindFrequencyData(
+            final List<MedicineModel.MedicineFrequencyModel> frequencyList) {
         Log.d(TAG, "bindFrequencyData: " + frequencyList.toString());
         final List<String> medicineData = new ArrayList<>();
         for (MedicineModel.MedicineFrequencyModel medicineDetailModel : frequencyList)
@@ -376,6 +441,7 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
         addPrescriptionManuallyBinding.etFrequency.setThreshold(1);
         addPrescriptionManuallyBinding.etFrequency.setAdapter(adapter);
         addPrescriptionManuallyBinding.etFrequency.setOnItemClickListener((adapterView, view, position, l) -> {
+
 
             String item = (String) adapterView.getItemAtPosition(position);
             for (MedicineModel.MedicineFrequencyModel frequencyModel : frequencyList)
@@ -455,6 +521,50 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
         Bitmap bm = BitmapFactory.decodeFile(Prescription_Url);
         addPrescriptionManuallyBinding.imageView17.setImageBitmap(bm);
         addPrescriptionManuallyBinding.clMedication.setVisibility(Prescription_Url.isEmpty() ? View.VISIBLE : View.GONE);
+
+    }
+
+    @Override
+    public void onDeleteButtonClick(int position) {
+        if (imageAdapter.removeImage(position))
+            Toast.makeText(requireActivity(), "Image removed", Toast.LENGTH_SHORT).show();
+
+        updateSelectedImageRecVisibility();
+
+    }
+
+    @Override
+    public void onViewButtonClick(Object obj) {
+        Uri imageUri = (Uri) obj;
+        showImageDialog(imageUri.toString());
+    }
+
+    private void showImageDialog(String filePath) {
+        LayoutInflater inflater = (LayoutInflater) requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View formElementsView = inflater.inflate(R.layout.image_view,
+                null, false);
+        ImageView imageView = formElementsView.findViewById(R.id.imageView46);
+        loadImage(imageView, filePath);
+        new androidx.appcompat.app.AlertDialog.Builder(requireActivity())
+                .setView(formElementsView)
+                .setPositiveButton(getString(R.string.close), (dialogInterface, i) -> dialogInterface.dismiss()).show();
+    }
+
+    private void loadImage(ImageView imageView, String imagePath) {
+        if (null != imagePath && !imagePath.isEmpty()) {
+            try {
+                Glide.with(PatientDashboard.getInstance())
+                        .load(imagePath)
+                        .centerCrop()
+                        .placeholder(R.drawable.diagnosis_demo_image)
+                        .into(imageView);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d(TAG, "loadPrescriptionImage: " + e.getLocalizedMessage());
+            }
+        }
+
 
     }
 }

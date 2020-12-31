@@ -19,12 +19,11 @@ public class SpecialityModel {
     private static final String TAG = "SpecialityModel";
 
     int id;
+    int noOfDoctors;
     String specialityName;
     String imagePath;
     String description;
     private String problemName;
-
-
     private Integer specialityID;
     private String doctorName;
 
@@ -42,6 +41,10 @@ public class SpecialityModel {
             return "";
         else
             return doctorName;
+    }
+
+    public String getNoOfDoctors() {
+        return String.valueOf(noOfDoctors);
     }
 
     public void setDoctorName(String doctorName) {

@@ -23,6 +23,8 @@ import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 import static com.digidoctor.android.utility.utils.getJSONFromModel;
@@ -37,7 +39,7 @@ public class AppointmentsFragment extends Fragment implements OnClickListener {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         appointmentBinding = FragmentAppointmentBinding.inflate(getLayoutInflater());
         return appointmentBinding.getRoot();

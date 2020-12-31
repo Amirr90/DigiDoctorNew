@@ -67,12 +67,7 @@ public class ShowFileOrPdfFragment extends Fragment {
 
                     onSupportNavigateUp();
 
-        showFileOrPdfBinding.btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PatientDashboard.getInstance().onSupportNavigateUp();
-            }
-        });
+        showFileOrPdfBinding.btnClose.setOnClickListener(view1 -> PatientDashboard.getInstance().onSupportNavigateUp());
     }
 
     private void showPdf(String filePath) {

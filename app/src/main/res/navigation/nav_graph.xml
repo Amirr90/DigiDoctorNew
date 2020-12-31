@@ -83,7 +83,7 @@
     <fragment
         android:id="@+id/specialitiesFragment2"
         android:name="com.digidoctor.android.view.fragments.SpecialitiesFragment"
-        android:label="Select Specialities"
+        android:label="@string/speciality"
         tools:layout="@layout/fragment_specialities">
         <action
             android:id="@+id/action_specialitiesFragment2_to_subSpecialistFragment2"
@@ -159,7 +159,7 @@
     <fragment
         android:id="@+id/bookedAppointmentDetailFragment"
         android:name="com.digidoctor.android.view.fragments.BookedAppointmentDetailFragment"
-        android:label="@string/appointment_booked_successfully"
+        android:label="@string/appointment_booked"
         tools:layout="@layout/fragment_booked_appointment_detail">
         <action
             android:id="@+id/action_bookedAppointmentDetailFragment_to_cancelAppointmentFragment2"
@@ -248,7 +248,7 @@
         android:id="@+id/appointmentsFragment"
         android:name="com.digidoctor.android.view.fragments.AppointmentsFragment"
         android:label="@string/my_appointments"
-        tools:layout="@layout/fragment_appointment" >
+        tools:layout="@layout/fragment_appointment">
         <action
             android:id="@+id/action_appointmentsFragment_to_appointmentDetailFragment"
             app:destination="@id/appointmentDetailFragment"
@@ -378,7 +378,7 @@
         android:id="@+id/selectDeviceFragment"
         android:name="com.digidoctor.android.view.fragments.SelectDeviceFragment"
         android:label="Select Device"
-        tools:layout="@layout/fragment_select_device" >
+        tools:layout="@layout/fragment_select_device">
         <action
             android:id="@+id/action_selectDeviceFragment_to_searchBluetoothDeviceFragment"
             app:destination="@id/searchBluetoothDeviceFragment"
@@ -396,10 +396,24 @@
         android:id="@+id/investigationFragment"
         android:name="com.digidoctor.android.view.fragments.InvestigationFragment"
         android:label="@string/add_investigation"
-        tools:layout="@layout/fragment_investigation" >
+        tools:layout="@layout/fragment_investigation">
         <action
             android:id="@+id/action_investigationFragment_to_addInvestigationFragment"
             app:destination="@id/addInvestigationFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_investigationFragment_to_investigationDetailFragment"
+            app:destination="@id/investigationDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_investigationFragment_to_showImageFileFragment"
+            app:destination="@id/showImageFileFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
@@ -429,5 +443,36 @@
         android:id="@+id/addInvestigationFragment"
         android:name="com.digidoctor.android.view.fragments.AddInvestigationFragment"
         android:label="@string/add_investigation"
-        tools:layout="@layout/fragment_add_investigation" />
+        tools:layout="@layout/fragment_add_investigation">
+        <action
+            android:id="@+id/action_addInvestigationFragment_to_investigationDetailFragment"
+            app:destination="@id/investigationDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/investigationDetailFragment"
+        android:name="com.digidoctor.android.view.fragments.InvestigationDetailFragment"
+        android:label="@string/investigations"
+        tools:layout="@layout/fragment_investigation_detail" />
+    <fragment
+        android:id="@+id/showImageFileFragment"
+        android:name="com.digidoctor.android.ShowImageFileFragment"
+        android:label="@string/prescription_image"
+        tools:layout="@layout/fragment_show_image_file">
+        <action
+            android:id="@+id/action_showImageFileFragment_to_singleImageViewFragment"
+            app:destination="@id/singleImageViewFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleImageViewFragment"
+        android:name="com.digidoctor.android.SingleImageViewFragment"
+        android:label="fragment_single_image_view"
+        tools:layout="@layout/fragment_single_image_view" />
 </navigation>

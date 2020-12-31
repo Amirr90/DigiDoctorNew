@@ -36,9 +36,6 @@ public class PatientViewModel extends ViewModel {
         return repo.getInvestigationData(user);
     }
 
-    public LiveData<List<MedicineModel.MedicineDetailModel>> getInputMedicine() {
-        return repo.getInputMedicine();
-    }
 
     public LiveData<List<VitalResponse.VitalDateVise>> getVitals(VitalModel vitalModel, Activity activity) {
         return repo.getVitals(vitalModel, activity);

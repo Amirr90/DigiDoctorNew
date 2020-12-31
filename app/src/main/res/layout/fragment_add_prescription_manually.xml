@@ -134,6 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@android:color/white"
+                android:nestedScrollingEnabled="false"
                 android:paddingLeft="@dimen/_16sdp"
                 android:paddingRight="@dimen/_16sdp"
                 android:visibility="visible"
@@ -209,6 +210,7 @@
                     android:padding="@dimen/dimen_10dp"
                     android:textColorHint="#BCBCBC"
                     android:textSize="12sp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -296,23 +298,40 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recSelectedImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:nestedScrollingEnabled="false"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView42"
+                    app:spanCount="2"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/selected_image_view" />
+
                 <TextView
                     android:id="@+id/textView47"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/poppins"
                     android:text="@string/upload_files"
                     android:textColor="#38404B"
                     android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView42" />
+                    app:layout_constraintTop_toBottomOf="@+id/recSelectedImage" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvSelectImage"
-                    android:layout_width="300dp"
-                    android:layout_height="150dp"
+                    android:layout_width="272dp"
+                    android:layout_height="123dp"
                     android:layout_marginTop="12dp"
                     app:cardCornerRadius="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -320,11 +339,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView47">
 
                     <ImageView
+                        android:src="@drawable/capture_image_icon"
                         android:id="@+id/imageView17"
-                        android:layout_width="300dp"
-                        android:layout_height="150dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        tools:src="@tools:sample/backgrounds/scenic" />
+                      />
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -395,7 +415,8 @@
                         android:backgroundTint="@color/YellowColo"
                         android:text="@string/cancel"
                         android:textAllCaps="false"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:visibility="gone" />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

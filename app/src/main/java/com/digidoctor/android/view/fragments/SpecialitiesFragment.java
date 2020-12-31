@@ -60,18 +60,6 @@ public class SpecialitiesFragment extends Fragment {
 
         getSpecialityData(specialityName);
 
-        specialitiesBinding.editTextTextSearchSpeciality.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    SpecialitiesFragment.this.performSearch(v.getText().toString());
-                    hideSoftKeyboard(PatientDashboard.getInstance());
-                    return true;
-                }
-                return false;
-            }
-        });
-
 
         specialitiesBinding.editTextTextSearchSpeciality.addTextChangedListener(new TextWatcher() {
             @Override
@@ -113,10 +101,6 @@ public class SpecialitiesFragment extends Fragment {
 
             }
         });
-    }
-
-    private void performSearch(String s) {
-        Toast.makeText(PatientDashboard.getInstance(), "Searching " + s, Toast.LENGTH_SHORT).show();
     }
 
 

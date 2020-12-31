@@ -120,9 +120,10 @@ public class BookedAppointmentDetailFragment extends Fragment implements Appoint
 
     @Override
     public void onCall(String number) {
-        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+    /*    Intent callIntent = new Intent(Intent.ACTION_DIAL);
         callIntent.setData(Uri.parse("tel:" + number));//change the number
-        startActivity(callIntent);
+        startActivity(callIntent);*/
+        Toast.makeText(requireActivity(), "In Process", Toast.LENGTH_SHORT).show();
     }
 
     @Override

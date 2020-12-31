@@ -36,6 +36,8 @@ import static com.digidoctor.android.utility.utils.getPrimaryUser;
 public class PrescriptionHistoryFragment extends Fragment implements AdapterInterface {
 
 
+
+
     FragmentPrescriptionHistoryBinding prescriptionHistoryBinding;
     NavController navController;
     PrescriptionAdapter prescriptionAdapter;
@@ -68,12 +70,9 @@ public class PrescriptionHistoryFragment extends Fragment implements AdapterInte
         prescriptionHistoryBinding.prescriptionRec.setAdapter(prescriptionAdapter);
 
 
-        viewModel.getPrescriptionData(requireActivity()).observe(getViewLifecycleOwner(), new Observer<List<GetPatientMedicationMainModel>>() {
-            @Override
-            public void onChanged(List<GetPatientMedicationMainModel> getPatientMedicationMainModels) {
-                if (getPatientMedicationMainModels != null) {
-                    prescriptionAdapter.submitList(getPatientMedicationMainModels);
-                }
+        viewModel.getPrescriptionData(requireActivity()).observe(getViewLifecycleOwner(), getPatientMedicationMainModels -> {
+            if (getPatientMedicationMainModels != null) {
+                prescriptionAdapter.submitList(getPatientMedicationMainModels);
             }
         });
 

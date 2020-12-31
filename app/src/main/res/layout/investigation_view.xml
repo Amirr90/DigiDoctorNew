@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="17dp"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="LFT Test"
+                android:text="@{investigationModel.pathologyName}"
                 android:textColor="#262E3F"
                 android:textSize="16sp"
                 android:textStyle="normal"
@@ -70,12 +70,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-
                 android:fontFamily="@font/poppins"
-                android:text="@{investigationModel.pathologyName}"
                 android:textColor="#3F4E6E"
                 android:textSize="13sp"
                 android:textStyle="normal"
+                android:visibility="visible"
                 app:layout_constraintStart_toStartOf="@+id/textView39"
                 app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
@@ -144,6 +143,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView108">
 
                 <Button
+                    android:visibility="gone"
                     android:layout_width="0dp"
                     android:layout_height="42dp"
                     android:layout_marginRight="6dp"
@@ -156,7 +156,6 @@
                     android:textColor="@android:color/white" />
 
                 <Button
-
                     android:id="@+id/btnCancelAppointment"
                     android:layout_width="0dp"
                     android:layout_height="42dp"
@@ -164,6 +163,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/round_for_search"
                     android:backgroundTint="@color/YellowColo"
+                    android:onClick="@{()->clickListener.onItemClick(investigationModel)}"
                     android:text="@string/view"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white" />

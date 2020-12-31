@@ -38,14 +38,14 @@
                         android:id="@+id/editTextTextSearchRecDoc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="15dp"
                         android:background="@drawable/round_for_search"
                         android:backgroundTint="@android:color/white"
-                        android:drawableRight="@drawable/magnifier"
+                        android:drawableEnd="@drawable/magnifier"
                         android:drawablePadding="10dp"
                         android:ems="10"
-                        android:hint="Search Doctors Here"
+                        android:hint="@string/search_doctors_here"
                         android:imeOptions="actionSearch"
                         android:inputType="textPersonName"
                         android:paddingLeft="20dp"
@@ -78,9 +78,9 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="58dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Sorry!"
+                        android:text="@string/sorry"
                         android:textColor="#262E3F"
-                        android:textSize="17dp"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -92,7 +92,7 @@
                         android:fontFamily="@font/poppins_medium"
                         android:text="We can't find any doctor now."
                         android:textColor="#262E3F"
-                        android:textSize="17dp" />
+                        android:textSize="17sp" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -100,7 +100,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -117,7 +117,7 @@
                             android:fontFamily="@font/poppins_semibold"
                             android:text="@string/recommended_doctors"
                             android:textColor="#2B3344"
-                            android:textSize="21dp"
+                            android:textSize="21sp"
                             android:textStyle="bold"
                             android:visibility="gone" />
 
@@ -142,7 +142,7 @@
                         android:paddingRight="14dp"
                         android:text="@string/popular_doctors"
                         android:textColor="#2B3344"
-                        android:textSize="21dp"
+                        android:textSize="21sp"
                         android:textStyle="bold"
                         android:visibility="gone" />
 

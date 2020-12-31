@@ -18,4 +18,5 @@ public class SpecialityRes {
     public List<SpecialityModel> getResponseValue() {
         return responseValue;
     }
+
 }

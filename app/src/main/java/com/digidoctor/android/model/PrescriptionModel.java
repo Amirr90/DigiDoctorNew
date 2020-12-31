@@ -20,7 +20,6 @@ public class PrescriptionModel extends BaseObservable {
     public String medicineName;
 
 
-
     @Bindable
     public String getMedicineName() {
         return medicineName;
@@ -28,6 +27,7 @@ public class PrescriptionModel extends BaseObservable {
 
     public void setMedicineName(String medicineName) {
         this.medicineName = medicineName;
+        notifyPropertyChanged(BR.medicineName);
     }
 
     @Bindable
@@ -128,6 +128,7 @@ public class PrescriptionModel extends BaseObservable {
     public void setDtFileDataTable(String dtFileDataTable) {
         this.dtFileDataTable = dtFileDataTable;
     }
+
     private void notifyAllData() {
         notifyPropertyChanged(BR._all);
     }

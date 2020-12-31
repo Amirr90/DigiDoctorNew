@@ -44,8 +44,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_toRightOf="@+id/imageView20"
+                    android:layout_marginStart="12dp"
+                    android:layout_toEndOf="@+id/imageView20"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -56,7 +56,7 @@
                         android:fontFamily="@font/poppins_semibold"
                         android:text="@{appointmentModel.doctorName}"
                         android:textColor="#262E3F"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -66,7 +66,7 @@
                         android:fontFamily="@font/poppins"
                         android:text="@{appointmentModel.specialityName+`, `+appointmentModel.degree}"
                         android:textColor="#3F4E6E"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
 
@@ -90,8 +90,8 @@
                         android:id="@+id/textView94"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="9dp"
-                        android:layout_toRightOf="@+id/ivLocationPin"
+                        android:layout_marginStart="9dp"
+                        android:layout_toEndOf="@+id/ivLocationPin"
                         android:fontFamily="@font/poppins_semibold"
                         android:text="@{appointmentModel.clinicName}"
                         android:textColor="#3F4E6E"
@@ -102,57 +102,58 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView94"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@+id/ivLocationPin"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@+id/ivLocationPin"
                         android:drawablePadding="@dimen/_10sdp"
                         android:fontFamily="@font/poppins"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:text="@{appointmentModel.address}"
                         android:textColor="#3F4E6E"
-                        android:textSize="12dp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/rlInfo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rlInfo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp">
 
                     <TextView
-                        android:onClick="@{()->appointment.onCall(appointmentModel.clinicMobileNo)}"
-                        android:paddingLeft="15dp"
-                        android:drawableLeft="@drawable/phone_call"
-                        android:layout_marginRight="7dp"
-                        android:background="@drawable/rectangle_outline"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:textSize="12dp"
-                        android:textColor="#0A586C"
-                        android:gravity="center"
                         android:id="@+id/tvCallNow"
                         android:layout_width="112dp"
                         android:layout_height="44dp"
-                        android:text="@string/call_now" />
+                        android:layout_marginEnd="7dp"
+                        android:background="@drawable/rectangle_outline"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:onClick="@{()->appointment.onCall(appointmentModel.clinicMobileNo)}"
+                        android:paddingStart="15dp"
+                        android:text="@string/call_now"
+                        android:textColor="#0A586C"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:drawableLeftCompat="@drawable/phone_call" />
 
                     <TextView
-                        android:onClick="@{()->appointment.onGetDirection(appointmentModel)}"
-                        android:drawableLeft="@drawable/directional_sign"
-                        android:paddingLeft="15dp"
-                        android:layout_marginLeft="7dp"
-                        android:background="@drawable/rectangle_outline"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:textSize="12dp"
-                        android:textColor="#0A586C"
-                        android:gravity="center"
-                        android:layout_toRightOf="@+id/tvCallNow"
                         android:id="@+id/textView17"
                         android:layout_width="150dp"
                         android:layout_height="44dp"
-                        android:text="@string/get_direction" />
+                        android:layout_marginStart="7dp"
+                        android:layout_toEndOf="@+id/tvCallNow"
+                        android:background="@drawable/rectangle_outline"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:onClick="@{()->appointment.onGetDirection(appointmentModel)}"
+                        android:paddingStart="15dp"
+                        android:text="@string/get_direction"
+                        android:textColor="#0A586C"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/directional_sign" />
                 </RelativeLayout>
 
 
@@ -172,7 +173,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/appointment_book_for"
                     android:textColor="#262E3F"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -184,20 +185,20 @@
                     android:paddingTop="10dp"
                     android:text="@{appointmentModel.memberName}"
                     android:textColor="#00000D"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/textView90"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView88"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:fontFamily="@font/poppins_medium"
                     android:paddingTop="10dp"
                     android:text="@{appointmentModel.visitDate+`,  `+appointmentModel.visitTime}"
 
                     android:textColor="#3F4E6E"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
 
             </RelativeLayout>
@@ -216,14 +217,14 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/appointment_id"
                     android:textColor="#262E3F"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView95"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:background="@drawable/round_for_search"
                     android:backgroundTint="#39B54A"
                     android:fontFamily="@font/poppins"
@@ -234,7 +235,7 @@
                     android:paddingBottom="4dp"
                     android:text="@{appointmentModel.appointmentStatus}"
                     android:textColor="@android:color/white"
-                    android:textSize="12dp" />
+                    android:textSize="12sp" />
 
                 <TextView
 
@@ -246,11 +247,10 @@
                     android:text="@{String.valueOf(appointmentModel.appointmentId)}"
 
                     android:textColor="#00000D"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
 
             </RelativeLayout>
-
 
 
         </LinearLayout>
@@ -265,30 +265,30 @@
             android:orientation="horizontal">
 
             <Button
-                android:onClick="@{()->appointment.onReScheduleClicked(appointmentModel)}"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_for_search"
                 android:backgroundTint="@color/PrimaryColor"
+                android:onClick="@{()->appointment.onReScheduleClicked(appointmentModel)}"
                 android:text="@string/re__schedule"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
 
             <Button
-
-                android:onClick="@{()->appointment.onCancelAppointmentClicked(appointmentModel)}"
                 android:id="@+id/btnCancelAppointment"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_for_search"
                 android:backgroundTint="@color/YellowColo"
+                android:onClick="@{()->appointment.onCancelAppointmentClicked(appointmentModel)}"
                 android:text="@string/cancel"
                 android:textAllCaps="false"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:visibility="gone" />
         </LinearLayout>
     </RelativeLayout>
 </layout>

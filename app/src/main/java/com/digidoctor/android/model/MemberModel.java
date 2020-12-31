@@ -8,7 +8,7 @@ public class MemberModel {
     private String gender;
     private String dob;
     private String countryId;
-    private String stateID;
+    private String stateId;
     private String districtId;
     private String countryCallingCode;
     private String pincode;
@@ -81,12 +81,12 @@ public class MemberModel {
         this.countryId = countryId;
     }
 
-    public String getStateID() {
-        return stateID;
+    public String getStateId() {
+        return stateId;
     }
 
-    public void setStateID(String stateID) {
-        this.stateID = stateID;
+    public void setStateId(String stateId) {
+        this.stateId = stateId;
     }
 
     public String getDistrictId() {
@@ -139,7 +139,7 @@ public class MemberModel {
                 ", gender='" + gender + '\'' +
                 ", dob='" + dob + '\'' +
                 ", countryId='" + countryId + '\'' +
-                ", stateID='" + stateID + '\'' +
+                ", stateID='" + stateId + '\'' +
                 ", districtId='" + districtId + '\'' +
                 ", countryCallingCode='" + countryCallingCode + '\'' +
                 ", pincode='" + pincode + '\'' +

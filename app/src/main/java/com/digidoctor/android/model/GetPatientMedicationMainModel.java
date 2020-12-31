@@ -9,6 +9,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import java.util.Objects;
 
+import static com.digidoctor.android.utility.AppUtils.parseDate;
+
 public class GetPatientMedicationMainModel {
 
 
@@ -127,7 +129,7 @@ public class GetPatientMedicationMainModel {
     }
 
     public String getStartDate() {
-        return startDate;
+        return parseDate(startDate,"dd MMMM yyyy");
     }
 
     public String getSpecialty() {

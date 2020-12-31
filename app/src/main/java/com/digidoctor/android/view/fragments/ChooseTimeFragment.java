@@ -17,7 +17,6 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.CalendarAdapter;
 import com.digidoctor.android.adapters.TimeSlotsAdapter;
 import com.digidoctor.android.databinding.FragmentChooseTimeBinding;
-import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.CalendarModel;
 import com.digidoctor.android.model.DoctorModel;
@@ -91,13 +90,10 @@ public class ChooseTimeFragment extends Fragment {
         chooseTimeBinding.tvCurrentDate.setText(getCurrentDateInWeekMonthDayFormat());
 
 
-        calendarAdapter = new CalendarAdapter(getNextWeekDays(), new CalendarAdapter.CalenderInterface() {
-            @Override
-            public void onItemClicked(CalendarModel calendarModel, int pos) {
-                date = getDateToSend(pos);
-                getDocTimerSlot(date);
+        calendarAdapter = new CalendarAdapter(getNextWeekDays(), (calendarModel, pos) -> {
+            date = getDateToSend(pos);
+            getDocTimerSlot(date);
 
-            }
         });
 
         chooseTimeBinding.calRec.setAdapter(calendarAdapter);
@@ -118,27 +114,24 @@ public class ChooseTimeFragment extends Fragment {
                         List<GetAppointmentSlotsDataRes> slots = (List<GetAppointmentSlotsDataRes>) o;
                         slotsDataRes.clear();
                         slotsDataRes.addAll(slots);
-                        slotsAdapter = new TimeSlotsAdapter(slotsDataRes, new AdapterInterface() {
-                            @Override
-                            public void onItemClicked(Object o) {
-                                if (ChooseTimeFragment.this.date != null) {
-                                    Gson gson = new Gson();
-                                    String jsonString = gson.toJson(doctorModel);
-                                    try {
-                                        JSONObject request = new JSONObject(jsonString);
-                                        String time = (String) o;
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("date", ChooseTimeFragment.this.date);
-                                        bundle.putString("time", time);
-                                        bundle.putString("docModel", request.toString());
-                                        navController.navigate(R.id.action_chooseTimeFragment2_to_bookAppointmentFragment2, bundle);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                } else
-                                    Toast.makeText(PatientDashboard.getInstance(), R.string.select_date, Toast.LENGTH_SHORT).show();
+                        slotsAdapter = new TimeSlotsAdapter(slotsDataRes, o1 -> {
+                            if (ChooseTimeFragment.this.date != null) {
+                                Gson gson = new Gson();
+                                String jsonString = gson.toJson(doctorModel);
+                                try {
+                                    JSONObject request = new JSONObject(jsonString);
+                                    String time = (String) o1;
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("date", ChooseTimeFragment.this.date);
+                                    bundle.putString("time", time);
+                                    bundle.putString("docModel", request.toString());
+                                    navController.navigate(R.id.action_chooseTimeFragment2_to_bookAppointmentFragment2, bundle);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            } else
+                                Toast.makeText(PatientDashboard.getInstance(), R.string.select_date, Toast.LENGTH_SHORT).show();
 
-                            }
                         });
                         chooseTimeBinding.timingRec.setAdapter(slotsAdapter);
                         slotsAdapter.notifyDataSetChanged();

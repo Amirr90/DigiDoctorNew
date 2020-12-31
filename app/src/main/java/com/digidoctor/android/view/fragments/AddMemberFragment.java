@@ -1,9 +1,13 @@
 package com.digidoctor.android.view.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +27,14 @@ import com.digidoctor.android.databinding.GenderViewBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.MyDialogInterface;
 import com.digidoctor.android.utility.ApiUtils;
+import com.digidoctor.android.utility.FileUtil;
 import com.digidoctor.android.view.activity.PatientDashboard;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +45,7 @@ import static com.digidoctor.android.utility.utils.logout;
 
 
 public class AddMemberFragment extends Fragment implements MyDialogInterface {
+    private static final String TAG = "AddMemberFragment";
 
     FragmentAddMemberBinding addMemberBinding;
 
@@ -50,6 +59,8 @@ public class AddMemberFragment extends Fragment implements MyDialogInterface {
 
     String GENDER;
     AlertDialog optionDialog;
+
+    String imagePath = null;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -73,7 +84,6 @@ public class AddMemberFragment extends Fragment implements MyDialogInterface {
             from = getArguments().getString("from");
 
 
-
         addMemberBinding.btnSavePatient.setOnClickListener(view1 -> {
             if (isAllFieldsFilled()) {
                 addMember();
@@ -82,7 +92,55 @@ public class AddMemberFragment extends Fragment implements MyDialogInterface {
 
 
         addMemberBinding.textView5.setOnClickListener(view1 -> {
-            Toast.makeText(requireActivity(), "In Process", Toast.LENGTH_SHORT).show();
+            ImagePicker.Companion.with(this)
+                    .crop(4f, 4f)                    //Crop image(Optional), Check Customization for more option
+                    .compress(512)            //Final image size will be less than 1 MB(Optional)
+                    .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
+                    .start();
+        });
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (null != data) {
+                try {
+                    Uri uri = data.getData();
+                    addMemberBinding.profileImage.setImageURI(uri);
+                    File file = FileUtil.from(requireActivity(), uri);
+                    uploadImage(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+
+    }
+
+    private void uploadImage(File imagFile) throws IOException {
+        ApiUtils.uploadProfileImage(imagFile, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                List<String> Path = (List<String>) o;
+                Log.d(TAG, "ImagePath: " + Path.get(0));
+                // user.setProfilePhotoPath(imagePath.get(0));
+                imagePath = Path.get(0);
+            }
+
+            @Override
+            public void onError(String s) {
+                Toast.makeText(requireActivity(), s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Toast.makeText(requireActivity(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -93,6 +151,8 @@ public class AddMemberFragment extends Fragment implements MyDialogInterface {
         map.put("mobile", mobile);
         map.put("dob", dob);
         map.put("address", address);
+        map.put("email", address);
+        map.put("profilePath", imagePath);
         map.put("gender", Gender.equalsIgnoreCase(getString(R.string.male)) ? "1" : "2");
 
         ApiUtils.addMember(requireActivity(), map, new ApiCallbackInterface() {
@@ -133,20 +193,20 @@ public class AddMemberFragment extends Fragment implements MyDialogInterface {
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(requireActivity(), R.string.name_required, Toast.LENGTH_SHORT).show();
             return false;
-        } else if (TextUtils.isEmpty(Gender)) {
-            Toast.makeText(requireActivity(), R.string.select_gender, Toast.LENGTH_SHORT).show();
-            return false;
         } else if (TextUtils.isEmpty(mobile)) {
             Toast.makeText(requireActivity(), R.string.mobile_required, Toast.LENGTH_SHORT).show();
             return false;
         } else if (mobile.length() < 10) {
             Toast.makeText(requireActivity(), R.string.enter_valid_mobile_number, Toast.LENGTH_SHORT).show();
             return false;
-        } else if (TextUtils.isEmpty(dob)) {
-            Toast.makeText(requireActivity(), R.string.select_age, Toast.LENGTH_SHORT).show();
-            return false;
         } else if (TextUtils.isEmpty(address)) {
             Toast.makeText(requireActivity(), R.string.address_required, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(Gender)) {
+            Toast.makeText(requireActivity(), R.string.select_gender, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(dob)) {
+            Toast.makeText(requireActivity(), R.string.select_age, Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;

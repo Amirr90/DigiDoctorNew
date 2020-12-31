@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -16,8 +15,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_marginBottom="25dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,13 +45,13 @@
                 android:id="@+id/textView96"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins"
                 android:text="@{investigationModel.dateFormat}"
                 android:textColor="#CCEDA537"
                 android:textSize="13sp"
                 android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView44"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/view3"
                 app:layout_constraintTop_toBottomOf="@+id/view3" />
@@ -75,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/poppins"
-                android:text="Reciept No."
+                android:text="@string/receipt_no"
                 android:textColor="#B3757575"
                 android:textSize="14sp"
                 android:textStyle="normal"
@@ -87,12 +86,11 @@
                 android:id="@+id/textView106"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/poppins"
                 android:text="@{investigationModel.receiptNo}"
                 android:textColor="#262E3F"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintBottom_toBottomOf="@+id/textView103"
                 app:layout_constraintEnd_toEndOf="@+id/view3"
@@ -131,13 +129,12 @@
                     android:layout_weight="1"
                     android:background="@drawable/round_for_search"
                     android:backgroundTint="@color/PrimaryColor"
-                    android:setCustomVisibility="@{investigationModel.filePath}"
                     android:text="@string/download"
                     android:textAllCaps="false"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:visibility="gone" />
 
                 <Button
-
                     android:id="@+id/btnCancelAppointment"
                     android:layout_width="0dp"
                     android:layout_height="42dp"
@@ -145,6 +142,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/round_for_search"
                     android:backgroundTint="@color/YellowColo"
+                    android:onClick="@{()->clickListener.onItemClick(investigationModel)}"
                     android:text="@string/view"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white" />

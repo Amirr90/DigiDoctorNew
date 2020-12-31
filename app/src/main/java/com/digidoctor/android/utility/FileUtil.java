@@ -87,7 +87,6 @@ public class FileUtil {
         File newFile = new File(file.getParent(), newName);
         if (!newFile.equals(file)) {
             if (newFile.exists() && newFile.delete()) {
-
                 Log.d("FileUtil", "Delete old " + newName + " file");
             }
             if (file.renameTo(newFile)) {
@@ -107,5 +106,4 @@ public class FileUtil {
         }
         return count;
     }
-
 }

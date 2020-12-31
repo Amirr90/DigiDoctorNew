@@ -79,7 +79,7 @@
                  android:background="@null"
                  android:ems="10"
                  android:hint="@string/mobile_number"
-                 android:inputType="phone"
+                 android:inputType="numberDecimal"
                  android:maxLength="10"
                  android:paddingStart="18dp"
                  android:textColor="#3F4E6E"

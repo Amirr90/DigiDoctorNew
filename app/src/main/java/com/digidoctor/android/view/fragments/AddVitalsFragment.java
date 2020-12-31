@@ -70,24 +70,21 @@ public class AddVitalsFragment extends Fragment {
 
 
         initTime();
-        addVitalsBinding.btnAddVital.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                vitalModel = addVitalsBinding.getVital();
-                Log.d(TAG, "onClickVitalModel: " + vitalModel.toString());
+        addVitalsBinding.btnAddVital.setOnClickListener(view1 -> {
+            vitalModel = addVitalsBinding.getVital();
+            Log.d(TAG, "onClickVitalModel: " + vitalModel.toString());
 
-                try {
-                    if (checkFields(vitalModel)) {
-                        if (isNetworkConnected(requireContext()))
-                            addVitals(vitalModel);
-                        else
-                            Toast.makeText(requireActivity(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.d(TAG, "onClick: " + e.getLocalizedMessage());
-                    Toast.makeText(requireActivity(), "Enter some vital value before adding !!", Toast.LENGTH_SHORT).show();
+            try {
+                if (checkFields(vitalModel)) {
+                    if (isNetworkConnected(requireContext()))
+                        addVitals(vitalModel);
+                    else
+                        Toast.makeText(requireActivity(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d(TAG, "onClick: " + e.getLocalizedMessage());
+                Toast.makeText(requireActivity(), "Enter some vital value before adding !!", Toast.LENGTH_SHORT).show();
             }
         });
 

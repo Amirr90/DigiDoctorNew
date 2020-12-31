@@ -42,14 +42,11 @@ public class SpecialityAdapter extends ListAdapter<SpecialityModel, SpecialityAd
         holder.specialitiyViewBinding.setSpeciality(specialityModel);
 
 
-        holder.specialitiyViewBinding.llspeality.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                utils.hideSoftKeyboard(activity);
-                Bundle bundle = new Bundle();
-                bundle.putString("id", String.valueOf(specialityModel.getId()));
-                PatientDashboard.getInstance().navigate(R.id.action_specialitiesFragment2_to_subSpecialistFragment2, bundle);
-            }
+        holder.specialitiyViewBinding.llspeality.setOnClickListener(v -> {
+            utils.hideSoftKeyboard(activity);
+            Bundle bundle = new Bundle();
+            bundle.putString("id", String.valueOf(specialityModel.getId()));
+            PatientDashboard.getInstance().navigate(R.id.action_specialitiesFragment2_to_subSpecialistFragment2, bundle);
         });
 
 

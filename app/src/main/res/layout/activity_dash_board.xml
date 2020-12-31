@@ -44,7 +44,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="32dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -56,11 +56,45 @@
                     app:civ_border_color="@color/PrimaryColor"
                     app:civ_border_width="2dp" />
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginTop="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:id="@+id/changeMemberLay"
+                    android:layout_below="@+id/profile_image_nav"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imageView45"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_baseline_group_24" />
+
+                    <TextView
+                        android:id="@+id/textView141"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/change_member"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView45"
+                        app:layout_constraintHorizontal_bias="0.49"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <RelativeLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="23dp"
-                    android:layout_toRightOf="@+id/profile_image_nav">
+                    android:layout_marginStart="23dp"
+                    android:layout_toEndOf="@+id/profile_image_nav">
 
                     <TextView
                         android:id="@+id/textView13"
@@ -69,7 +103,7 @@
                         android:fontFamily="@font/poppins_medium"
                         android:text="@{user.name}"
                         android:textColor="#262E3F"
-                        android:textSize="22dp" />
+                        android:textSize="18sp" />
 
                     <ImageView
                         android:id="@+id/imageView6"
@@ -77,7 +111,7 @@
                         android:layout_height="16dp"
                         android:layout_below="@id/textView13"
                         android:layout_marginTop="3dp"
-                        android:layout_marginRight="6dp"
+                        android:layout_marginEnd="6dp"
                         app:srcCompat="@drawable/edit_profile_nav_image" />
 
                     <TextView
@@ -85,18 +119,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/textView13"
-                        android:layout_toRightOf="@id/imageView6"
+                        android:layout_toEndOf="@id/imageView6"
                         android:fontFamily="@font/poppins_medium"
                         android:text="@{user.isExists==0?`Complete Your Profile`:`Edit Your Profile`}"
                         android:textColor="#262E3F"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
                 </RelativeLayout>
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/navRec"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/profile_image_nav"
+                    android:layout_below="@id/changeMemberLay"
                     android:layout_marginTop="25dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/nav_view_rec_item" />

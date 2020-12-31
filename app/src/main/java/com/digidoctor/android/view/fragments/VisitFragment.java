@@ -82,11 +82,11 @@ public class VisitFragment extends Fragment {
 
 
         fragmentVisitBinding.tvViewImage.setOnClickListener(view1 -> {
+
             if (null != getPatientMedicationMainModels.getFilePath() && !getPatientMedicationMainModels.getFilePath().isEmpty()) {
                 Bundle bundle = new Bundle();
                 bundle.putString("filePath", getPatientMedicationMainModels.getFilePath());
                 navController.navigate(R.id.action_visitFragment_to_showFileOrPdfFragment, bundle);
-
             }
         });
 
@@ -127,6 +127,7 @@ public class VisitFragment extends Fragment {
 
         public class MedicationVH extends RecyclerView.ViewHolder {
             VisitViewBinding visitViewBinding;
+
 
             public MedicationVH(VisitViewBinding visitViewBinding) {
                 super(visitViewBinding.getRoot());

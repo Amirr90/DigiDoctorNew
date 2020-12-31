@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="speciality"
             type="com.digidoctor.android.model.SpecialityModel" />
     </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,9 +29,9 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="@dimen/_35sdp"
-            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:elevation="@dimen/_100sdp"
             app:cardCornerRadius="8dp">
@@ -40,22 +42,24 @@
                 android:layout_height="163dp"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/_10sdp">
 
                 <TextView
                     android:id="@+id/textView70"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="56dp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:paddingLeft="@dimen/_10sdp"
-                    android:paddingRight="@dimen/_10sdp"
-                    android:singleLine="true"
+                    android:gravity="center_horizontal"
+                    android:maxLines="2"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:text="@{speciality.specialityName}"
                     android:textColor="@color/TextPrimaryColor"
-                    android:textSize="17dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -67,10 +71,21 @@
                     android:maxLines="3"
                     android:paddingLeft="@dimen/_10sdp"
                     android:paddingRight="@dimen/_10sdp"
-                    android:text="@{speciality.description}"
+                    android:text="@{`Available Doctors`}"
                     android:textAlignment="center"
                     android:textColor="@color/TextSecondaryColor"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:text="@{speciality.noOfDoctors}"
+                    android:id="@+id/docCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>

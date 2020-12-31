@@ -2,7 +2,6 @@ package com.digidoctor.android.utility;
 
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
@@ -10,7 +9,6 @@ import androidx.databinding.BindingAdapter;
 import com.bumptech.glide.Glide;
 import com.digidoctor.android.R;
 import com.digidoctor.android.view.activity.PatientDashboard;
-import com.squareup.picasso.Picasso;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -32,10 +30,28 @@ public class CustomLoadImage {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d(TAG, "loadSpeImage: ");
+                Log.d(TAG, "loadSpeImage: " + e.getLocalizedMessage());
             }
         }
-        Log.d(TAG, "loadSpeImage: err");
+
+    }
+
+    @BindingAdapter("android:loadCustomProductImage")
+    public static void loadCustomProductImage(ImageView imageView, String imagePath) {
+        if (null != imagePath && !imagePath.isEmpty()) {
+            try {
+                Glide.with(PatientDashboard.getInstance())
+                        .load(imagePath)
+                        .centerCrop()
+                        .placeholder(R.drawable.defualt_clinics_image)
+                        .into(imageView);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d(TAG, "loadSpeImage: "+e.getLocalizedMessage());
+            }
+        }
+
     }
 
 
@@ -51,10 +67,10 @@ public class CustomLoadImage {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d(TAG, "loadSpeImage: ");
+                Log.d(TAG, "loadSpeImage: "+e.getLocalizedMessage());
             }
         }
-        Log.d(TAG, "loadSpeImage: err");
+
     }
 
 
@@ -65,15 +81,36 @@ public class CustomLoadImage {
                 Glide.with(PatientDashboard.getInstance())
                         .load(imagePath)
                         .centerCrop()
-                        .placeholder(R.drawable.profile)
+                        .placeholder(R.drawable.profile_demo_image)
                         .into(imageView);
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d(TAG, "loadSpeImage: ");
+                imageView.setImageResource(R.drawable.profile_demo_image);
+                Log.d(TAG, "loadSpeImage: " + e.getLocalizedMessage());
+            }
+        } else {
+            imageView.setImageResource(R.drawable.profile_demo_image);
+        }
+
+    }
+
+    @BindingAdapter("android:loadCustomPrescriptionImage")
+    public static void loadPrescriptionImage(ImageView imageView, String imagePath) {
+        if (null != imagePath && !imagePath.isEmpty()) {
+            try {
+                Glide.with(PatientDashboard.getInstance())
+                        .load(imagePath)
+                        .centerCrop()
+                        .placeholder(R.drawable.diagnosis_demo_image)
+                        .into(imageView);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d(TAG, "loadPrescriptionImage: " + e.getLocalizedMessage());
             }
         }
-        Log.d(TAG, "loadSpeImage: err");
+
     }
 
     @BindingAdapter("android:loadNavImage")

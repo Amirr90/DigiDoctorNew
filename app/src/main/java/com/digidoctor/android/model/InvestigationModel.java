@@ -35,7 +35,7 @@ public class InvestigationModel {
     }
 
     public String getTestDate() {
-        return testDate;
+        return AppUtils.parseDate(testDate, "dd MMMM yyyy");
     }
 
     public String getFilePath() {
@@ -61,7 +61,7 @@ public class InvestigationModel {
 
     @Override
     public String toString() {
-        return "InvestigationModel{" +
+        return "{" +
                 "type='" + type + '\'' +
                 ", receiptNo='" + receiptNo + '\'' +
                 ", pathologyName='" + pathologyName + '\'' +
@@ -90,35 +90,74 @@ public class InvestigationModel {
     }
 
     public class Investigation {
-        private String subTestId;
-        private String subTestName;
-        private String testValue;
-        private String range;
-        private String unitName;
-        private String testRemarks;
 
-        public String getSubTestId() {
-            return subTestId;
+
+        private String testName;
+
+
+        private List<TestDetailsModel> testDetails;
+
+        public List<TestDetailsModel> getTestDetails() {
+            return testDetails;
         }
 
-        public String getSubTestName() {
-            return subTestName;
+
+        public class TestDetailsModel {
+            private String subTestName;
+            private String testValue;
+            private String range;
+            private String unitName;
+            private String testRemarks;
+            private String subTestId;
+
+            public String getSubTestId() {
+                return subTestId;
+            }
+
+            public String getSubTestName() {
+                return subTestName;
+            }
+
+            public String getTestValue() {
+                return testValue;
+            }
+
+            public String getRange() {
+                return range;
+            }
+
+            public String getUnitName() {
+                return unitName;
+            }
+
+            public String getTestRemarks() {
+                return testRemarks;
+            }
+
+            @Override
+            public String toString() {
+                return "{" +
+                        "subTestName='" + subTestName + '\'' +
+                        ", testValue='" + testValue + '\'' +
+                        ", range='" + range + '\'' +
+                        ", unitName='" + unitName + '\'' +
+                        ", testRemarks='" + testRemarks + '\'' +
+                        ", subTestId='" + subTestId + '\'' +
+                        '}';
+            }
         }
 
-        public String getTestValue() {
-            return testValue;
+        public String getTestName() {
+            return testName;
         }
 
-        public String getRange() {
-            return range;
-        }
 
-        public String getUnitName() {
-            return unitName;
-        }
-
-        public String getTestRemarks() {
-            return testRemarks;
+        @Override
+        public String toString() {
+            return "{" +
+                    "testName='" + testName + '\'' +
+                    ", testDetails=" + testDetails +
+                    '}';
         }
     }
 }

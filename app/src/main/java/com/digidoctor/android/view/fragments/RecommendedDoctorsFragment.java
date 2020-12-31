@@ -2,17 +2,14 @@ package com.digidoctor.android.view.fragments;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,7 +20,6 @@ import com.digidoctor.android.adapters.RecommendedDoctorsAdapter;
 import com.digidoctor.android.databinding.FragmentRecommendedDoctorsBinding;
 import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.model.DoctorModel;
-import com.digidoctor.android.model.DoctorModelRes;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
@@ -98,16 +94,13 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
 
         getData(map);
 
-        recommendedDoctorsBinding.editTextTextSearchRecDoc.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    RecommendedDoctorsFragment.this.performSearch(v.getText().toString());
-                    hideSoftKeyboard(PatientDashboard.getInstance());
-                    return true;
-                }
-                return false;
+        recommendedDoctorsBinding.editTextTextSearchRecDoc.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                RecommendedDoctorsFragment.this.performSearch(v.getText().toString());
+                hideSoftKeyboard(PatientDashboard.getInstance());
+                return true;
             }
+            return false;
         });
 
 
@@ -118,26 +111,23 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
         map.put(KEY_GENDER, GENDER);
         map.put(KEY_AGE, AGE);
 
-        viewModel.getRecommendedDoctorsData(map).observe(getViewLifecycleOwner(), new Observer<List<DoctorModelRes>>() {
-            @Override
-            public void onChanged(List<DoctorModelRes> doctorModelRes) {
-                List<DoctorModel> recDocList = doctorModelRes.get(0).getRecomendedDoctor();
-                List<DoctorModel> popDocList = doctorModelRes.get(0).getPopularDoctor();
+        viewModel.getRecommendedDoctorsData(map).observe(getViewLifecycleOwner(), doctorModelRes -> {
+            List<DoctorModel> recDocList = doctorModelRes.get(0).getRecomendedDoctor();
+            List<DoctorModel> popDocList = doctorModelRes.get(0).getPopularDoctor();
 
-                recommendedDoctorsBinding.tvRecommendedDoc.setVisibility(recDocList.isEmpty() ? View.GONE : View.VISIBLE);
-                recommendedDoctorsBinding.tvPopularDoc.setVisibility(popDocList.isEmpty() ? View.GONE : View.VISIBLE);
+            recommendedDoctorsBinding.tvRecommendedDoc.setVisibility(recDocList.isEmpty() ? View.GONE : View.VISIBLE);
+            recommendedDoctorsBinding.tvPopularDoc.setVisibility(popDocList.isEmpty() ? View.GONE : View.VISIBLE);
 
 
-                recommendedDoctorsBinding.rlNoDocFound2.setVisibility(recDocList.isEmpty() && popDocList.isEmpty() ? View.VISIBLE : View.GONE);
-                recommendedDoctorsBinding.llViewHolder.setVisibility(recDocList.isEmpty() && popDocList.isEmpty() ? View.GONE : View.VISIBLE);
+            recommendedDoctorsBinding.rlNoDocFound2.setVisibility(recDocList.isEmpty() && popDocList.isEmpty() ? View.VISIBLE : View.GONE);
+            recommendedDoctorsBinding.llViewHolder.setVisibility(recDocList.isEmpty() && popDocList.isEmpty() ? View.GONE : View.VISIBLE);
 
-                doctorsAdapter.submitList(recDocList);
-                popularDoctorsAdapter.submitList(popDocList);
+            doctorsAdapter.submitList(recDocList);
+            popularDoctorsAdapter.submitList(popDocList);
 
-               /* if (user.getIsExists() == 1 && !isDialogShow)
-                    showSelectGenderAgeDialog();*/
+           /* if (user.getIsExists() == 1 && !isDialogShow)
+                showSelectGenderAgeDialog();*/
 
-            }
         });
     }
 
@@ -149,7 +139,11 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
         Bundle bundle = new Bundle();
         bundle.putString("docModel", getJSONFromModel(doctorModel));
         Log.d(TAG, "onItemClicked: " + doctorModel.toString());
-        Log.d(TAG, "onItemClicked: " + getJSONFromModel(doctorModel));
+        try {
+            Log.d(TAG, "onItemClicked: " + getJSONFromModel(doctorModel));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         navController.navigate(R.id.action_recommendedDoctorsFragment_to_doctorShortProfileFragment, bundle);
     }
 
@@ -160,16 +154,12 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
         map.put(KEY_AGE, AGE);
 
         recommendedDoctorsBinding.tvPopularDoc.setVisibility(View.GONE);
-        viewModel.getRecommendedDoctorsData(map).observe(getViewLifecycleOwner(), new Observer<List<DoctorModelRes>>() {
-            @Override
-            public void onChanged(List<DoctorModelRes> doctorModelRes) {
-                List<DoctorModel> recDocList = doctorModelRes.get(0).getRecomendedDoctor();
-                List<DoctorModel> popDocList = doctorModelRes.get(0).getPopularDoctor();
-                recommendedDoctorsBinding.tvRecommendedDoc.setVisibility(recDocList.isEmpty() ? View.GONE : View.VISIBLE);
-                doctorsAdapter.submitList(recDocList);
-                popularDoctorsAdapter.submitList(popDocList);
-
-            }
+        viewModel.getRecommendedDoctorsData(map).observe(getViewLifecycleOwner(), doctorModelRes -> {
+            List<DoctorModel> recDocList = doctorModelRes.get(0).getRecomendedDoctor();
+            List<DoctorModel> popDocList = doctorModelRes.get(0).getPopularDoctor();
+            recommendedDoctorsBinding.tvRecommendedDoc.setVisibility(recDocList.isEmpty() ? View.GONE : View.VISIBLE);
+            doctorsAdapter.submitList(recDocList);
+            popularDoctorsAdapter.submitList(popDocList);
         });
     }
 

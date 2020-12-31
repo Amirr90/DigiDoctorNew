@@ -44,6 +44,8 @@ import static com.digidoctor.android.utility.AppUtils.hideDialog;
 public class utils {
 
 
+    public static final String PREFS_MAIN_FILE = "PREFS_DIGI_DOCTOR_FILE";
+
     private static final String MY_PREFS_NAME = "myPref";
     public static final String IS_FIRST_TIME = "isFirstTime";
     public static final String fcmToken = "fcmToken";
@@ -142,7 +144,7 @@ public class utils {
 
     public static String getDateInDMYFormatFromTimestampInDayMonthFormat(long currentTimeMillis) {
         try {
-            String value = new java.text.SimpleDateFormat("MMMM dd").
+            String value = new java.text.SimpleDateFormat("dd MMMM yyyy").
                     format(new java.util.Date(currentTimeMillis));
             return value;
         } catch (Exception e) {
@@ -172,7 +174,25 @@ public class utils {
 
     public static String parseDateToYMDToMMDD(String oldDate) {
         String inputPattern = "yyyy/MM/dd";
-        String outputPattern = "MMMM dd";
+        String outputPattern = "dd MMMM yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(oldDate);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }  public static String getDate(String oldDate) {
+
+        String outputPattern = "yyyy-MM-dd";
+        String inputPattern = "dd MMMM yyyy";
+
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
@@ -396,7 +416,7 @@ public class utils {
 
 
     public static String getDayFromDate(String incomingDate) {
-        String inputPattern = "yyyy/MM/dd";
+        String inputPattern = "dd/MM/yyyy";
         String outputPattern = "EEE";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
@@ -432,7 +452,7 @@ public class utils {
     }
 
     public static String getMonthFromDate(String incomingDate) {
-        String inputPattern = "yyyy/MM/dd";
+        String inputPattern = "dd/MM/yyyy";
         String outputPattern = "MMM";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
@@ -450,8 +470,8 @@ public class utils {
     }
 
     public static String getDateFromDate(String incomingDate) {
-        String inputPattern = "yyyy/MM/dd";
-        String outputPattern = "d";
+        String inputPattern = "dd/MM/yyyy";
+        String outputPattern = "dd";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 

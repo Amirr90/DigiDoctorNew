@@ -2,7 +2,6 @@ package com.digidoctor.android.adapters;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -13,44 +12,6 @@ import com.digidoctor.android.interfaces.OnClickListener;
 import com.digidoctor.android.model.PrescriptionDtTableModel;
 
 import java.util.List;
-/*
-
-public class MedicineAdapter extends ListAdapter<MedicineModel.MedicineDetailModel, MedicineAdapter.MedicineVH> {
-    private static final String TAG = "MedicineAdapter";
-    public MedicineAdapter() {
-        super(MedicineModel.MedicineDetailModel.itemCallback);
-    }
-
-    @NonNull
-    @Override
-    public MedicineVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        AddPrescriptionViewBinding viewBinding = AddPrescriptionViewBinding.inflate(inflater, parent, false);
-        return new MedicineVH(viewBinding);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull MedicineVH holder, int position) {
-        MedicineModel.MedicineDetailModel medicineDetailModel = getItem(position);
-        try {
-            holder.viewBinding.setMedicineDetails(medicineDetailModel);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d(TAG, "Error On Setting Medicine details : " + e.getLocalizedMessage());
-        }
-    }
-
-    public class MedicineVH extends RecyclerView.ViewHolder {
-        AddPrescriptionViewBinding viewBinding;
-
-        public MedicineVH(@NonNull AddPrescriptionViewBinding viewBinding) {
-            super(viewBinding.getRoot());
-            this.viewBinding = viewBinding;
-        }
-    }
-}
-*/
-
 
 public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.MedicineVH> {
     private static final String TAG = "MedicineAdapter";
@@ -81,14 +42,12 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.Medici
             Log.d(TAG, "Error On Setting Medicine details : " + e.getLocalizedMessage());
         }
 
-        holder.viewBinding.ivDeleteItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickListener.onItemClick(position);
-            }
-        });
+        holder.viewBinding.ivDeleteItem.setOnClickListener(view -> onClickListener.onItemClick(position));
     }
 
+    public void deleteAllItems(){
+        medicineModelList.clear();
+    }
     @Override
     public int getItemCount() {
         return medicineModelList.size();
@@ -99,8 +58,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.Medici
             return false;
         else {
             medicineModelList.add(medicineDetailModel);
-            notifyItemInserted(0);
-           // notifyDataSetChanged();
+            notifyDataSetChanged();
             return true;
         }
     }

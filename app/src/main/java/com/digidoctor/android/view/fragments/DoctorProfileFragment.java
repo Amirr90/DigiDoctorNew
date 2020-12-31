@@ -21,6 +21,8 @@ import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 import com.google.gson.Gson;
 
+import org.jetbrains.annotations.NotNull;
+
 import static com.digidoctor.android.utility.NewDashboardUtils.getJSONFromModel;
 
 
@@ -36,7 +38,7 @@ public class DoctorProfileFragment extends Fragment {
     DoctorModel doctorModel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         shortProfileBinding = FragmentDoctorShortProfileBinding.inflate(inflater, container, false);
         return shortProfileBinding.getRoot();
@@ -60,14 +62,11 @@ public class DoctorProfileFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
-        shortProfileBinding.btnBookAppointment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onItemClick: " + doctorModel);
-                Bundle bundle = new Bundle();
-                bundle.putString("docModel", getJSONFromModel(doctorModel));
-                navController.navigate(R.id.action_doctorShortProfileFragment_to_chooseTimeFragment2, bundle);
-            }
+        shortProfileBinding.btnBookAppointment.setOnClickListener(v -> {
+            Log.d(TAG, "onItemClick: " + doctorModel);
+            Bundle bundle = new Bundle();
+            bundle.putString("docModel", getJSONFromModel(doctorModel));
+            navController.navigate(R.id.action_doctorShortProfileFragment_to_chooseTimeFragment2, bundle);
         });
     }
 

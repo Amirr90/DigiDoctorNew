@@ -110,6 +110,9 @@ public class AddInvestigationModel extends BaseObservable {
 
     @Bindable
     public String getRange() {
+        if (null == range) {
+            range = "0";
+        }
         return range;
     }
 

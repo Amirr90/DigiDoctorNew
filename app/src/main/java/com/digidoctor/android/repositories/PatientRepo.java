@@ -114,27 +114,6 @@ public class PatientRepo {
         });
     }
 
-    public LiveData<List<MedicineModel.MedicineDetailModel>> getInputMedicine() {
-        if (medicineMutableLiveData == null) {
-            medicineMutableLiveData = new MutableLiveData<>();
-        }
-        loadMedicineData(null);
-        return medicineMutableLiveData;
-
-    }
-
-    public void loadMedicineData(MedicineModel.MedicineDetailModel medicineDetailModel) {
-
-        List<MedicineModel.MedicineDetailModel> models = new ArrayList<>();
-        models.add(medicineDetailModel);
-
-        if (medicineMutableLiveData == null) {
-            medicineMutableLiveData = new MutableLiveData<>();
-        }
-
-        medicineMutableLiveData.setValue(models);
-    }
-
     public LiveData<List<VitalResponse.VitalDateVise>> getVitals(VitalModel vitalModel, Activity activity) {
         if (vitalsMutableLiveData == null) {
             vitalsMutableLiveData = new MutableLiveData<>();

@@ -24,7 +24,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/BackgroundColor"
                 android:orientation="vertical">
 
@@ -33,29 +33,29 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bottom_round"
                     android:orientation="vertical"
-                    android:paddingLeft="15dp"
+                    android:paddingStart="15dp"
                     android:paddingTop="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
                     android:paddingBottom="@dimen/_20sdp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_semibold"
-                        android:paddingLeft="5dp"
+                        android:paddingStart="5dp"
                         android:text="@{doModel.drName}"
                         android:textColor="@android:color/white"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
-                        android:paddingLeft="5dp"
+                        android:paddingStart="5dp"
                         android:text="@{doModel.speciality+`, `+doModel.degree}"
                         android:textColor="@android:color/white"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <RelativeLayout
@@ -72,7 +72,7 @@
                         android:fontFamily="@font/poppins_semibold"
                         android:text="@string/appointment_book_for"
                         android:textColor="#262E3F"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -84,18 +84,18 @@
                         android:paddingTop="10dp"
                         android:text="@{bookingUser.name}"
                         android:textColor="#00000D"
-                        android:textSize="15dp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/tvBookAppointmentTimeDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/textView88"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:fontFamily="@font/poppins_medium"
                         android:paddingTop="10dp"
                         android:textColor="#3F4E6E"
-                        android:textSize="15dp" />
+                        android:textSize="15sp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -108,39 +108,39 @@
                             android:id="@+id/btnSelf"
                             android:layout_width="wrap_content"
                             android:layout_height="42dp"
-                            android:paddingRight="10dp"
-                            android:paddingLeft="10dp"
                             android:layout_marginTop="@dimen/_30sdp"
-                            android:layout_marginRight="7dp"
+                            android:layout_marginEnd="7dp"
                             android:layout_marginBottom="@dimen/_10sdp"
                             android:background="@drawable/round_for_search"
                             android:backgroundTint="@color/YellowColo"
                             android:fontFamily="@font/poppins_semibold"
                             android:maxLines="2"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
                             android:text="@string/self"
                             android:textAllCaps="false"
                             android:textColor="@android:color/white"
-                            android:textSize="12dp"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <Button
                             android:id="@+id/btnSelectOtherMember"
                             android:layout_width="180dp"
                             android:layout_height="42dp"
-                            android:layout_marginLeft="7dp"
+                            android:layout_marginStart="7dp"
                             android:layout_marginTop="@dimen/_30sdp"
                             android:layout_marginBottom="@dimen/_10sdp"
-                            android:layout_toRightOf="@+id/btnSelf"
+                            android:layout_toEndOf="@+id/btnSelf"
                             android:background="@drawable/round_for_search"
                             android:backgroundTint="#F1F4F9"
-                            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
+                            android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_right_24"
                             android:drawableTint="@color/greyLight"
                             android:fontFamily="@font/poppins_semibold"
-                            android:paddingRight="10dp"
+                            android:paddingEnd="10dp"
                             android:text="@string/select_member"
                             android:textAllCaps="false"
                             android:textColor="@color/textColor"
-                            android:textSize="12dp"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
                 </RelativeLayout>
@@ -158,9 +158,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="Patient's information : "
+                        android:text="@string/patient_s_information"
                         android:textColor="#262E3F"
-                        android:textSize="17dp"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -168,11 +168,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="26dp"
                         android:fontFamily="@font/poppins"
-                        android:paddingLeft="@dimen/_3sdp"
+                        android:paddingStart="@dimen/_3sdp"
                         android:paddingTop="@dimen/_5sdp"
                         android:text="@string/full_name"
                         android:textColor="#3E4D6C"
-                        android:textSize="15dp" />
+                        android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/editTextTextPersonName2"
@@ -186,18 +186,18 @@
                         android:text="@{bookingUser.name}"
                         android:textColor="#3E4E6E"
                         android:textColorHint="#AAB4CD"
-                        android:textSize="16dp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="26dp"
                         android:fontFamily="@font/poppins"
-                        android:paddingLeft="@dimen/_3sdp"
+                        android:paddingStart="@dimen/_3sdp"
                         android:paddingTop="@dimen/_5sdp"
                         android:text="@string/mobile_number"
                         android:textColor="#3E4D6C"
-                        android:textSize="15dp" />
+                        android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/editTextMobile"
@@ -212,18 +212,20 @@
                         android:text="@{bookingUser.mobileNo}"
                         android:textColor="#3E4E6E"
                         android:textColorHint="#AAB4CD"
-                        android:textSize="16dp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="26dp"
                         android:fontFamily="@font/poppins"
-                        android:paddingLeft="@dimen/_3sdp"
+                        android:paddingStart="@dimen/_3sdp"
                         android:paddingTop="@dimen/_5sdp"
+                        android:setCustomVisibility="@{bookingUser.emailId}"
                         android:text="@string/your_email"
                         android:textColor="#3E4D6C"
-                        android:textSize="15dp" />
+                        android:textSize="15sp"
+                        android:visibility="gone" />
 
                     <EditText
                         android:id="@+id/editTextTexEmail"
@@ -233,11 +235,13 @@
                         android:fontFamily="@font/poppins_medium"
                         android:hint="@string/enter_your_email"
                         android:inputType="textEmailSubject"
+                        android:setCustomVisibility="@{bookingUser.emailId}"
                         android:singleLine="true"
                         android:text="@{bookingUser.emailId}"
                         android:textColor="#3E4E6E"
                         android:textColorHint="#AAB4CD"
-                        android:textSize="16dp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
 
 
                     <CheckBox
@@ -248,7 +252,7 @@
                         android:fontFamily="@font/poppins_medium"
                         android:text="@string/you_want_to_update_on_whatsapp"
                         android:textColor="#3E4D6C"
-                        android:textSize="15dp"
+                        android:textSize="15sp"
                         android:visibility="gone" />
 
                     <Button
@@ -265,7 +269,7 @@
                         android:text="@string/confirm"
                         android:textAllCaps="false"
                         android:textColor="@android:color/white"
-                        android:textSize="13dp"
+                        android:textSize="13sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 

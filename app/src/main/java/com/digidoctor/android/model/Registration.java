@@ -1,30 +1,28 @@
 package com.digidoctor.android.model;
 
-import com.digidoctor.android.utility.utils;
-
 public class Registration {
 
-    private Integer callingCodeID;
-    private long serviceProviderTypeID;
+    private Integer callingCodeId;
+    private long serviceProviderTypeId;
     private String name;
     private String mobileNo;
     private String password;
     private String dob;
     private long gender;
     private long otp;
-    private long countryID;
-    private long stateID;
-    private long cityID;
+    private long countryId;
+    private long stateId;
+    private long cityId;
     private String deviceToken;
     private long deviceType;
-    private String emailID;
+    private String emailId;
     private String appType;
     private String address;
     private String profilePhotoPath;
 
 
-    public void setCallingCodeID(Integer callingCodeID) {
-        this.callingCodeID = callingCodeID;
+    public void setCallingCodeId(Integer callingCodeId) {
+        this.callingCodeId = callingCodeId;
     }
 
     public String getProfilePhotoPath() {
@@ -43,20 +41,20 @@ public class Registration {
         this.address = address;
     }
 
-    public long getCallingCodeID() {
-        if (callingCodeID == null)
+    public long getCallingCodeId() {
+        if (callingCodeId == null)
             return 101;
         else
-            return callingCodeID;
+            return callingCodeId;
     }
 
 
-    public long getServiceProviderTypeID() {
-        return serviceProviderTypeID;
+    public long getServiceProviderTypeId() {
+        return serviceProviderTypeId;
     }
 
-    public void setServiceProviderTypeID(long serviceProviderTypeID) {
-        this.serviceProviderTypeID = serviceProviderTypeID;
+    public void setServiceProviderTypeId(long serviceProviderTypeId) {
+        this.serviceProviderTypeId = serviceProviderTypeId;
     }
 
     public String getName() {
@@ -107,28 +105,28 @@ public class Registration {
         this.otp = otp;
     }
 
-    public long getCountryID() {
-        return countryID;
+    public long getCountryId() {
+        return countryId;
     }
 
-    public void setCountryID(long countryID) {
-        this.countryID = countryID;
+    public void setCountryId(long countryId) {
+        this.countryId = countryId;
     }
 
-    public long getStateID() {
-        return stateID;
+    public long getStateId() {
+        return stateId;
     }
 
-    public void setStateID(long stateID) {
-        this.stateID = stateID;
+    public void setStateId(long stateId) {
+        this.stateId = stateId;
     }
 
-    public long getCityID() {
-        return cityID;
+    public long getCityId() {
+        return cityId;
     }
 
-    public void setCityID(long cityID) {
-        this.cityID = cityID;
+    public void setCityId(long cityId) {
+        this.cityId = cityId;
     }
 
     public String getDeviceToken() {
@@ -147,12 +145,12 @@ public class Registration {
         this.deviceType = deviceType;
     }
 
-    public String getEmailID() {
-        return emailID;
+    public String getEmailId() {
+        return emailId;
     }
 
-    public void setEmailID(String emailID) {
-        this.emailID = emailID;
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
 
     public String getAppType() {
@@ -169,20 +167,20 @@ public class Registration {
     @Override
     public String toString() {
         return "Registration{" +
-                "callingCodeID=" + callingCodeID +
-                ", serviceProviderTypeID=" + serviceProviderTypeID +
+                "callingCodeID=" + callingCodeId +
+                ", serviceProviderTypeID=" + serviceProviderTypeId +
                 ", name='" + name + '\'' +
                 ", mobileNo='" + mobileNo + '\'' +
                 ", password='" + password + '\'' +
                 ", dob='" + dob + '\'' +
                 ", gender=" + gender +
                 ", otp=" + otp +
-                ", countryID=" + countryID +
-                ", stateID=" + stateID +
-                ", cityID=" + cityID +
+                ", countryID=" + countryId +
+                ", stateID=" + stateId +
+                ", cityID=" + cityId +
                 ", deviceToken='" + deviceToken + '\'' +
                 ", deviceType=" + deviceType +
-                ", emailID='" + emailID + '\'' +
+                ", emailID='" + emailId + '\'' +
                 ", appType='" + appType + '\'' +
                 ", address='" + address + '\'' +
                 ", profilePhotoPath='" + profilePhotoPath + '\'' +

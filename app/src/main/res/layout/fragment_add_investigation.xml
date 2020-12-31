@@ -97,6 +97,7 @@
 
 
                     <EditText
+                        android:maxLength="40"
                         android:id="@+id/etDiagnose"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
@@ -218,7 +219,6 @@
 
                     <EditText
                         android:id="@+id/editText4"
-
                         android:layout_width="0dp"
                         android:layout_height="45dp"
                         android:layout_marginTop="16dp"
@@ -226,6 +226,7 @@
                         android:background="@drawable/rectangle_outline_gray"
                         android:drawablePadding="@dimen/_10sdp"
                         android:ems="10"
+                        android:enabled="false"
                         android:gravity="top"
                         android:hint="@string/range"
                         android:inputType="textPersonName"
@@ -271,7 +272,7 @@
                         android:background="@drawable/round_for_search"
                         android:backgroundTint="@color/YellowColo"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/add_more"
+                        android:text="@string/add_test"
                         android:textAllCaps="false"
                         android:textColor="@android:color/white"
                         android:textSize="13sp"
@@ -322,7 +323,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="30dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="@string/attach_prescription_file"
+                        android:text="@string/attach_investigation_file"
                         android:textColor="#262E3F"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -332,11 +333,27 @@
                         android:id="@+id/textView47"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="18dp"
+                        android:layout_marginTop="16dp"
                         android:fontFamily="@font/poppins"
                         android:text="@string/upload_files"
                         android:textColor="#38404B"
                         android:textSize="13sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recyclerView3" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        app:spanCount="2"
+                        tools:itemCount="4"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        tools:listitem="@layout/selected_image_view"
+                        android:id="@+id/recyclerView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView42" />
@@ -418,6 +435,7 @@
                             android:textColor="@android:color/white" />
 
                         <Button
+                            android:visibility="gone"
                             android:id="@+id/btnCancelAppointment"
                             android:layout_width="0dp"
                             android:layout_height="42dp"

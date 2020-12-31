@@ -1,7 +1,10 @@
 package com.digidoctor.android.view.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,15 +28,20 @@ import com.digidoctor.android.model.Registration;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
+import com.digidoctor.android.utility.FileUtil;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
 import static com.digidoctor.android.utility.ApiUtils.patientRegistration;
+import static com.digidoctor.android.utility.AppUtils.isEmailValid;
 import static com.digidoctor.android.utility.utils.BOOKING_USER;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.TOKEN;
@@ -50,11 +58,18 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
     String name, email, dob, address, gender, mobile;
 
     User user;
-    String GENDER;
+    String GENDER = null;
     AlertDialog optionDialog;
+
 
     Registration registration = new Registration();
     private static final String TAG = "ProfileFragment";
+
+    String memberId = null;
+
+    boolean isPicChange = false;
+
+    String imagePath = null;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -69,6 +84,11 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
     public void onResume() {
         super.onResume();
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
+        user = getPrimaryUser(requireActivity());
+
+        memberId = String.valueOf(user.getMemberId());
+
+        Log.d(TAG, "memberIdReceived: " + memberId);
     }
 
     @Override
@@ -76,35 +96,120 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
         super.onViewCreated(view, savedInstanceState);
 
         user = getPrimaryUser(requireActivity());
+        Log.d(TAG, "onViewCreatedUser: " + user.getPrimaryStatus());
 
         updateVisibility(user);
-        Log.d(TAG, "onViewCreated: isExist" + user.getIsExists() + "\n" + user.toString());
 
         if (user.getIsExists() == 1) {
 
             profileBinding.setUser(user);
+            if (null != user && null != user.getPrimaryStatus())
+                profileBinding.editTextTextPersonNumber.setEnabled(user.getPrimaryStatus() == 1 ? false : true);
 
-            Log.d(TAG, "onViewCreated: Profile" + user.toString());
         }
 
         profileBinding.setMobile(utils.getString(utils.MOBILE_NUMBER, requireActivity()));
-
-        Log.d(TAG, "onViewCreated: Mobile " + utils.getString(utils.MOBILE_NUMBER, requireActivity()));
 
         profileBinding.btnUpdateProfile.setOnClickListener(view12 -> {
             if (user.getIsExists() == 0) {
                 if (isAllFieldFilled()) {
                     registerUser();
-                } else
-                    Toast.makeText(requireActivity(), R.string.please_fill_all_fields, Toast.LENGTH_SHORT).show();
-            } else updateProfile("");
+                }
+
+            } else {
+                if (checkFieldsForUpdateProfile()) {
+                    updateProfile();
+                }
+            }
         });
 
 
         profileBinding.textView5.setOnClickListener(view1 -> {
-            Toast.makeText(requireActivity(), "In Process", Toast.LENGTH_SHORT).show();
+            ImagePicker.Companion.with(this)
+                    .crop(4f, 4f)                    //Crop image(Optional), Check Customization for more option
+                    .compress(512)            //Final image size will be less than 1 MB(Optional)
+                    .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
+                    .start();
         });
 
+
+    }
+
+    private boolean checkFieldsForUpdateProfile() {
+
+        name = profileBinding.editTextTextPersonName.getText().toString().trim();
+        email = profileBinding.editTextTextPersonEmail.getText().toString().trim();
+        dob = AppUtils.parseUserDate(profileBinding.editTextTextPersonDob.getText().toString().trim());
+        gender = profileBinding.editTextTextPersonGender.getText().toString().trim();
+        address = profileBinding.editTextTextPersonAddress.getText().toString().trim();
+        mobile = profileBinding.editTextTextPersonNumber.getText().toString().trim();
+
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(requireActivity(), R.string.name_required, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(email)) {
+            Toast.makeText(requireActivity(), R.string.email_required, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (!isEmailValid(email.trim())) {
+            Toast.makeText(requireActivity(), R.string.enter_valid_email_id, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(mobile)) {
+            Toast.makeText(requireActivity(), R.string.mobile_required, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (mobile.length() < 10) {
+            Toast.makeText(requireActivity(), R.string.enter_valid_mobile_number, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(address)) {
+            Toast.makeText(requireActivity(), R.string.address_required, Toast.LENGTH_SHORT).show();
+            return false;
+        } else return true;
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (null != data) {
+                try {
+                    Uri uri = data.getData();
+                    profileBinding.profileImage.setImageURI(uri);
+                    isPicChange = true;
+                    File file = FileUtil.from(requireActivity(), uri);
+                    uploadImage(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+
+    }
+
+    private void uploadImage(File imagFile) throws IOException {
+        AppUtils.showRequestDialog(requireActivity());
+        ApiUtils.uploadProfileImage(imagFile, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                AppUtils.hideDialog();
+                List<String> Path = (List<String>) o;
+                Log.d(TAG, "ImagePath: " + Path.get(0));
+                imagePath = Path.get(0);
+            }
+
+            @Override
+            public void onError(String s) {
+                AppUtils.hideDialog();
+                Toast.makeText(requireActivity(), s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                AppUtils.hideDialog();
+                Toast.makeText(requireActivity(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void updateVisibility(User user) {
@@ -112,32 +217,40 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
         profileBinding.ivGenderDialog.setVisibility(user.getIsExists() == 0 ? View.VISIBLE : View.GONE);
     }
 
-    private void updateProfile(String profilePath) {
-        User updatedUser = new User();
+    private void updateProfile() {
 
+        User updatedUser = new User();
         updatedUser.setMemberId(user.getId());
         updatedUser.setName(profileBinding.editTextTextPersonName.getText().toString());
         updatedUser.setMobileNo(profileBinding.editTextTextPersonNumber.getText().toString());
         updatedUser.setEmailId(profileBinding.editTextTextPersonEmail.getText().toString());
-        updatedUser.setGender(profileBinding.editTextTextPersonEmail.getText().toString().equalsIgnoreCase("male") ? 1 : 2);
+        updatedUser.setGender(profileBinding.editTextTextPersonGender.getText().toString().equalsIgnoreCase("male") ? 1 : 2);
         updatedUser.setDob(AppUtils.parseUserDate(profileBinding.editTextTextPersonDob.getText().toString()));
         updatedUser.setAddress(profileBinding.editTextTextPersonAddress.getText().toString());
-        updatedUser.setProfilePhotoPath(profilePath);
+
+        updatedUser.setProfilePhotoPath(imagePath);
 
 
         AppUtils.showRequestDialog(requireActivity());
         ApiUtils.updateMember(updatedUser, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
-                Toast.makeText(requireActivity(), "Updated Successfully", Toast.LENGTH_SHORT).show();
-                AppUtils.hideDialog();
-                PatientDashboard.getInstance().onSupportNavigateUp();
-                //utils.
 
                 List<User> updatedUsers = (List<User>) o;
-                for (User user : updatedUsers)
-                    if (user.getPrimaryStatus() == 1)
+                for (User user : updatedUsers) {
+
+                    Log.d(TAG, "memberIdReceived: " + memberId);
+                    if (user.getMemberId() == Integer.parseInt(memberId)) {
                         utils.savePrimaryUserData(USER, requireActivity(), user);
+                        utils.setString(MOBILE_NUMBER, user.getMobileNo(), requireActivity());
+                        PatientDashboard.getInstance().updateUser();
+                    }
+                }
+                Toast.makeText(requireActivity(), "Updated Successfully", Toast.LENGTH_SHORT).show();
+                AppUtils.hideDialog();
+                PatientDashboard.getInstance().updateUser();
+                PatientDashboard.getInstance().onSupportNavigateUp();
+
 
 
             }
@@ -159,6 +272,7 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
     private void registerUser() {
 
         AppUtils.showRequestDialog(requireActivity());
+        registration.setProfilePhotoPath(imagePath);
         patientRegistration(registration, requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> obj) {
@@ -172,7 +286,6 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
 
                     profileBinding.setUser(user);
 
-                    Log.d(TAG, "onSuccess: " + users.get(0).toString());
 
                     PatientDashboard.getInstance().setUser(user);
 
@@ -183,6 +296,9 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
                     utils.setUserForBooking(BOOKING_USER, requireActivity(), user);
 
                     utils.setString(MOBILE_NUMBER, mobile, requireActivity());
+
+                    PatientDashboard.getInstance().updateUser();
+                    PatientDashboard.getInstance().onSupportNavigateUp();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -220,7 +336,7 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
 
         name = profileBinding.editTextTextPersonName.getText().toString().trim();
         email = profileBinding.editTextTextPersonEmail.getText().toString().trim();
-        dob = profileBinding.editTextTextPersonDob.getText().toString().trim();
+        dob = AppUtils.parseUserDate(profileBinding.editTextTextPersonDob.getText().toString().trim());
         gender = profileBinding.editTextTextPersonGender.getText().toString().trim();
         address = profileBinding.editTextTextPersonAddress.getText().toString().trim();
         mobile = profileBinding.editTextTextPersonNumber.getText().toString().trim();
@@ -231,10 +347,13 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
         } else if (TextUtils.isEmpty(email)) {
             Toast.makeText(requireActivity(), R.string.email_required, Toast.LENGTH_SHORT).show();
             return false;
+        } else if (!isEmailValid(email.trim())) {
+            Toast.makeText(requireActivity(), R.string.enter_valid_email_id, Toast.LENGTH_SHORT).show();
+            return false;
         } else if (TextUtils.isEmpty(dob)) {
             Toast.makeText(requireActivity(), R.string.date_of_birth_required, Toast.LENGTH_SHORT).show();
             return false;
-        } else if (TextUtils.isEmpty(gender)) {
+        } else if (null == GENDER) {
             Toast.makeText(requireActivity(), R.string.select_gender, Toast.LENGTH_SHORT).show();
             return false;
         } else if (TextUtils.isEmpty(address)) {
@@ -245,7 +364,7 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
             return false;
         } else {
             registration.setName(name);
-            registration.setEmailID(email);
+            registration.setEmailId(email);
             registration.setDob(dob);
             registration.setGender(Long.parseLong(GENDER));
             registration.setAddress(address);
@@ -258,12 +377,9 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
     @Override
     public void onGenderItemClick() {
         showSelectGenderDialog();
-
     }
 
     private void showSelectGenderDialog() {
-
-
         LayoutInflater inflater = (LayoutInflater) requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View formElementsView = inflater.inflate(R.layout.gender_view, null, false);
 
@@ -301,23 +417,17 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
         LayoutInflater inflater = (LayoutInflater) requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.date_picker, null, false);
 
-        // the time picker on the alert dialog, this is how to get the value
         final DatePicker myDatePicker = (DatePicker) view.findViewById(R.id.myDatePicker);
 
-        // so that the calendar view won't appear
         myDatePicker.setCalendarViewShown(false);
         myDatePicker.setMaxDate(System.currentTimeMillis());
-
-        // the alert dialog
         new AlertDialog.Builder(requireActivity()).setView(view)
                 .setTitle(R.string.set_date)
                 .setPositiveButton(R.string.ok, (dialog, id) -> {
-
                     int month = myDatePicker.getMonth() + 1;
                     int day = myDatePicker.getDayOfMonth();
                     int year = myDatePicker.getYear();
-
-                    profileBinding.editTextTextPersonDob.setText(year + "-" + month + "-" + day);
+                    profileBinding.editTextTextPersonDob.setText(day + "/" + month + "/" + year);
 
                     dialog.cancel();
 

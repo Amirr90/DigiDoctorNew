@@ -13,55 +13,6 @@ import com.digidoctor.android.model.InvestigationModel;
 
 import java.util.List;
 
-/*
-public class InvestigationAdapter extends ListAdapter<InvestigationModel, InvestigationAdapter.InvestigationVH> {
-    OnClickListener onClickListener;
-    public InvestigationAdapter(OnClickListener onClickListener) {
-        super(InvestigationModel.itemCallback);
-        this.onClickListener = onClickListener;
-    }
-
-
-    @NonNull
-    @Override
-    public InvestigationVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        InvestigationViewBinding binding = InvestigationViewBinding.inflate(inflater, parent, false);
-        binding.setClickListener(onClickListener);
-        return new InvestigationVH(binding);
-    }
-
-
-    @Override
-    public int getItemViewType(int position) {
-        InvestigationModel model = getItem(position);
-        if (null == model.getFilePath() || model.getFilePath().isEmpty())
-            return 0;
-        else return 1;
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull InvestigationVH holder, int position) {
-
-        InvestigationModel investigationModel = getItem(position);
-        try {
-
-            holder.binding.setInvestigationModel(investigationModel);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public class InvestigationVH extends RecyclerView.ViewHolder {
-        InvestigationViewBinding binding;
-        public InvestigationVH(@NonNull InvestigationViewBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
-    }
-}
-*/
-
 public class InvestigationAdapter extends RecyclerView.Adapter {
 
     OnClickListener onClickListener;
@@ -95,10 +46,23 @@ public class InvestigationAdapter extends RecyclerView.Adapter {
         if (null == investigationModel.getFilePath() || investigationModel.getFilePath().isEmpty()) {
             InvestigationVHOne investigationVHOne = (InvestigationVHOne) holder;
             investigationVHOne.binding.setInvestigationModel(investigationModel);
+            if (!investigationModel.getInvestigation().isEmpty()) {
+                String testName = investigationModel.getInvestigation().get(0).getTestName();
+                if (investigationModel.getInvestigation().size() > 1) {
+                    investigationVHOne.binding.textView96.setText(testName + "   (+" + (investigationModel.getInvestigation().size() - 1) + ")");
+                } else
+                    investigationVHOne.binding.textView96.setText(testName);
+            }
         } else {
             InvestigationVHTwo investigationVHTwo = (InvestigationVHTwo) holder;
             investigationVHTwo.binding.setInvestigationModel(investigationModel);
-
+            if (!investigationModel.getInvestigation().isEmpty()) {
+                String testName = investigationModel.getInvestigation().get(0).getTestName();
+                if (investigationModel.getInvestigation().size() > 1) {
+                    investigationVHTwo.binding.textView96.setText(testName + "   (+" + (investigationModel.getInvestigation().size() - 1) + ")");
+                } else
+                    investigationVHTwo.binding.textView96.setText(testName);
+            }
         }
     }
 

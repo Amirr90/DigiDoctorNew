@@ -1,6 +1,7 @@
 package com.digidoctor.android.view.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static com.digidoctor.android.utility.NewDashboardUtils.getJSONFromModel;
 
 
 public class InvestigationFragment extends Fragment implements OnClickListener {
@@ -65,6 +68,7 @@ public class InvestigationFragment extends Fragment implements OnClickListener {
         user.setMemberId(utils.getPrimaryUser(requireActivity()).getId());
         viewModel.getInvestigationData(user).observe(getViewLifecycleOwner(), investigationModels -> {
 
+            submitList.clear();
             submitList.addAll(investigationModels);
             adapter.notifyDataSetChanged();
             AppUtils.hideDialog();
@@ -78,12 +82,28 @@ public class InvestigationFragment extends Fragment implements OnClickListener {
     @Override
     public void onItemClick(Object object) {
 
+        InvestigationModel investigationModel = (InvestigationModel) object;
+        String filePath = investigationModel.getFilePath();
+        if (null == filePath || filePath.isEmpty()) {
+            if (!investigationModel.getInvestigation().isEmpty()) {
+                Bundle bundle = new Bundle();
+                bundle.putString("docModel", getJSONFromModel(investigationModel));
+                Log.d("TAG", "onItemClickData: " + investigationModel.getInvestigation().get(0).getTestDetails());
+                navController.navigate(R.id.action_investigationFragment_to_investigationDetailFragment, bundle);
+            }
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putString("filePath", filePath);
+            Log.d("TAG", "onItemClickData FilePath: " + filePath);
+            navController.navigate(R.id.action_investigationFragment_to_showImageFileFragment, bundle);
+
+        }
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
-
     }
 }

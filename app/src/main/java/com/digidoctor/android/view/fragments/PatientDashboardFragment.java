@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,7 +22,6 @@ import com.digidoctor.android.adapters.MainSliderAdapter;
 import com.digidoctor.android.databinding.FragmentPatientDashboardBinding;
 import com.digidoctor.android.model.BannerModel;
 import com.digidoctor.android.model.DashboardModel1;
-import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.PicassoImageLoadingService;
 import com.digidoctor.android.view.activity.PatientDashboard;
@@ -118,34 +116,29 @@ public class PatientDashboardFragment extends Fragment {
         }
         loadData(lat, lng);
 
-        dashboard2Binding.profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_patientDashboardFragment_to_profileFragment);
-            }
-        });
+        dashboard2Binding.profileImage.setOnClickListener(view1 ->
+                //navController.navigate(R.id.action_patientDashboardFragment_to_profileFragment)
+                PatientDashboard.getInstance().openDrawer()
+        );
 
     }
 
     public void loadData(String lat, String lng) {
         Log.d(TAG, "loadData: lat,lng :" + lat + "," + lng);
-        viewModel.getDashboardData(lat, lng).observe(getViewLifecycleOwner(), new Observer<PatientDashboardModel>() {
-            @Override
-            public void onChanged(PatientDashboardModel patientDashboardModel) {
+        viewModel.getDashboardData(lat, lng).observe(getViewLifecycleOwner(), patientDashboardModel -> {
 
-                dashboard2Binding.getRoot().setVisibility(View.VISIBLE);
+            dashboard2Binding.getRoot().setVisibility(View.VISIBLE);
 
-                if (patientDashboardModel != null) {
-                    String image = patientDashboardModel.getTopImage().get(0).getTopImage();
-                    if (null != image && !image.isEmpty())
-                        Picasso.get().load(image).placeholder(R.drawable.banner_one).into(dashboard2Binding.dashboardHomeImage);
+            if (patientDashboardModel != null) {
+                String image = patientDashboardModel.getTopImage().get(0).getTopImage();
+                if (null != image && !image.isEmpty())
+                    Picasso.get().load(image).placeholder(R.drawable.banner_one).into(dashboard2Binding.dashboardHomeImage);
 
-                    adapter2.submitList(patientDashboardModel.getHealthProductDetails());
-                    adapter3.submitList(patientDashboardModel.getTopClinics());
-                    setSlider(patientDashboardModel.getBannerDetails());
+                adapter2.submitList(patientDashboardModel.getHealthProductDetails());
+                adapter3.submitList(patientDashboardModel.getTopClinics());
+                setSlider(patientDashboardModel.getBannerDetails());
 
 
-                }
             }
         });
 

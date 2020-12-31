@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -32,8 +31,7 @@ import com.digidoctor.android.model.NavModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.GetAddressIntentService;
 import com.digidoctor.android.utility.utils;
-import com.digidoctor.android.view.fragments.AddPrescriptionManuallyFragment;
-import com.fxn.pix.Pix;
+import com.digidoctor.android.view.fragments.SearchBluetoothDeviceFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -49,9 +47,9 @@ import java.util.Objects;
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
-import static com.digidoctor.android.view.fragments.AddPrescriptionManuallyFragment.REQ_CAPTURE_FROM_CAMERA;
 import static com.digidoctor.android.view.fragments.BookAppointmentFragment.bookAppointment;
 import static com.digidoctor.android.view.fragments.PatientDashboardFragment.dashboard2Binding;
+import static com.digidoctor.android.view.fragments.SearchBluetoothDeviceFragment.REQUEST_ENABLE_BT;
 
 public class PatientDashboard extends AppCompatActivity implements PaymentResultWithDataListener, NavigationInterface {
 
@@ -82,7 +80,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     NavAdapter navAdapter;
     List<NavModel> navModels;
 
-    MenuItem allMembers;
 
     Menu menu;
 
@@ -141,9 +138,15 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         setNavRec();
     }
 
+    public void updateUser() {
+        user = getPrimaryUser(this);
+        mainBinding.setUser(user);
+    }
+
     private void setNavRec() {
         //mainBinding.navRec.setVisibility(user.getIsExists() == 0 ? View.GONE : View.VISIBLE);
         mainBinding.imageView6.setVisibility(user.getIsExists() == 0 ? View.GONE : View.VISIBLE);
+
 
         mainBinding.setUser(getPrimaryUser(this));
         navModels = new ArrayList<>();
@@ -170,29 +173,33 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     @Override
     protected void onStart() {
         super.onStart();
-        /*MenuItem menuItem = menu.findItem(R.id.showMemberListFragment);
-        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            Toast.makeText(PatientDashboard.this, "DestinationId " + destination.getLabel(), Toast.LENGTH_SHORT).show();
-            if (null != destination.getLabel() && destination.getLabel().equals(getString(R.string.add_member)) && null != menuItem) {
-                menuItem.setVisible(true);
+        mainBinding.textView14.setOnClickListener(view -> {
+                    navController.navigate(R.id.profileFragment);
+                    closeDrawer();
+                }
+        );
+
+        mainBinding.changeMemberLay.setOnClickListener(view -> {
+
+            closeDrawer();
+            if (user.getIsExists() == 1) {
+                Bundle mBundle = new Bundle();
+                mBundle.putString("FROM", "DashboardFragment");
+                navController.navigate(R.id.showMemberListFragment, mBundle);
             } else {
-                assert menuItem != null;
-                menuItem.setVisible(false);
+                navController.navigate(R.id.profileFragment);
             }
-        });*/
+        });
+
 
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        /*getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        allMembers = menu.findItem(R.id.showMemberListFragment);
-        return super.onCreateOptionsMenu(menu);*/
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);
         super.onCreateOptionsMenu(menu);
         this.menu = menu;
-
         return true;
     }
 
@@ -292,8 +299,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     @SuppressWarnings("MissingPermission")
     private void getAddress() {
         if (!Geocoder.isPresent()) {
-            Toast.makeText(PatientDashboard.this, "Can't find current address, ",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(PatientDashboard.this, "Can't find current address, ", Toast.LENGTH_SHORT).show();
             return;
         }
         Intent intent = new Intent(this, GetAddressIntentService.class);
@@ -319,7 +325,10 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         mainBinding.drawerLayout.close();
         switch (pos) {
             case 0:
-                navController.navigate(R.id.appointmentsFragment);
+                if (user.getIsExists() == 1)
+                    navController.navigate(R.id.appointmentsFragment);
+                else navController.navigate(R.id.profileFragment);
+
                 break;
             case 3:
                 if (user.getIsExists() == 1)
@@ -345,7 +354,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 showRequestDialog(this);
                 if (utils.logout(this))
                     hideDialog();
-
                 break;
             default:
                 Toast.makeText(instance, "Coming Soon", Toast.LENGTH_SHORT).show();
@@ -382,7 +390,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         Log.d(TAG, "showResults: " + currentAdd);
         final String[] address = currentAdd.split(",");
 
-
         try {
             dashboard2Binding.tvLocation.setText(address[1]);
             dashboard2Binding.tvCity.setText(address[0]);
@@ -396,8 +403,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override
@@ -414,24 +419,20 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ_CAPTURE_FROM_CAMERA) {
-            ArrayList<String> returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
-            if (null != returnValue && returnValue.isEmpty()) {
-                Toast.makeText(instance, "try again", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            try {
-                if (returnValue != null)
-                    AddPrescriptionManuallyFragment.getInstance().setImage(returnValue);
-                else Log.d(TAG, "imagePaTH is null : ");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
+        if (requestCode == REQUEST_ENABLE_BT) {
+            SearchBluetoothDeviceFragment.getInstance().CheckBluetoothState();
         }
     }
+
+
+    public void closeDrawer() {
+        mainBinding.drawerLayout.close();
+    }
+
+    public void openDrawer() {
+        mainBinding.drawerLayout.open();
+    }
+
 }

@@ -46,6 +46,10 @@ public class AddInvestigationTestInformationAdapter extends RecyclerView.Adapter
         }
     }
 
+    public void deleteAllItems() {
+        testInformationModels.clear();
+    }
+
     @Override
     public int getItemCount() {
         return testInformationModels.size();

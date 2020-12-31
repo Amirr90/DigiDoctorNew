@@ -1,7 +1,6 @@
 package com.digidoctor.android.view.fragments;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -115,50 +114,41 @@ public class BookAppointmentFragment extends Fragment {
 
 
         //init  booking process
-        appointmentBinding.btnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        appointmentBinding.btnConfirm.setOnClickListener(v -> {
 
-                hideSoftKeyboard(PatientDashboard.getInstance());
-                new AlertDialog.Builder(requireActivity())
-                        .setMessage("Consultation Fee ₹" + doctorModel.getDrFee())
-                        .setPositiveButton("Pay Now",
-                                new DialogInterface.OnClickListener() {
-                                    @TargetApi(11)
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                        bookAppointment(PAY_MODE_RAZOR_PAY);
-
-                                    }
-                                })
-                        .setNegativeButton("Pay on Visit", new DialogInterface.OnClickListener() {
-                            @TargetApi(11)
-                            public void onClick(DialogInterface dialog, int id) {
+            hideSoftKeyboard(PatientDashboard.getInstance());
+            /*new AlertDialog.Builder(requireActivity())
+                    .setMessage("Consultation Fee ₹" + doctorModel.getDrFee())
+                    .setPositiveButton("Pay Now",
+                            (dialog, id) -> {
                                 dialog.cancel();
-                                bookAppointment(PAY_MODE_CASH);
-                            }
-                        }).show();
+                                bookAppointment(PAY_MODE_RAZOR_PAY);
+                            })
+                    .setNegativeButton("Pay on Visit", (dialog, id) -> {
+                        dialog.cancel();
+                        bookAppointment(PAY_MODE_CASH);
+                    }).show();*/
+
+            if (doctorModel.getDrFee() == 0) {
+                bookAppointment(PAY_MODE_CASH);
+            } else bookAppointment(PAY_MODE_RAZOR_PAY);
 
 
-            }
         });
 
 
-        appointmentBinding.btnSelectOtherMember.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_bookAppointmentFragment_to_showMemberListFragment);
-            }
+        appointmentBinding.btnSelectOtherMember.setOnClickListener(view1 -> {
+            Bundle mBundle = new Bundle();
+            mBundle.putString("FROM", "BookAppointmentFragment");
+            navController.navigate(R.id.action_bookAppointmentFragment_to_showMemberListFragment, mBundle);
         });
-        appointmentBinding.btnSelf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bookingUser = getPrimaryUser(requireActivity());
+        appointmentBinding.btnSelf.setOnClickListener(view12 -> {
 
-                appointmentBinding.setBookingUser(bookingUser);
+            bookingUser = getPrimaryUser(requireActivity());
 
-                changeButtonBackground();
-            }
+            appointmentBinding.setBookingUser(bookingUser);
+
+            changeButtonBackground();
         });
 
 

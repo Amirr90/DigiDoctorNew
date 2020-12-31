@@ -70,14 +70,11 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
         vitalHistoryTypeBinding.recVitalType.setAdapter(typeAdapter);
         loadData();
 
-        vitalHistoryTypeBinding.imageView13.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    PatientDashboard.getInstance().onSupportNavigateUp();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        vitalHistoryTypeBinding.imageView13.setOnClickListener(view1 -> {
+            try {
+                PatientDashboard.getInstance().onSupportNavigateUp();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }

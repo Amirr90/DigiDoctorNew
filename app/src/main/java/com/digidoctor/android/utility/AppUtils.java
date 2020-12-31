@@ -1,9 +1,13 @@
 package com.digidoctor.android.utility;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.util.Log;
@@ -20,6 +24,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AppUtils {
     private static final String TAG = "AppUtils";
@@ -30,7 +36,6 @@ public class AppUtils {
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
     private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
     static ProgressDialog progressDialog;
-
 
 
     public static String getMimeType(Context context, Uri uri) {
@@ -92,8 +97,6 @@ public class AppUtils {
     }
 
 
-
-
     public static void hideDialog() {
         try {
             if (progressDialog != null && progressDialog.isShowing()) {
@@ -133,22 +136,24 @@ public class AppUtils {
             e.printStackTrace();
         }
         return str;
-    } public static String parseUserDate(String oldDate) {
-            String inputPattern = "dd/MM/yy";
-            String outputPattern = "yyyy-MM-dd";
-            SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-            SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+    }
 
-            Date date = null;
-            String str = null;
+    public static String parseUserDate(String oldDate) {
+        String inputPattern = "dd/MM/yy";
+        String outputPattern = "yyyy-MM-dd";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
-            try {
-                date = inputFormat.parse(oldDate);
-                str = outputFormat.format(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            return str;
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(oldDate);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
     }
 
     public static String parseDateInDayMonthNameYearName(String oldDate) {
@@ -169,10 +174,20 @@ public class AppUtils {
         return str;
     }
 
-    public static String parseDate(String inDate,String outPattern) {
+    private void showPdf(String filePath) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse(filePath), "application/pdf");
+        try {
+
+        } catch (ActivityNotFoundException e) {
+            Log.d(TAG, "showPdf: " + e.getLocalizedMessage());
+        }
+    }
+
+    public static String parseDate(String inDate, String outPattern) {
 
         String inputPattern = "dd/MM/yy";
-       // String outputPattern = "dd MMMM yyyy";
+        // String outputPattern = "dd MMMM yyyy";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outPattern);
 
@@ -224,5 +239,25 @@ public class AppUtils {
         mToast.show();
     }
 
+    public static boolean isEmailValid(String email) {
 
+        boolean isValid = false;
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
+    }
+
+
+    public static void showDeleteDialog(Activity activity, DialogInterface.OnClickListener onClickListener) {
+        new AlertDialog.Builder(activity).setMessage(activity.getString(R.string.delete_member_dialog_string))
+                .setPositiveButton(activity.getString(R.string.delete_member), (dialogInterface, i) -> onClickListener.onClick(dialogInterface, i))
+                .setNegativeButton(activity.getString(R.string.cancel), (dialogInterface, i) -> dialogInterface.dismiss()).show();
+    }
 }
