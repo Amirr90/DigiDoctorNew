@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="dialogInterface"
+            type="com.digidoctor.android.interfaces.MyDialogInterface" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.fragments.AddMemberFragment">
+
+
+        <RelativeLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="13dp">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/btnSavePatient"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="@dimen/dimen_10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_image"
+                        android:layout_width="103dp"
+                        android:layout_height="103dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="40dp"
+                        android:src="@drawable/profile_demo_image"
+                        app:civ_border_color="@color/PrimaryColor"
+                        app:civ_border_overlay="true"
+                        app:civ_border_width="4dp" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/profile_image"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="@string/upload_profile_photo"
+                        android:textColor="#0A586C"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView5"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="43dp"
+                            android:drawablePadding="10dp"
+                            android:drawableTint="@color/colorPrimary"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="@string/full_name"
+                            android:textColor="#BCBCBC"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:drawableLeftCompat="@drawable/user_small" />
+
+                        <EditText
+                            android:id="@+id/etName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginBottom="20dp"
+                            android:hint="@string/enterFullName"
+                            android:inputType="textPersonName"
+                            android:textColor="#424242"
+                            android:textColorHint="#D2D2D2"
+                            android:textSize="14sp" />
+
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="10dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="@string/mobile_number"
+                            android:textColor="#BCBCBC"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:drawableLeftCompat="@drawable/smartphone_small" />
+
+                        <EditText
+                            android:id="@+id/etNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="22dp"
+                            android:layout_marginBottom="20dp"
+                            android:hint="@string/mobile_number"
+                            android:inputType="phone"
+                            android:maxLength="10"
+                            android:textColor="#424242"
+                            android:textColorHint="#D2D2D2"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="10dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="@string/address"
+                            android:textColor="#BCBCBC"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:drawableLeftCompat="@drawable/address_small" />
+
+                        <EditText
+                            android:id="@+id/etAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="22dp"
+                            android:layout_marginBottom="20dp"
+                            android:hint="@string/your_address"
+                            android:inputType="textPersonName"
+                            android:textColor="#424242"
+                            android:textColorHint="#D2D2D2"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="10dp"
+                            android:drawableTint="@color/colorPrimary"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="@string/gender"
+                            android:textColor="#BCBCBC"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:drawableLeftCompat="@drawable/gender_small" />
+
+                        <TextView
+                            android:id="@+id/etGender"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginStart="22dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center_vertical"
+                            android:hint="@string/gender_here"
+                            android:onClick="@{()->dialogInterface.onGenderItemClick()}"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="10dp"
+                            android:textColor="#424242"
+                            android:textColorHint="#D2D2D2"
+                            android:textSize="14sp"
+                            app:drawableEndCompat="@drawable/gender" />
+
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="10dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center_vertical"
+                            android:text="@string/dob"
+                            android:textColor="#BCBCBC"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:drawableLeftCompat="@drawable/cake_small" />
+
+                        <TextView
+                            android:id="@+id/etDob"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginStart="22dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center_vertical"
+                            android:hint="@string/your_dob"
+                            android:onClick="@{()->dialogInterface.onAgeItemClick()}"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="10dp"
+                            android:textColor="#424242"
+                            android:textColorHint="#D2D2D2"
+                            android:textSize="14sp"
+                            app:drawableEndCompat="@drawable/calender_medium_icon" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <Button
+                android:id="@+id/btnSavePatient"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/round_for_search"
+                android:backgroundTint="@color/YellowColo"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/add_member"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+
+    </FrameLayout>
+</layout>
