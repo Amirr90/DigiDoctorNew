@@ -1,14 +1,18 @@
 package com.digidoctor.android.view.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.digidoctor.android.R;
@@ -46,25 +50,21 @@ public class SplashScreen extends AppCompatActivity {
         super.onStart();
         ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashScreen.this, activityMainBinding.ivLogo, getString(R.string.logo_transition));
 
-       // create();
+        // create();
         generateFcmToken(SplashScreen.this);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                boolean loggedIn = getLoginStatus(IS_LOGIN, SplashScreen.this);
-                Intent intent;
-                if (loggedIn) {
+        new Handler().postDelayed(() -> {
 
-                    intent = new Intent(SplashScreen.this, PatientDashboard.class);
-                } else {
-
-                    intent = new Intent(SplashScreen.this, SignUpJourneyActivity.class);
-                }
-
-                startActivity(intent);
-                SplashScreen.this.finish();
+            boolean loggedIn = getLoginStatus(IS_LOGIN, SplashScreen.this);
+            Intent intent;
+            if (loggedIn) {
+                intent = new Intent(SplashScreen.this, PatientDashboard.class);
+            } else {
+                intent = new Intent(SplashScreen.this, SignUpJourneyActivity.class);
             }
+
+            startActivity(intent);
+            SplashScreen.this.finish();
         }, 1000);
     }
 
@@ -92,15 +92,13 @@ public class SplashScreen extends AppCompatActivity {
                 });
     }
 
+
     public static void generateFcmToken(final Activity activity) {
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String newToken = instanceIdResult.getToken();
-                setString(fcmToken, newToken, activity);
-                Log.e("newToken2", newToken);
-            }
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+            String newToken = instanceIdResult.getToken();
+            setString(fcmToken, newToken, activity);
+            Log.e("newToken2", newToken);
         });
 
     }

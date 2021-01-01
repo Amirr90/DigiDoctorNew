@@ -87,9 +87,6 @@ public class InputOtpFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-        requestPermissions();
-
         new OTPReceiver();
 
         generateOtpModel = new GenerateOtpModel();
@@ -248,16 +245,6 @@ public class InputOtpFragment extends Fragment {
 
     }
 
-    private void requestPermissions() {
-        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.RECEIVE_SMS)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{
-                    Manifest.permission.RECEIVE_SMS
-            }, 100);
-        }
-
-
-    }
 
     private void reSendCode() {
 
