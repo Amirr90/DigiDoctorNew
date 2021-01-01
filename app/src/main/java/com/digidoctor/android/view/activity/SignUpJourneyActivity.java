@@ -1,29 +1,23 @@
 package com.digidoctor.android.view.activity;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
-import com.digidoctor.android.R;
-import com.digidoctor.android.databinding.ActivitySignUpJourneyBinding;
-import com.google.android.material.tabs.TabLayout;
-
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-import android.widget.Button;
+import com.digidoctor.android.R;
+import com.google.android.gms.auth.api.credentials.Credential;
 
-import com.digidoctor.android.view.activity.ui.main.SectionsPagerAdapter;
-import com.mazenrashed.dotsindicator.DotsIndicator;
-
-import static com.digidoctor.android.utility.utils.fadeIn;
+import static com.digidoctor.android.view.fragments.InputOtpFragment.RESOLVE_HINT;
 
 public class SignUpJourneyActivity extends AppCompatActivity {
 
     NavController navController;
+    private static final String TAG = "SignUpJourneyActivity";
 
 
     @Override
@@ -48,4 +42,15 @@ public class SignUpJourneyActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESOLVE_HINT) {
+            if (resultCode == RESULT_OK) {
+                Credential credential = data.getParcelableExtra(Credential.EXTRA_KEY);
+                // credential.getId();  <-- will need to process phone number string
+                Log.d(TAG, "onActivityResult: " + credential.getId());
+            }
+        }
+    }
 }

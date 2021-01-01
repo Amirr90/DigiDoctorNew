@@ -65,7 +65,7 @@ public class AppUtils {
         try {
             if (!((Activity) activity).isFinishing()) {
                 if (progressDialog == null) {
-                    //progressDialog = new ProgressDialog(activity);
+                    progressDialog = new ProgressDialog(activity);
                     //progressDialog.setCancelable(false);
                     //progressDialog.setMessage(activity.getString(R.string.pleaseWait));
                     //progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);

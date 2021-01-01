@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="Mobile Verification"
+                android:text="@string/mobile_verification"
                 android:textAlignment="center"
                 android:textColor="#262E3F"
                 android:textSize="19sp"
@@ -33,13 +33,13 @@
 
             <TextView
                 android:id="@+id/tvSlogen"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/poppins"
                 android:gravity="center"
-                android:text="An OTP has been sent to mobile\n(+919044865611)"
+                android:text="@string/an_otp_has_been_sent_to_mobile_n_919044865611"
                 android:textColor="#3F4E6E"
                 android:textSize="16sp" />
 
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:text="Enter your OTP code here"
+                android:text="@string/enter_your_otp_code_here"
                 android:textColor="#3F4E6E"
                 android:textSize="16sp" />
 
@@ -67,7 +67,7 @@
                     android:id="@+id/tvOTP1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="13dp"
+                    android:layout_marginEnd="13dp"
                     android:layout_weight="1"
                     android:background="@drawable/color_primary_edittext"
                     android:gravity="center"
@@ -84,7 +84,7 @@
                     android:id="@+id/tvOTP2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="13dp"
+                    android:layout_marginEnd="13dp"
                     android:layout_weight="1"
                     android:background="@drawable/color_primary_edittext"
                     android:gravity="center"
@@ -101,7 +101,7 @@
                     android:id="@+id/tvOTP3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="13dp"
+                    android:layout_marginEnd="13dp"
                     android:layout_weight="1"
                     android:background="@drawable/color_primary_edittext"
                     android:gravity="center"
@@ -132,7 +132,6 @@
             </LinearLayout>
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -141,30 +140,31 @@
                 android:fontFamily="@font/poppins"
                 android:text="Didn’t you received any code?"
                 android:textColor="#3F4E6E"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
 
             <TextView
-                android:layout_marginTop="@dimen/_30sdp"
                 android:id="@+id/tvTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_30sdp"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="00:30"
+                android:text="@string/_00_30"
                 android:textAlignment="center"
                 android:textColor="#262E3F"
                 android:textSize="23sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tvResendCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="Resend OTP"
+                android:text="@string/resend_otp"
                 android:textColor="#EDA537"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
         </LinearLayout>
     </FrameLayout>
 </layout>

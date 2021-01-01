@@ -971,6 +971,10 @@
     <string name="see_precription">see prescription</string>
     <string name="attach_investigation_file">Attach Investigation File</string>
     <string name="search_doctors_here">Search Doctors Here</string>
+    <string name="mobile_verification">Mobile Verification</string>
+    <string name="an_otp_has_been_sent_to_mobile_n_919044865611">An OTP has been sent to mobile\n(+919044865611)</string>
+    <string name="enter_your_otp_code_here">Enter your OTP code here</string>
+    <string name="_00_30">00:30</string>
 
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>

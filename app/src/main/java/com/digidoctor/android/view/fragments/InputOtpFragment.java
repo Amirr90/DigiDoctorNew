@@ -1,6 +1,9 @@
 package com.digidoctor.android.view.fragments;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -13,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,7 +28,10 @@ import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.GenerateOtpModel;
 import com.digidoctor.android.model.Login;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.utility.OTPReceiver;
 import com.digidoctor.android.utility.utils;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.credentials.HintRequest;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -31,6 +39,7 @@ import java.util.List;
 
 import static com.digidoctor.android.utility.ApiUtils.checkLogin;
 import static com.digidoctor.android.utility.ApiUtils.getOTP;
+import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
 import static com.digidoctor.android.utility.utils.APP_TYPE;
 import static com.digidoctor.android.utility.utils.BOOKING_USER;
@@ -45,6 +54,12 @@ public class InputOtpFragment extends Fragment {
 
     private static final String TAG = "InputOtpFragment";
 
+    public static InputOtpFragment instance;
+
+    public static InputOtpFragment getInstance() {
+        return instance;
+    }
+
 
     FragmentInputOtpBinding inputOtpBinding;
     NavController navController;
@@ -55,12 +70,14 @@ public class InputOtpFragment extends Fragment {
     GenerateOtpModel generateOtpModel;
 
     Login login = new Login();
+    public static int RESOLVE_HINT = 67;
 
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inputOtpBinding = FragmentInputOtpBinding.inflate(inflater, container, false);
+        instance = this;
         return inputOtpBinding.getRoot();
 
     }
@@ -69,6 +86,11 @@ public class InputOtpFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        requestPermissions();
+
+        new OTPReceiver();
 
         generateOtpModel = new GenerateOtpModel();
 
@@ -190,13 +212,42 @@ public class InputOtpFragment extends Fragment {
         });
 
 
-        inputOtpBinding.tvResendCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                reSendCode();
-            }
-        });
+        inputOtpBinding.tvResendCode.setOnClickListener(view1 -> reSendCode());
         inputOtpBinding.tvSlogen.setText("An OTP has been sent to mobile\n +91" + number + "");
+
+    }
+
+    public void setOtp(char[] otp) {
+        try {
+            inputOtpBinding.tvOTP1.setText(String.valueOf(otp[0]));
+            inputOtpBinding.tvOTP2.setText(String.valueOf(otp[1]));
+            inputOtpBinding.tvOTP3.setText(String.valueOf(otp[2]));
+            inputOtpBinding.tvOTP4.setText(String.valueOf(otp[3]));
+
+
+            checkOTP();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d(TAG, "setOtp: " + e.getLocalizedMessage());
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    private void requestPermissions() {
+        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.RECEIVE_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{
+                    Manifest.permission.RECEIVE_SMS
+            }, 100);
+        }
+
+
     }
 
     private void reSendCode() {
@@ -289,12 +340,14 @@ public class InputOtpFragment extends Fragment {
 
             @Override
             public void onError(String s) {
-
+                hideDialog();
+                Toast.makeText(requireActivity(), s, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailed(Throwable throwable) {
-
+                hideDialog();
+                Toast.makeText(requireActivity(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
