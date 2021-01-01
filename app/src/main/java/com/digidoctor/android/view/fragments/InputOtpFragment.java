@@ -196,9 +196,11 @@ public class InputOtpFragment extends Fragment {
                             getResources().getDrawable(R.drawable.gray_edittext));
 
                     if (charSequence.toString().length() == 1)
-                        checkOTP();
-                    else if (charSequence.toString().length() == 0)
+                        inputOtpBinding.btnValidateOtp.setVisibility(View.VISIBLE);
+                    else if (charSequence.toString().length() == 0) {
                         inputOtpBinding.tvOTP3.requestFocus();
+                        inputOtpBinding.btnValidateOtp.setVisibility(View.GONE);
+                    }
 
 
                 }
@@ -213,6 +215,13 @@ public class InputOtpFragment extends Fragment {
 
 
         inputOtpBinding.tvResendCode.setOnClickListener(view1 -> reSendCode());
+        inputOtpBinding.btnValidateOtp.setOnClickListener(view12 -> {
+            try {
+                checkOTP();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         inputOtpBinding.tvSlogen.setText("An OTP has been sent to mobile\n +91" + number + "");
 
     }
