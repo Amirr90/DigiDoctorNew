@@ -144,7 +144,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     }
 
     private void setNavRec() {
-        //mainBinding.navRec.setVisibility(user.getIsExists() == 0 ? View.GONE : View.VISIBLE);
         mainBinding.imageView6.setVisibility(user.getIsExists() == 0 ? View.GONE : View.VISIBLE);
 
 
@@ -157,16 +156,16 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
     private void loadNavData() {
         navModels.add(new NavModel(getString(R.string.appointment), R.drawable.appointments));
-        navModels.add(new NavModel(getString(R.string.lab_tests), R.drawable.lab_test_icon));
-        navModels.add(new NavModel(getString(R.string.orders), R.drawable.order));
         navModels.add(new NavModel(getString(R.string.prescription_history), R.drawable.prescription));
         navModels.add(new NavModel(getString(R.string.investigation_history), R.drawable.investigation));
         navModels.add(new NavModel(getString(R.string.vitals_hitory), R.drawable.investigation));
-        navModels.add(new NavModel(getString(R.string.add_family_member), R.drawable.profile));
+        navModels.add(new NavModel(getString(R.string.add_family_member), R.drawable.family_members));
+        navModels.add(new NavModel(getString(R.string.lab_tests), R.drawable.lab_test_icon));
+        navModels.add(new NavModel(getString(R.string.orders), R.drawable.order));
         navModels.add(new NavModel(getString(R.string.notifications), R.drawable.notification));
         navModels.add(new NavModel(getString(R.string.settings), R.drawable.settings));
         navModels.add(new NavModel(getString(R.string.about_us), R.drawable.aboutus));
-        navModels.add(new NavModel(getString(R.string.logout), R.drawable.aboutus));
+        navModels.add(new NavModel(getString(R.string.logout), R.drawable.logout));
         navAdapter.notifyDataSetChanged();
     }
 
@@ -257,6 +256,8 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     public void onPaymentError(int i, String s, PaymentData paymentData) {
         Log.d(TAG, "onPaymentError: " + s);
         Toast.makeText(instance, R.string.failed_to_book, Toast.LENGTH_SHORT).show();
+
+
     }
 
 
@@ -330,26 +331,33 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 else navController.navigate(R.id.profileFragment);
 
                 break;
-            case 3:
+            case 1:
                 if (user.getIsExists() == 1)
                     navController.navigate(R.id.prescriptionHistoryFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
-            case 4:
+
+
+            case 2:
                 if (user.getIsExists() == 1)
                     navController.navigate(R.id.investigationFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
-            case 5:
+
+
+            case 3:
                 if (user.getIsExists() == 1)
                     navController.navigate(R.id.chooseVitalHistoryTypeFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
-            case 6:
+
+            case 4:
                 if (user.getIsExists() == 1)
                     navController.navigate(R.id.addMemberFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
+
+
             case 10:
                 showRequestDialog(this);
                 if (utils.logout(this))

@@ -3,6 +3,8 @@ package com.digidoctor.android.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import static com.digidoctor.android.utility.AppUtils.parseDate;
+
 public class OnlineAppointmentModel {
 
     int doctorId;
@@ -21,7 +23,7 @@ public class OnlineAppointmentModel {
     }
 
     public String getAppointDate() {
-        return appointDate;
+        return parseDate(appointDate, "dd MMMM yyyy");
     }
 
     public String getAppointTime() {

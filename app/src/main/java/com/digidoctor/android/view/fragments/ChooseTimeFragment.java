@@ -103,7 +103,7 @@ public class ChooseTimeFragment extends Fragment {
     }
 
     private void getDocTimerSlot(String date) {
-
+        AppUtils.showRequestDialog(requireActivity());
         getDoctorsTimeSlots(String.valueOf(doctorModel.getId()),
                 date,
                 String.valueOf(doctorModel.getIsEraUser()),

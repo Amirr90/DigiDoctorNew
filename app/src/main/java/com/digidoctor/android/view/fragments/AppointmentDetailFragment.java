@@ -31,6 +31,7 @@ import static com.digidoctor.android.utility.utils.getJSONFromModel;
 
 
 public class AppointmentDetailFragment extends Fragment implements OnClickListener {
+    private static final String TAG = "AppointmentDetailFragme";
 
 
     NavController navController;
@@ -74,6 +75,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             String model = getJSONFromModel(appointmentModel);
             Bundle bundle = new Bundle();
             bundle.putString("model", model);
+            Log.d(TAG, "onItemClick: " + model.toString());
             navController.navigate(R.id.action_appointmentDetailFragment_to_reScheduleFragment, bundle);
         } else if (detailBinding.btnAction.getText().toString().equalsIgnoreCase("View Prescription")) {
 

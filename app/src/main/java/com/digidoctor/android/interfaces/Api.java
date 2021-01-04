@@ -182,11 +182,6 @@ public interface Api {
     Call<InvestigationDataRes> investigationData(@Body User model);
 
 
-    @Multipart
-    @POST("saveMultipleFile")
-    Call<SaveMultipleFileRes> saveMultipleFile(
-            @Part MultipartBody.Part[] multipleFile
-    );
 }
 
 

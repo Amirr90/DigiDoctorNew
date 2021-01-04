@@ -15,6 +15,8 @@ import com.digidoctor.android.view.fragments.InputOtpFragment;
 public class OTPReceiver extends BroadcastReceiver {
     private static final String TAG = "OTPReceiver";
 
+    String SMS_SENDER_ID = "BH-DIGDOC";
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -22,15 +24,18 @@ public class OTPReceiver extends BroadcastReceiver {
         SmsMessage[] smsMessages = Telephony.Sms.Intents.getMessagesFromIntent(intent);
         for (SmsMessage smsMessage : smsMessages) {
             String message_body = smsMessage.getMessageBody();
-            StringBuilder getOTP = new StringBuilder();
-            char[] chars = new char[4];
-            for (int a = 0; a < 4; a++) {
-                getOTP.append(message_body.charAt(a));
-                chars[a] = message_body.charAt(a);
-            }
-
-            Log.d(TAG, "onReceive: OTP " + getOTP.toString());
-            InputOtpFragment.getInstance().setOtp(chars);
+            if (null != smsMessage.getOriginatingAddress())
+                if (smsMessage.getOriginatingAddress().equalsIgnoreCase(SMS_SENDER_ID) && message_body.contains("OTP")) {
+                    StringBuilder getOTP = new StringBuilder();
+                    char[] chars = new char[4];
+                    for (int a = 0; a < 4; a++) {
+                        getOTP.append(message_body.charAt(a));
+                        chars[a] = message_body.charAt(a);
+                    }
+                    Log.d(TAG, "onReceive: OTP " + getOTP.toString());
+                    if (Character.isDigit(getOTP.charAt(0)))
+                        InputOtpFragment.getInstance().setOtp(chars);
+                }
 
         }
     }

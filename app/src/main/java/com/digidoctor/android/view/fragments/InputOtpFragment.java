@@ -1,9 +1,6 @@
 package com.digidoctor.android.view.fragments;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.PendingIntent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -16,8 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -30,8 +25,6 @@ import com.digidoctor.android.model.Login;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.OTPReceiver;
 import com.digidoctor.android.utility.utils;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.credentials.HintRequest;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -71,6 +64,7 @@ public class InputOtpFragment extends Fragment {
 
     Login login = new Login();
     public static int RESOLVE_HINT = 67;
+    OTPReceiver otpReceiver;
 
 
     @Override
@@ -87,7 +81,8 @@ public class InputOtpFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        new OTPReceiver();
+        otpReceiver = new OTPReceiver();
+
 
         generateOtpModel = new GenerateOtpModel();
 
@@ -224,12 +219,12 @@ public class InputOtpFragment extends Fragment {
     }
 
     public void setOtp(char[] otp) {
+
         try {
             inputOtpBinding.tvOTP1.setText(String.valueOf(otp[0]));
             inputOtpBinding.tvOTP2.setText(String.valueOf(otp[1]));
             inputOtpBinding.tvOTP3.setText(String.valueOf(otp[2]));
             inputOtpBinding.tvOTP4.setText(String.valueOf(otp[3]));
-
 
             checkOTP();
 
@@ -316,6 +311,13 @@ public class InputOtpFragment extends Fragment {
         checkLogin(login, requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
+                try {
+                    requireActivity().unregisterReceiver(otpReceiver);
+                    Log.d(TAG, "onSuccess: UnRegisterReadOTPReceiver");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 List<User> loginModelList = (List<User>) o;
                 User user = loginModelList.get(0);
 

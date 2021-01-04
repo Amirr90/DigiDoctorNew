@@ -1,8 +1,6 @@
 package com.digidoctor.android.view.fragments;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,10 +23,12 @@ import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.BookAppointmentInterface;
 import com.digidoctor.android.model.CalendarModel;
+import com.digidoctor.android.model.CheckSlotAvailabilityDataRes;
 import com.digidoctor.android.model.GetAppointmentSlotsDataRes;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.BookAppointment2;
 import com.digidoctor.android.utility.NewDashboardUtils;
@@ -41,6 +41,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,7 +50,15 @@ import retrofit2.Response;
 import static com.digidoctor.android.utility.ApiUtils.getDoctorsTimeSlots;
 import static com.digidoctor.android.utility.AppUtils.getCurrentDateInWeekMonthDayFormat;
 import static com.digidoctor.android.utility.AppUtils.parseDateToFormatDMY;
+import static com.digidoctor.android.utility.utils.APPOINTMENT_DATE;
+import static com.digidoctor.android.utility.utils.APPOINTMENT_TIME;
+import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
+import static com.digidoctor.android.utility.utils.KEY_DOC_ID;
+import static com.digidoctor.android.utility.utils.KEY_IS_ERA_USER;
+import static com.digidoctor.android.utility.utils.MEMBER_ID;
+import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.RE_SCHEDULE;
+import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.getUserForBooking;
 import static com.digidoctor.android.utility.utils.logout;
 
@@ -69,6 +78,8 @@ public class ReScheduleFragment extends Fragment {
 
     List<GetAppointmentSlotsDataRes> slotsDataRes = new ArrayList<>();
 
+    User user;
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,23 +98,24 @@ public class ReScheduleFragment extends Fragment {
         //getting Model
         if (null == getArguments())
             return;
+
+
+        user = getPrimaryUser(requireActivity());
+
         String jsonString = getArguments().getString("model");
         appointmentModel = new OnlineAppointmentModel();
         Gson gson = new Gson();
         appointmentModel = gson.fromJson(jsonString, OnlineAppointmentModel.class);
 
-        Log.d(TAG, "onViewCreated: model => " + appointmentModel.toString());
+        Log.d(TAG, "onViewCreated: model=> " + appointmentModel.toString());
 
         reScheduleBinding.setOnlineModel(appointmentModel);
         reScheduleBinding.tvCurrentDate.setText(getCurrentDateInWeekMonthDayFormat());
 
 
-        calendarAdapter = new CalendarAdapter(getNextWeekDays(), new CalendarAdapter.CalenderInterface() {
-            @Override
-            public void onItemClicked(CalendarModel calendarModel, int pos) {
-                date = getDateToSend(pos);
-                getDocTimeSlot(date);
-            }
+        calendarAdapter = new CalendarAdapter(getNextWeekDays(), (calendarModel, pos) -> {
+            date = getDateToSend(pos);
+            getDocTimeSlot(date);
         });
 
 
@@ -176,42 +188,78 @@ public class ReScheduleFragment extends Fragment {
         new AlertDialog.Builder(requireActivity())
                 .setTitle(R.string.re__schedule_appointment)
                 .setMessage("Re-Scheduling Appointment on " + time + "  " + date)
-                //.setIcon(R.drawable.ninja)
                 .setPositiveButton(R.string.yes,
-                        new DialogInterface.OnClickListener() {
-                            @TargetApi(11)
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
+                        (dialog, id) -> {
+                            dialog.cancel();
+                            checkTimeSlot(date, time);
 
-                                reScheduleAppointment(time, new BookAppointmentInterface() {
-                                    @Override
-                                    public void onAppointmentBooked(OnlineAppointmentModel appointmentModel) {
-                                        Toast.makeText(requireContext(), R.string.appointment_re_scheduled_successfully, Toast.LENGTH_SHORT).show();
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("key", RE_SCHEDULE);
-                                        navController.navigate(R.id.action_reScheduleFragment_to_cancelAppointmentFragment2, bundle);
-                                    }
-
-                                    @Override
-                                    public void onFailed(String msg) {
-                                        Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show();
-                                    }
-
-                                    @Override
-                                    public void onError(String errorMsg) {
-                                        Toast.makeText(requireActivity(), errorMsg, Toast.LENGTH_SHORT).show();
-
-                                    }
-                                });
-                            }
                         })
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                    @TargetApi(11)
-                    public void onClick(DialogInterface dialog, int id) {
+                .setNegativeButton(R.string.no, (dialog, id) -> dialog.cancel()).show();
+    }
 
-                        dialog.cancel();
+    private void checkTimeSlot(String date, String time) {
+
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put(MOBILE_NUMBER, user.getMobileNo());
+        map.put(MEMBER_ID, String.valueOf(user.getMemberId()));
+        map.put(KEY_DOC_ID, String.valueOf(appointmentModel.getDoctorId()));
+        map.put(APPOINTMENT_DATE, date);
+        map.put(APPOINTMENT_TIME, time);
+        map.put(KEY_IS_ERA_USER, String.valueOf(appointmentModel.getIsEraUser()));
+        map.put(KEY_APPOINTMENT_ID, appointmentModel.getAppointmentId());
+
+
+        Log.d(TAG, "checkTimeSlot: MAP:=> " + map.toString());
+
+        ApiUtils.checkTimeSlotAvailability(map, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> obj) {
+
+                Log.d(TAG, "onSuccess: " + obj);
+
+                List<CheckSlotAvailabilityDataRes> response = (List<CheckSlotAvailabilityDataRes>) obj;
+                if (response != null) {
+
+                    if (response.get(0).getIsAvailable() == 1) {
+                        reScheduleAppointment(time, new BookAppointmentInterface() {
+                            @Override
+                            public void onAppointmentBooked(OnlineAppointmentModel appointmentModel) {
+                                Toast.makeText(requireContext(), R.string.appointment_re_scheduled_successfully, Toast.LENGTH_SHORT).show();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("key", RE_SCHEDULE);
+                                navController.navigate(R.id.action_reScheduleFragment_to_cancelAppointmentFragment2, bundle);
+                            }
+
+                            @Override
+                            public void onFailed(String msg) {
+                                Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onError(String errorMsg) {
+                                Toast.makeText(requireActivity(), errorMsg, Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    } else {
+                        Toast.makeText(requireActivity(), getString(R.string.slot_not_available), Toast.LENGTH_SHORT).show();
                     }
-                }).show();
+                }
+            }
+
+            @Override
+            public void onError(String s) {
+                Toast.makeText(requireActivity(), s, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Toast.makeText(requireActivity(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void reScheduleAppointment(String time, final BookAppointmentInterface bookAppointmentInterface) {
@@ -221,21 +269,12 @@ public class ReScheduleFragment extends Fragment {
         BookAppointment2 appointment2 = new BookAppointment2();
 
         appointment2.setMemberId((bookingUser.getPrimaryStatus() == 1 ? String.valueOf(bookingUser.getId()) : String.valueOf(bookingUser.getMemberId())));
-        // appointment2.setPatientName(bookingUser.getName());
         appointment2.setMobileNo(bookingUser.getMobileNo());
-        // appointment2.setAddress(bookingUser.getAddress());
-        //  appointment2.setGuardianTypeId("0");
-        // appointment2.setGuardianName("");
-        // appointment2.setStateID("0");
-        // appointment2.setCityID("0");
         appointment2.setServiceProviderDetailsId(String.valueOf(appointmentModel.getDoctorId()));
         appointment2.setAppointDate(parseDateToFormatDMY(date));
         appointment2.setAppointTime(time);
         appointment2.setIsEraUser(String.valueOf(appointmentModel.getIsEraUser()));
-        //appointment2.setProblemName("");
         appointment2.setAppointmentId(appointmentModel.getAppointmentId());
-        //appointment2.setDob(bookingUser.getDob());
-        // appointment2.setGender(String.valueOf(bookingUser.getGender()));
 
 
         AppUtils.showRequestDialog(requireActivity());

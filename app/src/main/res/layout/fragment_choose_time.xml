@@ -26,15 +26,15 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bottom_round"
                 android:orientation="vertical"
-                android:paddingLeft="15dp"
+                android:paddingStart="15dp"
                 android:paddingTop="10dp"
-                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 android:paddingBottom="@dimen/_20sdp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
                     android:text="@{docModel.drName}"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
@@ -43,7 +43,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
                     android:text="@{docModel.speciality}"
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
@@ -119,7 +119,7 @@
                             android:gravity="center_horizontal"
                             android:text="@string/images"
                             android:textColor="#3F4E6E"
-                            android:textSize="18dp" />
+                            android:textSize="18sp" />
                     </LinearLayout>
 
 
@@ -160,7 +160,7 @@
                             android:gravity="center_horizontal"
                             android:text="@string/audio"
                             android:textColor="#3F4E6E"
-                            android:textSize="18dp" />
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -226,7 +226,6 @@
                     android:drawablePadding="@dimen/_10sdp"
                     android:drawableTint="@color/PrimaryColor"
                     android:padding="@dimen/_5sdp"
-                    android:text="August 2020"
                     android:textColor="#262E3F"
                     android:textSize="16sp"
                     android:textStyle="bold" />

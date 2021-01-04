@@ -65,6 +65,8 @@ public class BookedAppointmentDetailFragment extends Fragment implements Appoint
 
         bookedAppointmentDetailBinding.setAppointment(this);
 
+        bookedAppointmentDetailBinding.btnGoToDashboardFromBookAppointment.setOnClickListener(view1 -> PatientDashboard.getInstance().onSupportNavigateUp());
+
     }
 
     @Override

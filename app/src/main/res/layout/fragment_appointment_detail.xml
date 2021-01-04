@@ -142,7 +142,7 @@
                 android:id="@+id/textView118"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{appointmentModel.appointDate+`,`+appointmentModel.appointTime}"
+                android:text="@{appointmentModel.appointDate+`  `+appointmentModel.appointTime}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView117"
                 app:layout_constraintTop_toBottomOf="@+id/textView117" />

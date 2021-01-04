@@ -27,7 +27,7 @@
             android:padding="10dp"
             android:text="@{timeDetailsModel.slotTime}"
            android:textColor="@{Color.parseColor(timeDetailsModel.booked?`#F44336`:`#32CD32`)}"
-            android:textSize="10dp" />
+            android:textSize="12sp" />
     </LinearLayout>
 <!--    android:textColor="@{timeDetailsModel.booked?`#F44336`:`#3F4E6E`}"-->
 

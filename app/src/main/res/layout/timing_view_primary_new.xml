@@ -33,7 +33,7 @@
                 android:paddingRight="@dimen/_5sdp"
                 android:text="@{timing.slotType}"
                 android:textColor="#262E3F"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView

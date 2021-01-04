@@ -80,7 +80,6 @@ public class VitalChartFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
-
         if (getArguments() == null)
             return;
 
@@ -113,21 +112,18 @@ public class VitalChartFragment extends Fragment {
 
         viewModel.getVitals(vitalModel,
                 requireActivity()).
-                observe(getViewLifecycleOwner(), new Observer<List<VitalResponse.VitalDateVise>>() {
-                    @Override
-                    public void onChanged(List<VitalResponse.VitalDateVise> vitalResponse) {
-                        Log.d(TAG, "onChanged: " + vitalResponse);
-                        if (null == vitalResponse || vitalResponse.isEmpty()) {
-                            Toast.makeText(requireActivity(), "No data found", Toast.LENGTH_SHORT).show();
-                            PatientDashboard.getInstance().onSupportNavigateUp();
-                            return;
-                        }
-                        adapter.submitList(vitalResponse);
-
-                        setVitalChartData(vitalResponse);
-
-
+                observe(getViewLifecycleOwner(), vitalResponse -> {
+                    Log.d(TAG, "onChanged: " + vitalResponse);
+                    if (null == vitalResponse || vitalResponse.isEmpty()) {
+                        Toast.makeText(requireActivity(), "No data found", Toast.LENGTH_SHORT).show();
+                        PatientDashboard.getInstance().onSupportNavigateUp();
+                        return;
                     }
+                    adapter.submitList(vitalResponse);
+
+                    setVitalChartData(vitalResponse);
+
+
                 });
     }
 
@@ -152,6 +148,7 @@ public class VitalChartFragment extends Fragment {
         hiExporting = new HIExporting();
         hiExporting.setEnabled(false);
         options.setExporting(hiExporting);
+        chartBinding.chartView.setOptions(options);
     }
 
     private void setVitalChartData(List<VitalResponse.VitalDateVise> vitalResponse) {
@@ -209,7 +206,8 @@ public class VitalChartFragment extends Fragment {
             options.setSeries(new ArrayList<>(Arrays.asList(series1)));
         }
 
-        chartBinding.chartView.setOptions(options);
+
+        chartBinding.chartView.redraw();
         chartBinding.progressBar4.setVisibility(View.GONE);
     }
 
