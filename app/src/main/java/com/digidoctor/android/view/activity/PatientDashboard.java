@@ -50,6 +50,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import retrofit2.Call;
+
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
@@ -144,24 +146,23 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         setNavRec();
 
 
-       // getDemoApi();
+        getDemoApi();
     }
 
     private void getDemoApi() {
 
-        ApiUtils.DemoApi(user, new DemoAoiInterface() {
+        ApiUtils.getResponse(ApiUtils.DemoApi(user), new DemoAoiInterface() {
             @Override
             public void onSuccess(Object obj) {
                 DemoResponse responseModel = (DemoResponse) obj;
-               // List<Object> responseValue = responseModel.getResponseValue();
-                List<GetPatientMedicationMainModel> responseValue=(List<GetPatientMedicationMainModel>)responseModel.getResponseValue();
+                List<GetPatientMedicationMainModel> responseValue = (List<GetPatientMedicationMainModel>) responseModel.getResponseValue();
                 Log.d(TAG, "onSuccessDemo: " + responseValue.toString());
 
             }
 
             @Override
             public void onFailed(String msg) {
-
+                Toast.makeText(PatientDashboard.this, msg, Toast.LENGTH_SHORT).show();
             }
         });
     }

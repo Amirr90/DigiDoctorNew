@@ -954,7 +954,6 @@ public class ApiUtils {
     public static void deleteMember(User user, final ApiCallbackInterface apiCallbackInterface) {
         Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
         Call<CheckLoginRes> call = iRestInterfaces.deleteMember(user);
-
         call.enqueue(new Callback<CheckLoginRes>() {
             @Override
             public void onResponse(@NotNull Call<CheckLoginRes> call, @NotNull Response<CheckLoginRes> response) {
@@ -1065,14 +1064,13 @@ public class ApiUtils {
     }
 
 
-    public static void DemoApi(User user, DemoAoiInterface demoAoiInterface) {
+    public static Call<DemoResponse> DemoApi(User user) {
         Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
         GetPatientMedicationMainModel model = new GetPatientMedicationMainModel();
         model.setMemberId(String.valueOf(user.getId()));
 
-        Call<DemoResponse> call = iRestInterfaces.getPatientMedicationDetails2(model);
+        return iRestInterfaces.getPatientMedicationDetails2(model);
 
-        getResponse(call, demoAoiInterface);
     }
 
 
