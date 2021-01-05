@@ -27,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
 import static com.digidoctor.android.utility.utils.getJSONFromModel;
 
 
@@ -63,6 +64,14 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
 
         detailBinding.setAppointmentModel(appointmentModel);
         detailBinding.setClickListener(this);
+
+        detailBinding.btnGoToChat.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString(KEY_APPOINTMENT_ID, appointmentModel.getAppointmentId());
+            bundle.putString("docId", String.valueOf(appointmentModel.getDoctorId()));
+            navController.navigate(R.id.action_appointmentDetailFragment_to_chatForAppointmentFragment, bundle);
+            ;
+        });
     }
 
     @Override

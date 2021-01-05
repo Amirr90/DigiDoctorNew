@@ -45,6 +45,8 @@ import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.view.activity.PatientDashboard;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -64,7 +66,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.internal.EverythingIsNonNull;
 
+import static com.digidoctor.android.utility.utils.APPOINTMENT_CHAT;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_DATE;
+import static com.digidoctor.android.utility.utils.APPOINTMENT_ID;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_TIME;
 import static com.digidoctor.android.utility.utils.KEY_AMOUNT;
 import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
@@ -75,6 +79,7 @@ import static com.digidoctor.android.utility.utils.KEY_PATIENT_NAME;
 import static com.digidoctor.android.utility.utils.KEY_SYMPTOM_ID;
 import static com.digidoctor.android.utility.utils.MEMBER_ID;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
+import static com.digidoctor.android.utility.utils.TIMESTAMP;
 import static com.digidoctor.android.utility.utils.TOKEN;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.getString;
@@ -1098,5 +1103,23 @@ public class ApiUtils {
                 demoAoiInterface.onFailed(t.getLocalizedMessage());
             }
         });
+    }
+
+
+    public static void loadChats(String appointmentId, ApiCallbackInterface apiCallbackInterface) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        firestore.collection(APPOINTMENT_CHAT)
+                .whereEqualTo(APPOINTMENT_ID, appointmentId)
+                .orderBy(TIMESTAMP, Query.Direction.DESCENDING)
+                .addSnapshotListener((value, error) -> {
+                    if (null != error)
+                        return;
+
+                    if (null == value)
+                        return;
+
+                    apiCallbackInterface.onSuccess(value.getDocuments());
+                });
     }
 }

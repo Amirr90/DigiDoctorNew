@@ -438,6 +438,13 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_appointmentDetailFragment_to_chatForAppointmentFragment"
+            app:destination="@id/chatForAppointmentFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/addInvestigationFragment"
@@ -475,4 +482,9 @@
         android:name="com.digidoctor.android.SingleImageViewFragment"
         android:label="fragment_single_image_view"
         tools:layout="@layout/fragment_single_image_view" />
+    <fragment
+        android:id="@+id/chatForAppointmentFragment"
+        android:name="com.digidoctor.android.ChatForAppointmentFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat_for_appointment" />
 </navigation>

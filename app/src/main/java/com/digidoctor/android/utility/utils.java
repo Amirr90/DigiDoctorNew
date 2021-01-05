@@ -37,16 +37,35 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 
 public class utils {
 
+    private static final int SECOND_MILLIS = 1000;
+    private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
+    private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
+    private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
+
+
+
 
     public static final String PREFS_MAIN_FILE = "PREFS_DIGI_DOCTOR_FILE";
 
-    private static final String MY_PREFS_NAME = "myPref";
+    public static final String MY_PREFS_NAME = "myPref";
+    public static final String TIMESTAMP = "timestamp";
+    public static final String MSG = "msg";
+    public static final String SENDER_ID = "sender_id";
+    public static final String RECEIVER_ID = "receiver_id";
+    public static final String APPOINTMENT_ID = "appointment_id";
+    public static final String SENDER_NAME = "sender_name";
+    public static final String IS_SEEN = "myPref";
+    public static final String APPOINTMENT_CHAT = "AppointmentChats";
+
+
+
     public static final String IS_FIRST_TIME = "isFirstTime";
     public static final String fcmToken = "fcmToken";
     public static final String IS_LOGIN = "isLogin";
@@ -485,6 +504,95 @@ public class utils {
             e.printStackTrace();
         }
         return str;
+    }
+
+
+    public static String getLastSeen(String time) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+            Date past = format.parse(time);
+            Date now = new Date();
+            long seconds = TimeUnit.MILLISECONDS.toSeconds(now.getTime() - past.getTime());
+            long minutes = TimeUnit.MILLISECONDS.toMinutes(now.getTime() - past.getTime());
+            long hours = TimeUnit.MILLISECONDS.toHours(now.getTime() - past.getTime());
+            long days = TimeUnit.MILLISECONDS.toDays(now.getTime() - past.getTime());
+
+
+            if (seconds < 60) {
+                return seconds + " seconds ago";
+            } else if (minutes < 60) {
+                return minutes + " minutes ago";
+            } else if (hours < 24) {
+                return hours + " hours ago";
+            } else {
+                return days + " days ago";
+            }
+        } catch (Exception j) {
+            j.printStackTrace();
+
+            return j.getLocalizedMessage();
+        }
+    }
+
+    public static String getLastSeen(long timestamp) {
+        try {
+            String time = String.valueOf(timestamp);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+            Date past = format.parse(time);
+            Date now = new Date();
+            long seconds = TimeUnit.MILLISECONDS.toSeconds(now.getTime() - past.getTime());
+            long minutes = TimeUnit.MILLISECONDS.toMinutes(now.getTime() - past.getTime());
+            long hours = TimeUnit.MILLISECONDS.toHours(now.getTime() - past.getTime());
+            long days = TimeUnit.MILLISECONDS.toDays(now.getTime() - past.getTime());
+
+
+            if (seconds < 60) {
+                return seconds + " seconds ago";
+            } else if (minutes < 60) {
+                return minutes + " minutes ago";
+            } else if (hours < 24) {
+                return hours + " hours ago";
+            } else {
+                return days + " days ago";
+            }
+        } catch (Exception j) {
+            j.printStackTrace();
+
+            return j.getLocalizedMessage();
+        }
+    }
+
+    public static String getTimeAgo(long time) {
+        if (time < 1000000000000L) {
+            time *= 1000;
+        }
+        long now = System.currentTimeMillis();
+        if (time > now || time <= 0) {
+            return null;
+        }
+        final long diff = now - time;
+        if (diff < MINUTE_MILLIS) {
+            return "just now";
+        } else if (diff < 2 * MINUTE_MILLIS) {
+            return "a minute ago";
+        } else if (diff < 50 * MINUTE_MILLIS) {
+            return diff / MINUTE_MILLIS + " minutes ago";
+        } else if (diff < 90 * MINUTE_MILLIS) {
+            return "an hour ago";
+        } else if (diff < 24 * HOUR_MILLIS) {
+            return diff / HOUR_MILLIS + " hours ago";
+        } else if (diff < 48 * HOUR_MILLIS) {
+            return "yesterday";
+        } else {
+            return diff / DAY_MILLIS + " days ago";
+        }
+    }
+
+    public static String getDateInDMY(long timestamp) {
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d, ''yy");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis((int) timestamp);
+        return formatter.format(calendar.getTime());
     }
 }
 

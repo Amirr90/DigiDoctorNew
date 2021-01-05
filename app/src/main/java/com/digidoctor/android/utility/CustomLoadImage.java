@@ -30,7 +30,7 @@ public class CustomLoadImage {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d(TAG, "loadSpeImage: " + e.getLocalizedMessage());
+                Log.d(TAG, "loadImage: " + e.getLocalizedMessage());
             }
         }
 
@@ -48,7 +48,7 @@ public class CustomLoadImage {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d(TAG, "loadSpeImage: "+e.getLocalizedMessage());
+                Log.d(TAG, "loadCustomProductImage: " + e.getLocalizedMessage());
             }
         }
 
@@ -67,7 +67,7 @@ public class CustomLoadImage {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d(TAG, "loadSpeImage: "+e.getLocalizedMessage());
+                Log.d(TAG, "loadDummyImage: " + e.getLocalizedMessage());
             }
         }
 
@@ -87,7 +87,7 @@ public class CustomLoadImage {
             } catch (Exception e) {
                 e.printStackTrace();
                 imageView.setImageResource(R.drawable.profile_demo_image);
-                Log.d(TAG, "loadSpeImage: " + e.getLocalizedMessage());
+                Log.d(TAG, "loadUserImage: " + e.getLocalizedMessage());
             }
         } else {
             imageView.setImageResource(R.drawable.profile_demo_image);
@@ -97,6 +97,24 @@ public class CustomLoadImage {
 
     @BindingAdapter("android:loadCustomPrescriptionImage")
     public static void loadPrescriptionImage(ImageView imageView, String imagePath) {
+        if (null != imagePath && !imagePath.isEmpty()) {
+            try {
+                Glide.with(PatientDashboard.getInstance())
+                        .load(imagePath)
+                        .centerCrop()
+                        .placeholder(R.drawable.diagnosis_demo_image)
+                        .into(imageView);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d(TAG, "loadPrescriptionImage: " + e.getLocalizedMessage());
+            }
+        }
+
+    }
+
+    @BindingAdapter("android:LoadInvestigationImage")
+    public static void LoadInvestigationImage(ImageView imageView, String imagePath) {
         if (null != imagePath && !imagePath.isEmpty()) {
             try {
                 Glide.with(PatientDashboard.getInstance())
