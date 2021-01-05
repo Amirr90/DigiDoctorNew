@@ -7,6 +7,7 @@ import com.digidoctor.android.model.CheckSlotAvailabilityRes;
 import com.digidoctor.android.model.CheckTimeSlotModel;
 import com.digidoctor.android.model.DashBoardRes;
 import com.digidoctor.android.model.Dashboard;
+import com.digidoctor.android.model.DemoResponse;
 import com.digidoctor.android.model.DocBySpecialityRes;
 import com.digidoctor.android.model.DocBySymptomsRes;
 import com.digidoctor.android.model.GenerateOtpModel;
@@ -112,6 +113,10 @@ public interface Api {
 
     @POST("getPatientMedicationDetails")
     Call<GetPatientMedicationRes> getPatientMedicationDetails(
+            @Body GetPatientMedicationMainModel model);
+
+    @POST("getPatientMedicationDetails")
+    Call<DemoResponse> getPatientMedicationDetails2(
             @Body GetPatientMedicationMainModel model);
 
     @POST("updateMember")

@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
+import com.digidoctor.android.interfaces.DemoAoiInterface;
 import com.digidoctor.android.model.AddInvestigationModel;
 import com.digidoctor.android.model.AppointmentRes;
 import com.digidoctor.android.model.CheckLoginRes;
@@ -15,6 +16,7 @@ import com.digidoctor.android.model.CheckSlotAvailabilityRes;
 import com.digidoctor.android.model.CheckTimeSlotModel;
 import com.digidoctor.android.model.DashBoardRes;
 import com.digidoctor.android.model.Dashboard;
+import com.digidoctor.android.model.DemoResponse;
 import com.digidoctor.android.model.DocBySpecialityRes;
 import com.digidoctor.android.model.DocBySymptomsRes;
 import com.digidoctor.android.model.GenerateOtpModel;
@@ -1062,4 +1064,39 @@ public class ApiUtils {
         });
     }
 
+
+    public static void DemoApi(User user, DemoAoiInterface demoAoiInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        GetPatientMedicationMainModel model = new GetPatientMedicationMainModel();
+        model.setMemberId(String.valueOf(user.getId()));
+
+        Call<DemoResponse> call = iRestInterfaces.getPatientMedicationDetails2(model);
+
+        getResponse(call, demoAoiInterface);
+    }
+
+
+    public static void getResponse(Call<DemoResponse> call, DemoAoiInterface demoAoiInterface) {
+        call.enqueue(new Callback<DemoResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<DemoResponse> call, @NotNull Response<DemoResponse> response) {
+
+                if (response.code() == 200) {
+                    DemoResponse responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        demoAoiInterface.onSuccess(responseModel);
+                    } else demoAoiInterface.onFailed(responseModel.getResponseMessage());
+
+                } else demoAoiInterface.onFailed(String.valueOf(response.code()));
+
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<DemoResponse> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                demoAoiInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
 }

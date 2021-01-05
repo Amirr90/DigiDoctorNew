@@ -26,9 +26,15 @@ import androidx.navigation.ui.NavigationUI;
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.NavAdapter;
 import com.digidoctor.android.databinding.ActivityDashBoardBinding;
+import com.digidoctor.android.interfaces.Api;
+import com.digidoctor.android.interfaces.DemoAoiInterface;
 import com.digidoctor.android.interfaces.NavigationInterface;
+import com.digidoctor.android.model.DemoResponse;
+import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.NavModel;
+import com.digidoctor.android.model.ResponseModel;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.GetAddressIntentService;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.fragments.SearchBluetoothDeviceFragment;
@@ -136,6 +142,28 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         startLocationUpdates();
 
         setNavRec();
+
+
+       // getDemoApi();
+    }
+
+    private void getDemoApi() {
+
+        ApiUtils.DemoApi(user, new DemoAoiInterface() {
+            @Override
+            public void onSuccess(Object obj) {
+                DemoResponse responseModel = (DemoResponse) obj;
+               // List<Object> responseValue = responseModel.getResponseValue();
+                List<GetPatientMedicationMainModel> responseValue=(List<GetPatientMedicationMainModel>)responseModel.getResponseValue();
+                Log.d(TAG, "onSuccessDemo: " + responseValue.toString());
+
+            }
+
+            @Override
+            public void onFailed(String msg) {
+
+            }
+        });
     }
 
     public void updateUser() {
