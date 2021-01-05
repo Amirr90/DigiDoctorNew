@@ -52,6 +52,8 @@ import org.json.JSONArray;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -1068,7 +1070,6 @@ public class ApiUtils {
         Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
         GetPatientMedicationMainModel model = new GetPatientMedicationMainModel();
         model.setMemberId(String.valueOf(user.getId()));
-
         return iRestInterfaces.getPatientMedicationDetails2(model);
 
     }
@@ -1096,5 +1097,13 @@ public class ApiUtils {
                 demoAoiInterface.onFailed(t.getLocalizedMessage());
             }
         });
+    }
+
+    public static int getDay(long timestamp) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timestamp);
+        Date date = cal.getTime();
+        cal.setTime(date);
+        return cal.get(Calendar.DAY_OF_MONTH);
     }
 }
