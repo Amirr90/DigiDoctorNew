@@ -205,8 +205,6 @@ public class VitalChartFragment extends Fragment {
             series1.setData(new ArrayList<>(Arrays.asList(sysData)));
             options.setSeries(new ArrayList<>(Arrays.asList(series1)));
         }
-
-
         chartBinding.chartView.redraw();
         chartBinding.progressBar4.setVisibility(View.GONE);
     }

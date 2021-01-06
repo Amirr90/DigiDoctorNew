@@ -357,7 +357,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 if (user.getIsExists() == 1)
                     navController.navigate(R.id.appointmentsFragment);
                 else navController.navigate(R.id.profileFragment);
-
                 break;
             case 1:
                 if (user.getIsExists() == 1)

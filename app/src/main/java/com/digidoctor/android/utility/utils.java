@@ -50,8 +50,6 @@ public class utils {
     private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
 
 
-
-
     public static final String PREFS_MAIN_FILE = "PREFS_DIGI_DOCTOR_FILE";
 
     public static final String MY_PREFS_NAME = "myPref";
@@ -65,11 +63,11 @@ public class utils {
     public static final String APPOINTMENT_CHAT = "AppointmentChats";
 
 
-
     public static final String IS_FIRST_TIME = "isFirstTime";
     public static final String fcmToken = "fcmToken";
     public static final String IS_LOGIN = "isLogin";
     public static final String USER = "user";
+    public static final String USER_MAIN = "user_main";
     public static final String TOKEN = "token";
     public static final String MOBILE_NUMBER = "number";
     public static final int REQ_PERMISSION_CODE = 1;
@@ -207,7 +205,9 @@ public class utils {
             e.printStackTrace();
         }
         return str;
-    }  public static String getDate(String oldDate) {
+    }
+
+    public static String getDate(String oldDate) {
 
         String outputPattern = "yyyy-MM-dd";
         String inputPattern = "dd MMMM yyyy";
@@ -330,6 +330,15 @@ public class utils {
         prefsEditor.commit();
     }
 
+    public static void saveMainUserData(String key, Activity activity, User myObject) {
+        SharedPreferences pref = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = pref.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(myObject);
+        prefsEditor.putString(key, json);
+        prefsEditor.commit();
+    }
+
     public static User getUserForBooking(Activity activity) {
         SharedPreferences pref = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         Gson gson = new Gson();
@@ -344,6 +353,14 @@ public class utils {
         String json = pref.getString(USER, "");
         User obj = gson.fromJson(json, User.class);
         return obj;
+    }
+
+    public static User getMainUser(Activity activity) {
+        SharedPreferences pref = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = pref.getString(USER_MAIN, "");
+        return gson.fromJson(json, User.class);
+
     }
 
 

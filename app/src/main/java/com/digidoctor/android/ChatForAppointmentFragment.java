@@ -27,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import static com.digidoctor.android.utility.utils.*;
 import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
@@ -58,11 +59,19 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
+
         if (null == getArguments())
             return;
 
+
+
+
+
         AppointmentId = getArguments().getString(KEY_APPOINTMENT_ID);
         doId = getArguments().getString("docId");
+
+        //Showing the title
+        Objects.requireNonNull(Navigation.findNavController(view).getCurrentDestination()).setLabel(getArguments().getString("docName"));
         User user = getPrimaryUser(requireActivity());
         chats = new ArrayList<>();
         adapter = new ChatAdapter(this, chats, String.valueOf(user.getMemberId()));

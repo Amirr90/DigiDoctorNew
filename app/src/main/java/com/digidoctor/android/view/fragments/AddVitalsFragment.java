@@ -106,8 +106,7 @@ public class AddVitalsFragment extends Fragment {
                 && vitalModel.getTemperature().isEmpty()
                 && vitalModel.getRandomBloodSugar().isEmpty()
                 && vitalModel.getSpo2().isEmpty()
-                && vitalModel.getRespiratoryRate().isEmpty()
-        )
+                && vitalModel.getRespiratoryRate().isEmpty())
 
             return false;
 
@@ -121,10 +120,7 @@ public class AddVitalsFragment extends Fragment {
     }
 
     private void addVitals(VitalModel vitalModel) {
-
-
         hideSoftKeyboard(requireActivity());
-
         try {
             VitalModel vitalModel1 = new VitalModel();
             User user = getPrimaryUser(requireActivity());

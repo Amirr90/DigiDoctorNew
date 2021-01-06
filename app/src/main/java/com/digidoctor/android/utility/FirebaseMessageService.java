@@ -53,9 +53,6 @@ public class FirebaseMessageService extends FirebaseMessagingService {
     public void onNewToken(String token) {
         Log.v(TAG, "Refreshed token: " + token);
 
-        //utils.setString(AppSettings.fcmToken, token);
-        //sendRegistrationToServer(token);
-       // utils.setString(TOKEN, token, activity);
     }
 
     @Override
@@ -89,15 +86,7 @@ public class FirebaseMessageService extends FirebaseMessagingService {
                 prefs = getSharedPreferences(utils.PREFS_MAIN_FILE, Context.MODE_PRIVATE);
 
                 if (typeMain == 1) {
-
                     roomName = json.getString("roomName");
-//                    if (AppSettings.getString(AppSettings.serviceProviderType).equals("6")) {
-                 /*   if (prefs.getString(AppSettings.serviceProviderType, "").equals("6")) {
-                        twillioAccessToken = json.getString("twillioAccessToken");
-                    } else {
-                        twillioAccessToken = json.getString("doctorTwilioAccessToken");
-                    }*/
-
                     twillioAccessToken = json.getString("twillioAccessToken");
                 }
 
@@ -128,12 +117,6 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             final Intent intent;
 
             intent = new Intent(this, PatientDashboard.class).putExtra("type", String.valueOf(type));
-
-           /* if (prefs.getString(AppSettings.serviceProviderType, "").equals("6")) {
-                intent = new Intent(this, PatientDashboard.class).putExtra("type", String.valueOf(type));
-            } else {
-                intent = new Intent(this, DoctorsDashboardActivity.class).putExtra("type", String.valueOf(type));
-            }*/
 
             PendingIntent contentIntent = PendingIntent.getActivity(this, 99, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

@@ -13,7 +13,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.List;
 
-import static com.digidoctor.android.utility.utils.*;
+import static com.digidoctor.android.utility.utils.SENDER_ID;
+import static com.digidoctor.android.utility.utils.TIMESTAMP;
 import static com.digidoctor.android.utility.utils.getDateInDMY;
 
 public class ChatAdapter extends RecyclerView.Adapter {

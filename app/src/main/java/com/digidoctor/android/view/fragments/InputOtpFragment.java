@@ -39,8 +39,9 @@ import static com.digidoctor.android.utility.utils.BOOKING_USER;
 import static com.digidoctor.android.utility.utils.DEVICE_TYPE;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.SERVICE_PROVIDER_ID_TYPE;
-import static com.digidoctor.android.utility.utils.TOKEN;
 import static com.digidoctor.android.utility.utils.USER;
+import static com.digidoctor.android.utility.utils.USER_MAIN;
+import static com.digidoctor.android.utility.utils.fcmToken;
 
 
 public class InputOtpFragment extends Fragment {
@@ -305,7 +306,8 @@ public class InputOtpFragment extends Fragment {
         login.setServiceProviderTypeID(SERVICE_PROVIDER_ID_TYPE);
         login.setDeviceType(String.valueOf(DEVICE_TYPE));
         login.setAppType(APP_TYPE);
-        login.setDeviceToken(utils.getString(TOKEN, requireActivity()));
+        login.setDeviceToken(utils.getString(fcmToken, requireActivity()));
+        Log.d(TAG, "fcmToken: " + login.getDeviceToken());
 
 
         checkLogin(login, requireActivity(), new ApiCallbackInterface() {
@@ -325,6 +327,8 @@ public class InputOtpFragment extends Fragment {
                 utils.setBoolean(utils.IS_LOGIN, true, requireActivity());
 
                 utils.savePrimaryUserData(USER, requireActivity(), user);
+
+                utils.saveMainUserData(USER_MAIN, requireActivity(), user);
 
                 utils.setUserForBooking(BOOKING_USER, requireActivity(), user);
 

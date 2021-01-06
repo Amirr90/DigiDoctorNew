@@ -41,7 +41,8 @@ public class WakefulBroadcasterReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
 
-        Log.d("Broadcast", "In Broadcast");
+        Log.d(TAG, "In Broadcast" + intent.toString());
+
 
         showNotification(context, intent);
 
@@ -66,10 +67,6 @@ public class WakefulBroadcasterReceiver extends BroadcastReceiver {
         msg = intent.getStringExtra("message");
         title = intent.getStringExtra("title");
 
-         /*   Intent wakeupIntent = new Intent(this, CallReceiveActivity.class);
-            wakeupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);*/
-
-        PendingIntent wakeupPendingIntent = PendingIntent.getActivity(context, 0, wakeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent videoPendingIntent = PendingIntent.getActivity(context, 0, videoIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         keyguardManager = (KeyguardManager) context.getSystemService(KEYGUARD_SERVICE);
@@ -83,8 +80,6 @@ public class WakefulBroadcasterReceiver extends BroadcastReceiver {
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addNextIntentWithParentStack(wakeIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
@@ -94,19 +89,14 @@ public class WakefulBroadcasterReceiver extends BroadcastReceiver {
             getManager(context).createNotificationChannel(androidChannel);
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-//                    .setAutoCancel(true)
+                    .setSmallIcon(R.drawable.app_icon)
                     .setContentTitle(title)
                     .setTicker(title)
                     .setContentText(msg)
-//                    .setOngoing(true)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                     .setCategory(NotificationCompat.CATEGORY_CALL)
                     .setVibrate(new long[]{200, 400});
-//                        .setContentIntent(resultPendingIntent)
-//                        .setFullScreenIntent(wakeupPendingIntent, true);
-
             if (!Settings.canDrawOverlays(context)) {
                 notificationBuilder.setContentIntent(videoPendingIntent);
             }
@@ -120,7 +110,7 @@ public class WakefulBroadcasterReceiver extends BroadcastReceiver {
 
                 @SuppressLint({"NewApi", "LocalSuppress"})
                 NotificationCompat.Builder notificationBuilder = new androidx.core.app.NotificationCompat.Builder(context).setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.app_icon)
                         .setContentTitle(title)
                         .setTicker(title)
                         .setContentText(msg)
@@ -149,7 +139,6 @@ public class WakefulBroadcasterReceiver extends BroadcastReceiver {
 
     private NotificationManager getManager(Context context) {
         if (mManager == null) {
-//            mManager = getSystemService(NotificationManager.class);
             mManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         }
         return mManager;

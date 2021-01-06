@@ -69,6 +69,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             Bundle bundle = new Bundle();
             bundle.putString(KEY_APPOINTMENT_ID, appointmentModel.getAppointmentId());
             bundle.putString("docId", String.valueOf(appointmentModel.getDoctorId()));
+            bundle.putString("docName", String.valueOf(appointmentModel.getDoctorName()));
             navController.navigate(R.id.action_appointmentDetailFragment_to_chatForAppointmentFragment, bundle);
             ;
         });

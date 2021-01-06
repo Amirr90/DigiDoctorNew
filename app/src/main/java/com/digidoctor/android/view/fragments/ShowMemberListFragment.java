@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -23,6 +24,8 @@ import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 import static com.digidoctor.android.utility.utils.BOOKING_USER;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
@@ -118,6 +121,12 @@ public class ShowMemberListFragment extends Fragment implements AdapterInterface
                 memberAdapter.submitList(users);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 
     public void removeMemberItem(int position) {

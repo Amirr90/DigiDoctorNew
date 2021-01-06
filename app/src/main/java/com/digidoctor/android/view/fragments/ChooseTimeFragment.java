@@ -73,8 +73,8 @@ public class ChooseTimeFragment extends Fragment {
 
         date = getDateToSend(0);
 
-        if (PatientDashboard.getInstance() != null)
-            AppUtils.showRequestDialog(PatientDashboard.getInstance());
+    /*    if (PatientDashboard.getInstance() != null)
+            AppUtils.showRequestDialog(PatientDashboard.getInstance());*/
 
         if (null == getArguments())
             return;

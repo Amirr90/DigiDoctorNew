@@ -91,6 +91,8 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
 
     Boolean isUploadPrescription = false;
 
+    String frequencyId = null;
+
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -372,7 +374,7 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
             Toast.makeText(requireActivity(), "please add medicine frequency", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!isValidFrequencySelected(medicineFrequency)) {
-            Toast.makeText(requireActivity(), "please select valid medicine frequency", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(), "please select valid frequency", Toast.LENGTH_SHORT).show();
             return false;
         } else if (TextUtils.isEmpty(medicineDays)) {
             Toast.makeText(requireActivity(), "please add medicine day(s)", Toast.LENGTH_SHORT).show();
@@ -385,7 +387,7 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
             return false;
 
         for (MedicineModel.MedicineFrequencyModel frequencyModel : frequencyList) {
-            if (frequencyModel.getName().equalsIgnoreCase(medicineFrequency)) {
+            if (frequencyModel.getName().equals(medicineFrequency)) {
                 return true;
             }
 

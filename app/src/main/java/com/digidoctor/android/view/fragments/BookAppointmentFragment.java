@@ -37,6 +37,7 @@ import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_CASH;
 import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_RAZOR_PAY;
 import static com.digidoctor.android.utility.utils.TOKEN;
 import static com.digidoctor.android.utility.utils.getJSONFromModel;
+import static com.digidoctor.android.utility.utils.getMainUser;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.getUserForBooking;
 import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
@@ -144,7 +145,7 @@ public class BookAppointmentFragment extends Fragment {
         });
         appointmentBinding.btnSelf.setOnClickListener(view12 -> {
 
-            bookingUser = getPrimaryUser(requireActivity());
+            bookingUser = getMainUser(requireActivity());
 
             appointmentBinding.setBookingUser(bookingUser);
 

@@ -99,7 +99,7 @@ public class InvestigationAdapter extends RecyclerView.Adapter {
                         Glide.with(PatientDashboard.getInstance())
                                 .load(imageLists.get(0).getFilePath())
                                 .centerCrop()
-                                .placeholder(R.drawable.prescription)
+                                .placeholder(R.drawable.diagnosis_demo_image)
                                 .into( investigationVHTwo.binding.imageView44);
 
                     } catch (Exception e) {

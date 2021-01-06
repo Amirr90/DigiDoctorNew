@@ -53,11 +53,10 @@ public class AddMemberFragment extends Fragment implements MyDialogInterface {
 
     NavController navController;
 
-
     String name, mobile, dob, address, Gender;
 
-
     String GENDER;
+
     AlertDialog optionDialog;
 
     String imagePath = null;
@@ -101,7 +100,6 @@ public class AddMemberFragment extends Fragment implements MyDialogInterface {
     }
 
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -128,7 +126,7 @@ public class AddMemberFragment extends Fragment implements MyDialogInterface {
             public void onSuccess(List<?> o) {
                 List<String> Path = (List<String>) o;
                 Log.d(TAG, "ImagePath: " + Path.get(0));
-                // user.setProfilePhotoPath(imagePath.get(0));
+
                 imagePath = Path.get(0);
             }
 
@@ -275,8 +273,8 @@ public class AddMemberFragment extends Fragment implements MyDialogInterface {
                     int month = myDatePicker.getMonth() + 1;
                     int day = myDatePicker.getDayOfMonth();
                     int year = myDatePicker.getYear();
-
                     addMemberBinding.etDob.setText(year + "-" + month + "-" + day);
+
 
                     dialog.cancel();
 

@@ -966,7 +966,7 @@
     <string name="prescription_image">Prescription Image</string>
     <string name="selected_images">Selected Images</string>
     <string name="enter_valid_email_id">email-id  is not valid</string>
-    <string name="delete_member_dialog_string">want to delete this member??</string>
+    <string name="delete_member_dialog_string">Are you sure you want to delete this member ?</string>
     <string name="member_deleted">member Deleted successfully</string>
     <string name="see_precription">see prescription</string>
     <string name="attach_investigation_file">Attach Investigation File</string>

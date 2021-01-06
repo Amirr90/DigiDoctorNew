@@ -175,6 +175,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView41" />
 
                 <EditText
+                    android:maxLength="2"
                     android:id="@+id/etDays"
                     android:layout_width="wrap_content"
                     android:layout_height="45dp"
@@ -182,7 +183,6 @@
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/rectangle_outline_gray"
                     android:drawablePadding="@dimen/_10sdp"
-                    android:ems="10"
                     android:gravity="top"
                     android:hint="@string/duration"
                     android:inputType="phone"

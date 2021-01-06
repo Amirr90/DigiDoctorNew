@@ -79,6 +79,7 @@
                     android:textSize="14sp" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/ivShareDocProfile"
                     android:layout_width="13dp"
                     android:layout_height="13dp"
