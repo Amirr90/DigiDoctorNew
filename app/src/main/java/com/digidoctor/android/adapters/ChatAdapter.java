@@ -9,22 +9,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.digidoctor.android.databinding.ReceiverViewBinding;
 import com.digidoctor.android.databinding.SenderViewBinding;
 import com.digidoctor.android.interfaces.ChatInterface;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.digidoctor.android.model.ChatModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static com.digidoctor.android.utility.utils.SENDER_ID;
-import static com.digidoctor.android.utility.utils.TIMESTAMP;
+import static com.digidoctor.android.utility.utils.createDate;
+import static com.digidoctor.android.utility.utils.getDate;
 import static com.digidoctor.android.utility.utils.getDateInDMY;
 
 public class ChatAdapter extends RecyclerView.Adapter {
     public static final int VIEW_TYPE_SENDER = 0;
     public static final int VIEW_TYPE_RECEIVER = 1;
     ChatInterface chatInterface;
-    List<DocumentSnapshot> chats;
+    List<ChatModel> chats;
     String uid;
 
-    public ChatAdapter(ChatInterface chatInterface, List<DocumentSnapshot> chats, String uid) {
+    public ChatAdapter(ChatInterface chatInterface, List<ChatModel> chats, String uid) {
         this.chatInterface = chatInterface;
         this.chats = chats;
         this.uid = uid;
@@ -34,6 +35,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
         if (viewType == VIEW_TYPE_RECEIVER) {
             ReceiverViewBinding receiverViewBinding = ReceiverViewBinding.inflate(inflater, parent, false);
             receiverViewBinding.setChatInterface(chatInterface);
@@ -48,16 +50,16 @@ public class ChatAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        DocumentSnapshot snapshot = chats.get(position);
+        ChatModel snapshot = chats.get(position);
         try {
             if (getItemViewType(position) == VIEW_TYPE_SENDER) {
                 SenderViewHolder senderViewHolder = (SenderViewHolder) holder;
                 senderViewHolder.senderViewBinding.setChats(snapshot);
-                senderViewHolder.senderViewBinding.tvTimeStampRec.setText(getDateInDMY(snapshot.getLong(TIMESTAMP)));
+                senderViewHolder.senderViewBinding.tvTimeStampRec.setText(createDate(snapshot.getTimestamp()));
             } else {
                 ReceiverViewHolder receiverViewBinding = (ReceiverViewHolder) holder;
                 receiverViewBinding.receiverViewBinding.setChats(snapshot);
-                receiverViewBinding.receiverViewBinding.tvTimeStamp.setText(getDateInDMY(snapshot.getLong(TIMESTAMP)));
+                receiverViewBinding.receiverViewBinding.tvTimeStamp.setText(createDate(snapshot.getTimestamp()));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,8 +68,8 @@ public class ChatAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        DocumentSnapshot model = chats.get(position);
-        if (uid.equalsIgnoreCase(model.getString(SENDER_ID)))
+        ChatModel model = chats.get(position);
+        if (uid.equalsIgnoreCase(model.getSender_id()))
             return VIEW_TYPE_RECEIVER;
         else return VIEW_TYPE_SENDER;
     }
@@ -97,4 +99,22 @@ public class ChatAdapter extends RecyclerView.Adapter {
             this.receiverViewBinding = receiverViewBinding;
         }
     }
+
+
+    public void addChatItems(ChatModel model) {
+        if (null == chats)
+            chats = new ArrayList<>();
+        chats.add(0, model);
+        notifyDataSetChanged();
+    }
+
+    public void removeChatItem(int position) {
+        if (null == chats)
+            return;
+        if (chats.size() < position)
+            return;
+
+        chats.remove(position);
+    }
+
 }

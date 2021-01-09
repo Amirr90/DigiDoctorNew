@@ -6,7 +6,7 @@
 
         <variable
             name="chats"
-            type="com.google.firebase.firestore.DocumentSnapshot" />
+            type="com.digidoctor.android.model.ChatModel" />
 
         <variable
             name="chatInterface"
@@ -44,7 +44,7 @@
             android:paddingTop="10dp"
             android:paddingEnd="@dimen/_10sdp"
             android:paddingBottom="10dp"
-            android:text="@{chats.getString(`msg`)}"
+            android:text="@{chats.msg}"
             android:textColor="#2D2D2D"
             android:textSize="13sp"
             app:layout_constraintStart_toEndOf="@+id/profile_image"

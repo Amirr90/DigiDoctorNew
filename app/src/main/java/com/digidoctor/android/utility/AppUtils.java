@@ -37,6 +37,10 @@ public class AppUtils {
     private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
     static ProgressDialog progressDialog;
 
+    public static final int PAY_MODE_PAY_ON_VISIT = 4;
+    public static final int PAY_MODE_RAZOR_PAYY = 3;
+    public static final int PAY_MODE_PAY_U_MONEY = 2;
+
 
     public static String getMimeType(Context context, Uri uri) {
         /*String type = null;

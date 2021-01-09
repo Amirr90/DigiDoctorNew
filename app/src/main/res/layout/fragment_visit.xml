@@ -217,6 +217,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:drawablePadding="10dp"
+                    android:focusable="true"
                     android:fontFamily="@font/poppins"
                     android:gravity="center"
                     android:paddingEnd="20dp"
@@ -224,7 +225,6 @@
                     android:textColor="#0A586C"
                     android:textSize="14sp"
                     android:textStyle="normal"
-                    android:focusable="true"
                     app:drawableRightCompat="@drawable/ic_baseline_arrow_right_alt_24" />
 
 
@@ -259,10 +259,126 @@
                 android:setCustomVisibility="@{adviseDetails.recommendedDiet}"
                 android:text="@string/recomendation"
                 android:textColor="#262E3F"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:autoSizeTextType="uniform" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/poppins"
+                android:text="@{adviseDetails.recommendedDiet}"
+                android:textColor="#3F4E6E"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                android:visibility="gone"
+                app:autoSizeTextType="uniform" />
+
+
+            <!--   Given Advice-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:setCustomVisibility="@{adviseDetails.advice}"
+                android:text="@string/advice"
+                android:textColor="#262E3F"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:autoSizeTextType="uniform" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/poppins"
+                android:setCustomVisibility="@{adviseDetails.advice}"
+                android:text="@{adviseDetails.advice}"
+                android:textColor="#3F4E6E"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                app:autoSizeTextType="uniform" />
+
+            <!--   Avoid Diet-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:setCustomVisibility="@{adviseDetails.avoidedDiet}"
+                android:text="@string/avoid_diet"
+                android:textColor="#262E3F"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:autoSizeTextType="uniform" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/poppins"
+                android:setCustomVisibility="@{adviseDetails.avoidedDiet}"
+                android:text="@{adviseDetails.avoidedDiet}"
+                android:textColor="#3F4E6E"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                app:autoSizeTextType="uniform" />
+
+
+            <!--   Other Diet-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:setCustomVisibility="@{adviseDetails.otherDiet}"
+                android:text="@string/other_diet"
+                android:textColor="#262E3F"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:autoSizeTextType="uniform" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/poppins"
+                android:setCustomVisibility="@{adviseDetails.otherDiet}"
+                android:text="@{adviseDetails.otherDiet}"
+                android:textColor="#3F4E6E"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                app:autoSizeTextType="uniform" />
+
+
+
+            <!--   Recommended  Diet-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:setCustomVisibility="@{adviseDetails.recommendedDiet}"
+                android:text="@string/recommended_diet"
+                android:textColor="#262E3F"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:autoSizeTextType="uniform" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -276,6 +392,7 @@
                 android:textSize="12sp"
                 android:textStyle="normal"
                 app:autoSizeTextType="uniform" />
+
 
             <TextView
                 android:layout_width="match_parent"

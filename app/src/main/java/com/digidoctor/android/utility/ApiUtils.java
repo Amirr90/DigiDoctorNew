@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
@@ -31,6 +33,7 @@ import com.digidoctor.android.model.Login;
 import com.digidoctor.android.model.MedicineRes;
 import com.digidoctor.android.model.MemberModel;
 import com.digidoctor.android.model.OnlineAppointmentSlots;
+import com.digidoctor.android.model.PayModeModel;
 import com.digidoctor.android.model.PrescriptionModel;
 import com.digidoctor.android.model.Registration;
 import com.digidoctor.android.model.RegistrationRes;
@@ -804,6 +807,31 @@ public class ApiUtils {
         });
     }
 
+    public static void getPayMode(PayModeModel model, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceNewAPIForPharmacy();
+        Call<com.digidoctor.android.model.Response> call = iRestInterfaces.getPaymentMode(model);
+
+        call.enqueue(new Callback<com.digidoctor.android.model.Response>() {
+            @Override
+            public void onResponse(@NotNull Call<com.digidoctor.android.model.Response> call, @NotNull Response<com.digidoctor.android.model.Response> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    com.digidoctor.android.model.Response responseBody = response.body();
+                    if (responseBody.getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(responseBody.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(responseBody.getResponseMessage());
+                    }
+                } else apiCallbackInterface.onError("" + response.code());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<com.digidoctor.android.model.Response> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
 
     public static void uploadProfileImage(File imagFile, final ApiCallbackInterface apiCallbackInterface) throws IOException {
         MultipartBody.Part[] fileParts = new MultipartBody.Part[1];
@@ -1112,14 +1140,15 @@ public class ApiUtils {
         firestore.collection(APPOINTMENT_CHAT)
                 .whereEqualTo(APPOINTMENT_ID, appointmentId)
                 .orderBy(TIMESTAMP, Query.Direction.DESCENDING)
-                .addSnapshotListener((value, error) -> {
-                    if (null != error)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (null == queryDocumentSnapshots)
                         return;
-
-                    if (null == value)
-                        return;
-
-                    apiCallbackInterface.onSuccess(value.getDocuments());
+                    apiCallbackInterface.onSuccess(queryDocumentSnapshots.getDocuments());
                 });
+    }
+
+    public static void loadLiveChats(FragmentActivity activity, String appointmentId, ApiCallbackInterface apiCallbackInterface) {
+
     }
 }

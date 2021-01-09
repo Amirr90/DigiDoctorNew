@@ -19,10 +19,15 @@ import androidx.navigation.Navigation;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentBookAppointmentBinding;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.BookAppointmentInterface;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.OnlineAppointmentModel;
+import com.digidoctor.android.model.PayModeModel;
+import com.digidoctor.android.model.PaymentMode;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.utility.ApiUtils;
+import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.BookAppointment;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
@@ -30,7 +35,12 @@ import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
+import static com.digidoctor.android.utility.AppUtils.PAY_MODE_PAY_ON_VISIT;
+import static com.digidoctor.android.utility.AppUtils.PAY_MODE_RAZOR_PAYY;
 import static com.digidoctor.android.utility.AppUtils.getDayOfWeekDayFromDate;
+import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.parseDateToFormatDMY;
 import static com.digidoctor.android.utility.AppUtils.parseUserDate;
 import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_CASH;
@@ -118,21 +128,15 @@ public class BookAppointmentFragment extends Fragment {
         appointmentBinding.btnConfirm.setOnClickListener(v -> {
 
             hideSoftKeyboard(PatientDashboard.getInstance());
-            /*new AlertDialog.Builder(requireActivity())
-                    .setMessage("Consultation Fee ₹" + doctorModel.getDrFee())
-                    .setPositiveButton("Pay Now",
-                            (dialog, id) -> {
-                                dialog.cancel();
-                                bookAppointment(PAY_MODE_RAZOR_PAY);
-                            })
-                    .setNegativeButton("Pay on Visit", (dialog, id) -> {
-                        dialog.cancel();
-                        bookAppointment(PAY_MODE_CASH);
-                    }).show();*/
 
             if (doctorModel.getDrFee() == 0) {
                 bookAppointment(PAY_MODE_CASH);
-            } else bookAppointment(PAY_MODE_RAZOR_PAY);
+            } else
+                getPayMode();
+
+       /*     if (doctorModel.getDrFee() == 0) {
+                bookAppointment(PAY_MODE_CASH);
+            } else bookAppointment(PAY_MODE_RAZOR_PAY);*/
 
 
         });
@@ -153,6 +157,72 @@ public class BookAppointmentFragment extends Fragment {
         });
 
 
+    }
+
+    private void getPayMode() {
+        AppUtils.showRequestDialog(requireActivity());
+        PayModeModel payModeModel = new PayModeModel(String.valueOf(doctorModel.getId()));
+        ApiUtils.getPayMode(payModeModel, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                hideSoftKeyboard(requireActivity());
+                List<PaymentMode> paymentModes = (List<PaymentMode>) o;
+                if (null != paymentModes) {
+                    for (PaymentMode mode : paymentModes)
+                        Log.d(TAG, "onSuccess PayMode: " + mode.getPaymentMode());
+
+                    showDialog(paymentModes);
+                }
+
+
+            }
+
+            @Override
+            public void onError(String s) {
+                AppUtils.hideDialog();
+                Toast.makeText(requireActivity(), s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                AppUtils.hideDialog();
+                Log.d(TAG, "onFailed: " + throwable.getLocalizedMessage());
+                Toast.makeText(requireActivity(), "try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showDialog(List<PaymentMode> paymentModes) {
+             /* new AlertDialog.Builder(requireActivity())
+                    .setMessage("Consultation Fee ₹" + doctorModel.getDrFee())
+                    .setPositiveButton("Pay Now",
+                            (dialog, id) -> {
+                                dialog.cancel();
+                                bookAppointment(PAY_MODE_RAZOR_PAY);
+                            })
+                    .setNegativeButton("Pay on Visit", (dialog, id) -> {
+                        dialog.cancel();
+                        bookAppointment(PAY_MODE_CASH);
+                    }).show();*/
+        final CharSequence[] items = new CharSequence[paymentModes.size()];
+        for (int a = 0; a < paymentModes.size(); a++) {
+            items[a] = paymentModes.get(a).getPaymentMode();
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        builder.setTitle("Make your selection");
+        builder.setItems(items, (dialog, item) -> {
+            hideDialog();
+            if (paymentModes.get(item).getId() == PAY_MODE_PAY_ON_VISIT) {
+                bookAppointment(PAY_MODE_CASH);
+            } else if (paymentModes.get(item).getId() == PAY_MODE_RAZOR_PAYY) {
+                bookAppointment(PAY_MODE_RAZOR_PAY);
+            } else {
+                Toast.makeText(requireActivity(), "Coming Soon", Toast.LENGTH_SHORT).show();
+            }
+            dialog.dismiss();
+
+        }).show();
     }
 
     @SuppressLint("UseCompatLoadingForColorStateLists")
@@ -223,12 +293,11 @@ public class BookAppointmentFragment extends Fragment {
                 .setTitle("Incomplete Profile")
                 .setCancelable(false)
                 .setMessage("Your profile is incomplete,\ncomplete  profile before booking appointment")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        navController.navigate(R.id.action_bookAppointmentFragment_to_profileFragment);
-                    }
+                .setPositiveButton("OK", (dialog, id) -> {
+                    dialog.cancel();
+                    navController.navigate(R.id.action_bookAppointmentFragment_to_profileFragment);
                 })
+
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

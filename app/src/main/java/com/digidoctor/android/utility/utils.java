@@ -44,6 +44,8 @@ import static com.digidoctor.android.utility.AppUtils.hideDialog;
 
 public class utils {
 
+
+
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
@@ -412,6 +414,55 @@ public class utils {
             hideDialog();
 
         }
+    }
+
+
+    public static void getKeyboardShowStatus(Activity activity){
+        InputMethodManager imm = (InputMethodManager) activity
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        if (imm.isAcceptingText()) {
+            Log.d("TAG", "Software Keyboard was shown");
+        } else {
+            Log.d("TAG", "Software Keyboard was not shown");
+        }
+    }
+    public static CharSequence createDate(long timestamp) {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(timestamp);
+        Date d = c.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        return sdf.format(d);
+    }
+
+    public static CharSequence getDate(long timestamp) {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(timestamp);
+        Date d = c.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(d);
+    }
+
+/*    private HashMap<String, Object> getChatMap(String msg) */{
+        /*User user = getPrimaryUser(requireActivity());
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(TIMESTAMP, System.currentTimeMillis());
+        map.put(MSG, msg);
+        map.put(SENDER_ID, String.valueOf(user.getMemberId()));
+        map.put(RECEIVER_ID, doId);
+        map.put(APPOINTMENT_ID, AppointmentId);
+        map.put(SENDER_NAME, user.getName());
+        map.put(TOKEN, "token");
+        map.put(IS_SEEN, false);
+        return map;*/
+    }
+
+    public static int getDay(long timestamp) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timestamp);
+        Date date = cal.getTime();
+        cal.setTime(date);
+        return cal.get(Calendar.DAY_OF_MONTH);
     }
 
     public static String getVitalMaxValue(String vitalId) {

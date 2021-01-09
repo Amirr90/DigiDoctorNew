@@ -23,9 +23,11 @@ import com.digidoctor.android.model.MedicineRes;
 import com.digidoctor.android.model.MemberModel;
 import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.OnlineAppointmentSlots;
+import com.digidoctor.android.model.PayModeModel;
 import com.digidoctor.android.model.PrescriptionModel;
 import com.digidoctor.android.model.Registration;
 import com.digidoctor.android.model.RegistrationRes;
+import com.digidoctor.android.model.Response;
 import com.digidoctor.android.model.ResponseModel;
 import com.digidoctor.android.model.SaveMultipleFileRes;
 import com.digidoctor.android.model.SpecialityModel;
@@ -166,6 +168,10 @@ public interface Api {
     @POST("patientInvestigation")
     Call<VitalResponse> addInvestigation(
             @Body AddInvestigationModel model);
+
+    @POST("getPaymentMode")
+    Call<Response> getPaymentMode(
+            @Body PayModeModel model);
 
 
     @Multipart

@@ -15,9 +15,17 @@ import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
+import com.digidoctor.android.utility.utils;
+import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.view.fragments.ShowMemberListFragment;
 
 import java.util.List;
+
+import static com.digidoctor.android.utility.utils.BOOKING_USER;
+import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
+import static com.digidoctor.android.utility.utils.USER;
+import static com.digidoctor.android.utility.utils.getMainUser;
+import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
 public class MemberAdapter extends ListAdapter<User, MemberAdapter.MemberVH> {
 
@@ -64,6 +72,12 @@ public class MemberAdapter extends ListAdapter<User, MemberAdapter.MemberVH> {
         ApiUtils.deleteMember(member, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
+                User user = getPrimaryUser(activity);
+                User mainUser = getMainUser(activity);
+
+                if (member.getMemberId() == user.getMemberId())
+                    updateUser(mainUser);
+
                 AppUtils.hideDialog();
                 ShowMemberListFragment.getInstance().getMembersList();
                 Toast.makeText(activity, activity.getString(com.digidoctor.android.R.string.member_deleted), Toast.LENGTH_SHORT).show();
@@ -82,6 +96,18 @@ public class MemberAdapter extends ListAdapter<User, MemberAdapter.MemberVH> {
 
             }
         });
+    }
+
+    private void updateUser(User user) {
+
+        utils.savePrimaryUserData(USER, activity, user);
+
+        utils.setUserForBooking(BOOKING_USER, activity, user);
+
+        utils.setString(MOBILE_NUMBER, user.getMobileNo(), activity);
+
+        PatientDashboard.getInstance().updateUser();
+        PatientDashboard.getInstance().onSupportNavigateUp();
     }
 
     public class MemberVH extends RecyclerView.ViewHolder {
