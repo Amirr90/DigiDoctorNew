@@ -10,7 +10,7 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import com.digidoctor.android.view.fragments.InputOtpFragment;
+import com.digidoctor.android.view.fragments.digiDoctorFragments.InputOtpFragment;
 
 public class OTPReceiver extends BroadcastReceiver {
     private static final String TAG = "OTPReceiver";

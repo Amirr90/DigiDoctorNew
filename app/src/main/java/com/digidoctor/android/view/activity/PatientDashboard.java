@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,38 +27,43 @@ import androidx.navigation.ui.NavigationUI;
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.NavAdapter;
 import com.digidoctor.android.databinding.ActivityDashBoardBinding;
-import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.DemoAoiInterface;
 import com.digidoctor.android.interfaces.NavigationInterface;
 import com.digidoctor.android.model.DemoResponse;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.NavModel;
-import com.digidoctor.android.model.ResponseModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.GetAddressIntentService;
 import com.digidoctor.android.utility.utils;
-import com.digidoctor.android.view.fragments.SearchBluetoothDeviceFragment;
+import com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.payu.base.models.ErrorResponse;
+import com.payu.checkoutpro.utils.PayUCheckoutProConstants;
+import com.payu.ui.model.listeners.PayUCheckoutProListener;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
-import static com.digidoctor.android.view.fragments.BookAppointmentFragment.bookAppointment;
-import static com.digidoctor.android.view.fragments.PatientDashboardFragment.dashboard2Binding;
-import static com.digidoctor.android.view.fragments.SearchBluetoothDeviceFragment.REQUEST_ENABLE_BT;
+import static com.digidoctor.android.view.fragments.digiDoctorFragments.BookAppointmentFragment.bookAppointment;
+import static com.digidoctor.android.view.fragments.digiDoctorFragments.PatientDashboardFragment.dashboard2Binding;
+import static com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment.REQUEST_ENABLE_BT;
 
-public class PatientDashboard extends AppCompatActivity implements PaymentResultWithDataListener, NavigationInterface {
+public class PatientDashboard extends AppCompatActivity implements PaymentResultWithDataListener, NavigationInterface, PayUCheckoutProListener {
 
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 101;
@@ -85,7 +91,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
     NavAdapter navAdapter;
     List<NavModel> navModels;
-
 
     Menu menu;
 
@@ -146,6 +151,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
        // getDemoApi();
     }
+/*
 
     private void getDemoApi() {
 
@@ -165,6 +171,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             }
         });
     }
+*/
 
     public void updateUser() {
         user = getPrimaryUser(this);
@@ -284,8 +291,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     public void onPaymentError(int i, String s, PaymentData paymentData) {
         Log.d(TAG, "onPaymentError: " + s);
         Toast.makeText(instance, R.string.failed_to_book, Toast.LENGTH_SHORT).show();
-
-
     }
 
 
@@ -393,6 +398,62 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             default:
                 Toast.makeText(instance, "Coming Soon", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onPaymentSuccess(@NotNull Object o) {
+        HashMap<String, Object> result = (HashMap<String, Object>) o;
+        String payuResponse = (String) result.get(PayUCheckoutProConstants.CP_PAYU_RESPONSE);
+        String merchantResponse = (String) result.get(PayUCheckoutProConstants.CP_MERCHANT_RESPONSE);
+        bookAppointment.startBookingAppointment(merchantResponse);
+    }
+
+    @Override
+    public void onPaymentFailure(@NotNull Object response) {
+        HashMap<String, Object> result = (HashMap<String, Object>) response;
+        String payuResponse = (String) result.get(PayUCheckoutProConstants.CP_PAYU_RESPONSE);
+        String merchantResponse = (String) result.get(PayUCheckoutProConstants.CP_MERCHANT_RESPONSE);
+        //bookAppointmentInterface.onFailed(merchantResponse);
+        Toast.makeText(instance, R.string.failed_to_book, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onPaymentCancel(boolean b) {
+         /*   if (b)
+                bookAppointmentInterface.onFailed("PaymentCancel");*/
+        Log.d(TAG, "onPaymentCancel: " + b);
+        Toast.makeText(instance, R.string.failed_to_book, Toast.LENGTH_SHORT).show();
+
+
+    }
+
+    @Override
+    public void onError(@NotNull ErrorResponse errorResponse) {
+        String errorMessage = errorResponse.getErrorMessage();
+        // bookAppointmentInterface.onFailed(errorMessage);
+        Log.d(TAG, "onError: " + errorMessage);
+        Toast.makeText(instance, R.string.failed_to_book, Toast.LENGTH_SHORT).show();
+
+
+    }
+
+    @Override
+    public void generateHash(@NotNull HashMap<String, String> hashMap, @NotNull com.payu.ui.model.listeners.PayUHashGenerationListener payUHashGenerationListener) {
+        /*String hashName = hashMap.get(PayUCheckoutProConstants.CP_HASH_NAME);
+        String hashData = hashMap.get(PayUCheckoutProConstants.CP_HASH_STRING);
+        if (!TextUtils.isEmpty(hashName) && !TextUtils.isEmpty(hashData)) {
+            String hash = getHash();
+            HashMap<String, String> dataMap = new HashMap<>();
+            dataMap.put(hashName, hash);
+            payUHashGenerationListener.onHashGenerated(dataMap);
+        }*/
+        Log.d(TAG, "generateHash: ");
+    }
+
+    @Override
+    public void setWebViewProperties(@Nullable WebView webView, @Nullable Object o) {
+
     }
 
 

@@ -64,7 +64,7 @@ public class AppUtils {
 
     public static void showRequestDialog(Activity activity) {
 
-        //Log.d("Token-Number", AppSettings.getString(AppSettings.token));
+
 
         try {
             if (!((Activity) activity).isFinishing()) {

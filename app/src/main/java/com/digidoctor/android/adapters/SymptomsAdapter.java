@@ -11,7 +11,7 @@ import com.digidoctor.android.databinding.SymptomsViewBinding;
 import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.interfaces.AdapterInterface;
 
-import static com.digidoctor.android.view.fragments.SymptomsFragment.symptomsIds;
+import static com.digidoctor.android.view.fragments.digiDoctorFragments.SymptomsFragment.symptomsIds;
 
 
 public class SymptomsAdapter extends ListAdapter<SymptomModel, SymptomsAdapter.SymptomVH> {

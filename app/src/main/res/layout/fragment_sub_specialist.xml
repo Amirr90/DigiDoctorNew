@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/BackgroundColor"
     android:orientation="vertical"
-    tools:context=".view.fragments.SubSpecialistFragment">
+    tools:context="com.digidoctor.android.view.fragments.digiDoctorFragments.SubSpecialistFragment">
 
 
     <LinearLayout

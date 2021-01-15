@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.fragments.SymptomsFragment">
+    tools:context=".view.fragments.digiDoctorFragments.SymptomsFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                     android:drawableRight="@drawable/magnifier"
                     android:drawablePadding="10dp"
                     android:ems="10"
-                    android:hint="Search Symptoms Here"
+                    android:hint="@string/search_symptoms_here"
                     android:imeOptions="actionSearch"
                     android:inputType="textPersonName"
                     android:paddingLeft="20dp"
@@ -51,7 +51,7 @@
                     android:paddingBottom="10dp"
                     android:singleLine="true"
                     android:textColorHint="#A2B3B8"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
             </LinearLayout>
             <ProgressBar
                 android:visibility="gone"
@@ -86,7 +86,7 @@
         android:text="@string/proceed"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="13dp"
+        android:textSize="13sp"
         android:textStyle="bold" />
 
 </RelativeLayout>

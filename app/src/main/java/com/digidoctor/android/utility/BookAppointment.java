@@ -1,7 +1,9 @@
 package com.digidoctor.android.utility;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.digidoctor.android.R;
@@ -13,11 +15,23 @@ import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.ResponseModel;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.gson.Gson;
+import com.payu.base.models.ErrorResponse;
+import com.payu.base.models.PayUPaymentParams;
+import com.payu.base.models.PaymentMode;
+import com.payu.base.models.PaymentType;
+import com.payu.checkoutpro.PayUCheckoutPro;
+import com.payu.checkoutpro.models.PayUCheckoutProConfig;
+import com.payu.checkoutpro.utils.PayUCheckoutProConstants;
+import com.payu.ui.model.listeners.PayUCheckoutProListener;
 import com.razorpay.Checkout;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +43,10 @@ import retrofit2.Response;
 
 import static com.digidoctor.android.utility.ApiUtils.checkTimeSlotAvailability;
 import static com.digidoctor.android.utility.ApiUtils.getTransactionNo;
+import static com.digidoctor.android.utility.AppUtils.PAY_MODE_PAY_ON_VISIT;
+import static com.digidoctor.android.utility.AppUtils.PAY_MODE_PAY_U_MONEY;
+import static com.digidoctor.android.utility.AppUtils.PAY_MODE_RAZOR_PAYY;
 import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_CASH;
-import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_RAZOR_PAY;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_DATE;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_TIME;
 import static com.digidoctor.android.utility.utils.KEY_AMOUNT;
@@ -41,11 +57,17 @@ import static com.digidoctor.android.utility.utils.KEY_PATIENT_NAME;
 import static com.digidoctor.android.utility.utils.MEMBER_ID;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.logout;
-import static com.digidoctor.android.view.fragments.BookAppointmentFragment.bookAppointment;
+import static com.digidoctor.android.view.fragments.digiDoctorFragments.BookAppointmentFragment.bookAppointment;
+import static com.payu.checkoutpro.utils.PayUCheckoutProConstants.CP_HASH_NAME;
+import static com.payu.checkoutpro.utils.PayUCheckoutProConstants.CP_HASH_STRING;
 
 public class BookAppointment extends Credentials {
 
     private static final String TAG = "BookAppointment";
+    private String MERCHANT_KEY = "y7cBem";
+    private String SALT = "PxXF1pqL";
+
+    private Integer payMode;
 
     private String userMobileNo;
     private String memberId;
@@ -71,10 +93,27 @@ public class BookAppointment extends Credentials {
     private String drFee;
     private String paymentId;
     private String trxId;
+    private String paymentMode;
+
+    public String getPaymentMode() {
+        return paymentMode;
+    }
+
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
+    }
 
     Activity activity;
     BookAppointmentInterface bookAppointmentInterface;
 
+
+    public Integer getPayMode() {
+        return payMode;
+    }
+
+    public void setPayMode(Integer payMode) {
+        this.payMode = payMode;
+    }
 
     public String getTrxId() {
         return trxId;
@@ -308,9 +347,9 @@ public class BookAppointment extends Credentials {
     public void initBooking(final int payMode, final BookAppointmentInterface bookAppointmentInterface) {
         this.bookAppointmentInterface = bookAppointmentInterface;
 
-
+        setPayMode(payMode);
+        setPaymentMode(getPaymentmode(payMode));
         //CheckTimeSlot Availability
-
         final Map<String, String> map = new HashMap<>();
         map.put(MOBILE_NUMBER, getUserMobileNo());
         map.put(MEMBER_ID, getMemberId());
@@ -329,16 +368,9 @@ public class BookAppointment extends Credentials {
                 if (response != null) {
 
                     if (response.get(0).getIsAvailable() == 1) {
-                        switch (payMode) {
-                            case PAY_MODE_CASH:
-                                startBookingAppointment(null
-                                );
-                                break;
-                            case PAY_MODE_RAZOR_PAY: {
-                                getTrxId(map);
-
-                            }
-                        }
+                        if (payMode == PAY_MODE_CASH) {
+                            startBookingAppointment(null);
+                        } else getTrxId(map, payMode);
                     } else {
                         bookAppointmentInterface.onFailed(activity.getString(R.string.slot_not_available));
                     }
@@ -371,7 +403,18 @@ public class BookAppointment extends Credentials {
 
     }
 
-    private void getTrxId(Map<String, String> map) {
+    private String getPaymentmode(int payMode) {
+        if (payMode == PAY_MODE_PAY_ON_VISIT)
+            return "PayOnVisit";
+        else if (payMode == PAY_MODE_PAY_U_MONEY)
+            return "payUMoney";
+        else if (payMode == PAY_MODE_RAZOR_PAYY)
+            return "RazorPay";
+        else return "";
+    }
+
+
+    private void getTrxId(Map<String, String> map, int payMode) {
 
         map.put(KEY_PATIENT_NAME, getPatientName());
         map.put(KEY_AMOUNT, getDrFee());
@@ -382,9 +425,12 @@ public class BookAppointment extends Credentials {
                 List<ResponseModel.HashModel> models = (List<ResponseModel.HashModel>) o;
                 if (null != models) {
                     String tId = models.get(0).getTaxId();
+                    setTrxId(tId);
                     utils.setString("txid", tId, activity);
-                    Log.d(TAG, "txid:" + tId);
-                    startRazorPayBooking(tId);
+                    if (payMode == PAY_MODE_PAY_U_MONEY)
+                        startPayUBizPayment();
+                    else
+                        startRazorPayBooking(tId);
                 }
 
             }
@@ -410,13 +456,19 @@ public class BookAppointment extends Credentials {
         });
     }
 
+    private void startPayUBizPayment() {
+        Log.d(TAG, "initPayUBizPayment: ");
+        initPayUPayment(bookAppointmentInterface);
+
+    }
+
     private void startRazorPayBooking(String tId) {
 
         Checkout.preload(activity);
         Checkout checkout = new Checkout();
-         checkout.setKeyID("rzp_test_41Dk0t9QjLuFZl");
+        // checkout.setKeyID("rzp_test_41Dk0t9QjLuFZl");
 
-        //checkout.setKeyID("rzp_live_BwhTaXRxeklaAI");
+        checkout.setKeyID("rzp_live_BwhTaXRxeklaAI");
         bookAppointment.setTrxId(tId);
         String image = "https://digidoctor.in/assets/images/logonew.png";
 
@@ -465,6 +517,7 @@ public class BookAppointment extends Credentials {
                 ", drFee='" + drFee + '\'' +
                 ", paymentId='" + paymentId + '\'' +
                 ", trxId='" + trxId + '\'' +
+                ", paymentMode='" + paymentMode + '\'' +
                 ", activity=" + activity +
                 ", bookAppointmentInterface=" + bookAppointmentInterface +
                 '}';
@@ -472,9 +525,15 @@ public class BookAppointment extends Credentials {
 
     public void startBookingAppointment(String rzrId) {
 
+        Log.d(TAG, "startBookingAppointment: PayMode  " + getPayMode() + getPaymentMode());
 
-        String dtTableData = "[{\"paymentStatus\":\"success\",\"bankRefNo\":\"" + rzrId + "\",\"paymentAmount\":\"" + getDrFee() + "\",\"transactionNo\":\"" + getTrxId() + "\",\"isErauser\":" + getIsEraUser() + "}]";
-        setDtPaymentTable(dtTableData);
+        if (getPayMode() == PAY_MODE_PAY_U_MONEY)
+            setDtPaymentTable(rzrId);
+        else {
+            String dtTableData = "[{\"paymentStatus\":\"success\",\"bankRefNo\":\"" + rzrId + "\",\"paymentAmount\":\"" + getDrFee() + "\",\"transactionNo\":\"" + getTrxId() + "\",\"isErauser\":" + getIsEraUser() + "}]";
+            setDtPaymentTable(dtTableData);
+        }
+
 
         BookAppointment2 appointment = getBookingAppointmentData();
         Log.d(TAG, "startBookingAppointment: " + appointment.toString());
@@ -518,4 +577,159 @@ public class BookAppointment extends Credentials {
     }
 
 
+    public String getHash(String hashData) {
+        String type = "SHA-512";
+        //String hashSequence = MERCHANT_KEY + "|" + getTrxId() + "|" + getDrFee() + "|" + "onlineAppointment" + "|" + getPatientName() + "|" + getEmail() + "|" + "udf1|udf2|udf3|udf4|udf5|" + SALT;;
+        StringBuilder hash = new StringBuilder();
+        MessageDigest messageDigest = null;
+        try {
+            messageDigest = MessageDigest.getInstance(type);
+            messageDigest.update(hashData.getBytes());
+            byte[] mdbytes = messageDigest.digest();
+            for (byte hashByte : mdbytes) {
+                hash.append(Integer.toString((hashByte & 0xff) + 0x100, 16).substring(1));
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "generateHash: " + hash.toString());
+        return hash.toString();
+    }
+
+    public void initPayUPayment(BookAppointmentInterface bookAppointmentInterface) {
+
+        HashMap<String, Object> additionalParams = new HashMap<>();
+        additionalParams.put(PayUCheckoutProConstants.CP_UDF1, "udf1");
+        additionalParams.put(PayUCheckoutProConstants.CP_UDF2, "udf2");
+        additionalParams.put(PayUCheckoutProConstants.CP_UDF3, "udf3");
+        additionalParams.put(PayUCheckoutProConstants.CP_UDF4, "udf4");
+        additionalParams.put(PayUCheckoutProConstants.CP_UDF5, "udf5");
+
+        PayUPaymentParams.Builder builder = new PayUPaymentParams.Builder();
+
+        builder.setAmount(getDrFee())
+                .setIsProduction(true)
+                .setProductInfo("onlineAppointment")
+                .setKey(MERCHANT_KEY)
+                .setPhone(getMobileNo())
+                .setTransactionId(getTrxId())
+                .setFirstName(getPatientName())
+                .setEmail(getEmail())
+                .setSurl(getSurl())
+                .setFurl(getFurl())
+                .setAdditionalParams(additionalParams)
+                .setUserCredential(getEmail());
+
+        ArrayList<PaymentMode> checkoutOrderList = new ArrayList<>();
+        checkoutOrderList.add(new PaymentMode(PaymentType.UPI, PayUCheckoutProConstants.CP_GOOGLE_PAY));
+        checkoutOrderList.add(new PaymentMode(PaymentType.WALLET, PayUCheckoutProConstants.CP_PHONEPE));
+        checkoutOrderList.add(new PaymentMode(PaymentType.WALLET, PayUCheckoutProConstants.CP_PAYTM));
+        PayUCheckoutProConfig payUCheckoutProConfig = new PayUCheckoutProConfig();
+        payUCheckoutProConfig.setPaymentModesOrder(checkoutOrderList);
+
+        PayUPaymentParams payUPaymentParams = builder.build();
+        PayUCheckoutPro.open(
+                activity,
+                payUPaymentParams,
+                payUCheckoutProConfig,
+                new PayUCheckoutProListener() {
+                    @Override
+                    public void onPaymentSuccess(@NotNull Object o) {
+                        HashMap<String, Object> result = (HashMap<String, Object>) o;
+                        String payuResponse = (String) result.get(PayUCheckoutProConstants.CP_PAYU_RESPONSE);
+                        bookAppointment.startBookingAppointment(payuResponse);
+                        Log.d(TAG, "payuResponse: " + payuResponse);
+
+
+                    }
+
+                    @Override
+                    public void onPaymentFailure(@NotNull Object response) {
+                        HashMap<String, Object> result = (HashMap<String, Object>) response;
+                        String payuResponse = (String) result.get(PayUCheckoutProConstants.CP_PAYU_RESPONSE);
+                        String merchantResponse = (String) result.get(PayUCheckoutProConstants.CP_MERCHANT_RESPONSE);
+                        bookAppointmentInterface.onFailed(merchantResponse);
+                        Log.d(TAG, "onPaymentFailure: " + payuResponse);
+                    }
+
+                    @Override
+                    public void onPaymentCancel(boolean b) {
+                        if (b)
+                            bookAppointmentInterface.onFailed("PaymentCancel");
+                        Log.d(TAG, "onPaymentCancel: " + b);
+
+                    }
+
+                    @Override
+                    public void onError(@NotNull ErrorResponse errorResponse) {
+                        String errorMessage = errorResponse.getErrorMessage();
+                        bookAppointmentInterface.onFailed(errorMessage);
+                        Log.d(TAG, "onError: " + errorMessage);
+
+                    }
+
+                    @Override
+                    public void generateHash(@NotNull HashMap<String, String> map, @NotNull com.payu.ui.model.listeners.PayUHashGenerationListener payUHashGenerationListener) {
+                        String hashName = map.get(CP_HASH_NAME);
+                        String hashData = map.get(CP_HASH_STRING);
+
+                        if (!TextUtils.isEmpty(hashName) && !TextUtils.isEmpty(hashData)) {
+                            hashData += SALT;
+
+                            String hash = getSHA(hashData);
+                            if (!TextUtils.isEmpty(hash)) {
+                                HashMap<String, String> hashMap = new HashMap<>();
+                                hashMap.put(hashName, hash);
+                                payUHashGenerationListener.onHashGenerated(hashMap);
+                                Log.d(TAG, ": HashName: " + hashName);
+                                Log.d(TAG, ": hashData: " + hashData);
+                                Log.d(TAG, ": hash: " + hash);
+                            } else Log.d(TAG, "generateHash is Empty: ");
+
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void setWebViewProperties(@Nullable WebView webView, @Nullable Object o) {
+
+                    }
+                });
+    }
+
+    private String getSHA(String str) {
+        MessageDigest md;
+        String out = "";
+        try {
+            md = MessageDigest.getInstance("SHA-512");
+            md.update(str.getBytes());
+            byte[] mb = md.digest();
+
+            for (int i = 0; i < mb.length; i++) {
+                byte temp = mb[i];
+                String s = Integer.toHexString(new Byte(temp));
+                while (s.length() < 2) {
+                    s = "0" + s;
+                }
+                s = s.substring(s.length() - 2);
+                out += s;
+            }
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return out;
+
+    }
+
+
+    private String getFurl() {
+        return "https://payuresponse.firebaseapp.com/failure";
+    }
+
+    private String getSurl() {
+        return "https://payuresponse.firebaseapp.com/success";
+    }
 }

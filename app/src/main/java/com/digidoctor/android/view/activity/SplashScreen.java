@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.digidoctor.android.utility.utils.IS_LOGIN;
-import static com.digidoctor.android.utility.utils.USER;
 import static com.digidoctor.android.utility.utils.fcmToken;
 import static com.digidoctor.android.utility.utils.getLoginStatus;
 import static com.digidoctor.android.utility.utils.setString;
@@ -91,14 +90,10 @@ public class SplashScreen extends AppCompatActivity {
                         updateUI(null);
                     }
 
-                    // ...
                 });
     }
 
     private void updateUI(FirebaseUser currentUser) {
-
-       /* db.collection(USER)
-                .add()*/
 
     }
 

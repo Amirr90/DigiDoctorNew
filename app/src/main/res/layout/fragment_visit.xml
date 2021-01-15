@@ -17,7 +17,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.fragments.VisitFragment">
+        tools:context=".view.fragments.digiDoctorFragments.VisitFragment">
 
         <LinearLayout
             android:layout_width="match_parent"

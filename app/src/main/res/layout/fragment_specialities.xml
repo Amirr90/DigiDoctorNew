@@ -6,7 +6,7 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/BackgroundColor"
-    tools:context=".view.fragments.SpecialitiesFragment">
+    tools:context=".view.fragments.digiDoctorFragments.SpecialitiesFragment">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

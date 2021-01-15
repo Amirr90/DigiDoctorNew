@@ -9,8 +9,8 @@ android {
         applicationId "com.digidoctor.android"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 64
-        versionName "1.0.1"
+        versionCode 67
+        versionName "1.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -131,5 +131,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.0'
     annotationProcessor 'androidx.room:room-compiler:2.2.5'
+
+
+    //PayU SdK
+    implementation 'com.payu.india:payu-checkout-pro:1.1.3'
+
 
 }

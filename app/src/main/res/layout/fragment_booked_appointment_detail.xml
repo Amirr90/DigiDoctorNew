@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:background="@color/BackgroundColor"
         android:orientation="vertical"
-        tools:context=".view.fragments.BookedAppointmentDetailFragment">
+        tools:context=".view.fragments.digiDoctorFragments.BookedAppointmentDetailFragment">
 
         <LinearLayout
             android:layout_width="match_parent"

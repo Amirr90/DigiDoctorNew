@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="paymentOption"
+            type="com.digidoctor.android.model.PaymentMode" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp">
+
+        <ImageView
+            android:id="@+id/imageView51"
+            android:layout_width="81dp"
+            android:layout_height="18dp"
+            android:loadPaymentOptionImage="@{paymentOption.image}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/textView156"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@{paymentOption.paymentMode}"
+            android:textColor="#3F4E6E"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/imageView51"
+            app:layout_constraintTop_toBottomOf="@+id/imageView51" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shadowColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/textView156"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView51" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+    <!--
+        android:button="@drawable/check_unckecked_layout"-->

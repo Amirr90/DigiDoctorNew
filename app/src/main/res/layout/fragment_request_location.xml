@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/top_location"
-    tools:context=".view.fragments.RequestLocationFragment">
+    tools:context=".view.fragments.digiDoctorFragments.RequestLocationFragment">
 
 
     <RelativeLayout

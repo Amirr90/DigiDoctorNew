@@ -18,13 +18,13 @@ allprojects {
         google()
         jcenter()
 
-        maven { url "https://jitpack.io" }
+        maven { url= "https://jitpack.io" }
         maven { url = 'https://dl.bintray.com/yuancloud/maven/' }
         maven {
-            url "https://highsoft.bintray.com/Highcharts"
+            url= "https://highsoft.bintray.com/Highcharts"
         }
         maven {
-            url "https://phonepe.bintray.com/PhonePeIntentSDK"
+            url= "https://phonepe.bintray.com/PhonePeIntentSDK"
         }
     }
 }

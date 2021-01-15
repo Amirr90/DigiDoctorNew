@@ -17,7 +17,7 @@ import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
-import com.digidoctor.android.view.fragments.ShowMemberListFragment;
+import com.digidoctor.android.view.fragments.digiDoctorFragments.ShowMemberListFragment;
 
 import java.util.List;
 

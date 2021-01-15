@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingBottom="@dimen/payu_dimen_25dp"
+    android:layout_height="wrap_content"
+    android:paddingLeft="15dp"
+    android:paddingTop="22dp"
+    android:paddingRight="15dp">
+
+    <TextView
+        android:id="@+id/textView155"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Select Pay Mode"
+        android:textColor="#262E3F"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView155"
+        tools:itemCount="3"
+        tools:listitem="@layout/logout_option_view" />
+
+    <Button
+        android:id="@+id/btnSelf"
+        android:layout_width="218dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/round_for_search"
+        android:backgroundTint="@color/YellowColo"
+        android:fontFamily="@font/poppins_semibold"
+        android:maxLines="2"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/pay_now"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView5" />
+</androidx.constraintlayout.widget.ConstraintLayout>

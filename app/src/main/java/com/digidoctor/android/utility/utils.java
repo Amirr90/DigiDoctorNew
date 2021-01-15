@@ -3,6 +3,7 @@ package com.digidoctor.android.utility;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,7 +44,6 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 
 public class utils {
-
 
 
     private static final int SECOND_MILLIS = 1000;
@@ -230,16 +230,11 @@ public class utils {
     }
 
     public static ArrayList<HashMap<String, String>> getNextWeekDays() {
-//        SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd-MMM-yyyy");
-
         ArrayList<HashMap<String, String>> list = new ArrayList<>();
-
         HashMap<String, String> hashMap = new HashMap<>();
-
         SimpleDateFormat sdfDate = new SimpleDateFormat("dd", Locale.getDefault());
         SimpleDateFormat sdfDay = new SimpleDateFormat("EEE", Locale.getDefault());
         SimpleDateFormat sdfDateSend = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
-
         for (int i = 0; i < 7; i++) {
             hashMap = new HashMap<>();
 
@@ -256,7 +251,6 @@ public class utils {
             list.add(hashMap);
 
         }
-
         return list;
     }
 
@@ -367,10 +361,13 @@ public class utils {
 
 
     public static boolean logout(final Activity activity) {
+        Dialog dialog = new Dialog(activity);
         try {
-
+            //LogoutViewBinding dialogBinding = LogoutViewBinding.inflate(activity.getLayoutInflater());
             new AlertDialog.Builder(activity)
                     .setTitle(R.string.logout)
+                    //.setView(dialogBinding.getRoot())
+
                     .setMessage(R.string.logout_text)
                     .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -391,7 +388,9 @@ public class utils {
                 }
             }).show();
 
-
+        /*    dialog.setContentView(dialogBinding.getRoot());
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();*/
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -416,17 +415,6 @@ public class utils {
         }
     }
 
-
-    public static void getKeyboardShowStatus(Activity activity){
-        InputMethodManager imm = (InputMethodManager) activity
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        if (imm.isAcceptingText()) {
-            Log.d("TAG", "Software Keyboard was shown");
-        } else {
-            Log.d("TAG", "Software Keyboard was not shown");
-        }
-    }
     public static CharSequence createDate(long timestamp) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(timestamp);
@@ -443,7 +431,7 @@ public class utils {
         return sdf.format(d);
     }
 
-/*    private HashMap<String, Object> getChatMap(String msg) */{
+    /*    private HashMap<String, Object> getChatMap(String msg) */ {
         /*User user = getPrimaryUser(requireActivity());
         HashMap<String, Object> map = new HashMap<>();
         map.put(TIMESTAMP, System.currentTimeMillis());
@@ -505,24 +493,6 @@ public class utils {
     public static String getDayFromDate(String incomingDate) {
         String inputPattern = "dd/MM/yyyy";
         String outputPattern = "EEE";
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
-
-        Date date = null;
-        String str = null;
-
-        try {
-            date = inputFormat.parse(incomingDate);
-            str = outputFormat.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return str;
-    }
-
-    public static String getYearFromDate(String incomingDate) {
-        String inputPattern = "yyyy/MM/dd";
-        String outputPattern = "yyyy";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 

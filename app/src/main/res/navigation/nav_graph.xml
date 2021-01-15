@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/patientDashboardFragment"
-        android:name="com.digidoctor.android.view.fragments.PatientDashboardFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.PatientDashboardFragment"
         android:label="Dashboard"
         tools:layout="@layout/fragment_patient_dashboard">
         <action
@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/symptomsFragment2"
-        android:name="com.digidoctor.android.view.fragments.SymptomsFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.SymptomsFragment"
         android:label="@string/symptoms"
         tools:layout="@layout/fragment_symptoms">
         <action
@@ -82,7 +82,7 @@
     </fragment>
     <fragment
         android:id="@+id/specialitiesFragment2"
-        android:name="com.digidoctor.android.view.fragments.SpecialitiesFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.SpecialitiesFragment"
         android:label="@string/speciality"
         tools:layout="@layout/fragment_specialities">
         <action
@@ -95,7 +95,7 @@
     </fragment>
     <fragment
         android:id="@+id/subSpecialistFragment"
-        android:name="com.digidoctor.android.view.fragments.SubSpecialistFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.SubSpecialistFragment"
         android:label="@string/search_doctor"
         tools:layout="@layout/fragment_sub_specialist">
         <action
@@ -115,7 +115,7 @@
     </fragment>
     <fragment
         android:id="@+id/chooseTimeFragment2"
-        android:name="com.digidoctor.android.view.fragments.ChooseTimeFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.ChooseTimeFragment"
         android:label="@string/select_time"
         tools:layout="@layout/fragment_choose_time">
         <action
@@ -128,7 +128,7 @@
     </fragment>
     <fragment
         android:id="@+id/bookAppointmentFragment"
-        android:name="com.digidoctor.android.view.fragments.BookAppointmentFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.BookAppointmentFragment"
         android:label="@string/book_appointment"
         tools:layout="@layout/fragment_book_appointment">
         <action
@@ -158,7 +158,7 @@
     </fragment>
     <fragment
         android:id="@+id/bookedAppointmentDetailFragment"
-        android:name="com.digidoctor.android.view.fragments.BookedAppointmentDetailFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.BookedAppointmentDetailFragment"
         android:label="@string/appointment_booked"
         tools:layout="@layout/fragment_booked_appointment_detail">
         <action
@@ -179,7 +179,7 @@
     </fragment>
     <fragment
         android:id="@+id/recommendedDoctorsFragment"
-        android:name="com.digidoctor.android.view.fragments.RecommendedDoctorsFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.RecommendedDoctorsFragment"
         android:label="@string/recommended_doctors"
         tools:layout="@layout/fragment_recommended_doctors">
         <action
@@ -199,7 +199,7 @@
     </fragment>
     <fragment
         android:id="@+id/doctorShortProfileFragment"
-        android:name="com.digidoctor.android.view.fragments.DoctorProfileFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.DoctorProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_doctor_short_profile">
         <action
@@ -212,12 +212,12 @@
     </fragment>
     <fragment
         android:id="@+id/doctorsNotFoundFragment"
-        android:name="com.digidoctor.android.view.fragments.DoctorsNotFoundFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.DoctorsNotFoundFragment"
         android:label="fragment_doctors_not_found"
         tools:layout="@layout/fragment_doctors_not_found" />
     <fragment
         android:id="@+id/appointmentDoneFragment"
-        android:name="com.digidoctor.android.view.fragments.AppointmentDoneFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.AppointmentDoneFragment"
         android:label="fragment_appointment_done"
         tools:layout="@layout/fragment_appointment_done">
         <action
@@ -231,7 +231,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.digidoctor.android.view.fragments.ProfileFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
     <activity
@@ -241,12 +241,12 @@
         tools:layout="@layout/activity_sign_up_journey" />
     <fragment
         android:id="@+id/requestLocationFragment"
-        android:name="com.digidoctor.android.view.fragments.RequestLocationFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.RequestLocationFragment"
         android:label="fragment_request_location"
         tools:layout="@layout/fragment_request_location" />
     <fragment
         android:id="@+id/appointmentsFragment"
-        android:name="com.digidoctor.android.view.fragments.AppointmentsFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.AppointmentsFragment"
         android:label="@string/my_appointments"
         tools:layout="@layout/fragment_appointment">
         <action
@@ -259,7 +259,7 @@
     </fragment>
     <fragment
         android:id="@+id/prescriptionHistoryFragment"
-        android:name="com.digidoctor.android.view.fragments.PrescriptionHistoryFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.PrescriptionHistoryFragment"
         android:label="@string/prescription_history"
         tools:layout="@layout/fragment_prescription_history">
         <action
@@ -279,7 +279,7 @@
     </fragment>
     <fragment
         android:id="@+id/visitFragment"
-        android:name="com.digidoctor.android.view.fragments.VisitFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.VisitFragment"
         android:label="@string/visit_details"
         tools:layout="@layout/fragment_visit">
         <action
@@ -292,12 +292,12 @@
     </fragment>
     <fragment
         android:id="@+id/showFileOrPdfFragment"
-        android:name="com.digidoctor.android.view.fragments.ShowFileOrPdfFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.ShowFileOrPdfFragment"
         android:label="@string/show_files"
         tools:layout="@layout/fragment_show_file_or_pdf" />
     <fragment
         android:id="@+id/showMemberListFragment"
-        android:name="com.digidoctor.android.view.fragments.ShowMemberListFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.ShowMemberListFragment"
         android:label="@string/select_member"
         tools:layout="@layout/fragment_show_member_list">
         <action
@@ -310,17 +310,17 @@
     </fragment>
     <fragment
         android:id="@+id/addMemberFragment"
-        android:name="com.digidoctor.android.view.fragments.AddMemberFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.AddMemberFragment"
         android:label="@string/add_member"
         tools:layout="@layout/fragment_add_member" />
     <fragment
         android:id="@+id/cancelAppointmentFragment2"
-        android:name="com.digidoctor.android.view.fragments.CancelAppointmentFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.CancelAppointmentFragment"
         android:label="CancelAppointmentFragment"
         tools:layout="@layout/fragment_cancel_appointment" />
     <fragment
         android:id="@+id/reScheduleFragment"
-        android:name="com.digidoctor.android.view.fragments.ReScheduleFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.ReScheduleFragment"
         android:label="@string/re__schedule_appointment"
         tools:layout="@layout/fragment_re_schedule">
         <action
@@ -334,7 +334,7 @@
     </fragment>
     <fragment
         android:id="@+id/chooseVitalHistoryTypeFragment"
-        android:name="com.digidoctor.android.view.fragments.ChooseVitalHistoryTypeFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.ChooseVitalHistoryTypeFragment"
         android:label="Vital"
         tools:layout="@layout/fragment_choose_vital_history_type">
         <action
@@ -361,12 +361,12 @@
     </fragment>
     <fragment
         android:id="@+id/addPrescriptionManuallyFragment"
-        android:name="com.digidoctor.android.view.fragments.AddPrescriptionManuallyFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.AddPrescriptionManuallyFragment"
         android:label="@string/add_prescription"
         tools:layout="@layout/fragment_add_prescription_manually" />
     <fragment
         android:id="@+id/addVitalsFragment"
-        android:name="com.digidoctor.android.view.fragments.AddVitalsFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.AddVitalsFragment"
         android:label="@string/add_vitals"
         tools:layout="@layout/fragment_add_vitala" />
     <fragment
@@ -376,7 +376,7 @@
         tools:layout="@layout/fragment_vital_chart" />
     <fragment
         android:id="@+id/selectDeviceFragment"
-        android:name="com.digidoctor.android.view.fragments.SelectDeviceFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.SelectDeviceFragment"
         android:label="Select Device"
         tools:layout="@layout/fragment_select_device">
         <action
@@ -389,12 +389,12 @@
     </fragment>
     <fragment
         android:id="@+id/searchBluetoothDeviceFragment"
-        android:name="com.digidoctor.android.view.fragments.SearchBluetoothDeviceFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment"
         android:label="Seaching Device"
         tools:layout="@layout/fragment_search_blutooth_device" />
     <fragment
         android:id="@+id/investigationFragment"
-        android:name="com.digidoctor.android.view.fragments.InvestigationFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.InvestigationFragment"
         android:label="@string/add_investigation"
         tools:layout="@layout/fragment_investigation">
         <action
@@ -421,7 +421,7 @@
     </fragment>
     <fragment
         android:id="@+id/appointmentDetailFragment"
-        android:name="com.digidoctor.android.view.fragments.AppointmentDetailFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.AppointmentDetailFragment"
         android:label="@string/appointment_details"
         tools:layout="@layout/fragment_appointment_detail">
         <action
@@ -445,10 +445,17 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_appointmentDetailFragment_to_uploadDocumentForAppointmentFragment"
+            app:destination="@id/uploadDocumentForAppointmentFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/addInvestigationFragment"
-        android:name="com.digidoctor.android.view.fragments.AddInvestigationFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.AddInvestigationFragment"
         android:label="@string/add_investigation"
         tools:layout="@layout/fragment_add_investigation">
         <action
@@ -461,7 +468,7 @@
     </fragment>
     <fragment
         android:id="@+id/investigationDetailFragment"
-        android:name="com.digidoctor.android.view.fragments.InvestigationDetailFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.InvestigationDetailFragment"
         android:label="@string/investigations"
         tools:layout="@layout/fragment_investigation_detail" />
     <fragment
@@ -487,4 +494,14 @@
         android:name="com.digidoctor.android.ChatForAppointmentFragment"
         android:label="Chat"
         tools:layout="@layout/fragment_chat_for_appointment" />
+    <dialog
+        android:id="@+id/logoutDialogFragment"
+        android:name="com.digidoctor.android.LogoutDialogFragment"
+        android:label="fragment_logout_dialog"
+        tools:layout="@layout/fragment_logout_dialog" />
+    <fragment
+        android:id="@+id/uploadDocumentForAppointmentFragment"
+        android:name="com.digidoctor.android.UploadDocumentForAppointmentFragment"
+        android:label="@string/send_document"
+        tools:layout="@layout/fragment_upload_document_for_appointment" />
 </navigation>

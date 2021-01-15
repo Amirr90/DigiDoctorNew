@@ -13,7 +13,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.fragments.SelectDeviceFragment">
+        tools:context=".view.fragments.digiDoctorFragments.SelectDeviceFragment">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

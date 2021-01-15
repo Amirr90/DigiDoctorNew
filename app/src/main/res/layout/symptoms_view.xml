@@ -24,8 +24,8 @@
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:elevation="5dp"
-        app:cardCornerRadius="5dp"
-        android:focusable="true">
+        android:focusable="true"
+        app:cardCornerRadius="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -49,23 +49,26 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="3dp"
+                android:layout_marginRight="10dp"
+                android:layout_toStartOf="@+id/radioButton5"
                 android:layout_toEndOf="@+id/imageView27"
                 android:fontFamily="@font/poppins_medium"
+                android:maxLines="2"
                 android:text="@{symptoms.problemName}"
                 android:textColor="#262E3F"
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
             <CheckBox
-                android:onClick="@{()->adapterInterface.onItemClicked(symptoms)}"
                 android:id="@+id/radioButton5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
                 android:background="@android:color/transparent"
-                android:checked="false" />
+                android:checked="false"
+                android:onClick="@{()->adapterInterface.onItemClicked(symptoms)}" />
 
 
         </RelativeLayout>

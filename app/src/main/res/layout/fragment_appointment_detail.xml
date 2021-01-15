@@ -19,7 +19,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.fragments.AppointmentDetailFragment">
+        tools:context=".view.fragments.digiDoctorFragments.AppointmentDetailFragment">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -302,6 +302,50 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/chat_icon" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="#FFF5E5"
+                android:orientation="vertical"
+                android:paddingLeft="18dp"
+                android:paddingTop="8dp"
+                android:paddingRight="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView95">
+
+
+                <TextView
+                    android:id="@+id/textView151"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:text="You can send your Images/Audio/Video related to your symptom Problem to doctor."
+                    android:textColor="#262E3F"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btnUpload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="9dp"
+                    android:background="@drawable/round_for_search"
+                    android:backgroundTint="@color/PrimaryColor"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/upload"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@color/BackgroundColor"
             android:orientation="vertical"
-            tools:context=".view.fragments.ChooseTimeFragment">
+            tools:context=".view.fragments.digiDoctorFragments.ChooseTimeFragment">
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -1,7 +1,5 @@
 package com.digidoctor.android.utility;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class BookAppointment2 {
     private String memberId;
     private String patientName;
@@ -23,6 +21,15 @@ public class BookAppointment2 {
     private String gender;
     private String paymentId;
     private String trxId;
+    private String paymentMode;
+
+    public String getPaymentMode() {
+        return paymentMode;
+    }
+
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
+    }
 
     public String getTrxId() {
         return trxId;
@@ -207,6 +214,8 @@ public class BookAppointment2 {
                 ", dob='" + dob + '\'' +
                 ", gender='" + gender + '\'' +
                 ", paymentId='" + paymentId + '\'' +
+                ", trxId='" + trxId + '\'' +
+                ", paymentMode='" + paymentMode + '\'' +
                 '}';
     }
 }

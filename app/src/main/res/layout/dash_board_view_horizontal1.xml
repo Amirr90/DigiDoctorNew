@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-<variable
-    name="dashboard2"
-    type="com.digidoctor.android.model.HealthProductDetailsModel" />
+
+        <variable
+            name="dashboard2"
+            type="com.digidoctor.android.model.HealthProductDetailsModel" />
 
     </data>
 
@@ -26,14 +27,13 @@
             android:orientation="vertical">
 
             <ImageView
-                android:loadHealthProductImage="@{dashboard2.imagePath}"
                 android:id="@+id/imageView22"
                 android:layout_width="118dp"
                 android:layout_height="118dp"
                 android:background="@drawable/box_one"
+                android:loadHealthProductImage="@{dashboard2.imagePath}"
                 android:padding="10dp"
-                android:scaleType="fitXY"
-                />
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/textView66"

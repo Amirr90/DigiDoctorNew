@@ -10,7 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.fragments.RecommendedDoctorsFragment">
+        tools:context=".view.fragments.digiDoctorFragments.RecommendedDoctorsFragment">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/BackgroundColor"
                 android:orientation="vertical"
-                tools:context=".view.fragments.RecommendedDoctorsFragment">
+                tools:context=".view.fragments.digiDoctorFragments.RecommendedDoctorsFragment">
 
                 <LinearLayout
                     android:layout_width="match_parent"

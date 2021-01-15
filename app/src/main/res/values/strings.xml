@@ -976,6 +976,9 @@
     <string name="enter_your_otp_code_here">Enter your OTP code here</string>
     <string name="_00_30">00:30</string>
     <string name="avoid_diet">Avoid Diet</string>
+    <string name="search_symptoms_here">Search Symptoms Here</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="send_document">Send Document</string>
 
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>

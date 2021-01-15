@@ -95,6 +95,27 @@ public class CustomLoadImage {
 
     }
 
+    @BindingAdapter("android:loadPaymentOptionImage")
+    public static void loadPaymentOptionImage(ImageView imageView, String imagePath) {
+        if (null != imagePath && !imagePath.isEmpty()) {
+            try {
+                Glide.with(PatientDashboard.getInstance())
+                        .load(imagePath)
+                        .centerCrop()
+                        .placeholder(R.drawable.profile_demo_image)
+                        .into(imageView);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                imageView.setImageResource(R.drawable.profile_demo_image);
+                Log.d(TAG, "loadUserImage: " + e.getLocalizedMessage());
+            }
+        } else {
+            imageView.setImageResource(R.drawable.profile_demo_image);
+        }
+
+    }
+
     @BindingAdapter("android:loadCustomPrescriptionImage")
     public static void loadPrescriptionImage(ImageView imageView, String imagePath) {
         if (null != imagePath && !imagePath.isEmpty()) {
