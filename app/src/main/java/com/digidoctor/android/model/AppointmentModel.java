@@ -33,6 +33,16 @@ public class AppointmentModel {
     private String serviceProviderDetailsId;
     private boolean isPrescribed;
     private String degree;
+    private String latitude;
+    private String longititude;
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongititude() {
+        return longititude;
+    }
 
     public String getDegree() {
         return degree;
@@ -197,8 +207,12 @@ public class AppointmentModel {
                 ", cityName='" + cityName + '\'' +
                 ", address='" + address + '\'' +
                 ", pincode='" + pincode + '\'' +
+                ", problemName='" + problemName + '\'' +
                 ", serviceProviderDetailsId='" + serviceProviderDetailsId + '\'' +
                 ", isPrescribed=" + isPrescribed +
+                ", degree='" + degree + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longititude='" + longititude + '\'' +
                 '}';
     }
 

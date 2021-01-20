@@ -9,9 +9,7 @@ public class URLUtils {
     public static final String BASE_URL_NEW_API_PHARMACY = "http://52.172.134.222:205/api/v1.0/Pharmacy/";
 
     public static Api getAPIServiceNewAPI() {
-
         return RetrofitClient.getClient(BASE_URL_NEW_API).create(Api.class);
-
     }
 
     public static Api getAPIServiceNewAPIForDoctor() {

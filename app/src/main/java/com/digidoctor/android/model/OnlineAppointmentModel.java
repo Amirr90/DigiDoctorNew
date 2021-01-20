@@ -17,6 +17,11 @@ public class OnlineAppointmentModel {
     String appointDate;
     String appointTime;
     String problemName;
+    String clinicAddress;
+
+    public String getClinicAddress() {
+        return clinicAddress;
+    }
 
     public String getProblemName() {
         return problemName;
@@ -154,10 +159,17 @@ public class OnlineAppointmentModel {
 
     @Override
     public String toString() {
-        return "OnlineAppointmentModel{" +
+        return "{" +
                 "doctorId=" + doctorId +
                 ", isEraUser=" + isEraUser +
                 ", patientName='" + patientName + '\'' +
+                ", expiredStatus=" + expiredStatus +
+                ", isPrescribed=" + isPrescribed +
+                ", appointmentIdView='" + appointmentIdView + '\'' +
+                ", specialty='" + specialty + '\'' +
+                ", appointDate='" + appointDate + '\'' +
+                ", appointTime='" + appointTime + '\'' +
+                ", problemName='" + problemName + '\'' +
                 ", appointmentId='" + appointmentId + '\'' +
                 ", visitDate='" + visitDate + '\'' +
                 ", visitTime='" + visitTime + '\'' +

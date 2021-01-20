@@ -28,8 +28,11 @@ public class DoctorModel {
     String profilePhotoPath;
     String departmentName;
     String description;
+    String workingHours;
 
-
+    public String getWorkingHours() {
+        return workingHours;
+    }
 
     public String getDescription() {
         return description;

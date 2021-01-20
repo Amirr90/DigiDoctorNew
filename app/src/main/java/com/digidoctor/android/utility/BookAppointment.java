@@ -351,6 +351,7 @@ public class BookAppointment extends Credentials {
         setPaymentMode(getPaymentmode(payMode));
         //CheckTimeSlot Availability
         final Map<String, String> map = new HashMap<>();
+
         map.put(MOBILE_NUMBER, getUserMobileNo());
         map.put(MEMBER_ID, getMemberId());
         map.put(KEY_DOC_ID, getServiceProviderDetailsId());
@@ -574,26 +575,6 @@ public class BookAppointment extends Credentials {
 
         return appointment2;
 
-    }
-
-
-    public String getHash(String hashData) {
-        String type = "SHA-512";
-        //String hashSequence = MERCHANT_KEY + "|" + getTrxId() + "|" + getDrFee() + "|" + "onlineAppointment" + "|" + getPatientName() + "|" + getEmail() + "|" + "udf1|udf2|udf3|udf4|udf5|" + SALT;;
-        StringBuilder hash = new StringBuilder();
-        MessageDigest messageDigest = null;
-        try {
-            messageDigest = MessageDigest.getInstance(type);
-            messageDigest.update(hashData.getBytes());
-            byte[] mdbytes = messageDigest.digest();
-            for (byte hashByte : mdbytes) {
-                hash.append(Integer.toString((hashByte & 0xff) + 0x100, 16).substring(1));
-            }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        Log.d(TAG, "generateHash: " + hash.toString());
-        return hash.toString();
     }
 
     public void initPayUPayment(BookAppointmentInterface bookAppointmentInterface) {

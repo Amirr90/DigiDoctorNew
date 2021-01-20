@@ -192,7 +192,7 @@
                         android:enabled="false"
                         android:fontFamily="@font/poppins_medium"
                         android:hint="@string/mobile_number"
-                        android:inputType="phone"
+                        android:inputType="numberDecimal"
                         android:maxLength="10"
                         android:text="@{mobile}"
                         android:textColor="#262E3F"

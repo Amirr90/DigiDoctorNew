@@ -1,8 +1,10 @@
 package com.digidoctor.android.adapters;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
@@ -22,9 +24,12 @@ public class DashboardPatientAdapter1 extends ListAdapter<DashboardModel1, Dashb
             R.drawable.lab_test,
             R.drawable.pharmacy};
 
+    Activity activity;
 
-    public DashboardPatientAdapter1() {
+
+    public DashboardPatientAdapter1(Activity activity) {
         super(DashboardModel1.itemCallback);
+        this.activity = activity;
 
     }
 
@@ -42,15 +47,16 @@ public class DashboardPatientAdapter1 extends ListAdapter<DashboardModel1, Dashb
         DashboardModel1 dashboardModel1 = getItem(position);
         holder.dashBoardViewBinding.setDashboard1(dashboardModel1);
         holder.dashBoardViewBinding.imageView21.setImageResource(images[position]);
-        holder.dashBoardViewBinding.cv1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (position == 0)
-                    PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_specialitiesFragment2);
-                else if (position == 1)
-                    PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_symptomsFragment2);
+        holder.dashBoardViewBinding.cv1.setOnClickListener(v -> {
+            if (position == 0)
+                PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_specialitiesFragment2);
+            else if (position == 1)
+                PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_symptomsFragment2);
+            else if (position == 2)
+                Toast.makeText(activity, activity.getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+            else if (position == 3)
+                Toast.makeText(activity, activity.getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
 
-            }
         });
 
         holder.dashBoardViewBinding.textView55.setText(dashboardModel1.getDescription());

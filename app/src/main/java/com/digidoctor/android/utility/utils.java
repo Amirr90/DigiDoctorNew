@@ -388,9 +388,6 @@ public class utils {
                 }
             }).show();
 
-        /*    dialog.setContentView(dialogBinding.getRoot());
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialog.show();*/
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -631,6 +628,26 @@ public class utils {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis((int) timestamp);
         return formatter.format(calendar.getTime());
+    }
+
+
+    public static StringBuilder getDocTiming(String jsonString) throws JSONException {
+
+        JSONArray jsonArray = new JSONArray(jsonString);
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+            Log.d("TAG", "getDocTiming: " + jsonObject.getString("dayName"));
+            String day = jsonObject.getString("dayName");
+            String timeFrom = jsonObject.getString("timeFrom");
+            String timeTo = jsonObject.getString("timeTo");
+
+            builder.append(day + "\n" + timeFrom + " - " + timeTo);
+            builder.append("\n\n");
+        }
+
+
+        return builder;
     }
 }
 

@@ -1,6 +1,10 @@
 package com.digidoctor.android.view.fragments.digiDoctorFragments;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,11 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentDoctorShortProfileBinding;
@@ -22,8 +21,10 @@ import com.digidoctor.android.viewHolder.PatientViewModel;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
 
 import static com.digidoctor.android.utility.NewDashboardUtils.getJSONFromModel;
+import static com.digidoctor.android.utility.utils.getDocTiming;
 
 
 public class DoctorProfileFragment extends Fragment {
@@ -56,8 +57,15 @@ public class DoctorProfileFragment extends Fragment {
 
             Log.d(TAG, "onViewCreated: " + doctorModel.toString());
             shortProfileBinding.setDocMo(doctorModel);
-        } else PatientDashboard.getInstance().onSupportNavigateUp();
 
+            try {
+                shortProfileBinding.tvWorkingHours.setText(getDocTiming(doctorModel.getWorkingHours()).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.d(TAG, "getData: " + e.getLocalizedMessage());
+            }
+
+        } else PatientDashboard.getInstance().onSupportNavigateUp();
 
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);

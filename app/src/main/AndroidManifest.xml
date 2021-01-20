@@ -26,9 +26,10 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:screenOrientation="portrait"
         android:theme="@style/MyAppTheme"
         tools:replace="android:theme">
-        <activity android:name=".VideoCallActivity.VideoActivity"></activity>
+        <activity android:name=".VideoCallActivity.VideoActivity"/>
         <activity
             android:name=".VideoCallActivity.CallReceiveActivity"
             android:screenOrientation="portrait" />
@@ -99,7 +100,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="myReceiver" />
+                <action android:name="myReceiver2" />
             </intent-filter>
         </receiver>
     </application>

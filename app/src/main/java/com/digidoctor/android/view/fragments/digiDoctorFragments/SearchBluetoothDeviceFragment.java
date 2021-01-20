@@ -157,7 +157,7 @@ public class SearchBluetoothDeviceFragment extends Fragment implements OnClickLi
         Log.d(TAG, "onItemClick: " + bluetoothDevice.getName());
 
         //Connecting A Device
-        connectThread = new ConnectThread();
+      /*  connectThread = new ConnectThread();
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
 
         Method getUuidsMethod = null;
@@ -182,7 +182,7 @@ public class SearchBluetoothDeviceFragment extends Fragment implements OnClickLi
                 Log.d(TAG, "Connected : ");
             }
 
-        }
+        }*/
 
 
     }

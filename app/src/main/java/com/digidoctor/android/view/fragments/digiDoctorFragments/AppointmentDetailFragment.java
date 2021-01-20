@@ -1,6 +1,9 @@
 package com.digidoctor.android.view.fragments.digiDoctorFragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,7 +76,26 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             navController.navigate(R.id.action_appointmentDetailFragment_to_chatForAppointmentFragment, bundle);
 
         });
+        detailBinding.ivMap.setOnClickListener(view13 -> {
+            String lat = String.valueOf(appointmentModel.getLatitude());
+            String lng = String.valueOf(appointmentModel.getLongititude());
+            if (TextUtils.isEmpty(lat) || TextUtils.isEmpty(lng)) {
+                Toast.makeText(requireActivity(), "location not found", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            openMap(lat, lng);
+        });
         detailBinding.btnUpload.setOnClickListener(view12 -> navController.navigate(R.id.action_appointmentDetailFragment_to_uploadDocumentForAppointmentFragment));
+    }
+
+    private void openMap(String lat, String lng) {
+
+        Log.d(TAG, "openMap Lat: " + lat);
+        Log.d(TAG, "openMap Long: " + lng);
+
+        String url = "http://maps.google.com/maps?daddr=" + lat + "," + lng;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
     }
 
     @Override
@@ -86,7 +108,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             String model = getJSONFromModel(appointmentModel);
             Bundle bundle = new Bundle();
             bundle.putString("model", model);
-            Log.d(TAG, "onItemClick: " + model.toString());
+            Log.d(TAG, "onItemClick: " + model);
             navController.navigate(R.id.action_appointmentDetailFragment_to_reScheduleFragment, bundle);
         } else if (detailBinding.btnAction.getText().toString().equalsIgnoreCase("View Prescription")) {
 

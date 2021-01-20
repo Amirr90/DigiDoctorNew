@@ -10,7 +10,6 @@ import java.util.Objects;
 
 public class User {
 
-
     @SerializedName("address")
     @Expose
     private String address;

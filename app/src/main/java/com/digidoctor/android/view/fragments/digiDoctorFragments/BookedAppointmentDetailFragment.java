@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ import static com.digidoctor.android.utility.utils.logout;
 
 
 public class BookedAppointmentDetailFragment extends Fragment implements AppointmentInterface {
+    private static final String TAG = "BookedAppointmentDetail";
 
     OnlineAppointmentModel appointmentModel;
 
@@ -122,9 +124,6 @@ public class BookedAppointmentDetailFragment extends Fragment implements Appoint
 
     @Override
     public void onCall(String number) {
-    /*    Intent callIntent = new Intent(Intent.ACTION_DIAL);
-        callIntent.setData(Uri.parse("tel:" + number));//change the number
-        startActivity(callIntent);*/
         Toast.makeText(requireActivity(), "In Process", Toast.LENGTH_SHORT).show();
     }
 
@@ -135,8 +134,10 @@ public class BookedAppointmentDetailFragment extends Fragment implements Appoint
         String lat = String.valueOf(model.getLatitude());
         String lng = String.valueOf(model.getLongititude());
 
-        // Create a Uri from an intent string. Use the result to create an Intent.
-        Uri gmmIntentUri = Uri.parse("google.streetview:cbll=" + lat + "," + lng);
+        Log.d(TAG, "onGetDirection Lat: " + lat);
+        Log.d(TAG, "onGetDirection Long: " + lng);
+
+        /*Uri gmmIntentUri = Uri.parse("google.streetview:cbll=" + lat + "," + lng);
 
         // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
@@ -144,7 +145,11 @@ public class BookedAppointmentDetailFragment extends Fragment implements Appoint
         mapIntent.setPackage("com.google.android.apps.maps");
 
         // Attempt to start an activity that can handle the Intent
-        startActivity(mapIntent);
+        startActivity(mapIntent);*/
+
+        String url = "http://maps.google.com/maps?daddr=" + lat + "," + lng;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
     }
 
 

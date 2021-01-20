@@ -3,7 +3,6 @@ package com.digidoctor.android.view.fragments.digiDoctorFragments;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,14 +66,11 @@ public class SubSpecialistFragment extends Fragment {
 
         navController = Navigation.findNavController(view);
 
-        adapter = new SubSpecialityAdapter(new SubSpecialityAdapter.SubSpecialityInterface() {
-            @Override
-            public void onItemClick(String item) {
-                Log.d(TAG, "onItemClick: " + item);
-                Bundle bundle = new Bundle();
-                bundle.putString("docModel", item);
-                navController.navigate(R.id.action_subSpecialistFragment_to_chooseTimeFragment2, bundle);
-            }
+        adapter = new SubSpecialityAdapter(item -> {
+            hideSoftKeyboard(requireActivity());
+            Bundle bundle = new Bundle();
+            bundle.putString("docModel", item);
+            navController.navigate(R.id.action_subSpecialistFragment_to_chooseTimeFragment2, bundle);
         });
 
         subSpecialistBinding.subSpecialityRec.setAdapter(adapter);

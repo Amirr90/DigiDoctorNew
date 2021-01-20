@@ -130,6 +130,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         user = getPrimaryUser(getInstance());
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
         NavigationUI.setupActionBarWithNavController(this, navController);
 
 

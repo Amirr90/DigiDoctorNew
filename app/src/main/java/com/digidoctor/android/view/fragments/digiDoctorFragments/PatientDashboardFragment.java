@@ -84,7 +84,7 @@ public class PatientDashboardFragment extends Fragment {
         Slider.init(imageLoadingService);
 
 
-        adapter1 = new DashboardPatientAdapter1();
+        adapter1 = new DashboardPatientAdapter1(requireActivity());
         adapter2 = new HealthProductAdapter();
         adapter3 = new ClinicAdapter();
 
@@ -117,11 +117,20 @@ public class PatientDashboardFragment extends Fragment {
         loadData(lat, lng);
 
         dashboard2Binding.profileImage.setOnClickListener(view1 ->
-                //navController.navigate(R.id.action_patientDashboardFragment_to_profileFragment)
+                PatientDashboard.getInstance().openDrawer()
+        );
+        dashboard2Binding.ivMenu.setOnClickListener(view1 ->
                 PatientDashboard.getInstance().openDrawer()
         );
 
+
+        dashboard2Binding.ivSearchIcon.setOnClickListener(view12 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("id", "0");
+            PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_subSpecialistFragment, bundle);
+        });
     }
+
 
     public void loadData(String lat, String lng) {
         viewModel.getDashboardData(lat, lng).observe(getViewLifecycleOwner(), patientDashboardModel -> {

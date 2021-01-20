@@ -86,9 +86,14 @@ import static com.digidoctor.android.utility.utils.TIMESTAMP;
 import static com.digidoctor.android.utility.utils.TOKEN;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.getString;
+import static com.digidoctor.android.utility.utils.logout;
 
 
 public class ApiUtils {
+
+    private static final int RESPONSE_SUCCESS = 1;
+    private static final int RESPONSE_FAILED = 0;
+    private static final int RESPONSE_LOGOUT = 2;
 
     public static void getPatientDasboard(Dashboard dashboard,
                                           final ApiCallbackInterface apiCallbackInterface) {
@@ -415,6 +420,7 @@ public class ApiUtils {
             public void onResponse(@NotNull Call<CheckLoginRes> call, @NotNull Response<CheckLoginRes> response) {
                 AppUtils.hideDialog();
                 assert response.body() != null;
+
                 if (response.code() == 200) {
                     if (response.isSuccessful() && response.body().getResponseCode() == 1) {
                         if (response.body().getResponseCode() == 1) {
@@ -427,9 +433,10 @@ public class ApiUtils {
 
                         } else apiCallbackInterface.onError(response.body().getResponseMessage());
 
+                    } else if (response.body().getResponseCode() == RESPONSE_LOGOUT) {
+                        logout(activity);
                     } else {
-                        if (activity != null)
-                            AppUtils.showToastSort(activity, response.body().getResponseMessage());
+                        AppUtils.showToastSort(activity, response.body().getResponseMessage());
                     }
                 } else
                     Toast.makeText(activity, "error " + response.code(), Toast.LENGTH_SHORT).show();
@@ -507,7 +514,7 @@ public class ApiUtils {
                 @Override
                 public void onResponse(@NotNull Call<CheckSlotAvailabilityRes> call, @NotNull Response<CheckSlotAvailabilityRes> response) {
                     AppUtils.hideDialog();
-                    if (response.code() == 200) {
+                    /*if (response.code() == 200) {
                         assert response.body() != null;
                         if (response.body().getResponseCode() == 1) {
                             apiCallbackInterface.onSuccess(response.body().getResponseValue());
@@ -515,6 +522,27 @@ public class ApiUtils {
                     } else {
                         assert response.errorBody() != null;
                         apiCallbackInterface.onError(response.errorBody().toString());
+                    }*/
+
+                    if (response.code() == 200) {
+                        CheckSlotAvailabilityRes resModel = response.body();
+                        if (null != resModel) {
+                            int responseCode = resModel.getResponseCode();
+                            switch (responseCode) {
+                                case RESPONSE_SUCCESS:
+                                    apiCallbackInterface.onSuccess(resModel.getResponseValue());
+                                    break;
+                                case RESPONSE_FAILED:
+                                    apiCallbackInterface.onError(String.valueOf(response.code()));
+                                    break;
+                                case RESPONSE_LOGOUT:
+                                    logout(PatientDashboard.getInstance());
+                                    break;
+
+                            }
+                        }
+                    } else {
+                        apiCallbackInterface.onError(String.valueOf(response.code()));
                     }
                 }
 
@@ -548,13 +576,34 @@ public class ApiUtils {
             @Override
             public void onResponse(@NotNull Call<GetPatientMedicationRes> call, Response<GetPatientMedicationRes> response) {
 
-                if (response.isSuccessful() && null != response.body()) {
+              /*  if (response.isSuccessful() && null != response.body()) {
                     AppUtils.hideDialog();
                     apiCallbackInterface.onSuccess(response.body().getResponseValue());
                 } else {
 
                     AppUtils.hideDialog();
                     apiCallbackInterface.onError(response.message());
+                }*/
+
+                if (response.code() == 200) {
+                    GetPatientMedicationRes resModel = response.body();
+                    if (null != resModel) {
+                        int responseCode = resModel.getResponseCode();
+                        switch (responseCode) {
+                            case RESPONSE_SUCCESS:
+                                apiCallbackInterface.onSuccess(resModel.getResponseValue());
+                                break;
+                            case RESPONSE_FAILED:
+                                apiCallbackInterface.onError(String.valueOf(response.code()));
+                                break;
+                            case RESPONSE_LOGOUT:
+                                logout(PatientDashboard.getInstance());
+                                break;
+
+                        }
+                    }
+                } else {
+                    apiCallbackInterface.onError(String.valueOf(response.code()));
                 }
 
             }
@@ -589,11 +638,32 @@ public class ApiUtils {
                 @Override
                 public void onResponse(@NotNull Call<ResponseModel> call, @NotNull Response<ResponseModel> response) {
                     AppUtils.hideDialog();
-                    if (response.code() == 200 && null != response.body()) {
+                   /* if (response.code() == 200 && null != response.body()) {
                         if (response.body().getResponseCode() == 1) {
                             apiCallbackInterface.onSuccess(response.body().getResponseValue());
                         } else apiCallbackInterface.onError(response.body().getResponseMessage());
-                    } else apiCallbackInterface.onError(response.message());
+                    } else apiCallbackInterface.onError(response.message());*/
+
+                    if (response.code() == 200) {
+                        ResponseModel resModel = response.body();
+                        if (null != resModel) {
+                            int responseCode = resModel.getResponseCode();
+                            switch (responseCode) {
+                                case RESPONSE_SUCCESS:
+                                    apiCallbackInterface.onSuccess(resModel.getResponseValue());
+                                    break;
+                                case RESPONSE_FAILED:
+                                    apiCallbackInterface.onError(String.valueOf(response.code()));
+                                    break;
+                                case RESPONSE_LOGOUT:
+                                    logout(PatientDashboard.getInstance());
+                                    break;
+
+                            }
+                        }
+                    } else {
+                        apiCallbackInterface.onError(String.valueOf(response.code()));
+                    }
                 }
 
                 @Override
@@ -633,7 +703,7 @@ public class ApiUtils {
             @Override
             public void onResponse(@NotNull Call<RegistrationRes> call, @NotNull Response<RegistrationRes> response) {
 
-                if (response.code() == 200 && response.body() != null) {
+                /*if (response.code() == 200 && response.body() != null) {
                     if (response.isSuccessful() && response.body().getResponseCode() == 1) {
                         AppUtils.hideDialog();
                         apiCallbackInterface.onSuccess(response.body().getResponseValue());
@@ -642,7 +712,28 @@ public class ApiUtils {
                         apiCallbackInterface.onError(response.body().getResponseMessage());
                     }
                 } else
-                    apiCallbackInterface.onError(response.message());
+                    apiCallbackInterface.onError(response.message());*/
+
+                if (response.code() == 200) {
+                    RegistrationRes resModel = response.body();
+                    if (null != resModel) {
+                        int responseCode = resModel.getResponseCode();
+                        switch (responseCode) {
+                            case RESPONSE_SUCCESS:
+                                apiCallbackInterface.onSuccess(resModel.getResponseValue());
+                                break;
+                            case RESPONSE_FAILED:
+                                apiCallbackInterface.onError(String.valueOf(response.code()));
+                                break;
+                            case RESPONSE_LOGOUT:
+                                logout(PatientDashboard.getInstance());
+                                break;
+
+                        }
+                    }
+                } else {
+                    apiCallbackInterface.onError(String.valueOf(response.code()));
+                }
 
             }
 
@@ -660,7 +751,7 @@ public class ApiUtils {
         call.enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(@NotNull Call<ResponseModel> call, @NotNull Response<ResponseModel> response) {
-                if ((response.code() == 200 && null != response.body())) {
+                /*if ((response.code() == 200 && null != response.body())) {
                     ResponseModel responseModel = response.body();
                     if (responseModel.getResponseCode() == 1) {
                         apiCallbackInterface.onSuccess(responseModel.getResponseValue());
@@ -668,7 +759,28 @@ public class ApiUtils {
                         apiCallbackInterface.onError(responseModel.getResponseMessage());
                     }
                 } else
-                    apiCallbackInterface.onError(response.message());
+                    apiCallbackInterface.onError(response.message());*/
+
+                if (response.code() == 200) {
+                    ResponseModel resModel = response.body();
+                    if (null != resModel) {
+                        int responseCode = resModel.getResponseCode();
+                        switch (responseCode) {
+                            case RESPONSE_SUCCESS:
+                                apiCallbackInterface.onSuccess(resModel.getResponseValue());
+                                break;
+                            case RESPONSE_FAILED:
+                                apiCallbackInterface.onError(String.valueOf(response.code()));
+                                break;
+                            case RESPONSE_LOGOUT:
+                                logout(PatientDashboard.getInstance());
+                                break;
+
+                        }
+                    }
+                } else {
+                    apiCallbackInterface.onError(String.valueOf(response.code()));
+                }
             }
 
             @Override
@@ -686,13 +798,34 @@ public class ApiUtils {
         call.enqueue(new Callback<VitalResponse>() {
             @Override
             public void onResponse(@NotNull Call<VitalResponse> call, @NotNull Response<VitalResponse> response) {
-                if ((response.code() == 200 && null != response.body())) {
+                /*if ((response.code() == 200 && null != response.body())) {
                     VitalResponse responseModel = response.body();
                     if (responseModel.getResponseCode() == 1) {
                         apiCallbackInterface.onSuccess(responseModel.getResponseValue());
                     } else {
                         apiCallbackInterface.onError(responseModel.getResponseMessage());
                     }
+                }*/
+
+                if (response.code() == 200) {
+                    VitalResponse resModel = response.body();
+                    if (null != resModel) {
+                        int responseCode = resModel.getResponseCode();
+                        switch (responseCode) {
+                            case RESPONSE_SUCCESS:
+                                apiCallbackInterface.onSuccess(resModel.getResponseValue());
+                                break;
+                            case RESPONSE_FAILED:
+                                apiCallbackInterface.onError(String.valueOf(response.code()));
+                                break;
+                            case RESPONSE_LOGOUT:
+                                logout(PatientDashboard.getInstance());
+                                break;
+
+                        }
+                    }
+                } else {
+                    apiCallbackInterface.onError(String.valueOf(response.code()));
                 }
             }
 
@@ -991,13 +1124,34 @@ public class ApiUtils {
         call.enqueue(new Callback<CheckLoginRes>() {
             @Override
             public void onResponse(@NotNull Call<CheckLoginRes> call, @NotNull Response<CheckLoginRes> response) {
-                if ((response.code() == 200 && null != response.body())) {
+              /*  if ((response.code() == 200 && null != response.body())) {
                     CheckLoginRes responseModel = response.body();
                     if (responseModel.getResponseCode() == 1) {
                         apiCallbackInterface.onSuccess(responseModel.getResponseValue());
                     } else {
                         apiCallbackInterface.onError(responseModel.getResponseMessage());
                     }
+                }*/
+
+                if (response.code() == 200) {
+                    CheckLoginRes checkLoginRes = response.body();
+                    if (null != checkLoginRes) {
+                        int responseCode = checkLoginRes.getResponseCode();
+                        switch (responseCode) {
+                            case RESPONSE_SUCCESS:
+                                apiCallbackInterface.onSuccess(checkLoginRes.getResponseValue());
+                                break;
+                            case RESPONSE_FAILED:
+                                apiCallbackInterface.onError(String.valueOf(response.code()));
+                                break;
+                            case RESPONSE_LOGOUT:
+                                logout(PatientDashboard.getInstance());
+                                break;
+
+                        }
+                    }
+                } else {
+                    apiCallbackInterface.onError(String.valueOf(response.code()));
                 }
             }
 
@@ -1075,17 +1229,39 @@ public class ApiUtils {
         call.enqueue(new Callback<CheckLoginRes>() {
             @Override
             public void onResponse(@NotNull Call<CheckLoginRes> call, Response<CheckLoginRes> response) {
+                AppUtils.hideDialog();
+                /*if (response.code() == 200)
+                    if (response.body().getResponseCode()==1){
+                        if (response.isSuccessful() && null != response.body()) {
 
-                if (response.code() == 200)
-                    if (response.isSuccessful() && null != response.body()) {
-                        AppUtils.hideDialog();
-                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                    } else {
-                        AppUtils.hideDialog();
-                        apiCallbackInterface.onError(response.message());
+                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                        } else {
+                            AppUtils.hideDialog();
+                            apiCallbackInterface.onError(response.message());
+                        }
                     }
-
                 else {
+                    apiCallbackInterface.onError(String.valueOf(response.code()));
+                }*/
+
+                if (response.code() == 200) {
+                    CheckLoginRes checkLoginRes = response.body();
+                    if (null != checkLoginRes) {
+                        int responseCode = checkLoginRes.getResponseCode();
+                        switch (responseCode) {
+                            case RESPONSE_SUCCESS:
+                                apiCallbackInterface.onSuccess(checkLoginRes.getResponseValue());
+                                break;
+                            case RESPONSE_FAILED:
+                                apiCallbackInterface.onError(String.valueOf(response.code()));
+                                break;
+                            case RESPONSE_LOGOUT:
+                                logout(PatientDashboard.getInstance());
+                                break;
+
+                        }
+                    }
+                } else {
                     apiCallbackInterface.onError(String.valueOf(response.code()));
                 }
             }
@@ -1093,6 +1269,7 @@ public class ApiUtils {
             @Override
             public void onFailure(@NotNull Call<CheckLoginRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
+                apiCallbackInterface.onError(t.getLocalizedMessage());
             }
         });
     }

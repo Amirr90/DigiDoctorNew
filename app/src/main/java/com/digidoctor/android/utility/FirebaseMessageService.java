@@ -33,8 +33,6 @@ import org.json.JSONObject;
 import java.util.Date;
 import java.util.Map;
 
-import static com.digidoctor.android.utility.utils.TOKEN;
-
 public class FirebaseMessageService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFMService";
@@ -57,14 +55,14 @@ public class FirebaseMessageService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // Handle data payload of FCM messages.
+
         Log.d(TAG, "FCM Message Id: " + remoteMessage.getMessageId());
+
         Log.d(TAG, "FCM Notification Message: " + remoteMessage.getData() + "...." + remoteMessage.getFrom());
 
         context = this;
 
         if (remoteMessage.getData() != null) {
-
             Map<String, String> params = remoteMessage.getData();
             JSONObject json = new JSONObject(params);
 
@@ -86,8 +84,12 @@ public class FirebaseMessageService extends FirebaseMessagingService {
                 prefs = getSharedPreferences(utils.PREFS_MAIN_FILE, Context.MODE_PRIVATE);
 
                 if (typeMain == 1) {
+
                     roomName = json.getString("roomName");
                     twillioAccessToken = json.getString("twillioAccessToken");
+
+                    Log.d(TAG, "onMessageReceived: roomName" + roomName);
+                    Log.d(TAG, "onMessageReceived: twillioAccessToken" + twillioAccessToken);
                 }
 
                 createNotification(titleToShow, message, roomName, typeMain, twillioAccessToken, profilePhotoPath, doctorName);
@@ -219,7 +221,6 @@ public class FirebaseMessageService extends FirebaseMessagingService {
         try {
             Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             Ringtone r = RingtoneManager.getRingtone(this, notificationSoundUri);
-
 
 
             r.play();
