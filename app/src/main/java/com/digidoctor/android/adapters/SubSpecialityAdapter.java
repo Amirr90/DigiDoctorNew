@@ -2,7 +2,6 @@ package com.digidoctor.android.adapters;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -31,6 +30,7 @@ public class SubSpecialityAdapter extends ListAdapter<DoctorModel, SubSpeciality
     public SubSpecialityVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         SubSpecialityViewBinding subSpecialityViewBinding = SubSpecialityViewBinding.inflate(inflater, parent, false);
+        subSpecialityViewBinding.setSubSpecialityInterface(subSpecialityInterface);
         return new SubSpecialityVH(subSpecialityViewBinding);
     }
 
@@ -39,26 +39,22 @@ public class SubSpecialityAdapter extends ListAdapter<DoctorModel, SubSpeciality
 
         final DoctorModel doctorModel = getItem(position);
         holder.subSpecialityViewBinding.setDoctor(doctorModel);
+        holder.subSpecialityViewBinding.btnBookAppointment.setOnClickListener(v -> {
 
-        holder.subSpecialityViewBinding.btnBookAppointment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Gson gson = new Gson();
-                String jsonString = gson.toJson(doctorModel);
-                Log.d(TAG, "onClickDoctorModel: "+doctorModel.toString());
-                Log.d(TAG, "onClickDoctor: " + jsonString.toString());
-                try {
-                    JSONObject request = new JSONObject(jsonString);
-                    subSpecialityInterface.onItemClick(request.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+            Gson gson = new Gson();
+            String jsonString = gson.toJson(doctorModel);
+            Log.d(TAG, "onClickDoctorModel: " + doctorModel.toString());
+            try {
+                JSONObject request = new JSONObject(jsonString);
+                subSpecialityInterface.onItemClick(request.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+
         });
 
     }
+
 
     public class SubSpecialityVH extends RecyclerView.ViewHolder {
         SubSpecialityViewBinding subSpecialityViewBinding;
@@ -71,5 +67,6 @@ public class SubSpecialityAdapter extends ListAdapter<DoctorModel, SubSpeciality
 
     public interface SubSpecialityInterface {
         void onItemClick(String item);
+        void onShareProfile(DoctorModel doctorModel);
     }
 }

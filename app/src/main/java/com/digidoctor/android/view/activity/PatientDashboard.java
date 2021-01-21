@@ -27,13 +27,9 @@ import androidx.navigation.ui.NavigationUI;
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.NavAdapter;
 import com.digidoctor.android.databinding.ActivityDashBoardBinding;
-import com.digidoctor.android.interfaces.DemoAoiInterface;
 import com.digidoctor.android.interfaces.NavigationInterface;
-import com.digidoctor.android.model.DemoResponse;
-import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.NavModel;
 import com.digidoctor.android.model.User;
-import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.GetAddressIntentService;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment;
@@ -42,6 +38,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.grisoftware.updatechecker.GoogleChecker;
 import com.payu.base.models.ErrorResponse;
 import com.payu.checkoutpro.utils.PayUCheckoutProConstants;
 import com.payu.ui.model.listeners.PayUCheckoutProListener;
@@ -60,6 +57,7 @@ import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.view.fragments.digiDoctorFragments.BookAppointmentFragment.bookAppointment;
+import static com.digidoctor.android.view.fragments.digiDoctorFragments.ChangeLanguageFragment.LANGUAGE;
 import static com.digidoctor.android.view.fragments.digiDoctorFragments.PatientDashboardFragment.dashboard2Binding;
 import static com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment.REQUEST_ENABLE_BT;
 
@@ -202,6 +200,8 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         navModels.add(new NavModel(getString(R.string.settings), R.drawable.settings));
         navModels.add(new NavModel(getString(R.string.about_us), R.drawable.aboutus));
         navModels.add(new NavModel(getString(R.string.logout), R.drawable.logout));
+        navModels.add(new NavModel(getString(R.string.change_language), R.drawable.logout));
+
         navAdapter.notifyDataSetChanged();
     }
 
@@ -226,7 +226,11 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             }
         });
 
+        checkForUpdate();
+    }
 
+    private void checkForUpdate() {
+        new GoogleChecker("com.digidoctor.android", PatientDashboard.this, true, "en");
     }
 
 
@@ -390,7 +394,9 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 else navController.navigate(R.id.profileFragment);
                 break;
 
-
+            case 11:
+                navController.navigate(R.id.changeLanguageFragment);
+                break;
             case 10:
                 showRequestDialog(this);
                 if (utils.logout(this))

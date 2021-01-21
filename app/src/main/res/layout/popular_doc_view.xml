@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="doctor"
             type="com.digidoctor.android.model.DoctorModel" />
@@ -29,7 +30,8 @@
             android:clickable="true"
             android:onClick="@{()->recommendedInterface.onItemClicked(doctor)}"
             android:orientation="vertical"
-            android:padding="13dp">
+            android:padding="13dp"
+            android:focusable="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -48,14 +50,14 @@
                     android:id="@+id/textView76"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toLeftOf="@+id/ivShareDocProfile"
-                    android:layout_toRightOf="@+id/imageView20"
+                    android:layout_marginStart="8dp"
+                    android:layout_toStartOf="@+id/ivShareDocProfile"
+                    android:layout_toEndOf="@+id/imageView20"
                     android:fontFamily="@font/poppins_semibold"
                     android:singleLine="true"
                     android:text="@{doctor.drName}"
                     android:textColor="@color/PrimaryColor"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -63,37 +65,39 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView76"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toLeftOf="@+id/ivShareDocProfile"
-                    android:layout_toRightOf="@+id/imageView20"
+                    android:layout_marginStart="8dp"
+                    android:layout_toStartOf="@+id/ivShareDocProfile"
+                    android:layout_toEndOf="@+id/imageView20"
                     android:fontFamily="@font/poppins"
                     android:singleLine="true"
                     android:text="@{doctor.speciality}"
                     android:textColor="@color/TextSecondaryColor"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/textView78"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView77"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toRightOf="@+id/imageView20"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/imageView20"
                     android:fontFamily="@font/poppins_semibold"
                     android:singleLine="true"
                     android:text="11:00 AM to 8:00 Pm"
                     android:textColor="@color/PrimaryColor"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:id="@+id/ivShareDocProfile"
-                    android:layout_width="13dp"
-                    android:layout_height="13dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:layout_alignParentEnd="true"
                     android:layout_margin="3dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    app:srcCompat="@drawable/share_doc_profile_image" />
+                    app:srcCompat="@drawable/share_doc_profile_image"
+                    android:focusable="true" />
 
             </RelativeLayout>
 
@@ -123,11 +127,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:fontFamily="@font/poppins_bold"
                     android:text="@{String.valueOf(doctor.drFee)}"
                     android:textColor="#262E3F"
-                    android:textSize="18dp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -135,11 +139,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:fontFamily="@font/poppins"
                     android:text="@string/consulation_fee"
                     android:textColor="#262E3F"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
             </LinearLayout>
         </LinearLayout>
 

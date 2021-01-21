@@ -26,7 +26,6 @@ import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -276,16 +275,16 @@ public class PatientRepo {
         });
     }
 
-    public LiveData<List<DoctorModel>> getDocBySpeciality(String id, String docName) {
+    public LiveData<List<DoctorModel>> getDocBySpeciality(SpecialityModel specialityModel) {
         if (doctorModelMutableLiveData == null)
             doctorModelMutableLiveData = new MutableLiveData<>();
-        loadDocBySpecialityData(id, docName);
+        loadDocBySpecialityData(specialityModel);
         return doctorModelMutableLiveData;
 
     }
 
-    private void loadDocBySpecialityData(String id, String docName) {
-        getDocBySpecialityById(id, docName, new ApiCallbackInterface() {
+    private void loadDocBySpecialityData(SpecialityModel specialityModel) {
+        getDocBySpecialityById(specialityModel, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 if (null != (List<DoctorModel>) o)

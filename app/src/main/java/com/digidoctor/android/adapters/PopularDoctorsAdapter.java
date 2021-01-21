@@ -1,5 +1,6 @@
 package com.digidoctor.android.adapters;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +10,20 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.PopularDocViewBinding;
-import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.interfaces.AdapterInterface;
+import com.digidoctor.android.model.DoctorModel;
+
+import static com.digidoctor.android.utility.AppUtils.shareDocProfile;
 
 
 public class PopularDoctorsAdapter extends ListAdapter<DoctorModel, PopularDoctorsAdapter.PopularVH> {
     AdapterInterface adapterInterface;
+    Activity activity;
 
-    public PopularDoctorsAdapter(AdapterInterface adapterInterface) {
+    public PopularDoctorsAdapter(AdapterInterface adapterInterface, Activity activity) {
         super(DoctorModel.itemCallback);
         this.adapterInterface = adapterInterface;
+        this.activity = activity;
     }
 
     @NonNull
@@ -41,6 +46,9 @@ public class PopularDoctorsAdapter extends ListAdapter<DoctorModel, PopularDocto
             holder.popularDocViewBinding.textView77.setVisibility(View.VISIBLE);
 
         else holder.popularDocViewBinding.textView77.setVisibility(View.GONE);
+
+
+        holder.popularDocViewBinding.ivShareDocProfile.setOnClickListener(view -> shareDocProfile(doctorModel, activity));
 
 
     }

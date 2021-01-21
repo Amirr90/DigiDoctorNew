@@ -507,7 +507,7 @@
     <string name="verify_otp">Verify OTP</string>
     <string name="enterOtp">Enter OTP</string>
     <string name="resend_otp">Resend OTP</string>
-    <string name="otp_sent_to_your">OTP has been sent to your registered mobile number and email Id successfully!</string>
+    <string name="otp_sent_to_your">OTP has been sent to your registered mobile number</string>
     <string name="otp_will_be">OTP will be sent to the your entered mobile number. Do you wish to continue?</string>
     <string name="graph">Graph</string>
     <string name="investigation_chart">Investigation Chart</string>
@@ -979,6 +979,8 @@
     <string name="search_symptoms_here">Search Symptoms Here</string>
     <string name="pay_now">Pay Now</string>
     <string name="send_document">Send Document</string>
+    <string name="language">Change Language</string>
+    <string name="not_available">not available</string>
 
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>

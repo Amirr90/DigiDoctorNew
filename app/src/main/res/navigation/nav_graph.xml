@@ -73,6 +73,13 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_patientDashboardFragment_to_changeLanguageFragment"
+            app:destination="@id/changeLanguageFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/symptomsFragment2"
@@ -119,6 +126,14 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <argument
+            android:name="docId"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <deepLink
+            android:id="@+id/deepLink"
+            android:autoVerify="true"
+            app:uri="www.com.digidoctor/doctor/{docId}" />
     </fragment>
     <fragment
         android:id="@+id/chooseTimeFragment2"
@@ -511,4 +526,9 @@
         android:name="com.digidoctor.android.UploadDocumentForAppointmentFragment"
         android:label="@string/send_document"
         tools:layout="@layout/fragment_upload_document_for_appointment" />
+    <fragment
+        android:id="@+id/changeLanguageFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.ChangeLanguageFragment"
+        android:label="@string/change_language"
+        tools:layout="@layout/fragment_change_language" />
 </navigation>

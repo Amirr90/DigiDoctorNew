@@ -7,6 +7,10 @@
         <variable
             name="doctor"
             type="com.digidoctor.android.model.DoctorModel" />
+
+        <variable
+            name="subSpecialityInterface"
+            type="com.digidoctor.android.adapters.SubSpecialityAdapter.SubSpecialityInterface" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -14,8 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
         android:elevation="5dp"
-        app:cardCornerRadius="8dp"
-        android:padding="@dimen/_10sdp">
+        android:padding="@dimen/_10sdp"
+        app:cardCornerRadius="8dp">
 
 
         <LinearLayout
@@ -29,10 +33,10 @@
                 android:padding="@dimen/_10sdp">
 
                 <ImageView
-                    android:contentDescription="@string/doctorprofileimage"
                     android:id="@+id/imageView20"
                     android:layout_width="54dp"
                     android:layout_height="54dp"
+                    android:contentDescription="@string/doctorprofileimage"
                     android:loadDoctorImage="@{doctor.profilePhotoPath}"
                     android:padding="2dp"
                     app:srcCompat="@drawable/doc_image" />
@@ -66,25 +70,30 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:fontFamily="@font/poppins_semibold"
                     android:id="@+id/textView78"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView77"
                     android:layout_marginStart="8dp"
                     android:layout_toEndOf="@+id/imageView20"
+                    android:fontFamily="@font/poppins_semibold"
                     android:singleLine="true"
                     android:text="@{doctor.hospitalName}"
                     android:textColor="@color/PrimaryColor"
                     android:textSize="14sp" />
 
                 <ImageView
-                    android:visibility="gone"
                     android:id="@+id/ivShareDocProfile"
-                    android:layout_width="13dp"
-                    android:layout_height="13dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
                     android:layout_margin="3dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{()->subSpecialityInterface.onShareProfile(doctor)}"
+                    android:padding="5dp"
+                    android:visibility="visible"
                     app:srcCompat="@drawable/share_doc_profile_image" />
             </RelativeLayout>
 
@@ -106,13 +115,13 @@
                         app:srcCompat="@drawable/group" />
 
                     <TextView
-                        android:fontFamily="@font/poppins"
                         android:id="@+id/textView79"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_toEndOf="@+id/imageView29"
                         android:drawablePadding="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:text="@{String.valueOf(doctor.noofPatients)+` Patients`}"
@@ -132,12 +141,12 @@
                         app:srcCompat="@drawable/graduated" />
 
                     <TextView
-                        android:fontFamily="@font/poppins"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_toEndOf="@+id/ivGraduated"
                         android:drawablePadding="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:text="@{doctor.degree}"
@@ -157,12 +166,12 @@
                         app:srcCompat="@drawable/location_pin" />
 
                     <TextView
-                        android:fontFamily="@font/poppins"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_toEndOf="@+id/ivLocationPin"
                         android:drawablePadding="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:text="@{doctor.address}"
@@ -192,24 +201,24 @@
                         app:srcCompat="@drawable/rupee_indian" />
 
                     <TextView
-                        android:fontFamily="@font/poppins_bold"
                         android:id="@+id/textView82"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
+                        android:fontFamily="@font/poppins_bold"
                         android:text="@{String.valueOf(doctor.drFee)}"
                         android:textColor="#262E3F"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:fontFamily="@font/poppins"
                         android:id="@+id/textView83"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="5dp"
+                        android:fontFamily="@font/poppins"
                         android:text="@string/consulation_fee"
                         android:textColor="#262E3F"
                         android:textSize="15sp" />
@@ -227,9 +236,6 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:visibility="gone"
-                        android:paddingLeft="@dimen/_10sdp"
-                        android:paddingRight="@dimen/_10sdp"
                         android:id="@+id/button4"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_30sdp"
@@ -237,24 +243,27 @@
                         android:layout_weight="1"
                         android:background="@drawable/round_for_search"
                         android:backgroundTint="@color/PrimaryColor"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_10sdp"
                         android:text="@string/video_consult"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:visibility="gone" />
 
 
                     <Button
-                        android:fontFamily="@font/poppins_semibold"
-                        android:paddingLeft="@dimen/_10sdp"
-                        android:paddingRight="@dimen/_10sdp"
                         android:id="@+id/btnBookAppointment"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_marginStart="5dp"
                         android:layout_weight="1"
-                        android:textSize="14sp"
                         android:background="@drawable/round_for_search"
                         android:backgroundTint="#EDA537"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_10sdp"
                         android:text="@string/book_appointment"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp" />
 
 
                 </LinearLayout>

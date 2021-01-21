@@ -25,7 +25,6 @@ import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +34,6 @@ import static com.digidoctor.android.utility.utils.KEY_AGE;
 import static com.digidoctor.android.utility.utils.KEY_DOC_NAME;
 import static com.digidoctor.android.utility.utils.KEY_GENDER;
 import static com.digidoctor.android.utility.utils.KEY_SYMPTOM_ID;
-import static com.digidoctor.android.utility.utils.getDocTiming;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
 
@@ -86,7 +84,7 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
         doctorsAdapter = new RecommendedDoctorsAdapter(this);
-        popularDoctorsAdapter = new PopularDoctorsAdapter(this);
+        popularDoctorsAdapter = new PopularDoctorsAdapter(this, requireActivity());
         recommendedDoctorsBinding.recommendedRec.setAdapter(doctorsAdapter);
         recommendedDoctorsBinding.popularRec.setAdapter(popularDoctorsAdapter);
 
@@ -126,10 +124,6 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
 
             doctorsAdapter.submitList(recDocList);
             popularDoctorsAdapter.submitList(popDocList);
-
-           /* if (user.getIsExists() == 1 && !isDialogShow)
-                showSelectGenderAgeDialog();*/
-
 
         });
     }

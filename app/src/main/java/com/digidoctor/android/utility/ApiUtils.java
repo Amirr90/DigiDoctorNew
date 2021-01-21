@@ -161,10 +161,8 @@ public class ApiUtils {
     }
 
 
-    public static void getDocBySpecialityById(String id, String docName, final ApiCallbackInterface apiCallbackInterface) {
-        SpecialityModel specialityModel = new SpecialityModel();
-        specialityModel.setSpecialityID(Integer.parseInt(id));
-        specialityModel.setDoctorName(docName);
+    public static void getDocBySpecialityById(SpecialityModel specialityModel, final ApiCallbackInterface apiCallbackInterface) {
+
         try {
             final Api api = URLUtils.getAPIServiceNewAPI();
             Call<DocBySpecialityRes> specialityResCall = api.getDoctorProfileBySpeciality(specialityModel);

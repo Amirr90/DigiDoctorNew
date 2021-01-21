@@ -62,8 +62,8 @@ public class PatientViewModel extends ViewModel {
     }
 
 
-    public LiveData<List<DoctorModel>> getDocBySpeciality(String id, String docName) {
-        return repo.getDocBySpeciality(id, docName);
+    public LiveData<List<DoctorModel>> getDocBySpeciality(SpecialityModel specialityModel) {
+        return repo.getDocBySpeciality(specialityModel);
     }
 
     public LiveData<List<DoctorModelRes>> getRecommendedDoctorsData(HashMap<String, String> map) {

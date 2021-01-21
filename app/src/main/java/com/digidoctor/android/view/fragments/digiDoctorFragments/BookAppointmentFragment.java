@@ -366,14 +366,11 @@ public class BookAppointmentFragment extends Fragment {
 
             holder.paymentOption.checkBox.setChecked(selectedItem == position);
 
-            holder.paymentOption.checkBox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    payModeTitle = paymentOptionModel.getPaymentMode();
-                    selectedItem = position;
-                    selectedPaymentId = paymentOptionModel.getId();
-                    notifyDataSetChanged();
-                }
+            holder.paymentOption.checkBox.setOnClickListener(view -> {
+                payModeTitle = paymentOptionModel.getPaymentMode();
+                selectedItem = position;
+                selectedPaymentId = paymentOptionModel.getId();
+                notifyDataSetChanged();
             });
 
         }
