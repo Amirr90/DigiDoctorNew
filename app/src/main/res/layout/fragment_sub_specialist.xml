@@ -54,6 +54,7 @@
         tools:listitem="@layout/sub_speciality_view" />
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/rlNoDocFound"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

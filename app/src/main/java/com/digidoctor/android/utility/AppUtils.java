@@ -292,7 +292,7 @@ public class AppUtils {
                 .append(doctorModel.getSpeciality())
                 .append(".")
                 .append("\nVisit Doctor's profile ")
-                .append("www.com.digidoctor/doctor/")
+                .append("https://www.com.digidoctor/doctor/")
                 .append(doctorModel.getId());
         return builder.toString();
     }
@@ -317,7 +317,7 @@ public class AppUtils {
         models.add(new LanguageModel("Marathi", "en", false));
         models.add(new LanguageModel("Tamil", "en", false));
         models.add(new LanguageModel("Urdu", "en", false));
-        models.add(new LanguageModel("Arbi", "en", false));
+        models.add(new LanguageModel("Arabic", "en", false));
         models.add(new LanguageModel("Sanskrit", "en", false));
         return models;
     }

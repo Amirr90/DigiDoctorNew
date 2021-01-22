@@ -133,7 +133,7 @@
         <deepLink
             android:id="@+id/deepLink"
             android:autoVerify="true"
-            app:uri="www.com.digidoctor/doctor/{docId}" />
+            app:uri="https://www.com.digidoctor/doctor/{docId}" />
     </fragment>
     <fragment
         android:id="@+id/chooseTimeFragment2"
