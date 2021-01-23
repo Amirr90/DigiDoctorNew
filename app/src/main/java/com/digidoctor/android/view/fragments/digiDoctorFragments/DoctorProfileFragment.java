@@ -59,7 +59,8 @@ public class DoctorProfileFragment extends Fragment {
             shortProfileBinding.setDocMo(doctorModel);
 
             try {
-                shortProfileBinding.tvWorkingHours.setText(getDocTiming(doctorModel.getWorkingHours()).toString());
+                if (null != doctorModel.getWorkingHours())
+                    shortProfileBinding.tvWorkingHours.setText(getDocTiming(doctorModel.getWorkingHours()).toString());
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.d(TAG, "getData: " + e.getLocalizedMessage());

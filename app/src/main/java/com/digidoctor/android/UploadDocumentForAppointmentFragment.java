@@ -2,6 +2,7 @@ package com.digidoctor.android;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,12 +27,10 @@ import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.GetAudioRecorder;
 import com.digidoctor.android.view.activity.PatientDashboard;
+import com.digidoctor.android.view.fragments.digiDoctorFragments.AppointmentDetailFragment;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,6 +52,9 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
     NavController navController;
 
 
+    MediaRecorder myAudioRecorder;
+
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         uploadBinding = FragmentUploadDocumentForAppointmentBinding.inflate(getLayoutInflater());
@@ -64,6 +66,8 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        myAudioRecorder = new MediaRecorder();
+
         navController = Navigation.findNavController(view);
 
         modelList = new ArrayList<>();
@@ -74,7 +78,8 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
             PatientDashboard.getInstance().onSupportNavigateUp();
 
         appointmentId = getArguments().getString("id");
-        audioRecorder = GetAudioRecorder.getInstance(UploadDocumentForAppointmentFragment.this);
+        audioRecorder = GetAudioRecorder.getInstance(requireActivity());
+
 
         uploadBinding.laySelectImage.setOnClickListener(view1 -> selectImage());
         uploadBinding.laySelectAudio.setOnClickListener(view1 -> selectAudio());
@@ -119,23 +124,14 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
                 ApiUtils.saveAttachmentAfterBooking(uploadPresDataModel, new ApiCallbackInterface() {
                     @Override
                     public void onSuccess(List<?> o) {
-                        //  AppointmentDetailFragment.getInstance().addAppointmentRelatedData();
-                      /*  List<UploadedFileModel> fileModels = (List<UploadedFileModel>) o;
-                        Log.d(TAG, "onSuccess: " + fileModels.toString());*/
+                        List<String> filePaths = (List<String>) o;
+                        if (null == filePaths)
+                            return;
 
 
-                        try {
-                            JSONArray jsonArray = new JSONArray(uploadPresDataModel.getDtDataTable());
-                            for (int a = 0; a < jsonArray.length(); a++) {
-                                JSONObject jsonObject = (JSONObject) jsonArray.get(a);
-                                Log.d(TAG, "onSuccess: " + jsonObject.getString("filePath"));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
+                        AppointmentDetailFragment.getInstance().addAppointmentRelatedData(filePaths.get(0));
                         AppUtils.hideDialog();
-                        Toast.makeText(requireActivity(), "document send successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireActivity(), "Document send successfully", Toast.LENGTH_SHORT).show();
                         PatientDashboard.getInstance().onSupportNavigateUp();
 
                     }
@@ -185,8 +181,8 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
     }
 
     private void selectAudio() {
-        // audioRecorder.setAutoStart(true).record();
-        Toast.makeText(requireActivity(), getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+        audioRecorder.record();
+        // Toast.makeText(requireActivity(), getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
     }
 
     private void selectVideo() {
@@ -229,7 +225,6 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
     public void onItemClicked(Object o) {
         adapter.removeItem((int) o);
     }
-
 
 
 }

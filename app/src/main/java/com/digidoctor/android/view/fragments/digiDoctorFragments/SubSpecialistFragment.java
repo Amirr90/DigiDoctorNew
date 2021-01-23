@@ -27,6 +27,7 @@ import com.digidoctor.android.viewHolder.PatientViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import static com.digidoctor.android.utility.AppUtils.shareDocProfile;
+import static com.digidoctor.android.utility.NewDashboardUtils.getJSONFromModel;
 import static com.digidoctor.android.utility.NewDashboardUtils.hideSoftKeyboard;
 
 public class SubSpecialistFragment extends Fragment implements SubSpecialityAdapter.SubSpecialityInterface {
@@ -119,6 +120,9 @@ public class SubSpecialistFragment extends Fragment implements SubSpecialityAdap
             }
         });
 
+
+
+
     }
 
     private void performSearch(String docName) {
@@ -153,5 +157,18 @@ public class SubSpecialistFragment extends Fragment implements SubSpecialityAdap
     @Override
     public void onShareProfile(DoctorModel doctorModel) {
         shareDocProfile(doctorModel, requireActivity());
+    }
+
+    @Override
+    public void onViewDocProfile(DoctorModel doctorModel) {
+        Bundle bundle = new Bundle();
+        bundle.putString("docModel", getJSONFromModel(doctorModel));
+        Log.d(TAG, "onItemClicked: " + doctorModel.toString());
+        try {
+            Log.d(TAG, "onItemClicked: " + getJSONFromModel(doctorModel));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        navController.navigate(R.id.action_subSpecialistFragment_to_doctorShortProfileFragment, bundle);
     }
 }

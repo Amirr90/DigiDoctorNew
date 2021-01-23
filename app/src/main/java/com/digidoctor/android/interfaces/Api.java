@@ -1,7 +1,6 @@
 package com.digidoctor.android.interfaces;
 
 import com.digidoctor.android.model.AddInvestigationModel;
-import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.AppointmentRes;
 import com.digidoctor.android.model.CheckLoginRes;
 import com.digidoctor.android.model.CheckSlotAvailabilityRes;
@@ -172,8 +171,12 @@ public interface Api {
             @Body AddInvestigationModel model);
 
     @POST("saveAttachmentAfterBooking")
-    Call<Response> saveAttachmentAfterBooking(
+    Call<SaveMultipleFileRes> saveAttachmentAfterBooking(
             @Body UploadPresDataModel model);
+
+    @POST("logout")
+    Call<LogoutModel> logout(
+            @Body LogoutModel model);
 
     @POST("getPaymentMode")
     Call<Response> getPaymentMode(

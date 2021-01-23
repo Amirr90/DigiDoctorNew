@@ -145,10 +145,13 @@ public class DoctorModel {
 
     @Override
     public String toString() {
-        return "DoctorModel{" +
+        return "{" +
                 "id=" + id +
-                ", DrFee=" + drFee +
+                ", drFee=" + drFee +
                 ", noofPatients=" + noofPatients +
+                ", isEraUser=" + isEraUser +
+                ", rating=" + rating +
+                ", review=" + review +
                 ", drName='" + drName + '\'' +
                 ", speciality='" + speciality + '\'' +
                 ", yearOfExperience='" + yearOfExperience + '\'' +
@@ -156,6 +159,9 @@ public class DoctorModel {
                 ", degree='" + degree + '\'' +
                 ", address='" + address + '\'' +
                 ", profilePhotoPath='" + profilePhotoPath + '\'' +
+                ", departmentName='" + departmentName + '\'' +
+                ", description='" + description + '\'' +
+                ", workingHours='" + workingHours + '\'' +
                 '}';
     }
 }

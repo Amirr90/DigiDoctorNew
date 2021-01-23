@@ -11,6 +11,7 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.DemoAoiInterface;
+import com.digidoctor.android.interfaces.LogoutModel;
 import com.digidoctor.android.model.AddInvestigationModel;
 import com.digidoctor.android.model.AppointmentRes;
 import com.digidoctor.android.model.CheckLoginRes;
@@ -92,9 +93,9 @@ import static com.digidoctor.android.utility.utils.logout;
 
 public class ApiUtils {
 
-    private static final int RESPONSE_SUCCESS = 1;
-    private static final int RESPONSE_FAILED = 0;
-    private static final int RESPONSE_LOGOUT = 2;
+    public static final int RESPONSE_SUCCESS = 1;
+    public static final int RESPONSE_FAILED = 0;
+    public static final int RESPONSE_LOGOUT = 2;
 
     public static void getPatientDasboard(Dashboard dashboard,
                                           final ApiCallbackInterface apiCallbackInterface) {
@@ -797,14 +798,6 @@ public class ApiUtils {
         call.enqueue(new Callback<VitalResponse>() {
             @Override
             public void onResponse(@NotNull Call<VitalResponse> call, @NotNull Response<VitalResponse> response) {
-                /*if ((response.code() == 200 && null != response.body())) {
-                    VitalResponse responseModel = response.body();
-                    if (responseModel.getResponseCode() == 1) {
-                        apiCallbackInterface.onSuccess(responseModel.getResponseValue());
-                    } else {
-                        apiCallbackInterface.onError(responseModel.getResponseMessage());
-                    }
-                }*/
 
                 if (response.code() == 200) {
                     VitalResponse resModel = response.body();
@@ -967,23 +960,34 @@ public class ApiUtils {
     public static void saveAttachmentAfterBooking(UploadPresDataModel model, final ApiCallbackInterface apiCallbackInterface) {
         Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
 
-        Call<com.digidoctor.android.model.Response> call = iRestInterfaces.saveAttachmentAfterBooking(model);
+        Call<SaveMultipleFileRes> call = iRestInterfaces.saveAttachmentAfterBooking(model);
 
-        call.enqueue(new Callback<com.digidoctor.android.model.Response>() {
+        call.enqueue(new Callback<SaveMultipleFileRes>() {
             @Override
-            public void onResponse(@NotNull Call<com.digidoctor.android.model.Response> call, @NotNull Response<com.digidoctor.android.model.Response> response) {
+            public void onResponse(@NotNull Call<SaveMultipleFileRes> call, @NotNull Response<SaveMultipleFileRes> response) {
                 if ((response.code() == 200 && null != response.body())) {
-                    com.digidoctor.android.model.Response responseBody = response.body();
-                    if (responseBody.getResponseCode() == 1) {
-                        apiCallbackInterface.onSuccess(responseBody.getResponseValue());
+                    SaveMultipleFileRes prescriptionResponse = response.body();
+                    if (prescriptionResponse.getResponseCode() == 1) {
+                        try {
+                            JSONArray jsonArray = new JSONArray(response.body().getResponseData());
+                            Log.d("TAG", "UploadImageRes: " + jsonArray.toString());
+                            List<String> strings = new ArrayList<>();
+                            strings.add(jsonArray.toString());
+                            apiCallbackInterface.onSuccess(strings);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            apiCallbackInterface.onError(e.getLocalizedMessage());
+                        }
+
                     } else {
-                        apiCallbackInterface.onError(responseBody.getResponseMessage());
+                        apiCallbackInterface.onError(prescriptionResponse.getResponseMessage());
                     }
                 } else apiCallbackInterface.onError("" + response.code());
             }
 
             @Override
-            public void onFailure(@NotNull Call<com.digidoctor.android.model.Response> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<SaveMultipleFileRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
                 apiCallbackInterface.onFailed(t);
             }
@@ -1149,14 +1153,6 @@ public class ApiUtils {
         call.enqueue(new Callback<CheckLoginRes>() {
             @Override
             public void onResponse(@NotNull Call<CheckLoginRes> call, @NotNull Response<CheckLoginRes> response) {
-              /*  if ((response.code() == 200 && null != response.body())) {
-                    CheckLoginRes responseModel = response.body();
-                    if (responseModel.getResponseCode() == 1) {
-                        apiCallbackInterface.onSuccess(responseModel.getResponseValue());
-                    } else {
-                        apiCallbackInterface.onError(responseModel.getResponseMessage());
-                    }
-                }*/
 
                 if (response.code() == 200) {
                     CheckLoginRes checkLoginRes = response.body();
@@ -1187,6 +1183,45 @@ public class ApiUtils {
             }
         });
     }
+
+/*    public static void logout(LogoutModel model, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<LogoutModel> call = iRestInterfaces.logout(model);
+        call.enqueue(new Callback<LogoutModel>() {
+            @Override
+            public void onResponse(@NotNull Call<LogoutModel> call, @NotNull Response<LogoutModel> response) {
+
+                if (response.code() == 200) {
+                    LogoutModel checkLoginRes = response.body();
+                    if (null != checkLoginRes) {
+                        int responseCode = (int) checkLoginRes.getResponseCode();
+                        List<String> list = new ArrayList<>();
+                        list.add(checkLoginRes.getResponseMessage());
+                        switch (responseCode) {
+                            case RESPONSE_SUCCESS:
+                                apiCallbackInterface.onSuccess(list);
+                                break;
+                            case RESPONSE_FAILED:
+                                apiCallbackInterface.onError(String.valueOf(response.code()));
+                                break;
+                            case RESPONSE_LOGOUT:
+                                utils.logout(PatientDashboard.getInstance());
+                                break;
+
+                        }
+                    }
+                } else {
+                    apiCallbackInterface.onError(String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<LogoutModel> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }*/
 
     public static void investigationData(final ApiCallbackInterface apiCallbackInterface) {
         User user = new User();

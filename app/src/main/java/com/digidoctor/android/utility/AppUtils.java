@@ -199,7 +199,6 @@ public class AppUtils {
     public static String parseDate(String inDate, String outPattern) {
 
         String inputPattern = "dd/MM/yy";
-        // String outputPattern = "dd MMMM yyyy";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outPattern);
 

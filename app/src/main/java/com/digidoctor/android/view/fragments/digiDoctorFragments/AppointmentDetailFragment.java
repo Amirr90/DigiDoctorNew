@@ -65,6 +65,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
 
         detailBinding = FragmentAppointmentDetailBinding.inflate(getLayoutInflater());
         instance = this;
+        Log.d(TAG, "onCreateView: ");
         return detailBinding.getRoot();
     }
 
@@ -72,6 +73,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Log.d(TAG, "onViewCreated: ");
         navController = Navigation.findNavController(view);
 
         //getting Model
@@ -125,6 +127,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
     }
 
     public void addAppointmentRelatedData(String attachFile) {
+        Log.d(TAG, "addAppointmentRelatedData: " + attachFile);
         try {
             JSONArray jsonArray = new JSONArray(attachFile);
             for (int a = 0; a < jsonArray.length(); a++) {

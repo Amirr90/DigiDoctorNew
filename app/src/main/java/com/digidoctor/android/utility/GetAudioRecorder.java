@@ -1,5 +1,6 @@
 package com.digidoctor.android.utility;
 
+import android.app.Activity;
 import android.os.Environment;
 
 import androidx.fragment.app.Fragment;
@@ -14,7 +15,7 @@ import cafe.adriel.androidaudiorecorder.model.AudioSource;
 public class GetAudioRecorder {
     private static final String TAG = "GetAudioRecorder";
 
-    public static AndroidAudioRecorder getInstance(Fragment fragment) {
+    public static AndroidAudioRecorder getInstance(Activity fragment) {
         String filePath = Environment.getExternalStorageDirectory() + "/recorded_audio.wav";
         int color = fragment.getResources().getColor(R.color.colorPrimaryDark);
         int requestCode = 0;

@@ -3,7 +3,6 @@ package com.digidoctor.android.utility;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,11 +20,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.interfaces.Api;
+import com.digidoctor.android.interfaces.LogoutModel;
 import com.digidoctor.android.model.PrescriptionDtTableModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.view.activity.SignUpJourneyActivity;
 import com.google.gson.Gson;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,7 +42,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static android.content.Context.MODE_PRIVATE;
+import static com.digidoctor.android.utility.ApiUtils.RESPONSE_FAILED;
+import static com.digidoctor.android.utility.ApiUtils.RESPONSE_LOGOUT;
+import static com.digidoctor.android.utility.ApiUtils.RESPONSE_SUCCESS;
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 
 public class utils {
@@ -361,25 +370,14 @@ public class utils {
 
 
     public static boolean logout(final Activity activity) {
-        Dialog dialog = new Dialog(activity);
         try {
-            //LogoutViewBinding dialogBinding = LogoutViewBinding.inflate(activity.getLayoutInflater());
             new AlertDialog.Builder(activity)
                     .setTitle(R.string.logout)
-                    //.setView(dialogBinding.getRoot())
-
                     .setMessage(R.string.logout_text)
                     .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                            utils.setBoolean(utils.IS_LOGIN, false, activity);
-
-                            activity.startActivity(new Intent(activity, SignUpJourneyActivity.class));
-
-                            activity.finish();
-
-                            Toast.makeText(activity, R.string.logged_out_sucvcessfully, Toast.LENGTH_SHORT).show();
-
+                            logoutFromServer(activity);
                         }
                     }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                 @Override
@@ -394,6 +392,50 @@ public class utils {
             hideDialog();
             return false;
         }
+    }
+
+    private static void logoutFromServer(Activity activity) {
+        LogoutModel model = new LogoutModel();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<LogoutModel> call = iRestInterfaces.logout(model);
+        call.enqueue(new Callback<LogoutModel>() {
+            @Override
+            public void onResponse(@NotNull Call<LogoutModel> call, @NotNull Response<LogoutModel> response) {
+
+                if (response.code() == 200) {
+                    LogoutModel checkLoginRes = response.body();
+                    if (null != checkLoginRes) {
+                        int responseCode = (int) checkLoginRes.getResponseCode();
+                        List<String> list = new ArrayList<>();
+                        if (!list.isEmpty())
+                            list.add(checkLoginRes.getResponseMessage());
+
+                        switch (responseCode) {
+                            case RESPONSE_SUCCESS: {
+                                utils.setBoolean(utils.IS_LOGIN, false, activity);
+                                activity.startActivity(new Intent(activity, SignUpJourneyActivity.class));
+                                activity.finish();
+                                Toast.makeText(activity, R.string.logged_out_sucvcessfully, Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+                            case RESPONSE_FAILED:
+                            case RESPONSE_LOGOUT:
+                                Toast.makeText(activity, activity.getString(R.string.retry), Toast.LENGTH_SHORT).show();
+                                break;
+
+                        }
+                    }
+                } else {
+                    Toast.makeText(activity, activity.getString(R.string.retry), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<LogoutModel> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                Toast.makeText(activity, activity.getString(R.string.retry), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public static void logout(final Activity activity, boolean status) {

@@ -1,19 +1,24 @@
 package com.digidoctor.android.adapters;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.SubSpecialityViewBinding;
 import com.digidoctor.android.model.DoctorModel;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static com.digidoctor.android.utility.NewDashboardUtils.getJSONFromModel;
 
 
 public class SubSpecialityAdapter extends ListAdapter<DoctorModel, SubSpecialityAdapter.SubSpecialityVH> {
@@ -40,7 +45,6 @@ public class SubSpecialityAdapter extends ListAdapter<DoctorModel, SubSpeciality
         final DoctorModel doctorModel = getItem(position);
         holder.subSpecialityViewBinding.setDoctor(doctorModel);
         holder.subSpecialityViewBinding.btnBookAppointment.setOnClickListener(v -> {
-
             Gson gson = new Gson();
             String jsonString = gson.toJson(doctorModel);
             Log.d(TAG, "onClickDoctorModel: " + doctorModel.toString());
@@ -50,8 +54,8 @@ public class SubSpecialityAdapter extends ListAdapter<DoctorModel, SubSpeciality
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         });
+
 
     }
 
@@ -67,6 +71,9 @@ public class SubSpecialityAdapter extends ListAdapter<DoctorModel, SubSpeciality
 
     public interface SubSpecialityInterface {
         void onItemClick(String item);
+
         void onShareProfile(DoctorModel doctorModel);
+        void onViewDocProfile(DoctorModel doctorModel);
     }
+
 }
