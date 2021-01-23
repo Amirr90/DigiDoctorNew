@@ -542,7 +542,7 @@ public class BookAppointment extends Credentials {
 
         AppUtils.showRequestDialog(activity);
 
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
 
         Call<OnlineAppointmentRes> call = iRestInterfaces.onlineAppointment2(appointment);
         call.enqueue(new Callback<OnlineAppointmentRes>() {

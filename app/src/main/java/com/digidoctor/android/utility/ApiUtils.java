@@ -44,6 +44,7 @@ import com.digidoctor.android.model.SpecialityRes;
 import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.model.SymptomsRes;
 import com.digidoctor.android.model.TransactionModel;
+import com.digidoctor.android.model.UploadPresDataModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
@@ -99,7 +100,7 @@ public class ApiUtils {
                                           final ApiCallbackInterface apiCallbackInterface) {
 
         try {
-            final Api api = URLUtils.getAPIServiceNewAPI();
+            final Api api = URLUtils.getAPIServiceForPatient();
             Call<DashBoardRes> dashBoardResCall = api.patientDasboard(dashboard);
 
             dashBoardResCall.enqueue(new Callback<DashBoardRes>() {
@@ -135,7 +136,7 @@ public class ApiUtils {
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
 
-            final Api api = URLUtils.getAPIServiceNewAPI();
+            final Api api = URLUtils.getAPIServiceForPatient();
             Call<SpecialityRes> specialityResCall = api.getSpeciality(specialityModel);
             specialityResCall.enqueue(new Callback<SpecialityRes>() {
                 @Override
@@ -164,7 +165,7 @@ public class ApiUtils {
     public static void getDocBySpecialityById(SpecialityModel specialityModel, final ApiCallbackInterface apiCallbackInterface) {
 
         try {
-            final Api api = URLUtils.getAPIServiceNewAPI();
+            final Api api = URLUtils.getAPIServiceForPatient();
             Call<DocBySpecialityRes> specialityResCall = api.getDoctorProfileBySpeciality(specialityModel);
             specialityResCall.enqueue(new Callback<DocBySpecialityRes>() {
                 @Override
@@ -191,7 +192,7 @@ public class ApiUtils {
     public static void getDoctorsTimeSlots(String docId, String date, String isEraUser, final ApiCallbackInterface apiCallbackInterface) {
         try {
 
-            final Api api = URLUtils.getAPIServiceNewAPI();
+            final Api api = URLUtils.getAPIServiceForPatient();
 
             OnlineAppointmentSlots slotsModel = new OnlineAppointmentSlots();
             slotsModel.setAppointDate(date);
@@ -231,7 +232,7 @@ public class ApiUtils {
         try {
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
-            final Api api = URLUtils.getAPIServiceNewAPI();
+            final Api api = URLUtils.getAPIServiceForPatient();
             Call<DocBySymptomsRes> specialityResCall = api.getDoctorProfileBySymptom(symptomModel);
             specialityResCall.enqueue(new Callback<DocBySymptomsRes>() {
                 @Override
@@ -267,7 +268,7 @@ public class ApiUtils {
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
 
-            final Api api = URLUtils.getAPIServiceNewAPI();
+            final Api api = URLUtils.getAPIServiceForPatient();
             Call<SymptomsRes> specialityResCall = api.getProblemsWithIcon(symptomModel);
             specialityResCall.enqueue(new Callback<SymptomsRes>() {
                 @Override
@@ -297,7 +298,7 @@ public class ApiUtils {
         AppUtils.showRequestDialog(activity);
 
         User user = getPrimaryUser(activity);
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<RegistrationRes> call = iRestInterfaces.cancelAppointment(
                 getString(TOKEN, activity),
                 user.getMobileNo(),
@@ -333,7 +334,7 @@ public class ApiUtils {
 
     public static void getOTP(GenerateOtpModel generateOtpModel, final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
 
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<GenerateOtpRes> call = iRestInterfaces.generateOTPForPatient(generateOtpModel);
 
         call.enqueue(new Callback<GenerateOtpRes>() {
@@ -377,7 +378,7 @@ public class ApiUtils {
 
         memberModel.setUserLoginId(String.valueOf(user.getUserLoginId()));
 
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<GetMembersRes> call = iRestInterfaces.getMembers(memberModel);
 
         call.enqueue(new Callback<GetMembersRes>() {
@@ -409,7 +410,7 @@ public class ApiUtils {
     public static void checkLogin(Login login, final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
 
 
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
 
         final Call<CheckLoginRes> checkLogin = iRestInterfaces.checkLogin(login);
 
@@ -453,7 +454,7 @@ public class ApiUtils {
     public static void patientRegistration(Registration registration,
                                            final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
 
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         final Call<CheckLoginRes> register = iRestInterfaces.patientRegistration(registration);
 
         register.enqueue(new Callback<CheckLoginRes>() {
@@ -505,7 +506,7 @@ public class ApiUtils {
             model.setAppointmentId(map.get(KEY_APPOINTMENT_ID));
 
             Log.d("TAG", "checkTimeSlotAvailability: " + model.toString());
-            final Api api = URLUtils.getAPIServiceNewAPI();
+            final Api api = URLUtils.getAPIServiceForPatient();
 
             Call<CheckSlotAvailabilityRes> specialityResCall = api.checkTimeSlotAvailability(model);
             specialityResCall.enqueue(new Callback<CheckSlotAvailabilityRes>() {
@@ -562,7 +563,7 @@ public class ApiUtils {
         if (PatientDashboard.getInstance() != null)
             AppUtils.showRequestDialog(activity);
 
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
 
         GetPatientMedicationMainModel model = new GetPatientMedicationMainModel();
         User user = getPrimaryUser(activity);
@@ -630,7 +631,7 @@ public class ApiUtils {
             AppUtils.showRequestDialog(activity);
             Log.d("TAG", "checkTimeSlotAvailability: " + map.toString());
 
-            final Api api = URLUtils.getAPIServiceNewAPI();
+            final Api api = URLUtils.getAPIServiceForPatient();
             Call<ResponseModel> specialityResCall = api.getBookingTransactionId(transactionModel);
             specialityResCall.enqueue(new Callback<ResponseModel>() {
                 @Override
@@ -694,7 +695,7 @@ public class ApiUtils {
         memberModel.setCountryId(map.get("0"));
         memberModel.setAddress(map.get("address"));
 
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<RegistrationRes> call = iRestInterfaces.addMember(memberModel);
 
         call.enqueue(new Callback<RegistrationRes>() {
@@ -743,7 +744,7 @@ public class ApiUtils {
     }
 
     public static void addVitals(VitalModel model, final ApiCallbackInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<ResponseModel> call = iRestInterfaces.addVitals(model);
 
         call.enqueue(new Callback<ResponseModel>() {
@@ -790,7 +791,7 @@ public class ApiUtils {
     }
 
     public static void getVitalsList(VitalModel model, final ApiCallbackInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<VitalResponse> call = iRestInterfaces.getVitals(model);
 
         call.enqueue(new Callback<VitalResponse>() {
@@ -836,7 +837,7 @@ public class ApiUtils {
     }
 
     public static void getInvestigationData(User model, final ApiCallbackInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<InvestigationRes> call = iRestInterfaces.getInvestigationData(model);
 
         call.enqueue(new Callback<InvestigationRes>() {
@@ -862,7 +863,7 @@ public class ApiUtils {
     }
 
     public static void getAppointmentData(User model, final ApiCallbackInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<AppointmentRes> call = iRestInterfaces.getAppointmentData(model);
 
         call.enqueue(new Callback<AppointmentRes>() {
@@ -889,7 +890,7 @@ public class ApiUtils {
 
 
     public static void addPrescription(PrescriptionModel model, final ApiCallbackInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<VitalResponse> call = iRestInterfaces.addPrescription(model);
 
         call.enqueue(new Callback<VitalResponse>() {
@@ -914,7 +915,7 @@ public class ApiUtils {
     }
 
     public static void submitInvestigation(AddInvestigationModel model, final ApiCallbackInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<VitalResponse> call = iRestInterfaces.addInvestigation(model);
 
         call.enqueue(new Callback<VitalResponse>() {
@@ -941,6 +942,32 @@ public class ApiUtils {
     public static void getPayMode(PayModeModel model, final ApiCallbackInterface apiCallbackInterface) {
         Api iRestInterfaces = URLUtils.getAPIServiceNewAPIForPharmacy();
         Call<com.digidoctor.android.model.Response> call = iRestInterfaces.getPaymentMode(model);
+
+        call.enqueue(new Callback<com.digidoctor.android.model.Response>() {
+            @Override
+            public void onResponse(@NotNull Call<com.digidoctor.android.model.Response> call, @NotNull Response<com.digidoctor.android.model.Response> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    com.digidoctor.android.model.Response responseBody = response.body();
+                    if (responseBody.getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(responseBody.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(responseBody.getResponseMessage());
+                    }
+                } else apiCallbackInterface.onError("" + response.code());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<com.digidoctor.android.model.Response> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void saveAttachmentAfterBooking(UploadPresDataModel model, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+
+        Call<com.digidoctor.android.model.Response> call = iRestInterfaces.saveAttachmentAfterBooking(model);
 
         call.enqueue(new Callback<com.digidoctor.android.model.Response>() {
             @Override
@@ -1090,7 +1117,7 @@ public class ApiUtils {
     }
 
     public static void getMedicineData(final ApiCallbackInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<MedicineRes> call = iRestInterfaces.getMedicationData();
 
         call.enqueue(new Callback<MedicineRes>() {
@@ -1116,7 +1143,7 @@ public class ApiUtils {
 
 
     public static void deleteMember(User user, final ApiCallbackInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<CheckLoginRes> call = iRestInterfaces.deleteMember(user);
 
         call.enqueue(new Callback<CheckLoginRes>() {
@@ -1164,10 +1191,8 @@ public class ApiUtils {
     public static void investigationData(final ApiCallbackInterface apiCallbackInterface) {
         User user = new User();
         user.setMemberId(0);
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<InvestigationDataRes> call = iRestInterfaces.investigationData(user);
-
-
         call.enqueue(new Callback<InvestigationDataRes>() {
             @Override
             public void onResponse(@NotNull Call<InvestigationDataRes> call, @NotNull Response<InvestigationDataRes> response) {
@@ -1191,7 +1216,7 @@ public class ApiUtils {
 
     @EverythingIsNonNull
     public static void getPatientMedicationDetail(String appId, final ApiCallbackInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         GetPatientMedicationMainModel model = new GetPatientMedicationMainModel();
         model.setAppointmentId(Integer.parseInt(appId));
         Call<GetPatientMedicationRes> call = iRestInterfaces.getPatientMedicationDetails(model);
@@ -1220,7 +1245,7 @@ public class ApiUtils {
 
     @EverythingIsNonNull
     public static void updateMember(User model, final ApiCallbackInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
 
         Call<CheckLoginRes> call = iRestInterfaces.updateMember(model);
 

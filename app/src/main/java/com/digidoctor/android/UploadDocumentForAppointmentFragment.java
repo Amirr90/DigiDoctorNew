@@ -1,64 +1,235 @@
 package com.digidoctor.android;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UploadDocumentForAppointmentFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class UploadDocumentForAppointmentFragment extends Fragment {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import com.digidoctor.android.adapters.FilesAdapter;
+import com.digidoctor.android.databinding.FragmentUploadDocumentForAppointmentBinding;
+import com.digidoctor.android.interfaces.AdapterInterface;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
+import com.digidoctor.android.model.FileModel;
+import com.digidoctor.android.model.UploadPresDataModel;
+import com.digidoctor.android.utility.ApiUtils;
+import com.digidoctor.android.utility.AppUtils;
+import com.digidoctor.android.utility.GetAudioRecorder;
+import com.digidoctor.android.view.activity.PatientDashboard;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    public UploadDocumentForAppointmentFragment() {
-        // Required empty public constructor
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
+
+
+public class UploadDocumentForAppointmentFragment extends Fragment implements AdapterInterface {
+    private static final String TAG = "UploadDocumentForAppoin";
+
+    FragmentUploadDocumentForAppointmentBinding uploadBinding;
+    FilesAdapter adapter;
+    List<FileModel> modelList;
+
+    AndroidAudioRecorder audioRecorder;
+    String appointmentId = null;
+
+    NavController navController;
+
+
+    @Override
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        uploadBinding = FragmentUploadDocumentForAppointmentBinding.inflate(getLayoutInflater());
+        return uploadBinding.getRoot();
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UploadDocumentForAppointmentFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UploadDocumentForAppointmentFragment newInstance(String param1, String param2) {
-        UploadDocumentForAppointmentFragment fragment = new UploadDocumentForAppointmentFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        navController = Navigation.findNavController(view);
+
+        modelList = new ArrayList<>();
+        adapter = new FilesAdapter(modelList, this);
+        uploadBinding.recFiles.setAdapter(adapter);
+
+        if (getArguments() == null)
+            PatientDashboard.getInstance().onSupportNavigateUp();
+
+        appointmentId = getArguments().getString("id");
+        audioRecorder = GetAudioRecorder.getInstance(UploadDocumentForAppointmentFragment.this);
+
+        uploadBinding.laySelectImage.setOnClickListener(view1 -> selectImage());
+        uploadBinding.laySelectAudio.setOnClickListener(view1 -> selectAudio());
+        uploadBinding.laySelectVideo.setOnClickListener(view1 -> selectVideo());
+        uploadBinding.btnUploadFiles.setOnClickListener(view1 -> sendFiles());
+
+    }
+
+    private void sendFiles() {
+        if (modelList.isEmpty()) {
+            Toast.makeText(requireActivity(), "Add Some Image/Audio/Video ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            uploadFiles();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG, "sendFiles: " + e.getLocalizedMessage());
+            Toast.makeText(requireActivity(), getString(R.string.retry), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void uploadFiles() throws IOException {
+        List<String> list = new ArrayList<>();
+        for (FileModel fileModel : modelList)
+            list.add(fileModel.getFilePath());
+
+        ApiUtils.uploadMultipleFile(list, requireActivity(), new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                AppUtils.hideDialog();
+                List<String> filePaths = (List<String>) o;
+                if (null == filePaths)
+                    return;
+
+                UploadPresDataModel uploadPresDataModel = new UploadPresDataModel();
+                uploadPresDataModel.setAppointmentId(appointmentId);
+                uploadPresDataModel.setDtDataTable(filePaths.get(0));
+                AppUtils.showRequestDialog(requireActivity());
+                ApiUtils.saveAttachmentAfterBooking(uploadPresDataModel, new ApiCallbackInterface() {
+                    @Override
+                    public void onSuccess(List<?> o) {
+                        //  AppointmentDetailFragment.getInstance().addAppointmentRelatedData();
+                      /*  List<UploadedFileModel> fileModels = (List<UploadedFileModel>) o;
+                        Log.d(TAG, "onSuccess: " + fileModels.toString());*/
+
+
+                        try {
+                            JSONArray jsonArray = new JSONArray(uploadPresDataModel.getDtDataTable());
+                            for (int a = 0; a < jsonArray.length(); a++) {
+                                JSONObject jsonObject = (JSONObject) jsonArray.get(a);
+                                Log.d(TAG, "onSuccess: " + jsonObject.getString("filePath"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        AppUtils.hideDialog();
+                        Toast.makeText(requireActivity(), "document send successfully", Toast.LENGTH_SHORT).show();
+                        PatientDashboard.getInstance().onSupportNavigateUp();
+
+                    }
+
+                    @Override
+                    public void onError(String s) {
+                        Toast.makeText(requireActivity(), s, Toast.LENGTH_SHORT).show();
+                        AppUtils.hideDialog();
+
+
+                    }
+
+                    @Override
+                    public void onFailed(Throwable throwable) {
+                        Toast.makeText(requireActivity(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        AppUtils.hideDialog();
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onError(String s) {
+                AppUtils.hideDialog();
+                Toast.makeText(requireActivity(), s, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                AppUtils.hideDialog();
+                Toast.makeText(requireActivity(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+    }
+
+
+    private void selectImage() {
+        ImagePicker.Companion.with(this)
+                .crop(8f, 12f)
+                .compress(512)
+                .maxResultSize(1080, 1080)
+                .start();
+    }
+
+    private void selectAudio() {
+        // audioRecorder.setAutoStart(true).record();
+        Toast.makeText(requireActivity(), getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+    }
+
+    private void selectVideo() {
+        Toast.makeText(requireActivity(), getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (null != data) {
+                try {
+                    FileModel fileModel = new FileModel();
+                    Uri uri = data.getData();
+                    fileModel.setFilePath(uri.toString());
+                    updateImageRecyclerView(fileModel);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+        if (requestCode == 0) {
+
+        }
+
+    }
+
+    private void updateImageRecyclerView(FileModel fileModel) {
+
+        if (!adapter.addItem(fileModel)) {
+            Toast.makeText(requireActivity(), "File Already Added", Toast.LENGTH_SHORT).show();
+            adapter.notifyDataSetChanged();
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_upload_document_for_appointment, container, false);
+    public void onItemClicked(Object o) {
+        adapter.removeItem((int) o);
     }
+
+
+
 }

@@ -35,6 +35,127 @@ public class AppointmentModel {
     private String degree;
     private String latitude;
     private String longititude;
+    private String attachFile;
+
+    public String getAttachFile() {
+        return attachFile;
+    }
+
+    public void setAttachFile(String attachFile) {
+        this.attachFile = attachFile;
+    }
+
+    public void setAppointmentId(String appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
+    public void setIsEraUser(String isEraUser) {
+        this.isEraUser = isEraUser;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public void setDrMobileNo(String drMobileNo) {
+        this.drMobileNo = drMobileNo;
+    }
+
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty;
+    }
+
+    public void setClinicName(String clinicName) {
+        this.clinicName = clinicName;
+    }
+
+    public void setDoctorAddress(String doctorAddress) {
+        this.doctorAddress = doctorAddress;
+    }
+
+    public void setAppointmentIdView(String appointmentIdView) {
+        this.appointmentIdView = appointmentIdView;
+    }
+
+    public void setExpiredStatus(String expiredStatus) {
+        this.expiredStatus = expiredStatus;
+    }
+
+    public void setProfilePhotoPath(String profilePhotoPath) {
+        this.profilePhotoPath = profilePhotoPath;
+    }
+
+    public void setDoctorFees(String doctorFees) {
+        this.doctorFees = doctorFees;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setAppointDate(String appointDate) {
+        this.appointDate = appointDate;
+    }
+
+    public void setAppointTime(String appointTime) {
+        this.appointTime = appointTime;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
+
+    public void setGuardianName(String guardianName) {
+        this.guardianName = guardianName;
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
+    }
+
+    public void setProblemName(String problemName) {
+        this.problemName = problemName;
+    }
+
+    public void setServiceProviderDetailsId(String serviceProviderDetailsId) {
+        this.serviceProviderDetailsId = serviceProviderDetailsId;
+    }
+
+    public void setPrescribed(boolean prescribed) {
+        isPrescribed = prescribed;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongititude(String longititude) {
+        this.longititude = longititude;
+    }
 
     public String getLatitude() {
         return latitude;
@@ -213,6 +334,7 @@ public class AppointmentModel {
                 ", degree='" + degree + '\'' +
                 ", latitude='" + latitude + '\'' +
                 ", longititude='" + longititude + '\'' +
+                ", attachFile='" + attachFile + '\'' +
                 '}';
     }
 

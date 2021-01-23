@@ -17,9 +17,11 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.adapters.FilesAdapter;
 import com.digidoctor.android.databinding.FragmentAppointmentDetailBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.OnClickListener;
+import com.digidoctor.android.model.FileModel;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.utility.ApiUtils;
@@ -27,7 +29,11 @@ import com.digidoctor.android.utility.AppUtils;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
@@ -43,11 +49,22 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
 
     FragmentAppointmentDetailBinding detailBinding;
 
+    FilesAdapter adapter;
+    List<FileModel> modelList;
+
+
+    public static AppointmentDetailFragment instance;
+
+    public static AppointmentDetailFragment getInstance() {
+        return instance;
+    }
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         detailBinding = FragmentAppointmentDetailBinding.inflate(getLayoutInflater());
+        instance = this;
         return detailBinding.getRoot();
     }
 
@@ -60,13 +77,19 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
         //getting Model
         if (null == getArguments())
             return;
+
+
         String jsonString = getArguments().getString("model");
         appointmentModel = new OnlineAppointmentModel();
         Gson gson = new Gson();
         appointmentModel = gson.fromJson(jsonString, OnlineAppointmentModel.class);
 
+        Log.d(TAG, "onViewCreated: appointmentModel " + appointmentModel.toString());
+
         detailBinding.setAppointmentModel(appointmentModel);
         detailBinding.setClickListener(this);
+
+        detailBinding.uploadFilesView.setVisibility(appointmentModel.isPrescribed() ? View.GONE : appointmentModel.getExpiredStatus() == 1 ? View.GONE : View.VISIBLE);
 
         detailBinding.btnGoToChat.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();
@@ -85,7 +108,37 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             }
             openMap(lat, lng);
         });
-        detailBinding.btnUpload.setOnClickListener(view12 -> navController.navigate(R.id.action_appointmentDetailFragment_to_uploadDocumentForAppointmentFragment));
+        detailBinding.btnUpload.setOnClickListener(view12 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("id", appointmentModel.getAppointmentId());
+            navController.navigate(R.id.action_appointmentDetailFragment_to_uploadDocumentForAppointmentFragment, bundle);
+        });
+
+
+        modelList = new ArrayList<>();
+        adapter = new FilesAdapter(modelList);
+        detailBinding.recFiles.setAdapter(adapter);
+
+        addAppointmentRelatedData(appointmentModel.getAttachFile());
+
+
+    }
+
+    public void addAppointmentRelatedData(String attachFile) {
+        try {
+            JSONArray jsonArray = new JSONArray(attachFile);
+            for (int a = 0; a < jsonArray.length(); a++) {
+                JSONObject jsonObject = (JSONObject) jsonArray.get(a);
+                String filePath = jsonObject.getString("filePath");
+                String fileType = jsonObject.getString("fileType");
+                modelList.add(new FileModel(filePath, fileType));
+            }
+
+            adapter.notifyDataSetChanged();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void openMap(String lat, String lng) {

@@ -18,6 +18,11 @@ public class OnlineAppointmentModel {
     String appointTime;
     String problemName;
     String clinicAddress;
+    String attachFile;
+
+    public String getAttachFile() {
+        return attachFile;
+    }
 
     public String getClinicAddress() {
         return clinicAddress;
@@ -170,6 +175,8 @@ public class OnlineAppointmentModel {
                 ", appointDate='" + appointDate + '\'' +
                 ", appointTime='" + appointTime + '\'' +
                 ", problemName='" + problemName + '\'' +
+                ", clinicAddress='" + clinicAddress + '\'' +
+                ", attachFile='" + attachFile + '\'' +
                 ", appointmentId='" + appointmentId + '\'' +
                 ", visitDate='" + visitDate + '\'' +
                 ", visitTime='" + visitTime + '\'' +

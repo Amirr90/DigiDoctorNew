@@ -278,7 +278,7 @@ public class ReScheduleFragment extends Fragment {
 
 
         AppUtils.showRequestDialog(requireActivity());
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<OnlineAppointmentRes> call = iRestInterfaces.onlineAppointment2(appointment2);
         call.enqueue(new Callback<OnlineAppointmentRes>() {
             @Override

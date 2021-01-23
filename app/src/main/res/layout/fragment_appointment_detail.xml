@@ -16,351 +16,373 @@
             type="com.digidoctor.android.model.OnlineAppointmentModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.fragments.digiDoctorFragments.AppointmentDetailFragment">
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#F2F6FE"
-            android:paddingStart="15dp"
-            android:paddingTop="13dp"
-            android:paddingEnd="15dp">
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnAction"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-
-            <ImageView
-                android:id="@+id/imageView20"
-                android:layout_width="54dp"
-                android:layout_height="54dp"
-                android:loadCustomDoctorImage="@{appointmentModel.profilePhotoPath}"
-                android:padding="2dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/doc_image" />
-
-            <TextView
-
-                android:id="@+id/textView112"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
-                android:text="@{appointmentModel.degree.equalsIgnoreCase(``)?appointmentModel.specialityName:appointmentModel.specialty+`,`+appointmentModel.degree}"
-                android:textColor="#3F4E6E"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView20"
-                app:layout_constraintStart_toStartOf="@+id/textView109"
-                app:layout_constraintTop_toBottomOf="@+id/textView109" />
-
-            <TextView
-                android:id="@+id/textView109"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@{appointmentModel.doctorName}"
-                android:textColor="#262E3F"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/textView112"
-                app:layout_constraintStart_toEndOf="@+id/imageView20"
-                app:layout_constraintTop_toTopOf="@+id/imageView20" />
-
-
-            <ImageView
-                android:id="@+id/ivLocationPin"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_marginTop="23dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView112"
-                app:srcCompat="@drawable/location_pin" />
-
-            <TextView
-                android:id="@+id/textView94"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="9dp"
-                android:layout_marginTop="18dp"
-                android:layout_toEndOf="@+id/ivLocationPin"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@{appointmentModel.clinicName}"
-                android:textColor="#3F4E6E"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivLocationPin"
-                app:layout_constraintTop_toBottomOf="@+id/imageView20" />
-
-            <TextView
-                android:id="@+id/textView113"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView94"
-                android:layout_marginEnd="16dp"
-                android:layout_toEndOf="@+id/ivLocationPin"
-                android:drawablePadding="@dimen/_10sdp"
-                android:fontFamily="@font/poppins"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="@{appointmentModel.clinicAddress}"
-                android:textColor="#3F4E6E"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toStartOf="@+id/ivMap"
-                app:layout_constraintStart_toStartOf="@+id/textView94"
-                app:layout_constraintTop_toBottomOf="@+id/textView94" />
-
-            <ImageView
-                android:id="@+id/imageView18"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/calender"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView113"
-                app:tint="@color/colorPrimary" />
-
-            <TextView
-                android:id="@+id/textView117"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="9dp"
-                android:layout_marginTop="16dp"
-
-                android:fontFamily="@font/poppins"
-                android:text="@string/date_and_time"
-                android:textColor="#3F4E6E"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView18"
-                app:layout_constraintTop_toBottomOf="@+id/textView113" />
-
-            <TextView
-                android:id="@+id/textView118"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{appointmentModel.appointDate+`  `+appointmentModel.appointTime}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView117"
-                app:layout_constraintTop_toBottomOf="@+id/textView117" />
-
-            <View
-                android:id="@+id/view5"
-                android:layout_width="0dp"
-                android:layout_height="0.6dp"
-                android:layout_marginTop="12dp"
-                android:background="#707070"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView118"
-                app:layout_constraintTop_toBottomOf="@+id/textView118" />
-
-            <TextView
-                android:id="@+id/textView119"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginStart="9dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@string/medical_problem"
-                android:textColor="#3F4E6E"
-                android:textSize="13sp"
-                app:layout_constraintStart_toEndOf="@+id/imageView43"
-                app:layout_constraintTop_toBottomOf="@+id/view5" />
-
-            <TextView
-                android:id="@+id/textView120"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-
-                android:fontFamily="@font/poppins"
-                android:text="@{appointmentModel.problemName}"
-                android:textColor="#3F4E6E"
-                android:textSize="13sp"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView119"
-                app:layout_constraintTop_toBottomOf="@+id/textView119" />
-
-            <ImageView
-                android:id="@+id/imageView43"
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:layout_marginTop="18dp"
-                android:src="@drawable/medical_problem_icon"
-                app:layout_constraintStart_toStartOf="@+id/imageView18"
-                app:layout_constraintTop_toBottomOf="@+id/view5" />
-
-            <TextView
-                android:id="@+id/textView121"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@string/booked_for"
-                android:textColor="#3F4E6E"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/textView118"
-                app:layout_constraintTop_toBottomOf="@+id/textView120" />
-
-            <TextView
-                android:id="@+id/textView122"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
-                android:text="@{appointmentModel.patientName}"
-                android:textColor="#3F4E6E"
-                android:textSize="13sp"
-                app:layout_constraintStart_toStartOf="@+id/textView121"
-                app:layout_constraintTop_toBottomOf="@+id/textView121" />
-
-            <TextView
-                android:id="@+id/textView123"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@string/appointment_id"
-                android:textColor="#3F4E6E"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView121" />
-
-            <TextView
-                android:id="@+id/textView124"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:fontFamily="@font/poppins"
-                android:text="@{appointmentModel.appointmentIdView}"
-                android:textColor="#3F4E6E"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView122"
-                app:layout_constraintStart_toStartOf="@+id/textView123"
-                app:layout_constraintTop_toBottomOf="@+id/textView123" />
-
-
-            <TextView
-                android:id="@+id/textView95"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/round_for_search"
-                android:backgroundTint="@{appointmentModel.expiredStatus==1?Color.parseColor(`#FF3737`):appointmentModel.isPrescribed==false?Color.parseColor(`#EDA537`):Color.parseColor(`#39B54A`)}"
-                android:fontFamily="@font/poppins"
-                android:gravity="center_horizontal"
-                android:paddingLeft="15dp"
-                android:paddingTop="4dp"
-                android:paddingRight="15dp"
-                android:paddingBottom="4dp"
-                android:text="@{appointmentModel.expiredStatus==1?`Expired`:appointmentModel.isPrescribed==true?`Prescribed`:`Confirmed`}"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView124"
-                app:layout_constraintTop_toBottomOf="@+id/textView124" />
-
-
-            <Button
-                android:id="@+id/btnAction"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="14dp"
-                android:layout_marginEnd="14dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/round_for_search"
-                android:backgroundTint="@{appointmentModel.expiredStatus==1?Color.parseColor(`#FF3737`):appointmentModel.isPrescribed==false?Color.parseColor(`#EDA537`):Color.parseColor(`#39B54A`)}"
-                android:fontFamily="@font/poppins_semibold"
-                android:onClick="@{()->clickListener.onItemClick(appointmentModel)}"
-                android:text="@{appointmentModel.expiredStatus==1?`Expired`:appointmentModel.isPrescribed==true?`View Prescription`:`Reschedule Appointment`}"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.482"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:background="#F2F6FE"
+                android:paddingStart="15dp"
+                android:paddingTop="13dp"
+                android:paddingEnd="15dp">
 
-            <ImageView
-                android:id="@+id/btnGoToChat"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/chat_icon" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:background="#FFF5E5"
-                android:orientation="vertical"
-                android:paddingLeft="18dp"
-                android:paddingTop="8dp"
-                android:paddingRight="18dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView95">
+                <ImageView
+                    android:id="@+id/imageView20"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:loadCustomDoctorImage="@{appointmentModel.profilePhotoPath}"
+                    android:padding="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/doc_image" />
+
+                <TextView
+
+                    android:id="@+id/textView112"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="@{appointmentModel.degree.equalsIgnoreCase(``)?appointmentModel.specialityName:appointmentModel.specialty+`,`+appointmentModel.degree}"
+                    android:textColor="#3F4E6E"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView20"
+                    app:layout_constraintStart_toStartOf="@+id/textView109"
+                    app:layout_constraintTop_toBottomOf="@+id/textView109" />
+
+                <TextView
+                    android:id="@+id/textView109"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@{appointmentModel.doctorName}"
+                    android:textColor="#262E3F"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/textView112"
+                    app:layout_constraintStart_toEndOf="@+id/imageView20"
+                    app:layout_constraintTop_toTopOf="@+id/imageView20" />
+
+
+                <ImageView
+                    android:id="@+id/ivLocationPin"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginTop="23dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView112"
+                    app:srcCompat="@drawable/location_pin" />
+
+                <TextView
+                    android:id="@+id/textView94"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_toEndOf="@+id/ivLocationPin"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@{appointmentModel.clinicName}"
+                    android:textColor="#3F4E6E"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivLocationPin"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView20" />
+
+                <TextView
+                    android:id="@+id/textView113"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView94"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toEndOf="@+id/ivLocationPin"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="@{appointmentModel.clinicAddress}"
+                    android:textColor="#3F4E6E"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/ivMap"
+                    app:layout_constraintStart_toStartOf="@+id/textView94"
+                    app:layout_constraintTop_toBottomOf="@+id/textView94" />
+
+                <ImageView
+                    android:id="@+id/imageView18"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/calender"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView113"
+                    app:tint="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/textView117"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="16dp"
+
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/date_and_time"
+                    android:textColor="#3F4E6E"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView18"
+                    app:layout_constraintTop_toBottomOf="@+id/textView113" />
+
+                <TextView
+                    android:id="@+id/textView118"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{appointmentModel.appointDate+`  `+appointmentModel.appointTime}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView117"
+                    app:layout_constraintTop_toBottomOf="@+id/textView117" />
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="0dp"
+                    android:layout_height="0.6dp"
+                    android:layout_marginTop="12dp"
+                    android:background="#707070"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView118"
+                    app:layout_constraintTop_toBottomOf="@+id/textView118" />
+
+                <TextView
+                    android:id="@+id/textView119"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/medical_problem"
+                    android:textColor="#3F4E6E"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toEndOf="@+id/imageView43"
+                    app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+                <TextView
+                    android:id="@+id/textView120"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+
+                    android:fontFamily="@font/poppins"
+                    android:text="@{appointmentModel.problemName}"
+                    android:textColor="#3F4E6E"
+                    android:textSize="13sp"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView119"
+                    app:layout_constraintTop_toBottomOf="@+id/textView119" />
+
+                <ImageView
+                    android:id="@+id/imageView43"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_marginTop="18dp"
+                    android:src="@drawable/medical_problem_icon"
+                    app:layout_constraintStart_toStartOf="@+id/imageView18"
+                    app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+                <TextView
+                    android:id="@+id/textView121"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/booked_for"
+                    android:textColor="#3F4E6E"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/textView118"
+                    app:layout_constraintTop_toBottomOf="@+id/textView120" />
+
+                <TextView
+                    android:id="@+id/textView122"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="@{appointmentModel.patientName}"
+                    android:textColor="#3F4E6E"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toStartOf="@+id/textView121"
+                    app:layout_constraintTop_toBottomOf="@+id/textView121" />
+
+                <TextView
+                    android:id="@+id/textView123"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/appointment_id"
+                    android:textColor="#3F4E6E"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView121" />
+
+                <TextView
+                    android:id="@+id/textView124"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="@{appointmentModel.appointmentIdView}"
+                    android:textColor="#3F4E6E"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView122"
+                    app:layout_constraintStart_toStartOf="@+id/textView123"
+                    app:layout_constraintTop_toBottomOf="@+id/textView123" />
 
 
                 <TextView
-                    android:id="@+id/textView151"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center"
-                    android:text="You can send your Images/Audio/Video related to your symptom Problem to doctor."
-                    android:textColor="#262E3F"
-                    android:textSize="12sp" />
-
-                <Button
-                    android:id="@+id/btnUpload"
+                    android:id="@+id/textView95"
                     android:layout_width="wrap_content"
-                    android:layout_height="42dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="9dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/round_for_search"
-                    android:backgroundTint="@color/PrimaryColor"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="@string/upload"
-                    android:textAllCaps="false"
+                    android:backgroundTint="@{appointmentModel.expiredStatus==1?Color.parseColor(`#FF3737`):appointmentModel.isPrescribed==false?Color.parseColor(`#EDA537`):Color.parseColor(`#39B54A`)}"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center_horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="4dp"
+                    android:text="@{appointmentModel.expiredStatus==1?`Expired`:appointmentModel.isPrescribed==true?`Prescribed`:`Confirmed`}"
                     android:textColor="@android:color/white"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView124"
+                    app:layout_constraintTop_toBottomOf="@+id/textView124" />
 
-            <ImageView
-                android:id="@+id/ivMap"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginEnd="4dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                app:layout_constraintBottom_toBottomOf="@+id/textView113"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView94"
-                app:srcCompat="@drawable/ic_baseline_map_24" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/btnGoToChat"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/chat_icon" />
+
+                <LinearLayout
+                    android:id="@+id/uploadFilesView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="#FFF5E5"
+                    android:orientation="vertical"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView95">
+
+
+                    <TextView
+                        android:id="@+id/textView151"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:text="You can send your Images/Audio/Video related to your symptom(s) to doctor."
+                        android:textColor="#262E3F"
+                        android:textSize="12sp" />
+
+                    <Button
+                        android:id="@+id/btnUpload"
+                        android:layout_width="120dp"
+                        android:layout_height="42dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="9dp"
+                        android:background="@drawable/round_for_search"
+                        android:backgroundTint="@color/PrimaryColor"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="@string/upload"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:nestedScrollingEnabled="false"
+                    android:id="@+id/recFiles"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/uploadFilesView"
+                    app:spanCount="3"
+                    tools:listitem="@layout/symptoms_attachment_view" />
+
+                <ImageView
+                    android:id="@+id/ivMap"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView113"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView94"
+                    app:srcCompat="@drawable/ic_baseline_map_24" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+
+        <Button
+            android:id="@+id/btnAction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/round_for_search"
+            android:backgroundTint="@{appointmentModel.expiredStatus==1?Color.parseColor(`#FF3737`):appointmentModel.isPrescribed==false?Color.parseColor(`#EDA537`):Color.parseColor(`#39B54A`)}"
+            android:fontFamily="@font/poppins_semibold"
+            android:onClick="@{()->clickListener.onItemClick(appointmentModel)}"
+            android:text="@{appointmentModel.expiredStatus==1?`Expired`:appointmentModel.isPrescribed==true?`View Prescription`:`Reschedule Appointment`}"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.482"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

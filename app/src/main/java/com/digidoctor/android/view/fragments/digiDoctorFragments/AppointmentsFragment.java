@@ -1,6 +1,7 @@
 package com.digidoctor.android.view.fragments.digiDoctorFragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import static com.digidoctor.android.utility.utils.getJSONFromModel;
 
 
 public class AppointmentsFragment extends Fragment implements OnClickListener {
+    private static final String TAG = "AppointmentsFragment";
 
     FragmentAppointmentBinding appointmentBinding;
     NavController navController;
@@ -77,6 +79,7 @@ public class AppointmentsFragment extends Fragment implements OnClickListener {
     public void onItemClick(Object object) {
 
         AppointmentModel appointmentModel = (AppointmentModel) object;
+        Log.d(TAG, "onItemClick: "+appointmentModel.toString());
         String model = getJSONFromModel(appointmentModel);
         Bundle bundle = new Bundle();
         bundle.putString("model", model);

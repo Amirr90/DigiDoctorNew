@@ -91,7 +91,6 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
 
     Boolean isUploadPrescription = false;
 
-    String frequencyId = null;
 
 
     @Override

@@ -1,6 +1,7 @@
 package com.digidoctor.android.interfaces;
 
 import com.digidoctor.android.model.AddInvestigationModel;
+import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.AppointmentRes;
 import com.digidoctor.android.model.CheckLoginRes;
 import com.digidoctor.android.model.CheckSlotAvailabilityRes;
@@ -35,6 +36,7 @@ import com.digidoctor.android.model.SpecialityRes;
 import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.model.SymptomsRes;
 import com.digidoctor.android.model.TransactionModel;
+import com.digidoctor.android.model.UploadPresDataModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
@@ -168,6 +170,10 @@ public interface Api {
     @POST("patientInvestigation")
     Call<VitalResponse> addInvestigation(
             @Body AddInvestigationModel model);
+
+    @POST("saveAttachmentAfterBooking")
+    Call<Response> saveAttachmentAfterBooking(
+            @Body UploadPresDataModel model);
 
     @POST("getPaymentMode")
     Call<Response> getPaymentMode(
