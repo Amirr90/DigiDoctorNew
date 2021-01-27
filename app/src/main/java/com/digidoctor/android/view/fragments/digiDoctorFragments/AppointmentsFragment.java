@@ -1,7 +1,6 @@
 package com.digidoctor.android.view.fragments.digiDoctorFragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.AppointmentAdapter;
 import com.digidoctor.android.databinding.FragmentAppointmentBinding;
 import com.digidoctor.android.interfaces.OnClickListener;
@@ -27,8 +25,6 @@ import com.digidoctor.android.viewHolder.PatientViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
-
-import static com.digidoctor.android.utility.utils.getJSONFromModel;
 
 
 public class AppointmentsFragment extends Fragment implements OnClickListener {
@@ -79,10 +75,15 @@ public class AppointmentsFragment extends Fragment implements OnClickListener {
     public void onItemClick(Object object) {
 
         AppointmentModel appointmentModel = (AppointmentModel) object;
-        Log.d(TAG, "onItemClick: "+appointmentModel.toString());
+     /*   Log.d(TAG, "onItemClick: " + appointmentModel.toString());
         String model = getJSONFromModel(appointmentModel);
         Bundle bundle = new Bundle();
         bundle.putString("model", model);
-        navController.navigate(R.id.action_appointmentsFragment_to_appointmentDetailFragment, bundle);
+        navController.navigate(R.id.action_appointmentsFragment_to_appointmentDetailFragment, bundle);*/
+
+        AppointmentsFragmentDirections.ActionAppointmentsFragmentToAppointmentDetailFragment action =
+                AppointmentsFragmentDirections.actionAppointmentsFragmentToAppointmentDetailFragment();
+        action.setAppointmentId(appointmentModel.getAppointmentId());
+        navController.navigate(action);
     }
 }

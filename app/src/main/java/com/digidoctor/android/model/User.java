@@ -10,6 +10,18 @@ import java.util.Objects;
 
 public class User {
 
+
+
+    String appointmentId;
+
+    public String getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(String appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
     @SerializedName("address")
     @Expose
     private String address;

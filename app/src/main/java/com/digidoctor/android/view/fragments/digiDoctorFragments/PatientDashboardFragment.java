@@ -1,5 +1,14 @@
 package com.digidoctor.android.view.fragments.digiDoctorFragments;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +18,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -50,7 +60,6 @@ public class PatientDashboardFragment extends Fragment {
     PatientViewModel viewModel;
 
     NavController navController;
-
 
     ImageLoadingService imageLoadingService;
 
@@ -129,6 +138,48 @@ public class PatientDashboardFragment extends Fragment {
             bundle.putString("id", "0");
             PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_subSpecialistFragment, bundle);
         });
+
+        dashboard2Binding.tvLocation.setOnClickListener(view13 -> {
+            Log.d(TAG, "onViewCreated: Clicked");
+            sendNotification(requireContext(), "Title", "Message", "deepLink");
+        });
+    }
+
+
+    private void sendNotification(Context context, String title, String message, String deepLink) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= 26) {
+            NotificationChannel notificationChannel = new NotificationChannel("any_default_id", "any_channel_name",
+                    NotificationManager.IMPORTANCE_HIGH);
+            notificationChannel.setDescription("Any description can be given!");
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setPriority(android.app.Notification.PRIORITY_MAX)
+                .setDefaults(android.app.Notification.DEFAULT_ALL);
+                //.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
+
+        Intent intent = new Intent();
+
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(deepLink));
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+
+        notificationBuilder
+                .setContentTitle(title)
+                .setContentText(message)
+                .setContentIntent(pendingIntent);
+
+        notificationManager.notify(0, notificationBuilder.build());
     }
 
 

@@ -470,20 +470,6 @@ public class utils {
         return sdf.format(d);
     }
 
-    /*    private HashMap<String, Object> getChatMap(String msg) */ {
-        /*User user = getPrimaryUser(requireActivity());
-        HashMap<String, Object> map = new HashMap<>();
-        map.put(TIMESTAMP, System.currentTimeMillis());
-        map.put(MSG, msg);
-        map.put(SENDER_ID, String.valueOf(user.getMemberId()));
-        map.put(RECEIVER_ID, doId);
-        map.put(APPOINTMENT_ID, AppointmentId);
-        map.put(SENDER_NAME, user.getName());
-        map.put(TOKEN, "token");
-        map.put(IS_SEEN, false);
-        return map;*/
-    }
-
     public static int getDay(long timestamp) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(timestamp);
@@ -679,7 +665,6 @@ public class utils {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-            Log.d("TAG", "getDocTiming: " + jsonObject.getString("dayName"));
             String day = jsonObject.getString("dayName");
             String timeFrom = jsonObject.getString("timeFrom");
             String timeTo = jsonObject.getString("timeTo");

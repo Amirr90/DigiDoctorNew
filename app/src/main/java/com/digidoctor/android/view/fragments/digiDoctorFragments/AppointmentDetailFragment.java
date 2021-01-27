@@ -10,9 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -21,11 +20,15 @@ import com.digidoctor.android.adapters.FilesAdapter;
 import com.digidoctor.android.databinding.FragmentAppointmentDetailBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.OnClickListener;
+import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.FileModel;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.OnlineAppointmentModel;
+import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
+import com.digidoctor.android.view.activity.PatientDashboard;
+import com.digidoctor.android.viewHolder.PatientViewModel;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -53,6 +56,12 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
     List<FileModel> modelList;
 
 
+    String appointmentId = null;
+
+    AppointmentDetailFragmentArgs detailFragmentArgs;
+
+    PatientViewModel viewModel;
+
     public static AppointmentDetailFragment instance;
 
     public static AppointmentDetailFragment getInstance() {
@@ -70,28 +79,57 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         Log.d(TAG, "onViewCreated: ");
         navController = Navigation.findNavController(view);
+        viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
-        //getting Model
-        if (null == getArguments())
-            return;
+        if (getArguments() == null)
+            PatientDashboard.getInstance().onSupportNavigateUp();
+
+        AppUtils.showRequestDialog(requireActivity());
+        detailFragmentArgs = AppointmentDetailFragmentArgs.fromBundle(getArguments());
+
+        appointmentId = detailFragmentArgs.getAppointmentId();
 
 
-        String jsonString = getArguments().getString("model");
-        appointmentModel = new OnlineAppointmentModel();
-        Gson gson = new Gson();
-        appointmentModel = gson.fromJson(jsonString, OnlineAppointmentModel.class);
+        User user = new User();
+        user.setAppointmentId(appointmentId);
 
-        Log.d(TAG, "onViewCreated: appointmentModel " + appointmentModel.toString());
 
-        detailBinding.setAppointmentModel(appointmentModel);
+        modelList = new ArrayList<>();
+        adapter = new FilesAdapter(modelList);
+        detailBinding.recFiles.setAdapter(adapter);
+
+        viewModel.getAppointmentList(user).observe(getViewLifecycleOwner(), (List<AppointmentModel> appointmentModels) -> {
+            AppUtils.hideDialog();
+            if (appointmentModels.isEmpty())
+                return;
+            String jsonString = appointmentModels.get(0).toString();
+            appointmentModel = new OnlineAppointmentModel();
+            Gson gson = new Gson();
+            appointmentModel = gson.fromJson(jsonString, OnlineAppointmentModel.class);
+            Log.d(TAG, "onViewCreated: appointmentModel " + appointmentModel.toString());
+
+            detailBinding.setAppointmentModel(appointmentModel);
+
+            addAppointmentRelatedData(appointmentModel.getAttachFile());
+
+            detailBinding.uploadFilesView.setVisibility(appointmentModel.isPrescribed() ? View.GONE : appointmentModel.getExpiredStatus() == 1 ? View.GONE : View.VISIBLE);
+
+            AppUtils.hideDialog();
+
+        });
+
+
+        if (null != appointmentModel)
+            Log.d(TAG, "onViewCreated: appointmentModel " + appointmentModel.toString());
+
+
         detailBinding.setClickListener(this);
 
-        detailBinding.uploadFilesView.setVisibility(appointmentModel.isPrescribed() ? View.GONE : appointmentModel.getExpiredStatus() == 1 ? View.GONE : View.VISIBLE);
 
         detailBinding.btnGoToChat.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();
@@ -115,13 +153,6 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             bundle.putString("id", appointmentModel.getAppointmentId());
             navController.navigate(R.id.action_appointmentDetailFragment_to_uploadDocumentForAppointmentFragment, bundle);
         });
-
-
-        modelList = new ArrayList<>();
-        adapter = new FilesAdapter(modelList);
-        detailBinding.recFiles.setAdapter(adapter);
-
-        addAppointmentRelatedData(appointmentModel.getAttachFile());
 
 
     }
