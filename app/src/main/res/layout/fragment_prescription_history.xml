@@ -22,7 +22,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bottom_round"
@@ -30,7 +29,8 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="@dimen/_20sdp"
                 android:paddingRight="10dp"
-                android:paddingBottom="@dimen/_20sdp">
+                android:paddingBottom="@dimen/_20sdp"
+                android:visibility="gone">
 
 
                 <EditText
@@ -114,13 +114,13 @@
 
 
             <androidx.cardview.widget.CardView
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="145dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="41dp"
+                android:visibility="gone"
                 app:cardCornerRadius="15dp">
 
                 <RelativeLayout
