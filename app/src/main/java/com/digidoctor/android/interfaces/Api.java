@@ -61,12 +61,10 @@ public interface Api {
     Call<DashBoardRes> patientDasboard(
             @Body Dashboard dashboard);
 
-
     @POST("getDoctorProfileBySpeciality")
     Call<DocBySpecialityRes> getDoctorProfileBySpeciality(
             @Body SpecialityModel specialityModel
     );
-
 
     @POST("getAllDepartment")
     Call<SpecialityRes> getSpeciality(

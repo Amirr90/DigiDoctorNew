@@ -307,7 +307,7 @@ public class ReScheduleFragment extends Fragment {
             calendarModelList.add(new CalendarModel(
                     getNextWeekDays.get(a).get("date"),
                     getNextWeekDays.get(a).get("day"),
-                    getNextWeekDays.get(a).get("dateSend")));
+                    getNextWeekDays.get(a).get("dateSend"), true));
         }
 
         return calendarModelList.get(position).getDateSend();
@@ -320,7 +320,7 @@ public class ReScheduleFragment extends Fragment {
             calendarModelList.add(new CalendarModel(
                     getNextWeekDays.get(a).get("date"),
                     getNextWeekDays.get(a).get("day"),
-                    getNextWeekDays.get(a).get("dateSend")));
+                    getNextWeekDays.get(a).get("dateSend"), true));
         }
 
         return calendarModelList;

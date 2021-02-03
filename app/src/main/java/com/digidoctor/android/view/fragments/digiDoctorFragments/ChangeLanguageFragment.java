@@ -74,6 +74,8 @@ public class ChangeLanguageFragment extends Fragment {
 
         changeLanguageBinding.btnDone.setOnClickListener(view1 -> updateLanguage());
 
+
+
     }
 
 
@@ -117,7 +119,7 @@ public class ChangeLanguageFragment extends Fragment {
     }
 
     private void updateLanguage() {
-        setString(LANGUAGE, String.valueOf(selectedLanguageId), requireActivity());
+        setString(LANGUAGE, String.valueOf(selectedLanguageId), PatientDashboard.getInstance());
         showRequestDialog(requireActivity());
         new Handler().postDelayed(() -> {
             setAppLocale(getLanguageModel(selectedLanguageId).getLocaleCode(), requireActivity());

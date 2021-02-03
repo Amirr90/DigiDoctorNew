@@ -402,7 +402,22 @@
         android:id="@+id/vitalChartFragment"
         android:name="com.digidoctor.android.view.fragments.VitalChartFragment"
         android:label="Vital Details"
-        tools:layout="@layout/fragment_vital_chart" />
+        tools:layout="@layout/fragment_vital_chart" >
+        <action
+            android:id="@+id/action_vitalChartFragment_to_addVitalsFragment"
+            app:destination="@id/addVitalsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_vitalChartFragment_to_selectDeviceFragment"
+            app:destination="@id/selectDeviceFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/selectDeviceFragment"
         android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.SelectDeviceFragment"

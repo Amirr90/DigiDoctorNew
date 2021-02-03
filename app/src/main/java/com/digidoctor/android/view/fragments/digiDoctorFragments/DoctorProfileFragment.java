@@ -61,10 +61,14 @@ public class DoctorProfileFragment extends Fragment {
             try {
                 if (null != doctorModel.getWorkingHours())
                     shortProfileBinding.tvWorkingHours.setText(getDocTiming(doctorModel.getWorkingHours()).toString());
+                else
+                    shortProfileBinding.tvWorkingHours.setText(getString(R.string.slot_not_available));
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.d(TAG, "getData: " + e.getLocalizedMessage());
             }
+
+            setBookAppointmentBtnEnability();
 
         } else PatientDashboard.getInstance().onSupportNavigateUp();
 
@@ -77,6 +81,27 @@ public class DoctorProfileFragment extends Fragment {
             bundle.putString("docModel", getJSONFromModel(doctorModel));
             navController.navigate(R.id.action_doctorShortProfileFragment_to_chooseTimeFragment2, bundle);
         });
+
+
+    }
+
+
+    public void setBookAppointmentBtnEnability() {
+        if (shortProfileBinding.tvWorkingHours.getText().equals(getString(R.string.slot_not_available))) {
+            shortProfileBinding.btnBookAppointment.setBackgroundResource(R.drawable.disable_btn);
+            shortProfileBinding.btnBookAppointment.setEnabled(false);
+            shortProfileBinding.btnBookAppointment.setText(getString(R.string.slot_not_available));
+            shortProfileBinding.btnBookAppointment.setBackgroundTintList(getResources().getColorStateList(R.color.GreyColo));
+
+
+        } else {
+            shortProfileBinding.btnBookAppointment.setBackgroundResource(R.drawable.round_for_search);
+            shortProfileBinding.btnBookAppointment.setEnabled(true);
+            shortProfileBinding.btnBookAppointment.setText(getString(R.string.book_appointment));
+            shortProfileBinding.btnBookAppointment.setBackgroundTintList(getResources().getColorStateList(R.color.PrimaryColor));
+
+        }
+
     }
 
 }

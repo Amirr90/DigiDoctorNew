@@ -26,6 +26,7 @@ import com.digidoctor.android.databinding.LogoutOptionViewBinding;
 import com.digidoctor.android.databinding.PaymentViewBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.BookAppointmentInterface;
+import com.digidoctor.android.interfaces.DemoAoiInterface;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.PayModeModel;
@@ -42,6 +43,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import static com.digidoctor.android.utility.ApiUtils.DemoApi;
+import static com.digidoctor.android.utility.ApiUtils.getResponse;
 import static com.digidoctor.android.utility.AppUtils.PAY_MODE_PAY_ON_VISIT;
 import static com.digidoctor.android.utility.AppUtils.PAY_MODE_PAY_U_MONEY;
 import static com.digidoctor.android.utility.AppUtils.PAY_MODE_RAZOR_PAYY;
@@ -143,10 +146,6 @@ public class BookAppointmentFragment extends Fragment {
             } else
                 getPayMode();
 
-       /*     if (doctorModel.getDrFee() == 0) {
-                bookAppointment(PAY_MODE_CASH);
-            } else bookAppointment(PAY_MODE_RAZOR_PAY);*/
-
 
         });
 
@@ -165,6 +164,19 @@ public class BookAppointmentFragment extends Fragment {
             changeButtonBackground();
         });
 
+
+       /* User user = new User();
+        getResponse(DemoApi(user), new DemoAoiInterface() {
+            @Override
+            public void onSuccess(Object obj) {
+
+            }
+
+            @Override
+            public void onFailed(String msg) {
+
+            }
+        });*/
 
     }
 
@@ -213,10 +225,6 @@ public class BookAppointmentFragment extends Fragment {
         paymentViewBinding.recyclerView5.setAdapter(new PaymentAdapter(paymentModes));
         paymentViewBinding.recyclerView5.addItemDecoration(new DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL));
 
-      /*  AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        builder.setView(paymentViewBinding.getRoot());
-        builder.show();*/
-
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         AlertDialog dialog = builder.create();
@@ -224,38 +232,22 @@ public class BookAppointmentFragment extends Fragment {
         dialog.show();
 
 
-        paymentViewBinding.btnSelf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(requireActivity(), ""+payModeTitle, Toast.LENGTH_SHORT).show();
-                if (selectedPaymentId < 0 && bookAppointment.getPaymentMode() == null)
-                    Toast.makeText(requireActivity(), "select payment option", Toast.LENGTH_SHORT).show();
-                else {
-                    dialog.dismiss();
-                    if (selectedPaymentId == PAY_MODE_PAY_ON_VISIT) {
-                        bookAppointment(PAY_MODE_CASH);
-                    } else if (selectedPaymentId == PAY_MODE_RAZOR_PAYY) {
-                        bookAppointment(PAY_MODE_RAZOR_PAY);
-                    } else {
-                        bookAppointment(PAY_MODE_PAY_U_MONEY);
-                    }
+        paymentViewBinding.btnSelf.setOnClickListener(view -> {
+            if (selectedPaymentId < 0)
+                Toast.makeText(requireActivity(), R.string.select_payment_option, Toast.LENGTH_SHORT).show();
+            else {
+                dialog.dismiss();
+                if (selectedPaymentId == PAY_MODE_PAY_ON_VISIT) {
+                    bookAppointment(PAY_MODE_CASH);
+                } else if (selectedPaymentId == PAY_MODE_RAZOR_PAYY) {
+                    bookAppointment(PAY_MODE_RAZOR_PAY);
+                } else {
+                    bookAppointment(PAY_MODE_PAY_U_MONEY);
                 }
-
             }
+
         });
 
-      /*  builder.setItems(items, (dialog, item) -> {
-            hideDialog();
-            if (paymentModes.get(item).getId() == PAY_MODE_PAY_ON_VISIT) {
-                bookAppointment(PAY_MODE_CASH);
-            } else if (paymentModes.get(item).getId() == PAY_MODE_RAZOR_PAYY) {
-                bookAppointment(PAY_MODE_RAZOR_PAY);
-            } else {
-                bookAppointment(PAY_MODE_PAY_U_MONEY);
-            }
-            dialog.dismiss();
-
-        }).show();*/
     }
 
     @SuppressLint("UseCompatLoadingForColorStateLists")
@@ -333,12 +325,9 @@ public class BookAppointmentFragment extends Fragment {
                     navController.navigate(R.id.action_bookAppointmentFragment_to_profileFragment);
                 })
 
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                        PatientDashboard.getInstance().onSupportNavigateUp();
-                    }
+                .setNegativeButton("Cancel", (dialogInterface, i) -> {
+                    dialogInterface.cancel();
+                    PatientDashboard.getInstance().onSupportNavigateUp();
                 })
                 .show();
 

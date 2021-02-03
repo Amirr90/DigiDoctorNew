@@ -72,7 +72,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins"
-                                android:text="@{docMo.speciality+`, `+docMo.degree}"
+                                android:text="@{docMo.degree.equalsIgnoreCase(``)?docMo.speciality:docMo.speciality+`, `+docMo.degree}"
                                 android:textColor="#3F4E6E"
                                 android:textSize="14sp" />
                         </LinearLayout>
@@ -183,10 +183,10 @@
 
                                 <ImageView
 
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
                                     android:layout_centerInParent="true"
-                                    android:src="@drawable/experience" />
+                                    android:src="@drawable/experience_big" />
                             </RelativeLayout>
 
                             <TextView
@@ -221,6 +221,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_semibold"
+                            android:setCustomVisibility="@{docMo.description}"
                             android:text="@string/about_doc"
                             android:textColor="#262E3F"
                             android:textSize="16sp"
@@ -232,6 +233,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/poppins"
+                            android:setCustomVisibility="@{docMo.description}"
                             android:text="@{docMo.description}"
                             android:textColor="#3F4E6E"
                             android:textSize="12sp" />
@@ -241,7 +243,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="18dp"
                             android:fontFamily="@font/poppins_semibold"
-                            android:text="@string/working_time"
+                            android:text="@string/timing"
                             android:textColor="#262E3F"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -272,8 +274,8 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/round_for_search"
                 android:backgroundTint="@color/PrimaryColor"
+                android:enabled="false"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="@string/book_appointment"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
         </RelativeLayout>

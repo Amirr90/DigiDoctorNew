@@ -62,18 +62,13 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
 
     PatientViewModel viewModel;
 
-    public static AppointmentDetailFragment instance;
-
-    public static AppointmentDetailFragment getInstance() {
-        return instance;
-    }
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         detailBinding = FragmentAppointmentDetailBinding.inflate(getLayoutInflater());
-        instance = this;
+
         Log.d(TAG, "onCreateView: ");
         return detailBinding.getRoot();
     }
@@ -158,6 +153,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
     }
 
     public void addAppointmentRelatedData(String attachFile) {
+        modelList.clear();
         Log.d(TAG, "addAppointmentRelatedData: " + attachFile);
         try {
             JSONArray jsonArray = new JSONArray(attachFile);
@@ -169,10 +165,19 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             }
 
             adapter.notifyDataSetChanged();
+
         } catch (JSONException e) {
             e.printStackTrace();
             adapter.notifyDataSetChanged();
         }
+        updateUploadBtnTag();
+    }
+
+    public void updateUploadBtnTag() {
+        if (null == adapter || adapter.getItemCount() == 0) {
+            detailBinding.btnUpload.setText(getString(R.string.upload));
+        } else if (adapter.getItemCount() > 0)
+            detailBinding.btnUpload.setText(getString(R.string.add_more_files));
     }
 
     private void openMap(String lat, String lng) {

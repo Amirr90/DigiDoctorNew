@@ -27,7 +27,6 @@ import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.GetAudioRecorder;
 import com.digidoctor.android.view.activity.PatientDashboard;
-import com.digidoctor.android.view.fragments.digiDoctorFragments.AppointmentDetailFragment;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import org.jetbrains.annotations.NotNull;
@@ -116,7 +115,6 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
                 List<String> filePaths = (List<String>) o;
                 if (null == filePaths)
                     return;
-
                 UploadPresDataModel uploadPresDataModel = new UploadPresDataModel();
                 uploadPresDataModel.setAppointmentId(appointmentId);
                 uploadPresDataModel.setDtDataTable(filePaths.get(0));
@@ -124,12 +122,6 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
                 ApiUtils.saveAttachmentAfterBooking(uploadPresDataModel, new ApiCallbackInterface() {
                     @Override
                     public void onSuccess(List<?> o) {
-                        List<String> filePaths = (List<String>) o;
-                        if (null == filePaths)
-                            return;
-
-
-                        AppointmentDetailFragment.getInstance().addAppointmentRelatedData(filePaths.get(0));
                         AppUtils.hideDialog();
                         Toast.makeText(requireActivity(), "Document send successfully", Toast.LENGTH_SHORT).show();
                         PatientDashboard.getInstance().onSupportNavigateUp();
@@ -141,7 +133,6 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
                         Toast.makeText(requireActivity(), s, Toast.LENGTH_SHORT).show();
                         AppUtils.hideDialog();
 
-
                     }
 
                     @Override
@@ -151,7 +142,6 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
 
                     }
                 });
-
             }
 
             @Override

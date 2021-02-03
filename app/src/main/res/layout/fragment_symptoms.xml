@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragments.digiDoctorFragments.SymptomsFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:orientation="vertical">
-
 
 
             <LinearLayout
@@ -35,11 +34,11 @@
                     android:id="@+id/editTextTextSearchSymptom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="15dp"
                     android:background="@drawable/round_for_search"
                     android:backgroundTint="@android:color/white"
-                    android:drawableRight="@drawable/magnifier"
+                    android:drawableEnd="@drawable/magnifier"
                     android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="@string/search_symptoms_here"
@@ -53,20 +52,21 @@
                     android:textColorHint="#A2B3B8"
                     android:textSize="14sp" />
             </LinearLayout>
+
             <ProgressBar
-                android:visibility="gone"
                 android:id="@+id/progressBar2"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/symptomsRec"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:nestedScrollingEnabled="false"
                 android:paddingTop="21dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/symptoms_view" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

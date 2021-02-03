@@ -311,7 +311,7 @@ public class AppUtils {
 
     public static List<LanguageModel> getLanguageList() {
         List<LanguageModel> models = new ArrayList<>();
-        models.add(new LanguageModel("Hindi", "en", false));
+        models.add(new LanguageModel("हिन्दी", "hi", false));
         models.add(new LanguageModel("English", "en", false));
         models.add(new LanguageModel("Marathi", "en", false));
         models.add(new LanguageModel("Tamil", "en", false));

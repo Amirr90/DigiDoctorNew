@@ -1,0 +1,1244 @@
+<resources>
+    <string name="app_name" translatable="false">DigiDoctor</string>
+
+    <string name="exit_text">Press again to exit</string>
+    //TWILIO
+    <string name="twilio_secret" translatable="false">cmj63bgYS5eSlzi1TlMMJEBptpR4HKBN</string>
+
+    <string name="twilio_sid" translatable="false">SKc36ec8ca9b6bb130bf96111475492cb0</string>
+
+    <string name="yes">हाँ</string>
+
+    <string name="no">नहीं</string>
+
+    <string name="permissionMessage">अनुमतियाँ दें</string>
+
+    <string name="ok">ठीक</string>
+
+    <string name="cancel">रद्द करें</string>
+
+    <string name="are_you_new_here">क्या आप यहां नए आये हैं?</string>
+
+    <string name="login_with">से लोगिन करें</string>
+
+
+    -
+    <string name="otp_that_we_send_to_your_mobile">
+
+<b>ओटीपी</b>
+कि हम आपके मोबाइल पर भेजते हैं
+</string>
+
+    <string name="mobile_no">मोबाइल नंबर</string>
+
+    <string name="get_otp">ओटीपी प्राप्त करें</string>
+
+
+    -
+    <string name="click_on_get_otp_to_">
+पर क्लिक करें
+<b>ओटीपी प्राप्त करें</b>
+प्राप्त करने के लिए
+<b>ओटीपी</b>
+आपके पंजीकृत करने के लिए
+<b>मोबाइल नंबर.</b>
+
+</string>
+
+    <string name="login">लॉग इन</string>
+
+    <string name="enter_password">पास वर्ड दर्ज करें</string>
+
+    <string name="password_you_created">पासवर्ड जो आपने पहले बनाया था</string>
+
+    <string name="register">रजिस्टर करें</string>
+
+    <string name="after_entering_above">फ़ील्ड के ऊपर क्लिक करने के बाद क्लिक करें<b>ओटीपी प्राप्त करें</b>
+प्राप्त करने के लिए
+<b>ओटीपी</b>
+अपने मोबाइल नंबर पर
+</string>
+
+    <string name="get_registered">पंजीकृत हो जाओ</string>
+
+    <string name="enter_otp">ओटीपी दर्ज करें</string>
+    <string name="already_a_user">
+
+<u>हले से ही एक उपयोगकर्ता?</u>
+
+</string>
+    <string name="enterMobileNo">मोबाइल नंबर दर्ज करें</string>
+    <string name="enterPassword">पासवर्ड दर्ज करें</string>
+    <string name="noInternetConnection">कोई इंटरनेट कनेक्शन नहीं</string>
+
+    <string name="full_name">पूरा नाम</string>
+
+    <string name="dob">जन्म की तारीख</string>
+
+    <string name="male">पुर्ष</string>
+
+    <string name="female">महिला</string>
+
+    <string name="enterFullName">पूरा नाम दर्ज करें</string>
+
+    <string name="enterValidMobile">मान्य मोबाइल नंबर दर्ज करें</string>
+
+    <string name="enterDob">जन्म् की तारीख़ दर्ज करे</string>
+
+    <string name="selectGender">लिंग चुनें</string>
+
+    <string name="registration_success_message">पंजीकरण सफल</string>
+
+    <string name="otp_sent">ओटीपी को सफलतापूर्वक भेजा गया</string>
+
+    <string name="loginSuccess">सफलतापूर्वक लॉगिन करें</string>
+
+    <string name="set_location">स्थान तय करें</string>
+
+    <string name="find_doctors_hospitals">डॉक्टरों / अस्पतालों का पता लगाएं</string>
+
+    <string name="appointments">नियुक्ति</string>
+
+    <string name="medical_records">चिकित्सा सम्बन्धी रिकार्ड्स</string>
+
+    <string name="select_any_one_from_given_options">दिए गए विकल्पों में से उत्तर का चयन करें</string>
+
+    <string name="select_any_from_given_options">दिए गए विकल्पों में से उत्तर का चयन करें</string>
+
+    <string name="skip">छोड़ें</string>
+
+    <string name="select_current_symptoms">वर्तमान लक्षणों का चयन करें</string>
+
+    <string name="search_amp_add_symptoms">
+
+</string>
+
+    <string name="select_symptoms">लक्षणों का चयन करें</string>
+
+    <string name="analyze_symptoms">लक्षणों का विश्लेषण करें</string>
+
+    <string name="emergency">आपातकालीन</string>
+
+    <string name="we_will_call">हम आपको जल्द से जल्द बुलाएंगे!</string>
+
+    <string name="for_emergency_click_this_button">आपातकाल के लिए इस बटन पर क्लिक करें</string>
+
+    <string name="risk_result">जोखिम</string>
+
+    <string name="consult_doctor">डॉक्टर से सलाह लें</string>
+
+    <string name="please_select_at_least">कृपया कम से कम एक लक्षण चुनें</string>
+
+    <string name="select_consult_type">परामर्श प्रकार का चयन करें</string>
+
+    <string name="consult_on_call">कॉल पर परामर्श करें</string>
+
+    <string name="visit_to_doctor">डॉक्टर के पास जाएँ</string>
+
+    <string name="find_hospitals_clinics">अस्पताल / क्लीनिक खोजें</string>
+
+
+    -
+    <string name="era_s_lucknow_medical_college_amp_hospital">
+
+-<![CDATA[ERA\'s Lucknow Medical College & Hospital]]>
+</string>
+
+    <string name="consult_to">से परामर्श करें</string>
+
+    <string name="patient_details">रोगी का विवरण</string>
+
+    <string name="patient_full_name">रोगी का पूरा नाम*</string>
+
+    <string name="mobile_no_">मोबाइल नंबर.*</string>
+
+    <string name="select">चयन</string>
+
+    <string name="date_of_appointment">अपॉइंटमेंट की तिथि*</string>
+
+    <string name="select_time_slot">टाइम स्लॉट का चयन करें*</string>
+
+    <string name="select_time_slot_">समय स्लॉट का चयन करें</string>
+
+    <string name="guardian_name">अभिभावक का नाम*</string>
+
+    <string name="select_district">जिले का चयन करें*</string>
+
+    <string name="select_state">राज्य चुनें*</string>
+
+    <string name="select_state_">राज्य चुनें</string>
+
+    <string name="select_district_">जिले का चयन करें</string>
+
+    <string name="address">पता</string>
+
+    <string name="visit_details">विवरण पर जाएँ</string>
+
+    <string name="pincode">पिन कोड</string>
+
+    <string name="select_doctor">डॉक्टर का चयन करें</string>
+
+    <string name="appointment_details">नियुक्ति का विवरण</string>
+
+    <string name="select_country">देश चुनें*</string>
+
+    <string name="select_country_">देश चुनें</string>
+
+    <string name="enter_guardian_name">अभिभावक का नाम दर्ज करें</string>
+
+    <string name="enter_patient_name">रोगी का नाम दर्ज करें</string>
+
+    <string name="select_date_of_appointment">नियुक्ति की तिथि का चयन करें</string>
+
+    <string name="side_effects_checker">साइड इफेक्ट चेकर</string>
+
+    <string name="find_labs_stores">लैब्स / स्टोर्स का पता लगाएं</string>
+
+    <string name="online_nconsultation_appointment">ऑनलाइन परामर्श</string>
+
+    <string name="add_manually">प्रिस्क्रिप्शन जोड़ें</string>
+
+    <string name="ongoing_medication">चल रहा दवा</string>
+
+    <string name="prescription">पर्चे</string>
+
+    <string name="rx_history">आर एक्स इतिहास</string>
+
+    <string name="investigations">जांच</string>
+
+    <string name="travel_history">ट्रैवेल हिस्ट्री</string>
+
+    <string name="doctor_hospital">डॉक्टर / अस्पताल</string>
+
+    <string name="diagnosis_provisional_diagnosis">निदान / अनंतिम निदान</string>
+
+    <string name="view">देखना</string>
+
+    <string name="medication">दवाई</string>
+
+    <string name="advice">सलाह</string>
+
+    <string name="prescribed_medicine_list">निर्धारित दवा सूची</string>
+
+    <string name="strength">ताकत</string>
+
+    <string name="unit">इकाई</string>
+
+    <string name="frequency">बारंबारताy</string>
+
+    <string name="duration">अवधि (दिनों में)</string>
+
+    <string name="dose">खुराक</string>
+
+    <string name="consultation_history">परामर्श इतिहास</string>
+
+    <string name="submit_request">अनुरोध प्रस्तुत करें</string>
+
+    <string name="request_online_consultation">ऑनलाइन परामर्श का अनुरोध करें</string>
+
+    <string name="prescription_history_">प्रिस्क्रिप्शन\हिस्ट्री</string>
+
+    <string name="logout">लॉग आउट</string>
+
+    <string name="back">वापस</string>
+
+    <string name="consult">परामर्श</string>
+
+    <string name="symptoms">लक्षण</string>
+
+    <string name="screening">अपने आप को स्क्रीन</string>
+
+    <string name="book_appointment">निर्धारित तारीख बुक करना</string>
+
+    <string name="my_appointments">मेरी नियुक्ति</string>
+
+    <string name="my_appointments_">मेरी \ नियुक्ति</string>
+
+    <string name="view_attachment">अनुलग्नक देखें</string>
+
+    <string name="suggested_investigations">सुझाए गए अन्वेषण</string>
+
+    <string name="medicine_name">दवा का नाम</string>
+
+    <string name="medicine">दवा</string>
+
+    <string name="save">सहेजें</string>
+
+    <string name="dosage">खुराक का रूप</string>
+
+    <string name="duration_days">अवधि (दिन)</string>
+
+    <string name="recommended_diet">अनुशंसित आहार</string>
+
+    <string name="food_to_be_avoided">खान-पान में परहेज करना होगा</string>
+
+    <string name="other_diet">अन्य आहार</string>
+
+    <string name="profile">प्रोफाइल</string>
+
+    <string name="profile_details">प्रोफ़ाइल विवरण</string>
+
+    <string name="edit_profile">प्रोफ़ाइल संपादित करें</string>
+
+    <string name="add_member">सदस्य जोड़ें</string>
+
+    <string name="emailId">ईमेल आईडी</string>
+
+    <string name="profile_updated_successful">प्रोफाइल को सफलतापूर्वक अपडेट किया गया</string>
+
+    <string name="member_added_successful">सदस्य सफलतापूर्वक जोड़ा गया</string>
+
+    <string name="lbl_set_profile_photo">प्रोफ़ाइल छवि सेट करें</string>
+
+    <string name="enter_diagnosis">डायग्नोसिस दर्ज करें</string>
+
+    <string name="add_medicine_details">दवा विवरण जोड़ें</string>
+
+    <string name="presccription_added_successfully">प्रिस्क्रिप्शन को सफलतापूर्वक जोड़ा गया</string>
+
+    <string name="appointment_history">नियुक्ति का इतिहास</string>
+
+    <string name="appointment">नियुक्ति</string>
+
+    <string name="date_of_appointment_">अपॉइंटमेंट की तिथि</string>
+
+    <string name="patient_name">रोगी का नाम</string>
+
+    <string name="view_prescription">पर्चे देखें</string>
+
+    <string name="investigation_history">जांच का इतिहास</string>
+
+    <string name="investigation_history_">जांच\इतिहास</string>
+
+    <string name="add_investigation">जांच जोड़ें</string>
+
+    <string name="add_investigation_details">जांच विवरण जोड़ें</string>
+
+    <string name="test_name">परीक्षण का नाम</string>
+
+    <string name="pills_reminder">गोलियां अनुस्मारक</string>
+
+    <string name="to">से</string>
+
+    <string name="bp_chart">बीपी चार्ट</string>
+
+    <string name="systolic">सिस्टोलिक</string>
+
+    <string name="diastolic">डायस्टोलिक</string>
+
+    <string name="vitals">विटल्स</string>
+
+    <string name="from">से</string>
+
+    <string name="date">तारीख</string>
+
+    <string name="coming_soon">शीघ्र आ रहा है</string>
+
+    <string name="time_of_appointment">नियुक्ति का समय</string>
+
+    <string name="turn_speaker_on">स्पीकर ऑन</string>
+
+    <string name="turn_speaker_off">स्पीकर ओफ</string>
+
+    <string name="settings">समायोजन</string>
+
+    <string name="permissions_needed">कैमरा और माइक्रोफोन की अनुमति आवश्यक है। कृपया अतिरिक्त कार्यक्षमता के लिए ऐप सेटिंग में अनुमति दें.</string>
+
+    <string name="proceed">आगे बढ़ें</string>
+
+    <string name="update_profile">प्रोफ़ाइल अपडेट करें</string>
+
+    <string name="select_date">तारीख़ चुनें</string>
+
+    <string name="select_time">समय का चयन करें</string>
+
+    <string name="vital">महत्वपूर्ण</string>
+
+    <string name="vital_value">महत्वपूर्ण मूल्य </string>
+
+    <string name="add_vitals">विटल जोड़ें</string>
+
+    <string name="vital_added_successfully">विटल्स सफलतापूर्वक जोड़ा गया</string>
+
+    <string name="select_user_type">उपयोगकर्ता प्रकार का चयन करें</string>
+
+    <string name="search_patient">रोगी खोजें</string>
+
+    <string name="patient_appointment_list">रोगी की नियुक्ति सूची</string>
+
+    <string name="no_data_available">कोई डेटा उपलब्ध नहीं है!</string>
+
+    <string name="diagnosis">निदान</string>
+
+    <string name="intake_advice">सेवन की सलाह</string>
+
+    <string name="submit">प्रस्तुत</string>
+
+    <string name="diagnosis_details">निदान विवरण</string>
+
+    <string name="suggest_investigations_medical_checkups">सुझाव जांच (मेडिकल चेकअप)</string>
+
+    <string name="search_investigation">खोज खोज</string>
+
+    <string name="default_notification_channel_id">com.digidoctor.android</string>
+
+    <string name="ivestigation_already_exist">जांच पहले से मौजूद है</string>
+
+    <string name="other_advice">अन्य सलाह</string>
+
+    <string name="enter_recommended_diet">अनुशंसित आहार दर्ज करें</string>
+
+    <string name="enter_other_advice">अन्य सलाह दर्ज करें</string>
+
+    <string name="medication_prescribed_successfully">दवा निर्धारित सफलताy</string>
+
+    <string name="enterEmail">ईमेल आईडी दर्ज करें</string>
+
+    <string name="enterValidEmail">मान्य ईमेल आईडी दर्ज करें</string>
+
+    <string name="delete_member">सदस्य हटाएँ</string>
+
+    <string name="delete_member_text">क्या आप वाकई इस सदस्य को हटाना चाहते हैं?</string>
+
+    <string name="select_member">सदस्य का चयन करें</string>
+
+    <string name="enterAdvice">सलाह दर्ज करें</string>
+
+    <string name="vital_deleted_successfully">महत्वपूर्ण रूप से हटाए गए महत्वपूर्ण!</string>
+
+    <string name="appointment_canceled">नियुक्ति रद्द!</string>
+
+    <string name="are_you_sure_you_want_to_do_videocall">क्या आप वाकई वीडियो कॉल करना चाहते हैं?</string>
+
+    <string name="_24x7_support_center">24x7 सहायता केंद्र</string>
+
+    <string name="manageMember">सदस्य को प्रबंधित करें</string>
+
+    <string name="accountSettings">अकाउंट सेटिंग</string>
+
+    <string name="medicine_already_prescribed">पहले से निर्धारित दवा!</string>
+
+    <string name="permission_required">अनुमति आवश्यक!</string>
+
+    <string name="patients_phone_not_available">रोगी का फ़ोन नंबर उपलब्ध नहीं है!</string>
+
+    <string name="test_date">परीक्षा की तारीख</string>
+
+    <string name="upload_report">रिपोर्ट अपलोड करें</string>
+
+    <string name="attach_file">फ़ाइल जोड़ें</string>
+
+    <string name="attached_file">संलग्न फाइल</string>
+
+    <string name="value">मान</string>
+
+    <string name="remark">रिमार्क</string>
+
+    <string name="range">सीमा</string>
+
+    <string name="enterPathologyName">पैथोलॉजी नाम दर्ज करें</string>
+
+    <string name="enterReceiptNo">रसीद संख्या दर्ज करें।</string>
+
+    <string name="selectTestDate">टेस्ट डेट सेलेक्ट करें</string>
+
+    <string name="investigaion_added_successfully">जांच सफलतापूर्वक जोड़ा गया</string>
+
+    <string name="image_only">छवि केवल</string>
+
+    <string name="receipt_no">रसीद संख्या।</string>
+
+    <string name="download">डाउनलोड</string>
+
+    <string name="medical_history">चिकित्सा का इतिहास</string>
+
+
+    -
+    <string name="hospital_registration_">
+
+<u>अस्पताल का पंजीकरण</u>
+
+</string>
+
+    <string name="hospital_registration">अस्पताल का पंजीकरण</string>
+
+    <string name="logout_text">क्या आप लॉग आउट करना चाहते हैं?</string>
+
+    <string name="add">जोड़ें</string>
+
+    <string name="work_description">कार्य विवरण</string>
+
+    <string name="enter_work_description">कार्य विवरण दर्ज करें</string>
+
+    <string name="add_doctor">डॉक्टर जोड़ें</string>
+
+    <string name="doctors">डॉक्टर</string>
+
+    <string name="degree">डिग्री</string>
+
+    <string name="enter_degree">डिग्री दर्ज करें</string>
+
+    <string name="done">कर दी है</string>
+
+    <string name="update">अपडेट करें</string>
+
+    <string name="home">घर</string>
+
+    <string name="welcome">स्वागत हे</string>
+
+    <string name="todays_appointment_status">आज की नियुक्ति स्थिति</string>
+
+    <string name="total_npatient">कुल \ n स्वभाव</string>
+
+    <string name="viewed_npatient">देखे गए \ n स्वभाव</string>
+
+    <string name="patient_nleft">रोगी \ nLeft</string>
+
+    <string name="clinic_mobile_no">क्लिनिक मोबाइल नं।</string>
+
+    <string name="set_time_slot">समय स्लॉट सेट करें</string>
+
+    <string name="single_slot">सिंगल स्लॉट</string>
+
+    <string name="dual_slot">दोहरी खांचा</string>
+
+    <string name="slot1">खांचा 1</string>
+
+    <string name="select_time_from">से समय का चयन करें</string>
+
+    <string name="select_time_to">समय का चयन करें</string>
+
+    <string name="slot2">खांचा २</string>
+
+    <string name="location">स्थान</string>
+
+    <string name="hourTag">घंटा</string>
+
+    <string name="minuteTag">मिनट</string>
+
+    <string name="clinic_name">क्लिनिक का नाम</string>
+
+    <string name="enter_clinic_name">क्लिनिक का नाम दर्ज करें</string>
+
+    <string name="selectTimeSlotType">समय स्लॉट प्रकार का चयन करें</string>
+
+    <string name="selectTimeSlotDays">समय स्लॉट दिनों का चयन करें</string>
+
+    <string name="selectSlot1TimeFrom">से slot1 समय चुनें</string>
+
+    <string name="selectSlot1TimeTo">स्लॉट 1 समय का चयन करें</string>
+
+    <string name="selectSlot2TimeFrom">से स्लॉट 2 समय का चयन करें</string>
+
+    <string name="selectSlot2TimeTo">स्लॉट 2 समय का चयन करें</string>
+
+    <string name="enterAddress">पता दर्ज करें</string>
+
+    <string name="enterPincode">पिन कोड दर्ज करें</string>
+
+    <string name="account_details">खाता विवरण</string>
+
+    <string name="edit_details">विवरण संपादित करें</string>
+
+    <string name="old_password">पुराना पासवर्ड</string>
+
+    <string name="new_password">नया पासवर्ड</string>
+
+    <string name="continue_">जारी रखें</string>
+
+    <string name="remove_medicine">चिकित्सा को हटा दें</string>
+
+    <string name="choose_language">भाषा चुनें</string>
+
+    <string name="english">अंग्रेज़ी</string>
+
+    <string name="are_you_sure_you_want_to_call">क्या आप वाकई कॉल करना चाहते हैं?</string>
+
+    <string name="are_you_sure_you_want_to_make_appointment_for">क्या आप वाकई इसके लिए नियुक्ति करना चाहते हैं?</string>
+
+    <string name="if_no_please_select">\ n यदि नहीं, तो कृपया डैशबोर्ड पर दिए गए सदस्य बॉक्स से रोगी का चयन करें</string>
+
+    <string name="are_you_sure_you_want_to_do_screening">क्या आप वाकई स्क्रीनिंग करना चाहते हैं?</string>
+
+    <string name="appointment_booked_successfully">नियुक्ति सफलतापूर्वक बुक की गई!</string>
+
+    <string name="doctor_is_not_available_for">नियुक्ति तिथि के लिए डॉक्टर उपलब्ध नहीं है। कृपया अलग चिकित्सक चुनें</string>
+
+    <string name="report_saved_to_gallery">गैलरी को रिपोर्ट की गई बचत!</string>
+
+    <string name="call_has_been_disconnected">कॉल काट दिया गया है!</string>
+
+    <string name="digidoctor_video_call">DigiDoctor वीडियो कॉल</string>
+
+    <string name="connection_failure">कनेक्शन विफलता!</string>
+
+    <string name="delete_my_account">मेरा एकाउंट हटा दो</string>
+
+    <string name="primary_username">प्राथमिक उपयोगकर्ता नाम</string>
+
+    <string name="account_enable">खाता सक्षम करें</string>
+
+    <string name="allow_notifications">नोटिफिकेशन की अनुमति दें</string>
+
+    <string name="password_amp_security">पासवर्ड सुरक्षा</string>
+
+    <string name="change_language">भाषा बदलें</string>
+
+    <string name="urdu">उर्दू</string>
+
+    <string name="fee_details">शुल्क का विवरण</string>
+
+    <string name="enter_fee">शुल्क दर्ज करें</string>
+
+    <string name="or">या</string>
+
+    <string name="farsi">فارسی</string>
+
+    <string name="enter_medicine_name">दवा का नाम दर्ज करें</string>
+
+    <string name="select_medicine_from_list">सूची से दवा का चयन करें</string>
+
+    <string name="enter_strength">शक्ति दर्ज करें</string>
+
+    <string name="enter_unit">इकाई दर्ज करें</string>
+
+    <string name="enter_frequency">फ़्रिक्वेंसी दर्ज करें</string>
+
+    <string name="enter_duration">अवधि दर्ज करें</string>
+
+    <string name="please_enter_all_values_properly">कृपया सभी मान ठीक से दर्ज करें</string>
+
+    <string name="enter_range">रेंज दर्ज करें</string>
+
+    <string name="enter_test_name">टेस्ट नाम दर्ज करें</string>
+
+    <string name="please_select_your_report">कृपया अपनी रिपोर्ट फ़ाइल चुनें या मैन्युअल रूप से परीक्षण दर्ज करें</string>
+
+    <string name="vitals_list">विटल्स लिस्ट</string>
+
+    <string name="tell_your_problem">अपनी समस्या बताओ</string>
+
+    <string name="add_more_symptoms">अधिक लक्षण जोड़ें</string>
+
+    <string name="search_symptoms">खोज लक्षण</string>
+
+    <string name="add_symptoms">लक्षण जोड़ें</string>
+
+    <string name="your_booking_request_has_been_sent_to_the_doctor">आपका बुकिंग अनुरोध डॉक्टर को भेज दिया गया है</string>
+
+    <string name="add_previous_medication">पिछला दवा जोड़ें</string>
+
+    <string name="please_select_attributes">कृपया विशेषताओं का चयन करें</string>
+
+    <string name="symptom_already_exist">लक्षण पहले से मौजूद हैं</string>
+
+    <string name="problem_submitted_successfully">समस्या सफलतापूर्वक सबमिट की गई</string>
+
+    <string name="select_problems">समस्याओं का चयन करें</string>
+
+    <string name="incoming">आवक</string>
+
+    <string name="call_didnt_connect">कॉल कनेक्ट नहीं किया</string>
+
+    <string name="login_password">लॉगिन पासवर्ड</string>
+
+    <string name="location_details">स्थान का विवरण</string>
+
+    <string name="doctor_added_successfully">डॉक्टर ने सफलतापूर्वक जोड़ा</string>
+
+    <string name="report">रिपोर्ट</string>
+
+    <string name="enterVital">महत्वपूर्ण दर्ज करें</string>
+
+    <string name="enterVitalValue">महत्वपूर्ण मान दर्ज करें</string>
+
+    <string name="select_proper_vital">उचित महत्वपूर्ण का चयन करें</string>
+
+    <string name="description">विवरण</string>
+
+    <string name="enter_description">विवरण दर्ज करें</string>
+
+    <string name="transaction_id">लेन-देन आईडी</string>
+
+    <string name="addDiagnosis">निदान जोड़ें</string>
+
+    <string name="prescribe">सलाह देना</string>
+
+    <string name="investigation_report">जांच प्रतिवेदन</string>
+
+    <string name="downloading">डाउनलोड कर रहा है</string>
+
+    <string name="download_completed">डाउनलोड सम्पन्न हुआ</string>
+
+    <string name="prescription_reports">प्रिस्क्रिप्शन रिपोर्ट</string>
+
+    <string name="prescription_report">प्रिस्क्रिप्शन रिपोर्ट</string>
+
+    <string name="book_appointment_">बुक \ n एपॉइंटमेंट</string>
+
+    <string name="select_video_from_gallery">गैलरी से वीडियो का चयन करें</string>
+
+    <string name="record_video_from_camera">कैमरे से रिकॉर्ड वीडियो</string>
+
+    <string name="select_image">छवि चुने</string>
+
+    <string name="select_appointment_slot_time">नियुक्ति स्लॉट समय का चयन करें</string>
+
+    <string name="available_time_slot">उपलब्ध समय स्लॉट</string>
+
+    <string name="attachment">आसक्ति</string>
+
+    <string name="time_slot">टाइम स्लॉट</string>
+
+    <string name="time_from">से समय</string>
+
+    <string name="time_to">करने के लिए समय</string>
+
+    <string name="add_slot">स्लॉट जोड़ें</string>
+
+    <string name="selectDay">दिन का चयन करें</string>
+
+    <string name="slot_timing_must_be_different">स्लॉट की टाइमिंग अलग होनी चाहिए</string>
+
+    <string name="day">दिन</string>
+
+    <string name="slot_already_added">स्लॉट पहले से ही जोड़ा गया है</string>
+
+    <string name="slot_added_successfully">स्लॉट सफलतापूर्वक जोड़ा गया</string>
+
+    <string name="slot_not_available">स्लॉट उपलब्ध नहीं है। कृपया अलग स्लॉट चुनें</string>
+
+    <string name="enter_registered_mobile_number_to_get_otp">OTP प्राप्त करने के लिए पंजीकृत मोबाइल नंबर दर्ज करें</string>
+
+    <string name="otp_verification">OTP सत्यापन</string>
+
+    <string name="please_enter_otp_sent_to_your_mobile_number">कृपया अपने मोबाइल नंबर पर भेजा गया ओटीपी दर्ज करें:</string>
+
+    <string name="verify_otp">OTP सत्यापित करें</string>
+
+    <string name="enterOtp">OTP दर्ज करें</string>
+
+    <string name="resend_otp">ओटीपी पुनः भेजें</string>
+
+    <string name="test_nhistory">टेस्ट \ _ इतिहास</string>
+
+    <string name="add_ninvestigation">\ NInvestigation जोड़ें</string>
+
+    <string name="normalRange">सामान्य परिसर</string>
+
+    <string name="medication_details">दवा विवरण</string>
+
+    <string name="select_medical_speciality">चिकित्सा विशेषता का चयन करें</string>
+
+    <string name="select_speciality_by_problem">समस्या द्वारा विशेषता का चयन करें</string>
+
+    <string name="search_doctors_spec">डॉक्टर, विशेषज्ञ, क्लिनिक खोजें; अस्पताल</string>
+
+    <string name="reschedule">पुनर्निर्धारित किया गया</string>
+
+    <string name="doYouWantToCancelOr">क्या आप नियुक्ति रद्द या रद्द करना चाहते हैं?</string>
+
+    <string name="no_slots_available_please_select_different_date_new">कोई स्लॉट उपलब्ध नहीं है। कृपया अलग तिथि चुनें</string>
+
+    <string name="reschedule_success">आपकी नियुक्ति सफलतापूर्वक पुनर्निर्धारित की गई है</string>
+
+
+    -
+    <string name="rescheduleAppointment">
+
+<b>मिलने के समय को दोबारा अनुसूचित करें</b>
+
+</string>
+
+    <string name="blood_pressure">रक्तचाप</string>
+
+    <string name="random_blood_sugar">रैंडम ब्लड शुगर</string>
+
+    <string name="other_vital">अन्य महत्वपूर्ण</string>
+
+    <string name="spo2">SpO2</string>
+
+    <string name="temperature">तापमान</string>
+
+    <string name="remove_picture">चित्र हटा दें</string>
+
+    <string name="room_screen_select_device">डिवाइस का चयन करें</string>
+
+    <string name="patients">मरीजों को</string>
+
+    <string name="viewProfile">प्रोफ़ाइल देखें</string>
+
+    <string name="problems">समस्या</string>
+
+    <string name="no_data_found">कोई डेटा नहीं मिला</string>
+
+    <string name="result_count">"परिणाम"</string>
+
+    <string name="no_internet">कोई इंटरनेट कनेक्टिविटी नहीं</string>
+
+    <string name="name">नाम</string>
+
+    <string name="mobile">मोबाइल</string>
+
+    <string name="close">बंद करे</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+
+    <string name="otp_not_verified">ओटप का मिलान नहीं हुआ</string>
+
+    <string name="your_profile_updated_successful">आपकी प्रोफ़ाइल अपडेट की गई है</string>
+
+    <string name="make_your_selection">अपना चयन करें</string>
+
+    <string name="from_date">तारीख से</string>
+
+    <string name="to_date">तारीख तक</string>
+
+    <string name="please_fill_all_fields">कृपया सभी फ़ील्ड भरें</string>
+
+    <string name="ble_not_supported">BLE समर्थित नहीं है</string>
+
+    <string name="error_bluetooth_not_supported">त्रुटि, ब्लूटूथ समर्थित नहीं है</string>
+
+    <string name="unknown_device">अज्ञात यन्त्र</string>
+
+    <string name="connected">जुड़े हुए</string>
+
+    <string name="disconnected">असंबद्ध</string>
+
+    <string name="no_data">--</string>
+
+    <string name="menu_connect">जुडिये</string>
+
+    <string name="menu_disconnect">डिस्कनेक्ट करें</string>
+
+    <string name="unknown_service">अज्ञात सेवाएँ</string>
+
+    <string name="unknown_characteristic">अज्ञात चरित्र</string>
+
+    <string name="bluetooth_device_data">ब्लूटूथ डिवाइस डेटा</string>
+
+    <string name="label_device_address">डिवाइस का पता</string>
+
+    <string name="label_state">स्थिति: </string>
+
+    <string name="bp_dias">बीपी डायस</string>
+
+    <string name="bp_sys">बीपी सिस</string>
+
+    <string name="scan">स्कैन</string>
+
+    <string name="stop_scan">रोकें स्कैन</string>
+
+    <string name="status">स्थिति</string>
+
+    <string name="connect">जुडिये</string>
+
+    <string name="discoxnnect">डिस्कनेक्ट करें</string>
+
+    <string name="time_sync">टाइम सिंक</string>
+
+    <string name="read_data">डेटा पढ़ें</string>
+
+    <string name="clear_data">शुद्ध आंकड़े</string>
+
+    <string name="get_oximeter_data">Osmeter Data प्राप्त करें</string>
+
+    <string name="get_bp_data">बीपी डेटा प्राप्त करें</string>
+
+    <string name="device_settings">उपकरण सेटिंग्स</string>
+
+    <string name="bloop_presuure">रक्तचाप</string>
+
+    <string name="pulse">पल्स</string>
+
+    <string name="temprature">तापमान</string>
+
+    <string name="omron">Omron</string>
+
+    <string name="medcheck">मेडचेक</string>
+
+    <string name="meditive">ध्यान करने योग्य</string>
+
+    <string name="and">तथा</string>
+
+    <string name="control_d">नियंत्रण-डी</string>
+
+    <string name="via_oximeter">वाया ऑक्समीटर</string>
+
+    <string name="seraching_for_device">खोज उपकरण</string>
+
+    <string name="choose_one">"एक का चयन "</string>
+
+    <string name="add_device">डिवाइस जोडे</string>
+
+    <string name="start_scan">स्कैन शुरू करें</string>
+
+    <string name="stop_scab">रोकें स्कैन</string>
+
+    <string name="scan_in_progress">स्कैन प्रगति पर है</string>
+
+    <string name="save_data">डेटा बचाना</string>
+
+    <string name="transaction_successful">लेनदेन की सफलता</string>
+
+    <string name="select_device">सूची से डिवाइस का चयन करें</string>
+
+    <string name="select_device_type_from_list">सूची से डिवाइस प्रकार चुनें</string>
+
+    <string name="payment_details">भुगतान विवरण</string>
+
+    <!--Digi Pharmacy-->
+
+
+    <string name="upload_prescriptio">प्रिस्क्रिप्शन अपलोड करें</string>
+
+    <string name="video_consult">पुस्तक वीडियो परामर्श</string>
+
+    <string name="choose_your_time">अपना समय चुनें</string>
+
+
+    -
+    <string name="you_can_send">
+आप अपने भेज सकते हैं
+
+-<b>
+
+<i>छवियाँ / ऑडियो / वीडियो</i>
+
+</b>
+आपके लक्षण / चिकित्सक से संबंधित समस्या.
+</string>
+
+    <string name="images_audio_video">छवियाँ / ऑडियो / वीडियो</string>
+
+    <string name="related_to_your">डॉक्टर से आपके लक्षणों / समस्या से संबंधित</string>
+
+    <string name="audio">ऑडियो</string>
+
+    <string name="images">छवि</string>
+
+    <string name="video">वीडियो</string>
+
+    <string name="enter_patient_details">मरीजों का विवरण दर्ज करें</string>
+
+    <string name="appointment_book_for">पुस्तक नियुक्ति के लिए</string>
+
+    <string name="add_other_patient">अन्य रोगी जोड़ें</string>
+
+    <string name="enter_some_more">रोगी के बारे में कुछ और जानकारी दर्ज करें :</string>
+
+    <string name="your_email">आपका ईमेल</string>
+
+    <string name="enter_your_email">अपनी ईमेल आईडी दर्ज करें</string>
+
+    <string name="you_want_to_update_on_whatsapp">आप व्हाट्सएप नंबर +91 9988665522 पर अपडेट करना चाहते हैं</string>
+
+    <string name="appointment_id">नियुक्ति आईडी</string>
+
+    <string name="get_direction">दिशा - निर्देश प्राप्त करें</string>
+
+    <string name="recommended_doctors">डॉक्टरों की सिफारिश की</string>
+
+    <string name="popular_doctors">लोकप्रिय डॉक्टर्स</string>
+
+    <string name="working_time">काम का समय</string>
+
+    <string name="about_doc">डॉक्टर के बारे में</string>
+
+    <string name="no_doc_found">डॉक्टर नहीं मिले</string>
+
+    <string name="re__schedule">फिर से अनुसूची</string>
+
+    <string name="welcome_back">वापसी पर स्वागत है</string>
+
+    <string name="login_to_your_account">अपने अकाउंट में लॉग इन करें</string>
+
+    <string name="title_activity_tabbed_demo">तबेदअक्टिविटीडिमेमो</string>
+
+    <string name="tab_text_1">अपने निकटतम और शीर्ष चिकित्सक के साथ एक नियुक्ति बुक करें.</string>
+
+    <string name="tab_text_2">एक डॉक्टर को देखने के लिए बहुत व्यस्त हैं? अपनी जगह पर डॉक्टर से ऑनलाइन सहमति लें.</string>
+
+    <string name="tab_text_3">अपने स्थान पर नमूना संग्रह प्राप्त करें, आप घर पर रहें.</string>
+
+    <string name="booking_details">नियुक्ति का विवरण</string>
+
+    <string name="failed_to_book">बुक अपॉइंटमेंट में विफल</string>
+
+    <string name="email">ईमेल</string>
+
+    <string name="password">कुंजिका</string>
+
+    <string name="confirm_password">पासवर्ड की पुष्टि कीजिये</string>
+
+    <string name="profile_saved">प्रोफ़ाइल सफलतापूर्वक बच गई</string>
+
+    <string name="gender">लिंग</string>
+
+    <string name="name_required">नाम (जरूरी)</string>
+
+    <string name="email_required">ईमेल (अनिवार्य)</string>
+
+    <string name="date_of_birth_required">जन्म तिथि आवश्यक</string>
+
+    <string name="select_gender">जन्म तिथि आवश्यक</string>
+
+    <string name="address_required">पता आवश्यक है</string>
+
+    <string name="mobile_required">मोबाइल नंबर आवश्यक</string>
+
+    <string name="mobilel_required">मोबाइल नंबर आवश्यक</string>
+
+    <string name="set_date">तारीख सेट करें</string>
+
+    <string name="enable_location">स्थान सक्षम करें</string>
+
+    <string name="your_name">आपका पूरा नाम</string>
+
+    <string name="lab_tests">लैब टेस्ट</string>
+
+    <string name="orders">आदेश</string>
+
+    <string name="about_us">हमारे बारे में</string>
+
+    <string name="complete_ypur_profile">अपनी प्रोफाइल पूरी कीजिए</string>
+
+    <string name="complete_profile">पूरा प्रोफ़ाइल</string>
+
+    <string name="self">स्व</string>
+
+    <string name="call_now">अब कॉल करें</string>
+
+    <string name="search_doctor">डॉक्टरों को खोजें</string>
+
+    <string name="child">बच्चा</string>
+
+    <string name="select_age">आयु का चयन करें</string>
+
+    <string name="physical_examination">शारीरिक जाँच</string>
+
+    <string name="recomendation">सिफ़ारिश करना</string>
+
+    <string name="see_reports">रिपोर्ट देखें</string>
+
+    <string name="see_mannual_pres">यहां अपने मैन्युअल रूप से जोड़े गए नुस्खे देखें.</string>
+
+    <string name="show_files">फ़ाइलें दिखाएँ</string>
+
+    <string name="add_patients">मरीजों को जोड़ें</string>
+
+    <string name="gender_here">लिंग</string>
+
+    <string name="your_dob">यहां जन्म तिथि</string>
+
+    <string name="your_address">यहाँ पता</string>
+
+    <string name="save_patient">रोगी को बचाओ</string>
+
+    <string name="cancel_appointment">अपॉइंटमेंट रद्द करें</string>
+
+    <string name="cancel_appointment_tag">क्या आप वास्तव में इस नियुक्ति को रद्द करना चाहते हैं ??</string>
+
+    <string name="goto_dashboard">डैशबोर्ड पर जाएँ</string>
+
+    <string name="re__schedule_appointment">मिलने के समय को दोबारा अनुसूचित करें</string>
+
+    <string name="appointment_re_scheduled_successfully">नियुक्ति पुन: अनुसूचित सफलतापूर्वक</string>
+
+    <string name="appointment_cancelled_successcully">नियुक्ति सफलतापूर्वक रद्द कर दी गई</string>
+
+    <string name="want_to_logout">लॉगआउट करना चाहते हैं??</string>
+
+    <string name="logged_out_sucvcessfully">सफलतापूर्वक लॉग आउट किया गया</string>
+
+    <string name="logged_in">में लॉग इन</string>
+
+    <string name="vitals_hitory">महत्वपूर्ण इतिहास</string>
+
+    <string name="choose_vital_histroy">महत्वपूर्ण इनपुट</string>
+
+    <string name="trends">रुझान</string>
+
+    <string name="trends_description">महत्वपूर्ण इतिहास ग्राफ</string>
+
+    <string name="graph_description">ग्राफ विवरण यहाँ</string>
+
+    <string name="live">लाइव वाइटल प्राप्त करें</string>
+
+    <string name="live_description">महत्वपूर्ण वाया मशीन प्राप्त करें</string>
+
+    <string name="customize">अनुकूलित करें</string>
+
+    <string name="customize_description">यहाँ विवरण अनुकूलित करें</string>
+
+    <string name="blood_pressure_chart">ब्लड प्रेशर चार्ट</string>
+
+    <string name="add_prescription">प्रिस्क्रिप्शन जोड़ें</string>
+
+    <string name="doctor_information">डॉक्टर की जानकारी</string>
+
+    <string name="medicine_prescription">दवा का विवरण</string>
+
+    <string name="attach_prescription">प्रिस्क्रिप्शन फ़ाइल संलग्न करें</string>
+
+    <string name="upload_files">फाइलें अपलोड करें</string>
+
+    <string name="browse">ब्राउज़ करें</string>
+
+    <string name="save_member">सदस्य बचाओ</string>
+
+    <string name="pulse_rate">पल्स दर</string>
+
+    <string name="please_fill_diastolic">कृपया डायस्टोलिक बीपी दर्ज करें</string>
+
+    <string name="please_fill_syslolic">कृपया सिस्टोलिक बीपी दर्ज करें</string>
+
+    <string name="respiratory_rate_value">श्वसन दर मूल्य</string>
+
+    <string name="spo2_value">SpO2 मान (97.12)</string>
+
+    <string name="pulse_rate_value">पल्स दर मूल्य</string>
+
+    <string name="temperature_value">तापमान मान (97.91)</string>
+
+    <string name="blood_sugar_value">रक्त शर्करा मूल्य</string>
+
+    <string name="_140_90mmhg_higher">140 / 90mmHg अधिक है</string>
+
+    <string name="_90_60mmhg_lower">90 / 60mmHg कम</string>
+
+    <string name="respiratory_rate">श्वसन दर</string>
+
+    <string name="your_appointment_has_been_done_successfully">आपका अपॉइंटमेंट सफलतापूर्वक हो गया है!</string>
+
+    <string name="thank_you_for_using_our_services">हमारी सेवाओं का उपयोग करने के लिए धन्यवाद।</string>
+
+    <string name="input_vitals">इनपुट विटल्स</string>
+
+    <string name="vital_trends">महत्वपूर्ण रुझान</string>
+
+    <string name="input_vitals_description">इनपुट आपका विटाल</string>
+
+    <string name="find_doctors_by">डॉक्टरों को खोजें</string>
+
+    <string name="lab">लैब</string>
+
+    <string name="digi">डिगी</string>
+
+    <string name="speciality">विशेषता</string>
+
+    <string name="tests">टेस्ट</string>
+
+    <string name="pharmacy">फार्मेसी</string>
+
+    <string name="prescription_details">प्रिस्क्रिप्शन विवरण</string>
+
+    <string name="doctor_s_information"> डॉक्टर की जानकारी</string>
+
+    <string name="doctor_s_name">डॉक्टर का नाम</string>
+
+    <string name="dose_remark">डॉस रिमार्क</string>
+
+    <string name="date_taime_not_selected">दिनांक, समय चयनित नहीं है</string>
+
+    <string name="failed_to_authenticate_token">टोकन प्रमाणित करने में विफल !!</string>
+
+    <string name="add_family_member">परिवार के सदस्य को जोड़ें</string>
+
+    <string name="you_want_to_add_new_patient_member">आप नए रोगी सदस्य जोड़ना चाहते हैं</string>
+
+    <string name="add_man">मैन्युअल रूप से जोड़ें</string>
+
+    <string name="completed">पूरा हुआ</string>
+
+    <string name="date_and_time">दिनांक और समय</string>
+
+    <string name="booked_for">के लिए बुक किया गया</string>
+
+    <string name="medical_problem">चिकित्सा समस्या</string>
+
+    <string name="add_pathology_informations">पैथोलॉजी जानकारी जोड़ें</string>
+
+    <string name="test_informations">परीक्षण जानकारी</string>
+
+    <string name="attach_prescription_file">प्रिस्क्रिप्शन फ़ाइल संलग्न करें</string>
+
+    <string name="upload_profile_photo">प्रोफ़ाइल फ़ोटो अपलोड करें</string>
+
+    <string name="enter_valid_mobile_number">मान्य मोबाइल नंबर दर्ज करें</string>
+
+    <string name="order_medicine_and_health_products">आदेश चिकित्सा और स्वास्थ्य उत्पाद</string>
+
+    <string name="find_top_clinic_near_you">आप के पास शीर्ष क्लिनिक का पता लगाएं</string>
+
+    <string name="otp_will_be_send_to_your_mobile_number">ओटीपी आपके मोबाइल नंबर पर भेजा जाएगा</string>
+
+    <string name="enter_your_mobile_number">अपना मोबाइल संख्या दर्ज करे</string>
+
+    <string name="members">सदस्य</string>
+
+    <string name="search_specialty_here">यहां देखें खासियत</string>
+
+    <string name="hospital_name">अस्पताल / पैथोलॉजी नाम दर्ज करें</string>
+
+    <string name="sorry">माफ़ करना!</string>
+
+    <string name="no_doctors_found">कोई डाक्टर नहीं मिला!</string>
+
+    <string name="search_specialities_here">यहां खोजें विशेषता</string>
+
+    <string name="doctorprofileimage">डॉक्टरप्रोफाइलइमेज</string>
+
+    <string name="select_nslot">Slot का चयन करें</string>
+
+    <string name="add_test">टेस्ट जोड़ें</string>
+
+    <string name="patient_s_information">रोगी की जानकारी :</string>
+
+    <string name="change_member">सदस्य बदलें</string>
+
+    <string name="prescription_added_successfully">जांच सफलतापूर्वक जोड़ा गया !!</string>
+
+    <string name="appointment_booked">अपॉइंटमेंट बुक किया गया</string>
+
+    <string name="search_investigation_here">यहां खोजबीन करें</string>
+
+    <string name="prescription_image">प्रिस्क्रिप्शन इमेज</string>
+
+    <string name="selected_images">चयनित छवियां</string>
+
+    <string name="enter_valid_email_id">ईमेल-आईडी मान्य नहीं है</string>
+
+    <string name="delete_member_dialog_string">क्या आप वाकई इस सदस्य को हटाना चाहते हैं? ?</string>
+
+    <string name="member_deleted">सदस्य सफलतापूर्वक हटा दिया गया</string>
+
+    <string name="see_precription">पर्चे देखें</string>
+
+    <string name="attach_investigation_file">जांच फाइल संलग्न करें</string>
+    <string name="search_doctors_here">यहां डॉक्टर खोजें</string>
+    <string name="mobile_verification">मोबाइल सत्यापन</string>
+    <string name="an_otp_has_been_sent_to_mobile_n_919044865611">OTP को मोबाइल (+919044865611) पर भेजा गया है</string>
+    <string name="enter_your_otp_code_here">यहां अपना ओटीपी कोड डालें</string>
+    <string name="_00_30">00:30</string>
+    <string name="avoid_diet">डाइट से बचें</string>
+    <string name="search_symptoms_here">यहां खोज लक्षण</string>
+    <string name="pay_now">अब भुगतान करें</string>
+    <string name="send_document">दस्तावेज़ भेजें</string>
+    <string name="language">भाषा बदलें</string>
+    <string name="not_available">उपलब्ध नहीं है</string>
+    <string name="expired">समाप्त</string>
+    <string name="prescribed">निर्धारित</string>
+    <string name="confirmed">पुष्टि</string>
+    <string name="select_payment_option">भुगतान का विकल्प चुनें</string>
+    <string name="select_pay_mode">वेतन मोड का चयन करें</string>
+    <string name="add_vitals_manually">मैन्युअल रूप से विटल जोड़ें</string>
+    <string name="add_via_machine">मशीन के माध्यम से विटल जोड़ें</string>
+    <string-array name="navigation_drawer_items_array">
+        <item>जुडिये</item>
+        <item>जुड़नार</item>
+        <item>तालिका</item>
+    </string-array>
+</resources>

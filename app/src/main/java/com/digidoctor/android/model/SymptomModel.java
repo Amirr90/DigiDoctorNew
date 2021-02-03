@@ -16,16 +16,16 @@ public class SymptomModel {
         this.problemName = problemName;
     }
 
-    private String symptomID;
+    private String symptomId;
     private String doctorName;
 
 
-    public String getSymptomID() {
-        return symptomID;
+    public String getSymptomId() {
+        return symptomId;
     }
 
-    public void setSymptomID(String symptomID) {
-        this.symptomID = symptomID;
+    public void setSymptomId(String symptomId) {
+        this.symptomId = symptomId;
     }
 
     public String getDoctorName() {

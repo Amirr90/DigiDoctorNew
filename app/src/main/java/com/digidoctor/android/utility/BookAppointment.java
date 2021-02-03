@@ -348,7 +348,7 @@ public class BookAppointment extends Credentials {
         this.bookAppointmentInterface = bookAppointmentInterface;
 
         setPayMode(payMode);
-        setPaymentMode(getPaymentmode(payMode));
+        setPaymentMode(getPaymentMode(payMode));
         //CheckTimeSlot Availability
         final Map<String, String> map = new HashMap<>();
 
@@ -363,8 +363,6 @@ public class BookAppointment extends Credentials {
         checkTimeSlotAvailability(map, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> obj) {
-                Log.d(TAG, "onSuccess: " + obj);
-
                 List<CheckSlotAvailabilityDataRes> response = (List<CheckSlotAvailabilityDataRes>) obj;
                 if (response != null) {
 
@@ -404,13 +402,13 @@ public class BookAppointment extends Credentials {
 
     }
 
-    private String getPaymentmode(int payMode) {
+    private String getPaymentMode(int payMode) {
         if (payMode == PAY_MODE_PAY_ON_VISIT)
             return "PayOnVisit";
         else if (payMode == PAY_MODE_PAY_U_MONEY)
-            return "payUMoney";
+            return "Pay via PayuMoney";
         else if (payMode == PAY_MODE_RAZOR_PAYY)
-            return "RazorPay";
+            return "Pay via RazorPay";
         else return "";
     }
 
@@ -467,7 +465,6 @@ public class BookAppointment extends Credentials {
 
         Checkout.preload(activity);
         Checkout checkout = new Checkout();
-        // checkout.setKeyID("rzp_test_41Dk0t9QjLuFZl");
 
         checkout.setKeyID("rzp_live_BwhTaXRxeklaAI");
         bookAppointment.setTrxId(tId);
@@ -627,10 +624,10 @@ public class BookAppointment extends Credentials {
                     @Override
                     public void onPaymentFailure(@NotNull Object response) {
                         HashMap<String, Object> result = (HashMap<String, Object>) response;
-                        String payuResponse = (String) result.get(PayUCheckoutProConstants.CP_PAYU_RESPONSE);
+                        String payUResponse = (String) result.get(PayUCheckoutProConstants.CP_PAYU_RESPONSE);
                         String merchantResponse = (String) result.get(PayUCheckoutProConstants.CP_MERCHANT_RESPONSE);
                         bookAppointmentInterface.onFailed(merchantResponse);
-                        Log.d(TAG, "onPaymentFailure: " + payuResponse);
+                        Log.d(TAG, "onPaymentFailure: " + payUResponse);
                     }
 
                     @Override

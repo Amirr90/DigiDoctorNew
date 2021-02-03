@@ -32,7 +32,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins"
-
             android:gravity="center"
             android:text="Tue"
             android:textColor="#262E3F"
@@ -134,7 +133,7 @@
             android:paddingTop="4dp"
             android:paddingRight="15dp"
             android:paddingBottom="4dp"
-            android:text="@{appointment.expiredStatus.equalsIgnoreCase(`1`)?`Expired`:appointment.isPrescribed==true?`Prescribed`:`Confirmed`}"
+            android:text="@{appointment.expiredStatus.equalsIgnoreCase(`1`)?String.format(@string/expired):appointment.isPrescribed==true?String.format(@string/prescribed):String.format(@string/confirmed)}"
             android:textColor="@android:color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView116"

@@ -48,5 +48,3 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 
-    <!--
-        android:button="@drawable/check_unckecked_layout"-->

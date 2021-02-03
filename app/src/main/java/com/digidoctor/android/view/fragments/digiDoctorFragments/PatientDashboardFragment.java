@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -112,6 +111,7 @@ public class PatientDashboardFragment extends Fragment {
         dashboardModel1s.add(new DashboardModel1(getString(R.string.pharmacy), getString(R.string.digi)));
 
 
+
         adapter1.submitList(dashboardModel1s);
 
 
@@ -164,7 +164,7 @@ public class PatientDashboardFragment extends Fragment {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setPriority(android.app.Notification.PRIORITY_MAX)
                 .setDefaults(android.app.Notification.DEFAULT_ALL);
-                //.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
+        //.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
 
         Intent intent = new Intent();
 

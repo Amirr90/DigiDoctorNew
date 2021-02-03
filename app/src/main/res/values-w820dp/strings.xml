@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="doctor_information">Add Doctor Informations</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="select_payment_option">select payment option</string>
+    <string name="select_pay_mode">Select Pay Mode</string>
+    <string name="add_vitals_manually">Add Vitals Manually</string>
+    <string name="add_via_machine">Add Vitals via machine</string>
 </resources>

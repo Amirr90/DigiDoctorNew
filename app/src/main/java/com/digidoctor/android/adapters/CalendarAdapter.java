@@ -1,7 +1,6 @@
 package com.digidoctor.android.adapters;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -24,6 +23,12 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
     public CalendarAdapter(List<CalendarModel> calendarModelList, CalenderInterface calenderInterface) {
         this.calendarModelList = calendarModelList;
         this.calenderInterface = calenderInterface;
+        for (int a = 0; a < calendarModelList.size(); a++) {
+            if (calendarModelList.get(a).isAvailable()) {
+                selectedPosition = a;
+                return;
+            }
+        }
 
     }
 
@@ -42,28 +47,54 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
 
         final CalendarModel calendarModel = calendarModelList.get(position);
         holder.calenderViewBinding.setCalender(calendarModel);
-        holder.calenderViewBinding.rlCalenderRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calenderInterface.onItemClicked(calendarModel,position);
-                holder.calenderViewBinding.getRoot().setBackground(PatientDashboard.getInstance().getResources().getDrawable(R.drawable.rectangle_outline_new_ui_color_yellow));
-                selectedPosition = position;
-                setTextColor(holder, PatientDashboard.getInstance().getResources().getColor(R.color.white),
-                        PatientDashboard.getInstance().getResources().getColor(R.color.white));
-                notifyDataSetChanged();
-            }
-        });
+        holder.calenderViewBinding.rlCalenderRoot.setEnabled(calendarModel.isAvailable());
 
-        if (selectedPosition == position) {
+        holder.calenderViewBinding.rlCalenderRoot.setOnClickListener(v -> {
+            calenderInterface.onItemClicked(calendarModel, position);
+            holder.calenderViewBinding.getRoot().setBackground(PatientDashboard.getInstance().getResources().getDrawable(R.drawable.rectangle_outline_new_ui_color_yellow));
+            selectedPosition = position;
             setTextColor(holder, PatientDashboard.getInstance().getResources().getColor(R.color.white),
                     PatientDashboard.getInstance().getResources().getColor(R.color.white));
-            holder.calenderViewBinding.getRoot().setBackground(PatientDashboard.getInstance().getResources().getDrawable(R.drawable.rectangle_outline_new_ui_color_yellow));
+            notifyDataSetChanged();
+        });
+
+
+        if (calendarModel.isAvailable()) {
+            if (selectedPosition == position) {
+                setTextColor(holder, PatientDashboard.getInstance().getResources().getColor(R.color.white),
+                        PatientDashboard.getInstance().getResources().getColor(R.color.white));
+                holder.calenderViewBinding.getRoot().setBackground(PatientDashboard.getInstance().getResources().getDrawable(R.drawable.rectangle_outline_new_ui_color_yellow));
+            } else {
+                setTextColor(holder, PatientDashboard.getInstance().getResources().getColor(R.color.PrimaryColor),
+                        PatientDashboard.getInstance().getResources().getColor(R.color.TextGrayColo));
+                holder.calenderViewBinding.getRoot().setBackground(PatientDashboard.getInstance().getResources().getDrawable(R.drawable.rectangle_outline_new_ui_color));
+            }
 
         } else {
-            setTextColor(holder, PatientDashboard.getInstance().getResources().getColor(R.color.PrimaryColor),
+            setTextColor(holder, PatientDashboard.getInstance().getResources().getColor(R.color.TextGrayColo),
                     PatientDashboard.getInstance().getResources().getColor(R.color.TextGrayColo));
-            holder.calenderViewBinding.getRoot().setBackground(PatientDashboard.getInstance().getResources().getDrawable(R.drawable.rectangle_outline_new_ui_color));
+            holder.calenderViewBinding.getRoot().setBackground(PatientDashboard.getInstance().getResources().getDrawable(R.drawable.disable_rectangle_outline_new_ui_color));
+
         }
+
+
+    }
+
+    public CalendarModel getItem() {
+        CalendarModel calendarModel = null;
+        if (null == calendarModelList || calendarModelList.isEmpty())
+            return null;
+        else {
+            for (CalendarModel calendarModel1 : calendarModelList) {
+                if (calendarModel1.isAvailable()) {
+                    calendarModel = calendarModel1;
+                    return calendarModel;
+                }
+            }
+
+            return calendarModel;
+        }
+
     }
 
     private void setTextColor(CalenderVH holder, int color, int color2) {

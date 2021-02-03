@@ -83,7 +83,6 @@ public class VitalChartFragment extends Fragment {
             return;
 
         VitalId = getArguments().getString(VITAL_ID);
-        Log.d(TAG, "VitalId: " + VitalId);
         VitalName = getArguments().getString(VITAL_NAME);
         ImagePath = getArguments().getInt(VITAL_IMAGE);
 
@@ -125,6 +124,14 @@ public class VitalChartFragment extends Fragment {
 
 
                 });
+
+
+        chartBinding.menuItem1.setOnClickListener(view1 -> navController.navigate(R.id.action_vitalChartFragment_to_addVitalsFragment));
+        chartBinding.menuItem2.setOnClickListener((View view12) -> {
+                    // navController.navigate(R.id.action_vitalChartFragment_to_selectDeviceFragment);
+                    Toast.makeText(requireActivity(), getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+                }
+        );
     }
 
 
@@ -137,6 +144,10 @@ public class VitalChartFragment extends Fragment {
         options.setYAxis(new ArrayList<HIYAxis>() {{
             add(yAxis);
         }});
+
+        HITitle hiTitle = new HITitle();
+        hiTitle.setText("");
+        options.setTitle(hiTitle);
 
         plotOptions = new HIPlotOptions();
         plotOptions.setLine(new HILine());
