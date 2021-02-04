@@ -45,6 +45,8 @@ import static com.digidoctor.android.utility.utils.getJSONFromModel;
 
 public class AppointmentDetailFragment extends Fragment implements OnClickListener {
     private static final String TAG = "AppointmentDetailFragme";
+    public static final String PRESCRIBE = "1";
+    public static final String CONFIRMED = "2";
 
 
     NavController navController;
@@ -134,6 +136,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             navController.navigate(R.id.action_appointmentDetailFragment_to_chatForAppointmentFragment, bundle);
 
         });
+
         detailBinding.ivMap.setOnClickListener(view13 -> {
             String lat = String.valueOf(appointmentModel.getLatitude());
             String lng = String.valueOf(appointmentModel.getLongititude());
@@ -143,6 +146,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             }
             openMap(lat, lng);
         });
+
         detailBinding.btnUpload.setOnClickListener(view12 -> {
             Bundle bundle = new Bundle();
             bundle.putString("id", appointmentModel.getAppointmentId());
@@ -193,9 +197,20 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
     @Override
     public void onItemClick(Object object) {
 
-
+        String tag = (String) detailBinding.btnAction.getTag();
         OnlineAppointmentModel appointmentModel = (OnlineAppointmentModel) object;
-
+        if (tag.equals(CONFIRMED)) {
+            String model = getJSONFromModel(appointmentModel);
+            Bundle bundle = new Bundle();
+            bundle.putString("model", model);
+            Log.d(TAG, "onItemClick: " + model);
+            navController.navigate(R.id.action_appointmentDetailFragment_to_reScheduleFragment, bundle);
+        } else {
+            getMedicationData(appointmentModel.getAppointmentId());
+        }
+/*
+        OnlineAppointmentModel appointmentModel = (OnlineAppointmentModel) object;
+        Log.d(TAG, "appointmentModel: "+appointmentModel.toString());
         if (detailBinding.btnAction.getText().toString().equalsIgnoreCase("Reschedule Appointment")) {
             String model = getJSONFromModel(appointmentModel);
             Bundle bundle = new Bundle();
@@ -205,7 +220,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
         } else if (detailBinding.btnAction.getText().toString().equalsIgnoreCase("View Prescription")) {
 
             getMedicationData(appointmentModel.getAppointmentId());
-        }
+        }*/
     }
 
     private void getMedicationData(String appointmentId) {

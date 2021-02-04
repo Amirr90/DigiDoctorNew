@@ -232,18 +232,5 @@ public class ChooseTimeFragment extends Fragment {
         return calendarModelList;
     }
 
-    /*private String getDateToSend(int position) {
-        List<CalendarModel> calendarModelList = new ArrayList<>();
-        ArrayList<HashMap<String, String>> getNextWeekDays = NewDashboardUtils.getNextWeekDays();
-        for (int a = 0; a < getNextWeekDays.size(); a++) {
-            calendarModelList.add(new CalendarModel(
-                    getNextWeekDays.get(a).get("date"),
-                    getNextWeekDays.get(a).get("day"),
-                    getNextWeekDays.get(a).get("dateSend"), a));
-        }
-
-        return calendarModelList.get(position).getDateSend();
-    }*/
-
 
 }

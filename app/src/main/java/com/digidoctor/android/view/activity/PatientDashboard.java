@@ -424,7 +424,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     }
 
     private void shareApp() {
-        Log.d("TAG", "shareApp: Clicked");
         BranchUniversalObject buo = new BranchUniversalObject()
                 .setCanonicalIdentifier("content/12345")
                 .setTitle("My Content Title")

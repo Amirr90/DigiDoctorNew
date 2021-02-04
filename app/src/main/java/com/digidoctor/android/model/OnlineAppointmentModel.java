@@ -19,6 +19,11 @@ public class OnlineAppointmentModel {
     String problemName;
     String clinicAddress;
     String attachFile;
+    String workingHours;
+
+    public String getWorkingHours() {
+        return workingHours;
+    }
 
     public String getAttachFile() {
         return attachFile;
@@ -177,6 +182,7 @@ public class OnlineAppointmentModel {
                 ", problemName='" + problemName + '\'' +
                 ", clinicAddress='" + clinicAddress + '\'' +
                 ", attachFile='" + attachFile + '\'' +
+                ", workingHours='" + workingHours + '\'' +
                 ", appointmentId='" + appointmentId + '\'' +
                 ", visitDate='" + visitDate + '\'' +
                 ", visitTime='" + visitTime + '\'' +

@@ -36,6 +36,15 @@ public class AppointmentModel {
     private String latitude;
     private String longititude;
     private String attachFile;
+    String workingHours;
+
+    public String getWorkingHours() {
+        return workingHours;
+    }
+
+    public void setWorkingHours(String workingHours) {
+        this.workingHours = workingHours;
+    }
 
     public String getAttachFile() {
         return attachFile;
@@ -335,6 +344,7 @@ public class AppointmentModel {
                 ", latitude='" + latitude + '\'' +
                 ", longititude='" + longititude + '\'' +
                 ", attachFile='" + attachFile + '\'' +
+                ", workingHours='" + workingHours + '\'' +
                 '}';
     }
 

@@ -24,6 +24,7 @@ import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.BookAppointmentInterface;
 import com.digidoctor.android.model.CalendarModel;
 import com.digidoctor.android.model.CheckSlotAvailabilityDataRes;
+import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.GetAppointmentSlotsDataRes;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.OnlineAppointmentRes;
@@ -37,6 +38,9 @@ import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,6 +84,8 @@ public class ReScheduleFragment extends Fragment {
 
     User user;
 
+    List<String> workingDays;
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -93,7 +99,7 @@ public class ReScheduleFragment extends Fragment {
 
         navController = Navigation.findNavController(view);
 
-        date = getDateToSend(0);
+
 
         //getting Model
         if (null == getArguments())
@@ -112,16 +118,44 @@ public class ReScheduleFragment extends Fragment {
         reScheduleBinding.setOnlineModel(appointmentModel);
         reScheduleBinding.tvCurrentDate.setText(getCurrentDateInWeekMonthDayFormat());
 
+        try {
+            workingDays = getWorkingDays(appointmentModel);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.d(TAG, "onViewCreated: working Time null");
+
+        }
 
         calendarAdapter = new CalendarAdapter(getNextWeekDays(), (calendarModel, pos) -> {
-            date = getDateToSend(pos);
+            date = calendarModel.getDateSend();
             getDocTimeSlot(date);
         });
 
 
         reScheduleBinding.calRec.setAdapter(calendarAdapter);
-        getDocTimeSlot(date);
+
+
+        if (calendarAdapter.getItem() != null) {
+            date = calendarAdapter.getItem().getDateSend();
+            getDocTimeSlot(date);
+        }
     }
+
+    private List<String> getWorkingDays(OnlineAppointmentModel doctorModel) throws JSONException {
+        List<String> list = new ArrayList<>();
+        if (null != doctorModel.getWorkingHours()) {
+            JSONArray jsonArray = new JSONArray(doctorModel.getWorkingHours());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                String day = jsonObject.getString("dayName");
+                list.add(day.substring(0, 3));
+            }
+        } else
+            Toast.makeText(requireActivity(), "Slots not available !!", Toast.LENGTH_SHORT).show();
+
+        return list;
+    }
+
 
     private void getDocTimeSlot(final String date) {
         getDoctorsTimeSlots(String.valueOf(appointmentModel.getDoctorId()),
@@ -299,28 +333,26 @@ public class ReScheduleFragment extends Fragment {
         });
     }
 
-
-    private String getDateToSend(int position) {
-        List<CalendarModel> calendarModelList = new ArrayList<>();
-        ArrayList<HashMap<String, String>> getNextWeekDays = NewDashboardUtils.getNextWeekDays();
-        for (int a = 0; a < getNextWeekDays.size(); a++) {
-            calendarModelList.add(new CalendarModel(
-                    getNextWeekDays.get(a).get("date"),
-                    getNextWeekDays.get(a).get("day"),
-                    getNextWeekDays.get(a).get("dateSend"), true));
-        }
-
-        return calendarModelList.get(position).getDateSend();
-    }
-
     private List<CalendarModel> getNextWeekDays() {
         List<CalendarModel> calendarModelList = new ArrayList<>();
         ArrayList<HashMap<String, String>> getNextWeekDays = NewDashboardUtils.getNextWeekDays();
         for (int a = 0; a < getNextWeekDays.size(); a++) {
-            calendarModelList.add(new CalendarModel(
-                    getNextWeekDays.get(a).get("date"),
-                    getNextWeekDays.get(a).get("day"),
-                    getNextWeekDays.get(a).get("dateSend"), true));
+            Log.d(TAG, "getNextWeekDays: " + workingDays.contains(getNextWeekDays.get(a).get("day")));
+            if (workingDays.contains(getNextWeekDays.get(a).get("day"))) {
+                calendarModelList.add(new CalendarModel(
+                        getNextWeekDays.get(a).get("date"),
+                        getNextWeekDays.get(a).get("day"),
+                        getNextWeekDays.get(a).get("dateSend"),
+                        true));
+            } else {
+                calendarModelList.add(new CalendarModel(
+                        getNextWeekDays.get(a).get("date"),
+                        getNextWeekDays.get(a).get("day"),
+                        getNextWeekDays.get(a).get("dateSend"),
+                        false));
+            }
+
+
         }
 
         return calendarModelList;
