@@ -71,7 +71,7 @@
                     android:maxLines="3"
                     android:paddingLeft="@dimen/_10sdp"
                     android:paddingRight="@dimen/_10sdp"
-                    android:text="@{`Available Doctors`}"
+                    android:text="@string/available_doctors"
                     android:textAlignment="center"
                     android:textColor="@color/TextSecondaryColor"
                     android:textSize="14sp" />

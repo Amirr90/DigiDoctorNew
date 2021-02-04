@@ -1236,6 +1236,11 @@
     <string name="select_pay_mode">वेतन मोड का चयन करें</string>
     <string name="add_vitals_manually">मैन्युअल रूप से विटल जोड़ें</string>
     <string name="add_via_machine">मशीन के माध्यम से विटल जोड़ें</string>
+    <string name="share_app">ऐप शेयर करें</string>
+    <string name="timing">समय</string>
+    <string name="patient">मरीज़</string>
+    <string name="change_profile_photo">प्रोफाइल फोटो बदलें</string>
+    <string name="available_doctors">उपलब्ध डॉक्टर्स</string>
     <string-array name="navigation_drawer_items_array">
         <item>जुडिये</item>
         <item>जुड़नार</item>

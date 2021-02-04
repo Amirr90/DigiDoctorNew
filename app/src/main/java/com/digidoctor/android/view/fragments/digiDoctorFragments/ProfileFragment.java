@@ -420,10 +420,8 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
     }
 
     private void showSelectAgeDialog() {
-
         LayoutInflater inflater = (LayoutInflater) requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.date_picker, null, false);
-
         final DatePicker myDatePicker = (DatePicker) view.findViewById(R.id.myDatePicker);
 
         myDatePicker.setCalendarViewShown(false);
@@ -435,9 +433,7 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
                     int day = myDatePicker.getDayOfMonth();
                     int year = myDatePicker.getYear();
                     profileBinding.editTextTextPersonDob.setText(day + "/" + month + "/" + year);
-
                     dialog.cancel();
-
                 }).show();
     }
 }

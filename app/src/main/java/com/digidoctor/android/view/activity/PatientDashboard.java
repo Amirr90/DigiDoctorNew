@@ -47,13 +47,25 @@ import com.razorpay.PaymentResultWithDataListener;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import io.branch.indexing.BranchUniversalObject;
+import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
+import io.branch.referral.SharingHelper;
+import io.branch.referral.util.ContentMetadata;
+import io.branch.referral.util.LinkProperties;
+import io.branch.referral.util.ShareSheetStyle;
+
+import static com.digidoctor.android.utility.AppUtils.getLanguageModel;
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
+import static com.digidoctor.android.utility.AppUtils.setAppLocale;
 import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.view.fragments.digiDoctorFragments.BookAppointmentFragment.bookAppointment;
@@ -96,6 +108,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         if (cityName == null)
             return "";
         else return cityName;
+
 
     }
 
@@ -397,6 +410,9 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             case 11:
                 navController.navigate(R.id.changeLanguageFragment);
                 break;
+            case 12:
+                shareApp();
+                break;
             case 10:
                 showRequestDialog(this);
                 if (utils.logout(this))
@@ -407,54 +423,94 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         }
     }
 
+    private void shareApp() {
+        Log.d("TAG", "shareApp: Clicked");
+        BranchUniversalObject buo = new BranchUniversalObject()
+                .setCanonicalIdentifier("content/12345")
+                .setTitle("My Content Title")
+                .setContentDescription("My Content Description")
+                .setContentImageUrl("https://lorempixel.com/400/400")
+                .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+                .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+                .setContentMetadata(new ContentMetadata().addCustomMetadata("userId", String.valueOf(user.getId())));
+
+
+        LinkProperties lp = new LinkProperties()
+                .setChannel("facebook")
+                .setFeature("sharing")
+                .setCampaign("content 123 launch")
+                .setStage("new user")
+                .addControlParameter("$desktop_url", "http://example.com/home")
+                .addControlParameter("custom", "data")
+                .addControlParameter("custom_random", Long.toString(Calendar.getInstance().getTimeInMillis()));
+
+        ShareSheetStyle ss = new ShareSheetStyle(PatientDashboard.this, "Check this out!", "This stuff is awesome: ")
+                .setCopyUrlStyle(ContextCompat.getDrawable(this, android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
+                .setMoreOptionStyle(ContextCompat.getDrawable(this, android.R.drawable.ic_menu_search), "Show more")
+                .addPreferredSharingOption(SharingHelper.SHARE_WITH.WHATS_APP)
+                .addPreferredSharingOption(SharingHelper.SHARE_WITH.GMAIL)
+                .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK)
+                .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK_MESSENGER)
+                .setAsFullWidthStyle(true)
+                .setSharingTitle("Share With");
+
+        buo.showShareSheet(this, lp, ss, new Branch.BranchLinkShareListener() {
+            @Override
+            public void onShareLinkDialogLaunched() {
+                Log.d("TAG", "onShareLinkDialogLaunched: ");
+
+            }
+
+            @Override
+            public void onShareLinkDialogDismissed() {
+                Log.d("TAG", "onShareLinkDialogDismissed: ");
+            }
+
+            @Override
+            public void onLinkShareResponse(String sharedLink, String sharedChannel, BranchError error) {
+                Log.d("TAG", "onLinkShareResponse: sharedLink : " + sharedLink + ", sharedChannel " + sharedChannel + ", error : " + error);
+
+            }
+
+            @Override
+            public void onChannelSelected(String channelName) {
+                Log.d("TAG", "onChannelSelected: " + channelName);
+            }
+        });
+
+        getDeepLinkData();
+
+    }
+
+
     @Override
     public void onPaymentSuccess(@NotNull Object o) {
         HashMap<String, Object> result = (HashMap<String, Object>) o;
-        String payuResponse = (String) result.get(PayUCheckoutProConstants.CP_PAYU_RESPONSE);
         String merchantResponse = (String) result.get(PayUCheckoutProConstants.CP_MERCHANT_RESPONSE);
         bookAppointment.startBookingAppointment(merchantResponse);
     }
 
     @Override
     public void onPaymentFailure(@NotNull Object response) {
-        HashMap<String, Object> result = (HashMap<String, Object>) response;
-        String payuResponse = (String) result.get(PayUCheckoutProConstants.CP_PAYU_RESPONSE);
-        String merchantResponse = (String) result.get(PayUCheckoutProConstants.CP_MERCHANT_RESPONSE);
-        //bookAppointmentInterface.onFailed(merchantResponse);
         Toast.makeText(instance, R.string.failed_to_book, Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
     public void onPaymentCancel(boolean b) {
-         /*   if (b)
-                bookAppointmentInterface.onFailed("PaymentCancel");*/
         Log.d(TAG, "onPaymentCancel: " + b);
         Toast.makeText(instance, R.string.failed_to_book, Toast.LENGTH_SHORT).show();
-
-
     }
 
     @Override
     public void onError(@NotNull ErrorResponse errorResponse) {
         String errorMessage = errorResponse.getErrorMessage();
-        // bookAppointmentInterface.onFailed(errorMessage);
         Log.d(TAG, "onError: " + errorMessage);
         Toast.makeText(instance, R.string.failed_to_book, Toast.LENGTH_SHORT).show();
-
-
     }
 
     @Override
     public void generateHash(@NotNull HashMap<String, String> hashMap, @NotNull com.payu.ui.model.listeners.PayUHashGenerationListener payUHashGenerationListener) {
-        /*String hashName = hashMap.get(PayUCheckoutProConstants.CP_HASH_NAME);
-        String hashData = hashMap.get(PayUCheckoutProConstants.CP_HASH_STRING);
-        if (!TextUtils.isEmpty(hashName) && !TextUtils.isEmpty(hashData)) {
-            String hash = getHash();
-            HashMap<String, String> dataMap = new HashMap<>();
-            dataMap.put(hashName, hash);
-            payUHashGenerationListener.onHashGenerated(dataMap);
-        }*/
+
         Log.d(TAG, "generateHash: ");
     }
 
@@ -462,7 +518,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     public void setWebViewProperties(@Nullable WebView webView, @Nullable Object o) {
 
     }
-
 
     private class LocationAddressResultReceiver extends ResultReceiver {
         LocationAddressResultReceiver(Handler handler) {
@@ -520,7 +575,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         fusedLocationClient.removeLocationUpdates(locationCallback);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -528,7 +582,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             SearchBluetoothDeviceFragment.getInstance().CheckBluetoothState();
         }
     }
-
 
     public void closeDrawer() {
         mainBinding.drawerLayout.close();

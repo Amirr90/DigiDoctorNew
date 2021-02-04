@@ -53,6 +53,7 @@ public class ChangeLanguageFragment extends Fragment {
                              Bundle savedInstanceState) {
         changeLanguageBinding = FragmentChangeLanguageBinding.inflate(getLayoutInflater());
         selectedLanguageId = Integer.parseInt(utils.getString(LANGUAGE, requireActivity()));
+
         return changeLanguageBinding.getRoot();
     }
 
@@ -73,7 +74,6 @@ public class ChangeLanguageFragment extends Fragment {
         adapter.notifyDataSetChanged();
 
         changeLanguageBinding.btnDone.setOnClickListener(view1 -> updateLanguage());
-
 
 
     }
@@ -100,7 +100,7 @@ public class ChangeLanguageFragment extends Fragment {
             holder.languageViewBinding.setLan(languageModel);
 
 
-            holder.languageViewBinding.checkBox3.setEnabled(position == 1);
+            holder.languageViewBinding.checkBox3.setEnabled(position == 1 || position == 0);
             holder.languageViewBinding.checkBox3.setOnClickListener(view -> {
                 selectedLanguageId = position;
                 notifyDataSetChanged();
@@ -122,7 +122,7 @@ public class ChangeLanguageFragment extends Fragment {
         setString(LANGUAGE, String.valueOf(selectedLanguageId), PatientDashboard.getInstance());
         showRequestDialog(requireActivity());
         new Handler().postDelayed(() -> {
-            setAppLocale(getLanguageModel(selectedLanguageId).getLocaleCode(), requireActivity());
+            setAppLocale(getLanguageModel(selectedLanguageId).getLocaleCode(), PatientDashboard.getInstance());
             hideDialog();
             PatientDashboard.getInstance().onSupportNavigateUp();
         }, 500);

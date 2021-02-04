@@ -282,7 +282,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/chat_icon" />
@@ -374,7 +374,7 @@
             android:backgroundTint="@{appointmentModel.expiredStatus==1?Color.parseColor(`#FF3737`):appointmentModel.isPrescribed==false?Color.parseColor(`#EDA537`):Color.parseColor(`#39B54A`)}"
             android:fontFamily="@font/poppins_semibold"
             android:onClick="@{()->clickListener.onItemClick(appointmentModel)}"
-            android:text="@{appointmentModel.expiredStatus==1?`Expired`:appointmentModel.isPrescribed==true?`View Prescription`:`Reschedule Appointment`}"
+            android:text="@{appointmentModel.expiredStatus==1?`Expired`:appointmentModel.isPrescribed==true?String.format(@string/view_prescription):String.format(@string/re__schedule_appointment)}"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="14sp"

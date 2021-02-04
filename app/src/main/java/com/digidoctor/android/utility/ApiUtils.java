@@ -164,7 +164,6 @@ public class ApiUtils {
 
 
     public static void getDocBySpecialityById(SpecialityModel specialityModel, final ApiCallbackInterface apiCallbackInterface) {
-
         try {
             final Api api = URLUtils.getAPIServiceForPatient();
             Call<DocBySpecialityRes> specialityResCall = api.getDoctorProfileBySpeciality(specialityModel);

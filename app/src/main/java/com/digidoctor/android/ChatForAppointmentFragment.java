@@ -37,7 +37,8 @@ import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
 public class ChatForAppointmentFragment extends Fragment implements ChatInterface {
     private static final String TAG = "ChatForAppointmentFragm";
-    FragmentChatForAppointmentBinding chat;
+    FragmentChatForAppointmentBinding
+            chat;
     NavController navController;
     ChatAdapter adapter;
     List<ChatModel> chats;
@@ -50,6 +51,7 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         chat = FragmentChatForAppointmentBinding.inflate(getLayoutInflater());
+
         return chat.getRoot();
     }
 
@@ -83,7 +85,6 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
                 return;
             sendMsg();
         });
-
 
     }
 

@@ -127,6 +127,7 @@ public class SubSpecialistFragment extends Fragment implements SubSpecialityAdap
         specialityModel.setSpecialityID(Integer.valueOf(id));
 
         specialityModel.setDoctorName(docName);
+
         viewModel.getDocBySpeciality(specialityModel).observe(getViewLifecycleOwner(), doctorModels -> {
 
             try {

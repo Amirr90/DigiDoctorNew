@@ -831,7 +831,7 @@
     <string name="working_time">Working Time</string>
     <string name="about_doc">About the Doctor</string>
     <string name="no_doc_found">Doctors not found</string>
-    <string name="re__schedule">Re-Schedule</string>
+    <string name="re__schedule">Reschedule</string>
     <string name="welcome_back">Welcome Back</string>
     <string name="login_to_your_account">Login to your account</string>
     <string name="title_activity_tabbed_demo">TabbedActivityDemo</string>
@@ -987,6 +987,9 @@
     <string name="select_pay_mode">Select Pay Mode</string>
     <string name="add_vitals_manually">Add Vitals Manually</string>
     <string name="add_via_machine">Add Vitals via machine</string>
+    <string name="share_app">Share App</string>
+    <string name="change_profile_photo">Change Profile Photo</string>
+    <string name="available_doctors">Available Doctors</string>
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>
         <item>Fixtures</item>

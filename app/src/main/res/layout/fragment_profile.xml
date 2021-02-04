@@ -51,7 +51,7 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:padding="10dp"
-                android:text="@{user.profilePhotoPath==`` ?`upload profile photo`:`change profile photo`}"
+                android:text="@{user.profilePhotoPath==`` ?String.format(@string/upload_profile_photo):String.format(@string/change_profile_photo)}"
                 android:textColor="#0A586C"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -303,7 +303,7 @@
                         android:fontFamily="@font/poppins_medium"
                         android:hint="@string/gender"
                         android:paddingEnd="10dp"
-                        android:text="@{user.gender==1?`male`:`female`}"
+                        android:text="@{user.gender==1?String.format(@string/male):String.format(@string/female)}"
                         android:textColor="#262E3F"
                         android:textColorHint="#BCBCBC"
                         android:textSize="14sp" />
@@ -387,7 +387,7 @@
                     android:background="@drawable/round_for_search"
                     android:backgroundTint="@color/YellowColo"
                     android:fontFamily="@font/poppins_semibold"
-                    android:text="@{user.isExists==0?`Save`:`Update`}"
+                    android:text="@{user.isExists==0?String.format(@string/save):String.format(@string/update)}"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="13sp"

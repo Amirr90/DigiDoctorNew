@@ -6,4 +6,7 @@
     <string name="select_pay_mode">Select Pay Mode</string>
     <string name="add_vitals_manually">Add Vitals Manually</string>
     <string name="add_via_machine">Add Vitals via machine</string>
+    <string name="share_app">Share App</string>
+    <string name="change_profile_photo">Change Profile Photo</string>
+    <string name="available_doctors">Available Doctors</string>
 </resources>

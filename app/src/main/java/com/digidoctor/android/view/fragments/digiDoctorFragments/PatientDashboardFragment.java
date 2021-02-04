@@ -38,11 +38,14 @@ import com.digidoctor.android.viewHolder.PatientViewModel;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
 import ss.com.bannerslider.ImageLoadingService;
 import ss.com.bannerslider.Slider;
 
@@ -74,6 +77,12 @@ public class PatientDashboardFragment extends Fragment {
                              Bundle savedInstanceState) {
         dashboard2Binding = FragmentPatientDashboardBinding.inflate(inflater, container, false);
 
+        // Branch logging for debugging
+        Branch.enableLogging();
+
+        // Branch object initialization
+        Branch.getAutoInstance(requireActivity());
+
         return dashboard2Binding.getRoot();
     }
 
@@ -87,6 +96,8 @@ public class PatientDashboardFragment extends Fragment {
             dashboard2Binding.setUser(user);
             Log.d(TAG, "PrimaryUser: " + user.toString());
         }
+
+        Branch.sessionBuilder(requireActivity()).withCallback(branchReferralInitListener).withData(requireActivity().getIntent() != null ? requireActivity().getIntent().getData() : null).init();
 
         imageLoadingService = new PicassoImageLoadingService(PatientDashboard.getInstance());
         Slider.init(imageLoadingService);
@@ -109,7 +120,6 @@ public class PatientDashboardFragment extends Fragment {
         dashboardModel1s.add(new DashboardModel1(getString(R.string.symptoms), getString(R.string.find_doctors_by)));
         dashboardModel1s.add(new DashboardModel1(getString(R.string.tests), getString(R.string.lab)));
         dashboardModel1s.add(new DashboardModel1(getString(R.string.pharmacy), getString(R.string.digi)));
-
 
 
         adapter1.submitList(dashboardModel1s);
@@ -217,4 +227,14 @@ public class PatientDashboardFragment extends Fragment {
 
     }
 
+
+    private Branch.BranchReferralInitListener branchReferralInitListener = new Branch.BranchReferralInitListener() {
+        @Override
+        public void onInitFinished(JSONObject linkProperties, BranchError error) {
+
+            if (error == null)
+                Log.d(TAG, "onInitFinished: " + linkProperties.toString());
+            else Log.d(TAG, "onInitFinishedError: " + error.toString());
+        }
+    };
 }
