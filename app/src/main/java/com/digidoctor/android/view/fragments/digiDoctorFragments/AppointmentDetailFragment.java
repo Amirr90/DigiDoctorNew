@@ -205,8 +205,10 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             bundle.putString("model", model);
             Log.d(TAG, "onItemClick: " + model);
             navController.navigate(R.id.action_appointmentDetailFragment_to_reScheduleFragment, bundle);
-        } else {
+        } else if (tag.equals(PRESCRIBE)) {
             getMedicationData(appointmentModel.getAppointmentId());
+        } else {
+            //getMedicationData(appointmentModel.getAppointmentId());
         }
 /*
         OnlineAppointmentModel appointmentModel = (OnlineAppointmentModel) object;

@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.digidoctor.android.adapters.CalendarAdapter.selectedPosition;
 import static com.digidoctor.android.utility.ApiUtils.getDoctorsTimeSlots;
 import static com.digidoctor.android.utility.AppUtils.getCurrentDateInWeekMonthDayFormat;
 import static com.digidoctor.android.utility.utils.logout;
@@ -58,12 +59,15 @@ public class ChooseTimeFragment extends Fragment {
 
     List<GetAppointmentSlotsDataRes> slotsDataRes = new ArrayList<>();
 
-
     List<String> workingDays;
-
 
     private static final String TAG = "ChooseTimeFragment";
 
+    public static ChooseTimeFragment instance;
+
+    public static ChooseTimeFragment getInstance() {
+        return instance;
+    }
 
 
     @Override
@@ -72,6 +76,7 @@ public class ChooseTimeFragment extends Fragment {
         chooseTimeBinding = FragmentChooseTimeBinding.inflate(inflater, container, false);
         if (PatientDashboard.getInstance() != null)
             activity = PatientDashboard.getInstance();
+        instance = this;
         return chooseTimeBinding.getRoot();
     }
 
@@ -118,8 +123,12 @@ public class ChooseTimeFragment extends Fragment {
             date = calendarAdapter.getItem().getDateSend();
             getDocTimerSlot(date);
         }
+        scrollToPosition(selectedPosition);
+    }
 
-
+    public void scrollToPosition(int position) {
+        Log.d(TAG, "scrollToPosition: " + position);
+        chooseTimeBinding.calRec.scrollToPosition(position);
     }
 
     private List<String> getWorkingDays(DoctorModel doctorModel) throws JSONException {
@@ -136,7 +145,6 @@ public class ChooseTimeFragment extends Fragment {
 
         return list;
     }
-
 
 
     private void getDocTimerSlot(String date) {
@@ -159,7 +167,7 @@ public class ChooseTimeFragment extends Fragment {
                                     JSONObject request = new JSONObject(jsonString);
                                     String time = (String) o1;
                                     Bundle bundle = new Bundle();
-                                    bundle.putString("date", ChooseTimeFragment.this.date);
+                                    bundle.putString("date", date);
                                     bundle.putString("time", time);
                                     bundle.putString("docModel", request.toString());
                                     navController.navigate(R.id.action_chooseTimeFragment2_to_bookAppointmentFragment2, bundle);

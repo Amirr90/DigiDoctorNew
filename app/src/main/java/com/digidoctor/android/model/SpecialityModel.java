@@ -24,7 +24,7 @@ public class SpecialityModel {
     String imagePath;
     String description;
     private String problemName;
-    private Integer specialityID;
+    private Integer specialityId;
     private String doctorName;
     private Integer doctorId;
 
@@ -40,12 +40,12 @@ public class SpecialityModel {
         this.doctorId = doctorId;
     }
 
-    public Integer getSpecialityID() {
-        return specialityID;
+    public Integer getSpecialityId() {
+        return specialityId;
     }
 
-    public void setSpecialityID(Integer specialityID) {
-        this.specialityID = specialityID;
+    public void setSpecialityId(Integer specialityId) {
+        this.specialityId = specialityId;
     }
 
     public String getDoctorName() {

@@ -1,14 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".view.fragments.digiDoctorFragments.AppointmentsFragment">
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/no_appointment_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="imageView56,textView157,btnBookAppointment" />
+
+    <TextView
+        android:id="@+id/textView157"
+        android:layout_width="283dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/poppins"
+        android:text="You have not booked any Appointment !!"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnBookAppointment"
+        app:layout_constraintEnd_toEndOf="@+id/imageView56"
+        app:layout_constraintStart_toStartOf="@+id/imageView56"
+        app:layout_constraintTop_toBottomOf="@+id/imageView56" />
+
+    <ImageView
+        android:id="@+id/imageView56"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView157"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:srcCompat="@drawable/no_appointment_image" />
+
+    <Button
+        android:id="@+id/btnBookAppointment"
+        android:layout_width="235dp"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/round_for_search"
+        android:backgroundTint="@color/PrimaryColor"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/book_appointment"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView157"
+        app:layout_constraintStart_toStartOf="@+id/textView157"
+        app:layout_constraintTop_toBottomOf="@+id/textView157" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recAppointment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/appointment_view" />
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

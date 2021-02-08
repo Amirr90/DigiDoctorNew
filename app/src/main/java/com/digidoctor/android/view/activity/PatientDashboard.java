@@ -66,6 +66,7 @@ import io.branch.referral.util.ShareSheetStyle;
 import static com.digidoctor.android.utility.AppUtils.getLanguageModel;
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.setAppLocale;
+import static com.digidoctor.android.utility.AppUtils.shareApp;
 import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.view.fragments.digiDoctorFragments.BookAppointmentFragment.bookAppointment;
@@ -411,7 +412,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 navController.navigate(R.id.changeLanguageFragment);
                 break;
             case 12:
-                shareApp();
+                shareApp("https://digidoctor.in/invitation?invitationCode=" + getPrimaryUser(PatientDashboard.getInstance()).getMemberId(), "This is demo description", this);
                 break;
             case 10:
                 showRequestDialog(this);
@@ -421,64 +422,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             default:
                 Toast.makeText(instance, "Coming Soon", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void shareApp() {
-        BranchUniversalObject buo = new BranchUniversalObject()
-                .setCanonicalIdentifier("content/12345")
-                .setTitle("My Content Title")
-                .setContentDescription("My Content Description")
-                .setContentImageUrl("https://lorempixel.com/400/400")
-                .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
-                .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
-                .setContentMetadata(new ContentMetadata().addCustomMetadata("userId", String.valueOf(user.getId())));
-
-
-        LinkProperties lp = new LinkProperties()
-                .setChannel("facebook")
-                .setFeature("sharing")
-                .setCampaign("content 123 launch")
-                .setStage("new user")
-                .addControlParameter("$desktop_url", "http://example.com/home")
-                .addControlParameter("custom", "data")
-                .addControlParameter("custom_random", Long.toString(Calendar.getInstance().getTimeInMillis()));
-
-        ShareSheetStyle ss = new ShareSheetStyle(PatientDashboard.this, "Check this out!", "This stuff is awesome: ")
-                .setCopyUrlStyle(ContextCompat.getDrawable(this, android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
-                .setMoreOptionStyle(ContextCompat.getDrawable(this, android.R.drawable.ic_menu_search), "Show more")
-                .addPreferredSharingOption(SharingHelper.SHARE_WITH.WHATS_APP)
-                .addPreferredSharingOption(SharingHelper.SHARE_WITH.GMAIL)
-                .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK)
-                .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK_MESSENGER)
-                .setAsFullWidthStyle(true)
-                .setSharingTitle("Share With");
-
-        buo.showShareSheet(this, lp, ss, new Branch.BranchLinkShareListener() {
-            @Override
-            public void onShareLinkDialogLaunched() {
-                Log.d("TAG", "onShareLinkDialogLaunched: ");
-
-            }
-
-            @Override
-            public void onShareLinkDialogDismissed() {
-                Log.d("TAG", "onShareLinkDialogDismissed: ");
-            }
-
-            @Override
-            public void onLinkShareResponse(String sharedLink, String sharedChannel, BranchError error) {
-                Log.d("TAG", "onLinkShareResponse: sharedLink : " + sharedLink + ", sharedChannel " + sharedChannel + ", error : " + error);
-
-            }
-
-            @Override
-            public void onChannelSelected(String channelName) {
-                Log.d("TAG", "onChannelSelected: " + channelName);
-            }
-        });
-
-        getDeepLinkData();
-
     }
 
 

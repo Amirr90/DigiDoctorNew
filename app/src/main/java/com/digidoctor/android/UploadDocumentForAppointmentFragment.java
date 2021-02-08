@@ -171,8 +171,8 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
     }
 
     private void selectAudio() {
-        audioRecorder.record();
-        // Toast.makeText(requireActivity(), getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+      //  audioRecorder.record();
+         Toast.makeText(requireActivity(), getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
     }
 
     private void selectVideo() {

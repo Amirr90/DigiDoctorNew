@@ -513,16 +513,6 @@ public class ApiUtils {
                 @Override
                 public void onResponse(@NotNull Call<CheckSlotAvailabilityRes> call, @NotNull Response<CheckSlotAvailabilityRes> response) {
                     AppUtils.hideDialog();
-                    /*if (response.code() == 200) {
-                        assert response.body() != null;
-                        if (response.body().getResponseCode() == 1) {
-                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                        } else apiCallbackInterface.onError(response.body().getResponseMessage());
-                    } else {
-                        assert response.errorBody() != null;
-                        apiCallbackInterface.onError(response.errorBody().toString());
-                    }*/
-
                     if (response.code() == 200) {
                         CheckSlotAvailabilityRes resModel = response.body();
                         if (null != resModel) {
@@ -532,7 +522,7 @@ public class ApiUtils {
                                     apiCallbackInterface.onSuccess(resModel.getResponseValue());
                                     break;
                                 case RESPONSE_FAILED:
-                                    apiCallbackInterface.onError(String.valueOf(response.code()));
+                                    apiCallbackInterface.onError(resModel.getResponseMessage());
                                     break;
                                 case RESPONSE_LOGOUT:
                                     logout(PatientDashboard.getInstance());
@@ -575,15 +565,6 @@ public class ApiUtils {
             @Override
             public void onResponse(@NotNull Call<GetPatientMedicationRes> call, Response<GetPatientMedicationRes> response) {
 
-              /*  if (response.isSuccessful() && null != response.body()) {
-                    AppUtils.hideDialog();
-                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                } else {
-
-                    AppUtils.hideDialog();
-                    apiCallbackInterface.onError(response.message());
-                }*/
-
                 if (response.code() == 200) {
                     GetPatientMedicationRes resModel = response.body();
                     if (null != resModel) {
@@ -593,7 +574,7 @@ public class ApiUtils {
                                 apiCallbackInterface.onSuccess(resModel.getResponseValue());
                                 break;
                             case RESPONSE_FAILED:
-                                apiCallbackInterface.onError(String.valueOf(response.code()));
+                                apiCallbackInterface.onError(resModel.getResponseMessage());
                                 break;
                             case RESPONSE_LOGOUT:
                                 logout(PatientDashboard.getInstance());
@@ -637,11 +618,6 @@ public class ApiUtils {
                 @Override
                 public void onResponse(@NotNull Call<ResponseModel> call, @NotNull Response<ResponseModel> response) {
                     AppUtils.hideDialog();
-                   /* if (response.code() == 200 && null != response.body()) {
-                        if (response.body().getResponseCode() == 1) {
-                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                        } else apiCallbackInterface.onError(response.body().getResponseMessage());
-                    } else apiCallbackInterface.onError(response.message());*/
 
                     if (response.code() == 200) {
                         ResponseModel resModel = response.body();
@@ -652,7 +628,7 @@ public class ApiUtils {
                                     apiCallbackInterface.onSuccess(resModel.getResponseValue());
                                     break;
                                 case RESPONSE_FAILED:
-                                    apiCallbackInterface.onError(String.valueOf(response.code()));
+                                    apiCallbackInterface.onError(resModel.getResponseMessage());
                                     break;
                                 case RESPONSE_LOGOUT:
                                     logout(PatientDashboard.getInstance());
@@ -702,17 +678,6 @@ public class ApiUtils {
             @Override
             public void onResponse(@NotNull Call<RegistrationRes> call, @NotNull Response<RegistrationRes> response) {
 
-                /*if (response.code() == 200 && response.body() != null) {
-                    if (response.isSuccessful() && response.body().getResponseCode() == 1) {
-                        AppUtils.hideDialog();
-                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                    } else {
-                        AppUtils.hideDialog();
-                        apiCallbackInterface.onError(response.body().getResponseMessage());
-                    }
-                } else
-                    apiCallbackInterface.onError(response.message());*/
-
                 if (response.code() == 200) {
                     RegistrationRes resModel = response.body();
                     if (null != resModel) {
@@ -722,8 +687,7 @@ public class ApiUtils {
                                 apiCallbackInterface.onSuccess(resModel.getResponseValue());
                                 break;
                             case RESPONSE_FAILED:
-                                apiCallbackInterface.onError(String.valueOf(response.code()));
-                                break;
+                                apiCallbackInterface.onError(resModel.getResponseMessage());                                break;
                             case RESPONSE_LOGOUT:
                                 logout(PatientDashboard.getInstance());
                                 break;
@@ -750,16 +714,6 @@ public class ApiUtils {
         call.enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(@NotNull Call<ResponseModel> call, @NotNull Response<ResponseModel> response) {
-                /*if ((response.code() == 200 && null != response.body())) {
-                    ResponseModel responseModel = response.body();
-                    if (responseModel.getResponseCode() == 1) {
-                        apiCallbackInterface.onSuccess(responseModel.getResponseValue());
-                    } else {
-                        apiCallbackInterface.onError(responseModel.getResponseMessage());
-                    }
-                } else
-                    apiCallbackInterface.onError(response.message());*/
-
                 if (response.code() == 200) {
                     ResponseModel resModel = response.body();
                     if (null != resModel) {
@@ -769,8 +723,7 @@ public class ApiUtils {
                                 apiCallbackInterface.onSuccess(resModel.getResponseValue());
                                 break;
                             case RESPONSE_FAILED:
-                                apiCallbackInterface.onError(String.valueOf(response.code()));
-                                break;
+                                apiCallbackInterface.onError(resModel.getResponseMessage());                                break;
                             case RESPONSE_LOGOUT:
                                 logout(PatientDashboard.getInstance());
                                 break;
@@ -1162,8 +1115,7 @@ public class ApiUtils {
                                 apiCallbackInterface.onSuccess(checkLoginRes.getResponseValue());
                                 break;
                             case RESPONSE_FAILED:
-                                apiCallbackInterface.onError(String.valueOf(response.code()));
-                                break;
+                                apiCallbackInterface.onError(checkLoginRes.getResponseMessage());                                break;
                             case RESPONSE_LOGOUT:
                                 logout(PatientDashboard.getInstance());
                                 break;
@@ -1310,7 +1262,7 @@ public class ApiUtils {
                                 apiCallbackInterface.onSuccess(checkLoginRes.getResponseValue());
                                 break;
                             case RESPONSE_FAILED:
-                                apiCallbackInterface.onError(String.valueOf(response.code()));
+                                apiCallbackInterface.onError(checkLoginRes.getResponseMessage());
                                 break;
                             case RESPONSE_LOGOUT:
                                 logout(PatientDashboard.getInstance());

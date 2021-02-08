@@ -48,13 +48,7 @@ public class TimeSlotsAdapter extends RecyclerView.Adapter<TimeSlotsAdapter.Slot
 
         holder.primaryNewBinding.setTiming(timeSlotsModel);
         if (null != timeSlotsModel.getSlotDetails()) {
-            adapterSecondary = new TimeSlotsAdapterSecondary(timeSlotsModel.getSlotDetails(), new AdapterInterface() {
-                @Override
-                public void onItemClicked(Object o) {
-                    adapterInterface.onItemClicked(o);
-                }
-
-            });
+            adapterSecondary = new TimeSlotsAdapterSecondary(timeSlotsModel.getSlotDetails(), o -> adapterInterface.onItemClicked(o));
             holder.primaryNewBinding.Rec.setAdapter(adapterSecondary);
             holder.primaryNewBinding.getRoot().setAnimation(fadeIn(PatientDashboard.getInstance()));
         }
@@ -112,13 +106,10 @@ public class TimeSlotsAdapter extends RecyclerView.Adapter<TimeSlotsAdapter.Slot
                 );
             }
 
-            holder.viewSecondaryNewBinding.timingText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    subSelectedPosition = position;
-                    notifyDataSetChanged();
-                    adapterInterface.onItemClicked(timeDetailsModel.getSlotTime());
-                }
+            holder.viewSecondaryNewBinding.timingText.setOnClickListener(v -> {
+                subSelectedPosition = position;
+                notifyDataSetChanged();
+                adapterInterface.onItemClicked(timeDetailsModel.getSlotTime());
             });
 
             changeSlotsColorState(timeDetailsModelList, holder);

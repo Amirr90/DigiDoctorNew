@@ -103,6 +103,7 @@ public class BookAppointmentFragment extends Fragment {
         }
         date = getArguments().getString("date");
         time = getArguments().getString("time");
+        Log.d(TAG, "onViewCreated: Date " + date);
 
         //getting  user
         user = getPrimaryUser(requireActivity());

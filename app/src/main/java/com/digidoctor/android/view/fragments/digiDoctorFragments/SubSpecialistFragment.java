@@ -71,7 +71,7 @@ public class SubSpecialistFragment extends Fragment implements SubSpecialityAdap
         fragmentArgs = SubSpecialistFragmentArgs.fromBundle(getArguments());
 
         specialityModel.setDoctorId(fragmentArgs.getDocId());
-        specialityModel.setSpecialityID(Integer.parseInt(id));
+        specialityModel.setSpecialityId(Integer.parseInt(id));
 
 
         navController = Navigation.findNavController(view);
@@ -124,7 +124,7 @@ public class SubSpecialistFragment extends Fragment implements SubSpecialityAdap
     private void performSearch(String docName) {
 
         SpecialityModel specialityModel = new SpecialityModel();
-        specialityModel.setSpecialityID(Integer.valueOf(id));
+        specialityModel.setSpecialityId(Integer.valueOf(id));
 
         specialityModel.setDoctorName(docName);
 

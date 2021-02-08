@@ -86,6 +86,12 @@ public class ReScheduleFragment extends Fragment {
 
     List<String> workingDays;
 
+    public static ReScheduleFragment instance;
+
+    public static ReScheduleFragment getInstance() {
+        return instance;
+    }
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,7 +104,6 @@ public class ReScheduleFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(view);
-
 
 
         //getting Model
@@ -139,6 +144,11 @@ public class ReScheduleFragment extends Fragment {
             date = calendarAdapter.getItem().getDateSend();
             getDocTimeSlot(date);
         }
+    }
+
+    public void scrollToPosition(int position) {
+        Log.d(TAG, "scrollToPosition: " + position);
+        reScheduleBinding.calRec.scrollToPosition(position);
     }
 
     private List<String> getWorkingDays(OnlineAppointmentModel doctorModel) throws JSONException {

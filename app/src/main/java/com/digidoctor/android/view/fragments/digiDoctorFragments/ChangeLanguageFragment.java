@@ -100,7 +100,7 @@ public class ChangeLanguageFragment extends Fragment {
             holder.languageViewBinding.setLan(languageModel);
 
 
-            holder.languageViewBinding.checkBox3.setEnabled(position == 1 || position == 0);
+            holder.languageViewBinding.checkBox3.setEnabled(position == 1);
             holder.languageViewBinding.checkBox3.setOnClickListener(view -> {
                 selectedLanguageId = position;
                 notifyDataSetChanged();

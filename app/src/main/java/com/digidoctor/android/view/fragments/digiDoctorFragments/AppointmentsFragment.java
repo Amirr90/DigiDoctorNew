@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.AppointmentAdapter;
 import com.digidoctor.android.databinding.FragmentAppointmentBinding;
 import com.digidoctor.android.interfaces.OnClickListener;
@@ -25,6 +26,9 @@ import com.digidoctor.android.viewHolder.PatientViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+
+import static com.digidoctor.android.utility.utils.fadeIn;
+import static com.digidoctor.android.utility.utils.fadeOut;
 
 
 public class AppointmentsFragment extends Fragment implements OnClickListener {
@@ -59,10 +63,14 @@ public class AppointmentsFragment extends Fragment implements OnClickListener {
         User user = new User();
         user.setMemberId(utils.getPrimaryUser(requireActivity()).getId());
         viewModel.getAppointmentList(user).observe(getViewLifecycleOwner(), appointmentModels -> {
+
             adapter.submitList(appointmentModels);
             AppUtils.hideDialog();
+            appointmentBinding.noAppointmentGroup.setVisibility(appointmentModels.isEmpty() ? View.VISIBLE : View.GONE);
+            appointmentBinding.noAppointmentGroup.setAnimation(appointmentModels.isEmpty() ? fadeIn(requireActivity()) : fadeOut(requireActivity()));
         });
 
+        appointmentBinding.btnBookAppointment.setOnClickListener(v -> navController.navigate(R.id.action_appointmentsFragment_to_specialitiesFragment2));
     }
 
     @Override

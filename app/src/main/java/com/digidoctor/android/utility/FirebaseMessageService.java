@@ -31,7 +31,7 @@ import java.util.Map;
 
 public class FirebaseMessageService extends FirebaseMessagingService {
 
-    private static final String TAG = "MyFMService";
+    private static final String TAG = "             ";
 
     String CHANNEL_ID = "com.digidoctor.android";
 
@@ -53,6 +53,8 @@ public class FirebaseMessageService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         Log.d(TAG, "FCM Message Id: " + remoteMessage.getMessageId());
+
+        Log.d(TAG, "onMessageReceived: ");
 
         Log.d(TAG, "FCM Notification Message: " + remoteMessage.getData() + "...." + remoteMessage.getFrom());
 

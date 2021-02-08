@@ -21,6 +21,10 @@ import android.widget.Toast;
 import com.digidoctor.android.R;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.LanguageModel;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -34,6 +38,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,6 +57,47 @@ public class AppUtils {
     public static final int PAY_MODE_PAY_U_MONEY = 2;
 
 
+    public static void shareApp(String uri, String description, Activity activity) {
+        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(Uri.parse(uri))
+                .setDomainUriPrefix("https://digidoctor.page.link")
+                .setAndroidParameters(
+                        new DynamicLink.AndroidParameters.Builder("com.digidoctor.android")
+                                .setMinimumVersion(30)
+                                .build())
+                .setIosParameters(
+                        new DynamicLink.IosParameters.Builder("com.criteriontech.digidoc")
+                                .setAppStoreId("1517201659")
+                                .setMinimumVersion("1.0")
+                                .build())
+                .setSocialMetaTagParameters(
+                        new DynamicLink.SocialMetaTagParameters.Builder()
+                                .setTitle("Digi Doctor")
+                                .setDescription(description)
+                                .build())
+                .buildShortDynamicLink()
+                .addOnCompleteListener(activity, task -> {
+                    if (task.isSuccessful()) {
+                        Uri shortLink = task.getResult().getShortLink();
+                        Uri flowchartLink = task.getResult().getPreviewLink();
+                        Log.d(TAG, "shortLink: " + shortLink);
+                        Log.d(TAG, "flowchartLink: " + flowchartLink);
+                        openShareAppDialog(shortLink.toString(), activity);
+
+                    } else {
+                        Log.d(TAG, "onComplete: Error " + task.getException().getLocalizedMessage());
+                    }
+                });
+
+    }
+
+    public static void openShareAppDialog(String link, Activity activity) {
+        Intent intent2 = new Intent();
+        intent2.setAction(Intent.ACTION_SEND);
+        intent2.setType("text/plain");
+        intent2.putExtra(Intent.EXTRA_TEXT, link);
+        activity.startActivity(Intent.createChooser(intent2, "Share via"));
+    }
 
 
     public static String getMimeType(Context context, Uri uri) {
