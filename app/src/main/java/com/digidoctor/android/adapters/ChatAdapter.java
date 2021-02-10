@@ -16,7 +16,6 @@ import java.util.List;
 
 import static com.digidoctor.android.utility.utils.createDate;
 import static com.digidoctor.android.utility.utils.getDate;
-import static com.digidoctor.android.utility.utils.getDateInDMY;
 
 public class ChatAdapter extends RecyclerView.Adapter {
     public static final int VIEW_TYPE_SENDER = 0;
@@ -69,7 +68,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         ChatModel model = chats.get(position);
-        if (uid.equalsIgnoreCase(model.getSender_id()))
+        if (uid.equalsIgnoreCase(model.getSenderId()))
             return VIEW_TYPE_RECEIVER;
         else return VIEW_TYPE_SENDER;
     }

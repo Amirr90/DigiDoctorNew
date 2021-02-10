@@ -9,8 +9,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
+import com.digidoctor.android.interfaces.NewApiInterface;
 import com.digidoctor.android.model.AppointmentModel;
+import com.digidoctor.android.model.ChatModel;
 import com.digidoctor.android.model.Dashboard;
+import com.digidoctor.android.model.DemoResponse;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.DoctorModelRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
@@ -49,10 +52,36 @@ public class PatientRepo {
     public MutableLiveData<List<GetPatientMedicationMainModel>> prescriptionModelMutableLiveData;
     public MutableLiveData<List<User>> memberModelMutableLiveData;
     public MutableLiveData<List<VitalResponse.VitalDateVise>> vitalsMutableLiveData;
-    public MutableLiveData<List<MedicineModel.MedicineDetailModel>> medicineMutableLiveData;
     public MutableLiveData<List<InvestigationModel>> investigationMutableLiveData;
     public MutableLiveData<List<AppointmentModel>> appointmentMutableLiveData;
+    public MutableLiveData<List<ChatModel>> chatMutableLiveData;
 
+
+    public LiveData<List<ChatModel>> getChatData(AppointmentModel user) {
+        if (chatMutableLiveData == null) {
+            chatMutableLiveData = new MutableLiveData<>();
+        }
+        loadChatData(user);
+        return chatMutableLiveData;
+
+    }
+
+    private void loadChatData(AppointmentModel user) {
+
+        ApiUtils.getChatResponse(ApiUtils.getChatData(user), new NewApiInterface() {
+            @Override
+            public void onSuccess(Object obj) {
+                List<ChatModel> chatModels = (List<ChatModel>) obj;
+                chatMutableLiveData.setValue(chatModels);
+
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Log.d("loadChatData", "onFailed: " + msg);
+            }
+        });
+    }
 
     public LiveData<List<AppointmentModel>> getAppointmentList(User user) {
         if (appointmentMutableLiveData == null) {

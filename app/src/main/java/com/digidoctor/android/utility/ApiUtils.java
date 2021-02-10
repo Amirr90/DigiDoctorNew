@@ -13,7 +13,10 @@ import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.DemoAoiInterface;
 import com.digidoctor.android.interfaces.LogoutModel;
 import com.digidoctor.android.model.AddInvestigationModel;
+import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.AppointmentRes;
+import com.digidoctor.android.model.ChatModel;
+import com.digidoctor.android.model.ChatResponse;
 import com.digidoctor.android.model.CheckLoginRes;
 import com.digidoctor.android.model.CheckSlotAvailabilityRes;
 import com.digidoctor.android.model.CheckTimeSlotModel;
@@ -687,7 +690,8 @@ public class ApiUtils {
                                 apiCallbackInterface.onSuccess(resModel.getResponseValue());
                                 break;
                             case RESPONSE_FAILED:
-                                apiCallbackInterface.onError(resModel.getResponseMessage());                                break;
+                                apiCallbackInterface.onError(resModel.getResponseMessage());
+                                break;
                             case RESPONSE_LOGOUT:
                                 logout(PatientDashboard.getInstance());
                                 break;
@@ -723,7 +727,8 @@ public class ApiUtils {
                                 apiCallbackInterface.onSuccess(resModel.getResponseValue());
                                 break;
                             case RESPONSE_FAILED:
-                                apiCallbackInterface.onError(resModel.getResponseMessage());                                break;
+                                apiCallbackInterface.onError(resModel.getResponseMessage());
+                                break;
                             case RESPONSE_LOGOUT:
                                 logout(PatientDashboard.getInstance());
                                 break;
@@ -1115,7 +1120,8 @@ public class ApiUtils {
                                 apiCallbackInterface.onSuccess(checkLoginRes.getResponseValue());
                                 break;
                             case RESPONSE_FAILED:
-                                apiCallbackInterface.onError(checkLoginRes.getResponseMessage());                                break;
+                                apiCallbackInterface.onError(checkLoginRes.getResponseMessage());
+                                break;
                             case RESPONSE_LOGOUT:
                                 logout(PatientDashboard.getInstance());
                                 break;
@@ -1295,26 +1301,44 @@ public class ApiUtils {
     }
 
 
-    public static void getResponse(Call<DemoResponse> call, DemoAoiInterface demoAoiInterface) {
+    public static void getResponse(Call<DemoResponse> call, NewApiInterface newApiInterface) {
         call.enqueue(new Callback<DemoResponse>() {
             @Override
             public void onResponse(@NotNull Call<DemoResponse> call, @NotNull Response<DemoResponse> response) {
-
                 if (response.code() == 200) {
                     DemoResponse responseModel = response.body();
                     if (responseModel.getResponseCode() == 1) {
-                        demoAoiInterface.onSuccess(responseModel);
-                    } else demoAoiInterface.onFailed(responseModel.getResponseMessage());
-
-                } else demoAoiInterface.onFailed(String.valueOf(response.code()));
-
-
+                        newApiInterface.onSuccess(responseModel.getResponseValue());
+                    } else newApiInterface.onFailed(responseModel.getResponseMessage());
+                } else newApiInterface.onFailed(String.valueOf(response.code()));
             }
 
             @Override
             public void onFailure(@NotNull Call<DemoResponse> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
-                demoAoiInterface.onFailed(t.getLocalizedMessage());
+                newApiInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void getChatResponse(Call<ChatResponse> call, NewApiInterface newApiInterface) {
+        call.enqueue(new Callback<ChatResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<ChatResponse> call, @NotNull Response<ChatResponse> response) {
+                if (response.code() == 200) {
+                    ChatResponse responseModel = response.body();
+                    if (null == responseModel)
+                        return;
+                    if (responseModel.getResponseCode() == 1) {
+                        newApiInterface.onSuccess(responseModel.getResponseValue());
+                    } else newApiInterface.onFailed(responseModel.getResponseMessage());
+                } else newApiInterface.onFailed(String.valueOf(response.code()));
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ChatResponse> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                newApiInterface.onFailed(t.getLocalizedMessage());
             }
         });
     }

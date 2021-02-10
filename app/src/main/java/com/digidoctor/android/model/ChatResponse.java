@@ -3,10 +3,10 @@ package com.digidoctor.android.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DemoResponse {
+public class ChatResponse {
     Integer responseCode;
     String responseMessage;
-    List<Object> responseValue = new ArrayList<>();
+    List<ChatModel> responseValue = new ArrayList<>();
 
     public Integer getResponseCode() {
         return responseCode;
@@ -16,8 +16,9 @@ public class DemoResponse {
         return responseMessage;
     }
 
-    public List<Object> getResponseValue() {
+    public List<ChatModel> getResponseValue() {
         return responseValue;
     }
 
 }
+

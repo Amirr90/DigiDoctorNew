@@ -2,7 +2,6 @@ package com.digidoctor.android.view.fragments.digiDoctorFragments;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +25,6 @@ import com.digidoctor.android.databinding.LogoutOptionViewBinding;
 import com.digidoctor.android.databinding.PaymentViewBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.BookAppointmentInterface;
-import com.digidoctor.android.interfaces.DemoAoiInterface;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.PayModeModel;
@@ -43,8 +41,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static com.digidoctor.android.utility.ApiUtils.DemoApi;
-import static com.digidoctor.android.utility.ApiUtils.getResponse;
 import static com.digidoctor.android.utility.AppUtils.PAY_MODE_PAY_ON_VISIT;
 import static com.digidoctor.android.utility.AppUtils.PAY_MODE_PAY_U_MONEY;
 import static com.digidoctor.android.utility.AppUtils.PAY_MODE_RAZOR_PAYY;

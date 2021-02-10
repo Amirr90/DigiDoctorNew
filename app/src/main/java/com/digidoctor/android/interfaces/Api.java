@@ -1,7 +1,10 @@
 package com.digidoctor.android.interfaces;
 
 import com.digidoctor.android.model.AddInvestigationModel;
+import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.AppointmentRes;
+import com.digidoctor.android.model.ChatModel;
+import com.digidoctor.android.model.ChatResponse;
 import com.digidoctor.android.model.CheckLoginRes;
 import com.digidoctor.android.model.CheckSlotAvailabilityRes;
 import com.digidoctor.android.model.CheckTimeSlotModel;
@@ -117,8 +120,13 @@ public interface Api {
             @Body GetPatientMedicationMainModel model);
 
     @POST("getPatientMedicationDetails")
-    Call<DemoResponse> getPatientMedicationDetails2(
-            @Body GetPatientMedicationMainModel model);
+    Call<DemoResponse> getPatientMedicationDetails2(@Body GetPatientMedicationMainModel model);
+
+    @POST("patientDoctorChatting")
+    Call<ChatResponse> sendMsg(@Body ChatModel model);
+
+    @POST("getPatientDoctorChatting")
+    Call<ChatResponse> getMsg(@Body AppointmentModel model);
 
     @POST("updateMember")
     Call<CheckLoginRes> updateMember(

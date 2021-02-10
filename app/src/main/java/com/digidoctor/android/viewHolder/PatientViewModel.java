@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.digidoctor.android.model.AppointmentModel;
+import com.digidoctor.android.model.ChatModel;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.DoctorModelRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
@@ -27,6 +28,10 @@ public class PatientViewModel extends ViewModel {
 
     PatientRepo repo = new PatientRepo();
 
+
+    public LiveData<List<ChatModel>> getChatData(AppointmentModel user) {
+        return repo.getChatData(user);
+    }
 
     public LiveData<List<AppointmentModel>> getAppointmentList(User user) {
         return repo.getAppointmentList(user);

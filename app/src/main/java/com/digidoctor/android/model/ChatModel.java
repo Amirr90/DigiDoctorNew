@@ -1,39 +1,76 @@
 package com.digidoctor.android.model;
 
+import java.sql.Timestamp;
+
 public class ChatModel {
-
-    long timestamp;
-    String appointment_id;
-    String msg;
+    String timestamp;
+    String appointmentId;
+    String message;
     Boolean isSeen;
-    String receiver_id;
-    String sender_id;
-    String sender_name;
-    String token;
+    String receiverId;
+    String senderId;
+    String serviceProviderTypeId;
+    String createdDate;
 
-
-    public long getTimestamp() {
-        return timestamp;
+    public ChatModel(String appointmentId, String message, String receiverId, String senderId, String serviceProviderTypeId) {
+        this.appointmentId = appointmentId;
+        this.message = message;
+        this.receiverId = receiverId;
+        this.senderId = senderId;
+        this.serviceProviderTypeId = serviceProviderTypeId;
     }
 
-    public void setTimestamp(long timestamp) {
+    public ChatModel() {
+    }
+
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public String getServiceProviderTypeId() {
+        return serviceProviderTypeId;
+    }
+
+    public void setServiceProviderTypeId(String serviceProviderTypeId) {
+        this.serviceProviderTypeId = serviceProviderTypeId;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public long getTimestamp() {
+        Timestamp ts1 = Timestamp.valueOf(timestamp);
+        return ts1.getTime();
+
+    }
+
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 
-    public String getAppointment_id() {
-        return appointment_id;
+    public String getAppointmentId() {
+        return appointmentId;
     }
 
-    public void setAppointment_id(String appointment_id) {
-        this.appointment_id = appointment_id;
+    public void setAppointmentId(String appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public Boolean getSeen() {
@@ -44,35 +81,27 @@ public class ChatModel {
         isSeen = seen;
     }
 
-    public String getReceiver_id() {
-        return receiver_id;
+
+    public String getSenderId() {
+        return senderId;
     }
 
-    public void setReceiver_id(String receiver_id) {
-        this.receiver_id = receiver_id;
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
     }
 
-    public String getSender_id() {
-        return sender_id;
-    }
 
-    public void setSender_id(String sender_id) {
-        this.sender_id = sender_id;
-    }
-
-    public String getSender_name() {
-        return sender_name;
-    }
-
-    public void setSender_name(String sender_name) {
-        this.sender_name = sender_name;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
+    @Override
+    public String toString() {
+        return "ChatModel{" +
+                "timestamp=" + timestamp +
+                ", appointmentId='" + appointmentId + '\'' +
+                ", message='" + message + '\'' +
+                ", isSeen=" + isSeen +
+                ", receiverId='" + receiverId + '\'' +
+                ", senderId='" + senderId + '\'' +
+                ", serviceProviderTypeId='" + serviceProviderTypeId + '\'' +
+                ", createdDate='" + createdDate + '\'' +
+                '}';
     }
 }

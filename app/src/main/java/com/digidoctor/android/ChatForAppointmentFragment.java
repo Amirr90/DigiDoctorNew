@@ -5,26 +5,36 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.digidoctor.android.adapters.ChatAdapter;
 import com.digidoctor.android.databinding.FragmentChatForAppointmentBinding;
 import com.digidoctor.android.interfaces.ChatInterface;
+import com.digidoctor.android.interfaces.NewApiInterface;
+import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.ChatModel;
+import com.digidoctor.android.model.DemoResponse;
+import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.utility.ApiUtils;
+import com.digidoctor.android.utility.AppUtils;
+import com.digidoctor.android.viewHolder.PatientViewModel;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,8 +47,7 @@ import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
 public class ChatForAppointmentFragment extends Fragment implements ChatInterface {
     private static final String TAG = "ChatForAppointmentFragm";
-    FragmentChatForAppointmentBinding
-            chat;
+    FragmentChatForAppointmentBinding chat;
     NavController navController;
     ChatAdapter adapter;
     List<ChatModel> chats;
@@ -46,6 +55,8 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
     String doId = null;
 
     String uid;
+
+    PatientViewModel viewModel;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -63,6 +74,8 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
 
         if (null == getArguments())
             return;
+
+        viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
         uid = String.valueOf(getPrimaryUser(requireActivity()).getMemberId());
 
@@ -89,27 +102,21 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
     }
 
     private void loadLiveData() {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        AppointmentModel appointmentModel = new AppointmentModel();
+        appointmentModel.setAppointmentId(AppointmentId);
 
-        firestore.collection(APPOINTMENT_CHAT)
-                .whereEqualTo(APPOINTMENT_ID, AppointmentId)
-                .orderBy(TIMESTAMP, Query.Direction.DESCENDING)
-                .addSnapshotListener(requireActivity(), (value, e) -> {
-                    if (e != null) {
-                        System.err.println("Listen failed: " + e);
-                        return;
-                    }
+        viewModel.getChatData(appointmentModel).observe(getViewLifecycleOwner(), (List<ChatModel> chatModelList) -> {
+            if (null != chatModelList) {
+                chats.clear();
 
-                    chats.clear();
-                    List<DocumentSnapshot> documentChanges = value.getDocuments();
-                    for (DocumentSnapshot snapshot : documentChanges) {
-                        ChatModel chatModel = snapshot.toObject(ChatModel.class);
-                        chats.add(chatModel);
-                    }
-                    adapter.notifyDataSetChanged();
-                    updateVisibility();
+                chats.addAll(chatModelList);
+                // Collections.sort(chats, Collections.reverseOrder());
 
-                });
+
+            }
+            adapter.notifyDataSetChanged();
+            updateVisibility();
+        });
 
     }
 
@@ -120,25 +127,41 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
 
 
     public ChatModel getChat() {
-        User user = getPrimaryUser(requireActivity());
         ChatModel chatModel = new ChatModel();
-        chatModel.setAppointment_id(AppointmentId);
-        chatModel.setMsg(chat.editTextTextPersonName4.getText().toString());
-        chatModel.setSender_id(String.valueOf(getPrimaryUser(requireActivity()).getMemberId()));
-        chatModel.setReceiver_id(doId);
+        chatModel.setAppointmentId(AppointmentId);
+        chatModel.setMessage(chat.editTextTextPersonName4.getText().toString());
+        chatModel.setSenderId(String.valueOf(getPrimaryUser(requireActivity()).getMemberId()));
+        chatModel.setReceiverId(doId);
         chatModel.setSeen(false);
-        chatModel.setSender_name(user.getName());
-        chatModel.setToken("TOKEN");
-        chatModel.setTimestamp(System.currentTimeMillis());
-
-
+        chatModel.setServiceProviderTypeId("6");//6 for patient
+        chatModel.setTimestamp(String.valueOf(System.currentTimeMillis()));
         return chatModel;
     }
 
     private void sendMsg() {
         adapter.notifyDataSetChanged();
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        firestore.collection(APPOINTMENT_CHAT).add(getChat());
+        adapter.addChatItems(getChat());
+        ApiUtils.getChatResponse(ApiUtils.sendMsg(getChat()), new NewApiInterface() {
+            @Override
+            public void onSuccess(Object obj) {
+                List<ChatModel> chatModels = (List<ChatModel>) obj;
+                Log.d(TAG, "onSuccess: msg send " + chatModels.toString());
+                if (null != chatModels) {
+                    chats.clear();
+
+                    chats.addAll(chatModels);
+
+
+                }
+                adapter.notifyDataSetChanged();
+                updateVisibility();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+
+            }
+        });
         chat.editTextTextPersonName4.setText("");
         updateVisibility();
     }

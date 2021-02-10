@@ -410,7 +410,7 @@
         android:id="@+id/vitalChartFragment"
         android:name="com.digidoctor.android.view.fragments.VitalChartFragment"
         android:label="Vital Details"
-        tools:layout="@layout/fragment_vital_chart" >
+        tools:layout="@layout/fragment_vital_chart">
         <action
             android:id="@+id/action_vitalChartFragment_to_addVitalsFragment"
             app:destination="@id/addVitalsFragment"

@@ -19,8 +19,11 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.model.DashboardModel1;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.LanguageModel;
+import com.digidoctor.android.model.NavModel;
+import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
@@ -56,6 +59,33 @@ public class AppUtils {
     public static final int PAY_MODE_RAZOR_PAYY = 3;
     public static final int PAY_MODE_PAY_U_MONEY = 2;
 
+
+    public static List<NavModel> getNavData(Activity activity) {
+        List<NavModel> navModels = new ArrayList<>();
+        navModels.add(new NavModel(activity.getString(R.string.appointment), R.drawable.appointments));
+        navModels.add(new NavModel(activity.getString(R.string.prescription_history), R.drawable.prescription));
+        navModels.add(new NavModel(activity.getString(R.string.investigation_history), R.drawable.investigation));
+        navModels.add(new NavModel(activity.getString(R.string.vitals_hitory), R.drawable.investigation));
+        navModels.add(new NavModel(activity.getString(R.string.add_family_member), R.drawable.family_members));
+        navModels.add(new NavModel(activity.getString(R.string.lab_tests), R.drawable.lab_test_icon));
+        navModels.add(new NavModel(activity.getString(R.string.orders), R.drawable.order));
+        navModels.add(new NavModel(activity.getString(R.string.notifications), R.drawable.notification));
+        navModels.add(new NavModel(activity.getString(R.string.settings), R.drawable.settings));
+        navModels.add(new NavModel(activity.getString(R.string.about_us), R.drawable.aboutus));
+        navModels.add(new NavModel(activity.getString(R.string.logout), R.drawable.logout));
+        navModels.add(new NavModel(activity.getString(R.string.change_language), R.drawable.language_icon));
+        navModels.add(new NavModel(activity.getString(R.string.share_app), R.drawable.language_icon));
+        return navModels;
+    }
+
+    public static List<DashboardModel1> getDashboardList(Activity activity) {
+        List<DashboardModel1> dashboardModel1s = new ArrayList<>();
+        dashboardModel1s.add(new DashboardModel1(activity.getString(R.string.speciality), activity.getString(R.string.find_doctors_by)));
+        dashboardModel1s.add(new DashboardModel1(activity.getString(R.string.symptoms), activity.getString(R.string.find_doctors_by)));
+        dashboardModel1s.add(new DashboardModel1(activity.getString(R.string.tests), activity.getString(R.string.lab)));
+        dashboardModel1s.add(new DashboardModel1(activity.getString(R.string.pharmacy), activity.getString(R.string.digi)));
+        return dashboardModel1s;
+    }
 
     public static void shareApp(String uri, String description, Activity activity) {
         Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
@@ -100,26 +130,6 @@ public class AppUtils {
     }
 
 
-    public static String getMimeType(Context context, Uri uri) {
-        /*String type = null;
-        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
-        if (extension != null) {
-            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-        }
-        return type;*/
-        String mimeType = null;
-        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
-            ContentResolver cr = context.getContentResolver();
-            mimeType = cr.getType(uri);
-        } else {
-            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri
-                    .toString());
-            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
-                    fileExtension.toLowerCase());
-        }
-        return mimeType;
-    }
-
     public static void showRequestDialog(Activity activity) {
 
 
@@ -127,25 +137,12 @@ public class AppUtils {
             if (!((Activity) activity).isFinishing()) {
                 if (progressDialog == null) {
                     progressDialog = new ProgressDialog(activity);
-                    //progressDialog.setCancelable(false);
-                    //progressDialog.setMessage(activity.getString(R.string.pleaseWait));
-                    //progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
-
                     progressDialog = ProgressDialog.show(activity, null, null, false, true);
-//                    progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                    progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(R.color.fullTransparent)));
                     progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(android.R.color.transparent)));
                     progressDialog.setContentView(R.layout.progress_bar);
                     progressDialog.show();
                 } else {
-                    //progressDialog = new ProgressDialog(activity);
-                    //progressDialog.setCancelable(false);
-                    //progressDialog.setMessage(activity.getString(R.string.pleaseWait));
-                    //progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
-                    //progressDialog.show();
-
                     progressDialog = ProgressDialog.show(activity, null, null, false, true);
-//                    progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(android.R.color.transparent)));
                     progressDialog.setContentView(R.layout.progress_bar);
                     progressDialog.show();
@@ -217,23 +214,6 @@ public class AppUtils {
         return str;
     }
 
-    public static String parseDateInDayMonthNameYearName(String oldDate) {
-        String inputPattern = "dd/MM/yy";
-        String outputPattern = "dd MMMM yyyy";
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
-
-        Date date = null;
-        String str = null;
-
-        try {
-            date = inputFormat.parse(oldDate);
-            str = outputFormat.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return str;
-    }
 
     private void showPdf(String filePath) {
         Intent intent = new Intent(Intent.ACTION_VIEW);

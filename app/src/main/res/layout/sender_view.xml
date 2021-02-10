@@ -44,7 +44,7 @@
             android:paddingTop="10dp"
             android:paddingEnd="@dimen/_10sdp"
             android:paddingBottom="10dp"
-            android:text="@{chats.msg}"
+            android:text="@{chats.message}"
             android:textColor="#2D2D2D"
             android:textSize="13sp"
             app:layout_constraintStart_toEndOf="@+id/profile_image"

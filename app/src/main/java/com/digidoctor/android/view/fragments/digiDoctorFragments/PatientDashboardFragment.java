@@ -49,6 +49,7 @@ import io.branch.referral.BranchError;
 import ss.com.bannerslider.ImageLoadingService;
 import ss.com.bannerslider.Slider;
 
+import static com.digidoctor.android.utility.AppUtils.getDashboardList;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
 
@@ -76,13 +77,6 @@ public class PatientDashboardFragment extends Fragment {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         dashboard2Binding = FragmentPatientDashboardBinding.inflate(inflater, container, false);
-
-        // Branch logging for debugging
-        Branch.enableLogging();
-
-        // Branch object initialization
-        Branch.getAutoInstance(requireActivity());
-
         return dashboard2Binding.getRoot();
     }
 
@@ -96,8 +90,6 @@ public class PatientDashboardFragment extends Fragment {
             dashboard2Binding.setUser(user);
             Log.d(TAG, "PrimaryUser: " + user.toString());
         }
-
-        Branch.sessionBuilder(requireActivity()).withCallback(branchReferralInitListener).withData(requireActivity().getIntent() != null ? requireActivity().getIntent().getData() : null).init();
 
         imageLoadingService = new PicassoImageLoadingService(PatientDashboard.getInstance());
         Slider.init(imageLoadingService);
@@ -114,13 +106,7 @@ public class PatientDashboardFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
-
-        List<DashboardModel1> dashboardModel1s = new ArrayList<>();
-        dashboardModel1s.add(new DashboardModel1(getString(R.string.speciality), getString(R.string.find_doctors_by)));
-        dashboardModel1s.add(new DashboardModel1(getString(R.string.symptoms), getString(R.string.find_doctors_by)));
-        dashboardModel1s.add(new DashboardModel1(getString(R.string.tests), getString(R.string.lab)));
-        dashboardModel1s.add(new DashboardModel1(getString(R.string.pharmacy), getString(R.string.digi)));
-
+        List<DashboardModel1> dashboardModel1s = getDashboardList(requireActivity());
 
         adapter1.submitList(dashboardModel1s);
 
@@ -151,45 +137,8 @@ public class PatientDashboardFragment extends Fragment {
 
         dashboard2Binding.tvLocation.setOnClickListener(view13 -> {
             Log.d(TAG, "onViewCreated: Clicked");
-            sendNotification(requireContext(), "Title", "Message", "deepLink");
+
         });
-    }
-
-
-    private void sendNotification(Context context, String title, String message, String deepLink) {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= 26) {
-            NotificationChannel notificationChannel = new NotificationChannel("any_default_id", "any_channel_name",
-                    NotificationManager.IMPORTANCE_HIGH);
-            notificationChannel.setDescription("Any description can be given!");
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                .setAutoCancel(true)
-                .setSound(defaultSoundUri)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setPriority(android.app.Notification.PRIORITY_MAX)
-                .setDefaults(android.app.Notification.DEFAULT_ALL);
-        //.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
-
-        Intent intent = new Intent();
-
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(deepLink));
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-
-        notificationBuilder
-                .setContentTitle(title)
-                .setContentText(message)
-                .setContentIntent(pendingIntent);
-
-        notificationManager.notify(0, notificationBuilder.build());
     }
 
 
@@ -227,14 +176,4 @@ public class PatientDashboardFragment extends Fragment {
 
     }
 
-
-    private Branch.BranchReferralInitListener branchReferralInitListener = new Branch.BranchReferralInitListener() {
-        @Override
-        public void onInitFinished(JSONObject linkProperties, BranchError error) {
-
-            if (error == null)
-                Log.d(TAG, "onInitFinished: " + linkProperties.toString());
-            else Log.d(TAG, "onInitFinishedError: " + error.toString());
-        }
-    };
 }

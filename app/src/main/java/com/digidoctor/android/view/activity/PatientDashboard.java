@@ -64,6 +64,7 @@ import io.branch.referral.util.LinkProperties;
 import io.branch.referral.util.ShareSheetStyle;
 
 import static com.digidoctor.android.utility.AppUtils.getLanguageModel;
+import static com.digidoctor.android.utility.AppUtils.getNavData;
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.setAppLocale;
 import static com.digidoctor.android.utility.AppUtils.shareApp;
@@ -193,31 +194,14 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
     private void setNavRec() {
         mainBinding.imageView6.setVisibility(user.getIsExists() == 0 ? View.GONE : View.VISIBLE);
-
-
         mainBinding.setUser(getPrimaryUser(this));
         navModels = new ArrayList<>();
         navAdapter = new NavAdapter(navModels, PatientDashboard.this);
         mainBinding.navRec.setAdapter(navAdapter);
-        loadNavData();
-    }
-
-    private void loadNavData() {
-        navModels.add(new NavModel(getString(R.string.appointment), R.drawable.appointments));
-        navModels.add(new NavModel(getString(R.string.prescription_history), R.drawable.prescription));
-        navModels.add(new NavModel(getString(R.string.investigation_history), R.drawable.investigation));
-        navModels.add(new NavModel(getString(R.string.vitals_hitory), R.drawable.investigation));
-        navModels.add(new NavModel(getString(R.string.add_family_member), R.drawable.family_members));
-        navModels.add(new NavModel(getString(R.string.lab_tests), R.drawable.lab_test_icon));
-        navModels.add(new NavModel(getString(R.string.orders), R.drawable.order));
-        navModels.add(new NavModel(getString(R.string.notifications), R.drawable.notification));
-        navModels.add(new NavModel(getString(R.string.settings), R.drawable.settings));
-        navModels.add(new NavModel(getString(R.string.about_us), R.drawable.aboutus));
-        navModels.add(new NavModel(getString(R.string.logout), R.drawable.logout));
-        navModels.add(new NavModel(getString(R.string.change_language), R.drawable.logout));
-
+        navModels = getNavData(PatientDashboard.this);
         navAdapter.notifyDataSetChanged();
     }
+
 
     @Override
     protected void onStart() {
@@ -414,6 +398,9 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             case 12:
                 shareApp("https://digidoctor.in/invitation?invitationCode=" + getPrimaryUser(PatientDashboard.getInstance()).getMemberId(), "This is demo description", this);
                 break;
+            case 9:
+                openBrowser();
+                break;
             case 10:
                 showRequestDialog(this);
                 if (utils.logout(this))
@@ -422,6 +409,13 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             default:
                 Toast.makeText(instance, "Coming Soon", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void openBrowser() {
+       /* String url = "http://www.example.com";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);*/
     }
 
 
@@ -452,7 +446,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
     @Override
     public void generateHash(@NotNull HashMap<String, String> hashMap, @NotNull com.payu.ui.model.listeners.PayUHashGenerationListener payUHashGenerationListener) {
-
         Log.d(TAG, "generateHash: ");
     }
 
@@ -486,8 +479,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     }
 
     public void showResults(String currentAdd, String lat, String lng) {
-
-        Log.d(TAG, "showResults: " + currentAdd);
         final String[] address = currentAdd.split(",");
 
         try {

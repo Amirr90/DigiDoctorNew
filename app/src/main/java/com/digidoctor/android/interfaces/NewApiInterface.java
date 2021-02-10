@@ -1,6 +1,6 @@
 package com.digidoctor.android.interfaces;
 
-public interface DemoAoiInterface {
+public interface NewApiInterface {
 
     void onSuccess(Object obj);
 
