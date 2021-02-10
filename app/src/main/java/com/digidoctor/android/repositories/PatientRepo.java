@@ -68,7 +68,7 @@ public class PatientRepo {
 
     private void loadChatData(AppointmentModel user) {
 
-        ApiUtils.getChatResponse(ApiUtils.getChatData(user), new NewApiInterface() {
+/*        ApiUtils.getChatResponse(ApiUtils.getChatData(user), new NewApiInterface() {
             @Override
             public void onSuccess(Object obj) {
                 List<ChatModel> chatModels = (List<ChatModel>) obj;
@@ -80,7 +80,7 @@ public class PatientRepo {
             public void onFailed(String msg) {
                 Log.d("loadChatData", "onFailed: " + msg);
             }
-        });
+        });*/
     }
 
     public LiveData<List<AppointmentModel>> getAppointmentList(User user) {

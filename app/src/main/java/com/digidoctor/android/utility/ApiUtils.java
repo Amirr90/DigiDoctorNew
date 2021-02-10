@@ -10,12 +10,9 @@ import androidx.fragment.app.FragmentActivity;
 import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
-import com.digidoctor.android.interfaces.DemoAoiInterface;
-import com.digidoctor.android.interfaces.LogoutModel;
+import com.digidoctor.android.interfaces.NewApiInterface;
 import com.digidoctor.android.model.AddInvestigationModel;
-import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.AppointmentRes;
-import com.digidoctor.android.model.ChatModel;
 import com.digidoctor.android.model.ChatResponse;
 import com.digidoctor.android.model.CheckLoginRes;
 import com.digidoctor.android.model.CheckSlotAvailabilityRes;
@@ -229,7 +226,7 @@ public class ApiUtils {
     public static void getRecommendedDoc(HashMap<String, String> map, final ApiCallbackInterface apiCallbackInterface) {
 
         SymptomModel symptomModel = new SymptomModel();
-        symptomModel.setSymptomID(map.get(KEY_SYMPTOM_ID));
+        symptomModel.setSymptomId(map.get(KEY_SYMPTOM_ID));
         symptomModel.setDoctorName(map.get(KEY_DOC_NAME));
 
         try {
@@ -1290,8 +1287,8 @@ public class ApiUtils {
     }
 
 
-    public static void DemoApi(User user, DemoAoiInterface demoAoiInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceNewAPI();
+    public static void DemoApi(User user, NewApiInterface demoAoiInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         GetPatientMedicationMainModel model = new GetPatientMedicationMainModel();
         model.setMemberId(String.valueOf(user.getId()));
 
@@ -1321,6 +1318,7 @@ public class ApiUtils {
         });
     }
 
+
     public static void getChatResponse(Call<ChatResponse> call, NewApiInterface newApiInterface) {
         call.enqueue(new Callback<ChatResponse>() {
             @Override
@@ -1342,7 +1340,6 @@ public class ApiUtils {
             }
         });
     }
-
 
     public static void loadChats(String appointmentId, ApiCallbackInterface apiCallbackInterface) {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();

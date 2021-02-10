@@ -141,7 +141,7 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
     private void sendMsg() {
         adapter.notifyDataSetChanged();
         adapter.addChatItems(getChat());
-        ApiUtils.getChatResponse(ApiUtils.sendMsg(getChat()), new NewApiInterface() {
+/*        ApiUtils.getChatResponse(ApiUtils.sendMsg(getChat()), new NewApiInterface() {
             @Override
             public void onSuccess(Object obj) {
                 List<ChatModel> chatModels = (List<ChatModel>) obj;
@@ -161,7 +161,7 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
             public void onFailed(String msg) {
 
             }
-        });
+        });*/
         chat.editTextTextPersonName4.setText("");
         updateVisibility();
     }
