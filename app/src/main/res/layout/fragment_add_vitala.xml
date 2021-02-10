@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EDF6FF"
+        tools:context=".view.fragments.Patient.AddVitalsFragment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/btnAddVital"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/_22sdp"
+                android:background="@drawable/round_border"
+                android:backgroundTint="#EDA537"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="@string/submit"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/btnAddVital"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginBottom="17dp"
+                android:background="@android:color/white"
+                android:paddingLeft="14dp"
+                android:paddingTop="17dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="17dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout2"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/round_circle"
+                            android:backgroundTint="#EDF6FF"
+                            android:orientation="horizontal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/imageView19"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/bp_chart_icon"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+                            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
+
+                        <TextView
+                            android:id="@+id/textView49"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="Blood Pressure Chart"
+                            android:textColor="#23384D"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
+
+                        <EditText
+                            android:id="@+id/textView53"
+                            android:layout_width="0dp"
+                            android:layout_height="34dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/border_rectangle"
+                            android:gravity="center_vertical"
+                            android:hint="Systolic"
+                            android:inputType="phone"
+                            android:maxLength="3"
+                            android:paddingStart="20dp"
+                            android:textColor="#3F4E6E"
+                            android:textSize="9sp"
+                            app:layout_constraintEnd_toStartOf="@+id/textView54"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_chainStyle="packed"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+                        <EditText
+                            android:id="@+id/textView54"
+                            android:layout_width="0dp"
+                            android:layout_height="34dp"
+                            android:layout_marginStart="4dp"
+                            android:background="@drawable/border_rectangle"
+                            android:gravity="center_vertical"
+                            android:hint="Diastolic"
+                            android:inputType="phone"
+                            android:maxLength="3"
+                            android:paddingStart="20dp"
+                            android:textColor="#3F4E6E"
+                            android:textSize="9sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView53"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/textView53"
+                            app:layout_constraintTop_toTopOf="@+id/textView53" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout3"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/round_circle"
+                            android:backgroundTint="#EDF6FF"
+                            android:orientation="horizontal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <ImageView
+                            android:id="@+id/imageView24"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/bp_chart_icon"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
+                            app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout3"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
+
+                        <TextView
+                            android:id="@+id/textView56"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="@string/pulse_rate"
+                            android:textColor="#23384D"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
+
+                        <EditText
+                            android:id="@+id/textView59"
+                            android:layout_width="0dp"
+                            android:layout_height="34dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/border_rectangle"
+                            android:gravity="center_vertical"
+                            android:hint="Pulse Rate Value"
+                            android:inputType="phone"
+                            android:maxLength="3"
+                            android:paddingStart="20dp"
+                            android:textColor="#3F4E6E"
+                            android:textSize="9sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout3"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout4"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/round_circle"
+                            android:backgroundTint="#EDF6FF"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imageView25"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/bp_chart_icon"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
+                            app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout4" />
+
+                        <TextView
+                            android:id="@+id/textView62"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="Temperature"
+                            android:textColor="#23384D"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout4"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout4" />
+
+                        <EditText
+                            android:id="@+id/textView63"
+                            android:layout_width="0dp"
+                            android:layout_height="34dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/border_rectangle"
+                            android:gravity="center_vertical"
+                            android:hint="Temperature Value"
+                            android:inputType="phone"
+                            android:maxLength="5"
+                            android:paddingStart="20dp"
+                            android:textColor="#3F4E6E"
+                            android:textSize="9sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout6"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/round_circle"
+                            android:backgroundTint="#EDF6FF"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imageView31"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/bp_chart_icon"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout6"
+                            app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout6"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout6" />
+
+                        <TextView
+                            android:id="@+id/textView64"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="Random Blood Sugar"
+                            android:textColor="#23384D"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout6"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout6"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout6" />
+
+                        <EditText
+                            android:id="@+id/textView69"
+                            android:layout_width="0dp"
+                            android:layout_height="34dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_rectangle"
+                            android:gravity="center_vertical"
+                            android:hint="Blood Sugar Value"
+                            android:inputType="phone"
+                            android:maxLength="3"
+                            android:paddingStart="20dp"
+                            android:textColor="#3F4E6E"
+                            android:textSize="9sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout6"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout8"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/round_circle"
+                            android:backgroundTint="#EDF6FF"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/imageView35"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/bp_chart_icon"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout8"
+                            app:layout_constraintEnd_toEndOf="@+id/linearLayout8"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout8" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="SpO2"
+                            android:textColor="#23384D"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout8"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout8"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout8" />
+
+                        <EditText
+                            android:id="@+id/textView73"
+                            android:layout_width="0dp"
+                            android:layout_height="34dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_rectangle"
+                            android:gravity="center_vertical"
+                            android:hint="SpO2 Value"
+                            android:inputType="phone"
+                            android:paddingStart="20dp"
+                            android:textColor="#3F4E6E"
+                            android:textSize="9sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout8"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout9"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/round_circle"
+                            android:backgroundTint="#EDF6FF"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imageView37"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/bp_chart_icon"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout9"
+                            app:layout_constraintEnd_toEndOf="@+id/linearLayout9"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout9"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout9" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="Respiratory Rate"
+                            android:textColor="#23384D"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout9"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout9"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout9" />
+
+                        <EditText
+                            android:id="@+id/textView75"
+                            android:layout_width="0dp"
+                            android:layout_height="34dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_rectangle"
+                            android:gravity="center_vertical"
+                            android:hint="Respiratory Rate Value"
+                            android:inputType="phone"
+                            android:maxLength="5"
+                            android:paddingStart="20dp"
+                            android:textColor="#3F4E6E"
+                            android:textSize="9sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout9"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+
+            </ScrollView>
+        </RelativeLayout>
+
+
+    </FrameLayout>
+</layout>

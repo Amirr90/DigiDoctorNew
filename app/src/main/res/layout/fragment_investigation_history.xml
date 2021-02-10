@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragments.Patient.InvestigationHistoryFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="1200dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottom_round"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="@dimen/_20sdp"
+                android:paddingRight="10dp"
+                android:paddingBottom="@dimen/_20sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <EditText
+                    android:id="@+id/editTextTextSearchRecDoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/round_for_search"
+                    android:backgroundTint="@android:color/white"
+                    android:drawableRight="@drawable/magnifier"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="Search Investigation Here"
+                    android:imeOptions="actionSearch"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp"
+                    android:singleLine="true"
+                    android:textColorHint="#A2B3B8"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="164dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView16"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="68dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Investigations"
+                android:textColor="#262E3F"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tvAddManually"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
+            <TextView
+                android:id="@+id/textView50"
+                android:layout_width="251dp"
+                android:layout_height="36dp"
+                android:layout_below="@+id/textView16"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="80dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Uploaded By Digidoctor"
+                android:textColor="#262E3F"
+                android:textSize="@dimen/_19sdp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textView51"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="232dp"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView96"
+                android:layout_width="251dp"
+                android:layout_height="36dp"
+                android:layout_below="@+id/textView16"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="80dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Uploaded By Digidoctor"
+                android:textColor="#262E3F"
+                android:textSize="@dimen/_19sdp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textView51"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="232dp"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView51"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView16"
+                android:layout_marginEnd="17dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="See All"
+                android:textColor="#0A586C"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView50"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView50"
+                app:layout_constraintTop_toTopOf="@+id/textView50" />
+
+            <TextView
+                android:id="@+id/textView103"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView16"
+                android:layout_marginEnd="17dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="See All"
+                android:textColor="#0A586C"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView9"
+                app:layout_constraintTop_toTopOf="@+id/textView9" />
+
+            <Button
+                android:id="@+id/tvAddManually"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/round_for_search"
+                android:backgroundTint="@color/colorPrimary"
+                android:fontFamily="@font/poppins_semibold"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp"
+                android:text="Add Manually"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/textView18"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView18"
+                app:layout_constraintTop_toTopOf="@+id/textView18" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="17dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView50"
+                app:spanCount="2"
+                tools:itemCount="2"
+                tools:listitem="@layout/investigation_history" />
+
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="251dp"
+                android:layout_height="36dp"
+                android:layout_below="@+id/textView16"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="80dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Uploaded Manually"
+                android:textColor="#262E3F"
+                android:textSize="@dimen/_19sdp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textView103"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="17dp"
+                tools:listitem="@layout/investigation_history"
+                tools:itemCount="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</FrameLayout>
