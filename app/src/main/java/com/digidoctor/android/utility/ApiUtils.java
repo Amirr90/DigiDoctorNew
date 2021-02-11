@@ -1141,7 +1141,6 @@ public class ApiUtils {
     }
 
 
-
     public static void investigationData(final ApiCallbackInterface apiCallbackInterface) {
         User user = new User();
         user.setMemberId(0);
@@ -1300,6 +1299,5 @@ public class ApiUtils {
             }
         });
     }
-
 
 }
