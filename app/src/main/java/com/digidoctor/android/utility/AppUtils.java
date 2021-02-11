@@ -129,19 +129,20 @@ public class AppUtils {
         activity.startActivity(Intent.createChooser(intent2, "Share via"));
     }
 
-
     public static void showRequestDialog(Activity activity) {
 
+        //Log.d("Token-Number", AppSettings.getString(AppSettings.token));
 
         try {
             if (!((Activity) activity).isFinishing()) {
                 if (progressDialog == null) {
-                    progressDialog = new ProgressDialog(activity);
+
                     progressDialog = ProgressDialog.show(activity, null, null, false, true);
                     progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(android.R.color.transparent)));
                     progressDialog.setContentView(R.layout.progress_bar);
                     progressDialog.show();
                 } else {
+
                     progressDialog = ProgressDialog.show(activity, null, null, false, true);
                     progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(android.R.color.transparent)));
                     progressDialog.setContentView(R.layout.progress_bar);

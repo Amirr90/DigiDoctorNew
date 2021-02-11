@@ -12,7 +12,9 @@ import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.NewApiInterface;
 import com.digidoctor.android.model.AddInvestigationModel;
+import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.AppointmentRes;
+import com.digidoctor.android.model.ChatModel;
 import com.digidoctor.android.model.ChatResponse;
 import com.digidoctor.android.model.CheckLoginRes;
 import com.digidoctor.android.model.CheckSlotAvailabilityRes;
@@ -1242,19 +1244,6 @@ public class ApiUtils {
             @Override
             public void onResponse(@NotNull Call<CheckLoginRes> call, Response<CheckLoginRes> response) {
                 AppUtils.hideDialog();
-                /*if (response.code() == 200)
-                    if (response.body().getResponseCode()==1){
-                        if (response.isSuccessful() && null != response.body()) {
-
-                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                        } else {
-                            AppUtils.hideDialog();
-                            apiCallbackInterface.onError(response.message());
-                        }
-                    }
-                else {
-                    apiCallbackInterface.onError(String.valueOf(response.code()));
-                }*/
 
                 if (response.code() == 200) {
                     CheckLoginRes checkLoginRes = response.body();
@@ -1297,12 +1286,20 @@ public class ApiUtils {
         getResponse(call, demoAoiInterface);
     }
 
+    public static Call<ChatResponse> sendMsg(ChatModel model) {
+        return URLUtils.getAPIServiceForPatient().sendMsg(model);
+    }
+
+    public static Call<ChatResponse> getChatData(AppointmentModel model) {
+        return URLUtils.getAPIServiceForPatient().getMsg(model);
+    }
+
 
     public static void getResponse(Call<DemoResponse> call, NewApiInterface newApiInterface) {
         call.enqueue(new Callback<DemoResponse>() {
             @Override
             public void onResponse(@NotNull Call<DemoResponse> call, @NotNull Response<DemoResponse> response) {
-                if (response.code() == 200) {
+                if (response.code() == 200 && response.body() != null) {
                     DemoResponse responseModel = response.body();
                     if (responseModel.getResponseCode() == 1) {
                         newApiInterface.onSuccess(responseModel.getResponseValue());

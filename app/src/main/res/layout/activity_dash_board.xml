@@ -135,8 +135,6 @@
                     tools:listitem="@layout/nav_view_rec_item" />
 
             </RelativeLayout>
-
-
         </com.google.android.material.navigation.NavigationView>
 
     </androidx.drawerlayout.widget.DrawerLayout>

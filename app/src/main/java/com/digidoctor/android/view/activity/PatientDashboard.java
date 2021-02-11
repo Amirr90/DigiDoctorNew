@@ -163,29 +163,9 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         setNavRec();
 
 
-       // getDemoApi();
+        // getDemoApi();
     }
-/*
 
-    private void getDemoApi() {
-
-        ApiUtils.DemoApi(user, new DemoAoiInterface() {
-            @Override
-            public void onSuccess(Object obj) {
-                DemoResponse responseModel = (DemoResponse) obj;
-               // List<Object> responseValue = responseModel.getResponseValue();
-                List<GetPatientMedicationMainModel> responseValue=(List<GetPatientMedicationMainModel>)responseModel.getResponseValue();
-                Log.d(TAG, "onSuccessDemo: " + responseValue.toString());
-
-            }
-
-            @Override
-            public void onFailed(String msg) {
-
-            }
-        });
-    }
-*/
 
     public void updateUser() {
         user = getPrimaryUser(this);
@@ -198,7 +178,8 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         navModels = new ArrayList<>();
         navAdapter = new NavAdapter(navModels, PatientDashboard.this);
         mainBinding.navRec.setAdapter(navAdapter);
-        navModels = getNavData(PatientDashboard.this);
+        navModels.addAll(getNavData(PatientDashboard.this));
+        //Log.d(TAG, "setNavRec: " + navModels.size());
         navAdapter.notifyDataSetChanged();
     }
 
@@ -213,7 +194,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         );
 
         mainBinding.changeMemberLay.setOnClickListener(view -> {
-
             closeDrawer();
             if (user.getIsExists() == 1) {
                 Bundle mBundle = new Bundle();
