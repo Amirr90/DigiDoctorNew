@@ -1140,44 +1140,7 @@ public class ApiUtils {
         });
     }
 
-/*    public static void logout(LogoutModel model, final ApiCallbackInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
-        Call<LogoutModel> call = iRestInterfaces.logout(model);
-        call.enqueue(new Callback<LogoutModel>() {
-            @Override
-            public void onResponse(@NotNull Call<LogoutModel> call, @NotNull Response<LogoutModel> response) {
 
-                if (response.code() == 200) {
-                    LogoutModel checkLoginRes = response.body();
-                    if (null != checkLoginRes) {
-                        int responseCode = (int) checkLoginRes.getResponseCode();
-                        List<String> list = new ArrayList<>();
-                        list.add(checkLoginRes.getResponseMessage());
-                        switch (responseCode) {
-                            case RESPONSE_SUCCESS:
-                                apiCallbackInterface.onSuccess(list);
-                                break;
-                            case RESPONSE_FAILED:
-                                apiCallbackInterface.onError(String.valueOf(response.code()));
-                                break;
-                            case RESPONSE_LOGOUT:
-                                utils.logout(PatientDashboard.getInstance());
-                                break;
-
-                        }
-                    }
-                } else {
-                    apiCallbackInterface.onError(String.valueOf(response.code()));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<LogoutModel> call, @NotNull Throwable t) {
-                AppUtils.hideDialog();
-                apiCallbackInterface.onFailed(t);
-            }
-        });
-    }*/
 
     public static void investigationData(final ApiCallbackInterface apiCallbackInterface) {
         User user = new User();
@@ -1338,21 +1301,5 @@ public class ApiUtils {
         });
     }
 
-    public static void loadChats(String appointmentId, ApiCallbackInterface apiCallbackInterface) {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
-        firestore.collection(APPOINTMENT_CHAT)
-                .whereEqualTo(APPOINTMENT_ID, appointmentId)
-                .orderBy(TIMESTAMP, Query.Direction.DESCENDING)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (null == queryDocumentSnapshots)
-                        return;
-                    apiCallbackInterface.onSuccess(queryDocumentSnapshots.getDocuments());
-                });
-    }
-
-    public static void loadLiveChats(FragmentActivity activity, String appointmentId, ApiCallbackInterface apiCallbackInterface) {
-
-    }
 }
