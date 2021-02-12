@@ -28,6 +28,7 @@ import com.digidoctor.android.model.GenerateOtpModel;
 import com.digidoctor.android.model.GenerateOtpRes;
 import com.digidoctor.android.model.GetAppointmentSlotsRes;
 import com.digidoctor.android.model.GetMembersRes;
+import com.digidoctor.android.model.GetOrderRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.GetPatientMedicationRes;
 import com.digidoctor.android.model.InvestigationDataRes;
@@ -51,12 +52,41 @@ import com.digidoctor.android.model.UploadPresDataModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
+import com.digidoctor.android.model.addproductratingresponse;
+import com.digidoctor.android.model.addproductreating;
+import com.digidoctor.android.model.labmodel.labdashboardresponse;
+import com.digidoctor.android.model.labmodel.labmodel;
+import com.digidoctor.android.model.pharmacyModel.AddAdressModel;
+import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
+import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
+import com.digidoctor.android.model.pharmacyModel.AddtoWishlist;
+import com.digidoctor.android.model.pharmacyModel.AllCoupneModelResponse;
+import com.digidoctor.android.model.pharmacyModel.AllWishListProduct;
+import com.digidoctor.android.model.pharmacyModel.CartCount;
+import com.digidoctor.android.model.pharmacyModel.CartDetailsResponse;
+import com.digidoctor.android.model.pharmacyModel.CoupnemodelRes;
+import com.digidoctor.android.model.pharmacyModel.CouponModel;
+import com.digidoctor.android.model.pharmacyModel.DeleteAddress;
+import com.digidoctor.android.model.pharmacyModel.DeleteItems;
+import com.digidoctor.android.model.pharmacyModel.Fillter;
+import com.digidoctor.android.model.pharmacyModel.GetAllProductResponse;
+import com.digidoctor.android.model.pharmacyModel.Order;
+import com.digidoctor.android.model.pharmacyModel.OrderDetailModel;
+import com.digidoctor.android.model.pharmacyModel.OrderPlaceModel;
+import com.digidoctor.android.model.pharmacyModel.OrderPlaceModelResponse;
+import com.digidoctor.android.model.pharmacyModel.PharmacyModel;
+import com.digidoctor.android.model.pharmacyModel.ProductDetailModelResponse;
+import com.digidoctor.android.model.pharmacyModel.ProductModel;
+import com.digidoctor.android.model.pharmacyModel.getaddressModel;
+import com.digidoctor.android.model.pharmacyModel.getfilltervarentmodel;
+import com.digidoctor.android.model.pharmacyModel.shopbycategoryRes;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,6 +94,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -1300,4 +1331,713 @@ public class ApiUtils {
         });
     }
 
+
+    //Pharmacy
+
+    public static void getShopByCategory(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        PharmacyModel pharmacyModel = new PharmacyModel();
+        pharmacyModel.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
+
+        Call<shopbycategoryRes> call = iRestInterfaces.getPharmacyDashboard(pharmacyModel);
+        call.enqueue(new Callback<shopbycategoryRes>() {
+            @Override
+            public void onResponse(@NotNull Call<shopbycategoryRes> call, Response<shopbycategoryRes> response) {
+                if (response.code() == 200)
+                    if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(response.message());
+                    }
+                else apiCallbackInterface.onError(String.valueOf(response.code()));
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<shopbycategoryRes> call, Throwable t) {
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void getallpro(final Activity activity, PharmacyModel pharmacyModel, final ApiCallbackInterface apiCallbackInterface) {
+        if (PatientDashboard.getInstance() != null)
+            AppUtils.showRequestDialog(activity);
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        Call<GetAllProductResponse> call = iRestInterfaces.getallpr(pharmacyModel);
+        call.enqueue(new Callback<GetAllProductResponse>() {
+            @Override
+            public void onResponse(Call<GetAllProductResponse> call, Response<GetAllProductResponse> response) {
+                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                    AppUtils.hideDialog();
+                    if (activity != null)
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                } else {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetAllProductResponse> call, Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+    }
+
+    public static void getProductdetailsbyProductID(ProductModel pId, Activity requireActivity, final ApiCallbackInterface apiCallbackInterface) throws JSONException {
+
+
+        if (PatientDashboard.getInstance() != null)
+            AppUtils.showRequestDialog(requireActivity);
+
+//
+//        model.setProductId(Integer.parseInt(pId));
+//        model.setSizeId(model.getSizeId());
+//        //  model.setSizeId(sizeId);
+
+
+        try {
+            final Api api = URLUtils.getPharmacyApisRef();
+            Call<ProductDetailModelResponse> productdetails = api.getproductdetails(pId);
+            productdetails.enqueue(new Callback<ProductDetailModelResponse>() {
+                @Override
+                public void onResponse(@NotNull Call<ProductDetailModelResponse> call, @NotNull Response<ProductDetailModelResponse> response) {
+                    if (response.code() == 200 && response.body() != null) {
+                        if (response.body().getResponseCode() == 1) {
+                            AppUtils.hideDialog();
+                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                        } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                    } else apiCallbackInterface.onError(response.message());
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<ProductDetailModelResponse> call, @NotNull Throwable t) {
+                    apiCallbackInterface.onError(t.getLocalizedMessage());
+                    AppUtils.hideDialog();
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public static void getCartDetails(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        PharmacyModel pharmacyModel = new PharmacyModel();
+        pharmacyModel.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
+        Call<CartDetailsResponse> call = iRestInterfaces.getcartdetails(pharmacyModel);
+        call.enqueue(new Callback<CartDetailsResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<CartDetailsResponse> call, @NotNull Response<CartDetailsResponse> response) {
+                if (response.code() == 200) {
+                    CartDetailsResponse cartDetailsResponse = response.body();
+                    if (cartDetailsResponse != null) {
+                        if (cartDetailsResponse.getResponseCode() == 1) {
+                            apiCallbackInterface.onSuccess(cartDetailsResponse.getResponseValue());
+                        } else {
+                            apiCallbackInterface.onError(cartDetailsResponse.getResponseMessage());
+                        }
+                    } else {
+                        apiCallbackInterface.onError("" + response.message());
+                    }
+                } else {
+                    apiCallbackInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<CartDetailsResponse> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+
+            }
+        });
+
+
+    }
+
+    public static void addtocart(AddToCartModel addToCartModel, final ApiCallbackInterface apiCallbackInterface) {
+
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        Call<CartDetailsResponse> call = iRestInterfaces.addcart(addToCartModel);
+
+        call.enqueue(new Callback<CartDetailsResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<CartDetailsResponse> call, @NotNull Response<CartDetailsResponse> response) {
+
+                if (response.code() == 200 && response.body() != null) {
+                    if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onError(response.body().getResponseMessage());
+                    }
+                } else apiCallbackInterface.onError(String.valueOf(response.code()));
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<CartDetailsResponse> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+
+    }
+
+    public static void deleteItems(DeleteItems items, final ApiCallbackInterface apiCallbackInterface) {
+
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        Call<CartDetailsResponse> call = iRestInterfaces.deleteItems(items);
+
+        call.enqueue(new Callback<CartDetailsResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<CartDetailsResponse> call, @NotNull Response<CartDetailsResponse> response) {
+
+                if (response.code() == 200 && response.body() != null) {
+                    if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+
+
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onError(response.body().getResponseMessage());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<CartDetailsResponse> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+
+    }
+
+
+    public static void DeleteAddress(DeleteAddress deleteAddress, final ApiCallbackInterface apiCallbackInterface) {
+
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        Call<getaddressModel> call = iRestInterfaces.DeleteAddress(deleteAddress);
+
+        call.enqueue(new Callback<getaddressModel>() {
+            @Override
+            public void onResponse(@NotNull Call<getaddressModel> call, @NotNull Response<getaddressModel> response) {
+
+                if (response.code() == 200 && response.body() != null) {
+                    if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onError(response.body().getResponseMessage());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<getaddressModel> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+
+    }
+
+
+    public static void add_address(final Activity activity, Map<String, String> map, final ApiCallbackInterface apiCallbackInterface) {
+        AppUtils.showRequestDialog(activity);
+
+        AddAdressModel addAdressModel = new AddAdressModel();
+        addAdressModel.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
+
+        addAdressModel.setName(map.get("Full_name"));
+        addAdressModel.setMobileno(map.get("Mobile"));
+        addAdressModel.setHouseNo(map.get("House"));
+        addAdressModel.setPincode(map.get("ZipCode"));
+        addAdressModel.setCity(map.get("City"));
+        addAdressModel.setState(map.get("State"));
+        addAdressModel.setArea(map.get("area"));
+        addAdressModel.setLocality(map.get("locality"));
+        addAdressModel.setIsDefault(map.get("isDefault"));
+        addAdressModel.setIsSundayOpen(map.get("setIsSundayOpen"));
+        addAdressModel.setIsSaturdayOpen(map.get("setIsSaturdayOpen"));
+        addAdressModel.setAddressType("22");
+
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        Call<AddAdressResponse> call = iRestInterfaces.AddAddress(addAdressModel);
+
+        call.enqueue(new Callback<AddAdressResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<AddAdressResponse> call, @NotNull Response<AddAdressResponse> response) {
+
+                if (response.code() == 200 && response.body() != null) {
+                    if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                        AppUtils.hideDialog();
+                        // apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                        Toast.makeText(activity, "Address Added Successfully!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onError(response.body().getResponseMessage());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<AddAdressResponse> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+    }
+
+
+    public static void getadddetails(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+        if (PatientDashboard.getInstance() != null)
+            AppUtils.showRequestDialog(activity);
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        PharmacyModel pharmacyModel = new PharmacyModel();
+        pharmacyModel.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
+
+        Call<getaddressModel> call = iRestInterfaces.getadd(pharmacyModel);
+        call.enqueue(new Callback<getaddressModel>() {
+            @Override
+            public void onResponse(Call<getaddressModel> call, Response<getaddressModel> response) {
+                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    if (activity != null)
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                } else {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<getaddressModel> call, Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+
+
+    }
+
+    public static void getcoupne(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+        if (PatientDashboard.getInstance() != null)
+            AppUtils.showRequestDialog(activity);
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        PharmacyModel pharmacyModel = new PharmacyModel();
+        pharmacyModel.setMemberId("23331");
+
+        Call<AllCoupneModelResponse> call = iRestInterfaces.getCoupnedetails(pharmacyModel);
+        call.enqueue(new Callback<AllCoupneModelResponse>() {
+            @Override
+            public void onResponse(Call<AllCoupneModelResponse> call, Response<AllCoupneModelResponse> response) {
+                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                    AppUtils.hideDialog();
+                    if (activity != null)
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                } else {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AllCoupneModelResponse> call, Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+    }
+
+
+    public static void getwish(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+        if (PatientDashboard.getInstance() != null)
+            AppUtils.showRequestDialog(activity);
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        User user = new User();
+        PharmacyModel pharmacyModel = new PharmacyModel();
+        pharmacyModel.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
+
+        Call<AllWishListProduct> call = iRestInterfaces.getwishlist(pharmacyModel);
+        call.enqueue(new Callback<AllWishListProduct>() {
+            @Override
+            public void onResponse(Call<AllWishListProduct> call, Response<AllWishListProduct> response) {
+                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                    AppUtils.hideDialog();
+                    if (activity != null)
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                } else {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AllWishListProduct> call, Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+    }
+
+
+    public static void addtowishlist(AddtoWishlist addtoWishlist, final ApiCallbackInterface apiCallbackInterface) {
+
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        Call<AllWishListProduct> call = iRestInterfaces.AddAswishlist(addtoWishlist);
+
+        call.enqueue(new Callback<AllWishListProduct>() {
+            @Override
+            public void onResponse(@NotNull Call<AllWishListProduct> call, @NotNull Response<AllWishListProduct> response) {
+
+                if (response.code() == 200 && response.body() != null) {
+                    if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onError(response.body().getResponseMessage());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<AllWishListProduct> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+
+    }
+
+
+    public static void getcartcountutils(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        PharmacyModel pharmacyModel = new PharmacyModel();
+        pharmacyModel.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
+
+        Call<CartCount> call = iRestInterfaces.getcartcount(pharmacyModel);
+        call.enqueue(new Callback<CartCount>() {
+            @Override
+            public void onResponse(@NotNull Call<CartCount> call, @NotNull Response<CartCount> response) {
+                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                } else {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CartCount> call, Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+    }
+
+
+    public static void orderPlaced(String addressId, final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+        AppUtils.showRequestDialog(activity);
+        OrderPlaceModel orderPlaceModel = new OrderPlaceModel();
+        orderPlaceModel.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
+        //   addToCartModel.setUniqueNo(map.get("uniqueNo"));
+        orderPlaceModel.setAddressId(addressId);
+        orderPlaceModel.setTrancationNo("0");
+        orderPlaceModel.setPaymentMode("COD");
+        orderPlaceModel.setCouponCode("0");
+        orderPlaceModel.setUniqueNo("0");
+
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        Call<OrderPlaceModelResponse> call = iRestInterfaces.orderplace(orderPlaceModel);
+
+        call.enqueue(new Callback<OrderPlaceModelResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<OrderPlaceModelResponse> call, @NotNull Response<OrderPlaceModelResponse> response) {
+
+                if (response.code() == 200 && response.body() != null) {
+                    if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onError(response.body().getResponseMessage());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<OrderPlaceModelResponse> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+
+    }
+
+    public static void getplacedorder(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+        if (PatientDashboard.getInstance() != null)
+            AppUtils.showRequestDialog(activity);
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        PharmacyModel pharmacyModel = new PharmacyModel();
+        pharmacyModel.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
+
+        Call<GetOrderRes> call = iRestInterfaces.getorder(pharmacyModel);
+        call.enqueue(new Callback<GetOrderRes>() {
+            @Override
+            public void onResponse(Call<GetOrderRes> call, Response<GetOrderRes> response) {
+                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    if (activity != null)
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                } else {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetOrderRes> call, Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+
+
+    }
+
+
+    public static void getorderdetails(String orderDetailsId, final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+        if (PatientDashboard.getInstance() != null)
+            AppUtils.showRequestDialog(activity);
+
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        Order order = new Order();
+
+        order.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
+        order.setOrderDetailsId(orderDetailsId);
+
+        Call<OrderDetailModel> call = iRestInterfaces.orderdetails(order);
+        call.enqueue(new Callback<OrderDetailModel>() {
+            @Override
+            public void onResponse(Call<OrderDetailModel> call, Response<OrderDetailModel> response) {
+                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    if (activity != null)
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                } else {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrderDetailModel> call, Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+
+
+    }
+
+
+    public static void validateCoupon(final CouponModel couponModel, final ApiCallbackInterface apiCallbackInterface) {
+
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        Call<CoupnemodelRes> call = iRestInterfaces.coupnevalidation(couponModel);
+        call.enqueue(new Callback<CoupnemodelRes>() {
+            @Override
+            public void onResponse(Call<CoupnemodelRes> call, Response<CoupnemodelRes> response) {
+
+                if (response.code() == 200 && response.body() != null) {
+                    if (response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(response.body().getResponseMessage());
+                    }
+                } else apiCallbackInterface.onError(String.valueOf(response.code()));
+
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<CoupnemodelRes> call, Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+
+    }
+
+    public static void update_Address(AddAdressModel addAdressModel, Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+        AppUtils.showRequestDialog(activity);
+
+
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        Call<getaddressModel> call = iRestInterfaces.updateaddress(addAdressModel);
+
+        call.enqueue(new Callback<getaddressModel>() {
+            @Override
+            public void onResponse(@NotNull Call<getaddressModel> call, @NotNull Response<getaddressModel> response) {
+
+                if (response.code() == 200 && response.body() != null) {
+                    if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                        AppUtils.hideDialog();
+                        // apiCallbackInterface.onSuccess(response.body().getResponseValue());
+
+                    } else {
+                        AppUtils.hideDialog();
+                        apiCallbackInterface.onError(response.body().getResponseMessage());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<getaddressModel> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+    }
+
+
+    public static void CancelOrder(String orderDetailsId, final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+        if (PatientDashboard.getInstance() != null)
+            AppUtils.showRequestDialog(activity);
+
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        Order order = new Order();
+        ;
+        order.setOrderDetailsId(orderDetailsId);
+
+        Call<OrderDetailModel> call = iRestInterfaces.cancelorder(order);
+        call.enqueue(new Callback<OrderDetailModel>() {
+            @Override
+            public void onResponse(Call<OrderDetailModel> call, Response<OrderDetailModel> response) {
+                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    if (activity != null)
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                } else {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrderDetailModel> call, Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+
+
+    }
+
+    public static void getfilltervarient(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+        if (PatientDashboard.getInstance() != null)
+            AppUtils.showRequestDialog(activity);
+
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        Fillter fillter = new Fillter();
+
+        fillter.setCategoryId("21");
+
+        Call<getfilltervarentmodel> call = iRestInterfaces.getFillterVarient(fillter);
+        call.enqueue(new Callback<getfilltervarentmodel>() {
+            @Override
+            public void onResponse(Call<getfilltervarentmodel> call, Response<getfilltervarentmodel> response) {
+                if (response.isSuccessful() && Objects.requireNonNull(response.body()).getResponseCode() == 1) {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    if (activity != null)
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                } else {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<getfilltervarentmodel> call, Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+
+
+    }
+
+
+    public static void add_rating(final Activity activity, Map<String, String> map, final ApiCallbackInterface apiCallbackInterface) {
+        AppUtils.showRequestDialog(activity);
+
+        addproductreating addproductreating = new addproductreating();
+        addproductreating.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
+        addproductreating.setProductInfoCode(map.get("pinfo"));
+        addproductreating.setReview(map.get("review"));
+        addproductreating.setStarrating(map.get("rating"));
+
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        Call<addproductratingresponse> call = iRestInterfaces.postproductrating(addproductreating);
+
+        call.enqueue(new Callback<addproductratingresponse>() {
+            @Override
+            public void onResponse(@NotNull Call<addproductratingresponse> call, @NotNull Response<addproductratingresponse> response) {
+
+                if (response.code() == 200 && response.body() != null) {
+                    if (response.isSuccessful()) {
+                        AppUtils.hideDialog();
+                        // apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                        Toast.makeText(activity, "Thanks for Rating!", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        AppUtils.hideDialog();
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<addproductratingresponse> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+    }
+
+
+    public static void getlabdash(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getlabapisRef();
+        labmodel labmodel = new labmodel();
+        labmodel.setMemberId("221261");
+
+        Call<labdashboardresponse> call = iRestInterfaces.getlabdashboard(labmodel);
+        call.enqueue(new Callback<labdashboardresponse>() {
+            @Override
+            public void onResponse(@NotNull Call<labdashboardresponse> call, Response<labdashboardresponse> response) {
+                if (response.code() == 200 && response.body().getResponseCode() == 1)
+                    if (response.isSuccessful()) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(response.message());
+                    }
+                else apiCallbackInterface.onError(String.valueOf(response.code()));
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<labdashboardresponse> call, Throwable t) {
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
 }

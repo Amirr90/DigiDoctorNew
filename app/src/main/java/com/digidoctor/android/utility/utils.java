@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.Api;
-import com.digidoctor.android.interfaces.LogoutModel;
+import com.digidoctor.android.model.LogoutModel;
 import com.digidoctor.android.model.PrescriptionDtTableModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.view.activity.SignUpJourneyActivity;
@@ -72,6 +72,7 @@ public class utils {
     public static final String SENDER_NAME = "sender_name";
     public static final String IS_SEEN = "myPref";
     public static final String APPOINTMENT_CHAT = "AppointmentChats";
+    public static final String CATEGORY_ID = "CategoryId";
 
 
     public static final String IS_FIRST_TIME = "isFirstTime";

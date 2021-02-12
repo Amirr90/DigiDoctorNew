@@ -9,4 +9,7 @@
     <string name="share_app">Share App</string>
     <string name="change_profile_photo">Change Profile Photo</string>
     <string name="available_doctors">Available Doctors</string>
+    <string name="upload_file">Upload File</string>
+    <string name="order_with_prescriptions"><![CDATA[Order with Prescriptions<]]></string>
+    <string name="Coronavirus_Prevention">Corona Prevention</string>
 </resources>

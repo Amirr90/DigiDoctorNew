@@ -5,6 +5,7 @@ import androidx.databinding.Bindable;
 
 import com.digidoctor.android.BR;
 
+
 public class AddInvestigationModel extends BaseObservable {
     public String memberId;
     public String receiptNo;

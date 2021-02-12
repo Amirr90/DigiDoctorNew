@@ -513,8 +513,8 @@
             app:popExitAnim="@anim/fade_out" />
         <argument
             android:name="appointmentId"
-            app:argType="string"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/addInvestigationFragment"
@@ -557,11 +557,14 @@
         android:name="com.digidoctor.android.ChatForAppointmentFragment"
         android:label="Chat"
         tools:layout="@layout/fragment_chat_for_appointment" />
+
+
     <dialog
         android:id="@+id/logoutDialogFragment"
         android:name="com.digidoctor.android.LogoutDialogFragment"
         android:label="fragment_logout_dialog"
         tools:layout="@layout/fragment_logout_dialog" />
+
     <fragment
         android:id="@+id/uploadDocumentForAppointmentFragment"
         android:name="com.digidoctor.android.UploadDocumentForAppointmentFragment"
@@ -577,4 +580,213 @@
         android:name="com.digidoctor.android.LabDashboardFragment"
         android:label="fragment_lab_dashboard"
         tools:layout="@layout/fragment_lab_dashboard" />
+
+    <fragment
+        android:id="@+id/onlinePharmacyFragment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.OnlinePharmacyFragment"
+        android:label="Online Pharmacy"
+        tools:layout="@layout/fragment_online_pharmacy">
+        <action
+            android:id="@+id/action_onlinePharmacyFragment_to_allCategoryFragment"
+            app:destination="@id/allCategoryFragment" />
+        <action
+            android:id="@+id/action_onlinePharmacyFragment_to_allProductsFragment"
+            app:destination="@id/allProductsFragment" />
+        <action
+            android:id="@+id/action_onlinePharmacyFragment_to_fragmentAllWishLIstProduct"
+            app:destination="@id/fragmentAllWishLIstProduct"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_onlinePharmacyFragment_to_cart_Details_Fragment"
+            app:destination="@id/cart_Details_Fragment" />
+        <action
+            android:id="@+id/action_onlinePharmacyFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/allCategoryFragment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.AllCategoryFragment"
+        android:label="All Category">
+        <action
+            android:id="@+id/action_allCategoryFragment_to_allProductsFragment"
+            app:destination="@id/allProductsFragment"
+            app:enterAnim="@anim/fade_in" />
+    </fragment>
+    <fragment
+        android:id="@+id/allProductsFragment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.AllProductsFragment"
+        android:label="All Products"
+        tools:layout="@layout/fragment_all_productlist">
+        <action
+            android:id="@+id/action_allProductsFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_allProductsFragment_to_onlinePharmacyFragment"
+            app:popUpTo="@id/onlinePharmacyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.ProductDetailsFragment"
+        android:label="Product Detail"
+        tools:layout="@layout/fragment_product_details">
+        <action
+            android:id="@+id/action_productDetailsFragment_to_cart_Details_Fragment"
+            app:destination="@id/cart_Details_Fragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_fragmentAllWishLIstProduct"
+            app:destination="@id/fragmentAllWishLIstProduct" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_allRatingAndReviewFragment"
+            app:destination="@id/allRatingAndReviewFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_self"
+            app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_allProductsFragment"
+            app:popUpTo="@id/allProductsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cart_Details_Fragment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.Cart_Details_Fragment"
+        android:label="Cart Details">
+        <action
+            android:id="@+id/action_cart_Details_Fragment_to_orderSummaryFragment"
+            app:destination="@id/orderSummaryFragment" />
+        <action
+            android:id="@+id/action_cart_Details_Fragment_to_allCoupneFragment"
+            app:destination="@id/allCoupneFragment" />
+        <action
+            android:id="@+id/action_cart_Details_Fragment_to_allProductsFragment"
+            app:destination="@id/allProductsFragment" />
+        <action
+            android:id="@+id/action_cart_Details_Fragment_to_productDetailsFragment"
+            app:popUpTo="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.AddressFragment"
+        android:label="Add Address">
+        <action
+            android:id="@+id/action_addressFragment_to_allAddressFragment"
+            app:popUpTo="@id/allAddressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderSummaryFragment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.OrderSummaryFragment"
+        android:label="Order Summary">
+        <action
+            android:id="@+id/action_orderSummaryFragment_to_orderPLacedFRagment"
+            app:destination="@id/orderPLacedFRagment"
+            app:popUpTo="@id/onlinePharmacyFragment" />
+        <action
+            android:id="@+id/action_orderSummaryFragment_to_allAddressFragment"
+            app:destination="@id/allAddressFragment" />
+        <action
+            android:id="@+id/action_orderSummaryFragment_to_cart_Details_Fragment"
+            app:popUpTo="@id/cart_Details_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allCoupneFragment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.AllCoupneFragment"
+        android:label="All Coupons">
+        <action
+            android:id="@+id/action_allCoupneFragment_to_cart_Details_Fragment"
+            app:destination="@id/cart_Details_Fragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@id/onlinePharmacyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentAllWishLIstProduct"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.FragmentAllWishLIstProduct"
+        android:label="All WishList Products">
+        <action
+            android:id="@+id/action_fragmentAllWishLIstProduct_to_cart_Details_Fragment"
+            app:destination="@id/cart_Details_Fragment" />
+        <action
+            android:id="@+id/action_fragmentAllWishLIstProduct_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderPLacedFRagment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.OrderPLacedFRagment"
+        android:label="Place Order">
+        <action
+            android:id="@+id/action_orderPLacedFRagment_to_onlinePharmacyFragment"
+            app:destination="@id/onlinePharmacyFragment" />
+        <action
+            android:id="@+id/action_orderPLacedFRagment_to_orderSummaryFragment"
+            app:destination="@id/orderSummaryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/getPlacedOrderFragment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.GetPlacedOrderFragment"
+        android:label="@string/myorder">
+        <action
+            android:id="@+id/action_getPlacedOrderFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.OrderDetailsFragment"
+        android:label="Order Details"
+        tools:layout="@layout/fragment_order_details">
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_getPlacedOrderFragment"
+            app:destination="@id/getPlacedOrderFragment" />
+        <action
+            android:id="@+id/action_orderDetailsFragment_self"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allAddressFragment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.AllAddressFragment"
+        android:label=" Address">
+        <action
+            android:id="@+id/action_allAddressFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+        <action
+            android:id="@+id/action_allAddressFragment_to_updateAddressFragment"
+            app:destination="@id/updateAddressFragment" />
+        <action
+            android:id="@+id/action_allAddressFragment_to_orderSummaryFragment"
+            app:popUpTo="@id/orderSummaryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lab_Home_Fragment"
+        android:name="com.digidoctor.android.view.fragments.Lab.Lab_Home_Fragment"
+        android:label="Lab"
+        tools:layout="@layout/lab_test_home">
+        <action
+            android:id="@+id/action_lab_Home_Fragment_to_health_Checkup_Categories_Fragment"
+            app:destination="@id/health_Checkup_Categories_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/health_Checkup_Categories_Fragment"
+        android:name="com.digidoctor.android.view.fragments.Lab.Health_Checkup_Categories_Fragment"
+        android:label="Health Checkup Categories"
+        tools:layout="@layout/health_checkup_category_lab_layout" />
+    <fragment
+        android:id="@+id/allRatingAndReviewFragment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.AllRatingAndReviewFragment"
+        android:label="All Rating &amp; Review" />
+    <fragment
+        android:id="@+id/updateAddressFragment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.UpdateAddressFragment"
+        android:label="Update Address">
+        <action
+            android:id="@+id/action_updateAddressFragment_to_addressFragment"
+            app:popUpTo="@id/allAddressFragment" />
+        <action
+            android:id="@+id/action_updateAddressFragment_to_allAddressFragment"
+            app:destination="@id/allAddressFragment" />
+    </fragment>
+
 </navigation>

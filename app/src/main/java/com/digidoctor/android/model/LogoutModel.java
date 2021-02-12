@@ -1,4 +1,4 @@
-package com.digidoctor.android.interfaces;
+package com.digidoctor.android.model;
 
 public class LogoutModel {
     private int responseCode;

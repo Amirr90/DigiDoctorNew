@@ -1246,4 +1246,18 @@
         <item>जुड़नार</item>
         <item>तालिका</item>
     </string-array>
+
+    <string name="deals_amp_offers"><![CDATA[Deals & Offers]]></string>
+    <string name="get_special_discounts_and_offers_on_medicine">Get special discounts and offers on Medicine</string>
+    <string name="top_search_products">Top Search Products</string>
+    <string name="search_product_here">Search Product Here</string>
+    <string name="not_connected_to_internet">Not connected to internet</string>
+    <string name="_3_1263_sector_3_bhawani_chauraha_jankipuram_extn_lucknow_u_p_226021">3/1263, Sector-3, Bhawani Chauraha Jankipuram Extn, Lucknow U.P - 226021.</string>
+    <string name="working_hours_07_00am_08_30pm">Working Hours: 07:00AM - 08:30PM</string>
+    <string name="appointment_date">Appointment Date</string>
+    <string name="_29_sep_2020_timing_12_00">29 Sep, 2020,Timing: 12:00</string>
+    <string name="apply_coupon">Apply Coupon</string>
+    <string name="upload_file">Upload File</string>
+    <string name="order_with_prescriptions"><![CDATA[Order with Prescriptions<]]></string>
+    <string name="Coronavirus_Prevention">Corona Prevention</string>
 </resources>

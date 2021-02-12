@@ -17,11 +17,13 @@ import com.digidoctor.android.model.GenerateOtpModel;
 import com.digidoctor.android.model.GenerateOtpRes;
 import com.digidoctor.android.model.GetAppointmentSlotsRes;
 import com.digidoctor.android.model.GetMembersRes;
+import com.digidoctor.android.model.GetOrderRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.GetPatientMedicationRes;
 import com.digidoctor.android.model.InvestigationDataRes;
 import com.digidoctor.android.model.InvestigationRes;
 import com.digidoctor.android.model.Login;
+import com.digidoctor.android.model.LogoutModel;
 import com.digidoctor.android.model.MedicineRes;
 import com.digidoctor.android.model.MemberModel;
 import com.digidoctor.android.model.OnlineAppointmentRes;
@@ -42,6 +44,34 @@ import com.digidoctor.android.model.UploadPresDataModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
+import com.digidoctor.android.model.addproductratingresponse;
+import com.digidoctor.android.model.addproductreating;
+import com.digidoctor.android.model.labmodel.labdashboardresponse;
+import com.digidoctor.android.model.labmodel.labmodel;
+import com.digidoctor.android.model.pharmacyModel.AddAdressModel;
+import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
+import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
+import com.digidoctor.android.model.pharmacyModel.AddtoWishlist;
+import com.digidoctor.android.model.pharmacyModel.AllCoupneModelResponse;
+import com.digidoctor.android.model.pharmacyModel.AllWishListProduct;
+import com.digidoctor.android.model.pharmacyModel.CartCount;
+import com.digidoctor.android.model.pharmacyModel.CartDetailsResponse;
+import com.digidoctor.android.model.pharmacyModel.CoupnemodelRes;
+import com.digidoctor.android.model.pharmacyModel.CouponModel;
+import com.digidoctor.android.model.pharmacyModel.DeleteAddress;
+import com.digidoctor.android.model.pharmacyModel.DeleteItems;
+import com.digidoctor.android.model.pharmacyModel.Fillter;
+import com.digidoctor.android.model.pharmacyModel.GetAllProductResponse;
+import com.digidoctor.android.model.pharmacyModel.Order;
+import com.digidoctor.android.model.pharmacyModel.OrderDetailModel;
+import com.digidoctor.android.model.pharmacyModel.OrderPlaceModel;
+import com.digidoctor.android.model.pharmacyModel.OrderPlaceModelResponse;
+import com.digidoctor.android.model.pharmacyModel.PharmacyModel;
+import com.digidoctor.android.model.pharmacyModel.ProductDetailModelResponse;
+import com.digidoctor.android.model.pharmacyModel.ProductModel;
+import com.digidoctor.android.model.pharmacyModel.getaddressModel;
+import com.digidoctor.android.model.pharmacyModel.getfilltervarentmodel;
+import com.digidoctor.android.model.pharmacyModel.shopbycategoryRes;
 import com.digidoctor.android.utility.BookAppointment2;
 
 import java.util.Map;
@@ -206,6 +236,98 @@ public interface Api {
 
     @POST("getPatientInvestigationOnloadDetails")
     Call<InvestigationDataRes> investigationData(@Body User model);
+
+
+    //Pharmacy
+
+
+    @POST("patientDasboard")
+    Call<shopbycategoryRes> getPharmacyDashboard(
+            @Body PharmacyModel pharmacyModel);
+
+
+    @POST("getAllProducts")
+    Call<GetAllProductResponse> getallpr(
+            @Body PharmacyModel pharmacyModel);
+
+
+    @POST("getProductDetails")
+    Call<ProductDetailModelResponse> getproductdetails(
+            @Body ProductModel model);
+
+
+    @POST("cartDetails")
+    Call<CartDetailsResponse> getcartdetails(
+            @Body PharmacyModel pharmacyModel);
+
+
+    @POST("addToCart")
+    Call<CartDetailsResponse> addcart(
+            @Body AddToCartModel addToCartModel);
+
+    @POST("deleteCartItem")
+    Call<CartDetailsResponse> deleteItems(
+            @Body DeleteItems models);
+
+    @POST("addAddress")
+    Call<AddAdressResponse> AddAddress(
+            @Body AddAdressModel addAdressModel);
+
+
+    @POST("deleteAddress")
+    Call<getaddressModel> DeleteAddress(@Body DeleteAddress deleteAddress);
+
+    @POST("getAddress")
+    Call<getaddressModel> getadd(
+            @Body PharmacyModel pharmacyModel);
+
+    @POST("couponDetails")
+    Call<AllCoupneModelResponse> getCoupnedetails(@Body PharmacyModel pharmacyModel);
+
+    @POST("getWhislistProducts")
+    Call<AllWishListProduct> getwishlist(@Body PharmacyModel pharmacyModel);
+
+
+    @POST("assignProductAsWhislist")
+    Call<AllWishListProduct> AddAswishlist(@Body AddtoWishlist addtoWishlist);
+
+
+    @POST("cartCount")
+    Call<CartCount> getcartcount(@Body PharmacyModel pharmacyModel);
+
+
+    @POST("placeOrder")
+    Call<OrderPlaceModelResponse> orderplace(@Body OrderPlaceModel ORDER_PLACE_MODEL);
+
+    @POST("getOrders")
+    Call<GetOrderRes> getorder(@Body PharmacyModel pharmacyModel);
+
+
+    @POST("getOrderDetails")
+    Call<OrderDetailModel> orderdetails(@Body Order order);
+
+    @POST("validateCoupon")
+    Call<CoupnemodelRes> coupnevalidation(@Body CouponModel couponModel);
+
+
+    @POST("updateAddress")
+    Call<getaddressModel> updateaddress(@Body AddAdressModel pharmacyModel);
+
+
+    @POST("cancelOrder")
+    Call<OrderDetailModel> cancelorder(@Body Order order);
+
+    @POST("getFilterVarients")
+    Call<getfilltervarentmodel> getFillterVarient(@Body Fillter fillter);
+
+    @POST("productRating")
+    Call<addproductratingresponse> postproductrating(@Body addproductreating addproductreating);
+
+
+    @POST("Lab/labDasboard")
+    Call<labdashboardresponse> getlabdashboard(
+            @Body labmodel labmodel);
+
 
 
 }
