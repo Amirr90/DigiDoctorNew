@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
+import static com.digidoctor.android.utility.utils.fadeIn;
 import static com.digidoctor.android.utility.utils.getJSONFromModel;
 
 
@@ -101,7 +102,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
         detailBinding.recFiles.setAdapter(adapter);
 
         viewModel.getAppointmentList(user).observe(getViewLifecycleOwner(), (List<AppointmentModel> appointmentModels) -> {
-            AppUtils.hideDialog();
+
             if (appointmentModels.isEmpty())
                 return;
             String jsonString = appointmentModels.get(0).toString();
@@ -109,13 +110,14 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             Gson gson = new Gson();
             appointmentModel = gson.fromJson(jsonString, OnlineAppointmentModel.class);
             Log.d(TAG, "onViewCreated: appointmentModel " + appointmentModel.toString());
-
             detailBinding.setAppointmentModel(appointmentModel);
 
             addAppointmentRelatedData(appointmentModel.getAttachFile());
 
             detailBinding.uploadFilesView.setVisibility(appointmentModel.isPrescribed() ? View.GONE : appointmentModel.getExpiredStatus() == 1 ? View.GONE : View.VISIBLE);
 
+            detailBinding.btnReVisit.setVisibility(appointmentModel.isPrescribed() ? appointmentModel.getIsVisit() == 1 ? View.VISIBLE : View.GONE : View.GONE);
+            detailBinding.btnAction.setVisibility(View.VISIBLE);
             AppUtils.hideDialog();
 
         });
@@ -151,6 +153,15 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             Bundle bundle = new Bundle();
             bundle.putString("id", appointmentModel.getAppointmentId());
             navController.navigate(R.id.action_appointmentDetailFragment_to_uploadDocumentForAppointmentFragment, bundle);
+        });
+
+        detailBinding.btnReVisit.setOnClickListener(v -> {
+            String model = getJSONFromModel(appointmentModel);
+            Bundle bundle = new Bundle();
+            bundle.putString("model", model);
+            bundle.putBoolean("reVisit", true);
+            Log.d(TAG, "onItemClick: " + model);
+            navController.navigate(R.id.action_appointmentDetailFragment_to_reScheduleFragment, bundle);
         });
 
 
@@ -203,6 +214,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             String model = getJSONFromModel(appointmentModel);
             Bundle bundle = new Bundle();
             bundle.putString("model", model);
+            bundle.putBoolean("reVisit", false);
             Log.d(TAG, "onItemClick: " + model);
             navController.navigate(R.id.action_appointmentDetailFragment_to_reScheduleFragment, bundle);
         } else if (tag.equals(PRESCRIBE)) {
@@ -210,19 +222,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
         } else {
             //getMedicationData(appointmentModel.getAppointmentId());
         }
-/*
-        OnlineAppointmentModel appointmentModel = (OnlineAppointmentModel) object;
-        Log.d(TAG, "appointmentModel: "+appointmentModel.toString());
-        if (detailBinding.btnAction.getText().toString().equalsIgnoreCase("Reschedule Appointment")) {
-            String model = getJSONFromModel(appointmentModel);
-            Bundle bundle = new Bundle();
-            bundle.putString("model", model);
-            Log.d(TAG, "onItemClick: " + model);
-            navController.navigate(R.id.action_appointmentDetailFragment_to_reScheduleFragment, bundle);
-        } else if (detailBinding.btnAction.getText().toString().equalsIgnoreCase("View Prescription")) {
 
-            getMedicationData(appointmentModel.getAppointmentId());
-        }*/
     }
 
     private void getMedicationData(String appointmentId) {

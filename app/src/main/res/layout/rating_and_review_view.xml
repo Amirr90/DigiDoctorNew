@@ -37,7 +37,7 @@
                 android:gravity="center_horizontal|top|center_vertical"
                 android:text="0.0"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="12sp"
                 app:drawableTint="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView66"
@@ -66,14 +66,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="10dp"
-            android:drawableLeft="@drawable/ic_baseline_account_circle_24"
             android:drawablePadding="3dp"
             android:fontFamily="@font/poppins_semibold"
             android:text=""
             android:textColor="#2B3344"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableLeftCompat="@drawable/ic_baseline_account_circle_24" />
 
         <TextView
             android:id="@+id/textView101"
@@ -97,7 +97,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="14dp"
-            android:text="Hello"
             app:layout_constraintBottom_toTopOf="@+id/view8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/rat"

@@ -53,7 +53,7 @@ public class DashboardPatientAdapter1 extends ListAdapter<DashboardModel1, Dashb
             else if (position == 1)
                 PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_symptomsFragment2);
             else if (position == 2)
-                PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_labDashboardFragment);
+                PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_lab_Home_Fragment);
             else if (position == 3)
                 PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_onlinePharmacyFragment);
 

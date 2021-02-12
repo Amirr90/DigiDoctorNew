@@ -129,6 +129,9 @@ public interface Api {
     @POST("onlineAppointment")
     Call<OnlineAppointmentRes> onlineAppointment2(@Body BookAppointment2 appointment);
 
+    @POST("revisitAppointment")
+    Call<OnlineAppointmentRes> revisitAppointment(@Body BookAppointment2 appointment);
+
 
     @POST("generateOTPForPatient")
     Call<GenerateOtpRes> generateOTPForPatient(

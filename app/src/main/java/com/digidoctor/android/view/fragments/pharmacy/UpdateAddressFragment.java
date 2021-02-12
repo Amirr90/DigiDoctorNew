@@ -67,21 +67,18 @@ public class UpdateAddressFragment extends Fragment {
 
         getaddress();
 
-        fragmentUpdateAddressBinding.btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        fragmentUpdateAddressBinding.btnUpdateProfile.setOnClickListener(view1 -> {
 
-                if (!isAllFieldsFilled()) {
-                    address();
+            if (!isAllFieldsFilled()) {
+                address();
 
-                    Toast.makeText(requireActivity(), "Address Updated Sucessfully", Toast.LENGTH_SHORT).show();
-                    addressget.clear();
-                    navController.navigate(R.id.action_updateAddressFragment_to_allAddressFragment);
+                Toast.makeText(requireActivity(), "Address Updated Successfully !!", Toast.LENGTH_SHORT).show();
+                addressget.clear();
+                navController.navigate(R.id.action_updateAddressFragment_to_allAddressFragment);
 
-
-                }
 
             }
+
         });
     }
 

@@ -37,6 +37,11 @@ public class AppointmentModel {
     private String longititude;
     private String attachFile;
     String workingHours;
+    int isVisit;
+
+    public int getIsVisit() {
+        return isVisit;
+    }
 
     public String getWorkingHours() {
         return workingHours;
@@ -345,6 +350,7 @@ public class AppointmentModel {
                 ", longititude='" + longititude + '\'' +
                 ", attachFile='" + attachFile + '\'' +
                 ", workingHours='" + workingHours + '\'' +
+                ", isVisit=" + isVisit +
                 '}';
     }
 

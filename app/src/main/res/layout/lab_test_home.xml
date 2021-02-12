@@ -59,249 +59,47 @@
                 android:id="@+id/banner_slider1"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginStart="13dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="13dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toTopOf="@+id/first"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/searchbarlayout"
                 tools:listitem="@layout/bannerview" />
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/first"
-                android:layout_width="0dp"
-                android:layout_height="62dp"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/cartview_round_layout"
-                app:layout_constraintEnd_toStartOf="@+id/second"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/banner_slider1">
+            <androidx.recyclerview.widget.RecyclerView
 
-                <TextView
-                    android:id="@+id/TVbestprice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="13dp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="Best Price"
-                    android:textColor="#2B3344"
-                    android:textSize="@dimen/_13sdp"
-                    app:layout_constraintBottom_toTopOf="@+id/tvgaureenteed"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/IVbestprice"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed" />
-
-                <TextView
-                    android:id="@+id/tvgaureenteed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Guaranted"
-                    android:textColor="#3F4E6E"
-                    android:textSize="@dimen/_11sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/TVbestprice"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/TVbestprice"
-                    app:layout_constraintTop_toBottomOf="@+id/TVbestprice" />
-
-                <ImageView
-                    android:id="@+id/IVbestprice"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="9dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginBottom="11dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/first" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/second"
-                android:layout_width="0dp"
+                android:id="@+id/recyclerView9"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="13dp"
-                android:background="@drawable/cartview_round_layout"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/first"
-                app:layout_constraintTop_toTopOf="@+id/first">
-
-                <TextView
-                    android:id="@+id/TVsample"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="13dp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="Home Sample"
-                    android:textColor="#2B3344"
-                    android:textSize="@dimen/_13sdp"
-                    app:layout_constraintBottom_toTopOf="@+id/tvpickup"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/IVSample"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed" />
-
-                <TextView
-                    android:id="@+id/tvpickup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pick Up"
-                    android:textColor="#3F4E6E"
-                    android:textSize="@dimen/_11sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/TVsample"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/TVsample"
-                    app:layout_constraintTop_toBottomOf="@+id/TVsample" />
-
-                <ImageView
-                    android:id="@+id/IVSample"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="9dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginBottom="11dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/second" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/third"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:background="@drawable/cartview_round_layout"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/first"
-                app:layout_constraintStart_toStartOf="@+id/first"
-                app:layout_constraintTop_toBottomOf="@+id/first"
-                app:layout_constraintVertical_bias="0.0">
-
-                <TextView
-                    android:id="@+id/TVreports"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="13dp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="View Reports"
-                    android:textColor="#2B3344"
-                    android:textSize="@dimen/_13sdp"
-                    app:layout_constraintBottom_toTopOf="@+id/tvonline"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/IVreports"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed" />
-
-                <TextView
-                    android:id="@+id/tvonline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Online"
-                    android:textColor="#3F4E6E"
-                    android:textSize="@dimen/_11sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/TVreports"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/TVreports"
-                    app:layout_constraintTop_toBottomOf="@+id/TVreports" />
-
-                <ImageView
-                    android:id="@+id/IVreports"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="9dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginBottom="11dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/reports" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/fourth"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/cartview_round_layout"
-                app:layout_constraintEnd_toEndOf="@+id/second"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/second"
-                app:layout_constraintTop_toTopOf="@+id/third">
-
-                <TextView
-                    android:id="@+id/TVsafe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="13dp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="100% Safe &amp;"
-                    android:textColor="#2B3344"
-                    android:textSize="@dimen/_13sdp"
-                    app:layout_constraintBottom_toTopOf="@+id/tvhygenic"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/IVsafe"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed" />
-
-                <TextView
-                    android:id="@+id/tvhygenic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hygenic"
-                    android:textColor="#3F4E6E"
-                    android:textSize="@dimen/_11sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/TVsafe"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/TVsafe"
-                    app:layout_constraintTop_toBottomOf="@+id/TVsafe" />
-
-                <ImageView
-                    android:id="@+id/IVsafe"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="9dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginBottom="11dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/percent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/banner_slider1"
+                app:spanCount="2"
+                tools:itemCount="4"
+                tools:listitem="@layout/lab_home_view2" />
 
             <TextView
                 android:id="@+id/TVaffordable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="17dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Affordable Health Package"
                 android:textColor="#2B3344"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/third"
-                app:layout_constraintTop_toBottomOf="@+id/third" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView9" />
 
 
             <androidx.recyclerview.widget.RecyclerView

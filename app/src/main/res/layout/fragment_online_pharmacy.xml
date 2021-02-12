@@ -108,18 +108,18 @@
                         android:clickable="true"
                         android:src="@drawable/ic_baseline_shopping_cart_24" />
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/actionbar_notifcation_textview"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_alignParentTop="true"-->
-<!--                        android:layout_alignParentRight="true"-->
-<!--                        android:layout_marginTop="0dp"-->
-<!--                        android:layout_marginRight="7dp"-->
-<!--                        android:padding="@dimen/padding_small"-->
-<!--                        android:text="1"-->
-<!--                        android:textColor="#EDA537"-->
-<!--                        android:textStyle="bold" />-->
+                    <!--                    <TextView-->
+                    <!--                        android:id="@+id/actionbar_notifcation_textview"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_alignParentTop="true"-->
+                    <!--                        android:layout_alignParentRight="true"-->
+                    <!--                        android:layout_marginTop="0dp"-->
+                    <!--                        android:layout_marginRight="7dp"-->
+                    <!--                        android:padding="@dimen/padding_small"-->
+                    <!--                        android:text="1"-->
+                    <!--                        android:textColor="#EDA537"-->
+                    <!--                        android:textStyle="bold" />-->
 
                 </RelativeLayout>
 
@@ -145,7 +145,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="9dp"
-                android:background="@drawable/cartview_round_layout"
                 app:layout_constraintBottom_toTopOf="@+id/cardView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

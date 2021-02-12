@@ -108,6 +108,7 @@ import static com.digidoctor.android.utility.utils.APPOINTMENT_CHAT;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_DATE;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_ID;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_TIME;
+import static com.digidoctor.android.utility.utils.IS_REVISIT;
 import static com.digidoctor.android.utility.utils.KEY_AMOUNT;
 import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
 import static com.digidoctor.android.utility.utils.KEY_DOC_ID;
@@ -537,11 +538,11 @@ public class ApiUtils {
             model.setUserMobileNo(map.get(MOBILE_NUMBER));
             model.setIsEraUser(map.get(KEY_IS_ERA_USER));
             model.setAppointmentId(map.get(KEY_APPOINTMENT_ID));
+            model.setAppointmentId(map.get(IS_REVISIT));
 
             Log.d("TAG", "checkTimeSlotAvailability: " + model.toString());
-            final Api api = URLUtils.getAPIServiceForPatient();
 
-            Call<CheckSlotAvailabilityRes> specialityResCall = api.checkTimeSlotAvailability(model);
+            Call<CheckSlotAvailabilityRes> specialityResCall = URLUtils.getAPIServiceForPatient().checkTimeSlotAvailability(model);
             specialityResCall.enqueue(new Callback<CheckSlotAvailabilityRes>() {
                 @Override
                 public void onResponse(@NotNull Call<CheckSlotAvailabilityRes> call, @NotNull Response<CheckSlotAvailabilityRes> response) {
@@ -576,9 +577,18 @@ public class ApiUtils {
                 }
             });
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void reScheduleAppointment(CheckTimeSlotModel model, ApiCallbackInterface apiCallbackInterface) {
+
+    }
+
+    private static void reVisitAppointment(CheckTimeSlotModel model, ApiCallbackInterface apiCallbackInterface) {
+        Call<CheckSlotAvailabilityRes> specialityResCall = URLUtils.getAPIServiceForPatient().checkTimeSlotAvailability(model);
     }
 
     @EverythingIsNonNull
@@ -1474,6 +1484,10 @@ public class ApiUtils {
                     if (response.isSuccessful() && response.body().getResponseCode() == 1) {
                         AppUtils.hideDialog();
                         apiCallbackInterface.onSuccess(response.body().getResponseValue());
+
+                        if (!response.body().getResponseValue().get(0).getProductDetails().isEmpty()) {
+                            PatientDashboard.getInstance().updateCartCount(response.body().getResponseValue().get(0).getProductDetails().size());
+                        }
                     } else {
                         AppUtils.hideDialog();
                         apiCallbackInterface.onError(response.body().getResponseMessage());
@@ -1501,10 +1515,15 @@ public class ApiUtils {
 
                 if (response.code() == 200 && response.body() != null) {
                     if (response.isSuccessful() && response.body().getResponseCode() == 1) {
-
-
                         AppUtils.hideDialog();
                         apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                        CartDetailsResponse response1 = response.body();
+                        if (response1.getResponseValue().isEmpty()) {
+                            return;
+                        }
+                        if (null != response1.getResponseValue().get(0).getProductDetails()) {
+                            PatientDashboard.getInstance().updateCartCount(response1.getResponseValue().get(0).getProductDetails().size());
+                        }
                     } else {
                         AppUtils.hideDialog();
                         apiCallbackInterface.onError(response.body().getResponseMessage());

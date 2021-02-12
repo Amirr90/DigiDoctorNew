@@ -56,6 +56,7 @@ import static com.digidoctor.android.utility.AppUtils.getCurrentDateInWeekMonthD
 import static com.digidoctor.android.utility.AppUtils.parseDateToFormatDMY;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_DATE;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_TIME;
+import static com.digidoctor.android.utility.utils.IS_REVISIT;
 import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
 import static com.digidoctor.android.utility.utils.KEY_DOC_ID;
 import static com.digidoctor.android.utility.utils.KEY_IS_ERA_USER;
@@ -86,6 +87,8 @@ public class ReScheduleFragment extends Fragment {
 
     List<String> workingDays;
 
+    boolean isRevisit = false;
+
     public static ReScheduleFragment instance;
 
     public static ReScheduleFragment getInstance() {
@@ -114,6 +117,7 @@ public class ReScheduleFragment extends Fragment {
         user = getPrimaryUser(requireActivity());
 
         String jsonString = getArguments().getString("model");
+        isRevisit = getArguments().getBoolean("reVisit", false);
         appointmentModel = new OnlineAppointmentModel();
         Gson gson = new Gson();
         appointmentModel = gson.fromJson(jsonString, OnlineAppointmentModel.class);
@@ -178,15 +182,12 @@ public class ReScheduleFragment extends Fragment {
                         List<GetAppointmentSlotsDataRes> slots = (List<GetAppointmentSlotsDataRes>) o;
                         slotsDataRes.clear();
                         slotsDataRes.addAll(slots);
-                        slotsAdapter = new TimeSlotsAdapter(slotsDataRes, new AdapterInterface() {
-                            @Override
-                            public void onItemClicked(Object obj) {
-                                if (date != null) {
-                                    showRescheduleDialog(obj);
-                                } else
-                                    Toast.makeText(PatientDashboard.getInstance(), R.string.select_date, Toast.LENGTH_SHORT).show();
+                        slotsAdapter = new TimeSlotsAdapter(slotsDataRes, obj -> {
+                            if (date != null) {
+                                showRescheduleDialog(obj);
+                            } else
+                                Toast.makeText(PatientDashboard.getInstance(), R.string.select_date, Toast.LENGTH_SHORT).show();
 
-                            }
                         });
 
                         reScheduleBinding.timingRec.setAdapter(slotsAdapter);
@@ -227,11 +228,21 @@ public class ReScheduleFragment extends Fragment {
     }
 
     private void showRescheduleDialog(final Object obj) {
-
         final String time = (String) obj;
+        String msg = null;
+        String title = null;
+        if (isRevisit) {
+            msg = "Re-Visit Appointment on " + time + "  " + date;
+            title = getString(R.string.re_visit_appointment);
+
+        } else {
+            title = getString(R.string.re__schedule_appointment);
+            msg = "Re-Scheduling Appointment on " + time + "  " + date;
+        }
+
         new AlertDialog.Builder(requireActivity())
-                .setTitle(R.string.re__schedule_appointment)
-                .setMessage("Re-Scheduling Appointment on " + time + "  " + date)
+                .setTitle(title)
+                .setMessage(msg)
                 .setPositiveButton(R.string.yes,
                         (dialog, id) -> {
                             dialog.cancel();
@@ -245,12 +256,13 @@ public class ReScheduleFragment extends Fragment {
 
 
         Map<String, String> map = new HashMap<>();
-
         map.put(MOBILE_NUMBER, user.getMobileNo());
         map.put(MEMBER_ID, String.valueOf(user.getMemberId()));
         map.put(KEY_DOC_ID, String.valueOf(appointmentModel.getDoctorId()));
         map.put(APPOINTMENT_DATE, date);
         map.put(APPOINTMENT_TIME, time);
+        map.put(IS_REVISIT, isRevisit ? "1" : "0");
+
         map.put(KEY_IS_ERA_USER, String.valueOf(appointmentModel.getIsEraUser()));
         map.put(KEY_APPOINTMENT_ID, appointmentModel.getAppointmentId());
 
@@ -306,12 +318,10 @@ public class ReScheduleFragment extends Fragment {
         });
     }
 
+
     private void reScheduleAppointment(String time, final BookAppointmentInterface bookAppointmentInterface) {
         User bookingUser = getUserForBooking(requireActivity());
-
-
         BookAppointment2 appointment2 = new BookAppointment2();
-
         appointment2.setMemberId((bookingUser.getPrimaryStatus() == 1 ? String.valueOf(bookingUser.getId()) : String.valueOf(bookingUser.getMemberId())));
         appointment2.setMobileNo(bookingUser.getMobileNo());
         appointment2.setServiceProviderDetailsId(String.valueOf(appointmentModel.getDoctorId()));
@@ -319,28 +329,34 @@ public class ReScheduleFragment extends Fragment {
         appointment2.setAppointTime(time);
         appointment2.setIsEraUser(String.valueOf(appointmentModel.getIsEraUser()));
         appointment2.setAppointmentId(appointmentModel.getAppointmentId());
-
-
         AppUtils.showRequestDialog(requireActivity());
         Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
-        Call<OnlineAppointmentRes> call = iRestInterfaces.onlineAppointment2(appointment2);
-        call.enqueue(new Callback<OnlineAppointmentRes>() {
-            @Override
-            public void onResponse(@NotNull Call<OnlineAppointmentRes> call, @NotNull Response<OnlineAppointmentRes> response) {
-                AppUtils.hideDialog();
-                if (response.code() == 200 && response.body() != null) {
-                    if (response.body().getResponseCode() == 1) {
-                        bookAppointmentInterface.onAppointmentBooked(response.body().getResponseValue().get(0));
-                    } else bookAppointmentInterface.onError(response.body().getResponseMessage());
-                } else bookAppointmentInterface.onError(response.message());
-            }
+        Call<OnlineAppointmentRes> call = null;
+        if (!isRevisit) {
+            call = iRestInterfaces.onlineAppointment2(appointment2);
+        } else call = iRestInterfaces.revisitAppointment(appointment2);
 
-            @Override
-            public void onFailure(@NotNull Call<OnlineAppointmentRes> call, @NotNull Throwable t) {
-                AppUtils.hideDialog();
-                bookAppointmentInterface.onFailed(t.getLocalizedMessage());
-            }
-        });
+        if (null != call)
+            call.enqueue(new Callback<OnlineAppointmentRes>() {
+                @Override
+                public void onResponse(@NotNull Call<OnlineAppointmentRes> call, @NotNull Response<OnlineAppointmentRes> response) {
+                    AppUtils.hideDialog();
+                    if (response.code() == 200 && response.body() != null) {
+                        if (response.body().getResponseCode() == 1) {
+                            bookAppointmentInterface.onAppointmentBooked(response.body().getResponseValue().get(0));
+                        } else
+                            bookAppointmentInterface.onError(response.body().getResponseMessage());
+                    } else bookAppointmentInterface.onError(response.message());
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<OnlineAppointmentRes> call, @NotNull Throwable t) {
+                    AppUtils.hideDialog();
+                    bookAppointmentInterface.onFailed(t.getLocalizedMessage());
+                }
+            });
+        else
+            Toast.makeText(requireActivity(), getString(R.string.retry), Toast.LENGTH_SHORT).show();
     }
 
     private List<CalendarModel> getNextWeekDays() {

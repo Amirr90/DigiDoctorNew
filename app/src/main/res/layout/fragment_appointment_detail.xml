@@ -14,6 +14,8 @@
         <variable
             name="appointmentModel"
             type="com.digidoctor.android.model.OnlineAppointmentModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,6 +25,7 @@
 
 
         <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="16dp"
@@ -363,26 +366,50 @@
 
 
         <Button
+            android:id="@+id/btnReVisit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/round_for_search"
+            android:backgroundTint="#39B54A"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/re_visit"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/btnAction"
+            app:layout_constraintEnd_toStartOf="@+id/btnAction"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnAction" />
+
+        <Button
+            android:visibility="gone"
             android:id="@+id/btnAction"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/round_for_search"
             android:backgroundTint="@{appointmentModel.expiredStatus==1?Color.parseColor(`#FF3737`):appointmentModel.isPrescribed==false?Color.parseColor(`#EDA537`):Color.parseColor(`#39B54A`)}"
             android:fontFamily="@font/poppins_semibold"
             android:onClick="@{()->clickListener.onItemClick(appointmentModel)}"
             android:tag="@{appointmentModel.expiredStatus==1?`0`:appointmentModel.isPrescribed==true?`1`:`2`}"
-            android:text="@{appointmentModel.expiredStatus==1?`Expired`:appointmentModel.isPrescribed==true?String.format(@string/view_prescription):String.format(@string/re__schedule_appointment)}"
+            android:text="@{appointmentModel.expiredStatus==1?`Expired`:appointmentModel.isPrescribed==true?String.format(@string/view_prescription):String.format(@string/reschedule_appointment)}"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.482"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnReVisit"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

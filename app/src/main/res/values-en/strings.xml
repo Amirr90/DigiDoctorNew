@@ -1008,6 +1008,8 @@
     <string name="upload_file">Upload File</string>
     <string name="order_with_prescriptions"><![CDATA[Order with Prescriptions<]]></string>
     <string name="Coronavirus_Prevention">Corona Prevention</string>
+    <string name="reschedule_appointment">Re-Schedule</string>
+    <string name="re_visit_appointment">Re-Visit Appointment</string>
 
 
 </resources>

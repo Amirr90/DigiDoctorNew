@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -27,12 +29,17 @@ import androidx.navigation.ui.NavigationUI;
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.NavAdapter;
 import com.digidoctor.android.databinding.ActivityDashBoardBinding;
+import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.NavigationInterface;
 import com.digidoctor.android.model.NavModel;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.model.pharmacyModel.CartCount;
+import com.digidoctor.android.model.pharmacyModel.CartDetailsResponse;
+import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.GetAddressIntentService;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment;
+import com.digidoctor.android.viewHolder.PatientViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -47,31 +54,18 @@ import com.razorpay.PaymentResultWithDataListener;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import io.branch.indexing.BranchUniversalObject;
-import io.branch.referral.Branch;
-import io.branch.referral.BranchError;
-import io.branch.referral.SharingHelper;
-import io.branch.referral.util.ContentMetadata;
-import io.branch.referral.util.LinkProperties;
-import io.branch.referral.util.ShareSheetStyle;
-
-import static com.digidoctor.android.utility.AppUtils.getLanguageModel;
 import static com.digidoctor.android.utility.AppUtils.getNavData;
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
-import static com.digidoctor.android.utility.AppUtils.setAppLocale;
 import static com.digidoctor.android.utility.AppUtils.shareApp;
 import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.view.fragments.digiDoctorFragments.BookAppointmentFragment.bookAppointment;
-import static com.digidoctor.android.view.fragments.digiDoctorFragments.ChangeLanguageFragment.LANGUAGE;
 import static com.digidoctor.android.view.fragments.digiDoctorFragments.PatientDashboardFragment.dashboard2Binding;
 import static com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment.REQUEST_ENABLE_BT;
 
@@ -104,14 +98,17 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     NavAdapter navAdapter;
     List<NavModel> navModels;
 
-    Menu menu;
+    MenuItem cart = null;
+
+    int cartCounter = 0;
+    TextView cartTv;
+
+    PatientViewModel viewModel;
 
     public String getCityName() {
         if (cityName == null)
             return "";
         else return cityName;
-
-
     }
 
     public void setCityName(String cityName) {
@@ -162,8 +159,32 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
         setNavRec();
 
+        viewModel = new ViewModelProvider(this).get(PatientViewModel.class);
 
-        // getDemoApi();
+        ApiUtils.getcartcountutils(this, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                List<CartCount.CartcountList> CartcountList = (List<CartCount.CartcountList>) o;
+                if (null == CartcountList)
+                    return;
+                if (CartcountList.isEmpty())
+                    return;
+
+                Log.d(TAG, "onSuccess: " + CartcountList.get(0).getCartCount());
+                cartCounter = CartcountList.get(0).getCartCount();
+                updateCartCount(cartCounter);
+            }
+
+            @Override
+            public void onError(String s) {
+
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+
+            }
+        });
     }
 
 
@@ -179,7 +200,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         navAdapter = new NavAdapter(navModels, PatientDashboard.this);
         mainBinding.navRec.setAdapter(navAdapter);
         navModels.addAll(getNavData(PatientDashboard.this));
-        //Log.d(TAG, "setNavRec: " + navModels.size());
         navAdapter.notifyDataSetChanged();
     }
 
@@ -214,9 +234,12 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        super.onCreateOptionsMenu(menu);
-        this.menu = menu;
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        cart = menu.findItem(R.id.cart_Details_Fragment);
+        View actionView = cart.getActionView();
+        cartTv = actionView.findViewById(R.id.tvCartCount);
+        cartTv.setText(String.valueOf(cartCounter));
+        actionView.setOnClickListener(v -> onOptionsItemSelected(cart));
         return true;
     }
 
@@ -504,4 +527,9 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         mainBinding.drawerLayout.open();
     }
 
+    public void updateCartCount(int count) {
+        if (null != cartTv) {
+            cartTv.setText(String.valueOf(count));
+        }
+    }
 }

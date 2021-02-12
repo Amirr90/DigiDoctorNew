@@ -14,9 +14,10 @@
 
         <ImageView
             android:id="@+id/banner"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="140dp"
-            android:background="@drawable/product"
+            android:src="@drawable/banner_one"
+            android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

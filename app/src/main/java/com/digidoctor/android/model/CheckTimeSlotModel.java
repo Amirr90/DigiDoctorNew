@@ -9,7 +9,15 @@ public class CheckTimeSlotModel {
     private String userMobileNo;
     private String isEraUser;
     private String appointmentId;
+    private String isRevisit;
 
+    public String getIsRevisit() {
+        return isRevisit;
+    }
+
+    public void setIsRevisit(String isRevisit) {
+        this.isRevisit = isRevisit;
+    }
 
     public String getMemberId() {
         return memberId;
@@ -78,6 +86,7 @@ public class CheckTimeSlotModel {
                 ", userMobileNo='" + userMobileNo + '\'' +
                 ", isEraUser='" + isEraUser + '\'' +
                 ", appointmentId='" + appointmentId + '\'' +
+                ", isRevisit='" + isRevisit + '\'' +
                 '}';
     }
 }

@@ -81,15 +81,15 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_patientDashboardFragment_to_labDashboardFragment"
-            app:destination="@id/labDashboardFragment"
+            android:id="@+id/action_patientDashboardFragment_to_onlinePharmacyFragment"
+            app:destination="@id/onlinePharmacyFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_patientDashboardFragment_to_onlinePharmacyFragment"
-            app:destination="@id/onlinePharmacyFragment"
+            android:id="@+id/action_patientDashboardFragment_to_lab_Home_Fragment"
+            app:destination="@id/lab_Home_Fragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
@@ -582,11 +582,6 @@
         android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.ChangeLanguageFragment"
         android:label="@string/change_language"
         tools:layout="@layout/fragment_change_language" />
-    <fragment
-        android:id="@+id/labDashboardFragment"
-        android:name="com.digidoctor.android.LabDashboardFragment"
-        android:label="fragment_lab_dashboard"
-        tools:layout="@layout/fragment_lab_dashboard" />
 
     <fragment
         android:id="@+id/onlinePharmacyFragment"
