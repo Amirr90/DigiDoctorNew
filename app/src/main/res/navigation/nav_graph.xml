@@ -617,6 +617,7 @@
     </fragment>
     <fragment
         android:id="@+id/allCategoryFragment"
+        tools:layout="@layout/fragment_all_category"
         android:name="com.digidoctor.android.view.fragments.pharmacy.AllCategoryFragment"
         android:label="All Category">
         <action
@@ -659,6 +660,7 @@
     </fragment>
     <fragment
         android:id="@+id/cart_Details_Fragment"
+        tools:layout="@layout/fragment_cart_list"
         android:name="com.digidoctor.android.view.fragments.pharmacy.Cart_Details_Fragment"
         android:label="Cart Details">
         <action
@@ -676,6 +678,7 @@
     </fragment>
     <fragment
         android:id="@+id/addressFragment"
+        tools:layout="@layout/fragment_address_fragment"
         android:name="com.digidoctor.android.view.fragments.pharmacy.AddressFragment"
         android:label="Add Address">
         <action
@@ -684,6 +687,7 @@
     </fragment>
     <fragment
         android:id="@+id/orderSummaryFragment"
+        tools:layout="@layout/fragment_order_summary"
         android:name="com.digidoctor.android.view.fragments.pharmacy.OrderSummaryFragment"
         android:label="Order Summary">
         <action
@@ -699,6 +703,7 @@
     </fragment>
     <fragment
         android:id="@+id/allCoupneFragment"
+        tools:layout="@layout/available_coupne_view"
         android:name="com.digidoctor.android.view.fragments.pharmacy.AllCoupneFragment"
         android:label="All Coupons">
         <action
@@ -712,6 +717,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentAllWishLIstProduct"
+        tools:layout="@layout/fragment_my_wish_list"
         android:name="com.digidoctor.android.view.fragments.pharmacy.FragmentAllWishLIstProduct"
         android:label="All WishList Products">
         <action
@@ -723,6 +729,7 @@
     </fragment>
     <fragment
         android:id="@+id/orderPLacedFRagment"
+        tools:layout="@layout/orderplacedfragment"
         android:name="com.digidoctor.android.view.fragments.pharmacy.OrderPLacedFRagment"
         android:label="Place Order">
         <action
@@ -734,6 +741,7 @@
     </fragment>
     <fragment
         android:id="@+id/getPlacedOrderFragment"
+        tools:layout="@layout/order_list_view"
         android:name="com.digidoctor.android.view.fragments.pharmacy.GetPlacedOrderFragment"
         android:label="@string/myorder">
         <action
@@ -754,6 +762,7 @@
     </fragment>
     <fragment
         android:id="@+id/allAddressFragment"
+        tools:layout="@layout/getalladdress"
         android:name="com.digidoctor.android.view.fragments.pharmacy.AllAddressFragment"
         android:label=" Address">
         <action
@@ -787,6 +796,7 @@
         android:label="All Rating &amp; Review" />
     <fragment
         android:id="@+id/updateAddressFragment"
+        tools:layout="@layout/fragment_update_address"
         android:name="com.digidoctor.android.view.fragments.pharmacy.UpdateAddressFragment"
         android:label="Update Address">
         <action
