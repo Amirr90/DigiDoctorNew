@@ -87,6 +87,13 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_patientDashboardFragment_to_onlinePharmacyFragment"
+            app:destination="@id/onlinePharmacyFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/symptomsFragment2"
@@ -774,6 +781,7 @@
         android:label="Health Checkup Categories"
         tools:layout="@layout/health_checkup_category_lab_layout" />
     <fragment
+        tools:layout="@layout/rating_and_review_view"
         android:id="@+id/allRatingAndReviewFragment"
         android:name="com.digidoctor.android.view.fragments.pharmacy.AllRatingAndReviewFragment"
         android:label="All Rating &amp; Review" />

@@ -55,7 +55,7 @@ public class DashboardPatientAdapter1 extends ListAdapter<DashboardModel1, Dashb
             else if (position == 2)
                 PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_labDashboardFragment);
             else if (position == 3)
-                Toast.makeText(activity, activity.getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+                PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_onlinePharmacyFragment);
 
         });
 
