@@ -26,6 +26,8 @@ import org.json.JSONException;
 
 import java.util.List;
 
+import static com.digidoctor.android.view.fragments.pharmacy.ProductDetailsFragment.AllProductModels;
+
 
 public class ProductSizeAdapter extends RecyclerView.Adapter<ProductSizeAdapter.ProductSizeAdapterVH> {
     private static final String TAG = "ProductSizeAdapter";
@@ -101,12 +103,8 @@ public class ProductSizeAdapter extends RecyclerView.Adapter<ProductSizeAdapter.
                 public void onSuccess(List<?> o) {
                     List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
                     Log.d(TAG, "onSuccess: " + models.get(0).getProductDetails());
-                   /* AllProductModels.addAll(models.get(0).getProductDetails());
-
-                    if (!AllProductModels.isEmpty() && models.isEmpty()) {
-                        fragmentProductDetailsBinding.setProduct(AllProductModels.get(0));
-
-                    }*/
+                    AllProductModels.clear();
+                    AllProductModels.addAll(models.get(0).getProductDetails());
                     if (models.isEmpty())
                         return;
 

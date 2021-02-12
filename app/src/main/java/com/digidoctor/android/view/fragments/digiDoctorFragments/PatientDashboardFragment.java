@@ -71,7 +71,7 @@ public class PatientDashboardFragment extends Fragment {
     String lat, lng;
 
     private static final String TAG = "PatientDashboardFragmen";
-    //LAst Update at 12/02/2021
+    //Last Update at 12/02/2021 from Animesh
 
 
     @Override

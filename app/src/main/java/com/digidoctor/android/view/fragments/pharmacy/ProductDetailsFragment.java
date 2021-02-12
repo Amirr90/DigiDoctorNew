@@ -45,7 +45,7 @@ import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
 public class ProductDetailsFragment extends Fragment {
     private static final String TAG = "ProductDetailsFragment";
-    final List<ProductDetailModelResponse.ProductDetailsList.ProductDetail> AllProductModels = new ArrayList<>();
+    public static List<ProductDetailModelResponse.ProductDetailsList.ProductDetail> AllProductModels = new ArrayList<>();
     final List<ProductDetailModelResponse.ProductDetailsList.ReviewDetails> productReviewLists = new ArrayList<>();
     final List<ProductDetailModelResponse.ProductDetailsList.SimilarProduct> similarProducts = new ArrayList<>();
     final List<ProductDetailModelResponse.ProductDetailsList.ProductDetailsSlider> productDetailsSliders = new ArrayList<>();
@@ -120,7 +120,7 @@ public class ProductDetailsFragment extends Fragment {
         fragmentProductDetailsBinding.recyclerViewcolor.setAdapter(productColorAdapter);
         fragmentProductDetailsBinding.materialrecycler.setAdapter(productMaterialAdapter);
 
-
+        AllProductModels.clear();
         getproductdetails();
 
 

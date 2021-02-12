@@ -54,7 +54,7 @@
 
                 <TextView
                     android:id="@+id/textView39"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="27dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
@@ -62,7 +62,7 @@
                     android:text="@{product.brandName,default=BrandName}"
                     android:textColor="#2B3344"
                     android:textSize="21sp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView18"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -217,41 +217,36 @@
                     android:id="@+id/textView46"
                     android:layout_width="0dp"
                     android:layout_height="51dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="19dp"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="13dp"
+                    android:layout_marginBottom="13dp"
                     android:gravity="center_vertical"
                     android:maxLines="2"
                     android:text="This product cannot be returned for refund or exchage."
                     android:textColor="#3F4E6E"
                     app:layout_constraintBottom_toTopOf="@+id/recyclerView3"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView18"
-                    app:layout_constraintStart_toStartOf="@+id/textView44"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/productDetailsSliderView" />
 
                 <CheckBox
                     android:id="@+id/imageView18"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
                     android:button="@drawable/radio_like_layout"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView46"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView19"
-                    app:layout_constraintHorizontal_bias="0.49"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toEndOf="@+id/textView46"
-                    app:layout_constraintTop_toTopOf="@+id/textView46" />
+                    app:layout_constraintBottom_toBottomOf="@+id/textView39"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView39"
+                    app:layout_constraintTop_toTopOf="@+id/textView39" />
 
                 <ImageView
                     android:id="@+id/imageView19"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:background="@drawable/elipse"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView18"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/imageView18"
-                    app:layout_constraintTop_toTopOf="@+id/imageView18"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_baseline_share_24" />
 
                 <TextView
@@ -684,11 +679,11 @@
 
                 <TextView
                     android:id="@+id/textView89"
-                    android:layout_width="92dp"
+                    android:layout_width="65dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="12dp"
-                    android:text="@{product.totalRating+` Ratings &amp;`+product.totalreviews+` Reviews`}"
+                    android:text="@{product.totalRating+` Ratings `+product.totalreviews+` Reviews`}"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintEnd_toStartOf="@+id/view2"
                     app:layout_constraintHorizontal_bias="0.48"
@@ -952,7 +947,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="30dp"
                     android:animateLayoutChanges="false"
-                    android:background="#FFFFFF"
+                    android:background="#F2F6FE"
                     android:fadingEdge="vertical"
                     android:maxWidth="@dimen/_200sdp"
                     android:nestedScrollingEnabled="false"

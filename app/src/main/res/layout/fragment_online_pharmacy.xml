@@ -412,7 +412,9 @@
                 android:layout_width="0dp"
                 android:layout_height="288dp"
                 android:layout_marginTop="9dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/cartview_round_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
