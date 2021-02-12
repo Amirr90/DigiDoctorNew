@@ -1,0 +1,41 @@
+Index: app/src/main/java/com/digidoctor/android/view/fragments/Lab/Lab_Home_Fragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.digidoctor.android.view.fragments.Lab;\r\n\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.navigation.NavController;\r\nimport androidx.navigation.Navigation;\r\n\r\nimport com.digidoctor.android.R;\r\nimport com.digidoctor.android.adapters.labadapter.HealthPackageAdapter;\r\nimport com.digidoctor.android.adapters.labadapter.sliderimageadapter;\r\nimport com.digidoctor.android.databinding.LabTestHomeBinding;\r\nimport com.digidoctor.android.interfaces.ApiCallbackInterface;\r\nimport com.digidoctor.android.model.labmodel.LabDashBoardmodel;\r\nimport com.digidoctor.android.model.labmodel.PackageDetail;\r\nimport com.digidoctor.android.model.labmodel.SliderImage;\r\nimport com.digidoctor.android.utility.ApiUtils;\r\nimport com.digidoctor.android.utility.AppUtils;\r\nimport com.digidoctor.android.utility.utils;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class Lab_Home_Fragment extends Fragment {\r\n\r\n    private static final String TAG = \"Lab_Home_Fragment\";\r\n    LabTestHomeBinding labTestHomeBinding;\r\n    sliderimageadapter sliderimageadapter;\r\n    HealthPackageAdapter healthPackageAdapter;\r\n    NavController navController;\r\n\r\n    @Nullable\r\n    @Override\r\n    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {\r\n        labTestHomeBinding = LabTestHomeBinding.inflate(getLayoutInflater());\r\n        return labTestHomeBinding.getRoot();\r\n    }\r\n\r\n\r\n    @Override\r\n    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {\r\n        super.onViewCreated(view, savedInstanceState);\r\n\r\n        navController = Navigation.findNavController(view);\r\n\r\n\r\n        final List<SliderImage> sliderimageoflab = new ArrayList<>();\r\n        final List<PackageDetail> packageDetails = new ArrayList<>();\r\n\r\n\r\n        sliderimageadapter = new sliderimageadapter(sliderimageoflab, requireActivity());\r\n        healthPackageAdapter = new HealthPackageAdapter(packageDetails, requireActivity());\r\n\r\n\r\n        labTestHomeBinding.bannerSlider1.setAdapter(sliderimageadapter);\r\n        labTestHomeBinding.healthpackagerecyclerview.setAdapter(healthPackageAdapter);\r\n\r\n\r\n        if (!utils.isNetworkConnected(requireActivity())) {\r\n            Toast.makeText(requireActivity(), getString(R.string.not_connected_to_internet), Toast.LENGTH_SHORT).show();\r\n            return;\r\n        }\r\n\r\n        ApiUtils.getlabdash(requireActivity(), new ApiCallbackInterface() {\r\n            @Override\r\n            public void onSuccess(List<?> o) {\r\n                AppUtils.hideDialog();\r\n                List<LabDashBoardmodel> models = (List<LabDashBoardmodel>) o;\r\n                List<SliderImage> sliderImages = models.get(0).getSliderImage();\r\n                sliderimageoflab.clear();\r\n\r\n                sliderimageoflab.addAll(sliderImages);\r\n                Log.d(TAG, \"onSuccess: \" + sliderimageoflab);\r\n\r\n\r\n                List<PackageDetail> packageDetails1 = models.get(0).getPackageDetailList();\r\n                packageDetails.clear();\r\n                packageDetails.addAll(packageDetails1);\r\n\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onError(String s) {\r\n                AppUtils.hideDialog();\r\n                Toast.makeText(requireActivity(), \"\" + s, Toast.LENGTH_SHORT).show();\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onFailed(Throwable throwable) {\r\n                AppUtils.hideDialog();\r\n                Toast.makeText(requireActivity(), \"\" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();\r\n\r\n            }\r\n        });\r\n\r\n\r\n        labTestHomeBinding.textView158.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                navController.navigate(R.id.action_lab_Home_Fragment_to_health_Checkup_Categories_Fragment);\r\n            }\r\n        });\r\n\r\n    }\r\n\r\n    @Override\r\n    public void onResume() {\r\n        super.onResume();\r\n        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();\r\n\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/digidoctor/android/view/fragments/Lab/Lab_Home_Fragment.java	(revision b4d542b91688c0eefa1b20a608be05b0f1c7e086)
++++ app/src/main/java/com/digidoctor/android/view/fragments/Lab/Lab_Home_Fragment.java	(date 1613047729817)
+@@ -28,6 +28,7 @@
+ 
+ import java.util.ArrayList;
+ import java.util.List;
++import java.util.Objects;
+ 
+ public class Lab_Home_Fragment extends Fragment {
+ 
+@@ -104,21 +105,14 @@
+         });
+ 
+ 
+-        labTestHomeBinding.textView158.setOnClickListener(new View.OnClickListener() {
+-            @Override
+-            public void onClick(View view) {
+-                navController.navigate(R.id.action_lab_Home_Fragment_to_health_Checkup_Categories_Fragment);
+-            }
+-        });
++        labTestHomeBinding.textView158.setOnClickListener(view1 -> navController.navigate(R.id.action_lab_Home_Fragment_to_health_Checkup_Categories_Fragment));
+ 
+     }
+ 
+     @Override
+     public void onResume() {
+         super.onResume();
+-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+-
++        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
+     }
+-
+ 
+ }

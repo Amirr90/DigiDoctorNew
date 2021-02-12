@@ -1,0 +1,384 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F2F6FE">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/testdetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="14dp"
+                    android:background="@drawable/cartview_round_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/textView165"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="Full Body Package + Covid-19 Antibody Check"
+                        android:textColor="#2B3344"
+                        android:textSize="13dp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView166"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:text="Report in same day."
+                        android:textColor="#EDA537"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@+id/textView165"
+                        app:layout_constraintTop_toBottomOf="@+id/textView165" />
+
+                    <TextView
+                        android:id="@+id/textView167"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:drawableLeft="@drawable/rupee"
+                        android:drawablePadding="5dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="2265"
+                        android:textSize="@dimen/_13sdp"
+                        app:layout_constraintEnd_toStartOf="@+id/textView168"
+                        app:layout_constraintHorizontal_bias="0.83"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/textView166"
+                        app:layout_constraintTop_toBottomOf="@+id/textView165" />
+
+                    <TextView
+                        android:id="@+id/textView168"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="9% off"
+                        android:textColor="#7DCE64"
+                        android:textSize="@dimen/_13sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView167"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textView167"
+                        app:layout_constraintTop_toTopOf="@+id/textView167" />
+
+                    <TextView
+                        android:id="@+id/textView169"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="2dp"
+                        android:drawableLeft="@drawable/rupee"
+                        android:drawablePadding="5dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="1028"
+                        android:textColor="#2B3344"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/textView168"
+                        app:layout_constraintStart_toStartOf="@+id/textView167"
+                        app:layout_constraintTop_toBottomOf="@+id/textView167" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/labdetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="14dp"
+                    android:background="@drawable/cartview_round_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/testdetails">
+
+
+                    <ImageView
+                        android:id="@+id/imageView57"
+                        android:layout_width="68dp"
+                        android:layout_height="26dp"
+                        android:layout_marginStart="11dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/labimages"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView164"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="Vimta Labs"
+                        android:textColor="#262E3F"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@+id/imageView57"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView57" />
+
+                    <TextView
+                        android:id="@+id/textView171"
+                        android:layout_width="0dp"
+                        android:layout_height="47dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/_3_1263_sector_3_bhawani_chauraha_jankipuram_extn_lucknow_u_p_226021"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView60"
+                        app:layout_constraintTop_toTopOf="@+id/imageView60" />
+
+                    <TextView
+                        android:id="@+id/textView172"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/working_hours_07_00am_08_30pm"
+                        app:layout_constraintStart_toStartOf="@+id/textView171"
+                        app:layout_constraintTop_toBottomOf="@+id/textView171" />
+
+                    <View
+                        android:id="@+id/view5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView172" />
+
+                    <ImageView
+                        android:id="@+id/imageView60"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:src="@drawable/ic_baseline_location_on_24"
+                        app:layout_constraintStart_toStartOf="@+id/textView164"
+                        app:layout_constraintTop_toBottomOf="@+id/textView164" />
+
+                    <TextView
+                        android:id="@+id/textView173"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/appointment_date"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView61"
+                        app:layout_constraintStart_toEndOf="@+id/imageView61"
+                        app:layout_constraintTop_toTopOf="@+id/imageView61" />
+
+                    <ImageView
+                        android:id="@+id/imageView61"
+                        android:layout_width="16dp"
+                        android:layout_height="17dp"
+                        android:layout_marginStart="11dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/calender"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+                    <TextView
+                        android:id="@+id/textView174"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/_29_sep_2020_timing_12_00"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView173"
+                        app:layout_constraintTop_toBottomOf="@+id/textView173" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/testoverview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Test Overview"
+                    android:textColor="#2B3344"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/labdetails" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/testo"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="14dp"
+                    android:background="@drawable/cartview_round_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/testoverview">
+
+                    <TextView
+                        android:id="@+id/textView175"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="Test Description"
+                        android:textColor="#2B3344"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView176"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Full Body Package + COVID antibody test gives a detailed evaluation of your general health and detects any recent or prior COVID infection. This package is suitable for males and females of all age groups. It includes a unique diagnostic profile of tests for a comprehensive health evaluation along with tests for COVID antibody detection. Full body packageThe full body package is a comprehensive health evaluation for healthy individuals, which is also useful for people suffering from diabetes, kidney, or liver disease, in order to monitor the progress of their treatment."
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView175"
+                        app:layout_constraintTop_toBottomOf="@+id/textView175" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/preca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Precautions"
+                    android:textColor="#2B3344"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/testo"
+                    app:layout_constraintTop_toBottomOf="@+id/testo" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_60sdp"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="14dp"
+                    android:backgroundTint="#FFF1DC"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/preca">
+
+
+                    <TextView
+                        android:id="@+id/precautions"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Do not eat or drink anything other than water for 8-12 hours before the test." />
+
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/include"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:text="Test Included"
+                    android:textColor="#2B3344"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/card"
+                    app:layout_constraintTop_toBottomOf="@+id/card" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_300sdp"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="14dp"
+                    android:background="@drawable/cartview_round_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/include">
+
+
+                    <TextView
+                        android:id="@+id/textView177"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="Test Included :63"
+                        android:textColor="#2B3344"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView177"
+                        app:layout_constraintVertical_bias="0.45"
+                        app:spanCount="5"
+                        tools:itemCount="10"
+                        tools:listitem="@layout/testincludelayoutview" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
