@@ -2,7 +2,6 @@ package com.digidoctor.android.view.fragments.pharmacy;
 
 
 import android.app.AlertDialog;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;

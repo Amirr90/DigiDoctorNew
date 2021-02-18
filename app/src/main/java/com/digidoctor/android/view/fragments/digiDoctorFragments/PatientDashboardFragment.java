@@ -124,10 +124,7 @@ public class PatientDashboardFragment extends Fragment {
             PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_subSpecialistFragment, bundle);
         });
 
-        dashboard2Binding.tvLocation.setOnClickListener(view13 -> {
-            Log.d(TAG, "onViewCreated: Clicked");
-
-        });
+        dashboard2Binding.tvLocation.setOnClickListener(view13 -> Log.d(TAG, "onViewCreated: Clicked"));
     }
 
 

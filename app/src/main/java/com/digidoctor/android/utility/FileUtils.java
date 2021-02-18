@@ -66,7 +66,7 @@ public class FileUtils {
                         };
                         for (String contentUriPrefix : contentUriPrefixesToTry) {
                             try {
-                                final Uri contentUri = ContentUris.withAppendedId(Uri.parse(contentUriPrefix), Long.valueOf(id));
+                                final Uri contentUri = ContentUris.withAppendedId(Uri.parse(contentUriPrefix), Long.parseLong(id));
 
                          /*   final Uri contentUri = ContentUris.withAppendedId(
                                     Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));*/
@@ -88,7 +88,7 @@ public class FileUtils {
                     }
                     try {
                         contentUri = ContentUris.withAppendedId(
-                                Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                                Uri.parse("content://downloads/public_downloads"), Long.parseLong(id));
 
                     } catch (NumberFormatException e) {
                         e.printStackTrace();

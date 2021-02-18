@@ -1,5 +1,7 @@
 package com.digidoctor.android.model.pharmacyModel;
 
+import org.jetbrains.annotations.NotNull;
+
 public class AddToCartModel {
     String memberId;
     String uniqueNo;
@@ -39,6 +41,7 @@ public class AddToCartModel {
         this.quantity = quantity;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "AddToCartModel{" +

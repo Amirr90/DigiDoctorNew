@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -21,7 +20,6 @@ import androidx.navigation.Navigation;
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.SymptomsAdapter;
 import com.digidoctor.android.databinding.FragmentSymptomsBinding;
-import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
@@ -94,7 +92,7 @@ public class SymptomsFragment extends Fragment {
             }
             StringBuilder ids = new StringBuilder();
             for (String id : symptomsIds)
-                ids.append(id + ",");
+                ids.append(id).append(",");
             try {
                 Bundle bundle = new Bundle();
                 bundle.putString("id", ids.toString());
