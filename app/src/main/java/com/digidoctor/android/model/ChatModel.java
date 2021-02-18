@@ -93,7 +93,7 @@ public class ChatModel {
 
     @Override
     public String toString() {
-        return "ChatModel{" +
+        return "{" +
                 "timestamp=" + timestamp +
                 ", appointmentId='" + appointmentId + '\'' +
                 ", message='" + message + '\'' +

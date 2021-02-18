@@ -144,7 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:drawableLeft="@drawable/rupee"
+                    android:drawableLeft="@drawable/rupee_indian"
                     android:drawablePadding="5dp"
                     android:text="50 off"
                     android:textColor="#7DCE64"

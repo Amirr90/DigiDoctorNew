@@ -127,9 +127,7 @@ public class AddInvestigationFragment extends Fragment implements ButtonListener
         addInvestigationBinding.cvSelectImage.setVisibility(imageAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         addInvestigationBinding.clMedication.setVisibility(imageAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         addInvestigationBinding.recInputMedicine.setVisibility(imageAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
-        if (imageAdapter.getItemCount() == 0)
-            isUploadPrescription = false;
-        else isUploadPrescription = true;
+        isUploadPrescription = imageAdapter.getItemCount() != 0;
 
     }
 

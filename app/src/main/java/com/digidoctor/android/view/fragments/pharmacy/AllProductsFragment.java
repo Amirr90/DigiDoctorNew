@@ -9,7 +9,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -32,30 +31,25 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import static com.digidoctor.android.utility.utils.CATEGORY_ID;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
 public class AllProductsFragment extends Fragment {
-    private static final String TAG = "AllProductsFragment";
     final List<GetAllProductResponse.GetProduct> AllProductModels = new ArrayList<>();
     FragmentAllProductlistBinding fragmentAllProductlistBinding;
     NavController navController;
     GetAllProductAdapter getAllProductAdapter;
-    AlertDialog optionDialog;
     String CategoryID = null;
     int selectedItem = 0;
-    private SearchView searchView;
-    private List<GetAllProductResponse.GetProduct> contactListFiltered = new ArrayList<>();
+    private final List<GetAllProductResponse.GetProduct> contactListFiltered = new ArrayList<>();
 
 
     @Override
     public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-
         navController = Navigation.findNavController(view);
 
 
@@ -106,14 +100,7 @@ public class AllProductsFragment extends Fragment {
             }
         });
 
-        fragmentAllProductlistBinding.button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                dialogeSort();
-
-            }
-        });
+        fragmentAllProductlistBinding.button2.setOnClickListener(view1 -> dialogeSort());
 
         fragmentAllProductlistBinding.editTextTextSearchSpeciality.addTextChangedListener(new TextWatcher() {
             @Override
@@ -138,19 +125,12 @@ public class AllProductsFragment extends Fragment {
             }
         });
 
-
-        fragmentAllProductlistBinding.button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               // navController.navigate(R.id.action_allProductsFragment_to_fillterActivity);
-            }
-        });
     }
 
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         fragmentAllProductlistBinding = FragmentAllProductlistBinding.inflate(getLayoutInflater());
         return fragmentAllProductlistBinding.getRoot();
 
@@ -160,7 +140,7 @@ public class AllProductsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
     }
 
 
@@ -178,51 +158,26 @@ public class AllProductsFragment extends Fragment {
                     selectedItem = selectedPosition;
                     switch (selectedPosition) {
                         case 0: {
-                            Collections.sort(AllProductModels, new Comparator<GetAllProductResponse.GetProduct>() {
-                                @Override
-                                public int compare(GetAllProductResponse.GetProduct getProduct, GetAllProductResponse.GetProduct t1) {
-/*
-                                    String p1 = String.valueOf(getProduct.getOfferedPrice());
-                                    String p2 = String.valueOf(t1.getOfferedPrice());*/
-                                    return String.valueOf(getProduct.getMrp()).compareTo(String.valueOf(t1.getMrp()));
-                                    //  return p1.compareTo(p2);
-                                }
-                            });
+                            Collections.sort(AllProductModels, (getProduct, t1) -> String.valueOf(getProduct.getMrp()).compareTo(String.valueOf(t1.getMrp())));
                             Toast.makeText(requireActivity(), "Showing Product Price High to Low", Toast.LENGTH_SHORT).show();
                             getAllProductAdapter.notifyDataSetChanged();
 
                         }
                         break;
                         case 1: {
-                            Collections.sort(AllProductModels, new Comparator<GetAllProductResponse.GetProduct>() {
-                                @Override
-                                public int compare(GetAllProductResponse.GetProduct getProduct, GetAllProductResponse.GetProduct t1) {
-                                    return String.valueOf(getProduct.getMrp()).compareTo(String.valueOf(t1.getMrp()));
-                                }
-                            });
+                            Collections.sort(AllProductModels, (getProduct, t1) -> String.valueOf(getProduct.getMrp()).compareTo(String.valueOf(t1.getMrp())));
                             getAllProductAdapter.notifyDataSetChanged();
                             Toast.makeText(requireActivity(), "Showing Product Price Low to High", Toast.LENGTH_SHORT).show();
                         }
                         break;
                         case 2: {
-                            Collections.sort(AllProductModels, new Comparator<GetAllProductResponse.GetProduct>() {
-                                @Override
-                                public int compare(GetAllProductResponse.GetProduct getProduct, GetAllProductResponse.GetProduct t1) {
-                                    return String.valueOf(getProduct.getMrp()).compareTo(String.valueOf(t1.getMrp()));
-                                }
-                            });
+                            Collections.sort(AllProductModels, (getProduct, t1) -> String.valueOf(getProduct.getMrp()).compareTo(String.valueOf(t1.getMrp())));
                             getAllProductAdapter.notifyDataSetChanged();
                             Toast.makeText(requireActivity(), "Showing Product Price Low to High ", Toast.LENGTH_SHORT).show();
                         }
                         break;
                         case 3: {
-                            //Collections.sort(getAllProductModels, (o1, o2) -> o2.getUnitPrice().compareTo(o1.getUnitPrice()));
-                            Collections.sort(AllProductModels, new Comparator<GetAllProductResponse.GetProduct>() {
-                                @Override
-                                public int compare(GetAllProductResponse.GetProduct getProduct, GetAllProductResponse.GetProduct t1) {
-                                    return String.valueOf(getProduct.getStarRating()).compareTo(String.valueOf(t1.getStarRating()));
-                                }
-                            });
+                            Collections.sort(AllProductModels, (getProduct, t1) -> String.valueOf(getProduct.getStarRating()).compareTo(String.valueOf(t1.getStarRating())));
 
                             Toast.makeText(requireActivity(), "Showing Product by Popularity High", Toast.LENGTH_SHORT).show();
                             getAllProductAdapter.notifyDataSetChanged();
@@ -230,13 +185,7 @@ public class AllProductsFragment extends Fragment {
                         break;
                         case 4: {
 
-                            Collections.sort(AllProductModels, new Comparator<GetAllProductResponse.GetProduct>() {
-                                @Override
-                                public int compare(GetAllProductResponse.GetProduct getProduct, GetAllProductResponse.GetProduct t1) {
-                                    return String.valueOf(getProduct.getStarRating()).compareTo(String.valueOf(t1.getStarRating()));
-                                }
-                            });
-                            //Collections.sort(getAllProductModels, (o1, o2) -> o1.getUnitPrice().compareTo(o2.getUnitPrice()));
+                            Collections.sort(AllProductModels, (getProduct, t1) -> String.valueOf(getProduct.getStarRating()).compareTo(String.valueOf(t1.getStarRating())));
                             Toast.makeText(requireActivity(), "Showing Product by Popularity Low", Toast.LENGTH_SHORT).show();
                             getAllProductAdapter.notifyDataSetChanged();
                         }
@@ -249,25 +198,6 @@ public class AllProductsFragment extends Fragment {
 
                 .show();
 
-/*dialogSort = new Dialog(mActivity);
-
-dialogSort.setTitle("");
-dialogSort.setContentView(R.layout.alert_shorting);
-//getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-dialogSort.getWindow().setBackgroundDrawable(new
-ColorDrawable(Color.TRANSPARENT));
-// builder1.getWindow().setBackgroundDrawableResource(R.drawable.dialouge_box_design);
-dialogSort.setCancelable(true);
-dialogSort.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-rvSort = dialogSort.findViewById(R.id.rvShort);
-rvSort.setLayoutManager(new LinearLayoutManager(mActivity));
-if (AppUtils.isNetworkConnected(mActivity)) {
-hitSortList();
-} else {
-AppUtils.showToastSort(mActivity, getString(R.string.noInternetConnection));
-}
-dialogSort.show();*/
 
     }
 

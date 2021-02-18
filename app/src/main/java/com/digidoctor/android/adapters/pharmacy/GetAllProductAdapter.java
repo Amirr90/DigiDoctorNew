@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.ImageView;
@@ -33,10 +32,9 @@ import java.util.List;
 public class GetAllProductAdapter extends RecyclerView.Adapter<GetAllProductAdapter.GetAllProductVH> {
 
     private static final String TAG = "GetAllProductAdapter";
-    String wmemberId, wuniqueNo, wproductInfoCode, wisWhislist;
     String infocode, wishliststatus;
     Activity activity;
-    private List<GetAllProductResponse.GetProduct> getall;
+    private final List<GetAllProductResponse.GetProduct> getall;
     private List<GetAllProductResponse.GetProduct> contactListFiltered;
     private Context ctx;
 
@@ -64,7 +62,7 @@ public class GetAllProductAdapter extends RecyclerView.Adapter<GetAllProductAdap
         final GetAllProductResponse.GetProduct getAllProductModel = getall.get(position);
         holder.allproductviewBinding.PName.setText(getAllProductModel.getProductName());
         holder.allproductviewBinding.textView6.setText(getAllProductModel.getShortDescription());
-        holder.allproductviewBinding.textView55.setText("\u20B9" + String.valueOf(getAllProductModel.getMrp()));
+        holder.allproductviewBinding.textView55.setText("\u20B9" + getAllProductModel.getMrp());
         holder.allproductviewBinding.textView7.setText(String.valueOf(getAllProductModel.getOfferedPrice()));
         infocode = getAllProductModel.getProductInfoCode();
         wishliststatus = getAllProductModel.getWishlistStatus();
@@ -81,56 +79,46 @@ public class GetAllProductAdapter extends RecyclerView.Adapter<GetAllProductAdap
             holder.allproductviewBinding.checkBox2.setChecked(true);
         }
 
-        holder.allproductviewBinding.allproductlayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                User user = new User();
-                Bundle bundle = new Bundle();
-                bundle.putInt("productID", getAllProductModel.getProductId());
-                bundle.putString("member", String.valueOf(user.getMemberId()));
-                bundle.putString("Pinfo", getAllProductModel.getProductInfoCode());
+        holder.allproductviewBinding.allproductlayout.setOnClickListener(v -> {
+            User user = new User();
+            Bundle bundle1 = new Bundle();
+            bundle1.putInt("productID", getAllProductModel.getProductId());
+            bundle1.putString("member", String.valueOf(user.getMemberId()));
+            bundle1.putString("Pinfo", getAllProductModel.getProductInfoCode());
 
-                PatientDashboard.getInstance().navigate(R.id.action_allProductsFragment_to_productDetailsFragment, bundle);
-            }
+            PatientDashboard.getInstance().navigate(R.id.action_allProductsFragment_to_productDetailsFragment, bundle1);
         });
 
-        holder.allproductviewBinding.tvAddcart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getAllProductModel.getInCartStatus().equals("0")) {
-                    AddToCartModel addToCartModel = new AddToCartModel();
-                    addToCartModel.setProductInfoCode(getAllProductModel.getProductInfoCode());
-                    addToCartModel.setMemberId(String.valueOf(utils.getPrimaryUser(activity).getMemberId()));
-                    String quantity = "1";
-                    addToCart(addToCartModel, quantity);
-                } else {
+        holder.allproductviewBinding.tvAddcart.setOnClickListener(v -> {
+            if (getAllProductModel.getInCartStatus().equals("0")) {
+                AddToCartModel addToCartModel = new AddToCartModel();
+                addToCartModel.setProductInfoCode(getAllProductModel.getProductInfoCode());
+                addToCartModel.setMemberId(String.valueOf(utils.getPrimaryUser(activity).getMemberId()));
+                String quantity = "1";
+                addToCart(addToCartModel, quantity);
+            } else {
 
-                    Toast.makeText(activity, "Product is Already in your cart", Toast.LENGTH_SHORT).show();
-                    //  PatientDashboard.getInstance().navigate(R.id.action_all);
-                }
-
+                Toast.makeText(activity, "Product is Already in your cart", Toast.LENGTH_SHORT).show();
             }
+
         });
 
-        holder.allproductviewBinding.checkBox2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.allproductviewBinding.checkBox2.setOnClickListener(view -> {
 
-                if (getAllProductModel.getWishlistStatus().equals("0")) {
-                    AddtoWishlist addtoWishList = new AddtoWishlist();
-                    addtoWishList.setProductInfoCode(getAllProductModel.getProductInfoCode());
-                    addtoWishList.setMemberId(String.valueOf(utils.getPrimaryUser(activity).getMemberId()));
-                    String wishlistStatus = "1";
-                    addtoWishList(addtoWishList, wishlistStatus);
+            if (getAllProductModel.getWishlistStatus().equals("0")) {
+                AddtoWishlist addtoWishList = new AddtoWishlist();
+                addtoWishList.setProductInfoCode(getAllProductModel.getProductInfoCode());
+                addtoWishList.setMemberId(String.valueOf(utils.getPrimaryUser(activity).getMemberId()));
+                String wishlistStatus = "1";
+                addtoWishList(addtoWishList, wishlistStatus);
 
-                } else if (getAllProductModel.getWishlistStatus().equals("1")) {
-                    AddtoWishlist addtoWishList = new AddtoWishlist();
-                    addtoWishList.setProductInfoCode(getAllProductModel.getProductInfoCode());
-                    addtoWishList.setMemberId(String.valueOf(utils.getPrimaryUser(activity).getMemberId()));
-                    String wishlistStatus = "0";
-                    addtoWishList(addtoWishList, wishlistStatus);
-                    Toast.makeText(activity, "Product Removed From Wishlist", Toast.LENGTH_SHORT).show();
-                }
+            } else if (getAllProductModel.getWishlistStatus().equals("1")) {
+                AddtoWishlist addtoWishList = new AddtoWishlist();
+                addtoWishList.setProductInfoCode(getAllProductModel.getProductInfoCode());
+                addtoWishList.setMemberId(String.valueOf(utils.getPrimaryUser(activity).getMemberId()));
+                String wishlistStatus = "0";
+                addtoWishList(addtoWishList, wishlistStatus);
+                Toast.makeText(activity, "Product Removed From Wishlist", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -228,16 +216,14 @@ public class GetAllProductAdapter extends RecyclerView.Adapter<GetAllProductAdap
         };
     }
 
-    public class GetAllProductVH extends RecyclerView.ViewHolder {
+    public static class GetAllProductVH extends RecyclerView.ViewHolder {
         AllproductviewBinding allproductviewBinding;
         ImageView wish;
 
         public GetAllProductVH(@NonNull AllproductviewBinding itemView) {
 
-
             super(itemView.getRoot());
             allproductviewBinding = itemView;
-
 
         }
     }

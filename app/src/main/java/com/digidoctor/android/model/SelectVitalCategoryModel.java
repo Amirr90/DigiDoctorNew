@@ -1,11 +1,11 @@
 package com.digidoctor.android.model;
 
 public class SelectVitalCategoryModel {
-    private String title;
-    private int image;
-    private boolean isSelected;
-    private String color;
-    private String vitalId;
+    private final String title;
+    private final int image;
+    private final boolean isSelected;
+    private final String color;
+    private final String vitalId;
 
     public SelectVitalCategoryModel(String title, int image, boolean isSelected, String color, String vitalId) {
         this.title = title;

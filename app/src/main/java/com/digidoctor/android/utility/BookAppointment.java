@@ -64,8 +64,7 @@ import static com.payu.checkoutpro.utils.PayUCheckoutProConstants.CP_HASH_STRING
 public class BookAppointment extends Credentials {
 
     private static final String TAG = "BookAppointment";
-    private String MERCHANT_KEY = "y7cBem";
-    private String SALT = "PxXF1pqL";
+    private final String SALT = "PxXF1pqL";
 
     private Integer payMode;
 
@@ -350,7 +349,7 @@ public class BookAppointment extends Credentials {
         setPayMode(payMode);
         setPaymentMode(getPaymentMode(payMode));
         //CheckTimeSlot Availability
-        final Map<String, String> map = new HashMap<>();
+        final Map<String, Object> map = new HashMap<>();
 
         map.put(MOBILE_NUMBER, getUserMobileNo());
         map.put(MEMBER_ID, getMemberId());
@@ -413,7 +412,7 @@ public class BookAppointment extends Credentials {
     }
 
 
-    private void getTrxId(Map<String, String> map, int payMode) {
+    private void getTrxId(Map<String, Object> map, int payMode) {
 
         map.put(KEY_PATIENT_NAME, getPatientName());
         map.put(KEY_AMOUNT, getDrFee());
@@ -585,6 +584,7 @@ public class BookAppointment extends Credentials {
 
         PayUPaymentParams.Builder builder = new PayUPaymentParams.Builder();
 
+        String MERCHANT_KEY = "y7cBem";
         builder.setAmount(getDrFee())
                 .setIsProduction(true)
                 .setProductInfo("onlineAppointment")
@@ -687,7 +687,7 @@ public class BookAppointment extends Credentials {
 
             for (int i = 0; i < mb.length; i++) {
                 byte temp = mb[i];
-                String s = Integer.toHexString(new Byte(temp));
+                String s = Integer.toHexString(temp);
                 while (s.length() < 2) {
                     s = "0" + s;
                 }

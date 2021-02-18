@@ -25,27 +25,21 @@ import com.digidoctor.android.utility.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.digidoctor.android.view.fragments.pharmacy.Cart_Details_Fragment.COUPON_CODE;
 
 public class AllCoupneFragment extends Fragment implements AdapterInterface {
-    private static final String TAG = "AllCoupneFragment";
     FragmentApplyCoupneBinding fragmentApplyCoupneBinding;
     NavController navController;
-
-    AllCoupneModelResponse.GetCoupnedetails responseValue;
     AllCoupneAdapter allCoupneAdapter;
-    AvailableCoupneViewBinding availableCoupneViewBinding;
-    private List<AllCoupneModelResponse.GetCoupnedetails> coupne;
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-
-
         final List<AllCoupneModelResponse.GetCoupnedetails> coupne = new ArrayList<>();
 
         allCoupneAdapter = new AllCoupneAdapter(coupne, requireActivity(), this);

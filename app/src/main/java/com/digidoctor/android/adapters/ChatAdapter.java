@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.digidoctor.android.utility.utils.createDate;
-import static com.digidoctor.android.utility.utils.getDate;
 
 public class ChatAdapter extends RecyclerView.Adapter {
     public static final int VIEW_TYPE_SENDER = 0;
@@ -79,20 +78,16 @@ public class ChatAdapter extends RecyclerView.Adapter {
     }
 
 
-    public class SenderViewHolder extends RecyclerView.ViewHolder {
-
+    public static class SenderViewHolder extends RecyclerView.ViewHolder {
         SenderViewBinding senderViewBinding;
-
         public SenderViewHolder(@NonNull SenderViewBinding senderViewBinding) {
             super(senderViewBinding.getRoot());
             this.senderViewBinding = senderViewBinding;
         }
     }
 
-    public class ReceiverViewHolder extends RecyclerView.ViewHolder {
-
+    public static class ReceiverViewHolder extends RecyclerView.ViewHolder {
         ReceiverViewBinding receiverViewBinding;
-
         public ReceiverViewHolder(@NonNull ReceiverViewBinding receiverViewBinding) {
             super(receiverViewBinding.getRoot());
             this.receiverViewBinding = receiverViewBinding;
@@ -105,15 +100,6 @@ public class ChatAdapter extends RecyclerView.Adapter {
             chats = new ArrayList<>();
         chats.add(0, model);
         notifyDataSetChanged();
-    }
-
-    public void removeChatItem(int position) {
-        if (null == chats)
-            return;
-        if (chats.size() < position)
-            return;
-
-        chats.remove(position);
     }
 
 }

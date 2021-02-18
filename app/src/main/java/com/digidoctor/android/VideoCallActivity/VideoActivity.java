@@ -369,12 +369,11 @@ public class VideoActivity extends AppCompatActivity {
 
     private void continueVideo() {
 
-        audioCodec = getAudioCodecPreference(VideoCallUtils.PREF_AUDIO_CODEC,
-                VideoCallUtils.PREF_AUDIO_CODEC_DEFAULT);
-        videoCodec = getVideoCodecPreference(VideoCallUtils.PREF_VIDEO_CODEC,
-                VideoCallUtils.PREF_VIDEO_CODEC_DEFAULT);
-        enableAutomaticSubscription = getAutomaticSubscriptionPreference(VideoCallUtils.PREF_ENABLE_AUTOMATIC_SUBSCRIPTION,
-                VideoCallUtils.PREF_ENABLE_AUTOMATIC_SUBSCRIPTION_DEFAULT);
+        audioCodec = getAudioCodecPreference();
+        videoCodec = getVideoCodecPreference(
+        );
+        enableAutomaticSubscription = getAutomaticSubscriptionPreference(
+        );
 
         /*
          * Get latest encoding parameters
@@ -621,14 +620,12 @@ public class VideoActivity extends AppCompatActivity {
     /*
      * Get the preferred audio codec from shared preferences
      */
-    private AudioCodec getAudioCodecPreference(String key, String defaultValue) {
-        final String audioCodecName = preferences.getString(key, defaultValue);
+    private AudioCodec getAudioCodecPreference() {
+        final String audioCodecName = preferences.getString(VideoCallUtils.PREF_AUDIO_CODEC, VideoCallUtils.PREF_AUDIO_CODEC_DEFAULT);
 
         switch (audioCodecName) {
             case IsacCodec.NAME:
                 return new IsacCodec();
-            case OpusCodec.NAME:
-                return new OpusCodec();
             case PcmaCodec.NAME:
                 return new PcmaCodec();
             case PcmuCodec.NAME:
@@ -643,8 +640,8 @@ public class VideoActivity extends AppCompatActivity {
     /*
      * Get the preferred video codec from shared preferences
      */
-    private VideoCodec getVideoCodecPreference(String key, String defaultValue) {
-        final String videoCodecName = preferences.getString(key, defaultValue);
+    private VideoCodec getVideoCodecPreference() {
+        final String videoCodecName = preferences.getString(VideoCallUtils.PREF_VIDEO_CODEC, VideoCallUtils.PREF_VIDEO_CODEC_DEFAULT);
 
         switch (videoCodecName) {
             case Vp8Codec.NAME:
@@ -660,8 +657,8 @@ public class VideoActivity extends AppCompatActivity {
         }
     }
 
-    private boolean getAutomaticSubscriptionPreference(String key, boolean defaultValue) {
-        return preferences.getBoolean(key, defaultValue);
+    private boolean getAutomaticSubscriptionPreference() {
+        return preferences.getBoolean(VideoCallUtils.PREF_ENABLE_AUTOMATIC_SUBSCRIPTION, VideoCallUtils.PREF_ENABLE_AUTOMATIC_SUBSCRIPTION_DEFAULT);
     }
 
     private EncodingParameters getEncodingParameters() {
@@ -1226,63 +1223,34 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     private DialogInterface.OnClickListener connectClickListener(final EditText roomEditText) {
-        return new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                /*
-                 * Connect to room
-                 */
-                VideoActivity.this.connectToRoom(roomEditText.getText().toString());
-            }
+        return (dialog, which) -> {
+            /*
+             * Connect to room
+             */
+            VideoActivity.this.connectToRoom(roomEditText.getText().toString());
         };
     }
 
     private View.OnClickListener disconnectClickListener() {
-        return new View.OnClickListener() {
-            @SuppressLint("NewApi")
-            @Override
-            public void onClick(View v) {
-                /*
-                 * Disconnect from room
-                 */
-                if (room != null) {
-                    room.disconnect();
-                } else {
+        return v -> {
+            /*
+             * Disconnect from room
+             */
+            if (room != null) {
+                room.disconnect();
+            } else {
 
-                    if (isConnected == 0) {
+                if (isConnected == 0) {
 
-                    }
-
-                    AppUtils.showToastSort(VideoActivity.this, getString(R.string.call_has_been_disconnected));
-
-                    audioDeviceSelector.deactivate();
-//                    configureAudio(false);
-
-                    /*if (focusRequest != null){
-                        audioManager.abandonAudioFocusRequest(focusRequest);
-                    }*/
-                    /*
-                    audioManager.abandonAudioFocus(new AudioManager.OnAudioFocusChangeListener() {
-                        @Override
-                        public void onAudioFocusChange(int i) {
-
-                        }
-                    });
-*/
-
-                 /*   if (AppSettings.getString(AppSettings.serviceProviderType).equals("6")) {
-                        startActivity(new Intent(mActivity, DashboardActivity.class));
-                    } else {
-                        startActivity(new Intent(mActivity, DoctorsDashboardActivity.class));
-                    }*/
-
-                    startActivity(new Intent(VideoActivity.this, PatientDashboard.class));
-                    notificationManager.cancelAll();
-
-//
                 }
 
+                AppUtils.showToastSort(VideoActivity.this, getString(R.string.call_has_been_disconnected));
+
+                audioDeviceSelector.deactivate();
+                startActivity(new Intent(VideoActivity.this, PatientDashboard.class));
+                notificationManager.cancelAll();
             }
+
         };
     }
 

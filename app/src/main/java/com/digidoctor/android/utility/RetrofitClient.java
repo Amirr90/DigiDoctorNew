@@ -8,8 +8,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static Retrofit retrofit = null;
-
     public static Retrofit getClient(String baseUrl) {
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -23,21 +21,11 @@ public class RetrofitClient {
         httpClient.addInterceptor(logging);
         httpClient.dispatcher(dispatcher);
 
-
-     /*   if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(baseUrl)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(httpClient.build())
-                    .build();
-        }
-*/
-
-        retrofit = new Retrofit.Builder()
+        final Retrofit build = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();
-        return retrofit;
+        return build;
     }
 }

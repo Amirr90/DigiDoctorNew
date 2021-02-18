@@ -9,13 +9,13 @@ public class CheckTimeSlotModel {
     private String userMobileNo;
     private String isEraUser;
     private String appointmentId;
-    private String isRevisit;
+    private boolean isRevisit;
 
-    public String getIsRevisit() {
+    public boolean getIsRevisit() {
         return isRevisit;
     }
 
-    public void setIsRevisit(String isRevisit) {
+    public void setIsRevisit(boolean isRevisit) {
         this.isRevisit = isRevisit;
     }
 

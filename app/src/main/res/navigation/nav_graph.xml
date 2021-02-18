@@ -586,7 +586,7 @@
     <fragment
         android:id="@+id/onlinePharmacyFragment"
         android:name="com.digidoctor.android.view.fragments.pharmacy.OnlinePharmacyFragment"
-        android:label="Online Pharmacy"
+        android:label="@string/digi_pharmacy"
         tools:layout="@layout/fragment_online_pharmacy">
         <action
             android:id="@+id/action_onlinePharmacyFragment_to_allCategoryFragment"

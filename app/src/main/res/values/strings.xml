@@ -1012,6 +1012,9 @@
     <string name="reschedule_appointment">Re-Schedule</string>
     <string name="re_visit">Re-visit</string>
     <string name="re_visit_appointment">Re-Visit Appointment</string>
+    <string name="search_pharmacy_hint">Search Medicine here</string>
+    <string name="favourite">favourite</string>
+    <string name="cart">cart</string>
 
 
 </resources>

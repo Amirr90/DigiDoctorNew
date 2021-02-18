@@ -104,11 +104,11 @@ public class OrderDetailsFragment extends Fragment {
                     fragmentOrderDetailsBinding.textView128.setVisibility(View.GONE);
                     fragmentOrderDetailsBinding.textView129.setVisibility(View.GONE);
                 }
-                fragmentOrderDetailsBinding.textView129.setText(String.valueOf(orderDetailsRelatedProductAdapter.getItemCount()) + " more orders");
+                fragmentOrderDetailsBinding.textView129.setText(orderDetailsRelatedProductAdapter.getItemCount() + " more orders");
 
                 fragmentOrderDetailsBinding.textView113.setText(productDetail.getProductName());
                 fragmentOrderDetailsBinding.textView114.setText(String.valueOf(productDetail.getSubTotal()));
-                fragmentOrderDetailsBinding.textView115.setText(String.valueOf("Quantity: " + productDetail.getQuantity()));
+                fragmentOrderDetailsBinding.textView115.setText("Quantity: " + productDetail.getQuantity());
                 fragmentOrderDetailsBinding.textView112.setText("Order ID: " + productDetail.getOrderNo());
                 Glide.with(requireActivity()).load(productDetail.getImagePath()).placeholder(R.drawable.box_two)
                         .into(fragmentOrderDetailsBinding.imageView21);
@@ -126,7 +126,7 @@ public class OrderDetailsFragment extends Fragment {
                 fragmentOrderDetailsBinding.textView142.setText(String.valueOf(priceDetails.getFinalAmount()));
 
                 fragmentOrderDetailsBinding.setPrice(priceDetails);
-                fragmentOrderDetailsBinding.textView20.setText(String.valueOf(priceDetails.getTotalProducts()) + " ( Qty: " + String.valueOf(priceDetails.getTotalQuantity() + ")"));
+                fragmentOrderDetailsBinding.textView20.setText(priceDetails.getTotalProducts() + " ( Qty: " + priceDetails.getTotalQuantity() + ")");
 
 
                 if (getOrderStatus.getOrderStatus().equals("Delivered")) {
@@ -181,116 +181,84 @@ public class OrderDetailsFragment extends Fragment {
             }
         });
 
+        fragmentOrderDetailsBinding.CancelorderTextview.setOnClickListener(view1 -> {
+            if (orderstatus.equals("Cancelled") || orderstatus.equals("Delivered")) {
+                fragmentOrderDetailsBinding.cancel.setVisibility(View.GONE);
+            } else {
+                new AlertDialog.Builder(requireActivity()).setTitle("Cancel Order")
+                        .setMessage("Do you really want to Cancel this Order?")
+                        .setPositiveButton("Yes", (dialogInterface, i) -> ApiUtils.CancelOrder(orderDetailsId, requireActivity(), new ApiCallbackInterface() {
+                            @Override
+                            public void onSuccess(List<?> o) {
+                                Toast.makeText(requireActivity(), "Your Order Has Been Cancelled!", Toast.LENGTH_SHORT).show();
+                                navController.navigateUp();
+                            }
 
-//        fragmentOrderDetailsBinding.contactsellerTV.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(requireActivity(), "Clicked!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+                            @Override
+                            public void onError(String s) {
+                                Toast.makeText(requireActivity(), "" + s, Toast.LENGTH_SHORT).show();
+                            }
 
+                            @Override
+                            public void onFailed(Throwable throwable) {
+                                Toast.makeText(requireActivity(), "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        })).setNegativeButton("No", (dialogInterface, i) -> {
 
-        fragmentOrderDetailsBinding.CancelorderTextview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (orderstatus.equals("Cancelled") || orderstatus.equals("Delivered")) {
-                    fragmentOrderDetailsBinding.cancel.setVisibility(View.GONE);
-                } else {
-                    new AlertDialog.Builder(requireActivity()).setTitle("Cancel Order")
-                            .setMessage("Do you really want to Cancel this Order?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-
-
-                                    ApiUtils.CancelOrder(orderDetailsId, requireActivity(), new ApiCallbackInterface() {
-                                        @Override
-                                        public void onSuccess(List<?> o) {
-                                            Toast.makeText(requireActivity(), "Your Order Has Been Cancelled!", Toast.LENGTH_SHORT).show();
-                                            navController.navigateUp();
-                                        }
-
-                                        @Override
-                                        public void onError(String s) {
-                                            Toast.makeText(requireActivity(), "" + s, Toast.LENGTH_SHORT).show();
-                                        }
-
-                                        @Override
-                                        public void onFailed(Throwable throwable) {
-                                            Toast.makeText(requireActivity(), "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-
-
-                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                        }
-                    }).show();
-
-                }
+                        }).show();
 
             }
+
         });
 
 
-        fragmentOrderDetailsBinding.textView125.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog = new Dialog(requireActivity());
+        fragmentOrderDetailsBinding.textView125.setOnClickListener(view12 -> {
+            dialog = new Dialog(requireActivity());
 
-                dialog.setTitle("Write a Review");
-                dialog.setCancelable(true);
-                dialog.setContentView(R.layout.writearevive);
-                //     TextView Name = dialog.findViewById(R.id.textView191);
-                RatingBar star = dialog.findViewById(R.id.ratingBar3);
-                EditText review = dialog.findViewById(R.id.editTextTextPersonName5);
-                Button save = dialog.findViewById(R.id.button17);
-
-                //    Name.setText("Write a Review for " + Brand);
-                dialog.show();
-
-                save.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        String rating = String.valueOf(star.getRating());
-                        String re = review.getText().toString().trim();
-                        final Map<String, String> map = new HashMap<>();
-
-                        map.put("pinfo", productinfocode);
-                        map.put("rating", rating);
-                        map.put("review", re);
-
-                        dialog.dismiss();
-                        ApiUtils.add_rating(requireActivity(), map, new ApiCallbackInterface() {
-                                    @Override
-                                    public void onSuccess(List<?> o) {
-                                        AppUtils.hideDialog();
-                                        Toast.makeText(requireActivity(), "Thanks for Rate!", Toast.LENGTH_SHORT).show();
-
-                                    }
-
-                                    @Override
-                                    public void onError(String s) {
-                                        AppUtils.hideDialog();
-                                        Toast.makeText(requireActivity(), "" + s, Toast.LENGTH_SHORT).show();
-                                    }
-
-                                    @Override
-                                    public void onFailed(Throwable throwable) {
-                                        AppUtils.hideDialog();
-                                        Toast.makeText(requireActivity(), "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                        );
-                    }
-                });
+            dialog.setTitle("Write a Review");
+            dialog.setCancelable(true);
+            dialog.setContentView(R.layout.writearevive);
+            RatingBar star = dialog.findViewById(R.id.ratingBar3);
+            EditText review = dialog.findViewById(R.id.editTextTextPersonName5);
+            Button save = dialog.findViewById(R.id.button17);
 
 
-            }
+            dialog.show();
+
+            save.setOnClickListener(view121 -> {
+                String rating = String.valueOf(star.getRating());
+                String re = review.getText().toString().trim();
+                final Map<String, String> map = new HashMap<>();
+
+                map.put("pinfo", productinfocode);
+                map.put("rating", rating);
+                map.put("review", re);
+
+                dialog.dismiss();
+                ApiUtils.add_rating(requireActivity(), map, new ApiCallbackInterface() {
+                            @Override
+                            public void onSuccess(List<?> o) {
+                                AppUtils.hideDialog();
+                                Toast.makeText(requireActivity(), "Thanks for Rate!", Toast.LENGTH_SHORT).show();
+
+                            }
+
+                            @Override
+                            public void onError(String s) {
+                                AppUtils.hideDialog();
+                                Toast.makeText(requireActivity(), "" + s, Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailed(Throwable throwable) {
+                                AppUtils.hideDialog();
+                                Toast.makeText(requireActivity(), "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                );
+            });
+
+
         });
 
 

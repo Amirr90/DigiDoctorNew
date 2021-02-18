@@ -45,7 +45,6 @@ public class ImagePickerActivity extends AppCompatActivity {
     public static final int REQUEST_IMAGE_CAPTURE = 0;
     public static final int REQUEST_GALLERY_IMAGE = 1;
 
-    private boolean lockAspectRatio = false, setBitmapMaxWidthHeight = false;
     private int ASPECT_RATIO_X = 16, ASPECT_RATIO_Y = 9, bitmapMaxWidth = 1000, bitmapMaxHeight = 1000;
     private int IMAGE_COMPRESSION = 30;
     public static String fileName;
@@ -72,8 +71,6 @@ public class ImagePickerActivity extends AppCompatActivity {
         ASPECT_RATIO_X = intent.getIntExtra(INTENT_ASPECT_RATIO_X, ASPECT_RATIO_X);
         ASPECT_RATIO_Y = intent.getIntExtra(INTENT_ASPECT_RATIO_Y, ASPECT_RATIO_Y);
         IMAGE_COMPRESSION = intent.getIntExtra(INTENT_IMAGE_COMPRESSION_QUALITY, IMAGE_COMPRESSION);
-        lockAspectRatio = intent.getBooleanExtra(INTENT_LOCK_ASPECT_RATIO, false);
-        setBitmapMaxWidthHeight = intent.getBooleanExtra(INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT, false);
         bitmapMaxWidth = intent.getIntExtra(INTENT_BITMAP_MAX_WIDTH, bitmapMaxWidth);
         bitmapMaxHeight = intent.getIntExtra(INTENT_BITMAP_MAX_HEIGHT, bitmapMaxHeight);
 
@@ -259,16 +256,5 @@ public class ImagePickerActivity extends AppCompatActivity {
         return name;
     }
 
-    /**
-     * Calling this will delete the images from cache directory
-     * useful to clear some memory
-     */
-    public static void clearCache(Context context) {
-        File path = new File(context.getExternalCacheDir(), "camera");
-        if (path.exists() && path.isDirectory()) {
-            for (File child : path.listFiles()) {
-                child.delete();
-            }
-        }
-    }
+   
 }

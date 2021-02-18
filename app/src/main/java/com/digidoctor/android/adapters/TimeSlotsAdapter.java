@@ -2,7 +2,6 @@ package com.digidoctor.android.adapters;
 
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -11,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.TimingViewPrimaryNewBinding;
 import com.digidoctor.android.databinding.TimingViewSecondaryNewBinding;
+import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.model.GetAppointmentSlotsDataRes;
 import com.digidoctor.android.model.GetAppointmentSlotsModel;
-import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
 import java.util.List;

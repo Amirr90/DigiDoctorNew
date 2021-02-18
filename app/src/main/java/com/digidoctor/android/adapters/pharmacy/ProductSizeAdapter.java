@@ -73,17 +73,14 @@ public class ProductSizeAdapter extends RecyclerView.Adapter<ProductSizeAdapter.
             holder.productsizelayoutBinding.textView135.setTextColor(Color.BLACK);
 
         }
-        holder.productsizelayoutBinding.textView135.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedPosition = position;
-                ProductModel model = new ProductModel();
-                model.setSizeId(String.valueOf(sizeDetails.getSizeid()));
-                updateProduct(model);
-                notifyDataSetChanged();
+        holder.productsizelayoutBinding.textView135.setOnClickListener(v -> {
+            selectedPosition = position;
+            ProductModel model = new ProductModel();
+            model.setSizeId(String.valueOf(sizeDetails.getSizeid()));
+            updateProduct(model);
+            notifyDataSetChanged();
 
 
-            }
         });
 
 

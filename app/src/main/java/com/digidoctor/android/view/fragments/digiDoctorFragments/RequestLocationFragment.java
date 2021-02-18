@@ -46,12 +46,7 @@ public class RequestLocationFragment extends Fragment {
 
         navController = Navigation.findNavController(view);
 
-        requestLocationBinding.btnEnableLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PatientDashboard.getInstance().onSupportNavigateUp();
-            }
-        });
+        requestLocationBinding.btnEnableLocation.setOnClickListener(view1 -> PatientDashboard.getInstance().onSupportNavigateUp());
 
     }
 

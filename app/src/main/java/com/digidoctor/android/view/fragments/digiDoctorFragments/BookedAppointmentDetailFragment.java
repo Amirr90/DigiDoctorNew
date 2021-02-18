@@ -76,36 +76,34 @@ public class BookedAppointmentDetailFragment extends Fragment implements Appoint
         new AlertDialog.Builder(requireActivity())
                 .setMessage(R.string.cancel_appointment)
                 .setMessage(R.string.cancel_appointment_tag)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        OnlineAppointmentModel appointmentModel = (OnlineAppointmentModel) object;
-                        cancelAppointment(appointmentModel.getAppointmentId(), requireActivity(), new ApiCallbackInterface() {
-                            @Override
-                            public void onSuccess(List<?> o) {
-                                Bundle bundle = new Bundle();
-                                bundle.putString("key", KEY_CANCEL);
-                                navController.navigate(R.id.action_bookedAppointmentDetailFragment_to_cancelAppointmentFragment2, bundle);
-                            }
+                .setPositiveButton(R.string.yes, (dialog, id) -> {
+                    dialog.cancel();
+                    OnlineAppointmentModel appointmentModel = (OnlineAppointmentModel) object;
+                    cancelAppointment(appointmentModel.getAppointmentId(), requireActivity(), new ApiCallbackInterface() {
+                        @Override
+                        public void onSuccess(List<?> o) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("key", KEY_CANCEL);
+                            navController.navigate(R.id.action_bookedAppointmentDetailFragment_to_cancelAppointmentFragment2, bundle);
+                        }
 
-                            @Override
-                            public void onError(String s) {
-                                try {
-                                    if (s.equalsIgnoreCase(getString(R.string.failed_to_authenticate_token))) {
-                                        logout(PatientDashboard.getInstance(), true);
-                                    }
-
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                        @Override
+                        public void onError(String s) {
+                            try {
+                                if (s.equalsIgnoreCase(getString(R.string.failed_to_authenticate_token))) {
+                                    logout(PatientDashboard.getInstance(), true);
                                 }
-                            }
 
-                            @Override
-                            public void onFailed(Throwable throwable) {
-                                Toast.makeText(requireActivity(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        });
-                    }
+                        }
+
+                        @Override
+                        public void onFailed(Throwable throwable) {
+                            Toast.makeText(requireActivity(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }).setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.dismiss())
                 .show();
 

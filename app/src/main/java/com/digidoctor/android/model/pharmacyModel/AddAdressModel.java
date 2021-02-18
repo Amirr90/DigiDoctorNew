@@ -1,5 +1,7 @@
 package com.digidoctor.android.model.pharmacyModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class AddAdressModel {
@@ -28,6 +30,7 @@ public class AddAdressModel {
         this.getAddress = getAddress;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "AddAdressModel{" +

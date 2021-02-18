@@ -3,8 +3,6 @@ package com.digidoctor.android.utility;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,7 +13,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.digidoctor.android.R;
@@ -23,14 +20,12 @@ import com.digidoctor.android.model.DashboardModel1;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.LanguageModel;
 import com.digidoctor.android.model.NavModel;
-import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,7 +36,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.Executor;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,7 +47,6 @@ public class AppUtils {
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
-    private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
     static ProgressDialog progressDialog;
 
     public static final int PAY_MODE_PAY_ON_VISIT = 4;
@@ -112,10 +106,11 @@ public class AppUtils {
                         Uri flowchartLink = task.getResult().getPreviewLink();
                         Log.d(TAG, "shortLink: " + shortLink);
                         Log.d(TAG, "flowchartLink: " + flowchartLink);
+                        assert shortLink != null;
                         openShareAppDialog(shortLink.toString(), activity);
 
                     } else {
-                        Log.d(TAG, "onComplete: Error " + task.getException().getLocalizedMessage());
+                        Log.d(TAG, "onComplete: Error " + Objects.requireNonNull(task.getException()).getLocalizedMessage());
                     }
                 });
 
@@ -216,16 +211,6 @@ public class AppUtils {
     }
 
 
-    private void showPdf(String filePath) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse(filePath), "application/pdf");
-        try {
-
-        } catch (ActivityNotFoundException e) {
-            Log.d(TAG, "showPdf: " + e.getLocalizedMessage());
-        }
-    }
-
     public static String parseDate(String inDate, String outPattern) {
 
         String inputPattern = "dd/MM/yy";
@@ -252,7 +237,9 @@ public class AppUtils {
         try {
             Date myDate = inFormat.parse(date);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM d");
-            dayName = simpleDateFormat.format(myDate);
+            if (myDate != null) {
+                dayName = simpleDateFormat.format(myDate);
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -262,14 +249,10 @@ public class AppUtils {
     }
 
     public static String getCurrentDateInWeekMonthDayFormat() {
-
         Date c = Calendar.getInstance().getTime();
         System.out.println("Current Date => " + c);
-
         SimpleDateFormat df = new SimpleDateFormat("EEE, MMM d");
-        String formattedDate = df.format(c);
-
-        return formattedDate;
+        return df.format(c);
     }
 
     public static void showToastSort(Context context, String text) {
@@ -298,7 +281,7 @@ public class AppUtils {
 
     public static void showDeleteDialog(Activity activity, DialogInterface.OnClickListener onClickListener) {
         new AlertDialog.Builder(activity).setMessage(activity.getString(R.string.delete_member_dialog_string))
-                .setPositiveButton(activity.getString(R.string.delete_member), (dialogInterface, i) -> onClickListener.onClick(dialogInterface, i))
+                .setPositiveButton(activity.getString(R.string.delete_member), onClickListener)
                 .setNegativeButton(activity.getString(R.string.cancel), (dialogInterface, i) -> dialogInterface.dismiss()).show();
     }
 

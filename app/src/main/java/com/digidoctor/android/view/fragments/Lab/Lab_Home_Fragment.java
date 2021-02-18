@@ -21,11 +21,8 @@ import com.digidoctor.android.databinding.LabTestHomeBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
 import com.digidoctor.android.model.labmodel.PackageDetail;
-import com.digidoctor.android.model.labmodel.SliderImage;
-import com.digidoctor.android.model.labmodel.labdashboardresponse;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
-import com.digidoctor.android.utility.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +58,7 @@ public class Lab_Home_Fragment extends Fragment {
 
         sliderimageadapter = new sliderimageadapter(sliderimageoflab, requireActivity());
 
-        healthPackageAdapter = new HealthPackageAdapter(packageDetails, requireActivity());
+        healthPackageAdapter = new HealthPackageAdapter(packageDetails);
 
 
         labTestHomeBinding.bannerSlider1.setAdapter(sliderimageadapter);
@@ -70,7 +67,7 @@ public class Lab_Home_Fragment extends Fragment {
         labTestHomeBinding.healthpackagerecyclerview.setAdapter(healthPackageAdapter);
 
 
-        ApiUtils.getlabdash(requireActivity(), new ApiCallbackInterface() {
+        ApiUtils.getlabdash( new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 AppUtils.hideDialog();
@@ -107,12 +104,7 @@ public class Lab_Home_Fragment extends Fragment {
         });
 
 
-        labTestHomeBinding.textView158.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_lab_Home_Fragment_to_health_Checkup_Categories_Fragment);
-            }
-        });
+        labTestHomeBinding.textView158.setOnClickListener(view1 -> navController.navigate(R.id.action_lab_Home_Fragment_to_health_Checkup_Categories_Fragment));
 
     }
 

@@ -67,18 +67,14 @@ public class SymptomsFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
 
-        symptomsAdapter = new SymptomsAdapter(new AdapterInterface() {
-            @Override
-            public void onItemClicked(Object o) {
-                SymptomModel symptomModel = (SymptomModel) o;
-                if (null == symptomModel)
-                    return;
-                String id = String.valueOf(symptomModel.getProblemId());
-                if (symptomsIds.contains(id)) {
-                    symptomsIds.remove(id);
-                } else symptomsIds.add(id);
-
-            }
+        symptomsAdapter = new SymptomsAdapter(o -> {
+            SymptomModel symptomModel = (SymptomModel) o;
+            if (null == symptomModel)
+                return;
+            String id = String.valueOf(symptomModel.getProblemId());
+            if (symptomsIds.contains(id)) {
+                symptomsIds.remove(id);
+            } else symptomsIds.add(id);
 
         });
 
@@ -88,33 +84,25 @@ public class SymptomsFragment extends Fragment {
 
         getSymptomData(symptomName);
 
-        symptoms2Binding.btnProceedOnSymptomPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_symptomsFragment2_to_recommendedDoctorsFragment2);
+        symptoms2Binding.btnProceedOnSymptomPage.setOnClickListener(v -> navController.navigate(R.id.action_symptomsFragment2_to_recommendedDoctorsFragment2));
+
+
+        symptoms2Binding.btnProceedOnSymptomPage.setOnClickListener(view1 -> {
+            if (symptomsIds.isEmpty()) {
+                Toast.makeText(requireActivity(), R.string.select_symptoms, Toast.LENGTH_SHORT).show();
+                return;
             }
-        });
-
-
-        symptoms2Binding.btnProceedOnSymptomPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (symptomsIds.isEmpty()) {
-                    Toast.makeText(requireActivity(), R.string.select_symptoms, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                StringBuilder ids = new StringBuilder();
-                for (String id : symptomsIds)
-                    ids.append(id + ",");
-                try {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("id", ids.toString());
-                    Log.d(TAG, "onClick: SymptomsId: " + ids.toString());
-                    navController.navigate(R.id.action_symptomsFragment2_to_recommendedDoctorsFragment2, bundle);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.d(TAG, "onItemClicked: " + e.getLocalizedMessage());
-                }
+            StringBuilder ids = new StringBuilder();
+            for (String id : symptomsIds)
+                ids.append(id + ",");
+            try {
+                Bundle bundle = new Bundle();
+                bundle.putString("id", ids.toString());
+                Log.d(TAG, "onClick: SymptomsId: " + ids.toString());
+                navController.navigate(R.id.action_symptomsFragment2_to_recommendedDoctorsFragment2, bundle);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d(TAG, "onItemClicked: " + e.getLocalizedMessage());
             }
         });
 
@@ -143,12 +131,9 @@ public class SymptomsFragment extends Fragment {
 
     private void getSymptomData(String symptomName) {
 
-        viewModel.getSymptomsData(symptomName).observe(getViewLifecycleOwner(), new Observer<List<SymptomModel>>() {
-            @Override
-            public void onChanged(List<SymptomModel> symptomModels) {
-                symptomsAdapter.submitList(symptomModels);
-                symptoms2Binding.progressBar2.setVisibility(View.GONE);
-            }
+        viewModel.getSymptomsData(symptomName).observe(getViewLifecycleOwner(), symptomModels -> {
+            symptomsAdapter.submitList(symptomModels);
+            symptoms2Binding.progressBar2.setVisibility(View.GONE);
         });
     }
 

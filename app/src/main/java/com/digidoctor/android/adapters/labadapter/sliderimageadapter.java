@@ -1,7 +1,6 @@
 package com.digidoctor.android.adapters.labadapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.digidoctor.android.R;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
-import com.digidoctor.android.model.labmodel.SliderImage;
 
 import java.util.List;
 
 public class sliderimageadapter extends RecyclerView.Adapter<sliderimageadapter.ViewHolderVH> {
 
-    private List<LabDashBoardmodel.SliderImage> banner;
-    private Context context;
+    private final List<LabDashBoardmodel.SliderImage> banner;
+    private final Context context;
 
     public sliderimageadapter(List<LabDashBoardmodel.SliderImage> banner, Context context) {
         this.banner = banner;

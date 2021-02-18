@@ -105,7 +105,7 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
 
             profileBinding.setUser(user);
             if (null != user && null != user.getPrimaryStatus())
-                profileBinding.editTextTextPersonNumber.setEnabled(user.getPrimaryStatus() == 1 ? false : true);
+                profileBinding.editTextTextPersonNumber.setEnabled(user.getPrimaryStatus() != 1);
 
         }
 

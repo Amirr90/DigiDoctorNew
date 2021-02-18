@@ -12,13 +12,11 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.RatingAndReviewViewBinding;
 import com.digidoctor.android.model.pharmacyModel.ProductDetailModelResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ratingandreviewadapter extends RecyclerView.Adapter<ratingandreviewadapter.ratingandreviewVH> {
-    private static final String TAG = "ratingandreviewadapter";
     Context ctx;
-    private List<ProductDetailModelResponse.ProductDetailsList.ReviewDetails> getallreview;
+    private final List<ProductDetailModelResponse.ProductDetailsList.ReviewDetails> getallreview;
 
     public ratingandreviewadapter(List<ProductDetailModelResponse.ProductDetailsList.ReviewDetails> getallreview, Context ctx) {
         this.getallreview = getallreview;

@@ -388,7 +388,6 @@
             app:layout_constraintTop_toTopOf="@+id/btnAction" />
 
         <Button
-            android:visibility="gone"
             android:id="@+id/btnAction"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -400,12 +399,13 @@
             android:backgroundTint="@{appointmentModel.expiredStatus==1?Color.parseColor(`#FF3737`):appointmentModel.isPrescribed==false?Color.parseColor(`#EDA537`):Color.parseColor(`#39B54A`)}"
             android:fontFamily="@font/poppins_semibold"
             android:onClick="@{()->clickListener.onItemClick(appointmentModel)}"
-            android:tag="@{appointmentModel.expiredStatus==1?`0`:appointmentModel.isPrescribed==true?`1`:`2`}"
-            android:text="@{appointmentModel.expiredStatus==1?`Expired`:appointmentModel.isPrescribed==true?String.format(@string/view_prescription):String.format(@string/reschedule_appointment)}"
+            android:tag="@{appointmentModel.expiredStatus==1?`0`:appointmentModel.isPrescribed?`1`:`2`}"
+            android:text="@{appointmentModel.expiredStatus==1?`Expired`:appointmentModel.isPrescribed?String.format(@string/view_prescription):String.format(@string/reschedule_appointment)}"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

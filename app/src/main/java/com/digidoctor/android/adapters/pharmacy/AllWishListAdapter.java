@@ -60,52 +60,42 @@ public class AllWishListAdapter extends RecyclerView.Adapter<AllWishListAdapter.
                 .into(holder.wishlistViewBinding.imageView4);
 
 
-        holder.wishlistViewBinding.imageView14.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.wishlistViewBinding.imageView14.setOnClickListener(view -> {
 
 
-                AddtoWishlist addtoWishList = new AddtoWishlist();
-                addtoWishList.setProductInfoCode(allWishlists.getProductInfoCode());
-                addtoWishList.setMemberId(String.valueOf(utils.getPrimaryUser(activity).getMemberId()));
-                String wishlistStatus = "0";
-                addtoWishList(addtoWishList, wishlistStatus);
+            AddtoWishlist addtoWishList = new AddtoWishlist();
+            addtoWishList.setProductInfoCode(allWishlists.getProductInfoCode());
+            addtoWishList.setMemberId(String.valueOf(utils.getPrimaryUser(activity).getMemberId()));
+            String wishlistStatus = "0";
+            addtoWishList(addtoWishList, wishlistStatus);
 
 //              allWishlist.clear();
 
-                allWishlist.remove(position);
-                notifyDataSetChanged();
-                Toast.makeText(activity, "Product Removed From Wishlist", Toast.LENGTH_SHORT).show();
-            }
+            allWishlist.remove(position);
+            notifyDataSetChanged();
+            Toast.makeText(activity, "Product Removed From Wishlist", Toast.LENGTH_SHORT).show();
         });
 
-        holder.wishlistViewBinding.button9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.wishlistViewBinding.button9.setOnClickListener(view -> {
 
 
-                AddToCartModel addToCartModel = new AddToCartModel();
-                addToCartModel.setProductInfoCode(allWishlists.getProductInfoCode());
-                addToCartModel.setMemberId(String.valueOf(utils.getPrimaryUser(activity).getMemberId()));
-                String quantity = "1";
-                addToCart(addToCartModel, quantity);
+            AddToCartModel addToCartModel = new AddToCartModel();
+            addToCartModel.setProductInfoCode(allWishlists.getProductInfoCode());
+            addToCartModel.setMemberId(String.valueOf(utils.getPrimaryUser(activity).getMemberId()));
+            String quantity = "1";
+            addToCart(addToCartModel, quantity);
 
-
-            }
 
         });
-        holder.wishlistViewBinding.wishlistview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                User user = new User();
-                Bundle bundle = new Bundle();
-                bundle.putInt("productID", allWishlists.getProductId());
-                bundle.putString("member", String.valueOf(user.getMemberId()));
-                bundle.putString("Pinfo", allWishlists.getProductInfoCode());
+        holder.wishlistViewBinding.wishlistview.setOnClickListener(view -> {
+            User user = new User();
+            Bundle bundle = new Bundle();
+            bundle.putInt("productID", allWishlists.getProductId());
+            bundle.putString("member", String.valueOf(user.getMemberId()));
+            bundle.putString("Pinfo", allWishlists.getProductInfoCode());
 
-                PatientDashboard.getInstance().navigate(R.id.action_fragmentAllWishLIstProduct_to_productDetailsFragment, bundle);
+            PatientDashboard.getInstance().navigate(R.id.action_fragmentAllWishLIstProduct_to_productDetailsFragment, bundle);
 
-            }
         });
 
     }

@@ -101,55 +101,27 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
         });
 
 
-        fragmentOrderSummaryBinding.button6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        fragmentOrderSummaryBinding.button6.setOnClickListener(view1 -> navController.navigate(R.id.action_orderSummaryFragment_to_allAddressFragment));
 
 
-                navController.navigate(R.id.action_orderSummaryFragment_to_allAddressFragment);
-            }
-        });
+        fragmentOrderSummaryBinding.button5.setOnClickListener(view12 -> {
 
-
-        fragmentOrderSummaryBinding.button5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (addAdressModels.isEmpty()) {
-                    Toast.makeText(requireActivity(), "Kindly add Address First!", Toast.LENGTH_SHORT).show();
-                } else {
-                    hideSoftKeyboard(PatientDashboard.getInstance());
-                    new AlertDialog.Builder(requireActivity())
-                            .setMessage("Product Price ₹")
-                            .setPositiveButton("Cash On Delivery ",
-                                    new DialogInterface.OnClickListener() {
-                                        @TargetApi(11)
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                            Orderplaced();
-                                        }
-                                    })
-                            .setNegativeButton("Pay Online", new DialogInterface.OnClickListener() {
-                                @TargetApi(11)
-                                public void onClick(DialogInterface dialog, int id) {
+            if (addAdressModels.isEmpty()) {
+                Toast.makeText(requireActivity(), "Kindly add Address First!", Toast.LENGTH_SHORT).show();
+            } else {
+                hideSoftKeyboard(PatientDashboard.getInstance());
+                new AlertDialog.Builder(requireActivity())
+                        .setMessage("Product Price ₹")
+                        .setPositiveButton("Cash On Delivery ",
+                                (dialog, id) -> {
                                     dialog.cancel();
-                                }
-                            }).show();
-                }
-
-
+                                    Orderplaced();
+                                })
+                        .setNegativeButton("Pay Online", (dialog, id) -> dialog.cancel()).show();
             }
+
+
         });
-
-
-        fragmentOrderSummaryBinding.imageView52.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-            }
-        });
-
     }
 
 

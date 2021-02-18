@@ -4,9 +4,7 @@ package com.digidoctor.android.adapters.pharmacy;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -16,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.CategoryViewBinding;
-import com.digidoctor.android.databinding.HealthpackagelayoutBinding;
 import com.digidoctor.android.model.pharmacyModel.ShopBycategoryModel;
 
 import java.util.List;
@@ -27,8 +24,8 @@ public class AllCategoryAdapter extends RecyclerView.Adapter<AllCategoryAdapter.
 
 
     NavController navController;
-    private List<ShopBycategoryModel.CategoryModel> sbc;
-    private Activity activity;
+    private final List<ShopBycategoryModel.CategoryModel> sbc;
+    private final Activity activity;
 
     public AllCategoryAdapter(List<ShopBycategoryModel.CategoryModel> sbc, Activity activity, NavController navController) {
         this.sbc = sbc;
@@ -54,15 +51,12 @@ public class AllCategoryAdapter extends RecyclerView.Adapter<AllCategoryAdapter.
                 .into(holder.categoryViewBinding.imageView26);
 
 
-        holder.categoryViewBinding.categoryview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString(CATEGORY_ID, String.valueOf(categoryModel.getCategoryId()));
-                navController.navigate(R.id.action_allCategoryFragment_to_allProductsFragment, bundle);
+        holder.categoryViewBinding.categoryview.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putString(CATEGORY_ID, String.valueOf(categoryModel.getCategoryId()));
+            navController.navigate(R.id.action_allCategoryFragment_to_allProductsFragment, bundle);
 
 
-            }
         });
     }
 
@@ -73,13 +67,8 @@ public class AllCategoryAdapter extends RecyclerView.Adapter<AllCategoryAdapter.
     }
 
     public static class AllCategoryVH extends RecyclerView.ViewHolder {
-
-        ImageView imageView;
         CategoryViewBinding categoryViewBinding;
-
         public AllCategoryVH(@NonNull CategoryViewBinding itemView) {
-
-
             super(itemView.getRoot());
             categoryViewBinding = itemView;
 

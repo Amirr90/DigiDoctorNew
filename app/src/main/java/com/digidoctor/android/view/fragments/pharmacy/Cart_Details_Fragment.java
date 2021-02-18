@@ -66,7 +66,6 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
         if (null != getArguments()) {
             couponCode = getArguments().getString(COUPON_CODE);
@@ -83,41 +82,23 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
         gp.clear();
         updateCartData();
 
-        fragmentCartListBinding.checkout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_cart_Details_Fragment_to_orderSummaryFragment);
+        fragmentCartListBinding.checkout.setOnClickListener(view1 -> navController.navigate(R.id.action_cart_Details_Fragment_to_orderSummaryFragment));
+
+        fragmentCartListBinding.textView106.setOnClickListener(view12 -> navController.navigate(R.id.action_cart_Details_Fragment_to_allCoupneFragment));
+
+        fragmentCartListBinding.button7.setOnClickListener(view13 -> navController.navigate(R.id.action_cart_Details_Fragment_to_allProductsFragment));
+        fragmentCartListBinding.btnValidateCoupon.setOnClickListener(view14 -> {
+
+
+            String code = fragmentCartListBinding.editTextTextPersonName2.getText().toString().trim();
+            if (TextUtils.isEmpty(code)) {
+                Toast.makeText(requireActivity(), "Select Coupon First", Toast.LENGTH_SHORT).show();
+
+            } else {
+                AppUtils.hideDialog();
+                validateCoupon(code);
             }
-        });
 
-        fragmentCartListBinding.textView106.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_cart_Details_Fragment_to_allCoupneFragment);
-            }
-        });
-
-        fragmentCartListBinding.button7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_cart_Details_Fragment_to_allProductsFragment);
-            }
-        });
-        fragmentCartListBinding.btnValidateCoupon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                String code = fragmentCartListBinding.editTextTextPersonName2.getText().toString().trim();
-                if (TextUtils.isEmpty(code)) {
-                    Toast.makeText(requireActivity(), "Select Coupon First", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    AppUtils.hideDialog();
-                    validateCoupon(code);
-                }
-
-            }
         });
 
     }
@@ -168,7 +149,7 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
                 if (models.isEmpty())
                     return;
 
-                if (null == models || getCartDetails.isEmpty() || models.get(0).getProductDetails().isEmpty())
+                if (getCartDetails.isEmpty() || models.get(0).getProductDetails().isEmpty())
                     //Show No product in cart layout
 
                     fragmentCartListBinding.cartLay.setVisibility(View.GONE);
@@ -329,7 +310,6 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
         super.onResume();
         AppUtils.hideDialog();
         updateCartData();
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 }

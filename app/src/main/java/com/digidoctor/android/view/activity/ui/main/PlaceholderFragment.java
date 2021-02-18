@@ -51,19 +51,8 @@ public class PlaceholderFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_tabbed_activity_demo, container, false);
         final TextView textView = root.findViewById(R.id.section_label);
         final ImageView imageView = root.findViewById(R.id.imageView36);
-        pageViewModel.getText().observe(requireActivity(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        pageViewModel.getImage().observe(requireActivity(), new Observer<Integer>() {
-            @Override
-            public void onChanged(@Nullable Integer imageID) {
-
-                imageView.setImageResource(imageID);
-            }
-        });
+        pageViewModel.getText().observe(requireActivity(), textView::setText);
+        pageViewModel.getImage().observe(requireActivity(), imageView::setImageResource);
         return root;
     }
 }

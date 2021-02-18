@@ -36,7 +36,7 @@ public class VitalListAdapter extends ListAdapter<VitalResponse.VitalDateVise, V
 
             if (vitalValueModel.size() > 1) {
                 vitalValue.append(vitalValueModel.get(0).getVitalValue());
-                vitalValue.append("/" + vitalValueModel.get(1).getVitalValue());
+                vitalValue.append("/").append(vitalValueModel.get(1).getVitalValue());
             } else {
                 vitalValue.append(vitalValueModel.get(0).getVitalValue());
             }

@@ -62,20 +62,14 @@ public class GetPlacedOrderAdapter extends RecyclerView.Adapter<GetPlacedOrderAd
         }
 
         if (getplacedorder.getOrderStatus().equals("Delivered")) {
-
-//            holder.orderListViewBinding.ratingBar.setVisibility(View.VISIBLE);
-//            holder.orderListViewBinding.textView53.setVisibility(View.VISIBLE);
             holder.orderListViewBinding.textView140.setVisibility(View.GONE);
             holder.orderListViewBinding.textView10.setText(getplacedorder.getOrderStatus());
         }
 
-        holder.orderListViewBinding.orderplaced.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("OrderDetailsID", getplacedorder.getOrderDetailsId());
-                PatientDashboard.getInstance().navigate(R.id.action_getPlacedOrderFragment_to_orderDetailsFragment, bundle);
-            }
+        holder.orderListViewBinding.orderplaced.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("OrderDetailsID", getplacedorder.getOrderDetailsId());
+            PatientDashboard.getInstance().navigate(R.id.action_getPlacedOrderFragment_to_orderDetailsFragment, bundle);
         });
 
     }

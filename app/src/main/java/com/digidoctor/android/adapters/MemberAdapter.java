@@ -56,18 +56,18 @@ public class MemberAdapter extends ListAdapter<User, MemberAdapter.MemberVH> {
             holder.memberViewBinding.setMember(member);
 
             holder.memberViewBinding.ivDeleteMember.setOnClickListener(view -> {
-                showDeleteMemberDialog(member, position);
+                showDeleteMemberDialog(member);
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void showDeleteMemberDialog(User member, int position) {
-        AppUtils.showDeleteDialog(activity, (dialogInterface, i) -> deleteMember(member, position));
+    private void showDeleteMemberDialog(User member) {
+        AppUtils.showDeleteDialog(activity, (dialogInterface, i) -> deleteMember(member));
     }
 
-    private void deleteMember(User member, int position) {
+    private void deleteMember(User member) {
         AppUtils.showRequestDialog(activity);
         ApiUtils.deleteMember(member, new ApiCallbackInterface() {
             @Override

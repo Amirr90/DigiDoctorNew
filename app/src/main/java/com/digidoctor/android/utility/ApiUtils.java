@@ -5,8 +5,6 @@ import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.fragment.app.FragmentActivity;
-
 import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
@@ -81,8 +79,6 @@ import com.digidoctor.android.model.pharmacyModel.getaddressModel;
 import com.digidoctor.android.model.pharmacyModel.getfilltervarentmodel;
 import com.digidoctor.android.model.pharmacyModel.shopbycategoryRes;
 import com.digidoctor.android.view.activity.PatientDashboard;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -104,11 +100,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.internal.EverythingIsNonNull;
 
-import static com.digidoctor.android.utility.utils.APPOINTMENT_CHAT;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_DATE;
-import static com.digidoctor.android.utility.utils.APPOINTMENT_ID;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_TIME;
-import static com.digidoctor.android.utility.utils.IS_REVISIT;
 import static com.digidoctor.android.utility.utils.KEY_AMOUNT;
 import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
 import static com.digidoctor.android.utility.utils.KEY_DOC_ID;
@@ -118,7 +111,6 @@ import static com.digidoctor.android.utility.utils.KEY_PATIENT_NAME;
 import static com.digidoctor.android.utility.utils.KEY_SYMPTOM_ID;
 import static com.digidoctor.android.utility.utils.MEMBER_ID;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
-import static com.digidoctor.android.utility.utils.TIMESTAMP;
 import static com.digidoctor.android.utility.utils.TOKEN;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.getString;
@@ -524,21 +516,21 @@ public class ApiUtils {
     }
 
 
-    public static void checkTimeSlotAvailability(Map<String, String> map, final ApiCallbackInterface apiCallbackInterface) {
+    public static void checkTimeSlotAvailability(Map<String, Object> map, final ApiCallbackInterface apiCallbackInterface) {
         try {
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
 
 
             CheckTimeSlotModel model = new CheckTimeSlotModel();
-            model.setMemberId(map.get(MEMBER_ID));
-            model.setServiceProviderDetailsId(map.get(KEY_DOC_ID));
-            model.setAppointDate(map.get(APPOINTMENT_DATE));
-            model.setAppointTime(map.get(APPOINTMENT_TIME));
-            model.setUserMobileNo(map.get(MOBILE_NUMBER));
-            model.setIsEraUser(map.get(KEY_IS_ERA_USER));
-            model.setAppointmentId(map.get(KEY_APPOINTMENT_ID));
-            model.setAppointmentId(map.get(IS_REVISIT));
+            model.setMemberId((String) map.get(MEMBER_ID));
+            model.setServiceProviderDetailsId((String) map.get(KEY_DOC_ID));
+            model.setAppointDate((String) map.get(APPOINTMENT_DATE));
+            model.setAppointTime((String) map.get(APPOINTMENT_TIME));
+            model.setUserMobileNo((String) map.get(MOBILE_NUMBER));
+            model.setIsEraUser((String) map.get(KEY_IS_ERA_USER));
+            model.setAppointmentId((String) map.get(KEY_APPOINTMENT_ID));
+        //    model.setIsRevisit((Boolean) map.get(IS_REVISIT));
 
             Log.d("TAG", "checkTimeSlotAvailability: " + model.toString());
 
@@ -581,10 +573,6 @@ public class ApiUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private static void reScheduleAppointment(CheckTimeSlotModel model, ApiCallbackInterface apiCallbackInterface) {
-
     }
 
     private static void reVisitAppointment(CheckTimeSlotModel model, ApiCallbackInterface apiCallbackInterface) {
@@ -638,19 +626,19 @@ public class ApiUtils {
         });
     }
 
-    public static void getTransactionNo(Map<String, String> map, Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+    public static void getTransactionNo(Map<String, Object> map, Activity activity, final ApiCallbackInterface apiCallbackInterface) {
         try {
 
             TransactionModel transactionModel = new TransactionModel();
 
-            transactionModel.setPaymentAmount(map.get(KEY_AMOUNT));
-            transactionModel.setPatientName(map.get(KEY_PATIENT_NAME));
-            transactionModel.setMemberID(map.get(MEMBER_ID));
-            transactionModel.setUserMobileNo(map.get(MOBILE_NUMBER));
-            transactionModel.setAppointDate(map.get(APPOINTMENT_DATE));
-            transactionModel.setAppointTime(map.get(APPOINTMENT_TIME));
-            transactionModel.setServiceProviderDetailsID(map.get(KEY_DOC_ID));
-            transactionModel.setIsEraUser(map.get(KEY_IS_ERA_USER));
+            transactionModel.setPaymentAmount((String) map.get(KEY_AMOUNT));
+            transactionModel.setPatientName((String) map.get(KEY_PATIENT_NAME));
+            transactionModel.setMemberID((String) map.get(MEMBER_ID));
+            transactionModel.setUserMobileNo((String) map.get(MOBILE_NUMBER));
+            transactionModel.setAppointDate((String) map.get(APPOINTMENT_DATE));
+            transactionModel.setAppointTime((String) map.get(APPOINTMENT_TIME));
+            transactionModel.setServiceProviderDetailsID((String) map.get(KEY_DOC_ID));
+            transactionModel.setIsEraUser((String) map.get(KEY_IS_ERA_USER));
 
             AppUtils.showRequestDialog(activity);
             Log.d("TAG", "checkTimeSlotAvailability: " + map.toString());
@@ -992,7 +980,7 @@ public class ApiUtils {
     }
 
 
-    public static void uploadProfileImage(File imagFile, final ApiCallbackInterface apiCallbackInterface) throws IOException {
+    public static void uploadProfileImage(File imagFile, final ApiCallbackInterface apiCallbackInterface) {
         MultipartBody.Part[] fileParts = new MultipartBody.Part[1];
         try {
             MediaType mediaType = MediaType.parse("image/*");
@@ -1113,8 +1101,7 @@ public class ApiUtils {
     }
 
     public static RequestBody toRequestBody(String value) {
-        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), value);
-        return body;
+        return RequestBody.create(MediaType.parse("text/plain"), value);
     }
 
     public static void getMedicineData(final ApiCallbackInterface apiCallbackInterface) {
@@ -1935,7 +1922,6 @@ public class ApiUtils {
 
         Api iRestInterfaces = URLUtils.getPharmacyApisRef();
         Order order = new Order();
-        ;
         order.setOrderDetailsId(orderDetailsId);
 
         Call<OrderDetailModel> call = iRestInterfaces.cancelorder(order);
@@ -2034,7 +2020,7 @@ public class ApiUtils {
     }
 
 
-    public static void getlabdash(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+    public static void getlabdash( final ApiCallbackInterface apiCallbackInterface) {
         Api iRestInterfaces = URLUtils.getlabapisRef();
         labmodel labmodel = new labmodel();
         labmodel.setMemberId("221261");
@@ -2042,7 +2028,7 @@ public class ApiUtils {
         Call<labdashboardresponse> call = iRestInterfaces.getlabdashboard(labmodel);
         call.enqueue(new Callback<labdashboardresponse>() {
             @Override
-            public void onResponse(@NotNull Call<labdashboardresponse> call, Response<labdashboardresponse> response) {
+            public void onResponse(@NotNull Call<labdashboardresponse> call, @NotNull Response<labdashboardresponse> response) {
                 if (response.code() == 200 && response.body().getResponseCode() == 1)
                     if (response.isSuccessful()) {
                         apiCallbackInterface.onSuccess(response.body().getResponseValue());

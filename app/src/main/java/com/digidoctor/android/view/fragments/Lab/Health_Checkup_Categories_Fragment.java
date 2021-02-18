@@ -14,6 +14,8 @@ import androidx.navigation.Navigation;
 
 import com.digidoctor.android.databinding.HealthCheckupCategoriesFragmentBinding;
 
+import java.util.Objects;
+
 public class Health_Checkup_Categories_Fragment extends Fragment {
     NavController navController;
     HealthCheckupCategoriesFragmentBinding healthCheckupCategoriesFragmentBinding;
@@ -36,7 +38,7 @@ public class Health_Checkup_Categories_Fragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).hide();
 
     }
 }

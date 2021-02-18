@@ -3,7 +3,6 @@ package com.digidoctor.android.utility;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
@@ -25,23 +24,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class NewDashboardUtils {
 
 
     public static final int PAY_MODE_CASH = 0;
     public static final int PAY_MODE_RAZOR_PAY = 1;
-    private static final String MY_PREFS_NAME = "m";
-
-    public static String getCurrentDateInMonthDateFormat(long timeStamp) {
-        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-        cal.setTimeInMillis(timeStamp * 1000L);
-        String date = DateFormat.format("EEE, MMM d, ''yy", cal).toString();
-
-        return date;
-    }
-
 
     public static void hideSoftKeyboard(Activity activity) {
         if (activity != null) {
@@ -68,9 +55,7 @@ public class NewDashboardUtils {
         if (connectivity != null) {
             NetworkInfo info = connectivity.getActiveNetworkInfo();
             if (info != null) {
-                if (info.getState() == NetworkInfo.State.CONNECTED) {
-                    return true;
-                }
+                return info.getState() == NetworkInfo.State.CONNECTED;
             }
         }
 

@@ -24,6 +24,7 @@ import com.digidoctor.android.utility.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AllAddressFragment extends Fragment {
 
@@ -46,7 +47,7 @@ public class AllAddressFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         navController = Navigation.findNavController(view);
 
 
@@ -58,13 +59,7 @@ public class AllAddressFragment extends Fragment {
         AppUtils.hideDialog();
 
 
-        getalladdressBinding.textView143.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                navController.navigate(R.id.action_allAddressFragment_to_addressFragment);
-            }
-        });
+        getalladdressBinding.textView143.setOnClickListener(view1 -> navController.navigate(R.id.action_allAddressFragment_to_addressFragment));
 
 
         getaddress();
@@ -115,6 +110,6 @@ public class AllAddressFragment extends Fragment {
         super.onResume();
         AppUtils.hideDialog();
         getaddress();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
     }
 }

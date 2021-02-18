@@ -23,6 +23,7 @@ import com.digidoctor.android.utility.AppUtils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class AddressFragment extends Fragment {
@@ -44,24 +45,21 @@ public class AddressFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
         navController = Navigation.findNavController(view);
         AppUtils.hideDialog();
 
 
-        fragmentAddressFragmentBinding.btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        fragmentAddressFragmentBinding.btnUpdateProfile.setOnClickListener(view1 -> {
 
-                if (!isAllFieldsFilled()) {
-                    address();
-                    Toast.makeText(requireActivity(), "Address Added Sucessfully", Toast.LENGTH_SHORT).show();
-                    navController.navigateUp();
-
-                }
+            if (!isAllFieldsFilled()) {
+                address();
+                Toast.makeText(requireActivity(), "Address Added Sucessfully", Toast.LENGTH_SHORT).show();
+                navController.navigateUp();
 
             }
+
         });
     }
 
@@ -164,42 +162,9 @@ public class AddressFragment extends Fragment {
         }
 
     }
-
-    //
-//    public void Updateaddress() {
-//
-//        AddAdressModel addAdressModel = new AddAdressModel();
-//
-//        fragmentAddressFragmentBinding.editTextTextPersonName.setText(addAdressModel.getName());
-//        addAdressModel.setAddressId(getArguments().getString("AddressID"));
-//        addAdressModel.setName(fragmentAddressFragmentBinding.editTextTextPersonName.getText().toString().trim());
-//        addAdressModel.setHouseNo(fragmentAddressFragmentBinding.editTextTextPersonhouse.getText().toString().trim());
-//        addAdressModel.setMobileno(fragmentAddressFragmentBinding.editTextMobile.getText().toString().trim());
-//        addAdressModel.setArea(fragmentAddressFragmentBinding.area.getText().toString().trim());
-//        addAdressModel.setPincode(fragmentAddressFragmentBinding.EditTextPin.getText().toString().trim());
-//        addAdressModel.setState(fragmentAddressFragmentBinding.EditTextState.getText().toString().trim());
-//        addAdressModel.setCity(fragmentAddressFragmentBinding.EditTextcity.getText().toString().trim());
-//        addAdressModel.setLocality(fragmentAddressFragmentBinding.EditTextLocality.getText().toString().trim());
-//        ApiUtils.update_Address(addAdressModel, requireActivity(), new ApiCallbackInterface() {
-//            @Override
-//            public void onSuccess(List<?> o) {
-//                Toast.makeText(requireActivity(), "Address Updated Successfully", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onError(String s) {
-//                Toast.makeText(requireActivity(), "" + s, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailed(Throwable throwable) {
-//                Toast.makeText(requireActivity(), "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
     }
 }

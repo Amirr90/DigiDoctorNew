@@ -100,7 +100,7 @@ public class ProductDetailsFragment extends Fragment {
         SizeId = String.valueOf(getArguments().getInt("Sizeid"));
 
 
-        productDetaillAdapter = new ProductDetaillAdapter(AllProductModels, requireActivity());
+        productDetaillAdapter = new ProductDetaillAdapter( requireActivity());
         ratingandreviewadapter = new ratingandreviewadapter(productReviewLists, requireActivity());
         similarproductADapter = new SimilarproductADapter(similarProducts, requireActivity());
         productSliderviewAdapter = new ProductSliderviewAdapter(productDetailsSliders, requireActivity());
@@ -124,85 +124,74 @@ public class ProductDetailsFragment extends Fragment {
         getproductdetails();
 
 
-        fragmentProductDetailsBinding.textView141.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("productId", productId);
-                navController.navigate(R.id.action_productDetailsFragment_to_allRatingAndReviewFragment, bundle);
-            }
+        fragmentProductDetailsBinding.textView141.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("productId", productId);
+            navController.navigate(R.id.action_productDetailsFragment_to_allRatingAndReviewFragment, bundle);
         });
 
-        fragmentProductDetailsBinding.imageView18.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (AllProductModels.isEmpty())
-                    return;
+        fragmentProductDetailsBinding.imageView18.setOnClickListener(view12 -> {
+            if (AllProductModels.isEmpty())
+                return;
 
-                if (AllProductModels.get(0).getWishlistStatus().equals("0")) {
-                    AddtoWishlist addtoWishList = new AddtoWishlist();
-                    addtoWishList.setProductInfoCode(AllProductModels.get(0).getProductInfoCode());
-                    addtoWishList.setMemberId(String.valueOf(utils.getPrimaryUser(requireActivity()).getMemberId()));
-                    String wishlistStatus = "1";
-                    addToWishList(addtoWishList, wishlistStatus);
-                    AllProductModels.clear();
-                    clearAll();
-                    getproductdetails();
-                    Toast.makeText(requireActivity(), "Added in WishList", Toast.LENGTH_SHORT).show();
-                    fragmentProductDetailsBinding.imageView18.setChecked(true);
-                } else if (AllProductModels.get(0).getWishlistStatus().equals("1")) {
-                    AddtoWishlist addtoWishList = new AddtoWishlist();
-                    addtoWishList.setProductInfoCode(AllProductModels.get(0).getProductInfoCode());
-                    addtoWishList.setMemberId(String.valueOf(utils.getPrimaryUser(requireActivity()).getMemberId()));
-                    String wishlistStatus = "0";
-                    addToWishList(addtoWishList, wishlistStatus);
-                    AllProductModels.clear();
-                    clearAll();
-                    getproductdetails();
-                    Toast.makeText(requireActivity(), "Removed From Your WishList!", Toast.LENGTH_SHORT).show();
-                }
-
-
+            if (AllProductModels.get(0).getWishlistStatus().equals("0")) {
+                AddtoWishlist addtoWishList = new AddtoWishlist();
+                addtoWishList.setProductInfoCode(AllProductModels.get(0).getProductInfoCode());
+                addtoWishList.setMemberId(String.valueOf(utils.getPrimaryUser(requireActivity()).getMemberId()));
+                String wishlistStatus = "1";
+                addToWishList(addtoWishList, wishlistStatus);
+                AllProductModels.clear();
+                clearAll();
+                getproductdetails();
+                Toast.makeText(requireActivity(), "Added in WishList", Toast.LENGTH_SHORT).show();
+                fragmentProductDetailsBinding.imageView18.setChecked(true);
+            } else if (AllProductModels.get(0).getWishlistStatus().equals("1")) {
+                AddtoWishlist addtoWishList = new AddtoWishlist();
+                addtoWishList.setProductInfoCode(AllProductModels.get(0).getProductInfoCode());
+                addtoWishList.setMemberId(String.valueOf(utils.getPrimaryUser(requireActivity()).getMemberId()));
+                String wishlistStatus = "0";
+                addToWishList(addtoWishList, wishlistStatus);
+                AllProductModels.clear();
+                clearAll();
+                getproductdetails();
+                Toast.makeText(requireActivity(), "Removed From Your WishList!", Toast.LENGTH_SHORT).show();
             }
 
 
         });
 
 
-        fragmentProductDetailsBinding.btnAddToCartFromProductPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String tag = (String) fragmentProductDetailsBinding.btnAddToCartFromProductPage.getTag();
-                if (tag.equalsIgnoreCase("1")) {
-                    AppUtils.showRequestDialog(requireActivity());
-                    AddToCartModel addToCartModel = new AddToCartModel();
-                    addToCartModel.setQuantity("1");
-                    addToCartModel.setMemberId(String.valueOf(utils.getPrimaryUser(requireActivity()).getMemberId()));
-                    addToCartModel.setProductInfoCode(AllProductModels.get(0).getProductInfoCode());
-                    ApiUtils.addtocart(addToCartModel, new ApiCallbackInterface() {
-                        @Override
-                        public void onSuccess(List<?> o) {
-                            AppUtils.hideDialog();
-                            Toast.makeText(requireActivity(), AllProductModels.get(0).getBrandName() + " Added to cart ", Toast.LENGTH_SHORT).show();
-                            fragmentProductDetailsBinding.btnAddToCartFromProductPage.setText("Go To Cart");
-                            fragmentProductDetailsBinding.btnAddToCartFromProductPage.setTag("0");
-                        }
+        fragmentProductDetailsBinding.btnAddToCartFromProductPage.setOnClickListener(view13 -> {
+            String tag = (String) fragmentProductDetailsBinding.btnAddToCartFromProductPage.getTag();
+            if (tag.equalsIgnoreCase("1")) {
+                AppUtils.showRequestDialog(requireActivity());
+                AddToCartModel addToCartModel = new AddToCartModel();
+                addToCartModel.setQuantity("1");
+                addToCartModel.setMemberId(String.valueOf(utils.getPrimaryUser(requireActivity()).getMemberId()));
+                addToCartModel.setProductInfoCode(AllProductModels.get(0).getProductInfoCode());
+                ApiUtils.addtocart(addToCartModel, new ApiCallbackInterface() {
+                    @Override
+                    public void onSuccess(List<?> o) {
+                        AppUtils.hideDialog();
+                        Toast.makeText(requireActivity(), AllProductModels.get(0).getBrandName() + " Added to cart ", Toast.LENGTH_SHORT).show();
+                        fragmentProductDetailsBinding.btnAddToCartFromProductPage.setText("Go To Cart");
+                        fragmentProductDetailsBinding.btnAddToCartFromProductPage.setTag("0");
+                    }
 
-                        @Override
-                        public void onError(String s) {
-                            AppUtils.hideDialog();
-                            Toast.makeText(requireActivity(), "" + s, Toast.LENGTH_SHORT).show();
-                        }
+                    @Override
+                    public void onError(String s) {
+                        AppUtils.hideDialog();
+                        Toast.makeText(requireActivity(), "" + s, Toast.LENGTH_SHORT).show();
+                    }
 
-                        @Override
-                        public void onFailed(Throwable throwable) {
-                            AppUtils.hideDialog();
-                            Toast.makeText(requireActivity(), "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else
-                    navController.navigate(R.id.action_productDetailsFragment_to_cart_Details_Fragment);
-            }
+                    @Override
+                    public void onFailed(Throwable throwable) {
+                        AppUtils.hideDialog();
+                        Toast.makeText(requireActivity(), "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else
+                navController.navigate(R.id.action_productDetailsFragment_to_cart_Details_Fragment);
         });
 
 

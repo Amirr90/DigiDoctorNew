@@ -52,17 +52,14 @@ public class SimilarproductADapter extends RecyclerView.Adapter<SimilarproductAD
         Glide.with(ctx).load(sp.getImageURL()).placeholder(R.drawable.box_two).into(holder.allproductviewBinding.imageView4);
 
 
-        holder.allproductviewBinding.similarcardview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                User user = new User();
-                Bundle bundle = new Bundle();
-                bundle.putInt("productID", sp.getProductId());
-                bundle.putString("member", String.valueOf(user.getMemberId()));
-                bundle.putString("Pinfo", sp.getProductInfoCode());
+        holder.allproductviewBinding.similarcardview.setOnClickListener(view -> {
+            User user = new User();
+            Bundle bundle = new Bundle();
+            bundle.putInt("productID", sp.getProductId());
+            bundle.putString("member", String.valueOf(user.getMemberId()));
+            bundle.putString("Pinfo", sp.getProductInfoCode());
 
-                PatientDashboard.getInstance().navigate(R.id.action_productDetailsFragment_self, bundle);
-            }
+            PatientDashboard.getInstance().navigate(R.id.action_productDetailsFragment_self, bundle);
         });
 
     }

@@ -21,6 +21,7 @@
             tools:context=".view.fragments.pharmacy.OnlinePharmacyFragment">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:visibility="gone"
                 android:id="@+id/relativeLayout2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

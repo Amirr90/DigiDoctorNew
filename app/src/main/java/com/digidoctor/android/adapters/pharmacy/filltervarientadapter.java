@@ -16,11 +16,9 @@ import java.util.List;
 
 public class filltervarientadapter extends RecyclerView.Adapter<filltervarientadapter.ViewHolderVH> {
     public List<getfilltervarentmodel.filltervarientList> getvarient;
-    private Activity activity;
 
     public filltervarientadapter(List<getfilltervarentmodel.filltervarientList> getvarient, Activity activity) {
         this.getvarient = getvarient;
-        this.activity = activity;
     }
 
     @NonNull

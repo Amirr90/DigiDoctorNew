@@ -34,7 +34,6 @@ import com.digidoctor.android.interfaces.NavigationInterface;
 import com.digidoctor.android.model.NavModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.pharmacyModel.CartCount;
-import com.digidoctor.android.model.pharmacyModel.CartDetailsResponse;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.GetAddressIntentService;
 import com.digidoctor.android.utility.utils;
@@ -78,7 +77,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     NavController navController;
 
     User user;
-
     String lat, lng;
 
 
@@ -98,10 +96,13 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     NavAdapter navAdapter;
     List<NavModel> navModels;
 
-    MenuItem cart = null;
+    MenuItem cartItem = null;
+    MenuItem favouriteItem = null;
+    MenuItem searchItem = null;
 
     int cartCounter = 0;
-    TextView cartTv;
+    int favouriteCounter = 0;
+    TextView cartTv, favouriteTv;
 
     PatientViewModel viewModel;
 
@@ -185,6 +186,13 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
             }
         });
+
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (null != searchItem)
+                searchItem.setVisible(destination.getId() == R.id.onlinePharmacyFragment);
+            if (null != cartItem)
+                cartItem.setVisible(destination.getId() != R.id.cart_Details_Fragment);
+        });
     }
 
 
@@ -235,13 +243,26 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        cart = menu.findItem(R.id.cart_Details_Fragment);
-        View actionView = cart.getActionView();
+
+        cartItem = menu.findItem(R.id.cart_Details_Fragment);
+        favouriteItem = menu.findItem(R.id.fragmentAllWishLIstProduct);
+        searchItem = menu.findItem(R.id.allProductsFragment);
+
+        View actionView = cartItem.getActionView();
+        View actionView2 = favouriteItem.getActionView();
+
         cartTv = actionView.findViewById(R.id.tvCartCount);
+        favouriteTv = actionView2.findViewById(R.id.tvFavouriteCount);
+
         cartTv.setText(String.valueOf(cartCounter));
-        actionView.setOnClickListener(v -> onOptionsItemSelected(cart));
+        favouriteTv.setText(String.valueOf(favouriteCounter));
+
+        actionView.setOnClickListener(v -> onOptionsItemSelected(cartItem));
+        actionView2.setOnClickListener(v -> onOptionsItemSelected(favouriteItem));
+
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

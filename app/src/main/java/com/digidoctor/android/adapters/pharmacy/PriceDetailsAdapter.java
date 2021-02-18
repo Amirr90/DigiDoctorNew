@@ -1,6 +1,5 @@
 package com.digidoctor.android.adapters.pharmacy;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -16,11 +15,9 @@ import com.digidoctor.android.model.pharmacyModel.CartDetailsResponse;
 import java.util.List;
 
 public class PriceDetailsAdapter extends RecyclerView.Adapter<PriceDetailsAdapter.PriceDetailsVH> {
-    private List<CartDetailsResponse.GetCartDetails.GetPriceDetails> getallPrice;
-    private static final String TAG = "PriceDetailsAdapter";
-    Activity activity;
+    private final List<CartDetailsResponse.GetCartDetails.GetPriceDetails> getallPrice;
     Context ctx;
-    FragmentCartListBinding fragmentCartListBinding;
+
 
     public PriceDetailsAdapter(List<CartDetailsResponse.GetCartDetails.GetPriceDetails> getallPrice, Context ctx) {
         this.getallPrice = getallPrice;

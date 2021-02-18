@@ -60,7 +60,7 @@ public class GetPatientMedicationMainModel {
     private List<GetPatientMedicationMedicineModel> medicineDetails = null;
     @SerializedName("adviseDetails")
     @Expose
-    private List<GetPatientMedicationAdviceModel> adviseDetails = null;
+    private final List<GetPatientMedicationAdviceModel> adviseDetails = null;
 
 
     String age;

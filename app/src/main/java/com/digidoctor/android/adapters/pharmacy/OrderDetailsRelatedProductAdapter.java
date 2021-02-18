@@ -49,14 +49,11 @@ public class OrderDetailsRelatedProductAdapter extends RecyclerView.Adapter<Orde
                 .into(holder.orderListViewBinding.imageView5);
 
 
-        holder.orderListViewBinding.orderplaced.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.orderListViewBinding.orderplaced.setOnClickListener(view -> {
 
-                Bundle bundle = new Bundle();
-                bundle.putString("OrderDetailsID", String.valueOf(relatedProducts.getId()));
-                PatientDashboard.getInstance().navigate(R.id.action_orderDetailsFragment_self, bundle);
-            }
+            Bundle bundle = new Bundle();
+            bundle.putString("OrderDetailsID", String.valueOf(relatedProducts.getId()));
+            PatientDashboard.getInstance().navigate(R.id.action_orderDetailsFragment_self, bundle);
         });
     }
 

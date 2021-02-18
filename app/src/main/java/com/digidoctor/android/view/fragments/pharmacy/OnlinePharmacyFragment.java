@@ -20,10 +20,8 @@ import com.digidoctor.android.adapters.pharmacy.PopularProductAdapter;
 import com.digidoctor.android.adapters.pharmacy.ShopByCategoryAdapter;
 import com.digidoctor.android.adapters.pharmacy.SliderAdapterforPharmacy;
 import com.digidoctor.android.adapters.pharmacy.TopSearchProductListAdapter;
-import com.digidoctor.android.databinding.CategoryViewBinding;
 import com.digidoctor.android.databinding.FragmentOnlinePharmacyBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
-import com.digidoctor.android.model.pharmacyModel.CartCount;
 import com.digidoctor.android.model.pharmacyModel.ShopBycategoryModel;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
@@ -41,9 +39,7 @@ public class OnlinePharmacyFragment extends Fragment {
     PopularProductAdapter adapter1;
     SliderAdapterforPharmacy sliderAdapterforPharmacy;
     TopSearchProductListAdapter adapter2;
-    CategoryViewBinding categoryViewBinding;
     NavController navController;
-    private String selectedImagePath;
 
 
     @Nullable
@@ -67,7 +63,6 @@ public class OnlinePharmacyFragment extends Fragment {
         final List<ShopBycategoryModel.TopSearchproductList> topSearchproductLists = new ArrayList<>();
         final List<ShopBycategoryModel.SliderImage> sliderImages = new ArrayList<>();
 
-        final List<CartCount.CartcountList> cartcountLists = new ArrayList<>();
 
         adapter2 = new TopSearchProductListAdapter(topSearchproductLists, requireActivity(), navController);
         adapter1 = new PopularProductAdapter(popoularmodel, requireActivity(), navController);
@@ -131,85 +126,32 @@ public class OnlinePharmacyFragment extends Fragment {
         });
 
 
-//        ApiUtils.getcartcountutils(requireActivity(), new ApiCallbackInterface() {
-//            @Override
-//            public void onSuccess(List<?> o) {
-//                List<CartCount> models = (List<CartCount>) o;
-//                //    List<CartCount.CartcountList> categoryModel = models.get(0).getCartcountList();
-//                onlinePharmacyBinding.actionbarNotifcationTextview.setText(models.get(0).getCartcountList().get(1).getCartCount());
-//                AppUtils.hideDialog();
-//            }
-//
-//            @Override
-//            public void onError(String s) {
-//                AppUtils.hideDialog();
-//            }
-//
-//            @Override
-//            public void onFailed(Throwable throwable) {
-//                AppUtils.hideDialog();
-//            }
-//        });
-//
-
-        onlinePharmacyBinding.textView58.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("catData", "" + adapter.getShopCateData());
-                navController.navigate(R.id.action_onlinePharmacyFragment_to_allCategoryFragment, bundle);
-            }
+        onlinePharmacyBinding.textView58.setOnClickListener(view15 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("catData", "" + adapter.getShopCateData());
+            navController.navigate(R.id.action_onlinePharmacyFragment_to_allCategoryFragment, bundle);
         });
 
 
-        onlinePharmacyBinding.textView6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_onlinePharmacyFragment_to_allProductsFragment);
+        onlinePharmacyBinding.textView6.setOnClickListener(view16 -> navController.navigate(R.id.action_onlinePharmacyFragment_to_allProductsFragment));
+        onlinePharmacyBinding.textView111.setOnClickListener(view14 -> navController.navigate(R.id.action_onlinePharmacyFragment_to_allProductsFragment));
 
 
-            }
-        });
-        onlinePharmacyBinding.textView111.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_onlinePharmacyFragment_to_allProductsFragment);
-            }
-        });
-
-
-        onlinePharmacyBinding.wish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_onlinePharmacyFragment_to_fragmentAllWishLIstProduct);
-                onlinePharmacyBinding.wish.setImageResource(R.drawable.heart);
-
-            }
-        });
-
-        onlinePharmacyBinding.cartimge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_onlinePharmacyFragment_to_cart_Details_Fragment);
-            }
-        });
-
-        onlinePharmacyBinding.Borderwithprescription.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Toast.makeText(requireActivity(), "Coming Soon!", Toast.LENGTH_SHORT).show();
-
-            }
-
+        onlinePharmacyBinding.wish.setOnClickListener(view13 -> {
+            navController.navigate(R.id.action_onlinePharmacyFragment_to_fragmentAllWishLIstProduct);
+            onlinePharmacyBinding.wish.setImageResource(R.drawable.heart);
 
         });
+
+        onlinePharmacyBinding.cartimge.setOnClickListener(view12 -> navController.navigate(R.id.action_onlinePharmacyFragment_to_cart_Details_Fragment));
+
+        onlinePharmacyBinding.Borderwithprescription.setOnClickListener(view1 -> Toast.makeText(requireActivity(), "Coming Soon!", Toast.LENGTH_SHORT).show());
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).hide();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 }

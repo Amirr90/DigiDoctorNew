@@ -50,14 +50,11 @@ public class AppointmentDoneFragment extends Fragment {
 
 
         navController = Navigation.findNavController(view);
-        appointmentDoneBinding.btnBookingDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        appointmentDoneBinding.btnBookingDetails.setOnClickListener(view1 -> {
 
-                Bundle bundle = new Bundle();
-                bundle.putString("appointmentModel", appointmentModelString);
-                navController.navigate(R.id.action_appointmentDoneFragment_to_bookedAppointmentDetailFragment, bundle);
-            }
+            Bundle bundle = new Bundle();
+            bundle.putString("appointmentModel", appointmentModelString);
+            navController.navigate(R.id.action_appointmentDoneFragment_to_bookedAppointmentDetailFragment, bundle);
         });
 
         appointmentDoneBinding.setAppointment(onlineAppointmentModel);

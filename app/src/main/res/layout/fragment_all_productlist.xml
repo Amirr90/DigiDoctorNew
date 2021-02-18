@@ -16,26 +16,25 @@
         android:orientation="vertical">
 
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bottom_round"
             android:orientation="vertical"
-            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
             android:paddingTop="20sp"
-            android:paddingRight="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
             android:paddingBottom="20sp">
 
             <EditText
                 android:id="@+id/editTextTextSearchSpeciality"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="15dp"
                 android:background="@drawable/round_for_search"
                 android:backgroundTint="@android:color/white"
-                android:drawableRight="@drawable/magnifier"
+                android:drawableEnd="@drawable/magnifier"
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="Search Product Here"
@@ -47,7 +46,7 @@
                 android:paddingBottom="10dp"
                 android:singleLine="true"
                 android:textColorHint="#A2B3B8"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <ProgressBar
@@ -65,7 +64,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/textView4"
@@ -99,7 +98,8 @@
                     app:backgroundTint="#EDA537"
                     app:layout_constraintBottom_toBottomOf="@+id/textView4"
                     app:layout_constraintEnd_toStartOf="@+id/button3"
-                    app:layout_constraintTop_toTopOf="@+id/textView4" />
+                    app:layout_constraintTop_toTopOf="@+id/textView4"
+                    tools:ignore="RtlSymmetry" />
 
                 <TextView
                     android:id="@+id/button3"
@@ -168,9 +168,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/noproductfound"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -183,10 +181,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="106dp"
-                android:layout_marginLeft="106dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="109dp"
-                android:layout_marginRight="109dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="No Product Found For this Category"
                 android:textColor="#262E3F"
@@ -200,10 +196,8 @@
                 android:layout_width="234dp"
                 android:layout_height="227dp"
                 android:layout_marginStart="60dp"
-                android:layout_marginLeft="60dp"
                 android:layout_marginTop="133dp"
                 android:layout_marginEnd="65dp"
-                android:layout_marginRight="65dp"
                 android:layout_marginBottom="30dp"
                 android:src="@drawable/congo"
                 app:layout_constraintBottom_toTopOf="@+id/textView42"

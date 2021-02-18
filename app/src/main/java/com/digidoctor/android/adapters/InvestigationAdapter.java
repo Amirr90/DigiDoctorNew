@@ -100,7 +100,7 @@ public class InvestigationAdapter extends RecyclerView.Adapter {
                                 .load(imageLists.get(0).getFilePath())
                                 .centerCrop()
                                 .placeholder(R.drawable.diagnosis_demo_image)
-                                .into( investigationVHTwo.binding.imageView44);
+                                .into(investigationVHTwo.binding.imageView44);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -133,17 +133,15 @@ public class InvestigationAdapter extends RecyclerView.Adapter {
         else return 1;
     }
 
-    public class InvestigationVHOne extends RecyclerView.ViewHolder {
-
+    public static class InvestigationVHOne extends RecyclerView.ViewHolder {
         InvestigationViewBinding binding;
-
         public InvestigationVHOne(@NonNull InvestigationViewBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
     }
 
-    public class InvestigationVHTwo extends RecyclerView.ViewHolder {
+    public static class InvestigationVHTwo extends RecyclerView.ViewHolder {
 
         InvestigationViewTwoBinding binding;
 

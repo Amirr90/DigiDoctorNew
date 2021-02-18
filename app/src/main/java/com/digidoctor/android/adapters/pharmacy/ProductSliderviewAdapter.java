@@ -3,7 +3,6 @@ package com.digidoctor.android.adapters.pharmacy;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.digidoctor.android.R;
@@ -16,8 +15,8 @@ import java.util.List;
 public class ProductSliderviewAdapter extends SliderViewAdapter<ProductSliderviewAdapter.SliderAdapterVH> {
 
 
-    private Context context;
-    private List<ProductDetailModelResponse.ProductDetailsList.ProductDetailsSlider> mSliderItems;
+    private final Context context;
+    private final List<ProductDetailModelResponse.ProductDetailsList.ProductDetailsSlider> mSliderItems;
 
 
     public ProductSliderviewAdapter(List<ProductDetailModelResponse.ProductDetailsList.ProductDetailsSlider> mSliderItems, Context context) {
@@ -57,7 +56,6 @@ public class ProductSliderviewAdapter extends SliderViewAdapter<ProductSlidervie
     public class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
 
         CustomesliderviewBinding customesliderviewBinding;
-        ImageView imageView;
 
         public SliderAdapterVH(CustomesliderviewBinding itemView) {
             super(itemView.getRoot());

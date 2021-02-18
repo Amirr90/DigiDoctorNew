@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,28 +19,16 @@ import com.digidoctor.android.interfaces.ChatInterface;
 import com.digidoctor.android.interfaces.NewApiInterface;
 import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.ChatModel;
-import com.digidoctor.android.model.DemoResponse;
-import com.digidoctor.android.model.OnlineAppointmentModel;
-import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.ApiUtils;
-import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.viewHolder.PatientViewModel;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static com.digidoctor.android.utility.utils.APPOINTMENT_CHAT;
-import static com.digidoctor.android.utility.utils.APPOINTMENT_ID;
 import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
-import static com.digidoctor.android.utility.utils.TIMESTAMP;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
 
@@ -146,13 +133,8 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
             public void onSuccess(Object obj) {
                 List<ChatModel> chatModels = (List<ChatModel>) obj;
                 Log.d(TAG, "onSuccess: msg send " + chatModels.toString());
-                if (null != chatModels) {
-                    chats.clear();
-
-                    chats.addAll(chatModels);
-
-
-                }
+                chats.clear();
+                chats.addAll(chatModels);
                 adapter.notifyDataSetChanged();
                 updateVisibility();
             }

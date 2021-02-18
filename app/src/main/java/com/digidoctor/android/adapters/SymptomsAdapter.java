@@ -38,7 +38,7 @@ public class SymptomsAdapter extends ListAdapter<SymptomModel, SymptomsAdapter.S
         SymptomModel symptomModel = getItem(position);
         holder.symptomsViewBinding.setSymptoms(symptomModel);
         if (null != symptomsIds)
-            holder.symptomsViewBinding.radioButton5.setChecked(symptomsIds.contains(String.valueOf(symptomModel.getProblemId())) ? true : false);
+            holder.symptomsViewBinding.radioButton5.setChecked(symptomsIds.contains(String.valueOf(symptomModel.getProblemId())));
 
     }
 

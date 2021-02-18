@@ -1,10 +1,6 @@
 package com.digidoctor.android.model;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-
 import java.util.List;
-import java.util.Objects;
 
 public class MedicineModel {
 

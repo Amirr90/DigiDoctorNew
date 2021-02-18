@@ -68,7 +68,7 @@
                 android:layout_height="23dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="10dp"
-                android:drawableLeft="@drawable/rupee"
+                android:drawableLeft="@drawable/rupee_indian"
                 android:drawablePadding="@dimen/dimen_5dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="50.00"

@@ -18,13 +18,11 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.CalendarAdapter;
 import com.digidoctor.android.adapters.TimeSlotsAdapter;
 import com.digidoctor.android.databinding.FragmentReScheduleBinding;
-import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.BookAppointmentInterface;
 import com.digidoctor.android.model.CalendarModel;
 import com.digidoctor.android.model.CheckSlotAvailabilityDataRes;
-import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.GetAppointmentSlotsDataRes;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.OnlineAppointmentRes;
@@ -255,14 +253,13 @@ public class ReScheduleFragment extends Fragment {
     private void checkTimeSlot(String date, String time) {
 
 
-        Map<String, String> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put(MOBILE_NUMBER, user.getMobileNo());
         map.put(MEMBER_ID, String.valueOf(user.getMemberId()));
         map.put(KEY_DOC_ID, String.valueOf(appointmentModel.getDoctorId()));
         map.put(APPOINTMENT_DATE, date);
         map.put(APPOINTMENT_TIME, time);
-        map.put(IS_REVISIT, isRevisit ? "1" : "0");
-
+        map.put(IS_REVISIT, isRevisit );
         map.put(KEY_IS_ERA_USER, String.valueOf(appointmentModel.getIsEraUser()));
         map.put(KEY_APPOINTMENT_ID, appointmentModel.getAppointmentId());
 

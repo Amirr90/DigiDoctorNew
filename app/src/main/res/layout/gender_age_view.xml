@@ -102,8 +102,8 @@
                         android:layout_height="43dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="12dp"
-                        android:tint="@color/PrimaryColor"
-                        app:srcCompat="@drawable/female" />
+                        app:srcCompat="@drawable/female"
+                        app:tint="@color/PrimaryColor" />
 
                     <TextView
                         android:id="@+id/tvFemale"
@@ -146,8 +146,8 @@
                         android:layout_height="43dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="12dp"
-                        android:tint="@color/PrimaryColor"
-                        app:srcCompat="@drawable/footprint" />
+                        app:srcCompat="@drawable/footprint"
+                        app:tint="@color/PrimaryColor" />
 
                     <TextView
                         android:id="@+id/tvChild"

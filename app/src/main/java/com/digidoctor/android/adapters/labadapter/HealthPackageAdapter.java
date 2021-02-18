@@ -1,6 +1,5 @@
 package com.digidoctor.android.adapters.labadapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -16,19 +15,17 @@ import java.util.List;
 
 public class HealthPackageAdapter extends RecyclerView.Adapter<HealthPackageAdapter.ViewHolderVH> {
 
-    private List<PackageDetail> getpackagedetails;
-    private Context context;
+    private final List<PackageDetail> getpackagedetails;
 
-    public HealthPackageAdapter(List<PackageDetail> getpackagedetails, Context context) {
+    public HealthPackageAdapter(List<PackageDetail> getpackagedetails) {
         this.getpackagedetails = getpackagedetails;
-        this.context = context;
     }
 
     @NonNull
     @Override
     public HealthPackageAdapter.ViewHolderVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         HealthpackagelayoutBinding healthpackagelayoutBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.healthpackagelayout, parent, false);
-        return new HealthPackageAdapter.ViewHolderVH(healthpackagelayoutBinding);
+        return new ViewHolderVH(healthpackagelayoutBinding);
 
     }
 
@@ -49,7 +46,7 @@ public class HealthPackageAdapter extends RecyclerView.Adapter<HealthPackageAdap
         return getpackagedetails.size();
     }
 
-    public class ViewHolderVH extends RecyclerView.ViewHolder {
+    public static class ViewHolderVH extends RecyclerView.ViewHolder {
 
         HealthpackagelayoutBinding healthpackagelayoutBinding;
 

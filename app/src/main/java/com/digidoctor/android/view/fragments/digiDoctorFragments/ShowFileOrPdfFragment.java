@@ -45,11 +45,8 @@ public class ShowFileOrPdfFragment extends Fragment {
         filePath = getArguments().getString("filePath");
         Log.d(TAG, "onViewCreated: filePath " + filePath);
 
-        showFileOrPdfBinding.btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        showFileOrPdfBinding.btnClose.setOnClickListener(view12 -> {
 
-            }
         });
 
 

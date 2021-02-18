@@ -1,18 +1,15 @@
 package com.digidoctor.android.view.fragments.digiDoctorFragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentDoctorsNotFoundBinding;
-import com.digidoctor.android.databinding.FragmentSymptomsBinding;
 
 import org.jetbrains.annotations.NotNull;
 

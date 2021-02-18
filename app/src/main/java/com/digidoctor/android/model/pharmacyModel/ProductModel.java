@@ -13,10 +13,6 @@ public class ProductModel extends BaseObservable {
     String uniqueNo;
 
     public ProductModel() {
-        this.memberId = memberId;
-        this.productId = productId;
-
-
     }
 
     public String getSizeId() {

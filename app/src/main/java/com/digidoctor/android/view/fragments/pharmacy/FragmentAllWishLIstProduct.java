@@ -24,6 +24,7 @@ import com.digidoctor.android.utility.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FragmentAllWishLIstProduct extends Fragment {
     public static final String TAG = "FragmentAllWishLIstProduct";
@@ -43,7 +44,6 @@ public class FragmentAllWishLIstProduct extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         navController = Navigation.findNavController(view);
 
         final List<AllWishListProduct.AllWishlist> allWishlists = new ArrayList<>();
@@ -94,6 +94,6 @@ public class FragmentAllWishLIstProduct extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
     }
 }

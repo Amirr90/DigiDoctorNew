@@ -40,7 +40,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
-import static com.digidoctor.android.utility.utils.fadeIn;
 import static com.digidoctor.android.utility.utils.getJSONFromModel;
 
 

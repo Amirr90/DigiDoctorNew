@@ -1,7 +1,5 @@
 package com.digidoctor.android.model;
 
-import android.telephony.SignalStrength;
-
 public class PaymentOptionModel {
 
     String title;

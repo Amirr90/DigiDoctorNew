@@ -31,15 +31,9 @@ public class OrderPLacedFRagment extends Fragment {
         orderplacedfragmentBinding.textView133.setText("Congratulations! Your order " + getArguments().getString("orderNo") + " has been placed successfully");
 
 
-        orderplacedfragmentBinding.button13.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_orderPLacedFRagment_to_onlinePharmacyFragment
+        orderplacedfragmentBinding.button13.setOnClickListener(view1 -> navController.navigate(R.id.action_orderPLacedFRagment_to_onlinePharmacyFragment
 
-                );
-
-            }
-        });
+        ));
     }
 
     @Nullable

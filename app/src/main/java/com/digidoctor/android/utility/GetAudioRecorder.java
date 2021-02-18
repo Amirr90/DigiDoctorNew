@@ -3,8 +3,6 @@ package com.digidoctor.android.utility;
 import android.app.Activity;
 import android.os.Environment;
 
-import androidx.fragment.app.Fragment;
-
 import com.digidoctor.android.R;
 
 import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;

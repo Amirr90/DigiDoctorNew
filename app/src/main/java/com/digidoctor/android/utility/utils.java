@@ -118,13 +118,6 @@ public class utils {
     public static final String APP_TYPE = "DD";
     public static final String SERVICE_PROVIDER_ID_TYPE = "6";
 
-    public static String getCurrentDateInMonthDateFormat(long timeStamp) {
-        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-        cal.setTimeInMillis(timeStamp * 1000L);
-        String date = DateFormat.format("EEE, MMM d, ''yy", cal).toString();
-
-        return date;
-    }
 
     public static void hideSoftKeyboard(Activity activity) {
         if (activity != null) {
@@ -151,9 +144,7 @@ public class utils {
         if (connectivity != null) {
             NetworkInfo info = connectivity.getActiveNetworkInfo();
             if (info != null) {
-                if (info.getState() == NetworkInfo.State.CONNECTED) {
-                    return true;
-                }
+                return info.getState() == NetworkInfo.State.CONNECTED;
             }
         }
 
@@ -182,24 +173,6 @@ public class utils {
             return null;
         }
 
-    }
-
-    public static String parseDateToDMYFormat(String oldDate) {
-        String inputPattern = "yyyy/MM/dd";
-        String outputPattern = "dd/MM/yyyy";
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
-
-        Date date = null;
-        String str = null;
-
-        try {
-            date = inputFormat.parse(oldDate);
-            str = outputFormat.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return str;
     }
 
     public static String parseDateToYMDToMMDD(String oldDate) {
@@ -350,16 +323,14 @@ public class utils {
         SharedPreferences pref = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         Gson gson = new Gson();
         String json = pref.getString(BOOKING_USER, "");
-        User obj = gson.fromJson(json, User.class);
-        return obj;
+        return gson.fromJson(json, User.class);
     }
 
     public static User getPrimaryUser(Activity activity) {
         SharedPreferences pref = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         Gson gson = new Gson();
         String json = pref.getString(USER, "");
-        User obj = gson.fromJson(json, User.class);
-        return obj;
+        return gson.fromJson(json, User.class);
     }
 
     public static User getMainUser(Activity activity) {
@@ -376,16 +347,11 @@ public class utils {
             new AlertDialog.Builder(activity)
                     .setTitle(R.string.logout)
                     .setMessage(R.string.logout_text)
-                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                            logoutFromServer(activity);
-                        }
-                    }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+                    .setPositiveButton(R.string.yes, (dialog, id) -> {
+                        dialog.cancel();
+                        logoutFromServer(activity);
+                    }).setNegativeButton(R.string.no, (dialogInterface, i) -> {
 
-                }
             }).show();
 
             return true;
@@ -460,8 +426,8 @@ public class utils {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(timestamp);
         Date d = c.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        return sdf.format(d);
+        return new SimpleDateFormat("HH:mm:ss").format(d);
+
     }
 
     public static CharSequence getDate(long timestamp) {
@@ -671,7 +637,7 @@ public class utils {
             String timeFrom = jsonObject.getString("timeFrom");
             String timeTo = jsonObject.getString("timeTo");
 
-            builder.append(day + "\n" + timeFrom + " - " + timeTo);
+            builder.append(day).append("\n").append(timeFrom).append(" - ").append(timeTo);
             builder.append("\n\n");
         }
 

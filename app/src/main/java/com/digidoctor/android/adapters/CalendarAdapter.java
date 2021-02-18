@@ -4,15 +4,12 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.CalenderViewBinding;
 import com.digidoctor.android.model.CalendarModel;
 import com.digidoctor.android.view.activity.PatientDashboard;
-import com.digidoctor.android.view.fragments.digiDoctorFragments.ChooseTimeFragment;
-import com.digidoctor.android.view.fragments.digiDoctorFragments.ReScheduleFragment;
 
 import java.util.List;
 
@@ -50,8 +47,8 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
 
         final CalendarModel calendarModel = calendarModelList.get(position);
         holder.calenderViewBinding.setCalender(calendarModel);
-        holder.calenderViewBinding.rlCalenderRoot.setEnabled(calendarModel.isAvailable());
 
+        holder.calenderViewBinding.rlCalenderRoot.setEnabled(calendarModel.isAvailable());
         holder.calenderViewBinding.rlCalenderRoot.setOnClickListener(v -> {
             calenderInterface.onItemClicked(calendarModel, position);
             holder.calenderViewBinding.getRoot().setBackground(PatientDashboard.getInstance().getResources().getDrawable(R.drawable.rectangle_outline_new_ui_color_yellow));
@@ -96,8 +93,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
                     return calendarModel;
                 }
             }
-
-            return calendarModel;
+            return null;
         }
 
     }

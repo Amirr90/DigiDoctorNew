@@ -3,9 +3,7 @@ package com.digidoctor.android.adapters.pharmacy;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -25,18 +23,13 @@ import static com.digidoctor.android.utility.utils.CATEGORY_ID;
 public class ShopByCategoryAdapter extends RecyclerView.Adapter<ShopByCategoryAdapter.ShopByCategoryVH> {
 
     private List<ShopBycategoryModel.CategoryModel> sbc;
-    private Context ctx;
+    private final Context ctx;
 
     public ShopByCategoryAdapter(List<ShopBycategoryModel.CategoryModel> sbc, Context ctx) {
         this.sbc = sbc;
         this.ctx = ctx;
 
     }
-
-    /*public ShopByCategoryAdapter(List<ShopBycategoryModel.CategoryModel> sbc, Context ctx) {
-        this.sbc = sbc;
-        this.ctx = ctx;
-    }*/
 
     @NonNull
     @Override
@@ -66,16 +59,11 @@ public class ShopByCategoryAdapter extends RecyclerView.Adapter<ShopByCategoryAd
                 .thumbnail(0.5f).placeholder(R.drawable.box_two)
                 .into(holder.shopByCategoryViewBinding.imageView7);
 
-        holder.shopByCategoryViewBinding.category.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.shopByCategoryViewBinding.category.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putString(CATEGORY_ID, String.valueOf(categoryModel.getCategoryId()));
+            PatientDashboard.getInstance().navigate(R.id.action_onlinePharmacyFragment_to_allProductsFragment, bundle);
 
-                Bundle bundle = new Bundle();
-                bundle.putString(CATEGORY_ID, String.valueOf(categoryModel.getCategoryId()));
-
-                PatientDashboard.getInstance().navigate(R.id.action_onlinePharmacyFragment_to_allProductsFragment, bundle);
-
-            }
         });
 
     }
@@ -83,9 +71,6 @@ public class ShopByCategoryAdapter extends RecyclerView.Adapter<ShopByCategoryAd
 
     public static class ShopByCategoryVH extends RecyclerView.ViewHolder {
         ShopByCategoryViewBinding shopByCategoryViewBinding;
-
-        ImageView imageView;
-
         public ShopByCategoryVH(@NonNull ShopByCategoryViewBinding itemView) {
             super(itemView.getRoot());
 

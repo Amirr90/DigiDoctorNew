@@ -22,6 +22,7 @@ import com.digidoctor.android.utility.ApiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AllCategoryFragment extends Fragment {
     private static final String TAG = "AllCategoryFragment";
@@ -94,6 +95,6 @@ public class AllCategoryFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
     }
 }

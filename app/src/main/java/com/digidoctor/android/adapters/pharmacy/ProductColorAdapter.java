@@ -70,20 +70,17 @@ public class ProductColorAdapter extends RecyclerView.Adapter<ProductColorAdapte
         }
 
 
-        holder.productcolorlayoutBinding.cardviewColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.productcolorlayoutBinding.cardviewColor.setOnClickListener(v -> {
 
-                selectedPosition = position;
-                ProductModel model = new ProductModel();
-                model.setSizeId(String.valueOf(colorDetails.getColorId()));
-                notifyDataSetChanged();
-                updateProduct(model);
+            selectedPosition = position;
+            ProductModel model = new ProductModel();
+            model.setSizeId(String.valueOf(colorDetails.getColorId()));
+            notifyDataSetChanged();
+            updateProduct(model);
 
-                holder.productcolorlayoutBinding.cardviewColor.setBackgroundResource(R.drawable.flavourgreen);
+            holder.productcolorlayoutBinding.cardviewColor.setBackgroundResource(R.drawable.flavourgreen);
 
 
-            }
         });
 
 

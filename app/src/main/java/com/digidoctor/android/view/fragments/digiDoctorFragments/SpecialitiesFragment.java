@@ -3,13 +3,9 @@ package com.digidoctor.android.view.fragments.digiDoctorFragments;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,8 +24,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
-
-import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
 
 
 public class SpecialitiesFragment extends Fragment {
@@ -91,15 +85,12 @@ public class SpecialitiesFragment extends Fragment {
     }
 
     private void getSpecialityData(String specialityName) {
-        viewModel.getSpecialityData(specialityName).observe(getViewLifecycleOwner(), new Observer<List<SpecialityModel>>() {
-            @Override
-            public void onChanged(List<SpecialityModel> specialityModels) {
-                if (null != specialityModels) {
-                    specialityAdapter.submitList(specialityModels);
-                    specialitiesBinding.progressBar3.setVisibility(View.GONE);
-                } else PatientDashboard.getInstance().onSupportNavigateUp();
+        viewModel.getSpecialityData(specialityName).observe(getViewLifecycleOwner(), specialityModels -> {
+            if (null != specialityModels) {
+                specialityAdapter.submitList(specialityModels);
+                specialitiesBinding.progressBar3.setVisibility(View.GONE);
+            } else PatientDashboard.getInstance().onSupportNavigateUp();
 
-            }
         });
     }
 

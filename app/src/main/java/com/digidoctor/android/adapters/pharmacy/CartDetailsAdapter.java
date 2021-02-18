@@ -58,71 +58,47 @@ public class CartDetailsAdapter extends RecyclerView.Adapter<CartDetailsAdapter.
         holder.cartViewBinding.elegantNumberButton.setRange(0, 5);
 
 
-        holder.cartViewBinding.TVcartremove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String productName = gc.getBrandName();
-                new AlertDialog.Builder(activity).setTitle("Delete Product")
-                        .setMessage("Are you sure want to remove " + productName + " from cart?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
+        holder.cartViewBinding.TVcartremove.setOnClickListener(view -> {
+            String productName = gc.getBrandName();
+            new AlertDialog.Builder(activity).setTitle("Delete Product")
+                    .setMessage("Are you sure want to remove " + productName + " from cart?")
+                    .setPositiveButton("Yes", (dialogInterface, i) -> {
 
-                                        productInterface.onDeleteItemClick(gc);
-                                        notifyItemRemoved(position);
-                                        notifyDataSetChanged();
-
-                                    }
-                                }
-                        ).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                        productInterface.onDeleteItemClick(gc);
+                        notifyItemRemoved(position);
+                        notifyDataSetChanged();
 
                     }
-                }).show();
+                    ).setNegativeButton("No", (dialogInterface, i) -> {
 
-
-            }
-        });
-
-        holder.cartViewBinding.elegantNumberButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
-            @Override
-            public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
-
-
-                if (newValue == 5) {
-                    Toast.makeText(activity, "you have reached with maximum limit", Toast.LENGTH_SHORT).show();
-                }
-
-                if (newValue == 0) {
-                    new AlertDialog.Builder(activity)
-                            .setMessage("Product Will be removed from your cart.")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    productInterface.onDeleteItemClick(gc);
-                                    //  getcart.remove(position);
-                                    notifyItemRemoved(position);
-                                    notifyDataSetChanged();
-                                }
-
-
-                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            holder.cartViewBinding.elegantNumberButton.setNumber(gc.getQuantity());
-
-
-                        }
                     }).show();
 
 
-                } else {
+        });
 
-                    productInterface.onCartItemUpdate(gc, newValue);
-                }
+        holder.cartViewBinding.elegantNumberButton.setOnValueChangeListener((view, oldValue, newValue) -> {
 
+
+            if (newValue == 5) {
+                Toast.makeText(activity, "you have reached with maximum limit", Toast.LENGTH_SHORT).show();
             }
+
+            if (newValue == 0) {
+                new AlertDialog.Builder(activity)
+                        .setMessage("Product Will be removed from your cart.")
+                        .setPositiveButton("Yes", (dialogInterface, i) -> {
+                            productInterface.onDeleteItemClick(gc);
+                            //  getcart.remove(position);
+                            notifyItemRemoved(position);
+                            notifyDataSetChanged();
+                        }).setNegativeButton("No", (dialogInterface, i) -> holder.cartViewBinding.elegantNumberButton.setNumber(gc.getQuantity())).show();
+
+
+            } else {
+
+                productInterface.onCartItemUpdate(gc, newValue);
+            }
+
         });
 
     }

@@ -11,7 +11,6 @@ import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.DoctorModelRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.InvestigationModel;
-import com.digidoctor.android.model.MedicineModel;
 import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SymptomModel;

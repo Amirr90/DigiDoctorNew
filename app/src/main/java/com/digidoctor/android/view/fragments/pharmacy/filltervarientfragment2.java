@@ -9,9 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
-import com.digidoctor.android.databinding.Fillterfragment1Binding;
 import com.digidoctor.android.databinding.Filtterfragment2Binding;
 
 public class filltervarientfragment2 extends Fragment {

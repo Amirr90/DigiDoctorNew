@@ -18,8 +18,8 @@ import java.util.List;
 
 public class SliderAdapterforPharmacy extends  RecyclerView.Adapter<SliderAdapterforPharmacy.ViewHolder> {
 
-    private ArrayList<ShopBycategoryModel.SliderImage> banner;
-    private Context context;
+    private final ArrayList<ShopBycategoryModel.SliderImage> banner;
+    private final Context context;
 
 
     public SliderAdapterforPharmacy(List<ShopBycategoryModel.SliderImage> banner, Context context) {

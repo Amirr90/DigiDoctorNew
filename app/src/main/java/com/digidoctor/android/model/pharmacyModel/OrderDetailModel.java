@@ -2,8 +2,6 @@ package com.digidoctor.android.model.pharmacyModel;
 
 import java.util.List;
 
-;
-
 public class OrderDetailModel {
 
     int responseCode;

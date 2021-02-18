@@ -42,12 +42,7 @@ public class AllCoupneAdapter extends RecyclerView.Adapter<AllCoupneAdapter.View
         holder.availableCoupneViewBinding.textView37.setText("Valid From " + responseValue.getValidityFrom() + " Valid To " + responseValue.getValidityTo());
 
 
-        holder.availableCoupneViewBinding.textView34.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                adapterInterface.onItemClicked(holder.availableCoupneViewBinding.textView35.getText().toString().trim());
-            }
-        });
+        holder.availableCoupneViewBinding.textView34.setOnClickListener(view -> adapterInterface.onItemClicked(holder.availableCoupneViewBinding.textView35.getText().toString().trim()));
 
     }
 

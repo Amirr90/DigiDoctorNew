@@ -54,11 +54,6 @@ public class ProductFalvourAdapter extends RecyclerView.Adapter<ProductFalvourAd
             selectedPosition = position;
         }
 
-      /*  if (colorDetails.getIsSelected() == 1) {
-            holder.productcolorlayoutBinding.cardviewColor.setBackgroundResource(R.drawable.flavourgreen);
-            holder.productcolorlayoutBinding.cardviewColor.setTextColor(Color.parseColor("#ffffff"));
-        }
-*/
         if (selectedPosition == position) {
             holder.productsizelayoutBinding.textView135.setBackgroundResource(R.drawable.flavourgreen);
             holder.productsizelayoutBinding.textView135.setTextColor(Color.WHITE);
@@ -70,18 +65,14 @@ public class ProductFalvourAdapter extends RecyclerView.Adapter<ProductFalvourAd
         }
 
 
-        holder.productsizelayoutBinding.textView135.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                selectedPosition = position;
-                ProductModel model = new ProductModel();
-                model.setSizeId(String.valueOf(flavourDetails.getFlavourId()));
-                notifyDataSetChanged();
-                updateProduct(model);
+        holder.productsizelayoutBinding.textView135.setOnClickListener(view -> {
+            selectedPosition = position;
+            ProductModel model = new ProductModel();
+            model.setSizeId(String.valueOf(flavourDetails.getFlavourId()));
+            notifyDataSetChanged();
+            updateProduct(model);
 
 
-            }
         });
 
 
@@ -100,12 +91,7 @@ public class ProductFalvourAdapter extends RecyclerView.Adapter<ProductFalvourAd
                 public void onSuccess(List<?> o) {
                     List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
                     Log.d("TAG", "onSuccess: " + models.get(0).getProductDetails());
-                   /* AllProductModels.addAll(models.get(0).getProductDetails());
 
-                    if (!AllProductModels.isEmpty() && models.isEmpty()) {
-                        fragmentProductDetailsBinding.setProduct(AllProductModels.get(0));
-
-                    }*/
                     if (models.isEmpty())
                         return;
 

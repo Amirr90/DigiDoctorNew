@@ -23,6 +23,7 @@ import com.digidoctor.android.utility.ApiUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class GetPlacedOrderFragment extends Fragment {
     private static final String TAG = "GetPlacedOrderFragment";
@@ -45,7 +46,6 @@ public class GetPlacedOrderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
         final List<GetOrderRes.getplacedorder> getplacedorders = new ArrayList<>();
 
@@ -58,7 +58,6 @@ public class GetPlacedOrderFragment extends Fragment {
             @Override
             public void onSuccess(List<?> o) {
                 List<GetOrderRes.getplacedorder> models = (List<GetOrderRes.getplacedorder>) o;
-                //   Log.d(TAG, "CategoryList: " + models.get(0).getCategoryList().toString());
                 getplacedorders.clear();
 
                 getplacedorders.addAll(models);
@@ -84,6 +83,6 @@ public class GetPlacedOrderFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
     }
 }

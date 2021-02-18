@@ -30,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.digidoctor.android.utility.utils.BLOOD_SUGAR_ID;
 import static com.digidoctor.android.utility.utils.BP_ID;
@@ -104,7 +105,7 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
     }
 
     private void showSelectVitalCategoryList() {
@@ -204,16 +205,13 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
                 SelectVitalCategoryModel model = selectTypeList.get(position);
                 holder.listViewBinding.setModel(model);
                 holder.listViewBinding.view.setVisibility(selectTypeList.size() == (position + 1) ? View.GONE : View.VISIBLE);
-                holder.listViewBinding.constraintsMain.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString(VITAL_ID, selectTypeList.get(position).getVitalId());
-                        bundle.putString(VITAL_NAME, selectTypeList.get(position).getTitle());
-                        bundle.putInt(VITAL_IMAGE, selectTypeList.get(position).getImage());
-                        optionDialog.dismiss();
-                        navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_vitalChartFragment, bundle);
-                    }
+                holder.listViewBinding.constraintsMain.setOnClickListener(view -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(VITAL_ID, selectTypeList.get(position).getVitalId());
+                    bundle.putString(VITAL_NAME, selectTypeList.get(position).getTitle());
+                    bundle.putInt(VITAL_IMAGE, selectTypeList.get(position).getImage());
+                    optionDialog.dismiss();
+                    navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_vitalChartFragment, bundle);
                 });
             } catch (Exception e) {
                 e.printStackTrace();

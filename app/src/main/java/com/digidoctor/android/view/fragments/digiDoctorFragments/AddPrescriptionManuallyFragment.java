@@ -92,7 +92,6 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
     Boolean isUploadPrescription = false;
 
 
-
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -332,9 +331,7 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
         addPrescriptionManuallyBinding.cvSelectImage.setVisibility(imageAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         addPrescriptionManuallyBinding.clMedication.setVisibility(imageAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         addPrescriptionManuallyBinding.recInputMedicine.setVisibility(imageAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
-        if (imageAdapter.getItemCount() == 0)
-            isUploadPrescription = false;
-        else isUploadPrescription = true;
+        isUploadPrescription = imageAdapter.getItemCount() != 0;
 
     }
 
@@ -430,19 +427,17 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
 
     }
 
-    private void bindFrequencyData(
-            final List<MedicineModel.MedicineFrequencyModel> frequencyList) {
+    private void bindFrequencyData(final List<MedicineModel.MedicineFrequencyModel> frequencyList) {
         Log.d(TAG, "bindFrequencyData: " + frequencyList.toString());
+
         final List<String> medicineData = new ArrayList<>();
         for (MedicineModel.MedicineFrequencyModel medicineDetailModel : frequencyList)
             medicineData.add(medicineDetailModel.getName());
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>
                 (requireActivity(), R.layout.inflate_auto_complete_text, medicineData);
         addPrescriptionManuallyBinding.etFrequency.setThreshold(1);
         addPrescriptionManuallyBinding.etFrequency.setAdapter(adapter);
         addPrescriptionManuallyBinding.etFrequency.setOnItemClickListener((adapterView, view, position, l) -> {
-
 
             String item = (String) adapterView.getItemAtPosition(position);
             for (MedicineModel.MedicineFrequencyModel frequencyModel : frequencyList)
@@ -462,8 +457,10 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>
                 (requireActivity(), R.layout.inflate_auto_complete_text, medicineData);
+
         addPrescriptionManuallyBinding.tcAutoMedicine.setThreshold(1);
         addPrescriptionManuallyBinding.tcAutoMedicine.setAdapter(adapter);
+
         addPrescriptionManuallyBinding.tcAutoMedicine.setOnItemClickListener((adapterView, view, position, l) -> {
             AppUtils.showRequestDialog(requireActivity());
             Object item = adapterView.getItemAtPosition(position);

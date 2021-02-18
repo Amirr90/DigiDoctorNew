@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -24,8 +23,8 @@ import java.util.List;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
 public class TopSearchProductListAdapter extends RecyclerView.Adapter<TopSearchProductListAdapter.TopSearchProductList> {
-    private List<ShopBycategoryModel.TopSearchproductList> topSearchproductLists;
-    private Activity ctx;
+    private final List<ShopBycategoryModel.TopSearchproductList> topSearchproductLists;
+    private final Activity ctx;
     NavController navController;
 
     public TopSearchProductListAdapter(List<ShopBycategoryModel.TopSearchproductList> topSearchproductLists, Activity ctx, NavController navController) {
@@ -52,32 +51,20 @@ public class TopSearchProductListAdapter extends RecyclerView.Adapter<TopSearchP
         holder.popularproductviewBinding.pdescrip.setText(topSearchproductList.getShortDescription());
 
         Glide.with(ctx).load(topSearchproductList.getImageURL()).thumbnail(0.5f).placeholder(R.drawable.box_two).into(holder.popularproductviewBinding.imageView4);
-        holder.popularproductviewBinding.imageView3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(ctx, "Product Added in Your WishList", Toast.LENGTH_SHORT).show();
-                holder.popularproductviewBinding.imageView3.setImageResource(R.drawable.wishactive);
+        holder.popularproductviewBinding.imageView3.setOnClickListener(view -> {
+            Toast.makeText(ctx, "Product Added in Your WishList", Toast.LENGTH_SHORT).show();
+            holder.popularproductviewBinding.imageView3.setImageResource(R.drawable.wishactive);
 
-            }
         });
-        holder.popularproductviewBinding.textView57.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(ctx, "You Can add this product in cart", Toast.LENGTH_SHORT).show();
+        holder.popularproductviewBinding.textView57.setOnClickListener(view -> Toast.makeText(ctx, "You Can add this product in cart", Toast.LENGTH_SHORT).show());
 
-            }
-        });
-
-        holder.popularproductviewBinding.popularcl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                User user = getPrimaryUser(ctx);
-                Bundle bundle = new Bundle();
-                bundle.putInt("productID", Integer.parseInt(topSearchproductList.getProductId()));
-                bundle.putInt("member", Integer.parseInt(String.valueOf(user.getMemberId())));
-                Log.d("TAG", "onClick: " + bundle);
-                navController.navigate(R.id.action_onlinePharmacyFragment_to_productDetailsFragment, bundle);
-            }
+        holder.popularproductviewBinding.popularcl.setOnClickListener(view -> {
+            User user = getPrimaryUser(ctx);
+            Bundle bundle = new Bundle();
+            bundle.putInt("productID", Integer.parseInt(topSearchproductList.getProductId()));
+            bundle.putInt("member", Integer.parseInt(String.valueOf(user.getMemberId())));
+            Log.d("TAG", "onClick: " + bundle);
+            navController.navigate(R.id.action_onlinePharmacyFragment_to_productDetailsFragment, bundle);
         });
 
 

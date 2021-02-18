@@ -100,7 +100,7 @@
                     android:layout_marginTop="13dp"
                     android:setCustomVisibility="@{medication.testName}"
                     android:src="@drawable/check_up_icon"
-                    android:tint="@color/GreyColo" />
+                    app:tint="@color/GreyColo" />
 
                 <TextView
                     android:id="@+id/textView22"

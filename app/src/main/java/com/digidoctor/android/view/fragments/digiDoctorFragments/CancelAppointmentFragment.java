@@ -50,12 +50,9 @@ public class CancelAppointmentFragment extends Fragment {
             return;
         }
         key = getArguments().getString("key");
-        cancelAppointmentBinding.btnGoToDashboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (PatientDashboard.getInstance() != null) {
-                    PatientDashboard.getInstance().onSupportNavigateUp();
-                }
+        cancelAppointmentBinding.btnGoToDashboard.setOnClickListener(view1 -> {
+            if (PatientDashboard.getInstance() != null) {
+                PatientDashboard.getInstance().onSupportNavigateUp();
             }
         });
 
