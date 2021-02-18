@@ -2,9 +2,7 @@ package com.digidoctor.android.adapters.pharmacy;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -13,7 +11,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.CartViewBinding;
 import com.digidoctor.android.interfaces.ProductInterface;

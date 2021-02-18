@@ -1,5 +1,7 @@
 package com.digidoctor.android.model;
 
+import org.jetbrains.annotations.NotNull;
+
 public class addproductreating {
 
     String memberId;
@@ -7,6 +9,7 @@ public class addproductreating {
     String review;
     String starrating;
 
+    @NotNull
     @Override
     public String toString() {
         return "addproductreating{" +

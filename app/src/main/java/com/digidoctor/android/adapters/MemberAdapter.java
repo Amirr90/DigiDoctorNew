@@ -55,9 +55,7 @@ public class MemberAdapter extends ListAdapter<User, MemberAdapter.MemberVH> {
             User member = getItem(position);
             holder.memberViewBinding.setMember(member);
 
-            holder.memberViewBinding.ivDeleteMember.setOnClickListener(view -> {
-                showDeleteMemberDialog(member);
-            });
+            holder.memberViewBinding.ivDeleteMember.setOnClickListener(view -> showDeleteMemberDialog(member));
         } catch (Exception e) {
             e.printStackTrace();
         }

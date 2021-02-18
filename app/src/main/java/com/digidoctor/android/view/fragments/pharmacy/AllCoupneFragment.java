@@ -1,6 +1,5 @@
 package com.digidoctor.android.view.fragments.pharmacy;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import androidx.navigation.Navigation;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.pharmacy.AllCoupneAdapter;
-import com.digidoctor.android.databinding.AvailableCoupneViewBinding;
 import com.digidoctor.android.databinding.FragmentApplyCoupneBinding;
 import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
@@ -25,7 +23,6 @@ import com.digidoctor.android.utility.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static com.digidoctor.android.view.fragments.pharmacy.Cart_Details_Fragment.COUPON_CODE;
 

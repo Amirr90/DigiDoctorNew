@@ -3,6 +3,8 @@ package com.digidoctor.android.model.pharmacyModel;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import org.jetbrains.annotations.NotNull;
+
 public class AddtoWishlist extends BaseObservable {
 
     String memberId;
@@ -46,6 +48,7 @@ public class AddtoWishlist extends BaseObservable {
         this.isWhislist = isWhislist;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "AddtoWishlist{" +

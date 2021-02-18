@@ -1,8 +1,6 @@
 package com.digidoctor.android.view.fragments.pharmacy;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;

@@ -1,5 +1,7 @@
 package com.digidoctor.android.model.pharmacyModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class AllCoupneModelResponse {
@@ -42,6 +44,7 @@ public class AllCoupneModelResponse {
         int couponAmount;
         int minShopping;
 
+        @NotNull
         @Override
         public String toString() {
             return "GetCoupnedetails{" +

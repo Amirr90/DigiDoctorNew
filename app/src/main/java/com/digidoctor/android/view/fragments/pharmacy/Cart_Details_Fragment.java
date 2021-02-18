@@ -1,6 +1,5 @@
 package com.digidoctor.android.view.fragments.pharmacy;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -246,12 +245,12 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
                                            getPriceDetails) {
 
         PriceDetail priceDetail = new PriceDetail();
-        priceDetail.setDelievryCharge(Double.valueOf(getPriceDetails.getDelievryCharge()));
-        priceDetail.setSaveAmount(Double.valueOf(getPriceDetails.getSaveAmount()));
-        priceDetail.setTotalAmount(Double.valueOf(getPriceDetails.getTotalAmount()));
-        priceDetail.setTotalMrp(Double.valueOf(getPriceDetails.getTotalMrp()));
+        priceDetail.setDelievryCharge((double) getPriceDetails.getDelievryCharge());
+        priceDetail.setSaveAmount((double) getPriceDetails.getSaveAmount());
+        priceDetail.setTotalAmount((double) getPriceDetails.getTotalAmount());
+        priceDetail.setTotalMrp((double) getPriceDetails.getTotalMrp());
         priceDetail.setTotalProducts(Integer.parseInt(getPriceDetails.getTotalProducts()));
-        priceDetail.setCouponAmount(Double.valueOf(getPriceDetails.getCouponAmount()));
+        priceDetail.setCouponAmount((double) getPriceDetails.getCouponAmount());
         priceDetail.setCouponCode(getPriceDetails.getCouponCode());
 
         Log.d("TAG", "updatePriceDetails: " + priceDetail);

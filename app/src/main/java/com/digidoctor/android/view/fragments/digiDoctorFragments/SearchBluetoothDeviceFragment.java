@@ -67,9 +67,7 @@ public class SearchBluetoothDeviceFragment extends Fragment implements OnClickLi
     }
 
     private void showLoadingView() {
-        new Handler().postDelayed(() -> {
-            searchBLEDevice();
-        }, 1000);
+        new Handler().postDelayed(() -> searchBLEDevice(), 1000);
     }
 
     @Override

@@ -41,9 +41,7 @@ public class SelectedImageAdapter extends RecyclerView.Adapter<SelectedImageAdap
         } catch (Exception e) {
             e.printStackTrace();
         }
-        holder.selectedImageViewBinding.imageView48.setOnClickListener(view -> {
-            imageClickListener.onDeleteButtonClick(position);
-        });
+        holder.selectedImageViewBinding.imageView48.setOnClickListener(view -> imageClickListener.onDeleteButtonClick(position));
     }
 
     @Override
