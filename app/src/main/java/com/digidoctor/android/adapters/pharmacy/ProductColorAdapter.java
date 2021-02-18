@@ -48,6 +48,7 @@ public class ProductColorAdapter extends RecyclerView.Adapter<ProductColorAdapte
     public void onBindViewHolder(@NonNull ProductColorAdapter.ViewHolderVH holder, int position) {
         final ProductDetailModelResponse.ProductDetailsList.ColorDetails colorDetails = getproductcolorlist.get(position);
         holder.productcolorlayoutBinding.cardviewColor.setText(colorDetails.getColor());
+        holder.productcolorlayoutBinding.cardviewColor.setBackgroundColor(Integer.parseInt(colorDetails.getColorCode()));
 
         if (colorDetails.getIsSelected() == 1) {
             selectedPosition = position;
@@ -59,7 +60,7 @@ public class ProductColorAdapter extends RecyclerView.Adapter<ProductColorAdapte
         }
 */
         if (selectedPosition == position) {
-            holder.productcolorlayoutBinding.cardviewColor.setBackgroundResource(R.drawable.flavourgreen);
+       //     holder.productcolorlayoutBinding.cardviewColor.setBackgroundResource(R.drawable.flavourgreen);
             holder.productcolorlayoutBinding.cardviewColor.setTextColor(Color.WHITE);
         }
         if (colorDetails.getIsSelected() == 0) {

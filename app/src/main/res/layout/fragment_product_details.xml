@@ -947,7 +947,6 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="30dp"
                     android:animateLayoutChanges="false"
-                    android:background="#F2F6FE"
                     android:fadingEdge="vertical"
                     android:maxWidth="@dimen/_200sdp"
                     android:nestedScrollingEnabled="false"
