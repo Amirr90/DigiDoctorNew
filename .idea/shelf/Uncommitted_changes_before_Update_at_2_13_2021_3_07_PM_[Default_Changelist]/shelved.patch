@@ -1,0 +1,20 @@
+Index: app/src/main/res/layout/bannerview.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\r\n<layout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\">\r\n\r\n    <data>\r\n\r\n    </data>\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\">\r\n\r\n\r\n        <ImageView\r\n            android:id=\"@+id/banner\"\r\n            android:layout_width=\"fill_parent\"\r\n            android:layout_height=\"140dp\"\r\n            android:background=\"@drawable/product\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\" />\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n</layout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/bannerview.xml	(revision 373f5c907705de8b96be97bdac55ad71cb4daecf)
++++ app/src/main/res/layout/bannerview.xml	(date 1613132016554)
+@@ -16,7 +16,9 @@
+             android:id="@+id/banner"
+             android:layout_width="fill_parent"
+             android:layout_height="140dp"
+-            android:background="@drawable/product"
++            android:layout_marginStart="13dp"
++            android:layout_marginEnd="13dp"
++            android:background="@drawable/cartview_round_layout"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
