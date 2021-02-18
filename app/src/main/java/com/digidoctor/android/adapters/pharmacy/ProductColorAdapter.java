@@ -2,6 +2,7 @@ package com.digidoctor.android.adapters.pharmacy;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -48,7 +49,10 @@ public class ProductColorAdapter extends RecyclerView.Adapter<ProductColorAdapte
     public void onBindViewHolder(@NonNull ProductColorAdapter.ViewHolderVH holder, int position) {
         final ProductDetailModelResponse.ProductDetailsList.ColorDetails colorDetails = getproductcolorlist.get(position);
         holder.productcolorlayoutBinding.cardviewColor.setText(colorDetails.getColor());
-        holder.productcolorlayoutBinding.cardviewColor.setBackgroundColor(Integer.parseInt(colorDetails.getColorCode()));
+        holder.productcolorlayoutBinding.cardviewColor.setText(colorDetails.getColor());
+
+        String colorcode = colorDetails.getColorCode();
+        holder.productcolorlayoutBinding.cardviewColor.setBackground(Drawable.createFromPath(colorcode));
 
         if (colorDetails.getIsSelected() == 1) {
             selectedPosition = position;
@@ -60,8 +64,8 @@ public class ProductColorAdapter extends RecyclerView.Adapter<ProductColorAdapte
         }
 */
         if (selectedPosition == position) {
-       //     holder.productcolorlayoutBinding.cardviewColor.setBackgroundResource(R.drawable.flavourgreen);
-            holder.productcolorlayoutBinding.cardviewColor.setTextColor(Color.WHITE);
+            holder.productcolorlayoutBinding.cardviewColor.setBackgroundResource(R.drawable.size_flavour_text);
+            holder.productcolorlayoutBinding.cardviewColor.setTextColor(Color.BLACK);
         }
         if (colorDetails.getIsSelected() == 0) {
             holder.productcolorlayoutBinding.cardviewColor.setBackgroundResource(R.drawable.size_flavour_text);
@@ -100,18 +104,17 @@ public class ProductColorAdapter extends RecyclerView.Adapter<ProductColorAdapte
                 public void onSuccess(List<?> o) {
                     List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
                     Log.d("TAG", "onSuccess: " + models.get(0).getProductDetails());
-                   /* AllProductModels.addAll(models.get(0).getProductDetails());
 
-                    if (!AllProductModels.isEmpty() && models.isEmpty()) {
-                        fragmentProductDetailsBinding.setProduct(AllProductModels.get(0));
-
-                    }*/
                     if (models.isEmpty())
                         return;
 
+                    if(models.get(0).getProductDetails().size()>0){
+
+
+
                     ProductDetailsFragment.getInstance().updateProduct(models);
                     ProductDetailsFragment.getInstance().setProduct(models.get(0).getProductDetails().get(0));
-
+                    }
 
                 }
 

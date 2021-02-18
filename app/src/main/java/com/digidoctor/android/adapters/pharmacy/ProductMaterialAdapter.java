@@ -102,9 +102,14 @@ public class ProductMaterialAdapter extends RecyclerView.Adapter<ProductMaterial
                     if (models.isEmpty())
                         return;
 
-                    ProductDetailsFragment.getInstance().updateProduct(models);
-                    ProductDetailsFragment.getInstance().setProduct(models.get(0).getProductDetails().get(0));
 
+                    if (models.get(0).getProductDetails().size() > 0) {
+
+                        ProductDetailsFragment.getInstance().updateProduct(models);
+                        ProductDetailsFragment.getInstance().setProduct(models.get(0).getProductDetails().get(0));
+                    } else {
+                        Toast.makeText(activity, "Not Available ", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
 
