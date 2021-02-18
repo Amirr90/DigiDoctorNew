@@ -1388,10 +1388,6 @@ public class ApiUtils {
         if (PatientDashboard.getInstance() != null)
             AppUtils.showRequestDialog(requireActivity);
 
-//
-//        model.setProductId(Integer.parseInt(pId));
-//        model.setSizeId(model.getSizeId());
-//        //  model.setSizeId(sizeId);
 
 
         try {
@@ -1402,6 +1398,8 @@ public class ApiUtils {
                 public void onResponse(@NotNull Call<ProductDetailModelResponse> call, @NotNull Response<ProductDetailModelResponse> response) {
                     if (response.code() == 200 && response.body() != null) {
                         if (response.body().getResponseCode() == 1) {
+
+
                             AppUtils.hideDialog();
                             apiCallbackInterface.onSuccess(response.body().getResponseValue());
                         } else apiCallbackInterface.onError(response.body().getResponseMessage());

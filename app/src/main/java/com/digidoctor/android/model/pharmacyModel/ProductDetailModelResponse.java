@@ -610,16 +610,27 @@ public class ProductDetailModelResponse {
         public class ColorDetails {
             int colorId;
             String color;
-            int isSelected;
+            String colorCode;
 
             @Override
             public String toString() {
                 return "ColorDetails{" +
                         "colorId=" + colorId +
                         ", color='" + color + '\'' +
+                        ", colorCode='" + colorCode + '\'' +
                         ", isSelected=" + isSelected +
                         '}';
             }
+
+            public String getColorCode() {
+                return colorCode;
+            }
+
+            public void setColorCode(String colorCode) {
+                this.colorCode = colorCode;
+            }
+
+            int isSelected;
 
             public int getColorId() {
                 return colorId;
