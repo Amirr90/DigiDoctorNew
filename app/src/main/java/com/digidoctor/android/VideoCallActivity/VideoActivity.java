@@ -1240,10 +1240,6 @@ public class VideoActivity extends AppCompatActivity {
                 room.disconnect();
             } else {
 
-                if (isConnected == 0) {
-
-                }
-
                 AppUtils.showToastSort(VideoActivity.this, getString(R.string.call_has_been_disconnected));
 
                 audioDeviceSelector.deactivate();

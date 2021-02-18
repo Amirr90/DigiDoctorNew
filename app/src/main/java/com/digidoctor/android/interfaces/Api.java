@@ -44,11 +44,11 @@ import com.digidoctor.android.model.UploadPresDataModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
-import com.digidoctor.android.model.addproductratingresponse;
-import com.digidoctor.android.model.addproductreating;
+import com.digidoctor.android.model.addProductRatingResponse;
+import com.digidoctor.android.model.addProductRating;
 import com.digidoctor.android.model.labmodel.labdashboardresponse;
 import com.digidoctor.android.model.labmodel.labmodel;
-import com.digidoctor.android.model.pharmacyModel.AddAdressModel;
+import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
 import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
 import com.digidoctor.android.model.pharmacyModel.AddtoWishlist;
@@ -274,7 +274,7 @@ public interface Api {
 
     @POST("addAddress")
     Call<AddAdressResponse> AddAddress(
-            @Body AddAdressModel addAdressModel);
+            @Body AddAddressModel addAddressModel);
 
 
     @POST("deleteAddress")
@@ -314,7 +314,7 @@ public interface Api {
 
 
     @POST("updateAddress")
-    Call<getaddressModel> updateaddress(@Body AddAdressModel pharmacyModel);
+    Call<getaddressModel> updateaddress(@Body AddAddressModel pharmacyModel);
 
 
     @POST("cancelOrder")
@@ -324,7 +324,7 @@ public interface Api {
     Call<getfilltervarentmodel> getFillterVarient(@Body Fillter fillter);
 
     @POST("productRating")
-    Call<addproductratingresponse> postproductrating(@Body addproductreating addproductreating);
+    Call<addProductRatingResponse> postproductrating(@Body addProductRating addProductRating);
 
 
     @POST("Lab/labDasboard")

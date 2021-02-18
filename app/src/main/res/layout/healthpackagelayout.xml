@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -100,8 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
-                    android:drawableLeft="@drawable/rupee"
-                    android:text="2265"
+                    android:drawableStart="@drawable/rupee"
                     android:textSize="@dimen/_13sdp"
                     app:layout_constraintEnd_toStartOf="@+id/textView150"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -118,7 +116,6 @@
                     android:drawableLeft="@drawable/rupee"
                     android:drawablePadding="5dp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:text="1028"
                     android:textColor="#2B3344"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"

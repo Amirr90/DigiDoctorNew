@@ -18,6 +18,8 @@ import com.digidoctor.android.interfaces.OnClickListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 import static com.digidoctor.android.utility.utils.BLE_DEVICE_TYPE;
 
 public class SelectDeviceFragment extends Fragment implements OnClickListener {
@@ -36,7 +38,7 @@ public class SelectDeviceFragment extends Fragment implements OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 
     @Override

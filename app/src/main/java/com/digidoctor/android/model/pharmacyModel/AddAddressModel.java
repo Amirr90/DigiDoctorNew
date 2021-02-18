@@ -4,9 +4,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class AddAdressModel {
+public class AddAddressModel {
 
-    List<AddAdressModel> getAddress;
+    List<AddAddressModel> getAddress;
     String memberId;
     String name;
     String mobileno;
@@ -22,11 +22,11 @@ public class AddAdressModel {
     String isSaturdayOpen;
     String addressId;
 
-    public List<AddAdressModel> getGetAddress() {
+    public List<AddAddressModel> getGetAddress() {
         return getAddress;
     }
 
-    public void setGetAddress(List<AddAdressModel> getAddress) {
+    public void setGetAddress(List<AddAddressModel> getAddress) {
         this.getAddress = getAddress;
     }
 

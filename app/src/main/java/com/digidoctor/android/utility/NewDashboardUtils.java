@@ -22,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Objects;
 
 public class NewDashboardUtils {
 
@@ -45,7 +46,7 @@ public class NewDashboardUtils {
             }
         }
 
-        activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        Objects.requireNonNull(activity).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
     }
 
@@ -61,31 +62,14 @@ public class NewDashboardUtils {
         return false;
     }
 
-    public static String parseDateToDMYFormat(String oldDate) {
-        String inputPattern = "yyyy/MM/dd";
-        String outputPattern = "dd/MM/yyyy";
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
-
-        Date date = null;
-        String str = null;
-
-        try {
-            date = inputFormat.parse(oldDate);
-            str = outputFormat.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return str;
-    }
 
 
     public static ArrayList<HashMap<String, String>> getNextWeekDays() {
-//        SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd-MMM-yyyy");
 
         ArrayList<HashMap<String, String>> list = new ArrayList<>();
 
-        HashMap<String, String> hashMap = new HashMap<>();
+
+        HashMap<String, String> hashMap;
 
         SimpleDateFormat sdfDate = new SimpleDateFormat("dd", Locale.getDefault());
         SimpleDateFormat sdfDay = new SimpleDateFormat("EEE", Locale.getDefault());

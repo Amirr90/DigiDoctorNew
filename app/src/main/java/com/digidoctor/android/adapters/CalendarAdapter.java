@@ -83,7 +83,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
     }
 
     public CalendarModel getItem() {
-        CalendarModel calendarModel = null;
+        CalendarModel calendarModel;
         if (null == calendarModelList || calendarModelList.isEmpty())
             return null;
         else {

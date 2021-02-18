@@ -26,6 +26,7 @@ import com.digidoctor.android.utility.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Lab_Home_Fragment extends Fragment {
 
@@ -111,7 +112,7 @@ public class Lab_Home_Fragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
 
     }
 

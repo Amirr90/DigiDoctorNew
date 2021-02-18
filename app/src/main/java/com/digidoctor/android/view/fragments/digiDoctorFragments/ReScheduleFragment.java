@@ -227,8 +227,8 @@ public class ReScheduleFragment extends Fragment {
 
     private void showRescheduleDialog(final Object obj) {
         final String time = (String) obj;
-        String msg = null;
-        String title = null;
+        String msg;
+        String title;
         if (isRevisit) {
             msg = "Re-Visit Appointment on " + time + "  " + date;
             title = getString(R.string.re_visit_appointment);
@@ -328,7 +328,7 @@ public class ReScheduleFragment extends Fragment {
         appointment2.setAppointmentId(appointmentModel.getAppointmentId());
         AppUtils.showRequestDialog(requireActivity());
         Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
-        Call<OnlineAppointmentRes> call = null;
+        Call<OnlineAppointmentRes> call;
         if (!isRevisit) {
             call = iRestInterfaces.onlineAppointment2(appointment2);
         } else call = iRestInterfaces.revisitAppointment(appointment2);

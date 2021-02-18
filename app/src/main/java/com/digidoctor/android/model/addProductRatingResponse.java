@@ -2,20 +2,19 @@ package com.digidoctor.android.model;
 
 import org.jetbrains.annotations.NotNull;
 
-public class addproductratingresponse {
+public class addProductRatingResponse {
     String memberId;
     String productInfoCode;
     String review;
-    String starrating;
+    String starRating;
 
-    @NotNull
     @Override
     public String toString() {
-        return "addproductreating{" +
+        return "addProductRatingResponse{" +
                 "memberId='" + memberId + '\'' +
                 ", productInfoCode='" + productInfoCode + '\'' +
                 ", review='" + review + '\'' +
-                ", starrating='" + starrating + '\'' +
+                ", starRating='" + starRating + '\'' +
                 '}';
     }
 
@@ -43,12 +42,12 @@ public class addproductratingresponse {
         this.review = review;
     }
 
-    public String getStarrating() {
-        return starrating;
+    public String getStarRating() {
+        return starRating;
     }
 
-    public void setStarrating(String starrating) {
-        this.starrating = starrating;
+    public void setStarRating(String starRating) {
+        this.starRating = starRating;
     }
 }
 

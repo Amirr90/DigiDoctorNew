@@ -1,6 +1,5 @@
 package com.digidoctor.android.view.fragments.pharmacy;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,7 +18,7 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.pharmacy.AddressAdapter;
 import com.digidoctor.android.databinding.FragmentUpdateAddressBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
-import com.digidoctor.android.model.pharmacyModel.AddAdressModel;
+import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.getaddressModel;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
@@ -44,7 +43,6 @@ public class UpdateAddressFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(view);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
         if (getArguments() == null)
             return;
@@ -143,23 +141,23 @@ public class UpdateAddressFragment extends Fragment {
     public void address() {
 
 
-        AddAdressModel addAdressModel = new AddAdressModel();
-        addAdressModel.setAddressId(AddressId);
-        addAdressModel.setMemberId(MemberID);
-        addAdressModel.setName(Full_nameET);
-        addAdressModel.setHouseNo(HouseET);
-        addAdressModel.setMobileno(MobileET);
-        addAdressModel.setCity(CityET);
-        addAdressModel.setPincode(ZipCodeET);
-        addAdressModel.setArea(areaET);
-        addAdressModel.setState(StateET);
-        addAdressModel.setLocality(localityET);
-        addAdressModel.setIsDefault(isDefaultET);
-        addAdressModel.setAddressType(addresstype);
-        addAdressModel.setIsSaturdayOpen(IssaturdayOpenET);
-        addAdressModel.setIsSundayOpen(issundayopenET);
+        AddAddressModel addAddressModel = new AddAddressModel();
+        addAddressModel.setAddressId(AddressId);
+        addAddressModel.setMemberId(MemberID);
+        addAddressModel.setName(Full_nameET);
+        addAddressModel.setHouseNo(HouseET);
+        addAddressModel.setMobileno(MobileET);
+        addAddressModel.setCity(CityET);
+        addAddressModel.setPincode(ZipCodeET);
+        addAddressModel.setArea(areaET);
+        addAddressModel.setState(StateET);
+        addAddressModel.setLocality(localityET);
+        addAddressModel.setIsDefault(isDefaultET);
+        addAddressModel.setAddressType(addresstype);
+        addAddressModel.setIsSaturdayOpen(IssaturdayOpenET);
+        addAddressModel.setIsSundayOpen(issundayopenET);
 
-        ApiUtils.update_Address(addAdressModel, requireActivity(), new ApiCallbackInterface() {
+        ApiUtils.update_Address(addAddressModel, requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 AppUtils.hideDialog();

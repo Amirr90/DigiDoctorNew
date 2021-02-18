@@ -367,9 +367,6 @@ public class ProductDetailsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 
