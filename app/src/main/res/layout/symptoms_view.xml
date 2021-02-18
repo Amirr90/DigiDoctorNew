@@ -40,7 +40,8 @@
                 android:layout_height="52dp"
                 android:layout_centerVertical="true"
                 android:loadCustomDoctorImage="@{symptoms.displayIcon}"
-                app:srcCompat="@drawable/alternative" />
+                app:srcCompat="@drawable/alternative"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/textView68"

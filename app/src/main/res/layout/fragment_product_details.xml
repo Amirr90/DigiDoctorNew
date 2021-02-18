@@ -122,7 +122,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/textView41"
-                        app:layout_constraintTop_toTopOf="@+id/textView41" />
+                        app:layout_constraintTop_toTopOf="@+id/textView41"
+                        android:contentDescription="TODO" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -248,7 +249,8 @@
                     android:layout_height="30dp"
                     android:background="@drawable/elipse"
                     android:visibility="gone"
-                    app:srcCompat="@drawable/ic_baseline_share_24" />
+                    app:srcCompat="@drawable/ic_baseline_share_24"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/textView60"
@@ -970,7 +972,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/textView88"
                     app:layout_constraintStart_toEndOf="@+id/textView88"
                     app:layout_constraintTop_toTopOf="@+id/textView88"
-                    app:srcCompat="@drawable/st" />
+                    app:srcCompat="@drawable/st"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/textView141"

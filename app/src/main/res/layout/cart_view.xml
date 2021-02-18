@@ -29,7 +29,8 @@
                 android:layout_marginTop="19dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/product" />
+                app:srcCompat="@drawable/product"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/textView8"

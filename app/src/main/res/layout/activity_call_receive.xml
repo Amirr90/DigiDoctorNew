@@ -24,7 +24,8 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/tvVideoCall"
@@ -72,7 +73,8 @@
         android:layout_marginBottom="@dimen/_10sdp"
         app:layout_constraintBottom_toTopOf="@+id/ivReceiveCall"
         app:layout_constraintTop_toBottomOf="@+id/tvIncoming"
-        app:srcCompat="@drawable/ic_name" />
+        app:srcCompat="@drawable/ic_name"
+        android:contentDescription="TODO" />
 
 
     <ImageView
@@ -86,7 +88,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_call_end_white_24px"
-        app:tint="@color/green" />
+        app:tint="@color/green"
+        android:contentDescription="TODO" />
 
     <ImageView
         android:id="@+id/ivDisconnectCall"
@@ -98,5 +101,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_call_end_white_24px"
-        app:tint="@color/red" />
+        app:tint="@color/red"
+        android:contentDescription="TODO" />
 </androidx.constraintlayout.widget.ConstraintLayout>

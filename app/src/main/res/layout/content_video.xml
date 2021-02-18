@@ -27,7 +27,8 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             app:srcCompat="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="@dimen/_10sdp" />
+            android:layout_marginStart="@dimen/_10sdp"
+            android:contentDescription="TODO" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,7 +50,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="@dimen/_10sdp"
             app:srcCompat="@drawable/ic_volume_up_white_24dp"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="TODO" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

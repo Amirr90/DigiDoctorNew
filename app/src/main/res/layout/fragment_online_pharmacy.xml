@@ -82,7 +82,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/editTextTextSearchSpeciality"
                     app:layout_constraintEnd_toStartOf="@+id/badge"
                     app:layout_constraintStart_toEndOf="@+id/editTextTextSearchSpeciality"
-                    app:layout_constraintTop_toTopOf="@+id/editTextTextSearchSpeciality" />
+                    app:layout_constraintTop_toTopOf="@+id/editTextTextSearchSpeciality"
+                    android:contentDescription="TODO" />
 
 
                 <RelativeLayout
@@ -107,7 +108,8 @@
                         android:layout_marginStart="2dp"
                         android:layout_marginTop="6dp"
                         android:clickable="true"
-                        android:src="@drawable/ic_baseline_shopping_cart_24" />
+                        android:src="@drawable/ic_baseline_shopping_cart_24"
+                        android:contentDescription="TODO" />
 
                     <!--                    <TextView-->
                     <!--                        android:id="@+id/actionbar_notifcation_textview"-->
@@ -208,7 +210,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/m" />
+                    app:srcCompat="@drawable/m"
+                    android:contentDescription="TODO" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -244,7 +247,8 @@
                         android:src="@drawable/doc"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:layout_width="151dp"

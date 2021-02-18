@@ -32,7 +32,8 @@
             app:layout_constraintBottom_toTopOf="@+id/textView35"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/paytm" />
+            app:srcCompat="@drawable/paytm"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/textView34"

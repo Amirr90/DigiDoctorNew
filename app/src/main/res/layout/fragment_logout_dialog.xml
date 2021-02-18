@@ -17,7 +17,8 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout7" />
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout7"
+        android:contentDescription="TODO" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/constraintLayout7"

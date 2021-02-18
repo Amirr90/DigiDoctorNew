@@ -24,7 +24,8 @@
             android:layout_centerHorizontal="true"
             android:elevation="@dimen/_10sdp"
             android:loadSpecialityImage="@{speciality.imagePath}"
-            app:srcCompat="@drawable/homeopathy" />
+            app:srcCompat="@drawable/homeopathy"
+            android:contentDescription="TODO" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

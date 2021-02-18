@@ -61,7 +61,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/wishoff" />
+                app:srcCompat="@drawable/wishoff"
+                android:contentDescription="TODO" />
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -74,7 +75,8 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/product" />
+                app:srcCompat="@drawable/product"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/Tname"
@@ -123,7 +125,8 @@
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/checkBox2"
-                app:layout_constraintTop_toBottomOf="@+id/pdescrip" />
+                app:layout_constraintTop_toBottomOf="@+id/pdescrip"
+                android:contentDescription="TODO" />
 
             <ImageView
                 android:id="@+id/imageView45"
@@ -136,7 +139,8 @@
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pdescrip" />
+                app:layout_constraintTop_toBottomOf="@+id/pdescrip"
+                android:contentDescription="TODO" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

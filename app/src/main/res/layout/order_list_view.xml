@@ -134,7 +134,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/textView9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView8"
-                app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+                app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+                android:contentDescription="TODO" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

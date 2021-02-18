@@ -74,7 +74,8 @@
                         android:id="@+id/ivName"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/user_small_icon" />
+                        app:srcCompat="@drawable/user_small_icon"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvName"
@@ -121,7 +122,8 @@
                         android:id="@+id/ivEmail"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/email" />
+                        app:srcCompat="@drawable/email"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvEmail"
@@ -168,7 +170,8 @@
                         android:id="@+id/ivNumber"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/smartphone" />
+                        app:srcCompat="@drawable/smartphone"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvNumber"
@@ -222,7 +225,8 @@
                         android:id="@+id/ivDob"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/cake" />
+                        app:srcCompat="@drawable/cake"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvDob"
@@ -256,7 +260,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="10dp"
-                        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
+                        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24"
+                        android:contentDescription="TODO" />
 
                     <View
                         android:layout_width="match_parent"
@@ -281,7 +286,8 @@
                         android:id="@+id/ivGender"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/gender" />
+                        app:srcCompat="@drawable/gender"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvGender"
@@ -323,7 +329,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="10dp"
-                        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
+                        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24"
+                        android:contentDescription="TODO" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -336,7 +343,8 @@
                         android:id="@+id/ivAddress"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/address" />
+                        app:srcCompat="@drawable/address"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvAddress"

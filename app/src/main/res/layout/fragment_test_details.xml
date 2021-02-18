@@ -134,7 +134,8 @@
                         android:layout_marginTop="10dp"
                         android:src="@drawable/labimages"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/textView164"
@@ -187,7 +188,8 @@
                         android:layout_marginTop="7dp"
                         android:src="@drawable/ic_baseline_location_on_24"
                         app:layout_constraintStart_toStartOf="@+id/textView164"
-                        app:layout_constraintTop_toBottomOf="@+id/textView164" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView164"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/textView173"
@@ -208,7 +210,8 @@
                         android:layout_marginTop="10dp"
                         android:src="@drawable/calender"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view5" />
+                        app:layout_constraintTop_toBottomOf="@+id/view5"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/textView174"

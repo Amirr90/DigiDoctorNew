@@ -102,7 +102,8 @@
                     android:onClick="@{()->subSpecialityInterface.onShareProfile(doctor)}"
                     android:padding="5dp"
                     android:visibility="visible"
-                    app:srcCompat="@drawable/share_doc_profile_image" />
+                    app:srcCompat="@drawable/share_doc_profile_image"
+                    android:contentDescription="TODO" />
             </RelativeLayout>
 
             <LinearLayout
@@ -122,7 +123,8 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_centerVertical="true"
-                        app:srcCompat="@drawable/group" />
+                        app:srcCompat="@drawable/group"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/textView79"
@@ -150,7 +152,8 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_centerVertical="true"
-                        app:srcCompat="@drawable/graduated" />
+                        app:srcCompat="@drawable/graduated"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -177,7 +180,8 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_centerVertical="true"
-                        app:srcCompat="@drawable/location_pin" />
+                        app:srcCompat="@drawable/location_pin"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -213,7 +217,8 @@
                         android:layout_width="9dp"
                         android:layout_height="15dp"
                         android:layout_gravity="center_vertical"
-                        app:srcCompat="@drawable/rupee_indian" />
+                        app:srcCompat="@drawable/rupee_indian"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/textView82"

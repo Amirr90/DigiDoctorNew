@@ -78,7 +78,8 @@
                 android:layout_height="25dp"
                 android:layout_alignParentEnd="true"
                 app:srcCompat="@drawable/delete"
-                android:focusable="true" />
+                android:focusable="true"
+                android:contentDescription="TODO" />
         </RelativeLayout>
 
 

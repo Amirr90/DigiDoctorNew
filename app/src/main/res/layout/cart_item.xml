@@ -13,7 +13,8 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/ic_baseline_shopping_cart_24" />
+        app:srcCompat="@drawable/ic_baseline_shopping_cart_24"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/tvCartCount"

@@ -100,7 +100,8 @@
                     android:layout_marginTop="13dp"
                     android:setCustomVisibility="@{medication.testName}"
                     android:src="@drawable/check_up_icon"
-                    app:tint="@color/GreyColo" />
+                    app:tint="@color/GreyColo"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/textView22"
@@ -123,7 +124,8 @@
                     android:layout_below="@id/imageView9"
                     android:layout_marginStart="28dp"
                     android:layout_marginTop="22dp"
-                    android:src="@drawable/calender" />
+                    android:src="@drawable/calender"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/textView23"

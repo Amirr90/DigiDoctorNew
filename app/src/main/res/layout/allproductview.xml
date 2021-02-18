@@ -74,7 +74,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/wishoff" />
+                    app:srcCompat="@drawable/wishoff"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/imageView4"
@@ -87,7 +88,8 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/pro" />
+                    app:srcCompat="@drawable/pro"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/PName"
@@ -165,7 +167,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.26"
                     app:layout_constraintStart_toStartOf="@+id/checkBox2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/imageView58"
@@ -181,7 +184,8 @@
                     app:layout_constraintStart_toStartOf="@+id/textView55"
                     app:layout_constraintTop_toBottomOf="@+id/textView55"
                     app:layout_constraintVertical_bias="1.0"
-                    app:srcCompat="@drawable/rupee_indian" />
+                    app:srcCompat="@drawable/rupee_indian"
+                    android:contentDescription="TODO" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

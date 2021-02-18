@@ -27,7 +27,8 @@
             app:layout_constraintBottom_toTopOf="@+id/cv1"
             app:layout_constraintStart_toStartOf="@+id/cv1"
             app:layout_constraintTop_toTopOf="@+id/cv1"
-            app:srcCompat="@drawable/specialities" />
+            app:srcCompat="@drawable/specialities"
+            android:contentDescription="TODO" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv1"

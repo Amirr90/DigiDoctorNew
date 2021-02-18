@@ -17,7 +17,8 @@
         android:src="@drawable/labaddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="TODO" />
 
 
 
@@ -54,7 +55,8 @@
                         android:layout_width="14dp"
                         android:layout_height="17dp"
                         android:backgroundTint="#0A586C"
-                        app:srcCompat="@drawable/homelabaddress" />
+                        app:srcCompat="@drawable/homelabaddress"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvName"
@@ -103,7 +105,8 @@
                         android:id="@+id/ivhouse"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/home" />
+                        app:srcCompat="@drawable/home"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvhouse"
@@ -151,7 +154,8 @@
                         android:id="@+id/ivMobile"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/home" />
+                        app:srcCompat="@drawable/home"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvMobile"
@@ -203,7 +207,8 @@
                         android:id="@+id/ivarea"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/zipcode" />
+                        app:srcCompat="@drawable/zipcode"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvarea"
@@ -257,7 +262,8 @@
                         android:id="@+id/ivPin"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/officebuilding" />
+                        app:srcCompat="@drawable/officebuilding"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvPin"
