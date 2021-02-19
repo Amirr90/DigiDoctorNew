@@ -17,7 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff"
+            android:background="#F2F6FE"
             tools:context=".view.fragments.pharmacy.OnlinePharmacyFragment">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -222,11 +222,13 @@
                 android:layout_marginStart="13dp"
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="13dp"
+                android:layout_marginBottom="9dp"
                 android:background="@drawable/coupne_edittext"
                 android:backgroundTint="#EDA537"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="3dp"
                 app:cardMaxElevation="3dp"
+                app:layout_constraintBottom_toTopOf="@+id/cardView3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -243,12 +245,12 @@
                         android:layout_height="46dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="8dp"
+                        android:contentDescription="TODO"
                         android:paddingLeft="10dp"
                         android:src="@drawable/doc"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:contentDescription="TODO" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:layout_width="151dp"
@@ -301,6 +303,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:background="@drawable/cartview_round_layout"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -363,7 +366,9 @@
                 android:layout_width="0dp"
                 android:layout_height="232dp"
                 android:layout_marginTop="9dp"
+                android:layout_marginBottom="9dp"
                 android:background="@drawable/cartview_round_layout"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView3">
@@ -414,6 +419,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout14"
                 android:layout_width="0dp"
                 android:layout_height="288dp"
                 android:layout_marginTop="9dp"

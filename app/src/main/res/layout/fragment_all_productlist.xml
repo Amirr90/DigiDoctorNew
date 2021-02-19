@@ -12,7 +12,7 @@
         android:id="@+id/l1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f2f6fe"
+        android:background="@color/white"
         android:orientation="vertical">
 
 
@@ -34,7 +34,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/round_for_search"
                 android:backgroundTint="@android:color/white"
-                android:drawableEnd="@drawable/magnifier"
+                android:drawableEnd="@drawable/ic_baseline_search_24"
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="Search Product Here"
@@ -63,9 +63,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl"
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-           >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/textView4"
@@ -124,9 +124,7 @@
                     android:id="@+id/allproductrec"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
                     android:layout_marginTop="13dp"
-                    android:layout_marginEnd="13dp"
                     android:foregroundGravity="center"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -144,28 +142,28 @@
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_marginEnd="6dp"
+                    android:contentDescription="TODO"
                     app:layout_constraintBottom_toBottomOf="@+id/button2"
                     app:layout_constraintEnd_toEndOf="@+id/button2"
                     app:layout_constraintHorizontal_bias="0.842"
                     app:layout_constraintStart_toStartOf="@+id/button2"
                     app:layout_constraintTop_toTopOf="@+id/button2"
                     app:layout_constraintVertical_bias="0.478"
-                    app:srcCompat="@drawable/sort"
-                    android:contentDescription="TODO" />
+                    app:srcCompat="@drawable/sort" />
 
                 <ImageView
                     android:id="@+id/imageView41"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_marginEnd="6dp"
+                    android:contentDescription="TODO"
                     app:layout_constraintBottom_toBottomOf="@+id/button3"
                     app:layout_constraintEnd_toEndOf="@+id/button3"
                     app:layout_constraintHorizontal_bias="0.98"
                     app:layout_constraintStart_toStartOf="@+id/button3"
                     app:layout_constraintTop_toTopOf="@+id/button3"
                     app:layout_constraintVertical_bias="0.478"
-                    app:srcCompat="@drawable/filter"
-                    android:contentDescription="TODO" />
+                    app:srcCompat="@drawable/filter" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -202,12 +200,12 @@
                 android:layout_marginTop="133dp"
                 android:layout_marginEnd="65dp"
                 android:layout_marginBottom="30dp"
+                android:contentDescription="TODO"
                 android:src="@drawable/congo"
                 app:layout_constraintBottom_toTopOf="@+id/textView42"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="TODO" />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
