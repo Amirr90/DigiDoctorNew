@@ -46,7 +46,8 @@
                 android:layout_height="match_parent"
                 android:loadSpecialityImage="@{image}"
                 app:srcCompat="@drawable/diagnosis_demo_image"
-                tools:ignore="VectorDrawableCompat" />
+                tools:ignore="VectorDrawableCompat"
+                android:contentDescription="TODO" />
         </com.otaliastudios.zoom.ZoomLayout>
 
     </FrameLayout>

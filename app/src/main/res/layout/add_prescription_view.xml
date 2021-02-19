@@ -29,7 +29,8 @@
             android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/check" />
+            app:srcCompat="@drawable/check"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/tvMedicineName"
@@ -132,6 +133,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/imageView15"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageView15"
-            app:srcCompat="@drawable/delete" />
+            app:srcCompat="@drawable/delete"
+            android:contentDescription="TODO" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

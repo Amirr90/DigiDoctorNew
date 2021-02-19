@@ -117,6 +117,7 @@ import static com.digidoctor.android.utility.utils.getString;
 import static com.digidoctor.android.utility.utils.logout;
 
 
+@SuppressWarnings("deprecation")
 public class ApiUtils {
 
     public static final int RESPONSE_SUCCESS = 1;

@@ -47,7 +47,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ellipse" />
+                    app:srcCompat="@drawable/ellipse"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -57,7 +58,8 @@
                     app:layout_constraintEnd_toEndOf="@+id/imageView2"
                     app:layout_constraintStart_toStartOf="@+id/imageView2"
                     app:layout_constraintTop_toTopOf="@+id/imageView2"
-                    app:srcCompat="@drawable/wishoff" />
+                    app:srcCompat="@drawable/wishoff"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/imageView4"
@@ -70,7 +72,8 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/pro" />
+                    app:srcCompat="@drawable/pro"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/Tname"
@@ -114,7 +117,8 @@
                     android:background="@drawable/addcircle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/imageView2"
-                    app:layout_constraintTop_toBottomOf="@+id/pdescrip" />
+                    app:layout_constraintTop_toBottomOf="@+id/pdescrip"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/imageView43"
@@ -125,7 +129,8 @@
                     app:layout_constraintEnd_toEndOf="@+id/textView57"
                     app:layout_constraintStart_toStartOf="@+id/textView57"
                     app:layout_constraintTop_toTopOf="@+id/textView57"
-                    app:srcCompat="@drawable/add" />
+                    app:srcCompat="@drawable/add"
+                    android:contentDescription="TODO" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

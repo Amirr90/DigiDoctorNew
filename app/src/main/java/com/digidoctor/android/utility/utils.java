@@ -143,6 +143,7 @@ public class utils {
         if (connectivity != null) {
             NetworkInfo info = connectivity.getActiveNetworkInfo();
             if (info != null) {
+                //noinspection deprecation
                 return info.getState() == NetworkInfo.State.CONNECTED;
             }
         }

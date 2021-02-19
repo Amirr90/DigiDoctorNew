@@ -13,11 +13,11 @@
     </data>
 
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="215dp"
         android:layout_margin="10dp"
-        android:background="@drawable/bottom_round"
+        android:background="@drawable/border"
         app:cardCornerRadius="10dp"
         app:cardElevation="3dp"
         app:cardMaxElevation="3dp"
@@ -33,7 +33,10 @@
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground"
             android:elevation="10dp"
-            android:padding="10dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <CheckBox
@@ -56,6 +59,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
+                android:contentDescription="TODO"
                 android:cropToPadding="false"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -70,6 +74,7 @@
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="28dp"
+                android:contentDescription="TODO"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -118,6 +123,7 @@
                 android:layout_height="22dp"
                 android:layout_marginTop="8dp"
                 android:adjustViewBounds="false"
+                android:contentDescription="TODO"
                 android:cropToPadding="false"
                 android:src="@drawable/addcircle"
                 android:visibility="gone"
@@ -131,6 +137,7 @@
                 android:layout_height="20dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/addcircle"
+                android:contentDescription="TODO"
                 android:src="@drawable/add"
                 android:textAlignment="center"
                 android:visibility="gone"
@@ -141,6 +148,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

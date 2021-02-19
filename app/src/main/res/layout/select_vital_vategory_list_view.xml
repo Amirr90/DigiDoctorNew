@@ -39,7 +39,8 @@
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:loadHealthProductImage="@{model.image}"
-                app:srcCompat="@drawable/bp_chart_icon" />
+                app:srcCompat="@drawable/bp_chart_icon"
+                android:contentDescription="TODO" />
         </LinearLayout>
 
         <TextView
@@ -63,7 +64,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linearLayout"
-            app:srcCompat="@drawable/double_left_arrows_symbol" />
+            app:srcCompat="@drawable/double_left_arrows_symbol"
+            android:contentDescription="TODO" />
 
         <View
             android:id="@+id/view"

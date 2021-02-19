@@ -17,8 +17,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -27,6 +29,7 @@
                 android:layout_marginStart="3dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginTop="19dp"
+                android:contentDescription="TODO"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/product" />
@@ -37,8 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:maxLines="1"
                 android:fontFamily="@font/poppins_semibold"
+                android:maxLines="1"
                 android:text="Azithramycin"
                 android:textColor="#2B3344"
                 android:textSize="18sp"
@@ -68,7 +71,7 @@
                 android:layout_height="23dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="10dp"
-                android:drawableLeft="@drawable/rupee_indian"
+                android:drawableLeft="@drawable/rupee"
                 android:drawablePadding="@dimen/dimen_5dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="50.00"
@@ -148,7 +151,6 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                app:backGroundColor="#0A586C"
                 app:layout_constraintBottom_toBottomOf="@+id/textView8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView8"
@@ -160,13 +162,13 @@
                 class="com.google.android.material.internal.BaselineLayout"
                 android:layout_width="match_parent"
                 android:layout_height="2px"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:background="#E5E5E5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/TVcartremove"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5"
                 tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

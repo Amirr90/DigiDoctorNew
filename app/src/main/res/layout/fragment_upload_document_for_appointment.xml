@@ -74,7 +74,8 @@
                             android:layout_height="30dp"
                             android:layout_gravity="center"
                             android:layout_margin="@dimen/_10sdp"
-                            android:src="@drawable/gal_image" />
+                            android:src="@drawable/gal_image"
+                            android:contentDescription="TODO" />
 
 
                     </androidx.cardview.widget.CardView>
@@ -117,7 +118,8 @@
                             android:layout_height="30dp"
                             android:layout_gravity="center"
                             android:layout_margin="@dimen/_10sdp"
-                            android:src="@drawable/audio_file" />
+                            android:src="@drawable/audio_file"
+                            android:contentDescription="TODO" />
 
 
                     </androidx.cardview.widget.CardView>
@@ -159,7 +161,8 @@
                             android:layout_height="30dp"
                             android:layout_gravity="center"
                             android:layout_margin="@dimen/_10sdp"
-                            android:src="@drawable/video_file" />
+                            android:src="@drawable/video_file"
+                            android:contentDescription="TODO" />
 
 
                     </androidx.cardview.widget.CardView>

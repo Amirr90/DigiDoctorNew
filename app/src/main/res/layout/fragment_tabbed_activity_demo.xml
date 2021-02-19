@@ -18,7 +18,8 @@
             app:layout_constraintHorizontal_bias="0.733"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/get_started" />
+            app:srcCompat="@drawable/get_started"
+            android:contentDescription="TODO" />
 
 
         <TextView

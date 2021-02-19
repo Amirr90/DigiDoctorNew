@@ -2,7 +2,6 @@ package com.digidoctor.android.adapters.pharmacy;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -67,7 +66,7 @@ public class ProductFalvourAdapter extends RecyclerView.Adapter<ProductFalvourAd
         holder.productsizelayoutBinding.textView135.setOnClickListener(view -> {
             selectedPosition = position;
             ProductModel model = new ProductModel();
-            model.setSizeId(String.valueOf(flavourDetails.getFlavourId()));
+            model.setFlavorId(String.valueOf(flavourDetails.getFlavourId()));
             notifyDataSetChanged();
             updateProduct(model);
 
@@ -89,7 +88,7 @@ public class ProductFalvourAdapter extends RecyclerView.Adapter<ProductFalvourAd
                 @Override
                 public void onSuccess(List<?> o) {
                     List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
-                    Log.d("TAG", "onSuccess: " + models.get(0).getProductDetails());
+                    //   Log.d("TAG", "onSuccess: " + models.get(0).getProductDetails());
 
                     if (models.isEmpty())
                         return;

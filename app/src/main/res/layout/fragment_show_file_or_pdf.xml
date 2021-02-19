@@ -16,7 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="394dp"
         android:src="@drawable/appointment_done"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:contentDescription="TODO" />
 
 
     <Button

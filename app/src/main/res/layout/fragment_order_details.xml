@@ -132,7 +132,8 @@
                     app:layout_constraintBottom_toTopOf="@+id/view4"
                     app:layout_constraintEnd_toStartOf="@+id/textView113"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/textView113"
@@ -321,7 +322,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/textView116"
                     app:layout_constraintHorizontal_bias="0.24"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView116" />
+                    app:layout_constraintTop_toTopOf="@+id/textView116"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/imageView48"
@@ -331,7 +333,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/textView118"
                     app:layout_constraintEnd_toEndOf="@+id/imageView47"
                     app:layout_constraintStart_toStartOf="@+id/imageView47"
-                    app:layout_constraintTop_toBottomOf="@+id/view" />
+                    app:layout_constraintTop_toBottomOf="@+id/view"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/imageView49"
@@ -341,7 +344,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/textView120"
                     app:layout_constraintEnd_toEndOf="@+id/imageView48"
                     app:layout_constraintStart_toStartOf="@+id/imageView48"
-                    app:layout_constraintTop_toTopOf="@+id/textView120" />
+                    app:layout_constraintTop_toTopOf="@+id/textView120"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/imageView50"
@@ -351,7 +355,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/textView122"
                     app:layout_constraintEnd_toEndOf="@+id/imageView49"
                     app:layout_constraintStart_toStartOf="@+id/imageView49"
-                    app:layout_constraintTop_toTopOf="@+id/textView122" />
+                    app:layout_constraintTop_toTopOf="@+id/textView122"
+                    android:contentDescription="TODO" />
 
                 <View
                     android:id="@+id/view"

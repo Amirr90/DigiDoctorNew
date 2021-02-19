@@ -59,7 +59,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/wish" />
+                    app:srcCompat="@drawable/wish"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/imageView4"
@@ -72,7 +73,8 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/pro" />
+                    app:srcCompat="@drawable/pro"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/PName"

@@ -678,6 +678,7 @@
         android:label="Add Address">
         <action
             android:id="@+id/action_addressFragment_to_allAddressFragment"
+            app:popUpToInclusive="true"
             app:popUpTo="@id/allAddressFragment" />
     </fragment>
     <fragment

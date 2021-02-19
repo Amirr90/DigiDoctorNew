@@ -33,7 +33,8 @@
                 app:layout_constraintHorizontal_bias="0.04"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/lalpath" />
+                app:srcCompat="@drawable/lalpath"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/textView159"

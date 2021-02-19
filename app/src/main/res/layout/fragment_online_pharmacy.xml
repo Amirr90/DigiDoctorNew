@@ -17,10 +17,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff"
+            android:background="#F2F6FE"
             tools:context=".view.fragments.pharmacy.OnlinePharmacyFragment">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:visibility="gone"
                 android:id="@+id/relativeLayout2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -31,7 +32,6 @@
                 android:paddingTop="20sp"
                 android:paddingRight="10dp"
                 android:paddingBottom="20sp"
-                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -48,20 +48,21 @@
                     android:layout_marginBottom="4dp"
                     android:background="@drawable/round_for_search"
                     android:backgroundTint="@android:color/white"
-                    android:drawableEnd="@drawable/magnifier"
+                    android:drawableRight="@drawable/magnifier"
                     android:drawablePadding="@dimen/_20sdp"
                     android:ems="11"
-                    android:hint="@string/search_medicine_amp_healthcare"
+                    android:hint="search medicine &amp; healthcare..."
                     android:imeOptions="actionSearch"
                     android:inputType="textPersonName"
                     android:maxLines="1"
                     android:paddingStart="@dimen/_20sdp"
+                    android:paddingLeft="5dp"
                     android:paddingTop="10dp"
-                    android:paddingEnd="20dp"
+                    android:paddingRight="20dp"
                     android:paddingBottom="10dp"
                     android:singleLine="true"
                     android:textColorHint="#A2B3B8"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/wish"
                     app:layout_constraintStart_toStartOf="parent"
@@ -75,13 +76,14 @@
                     android:layout_alignBottom="@+id/editTextTextSearchSpeciality"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_toEndOf="@+id/editTextTextSearchSpeciality"
+                    android:layout_toRightOf="@+id/editTextTextSearchSpeciality"
                     android:background="?attr/selectableItemBackground"
                     android:src="@drawable/ic_baseline_favorite_border_24"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextTextSearchSpeciality"
                     app:layout_constraintEnd_toStartOf="@+id/badge"
                     app:layout_constraintStart_toEndOf="@+id/editTextTextSearchSpeciality"
-                    app:layout_constraintTop_toTopOf="@+id/editTextTextSearchSpeciality" />
+                    app:layout_constraintTop_toTopOf="@+id/editTextTextSearchSpeciality"
+                    android:contentDescription="TODO" />
 
 
                 <RelativeLayout
@@ -98,19 +100,46 @@
                     <!-- Badge Count -->
 
                     <ImageView
-                        android:id="@+id/cartimge"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:id="@+id/cartimge"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="2dp"
                         android:layout_marginTop="6dp"
                         android:clickable="true"
-                        android:focusable="true"
-                        android:src="@drawable/ic_baseline_shopping_cart_24" />
+                        android:src="@drawable/ic_baseline_shopping_cart_24"
+                        android:contentDescription="TODO" />
 
+                    <!--                    <TextView-->
+                    <!--                        android:id="@+id/actionbar_notifcation_textview"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_alignParentTop="true"-->
+                    <!--                        android:layout_alignParentRight="true"-->
+                    <!--                        android:layout_marginTop="0dp"-->
+                    <!--                        android:layout_marginRight="7dp"-->
+                    <!--                        android:padding="@dimen/padding_small"-->
+                    <!--                        android:text="1"-->
+                    <!--                        android:textColor="#EDA537"-->
+                    <!--                        android:textStyle="bold" />-->
 
                 </RelativeLayout>
+
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/ivCartCount"-->
+                <!--                    android:layout_width="25dp"-->
+                <!--                    android:layout_height="25dp"-->
+                <!--                    android:layout_alignTop="@+id/wish"-->
+                <!--                    android:layout_alignBottom="@+id/wish"-->
+                <!--                    android:layout_marginEnd="20dp"-->
+                <!--                    android:layout_toRightOf="@+id/wish"-->
+                <!--                    android:background="?attr/selectableItemBackground"-->
+                <!--                    android:src="@drawable/cart"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/wish"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintTop_toTopOf="@+id/wish" />-->
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -118,8 +147,8 @@
                 android:id="@+id/constraintLayout5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="9dp"
                 android:background="@drawable/cartview_round_layout"
+                android:layout_marginBottom="9dp"
                 app:layout_constraintBottom_toTopOf="@+id/cardView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -133,7 +162,7 @@
                     android:layout_marginTop="40dp"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:text="@string/shop_by_category"
+                    android:text="Shop by Category"
                     android:textColor="#2B3344"
                     android:textSize="17sp"
                     app:layout_constraintBottom_toTopOf="@+id/SBC"
@@ -145,9 +174,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="37dp"
+                    android:layout_marginRight="37dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:focusable="true"
                     android:fontFamily="@font/poppins_medium"
                     android:text="@string/view_all"
                     android:textColor="#3F4E6E"
@@ -181,7 +210,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/m" />
+                    app:srcCompat="@drawable/m"
+                    android:contentDescription="TODO" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -192,11 +222,13 @@
                 android:layout_marginStart="13dp"
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="13dp"
+                android:layout_marginBottom="9dp"
                 android:background="@drawable/coupne_edittext"
                 android:backgroundTint="#EDA537"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="3dp"
                 app:cardMaxElevation="3dp"
+                app:layout_constraintBottom_toTopOf="@+id/cardView3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -213,12 +245,12 @@
                         android:layout_height="46dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="8dp"
-                        android:paddingStart="10dp"
+                        android:contentDescription="TODO"
+                        android:paddingLeft="10dp"
                         android:src="@drawable/doc"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="RtlSymmetry" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:layout_width="151dp"
@@ -244,7 +276,7 @@
                         android:text="@string/upload_file"
                         android:textAlignment="center"
                         android:textColor="#2B3344"
-                        android:textSize="11sp"
+                        android:textSize="11dp"
                         app:backgroundTint="#FFFFFF"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -271,6 +303,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:background="@drawable/cartview_round_layout"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -333,7 +366,9 @@
                 android:layout_width="0dp"
                 android:layout_height="232dp"
                 android:layout_marginTop="9dp"
+                android:layout_marginBottom="9dp"
                 android:background="@drawable/cartview_round_layout"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView3">
@@ -343,6 +378,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="13dp"
+                    android:layout_marginLeft="13dp"
                     android:layout_marginTop="19dp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/deals_amp_offers"
@@ -367,7 +403,9 @@
                     android:id="@+id/bannerview"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
+                    android:layout_marginStart="13dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="13dp"
                     android:layout_marginBottom="16dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -383,6 +421,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout14"
                 android:layout_width="0dp"
                 android:layout_height="288dp"
                 android:layout_marginTop="9dp"
@@ -398,6 +437,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="13dp"
+                    android:layout_marginLeft="13dp"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/top_search_products"

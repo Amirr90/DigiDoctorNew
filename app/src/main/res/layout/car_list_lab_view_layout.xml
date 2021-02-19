@@ -42,7 +42,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/labcartlistimage" />
+            app:srcCompat="@drawable/labcartlistimage"
+            android:contentDescription="TODO" />
 
         <ImageView
             android:id="@+id/imageView59"
@@ -52,7 +53,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/TVbestprice"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/TVbestprice"
-            app:srcCompat="@drawable/trash" />
+            app:srcCompat="@drawable/trash"
+            android:contentDescription="TODO" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

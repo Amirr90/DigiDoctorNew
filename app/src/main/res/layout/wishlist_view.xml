@@ -44,7 +44,8 @@
                     app:layout_constraintEnd_toEndOf="@+id/PName"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/wishlistproduct" />
+                    app:srcCompat="@drawable/wishlistproduct"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/PName"
@@ -100,7 +101,8 @@
                     android:focusable="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/crossbutton" />
+                    app:srcCompat="@drawable/crossbutton"
+                    android:contentDescription="TODO" />
 
                 <Button
                     android:id="@+id/button9"

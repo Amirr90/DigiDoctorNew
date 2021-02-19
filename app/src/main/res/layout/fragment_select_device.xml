@@ -53,7 +53,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/linearLayout5"
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout5"
-                    app:layout_constraintTop_toTopOf="@+id/linearLayout5" />
+                    app:layout_constraintTop_toTopOf="@+id/linearLayout5"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/textView51"
@@ -90,7 +91,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/linearLayout7"
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout7"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout7"
-                    app:layout_constraintTop_toTopOf="@+id/linearLayout7" />
+                    app:layout_constraintTop_toTopOf="@+id/linearLayout7"
+                    android:contentDescription="TODO" />
 
                 <LinearLayout
                     android:onClick="@{()->listener.onItemClick(`medcheck`)}"
@@ -110,7 +112,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="17sp"
                         android:layout_gravity="center"
-                        android:src="@drawable/medcheck" />
+                        android:src="@drawable/medcheck"
+                        android:contentDescription="TODO" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -130,7 +133,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="17sp"
                         android:layout_gravity="center"
-                        android:src="@drawable/meditive" />
+                        android:src="@drawable/meditive"
+                        android:contentDescription="TODO" />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -165,7 +169,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/linearLayout11"
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout11"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout11"
-                    app:layout_constraintTop_toTopOf="@+id/linearLayout11" />
+                    app:layout_constraintTop_toTopOf="@+id/linearLayout11"
+                    android:contentDescription="TODO" />
 
 
                 <LinearLayout
@@ -186,7 +191,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="17sp"
                         android:layout_gravity="center"
-                        android:src="@drawable/control_d" />
+                        android:src="@drawable/control_d"
+                        android:contentDescription="TODO" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -206,7 +212,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="17sp"
                         android:layout_gravity="center"
-                        android:src="@drawable/via_oximeter" />
+                        android:src="@drawable/via_oximeter"
+                        android:contentDescription="TODO" />
                 </LinearLayout>
 
                 <TextView

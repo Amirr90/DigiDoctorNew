@@ -24,7 +24,8 @@
                 android:layout_height="240dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
-                android:src="@drawable/appointment_done" />
+                android:src="@drawable/appointment_done"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/textView6"

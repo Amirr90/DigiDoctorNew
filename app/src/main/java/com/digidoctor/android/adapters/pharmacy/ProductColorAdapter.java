@@ -3,7 +3,6 @@ package com.digidoctor.android.adapters.pharmacy;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -78,7 +77,7 @@ public class ProductColorAdapter extends RecyclerView.Adapter<ProductColorAdapte
 
             selectedPosition = position;
             ProductModel model = new ProductModel();
-            model.setSizeId(String.valueOf(colorDetails.getColorId()));
+            model.setColorId(String.valueOf(colorDetails.getColorId()));
             notifyDataSetChanged();
             updateProduct(model);
 
@@ -103,7 +102,7 @@ public class ProductColorAdapter extends RecyclerView.Adapter<ProductColorAdapte
                 @Override
                 public void onSuccess(List<?> o) {
                     List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
-                    Log.d("TAG", "onSuccess: " + models.get(0).getProductDetails());
+                  //  Log.d("TAG", "onSuccess: " + models.get(0).getProductDetails());
 
                     if (models.isEmpty())
                         return;

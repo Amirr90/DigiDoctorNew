@@ -28,7 +28,8 @@
             android:layout_height="@dimen/_20sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_bluetooth_searching_24" />
+            app:srcCompat="@drawable/ic_baseline_bluetooth_searching_24"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/textView143"

@@ -38,7 +38,8 @@
                         android:id="@+id/ivName"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/user" />
+                        app:srcCompat="@drawable/user"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvName"
@@ -87,7 +88,8 @@
                         android:id="@+id/ivhouse"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/email" />
+                        app:srcCompat="@drawable/email"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvhouse"
@@ -135,7 +137,8 @@
                         android:id="@+id/ivMobile"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/smartphone" />
+                        app:srcCompat="@drawable/smartphone"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvMobile"
@@ -187,7 +190,8 @@
                         android:id="@+id/ivarea"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/home" />
+                        app:srcCompat="@drawable/home"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvarea"
@@ -240,7 +244,8 @@
                         android:id="@+id/ivPin"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/officebuilding" />
+                        app:srcCompat="@drawable/officebuilding"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvPin"
@@ -292,7 +297,8 @@
                         android:id="@+id/ivState"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/zipcode" />
+                        app:srcCompat="@drawable/zipcode"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvState"
@@ -341,7 +347,8 @@
                         android:id="@+id/ivCity"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/zipcode" />
+                        app:srcCompat="@drawable/zipcode"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvCity"
@@ -390,7 +397,8 @@
                         android:id="@+id/imagelocality"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/map" />
+                        app:srcCompat="@drawable/map"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/tvLocality"
