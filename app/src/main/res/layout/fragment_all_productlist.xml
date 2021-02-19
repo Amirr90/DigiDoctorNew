@@ -56,16 +56,19 @@
             android:layout_height="wrap_content"
             android:visibility="gone" />
 
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl"
-
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/textView4"
@@ -125,6 +128,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
+                    android:layout_marginBottom="10dp"
                     android:foregroundGravity="center"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -134,40 +138,40 @@
                     app:layout_constraintTop_toBottomOf="@+id/button2"
                     app:layout_constraintVertical_bias="0.0"
                     app:spanCount="2"
-                    tools:itemCount="7"
+                    tools:itemCount="5"
                     tools:listitem="@layout/allproductview" />
 
                 <ImageView
                     android:id="@+id/imageView40"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
                     android:contentDescription="TODO"
                     app:layout_constraintBottom_toBottomOf="@+id/button2"
                     app:layout_constraintEnd_toEndOf="@+id/button2"
-                    app:layout_constraintHorizontal_bias="0.842"
+                    app:layout_constraintHorizontal_bias="0.892"
                     app:layout_constraintStart_toStartOf="@+id/button2"
                     app:layout_constraintTop_toTopOf="@+id/button2"
-                    app:layout_constraintVertical_bias="0.478"
-                    app:srcCompat="@drawable/sort" />
+                    app:layout_constraintVertical_bias="0.454"
+                    app:srcCompat="@drawable/ic_baseline_sort_24" />
 
                 <ImageView
                     android:id="@+id/imageView41"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
                     android:contentDescription="TODO"
                     app:layout_constraintBottom_toBottomOf="@+id/button3"
                     app:layout_constraintEnd_toEndOf="@+id/button3"
-                    app:layout_constraintHorizontal_bias="0.98"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="@+id/button3"
                     app:layout_constraintTop_toTopOf="@+id/button3"
-                    app:layout_constraintVertical_bias="0.478"
-                    app:srcCompat="@drawable/filter" />
+                    app:layout_constraintVertical_bias="0.545"
+                    app:srcCompat="@drawable/ic_baseline_filter_alt_24" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/noproductfound"
