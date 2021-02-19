@@ -71,7 +71,7 @@ public class ProductMaterialAdapter extends RecyclerView.Adapter<ProductMaterial
         holder.productcolorlayoutBinding.cardviewColor.setOnClickListener(v -> {
             selectedPosition = position;
             ProductModel model = new ProductModel();
-            model.setSizeId(String.valueOf(colorDetails.getMatreialId()));
+            model.setMaterialId(String.valueOf(colorDetails.getMatreialId()));
             updateProduct(model);
         });
 
@@ -91,7 +91,7 @@ public class ProductMaterialAdapter extends RecyclerView.Adapter<ProductMaterial
                 @Override
                 public void onSuccess(List<?> o) {
                     List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
-              //      Log.d("TAG", "onSuccess: " + models.get(0).getProductDetails());
+                    //      Log.d("TAG", "onSuccess: " + models.get(0).getProductDetails());
                    /* AllProductModels.addAll(models.get(0).getProductDetails());
 
                     if (!AllProductModels.isEmpty() && models.isEmpty()) {

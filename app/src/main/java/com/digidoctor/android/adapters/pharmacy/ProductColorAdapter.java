@@ -77,7 +77,7 @@ public class ProductColorAdapter extends RecyclerView.Adapter<ProductColorAdapte
 
             selectedPosition = position;
             ProductModel model = new ProductModel();
-            model.setSizeId(String.valueOf(colorDetails.getColorId()));
+            model.setColorId(String.valueOf(colorDetails.getColorId()));
             notifyDataSetChanged();
             updateProduct(model);
 
