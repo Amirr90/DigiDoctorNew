@@ -55,7 +55,7 @@ public class ShopByCategoryAdapter extends RecyclerView.Adapter<ShopByCategoryAd
     private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition) {
-            Animation animation = AnimationUtils.loadAnimation(ctx, android.R.anim.fade_in);
+            Animation animation = AnimationUtils.loadAnimation(ctx, R.anim.slide_in_right);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
