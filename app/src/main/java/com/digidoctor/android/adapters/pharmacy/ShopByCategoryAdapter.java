@@ -3,7 +3,10 @@ package com.digidoctor.android.adapters.pharmacy;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -24,6 +27,7 @@ public class ShopByCategoryAdapter extends RecyclerView.Adapter<ShopByCategoryAd
 
     private List<ShopBycategoryModel.CategoryModel> sbc;
     private final Context ctx;
+    private int lastPosition = -1;
 
     public ShopByCategoryAdapter(List<ShopBycategoryModel.CategoryModel> sbc, Context ctx) {
         this.sbc = sbc;
@@ -48,13 +52,23 @@ public class ShopByCategoryAdapter extends RecyclerView.Adapter<ShopByCategoryAd
         return sbc.size();
     }
 
+    private void setAnimation(View viewToAnimate, int position) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(ctx, R.anim.slide_in_right);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
+    }
+
+
     @Override
     public void onBindViewHolder(@NonNull ShopByCategoryVH holder, int position) {
 
         final ShopBycategoryModel.CategoryModel categoryModel = sbc.get(position);
 
         holder.shopByCategoryViewBinding.textView59.setText(categoryModel.getCategoryName());
-
+        setAnimation(holder.itemView, position);
         Glide.with(ctx).load(categoryModel.getImagePath())
                 .thumbnail(0.5f).placeholder(R.drawable.box_two)
                 .into(holder.shopByCategoryViewBinding.imageView7);
@@ -71,6 +85,7 @@ public class ShopByCategoryAdapter extends RecyclerView.Adapter<ShopByCategoryAd
 
     public static class ShopByCategoryVH extends RecyclerView.ViewHolder {
         ShopByCategoryViewBinding shopByCategoryViewBinding;
+
         public ShopByCategoryVH(@NonNull ShopByCategoryViewBinding itemView) {
             super(itemView.getRoot());
 

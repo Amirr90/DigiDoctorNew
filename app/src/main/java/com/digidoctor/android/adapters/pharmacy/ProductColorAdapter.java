@@ -102,17 +102,16 @@ public class ProductColorAdapter extends RecyclerView.Adapter<ProductColorAdapte
                 @Override
                 public void onSuccess(List<?> o) {
                     List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
-                  //  Log.d("TAG", "onSuccess: " + models.get(0).getProductDetails());
+                    //  Log.d("TAG", "onSuccess: " + models.get(0).getProductDetails());
 
                     if (models.isEmpty())
                         return;
 
-                    if(models.get(0).getProductDetails().size()>0){
+                    if (models.get(0).getProductDetails().size() > 0) {
 
 
-
-                    ProductDetailsFragment.getInstance().updateProduct(models);
-                    ProductDetailsFragment.getInstance().setProduct(models.get(0).getProductDetails().get(0));
+                        ProductDetailsFragment.getInstance().updateProduct(models);
+                        ProductDetailsFragment.getInstance().setProduct(models.get(0).getProductDetails().get(0));
                     }
 
                 }

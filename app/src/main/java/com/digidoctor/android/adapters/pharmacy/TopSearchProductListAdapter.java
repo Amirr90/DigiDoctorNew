@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +28,7 @@ import static com.digidoctor.android.utility.utils.getPrimaryUser;
 public class TopSearchProductListAdapter extends RecyclerView.Adapter<TopSearchProductListAdapter.TopSearchProductList> {
     private final List<ShopBycategoryModel.TopSearchproductList> topSearchproductLists;
     private final Activity ctx;
+    private int lastPosition = -1;
     NavController navController;
 
     public TopSearchProductListAdapter(List<ShopBycategoryModel.TopSearchproductList> topSearchproductLists, Activity ctx, NavController navController) {
@@ -49,7 +53,7 @@ public class TopSearchProductListAdapter extends RecyclerView.Adapter<TopSearchP
         final ShopBycategoryModel.TopSearchproductList topSearchproductList = topSearchproductLists.get(position);
         holder.popularproductviewBinding.Tname.setText(topSearchproductList.getProductName());
         holder.popularproductviewBinding.pdescrip.setText(topSearchproductList.getShortDescription());
-
+        setAnimation(holder.itemView, position);
         Glide.with(ctx).load(topSearchproductList.getImageURL()).thumbnail(0.5f).placeholder(R.drawable.box_two).into(holder.popularproductviewBinding.imageView4);
         holder.popularproductviewBinding.imageView3.setOnClickListener(view -> {
             Toast.makeText(ctx, "Product Added in Your WishList", Toast.LENGTH_SHORT).show();
@@ -68,6 +72,15 @@ public class TopSearchProductListAdapter extends RecyclerView.Adapter<TopSearchP
         });
 
 
+    }
+
+    private void setAnimation(View viewToAnimate, int position) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(ctx, R.anim.slide_in_right);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 
     @Override

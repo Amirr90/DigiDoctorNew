@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +30,7 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
 
     private final List<ShopBycategoryModel.PopularProductList> popularProductLists;
     private final Activity ctx;
+    private int lastPosition = -1;
     NavController navController;
 
     public PopularProductAdapter(@NonNull List<ShopBycategoryModel.PopularProductList> popularProductLists, Activity ctx, NavController navController) {
@@ -47,7 +51,7 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
         final ShopBycategoryModel.PopularProductList popularProductList = popularProductLists.get(position);
         holder.popularproductviewBinding.Tname.setText(popularProductList.getProductName());
         holder.popularproductviewBinding.pdescrip.setText(popularProductList.getShortDescription());
-
+        setAnimation(holder.itemView, position);
         Glide.with(ctx).load(popularProductList.getImageURL())
                 .thumbnail(0.5f).placeholder(R.drawable.box_two)
                 .into(holder.popularproductviewBinding.imageView4);
@@ -68,6 +72,16 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
             Log.d("TAG", "onClick: " + bundle);
             navController.navigate(R.id.action_onlinePharmacyFragment_to_productDetailsFragment, bundle);
         });
+    }
+
+
+    private void setAnimation(View viewToAnimate, int position) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(ctx, R.anim.slide_in_right);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 
 

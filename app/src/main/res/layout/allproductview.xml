@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
             android:layout_marginTop="7dp"
+            android:id="@+id/ck"
             android:layout_marginEnd="7dp"
             android:layout_marginBottom="7dp"
             android:background="@drawable/border"
@@ -50,7 +51,8 @@
                     android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/textView7"
                     app:layout_constraintStart_toStartOf="@+id/textView6"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    tools:ignore="HardcodedText" />
 
 
                 <CheckBox
@@ -73,7 +75,7 @@
                     android:layout_marginStart="7dp"
                     android:layout_marginTop="9dp"
                     android:layout_marginEnd="9dp"
-                    android:contentDescription="TODO"
+                    android:contentDescription="@string/todo"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
@@ -92,7 +94,8 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/pro" />
+                    app:srcCompat="@drawable/pro"
+                    tools:ignore="ContentDescription,HardcodedText" />
 
                 <TextView
                     android:id="@+id/PName"
@@ -123,7 +126,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/PName"
-                    app:layout_constraintTop_toBottomOf="@+id/PName" />
+                    app:layout_constraintTop_toBottomOf="@+id/PName"
+                    tools:ignore="SmallSp" />
 
                 <TextView
                     android:id="@+id/textView7"

@@ -4,7 +4,10 @@ package com.digidoctor.android.adapters.pharmacy;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -22,7 +25,7 @@ import static com.digidoctor.android.utility.utils.CATEGORY_ID;
 
 public class AllCategoryAdapter extends RecyclerView.Adapter<AllCategoryAdapter.AllCategoryVH> {
 
-
+    private int lastPosition = -1;
     NavController navController;
     private final List<ShopBycategoryModel.CategoryModel> sbc;
     private final Activity activity;
@@ -50,6 +53,13 @@ public class AllCategoryAdapter extends RecyclerView.Adapter<AllCategoryAdapter.
                 .thumbnail(0.5f).placeholder(R.drawable.box_two)
                 .into(holder.categoryViewBinding.imageView26);
 
+        holder.categoryViewBinding.imageView26.setAnimation(AnimationUtils.loadAnimation(activity, R.anim.fade_transition_anim));
+
+        holder.categoryViewBinding.categoryview.setAnimation(AnimationUtils.loadAnimation(activity, R.anim.fade_transition_anim));
+
+
+        //  setAnimation(holder.itemView, position);
+
 
         holder.categoryViewBinding.categoryview.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
@@ -60,6 +70,14 @@ public class AllCategoryAdapter extends RecyclerView.Adapter<AllCategoryAdapter.
         });
     }
 
+    private void setAnimation(View viewToAnimate, int position) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(activity, android.R.anim.fade_out);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
+    }
 
     @Override
     public int getItemCount() {
@@ -68,6 +86,7 @@ public class AllCategoryAdapter extends RecyclerView.Adapter<AllCategoryAdapter.
 
     public static class AllCategoryVH extends RecyclerView.ViewHolder {
         CategoryViewBinding categoryViewBinding;
+
         public AllCategoryVH(@NonNull CategoryViewBinding itemView) {
             super(itemView.getRoot());
             categoryViewBinding = itemView;

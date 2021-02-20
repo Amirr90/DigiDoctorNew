@@ -98,10 +98,13 @@ public class ProductSizeAdapter extends RecyclerView.Adapter<ProductSizeAdapter.
                     if (models.isEmpty())
                         return;
 
-                    ProductDetailsFragment.getInstance().updateProduct(models);
-                    ProductDetailsFragment.getInstance().setProduct(models.get(0).getProductDetails().get(0));
 
+                    if (models.get(0).getProductDetails().size() > 0) {
 
+                        ProductDetailsFragment.getInstance().updateProduct(models);
+                        ProductDetailsFragment.getInstance().setProduct(models.get(0).getProductDetails().get(0));
+
+                    }
                 }
 
                 @Override
