@@ -652,6 +652,9 @@
         <action
             android:id="@+id/action_productDetailsFragment_to_allProductsFragment"
             app:popUpTo="@id/allProductsFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_medicineDetailsFragment"
+            app:destination="@id/medicineDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/cart_Details_Fragment"
@@ -802,5 +805,9 @@
             android:id="@+id/action_updateAddressFragment_to_allAddressFragment"
             app:destination="@id/allAddressFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/medicineDetailsFragment"
+        android:name="com.digidoctor.android.view.fragments.pharmacy.MedicineDetailsFragment"
+        android:label="Medicine Detail" />
 
 </navigation>

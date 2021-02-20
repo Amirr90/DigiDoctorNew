@@ -34,6 +34,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -337,4 +339,53 @@ public class AppUtils {
         return getLanguageList().get(position);
     }
 
+    public static String capitalizeFirstLetter(String whenToUse) {
+
+        try {
+            if (!whenToUse.contains("  ")) {
+                String[] words = whenToUse.toLowerCase().split(" ");
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < words.length; i++) {
+                    String word = words[i];
+
+                    if (i > 0 && word.length() > 0) {
+                        builder.append(" ");
+                    }
+
+                    String cap = word.substring(0, 1).toUpperCase() + word.substring(1);
+                    builder.append(cap);
+                }
+                return builder.toString();
+            } else {
+                return whenToUse;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return whenToUse;
+        }
+    }
+
+    public static List<HashMap<String, String>> jsonObjectToList(JSONObject jsonObject) {
+
+        List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+
+        try {
+            Iterator<String> iterator = jsonObject.keys();
+
+            while (iterator.hasNext()) {
+                String key = iterator.next();
+                String value = jsonObject.getString(key);
+
+                HashMap<String, String> map = new HashMap<>();
+                map.put(key, value.trim());
+
+                list.add(map);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+
+    }
 }

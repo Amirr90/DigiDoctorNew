@@ -97,11 +97,15 @@ public class ProductDetailModelResponse {
             private String description;
             private String productInfoCode;
             private Integer inCartStatus;
+            int isMedicine;
+            int knowmedMedicineId;
 
             @Override
             public String toString() {
                 return "ProductDetail{" +
-                        "productName='" + productName + '\'' +
+                        "wishlistStatus='" + wishlistStatus + '\'' +
+                        ", discountedRs='" + discountedRs + '\'' +
+                        ", productName='" + productName + '\'' +
                         ", brandName='" + brandName + '\'' +
                         ", memberId='" + memberId + '\'' +
                         ", productId=" + productId +
@@ -120,9 +124,25 @@ public class ProductDetailModelResponse {
                         ", description='" + description + '\'' +
                         ", productInfoCode='" + productInfoCode + '\'' +
                         ", inCartStatus=" + inCartStatus +
-                        ", wishlistStatus='" + wishlistStatus + '\'' +
-                        ", discountedRs='" + discountedRs + '\'' +
+                        ", isMedicine=" + isMedicine +
+                        ", knowmedMedicineId=" + knowmedMedicineId +
                         '}';
+            }
+
+            public int getIsMedicine() {
+                return isMedicine;
+            }
+
+            public void setIsMedicine(int isMedicine) {
+                this.isMedicine = isMedicine;
+            }
+
+            public int getKnowmedMedicineId() {
+                return knowmedMedicineId;
+            }
+
+            public void setKnowmedMedicineId(int knowmedMedicineId) {
+                this.knowmedMedicineId = knowmedMedicineId;
             }
 
             public String getDiscountedRs() {

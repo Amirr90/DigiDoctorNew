@@ -67,7 +67,7 @@ public class Lab_Home_Fragment extends Fragment {
         labTestHomeBinding.healthpackagerecyclerview.setAdapter(healthPackageAdapter);
 
 
-        ApiUtils.getlabdash( new ApiCallbackInterface() {
+        ApiUtils.getlabdash(requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 AppUtils.hideDialog();

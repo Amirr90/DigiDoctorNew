@@ -62,6 +62,7 @@ import com.digidoctor.android.model.pharmacyModel.DeleteAddress;
 import com.digidoctor.android.model.pharmacyModel.DeleteItems;
 import com.digidoctor.android.model.pharmacyModel.Fillter;
 import com.digidoctor.android.model.pharmacyModel.GetAllProductResponse;
+import com.digidoctor.android.model.pharmacyModel.GetMedicineReportRes;
 import com.digidoctor.android.model.pharmacyModel.Order;
 import com.digidoctor.android.model.pharmacyModel.OrderDetailModel;
 import com.digidoctor.android.model.pharmacyModel.OrderPlaceModel;
@@ -330,6 +331,14 @@ public interface Api {
     @POST("Lab/labDasboard")
     Call<labdashboardresponse> getlabdashboard(
             @Body labmodel labmodel);
+
+    @FormUrlEncoded
+    @POST("medicineReport")
+    Call<GetMedicineReportRes> getMedicineReport(
+            @Header("x-access-token") String token,
+            @Field("userId") String userId,
+            @Field("medicineId") String medicineid
+    );
 
 
 

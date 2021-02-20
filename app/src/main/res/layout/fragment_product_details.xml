@@ -444,6 +444,16 @@
                     app:trimLength="200"
                     app:trimMode="trimModeLength" />
 
+                <TextView
+                    android:id="@+id/textView200"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show Medicine Details"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView71"
+                    app:layout_constraintTop_toBottomOf="@+id/textView73" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 

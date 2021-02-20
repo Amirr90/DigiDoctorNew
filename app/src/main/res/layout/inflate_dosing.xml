@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_2sdp"
+    android:layout_marginBottom="@dimen/_5sdp"
+    app:cardElevation="0dp"
+    app:cardCornerRadius="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvAilment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:text="Ailment"
+            android:paddingLeft="@dimen/_10sdp"
+            android:textColor="@color/ms_black"
+            android:textSize="@dimen/_11sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clAdultDoseHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@+id/tvAilment">
+
+            <!--
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierVertical"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="tvTestName" />
+-->
+
+            <!--
+            <TextView
+                android:id="@+id/tvTestName"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:fontFamily="@font/calibri"
+                android:text="Ailment"
+                android:gravity="center"
+                android:textColor="@color/grey_dark"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
+-->
+
+            <!--
+                app:layout_constraintLeft_toRightOf="@+id/barrierVertical"-->
+            <TextView
+                android:id="@+id/tvSubTest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/route"
+                android:textColor="@color/ms_black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvValue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierVertical2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="tvSubTest" />
+
+            <TextView
+                android:id="@+id/tvValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/form"
+                android:textColor="@color/ms_black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvResult"
+                app:layout_constraintStart_toEndOf="@+id/tvSubTest"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierVertical4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="tvValue" />
+
+            <TextView
+                android:id="@+id/tvResult"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/dose"
+                android:textColor="@color/ms_black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvWeightHead"
+                app:layout_constraintStart_toEndOf="@+id/tvValue"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierVertical5"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="tvResult" />
+
+            <TextView
+                android:id="@+id/tvWeightHead"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/weight"
+                android:textColor="@color/ms_black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvAgeHead"
+                app:layout_constraintStart_toEndOf="@+id/tvResult"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierVertical6"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="tvWeightHead" />
+
+            <TextView
+                android:id="@+id/tvAgeHead"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/age"
+                android:textColor="@color/ms_black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvWeightHead"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <!--
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@color/grey_box"
+                app:layout_constraintTop_toBottomOf="@id/tvResult" />
+-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--
+            android:background="@drawable/rectangle_dosing"
+            android:backgroundTint="@color/orange"-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clAdultDose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@+id/clAdultDoseHeader">
+
+            <!--
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierVerticalMain"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="tvAilment" />
+-->
+
+            <!--<TextView
+                android:id="@+id/tvAilment"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:fontFamily="@font/calibri"
+                android:text="Ailment"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />-->
+
+            <!--
+                app:layout_constraintLeft_toRightOf="@+id/barrierVerticalMain"-->
+            <TextView
+                android:id="@+id/tvRoute"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Route"
+                android:textColor="@color/ms_black"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvForm"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierVertical2Main"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="tvRoute" />
+
+            <TextView
+                android:id="@+id/tvForm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Form"
+                android:textColor="@color/ms_black"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvDose"
+                app:layout_constraintStart_toEndOf="@+id/tvRoute"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierVertical4Main"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="tvForm" />
+
+
+            <TextView
+                android:id="@+id/tvDose"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Dose"
+                android:textColor="@color/ms_black"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvWeight"
+                app:layout_constraintStart_toEndOf="@+id/tvForm"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierVertical5Main"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="tvDose" />
+
+            <TextView
+                android:id="@+id/tvWeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/weight"
+                android:textColor="@color/ms_black"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvAge"
+                app:layout_constraintStart_toEndOf="@+id/tvDose"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierVertical6Main"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="tvWeight" />
+
+            <TextView
+                android:id="@+id/tvAge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/age"
+                android:textColor="@color/ms_black"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvWeight"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:background="@color/grey_box"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            app:layout_constraintTop_toBottomOf="@id/tvDose" />
+            -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>
+

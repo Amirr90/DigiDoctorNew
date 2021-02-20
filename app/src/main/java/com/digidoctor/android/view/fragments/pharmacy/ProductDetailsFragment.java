@@ -68,6 +68,8 @@ public class ProductDetailsFragment extends Fragment {
     String SizeId = null;
     String memberId = null;
 
+    static String MedicineID = null, MedicineName = null;
+
     public static ProductDetailsFragment instance;
 
     public static ProductDetailsFragment getInstance() {
@@ -122,6 +124,13 @@ public class ProductDetailsFragment extends Fragment {
 
         AllProductModels.clear();
         getproductdetails();
+
+        fragmentProductDetailsBinding.textView200.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_productDetailsFragment_to_medicineDetailsFragment);
+            }
+        });
 
 
         fragmentProductDetailsBinding.textView141.setOnClickListener(view1 -> {
@@ -266,6 +275,13 @@ public class ProductDetailsFragment extends Fragment {
             fragmentProductDetailsBinding.textView60.setVisibility(View.GONE);
             fragmentProductDetailsBinding.recyclerView3.setVisibility(View.GONE);
         }
+
+        if (models.get(0).getProductDetails().get(0).getIsMedicine() == 1) {
+            fragmentProductDetailsBinding.textView200.setVisibility(View.VISIBLE);
+        }
+
+        MedicineID = String.valueOf(models.get(0).getProductDetails().get(0).getKnowmedMedicineId());
+        MedicineName = models.get(0).getProductDetails().get(0).getProductName();
 
         if (!AllProductModels.isEmpty())
             if (AllProductModels.get(0).getWishlistStatus().equals("1")) {

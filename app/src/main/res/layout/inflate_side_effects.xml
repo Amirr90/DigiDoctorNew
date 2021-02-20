@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clMain"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_3sdp"
+    android:paddingLeft="@dimen/_20sdp"
+    app:layout_constraintWidth_default="wrap">
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flexWrap="wrap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvSymptomName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:gravity="center_vertical"
+            android:textColor="@color/ms_black"
+            android:textSize="@dimen/_11sdp" />
+
+        <TextView
+            android:id="@+id/tvWatchable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:background="@drawable/cartview_round_layout"
+            android:backgroundTint="@color/cb_or_color"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp"
+            android:text="Watchable"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_9sdp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:background="@drawable/cartview_round_layout"
+            android:backgroundTint="@color/cb_blue_button"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp"
+            android:text="Rare"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_9sdp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvWatchable"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvLifeThreatening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:background="@drawable/cartview_round_layout"
+            android:backgroundTint="@color/red"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp"
+            android:text="Life Threatening"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_9sdp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvType"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <!--<TextView
+        android:id="@+id/tvSymptomName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:fontFamily="@font/calibri"
+        android:textColor="@color/black"
+        android:text="afasasfasfasfasfsafaasfsfasfsafasffasfa"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvWatchable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:fontFamily="@font/calibri"
+        android:text="Watchable"
+        android:paddingLeft="@dimen/_5sdp"
+        android:backgroundTint="@color/orange"
+        android:paddingRight="@dimen/_5sdp"
+        android:background="@drawable/rectangle_solid_grey"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_9sdp"
+        app:layout_constraintStart_toEndOf="@id/tvSymptomName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:fontFamily="@font/calibri"
+        android:text="Rare"
+        android:paddingLeft="@dimen/_5sdp"
+        android:backgroundTint="@color/yellow"
+        android:paddingRight="@dimen/_5sdp"
+        android:background="@drawable/rectangle_solid_grey"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_9sdp"
+        app:layout_constraintStart_toEndOf="@id/tvWatchable"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvLifeThreatening"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:fontFamily="@font/calibri"
+        android:text="Life Threatening"
+        android:paddingLeft="@dimen/_5sdp"
+        android:backgroundTint="@color/red"
+        android:paddingRight="@dimen/_5sdp"
+        android:background="@drawable/rectangle_solid_grey"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_9sdp"
+        app:layout_constraintStart_toEndOf="@id/tvType"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

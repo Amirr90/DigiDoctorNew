@@ -531,7 +531,7 @@ public class ApiUtils {
             model.setUserMobileNo((String) map.get(MOBILE_NUMBER));
             model.setIsEraUser((String) map.get(KEY_IS_ERA_USER));
             model.setAppointmentId((String) map.get(KEY_APPOINTMENT_ID));
-        //    model.setIsRevisit((Boolean) map.get(IS_REVISIT));
+            //    model.setIsRevisit((Boolean) map.get(IS_REVISIT));
 
             Log.d("TAG", "checkTimeSlotAvailability: " + model.toString());
 
@@ -1390,7 +1390,6 @@ public class ApiUtils {
             AppUtils.showRequestDialog(requireActivity);
 
 
-
         try {
             final Api api = URLUtils.getPharmacyApisRef();
             Call<ProductDetailModelResponse> productdetails = api.getproductdetails(pId);
@@ -2019,10 +2018,10 @@ public class ApiUtils {
     }
 
 
-    public static void getlabdash( final ApiCallbackInterface apiCallbackInterface) {
+    public static void getlabdash(final Activity activity, ApiCallbackInterface apiCallbackInterface) {
         Api iRestInterfaces = URLUtils.getlabapisRef();
         labmodel labmodel = new labmodel();
-        labmodel.setMemberId("221261");
+        labmodel.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
 
         Call<labdashboardresponse> call = iRestInterfaces.getlabdashboard(labmodel);
         call.enqueue(new Callback<labdashboardresponse>() {
@@ -2044,4 +2043,8 @@ public class ApiUtils {
             }
         });
     }
+
+
+
+
 }

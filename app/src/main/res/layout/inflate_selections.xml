@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clMain"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/_3sdp"
+    android:layout_marginTop="@dimen/_3sdp"
+    android:background="@drawable/cartview_round_layout"
+    android:backgroundTint="@color/colorAccent">
+
+    <!--
+            android:drawableLeft="@drawable/ic_sign_symptom"
+            android:drawablePadding="@dimen/_2sdp"-->
+
+    <TextView
+        android:id="@+id/tvSelection"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:drawableTint="@color/white"
+        android:gravity="center"
+        android:paddingLeft="@dimen/_5sdp"
+        android:paddingTop="@dimen/_3sdp"
+        android:paddingRight="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_3sdp"
+        android:text="@string/sign_amp_symptoms"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
