@@ -100,7 +100,7 @@ public class ProductDetailsFragment extends Fragment {
         SizeId = String.valueOf(getArguments().getInt("Sizeid"));
 
 
-        productDetaillAdapter = new ProductDetaillAdapter( requireActivity());
+        productDetaillAdapter = new ProductDetaillAdapter(requireActivity());
         ratingandreviewadapter = new ratingandreviewadapter(productReviewLists, requireActivity());
         similarproductADapter = new SimilarproductADapter(similarProducts, requireActivity());
         productSliderviewAdapter = new ProductSliderviewAdapter(productDetailsSliders, requireActivity());

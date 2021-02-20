@@ -5,7 +5,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -33,6 +36,7 @@ public class GetAllProductAdapter extends RecyclerView.Adapter<GetAllProductAdap
 
     private static final String TAG = "GetAllProductAdapter";
     String infocode, wishliststatus;
+    private int lastPosition = -1;
     Activity activity;
     private final List<GetAllProductResponse.GetProduct> getall;
     private List<GetAllProductResponse.GetProduct> contactListFiltered;
@@ -64,6 +68,12 @@ public class GetAllProductAdapter extends RecyclerView.Adapter<GetAllProductAdap
         holder.allproductviewBinding.textView6.setText(getAllProductModel.getShortDescription());
         holder.allproductviewBinding.textView55.setText("\u20B9" + getAllProductModel.getMrp());
         holder.allproductviewBinding.textView7.setText(String.valueOf(getAllProductModel.getOfferedPrice()));
+
+//        holder.allproductviewBinding.imageView4.setAnimation(AnimationUtils.loadAnimation(activity, R.anim.fade_transition_anim));
+//
+//        holder.allproductviewBinding.ck.setAnimation(AnimationUtils.loadAnimation(activity, R.anim.fade_transition_anim));
+
+        setAnimation(holder.itemView, position);
         infocode = getAllProductModel.getProductInfoCode();
         wishliststatus = getAllProductModel.getWishlistStatus();
 
@@ -174,6 +184,17 @@ public class GetAllProductAdapter extends RecyclerView.Adapter<GetAllProductAdap
         });
 
     }
+
+
+    private void setAnimation(View viewToAnimate, int position) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(activity, android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
+    }
+
 
     @Override
     public int getItemCount() {
