@@ -1,29 +1,28 @@
 package com.digidoctor.android.utility;
 
-import com.digidoctor.android.model.User;
-
-import java.util.List;
-
 public class ApiResponse {
 
-    int responseCode;
+    Integer responseCode;
     String responseMessage;
-    List<User> responseValue;
-    String token;
+    Object responseValue;
 
-    public String getToken() {
-        return token;
+    public Integer getResponseCode() {
+        return responseCode;
     }
 
-    public int getResponseCode() {
-        return responseCode;
+    public void setResponseCode(Integer responseCode) {
+        this.responseCode = responseCode;
     }
 
     public String getResponseMessage() {
         return responseMessage;
     }
 
-    public List<?> getResponseValue() {
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
+    }
+
+    public Object getResponseValue() {
         return responseValue;
     }
 }

@@ -4,6 +4,15 @@ public class Dashboard {
 
     private String lat;
     private String lng;
+    private String memberId;
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
 
     public String getLat() {
         return lat;

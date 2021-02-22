@@ -17,6 +17,7 @@ import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
+import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
 import com.digidoctor.android.repositories.PatientRepo;
 
 import java.util.HashMap;
@@ -72,5 +73,11 @@ public class PatientViewModel extends ViewModel {
 
     public LiveData<List<DoctorModelRes>> getRecommendedDoctorsData(HashMap<String, String> map) {
         return repo.gerRecommendedDoctorsData(map);
+    }
+
+
+    //Lab Data
+    public LiveData<LabDashBoardmodel> getLabDashboardModel(String lat, String lng) {
+        return repo.getLabDashboardModel(lat, lng);
     }
 }

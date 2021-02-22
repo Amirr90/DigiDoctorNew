@@ -52,8 +52,9 @@ import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.model.addProductRatingResponse;
 import com.digidoctor.android.model.addProductRating;
+import com.digidoctor.android.model.labmodel.ApiLabResponse;
 import com.digidoctor.android.model.labmodel.labdashboardresponse;
-import com.digidoctor.android.model.labmodel.labmodel;
+import com.digidoctor.android.model.labmodel.labModel;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
 import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
@@ -531,7 +532,7 @@ public class ApiUtils {
             model.setUserMobileNo((String) map.get(MOBILE_NUMBER));
             model.setIsEraUser((String) map.get(KEY_IS_ERA_USER));
             model.setAppointmentId((String) map.get(KEY_APPOINTMENT_ID));
-        //    model.setIsRevisit((Boolean) map.get(IS_REVISIT));
+            //    model.setIsRevisit((Boolean) map.get(IS_REVISIT));
 
             Log.d("TAG", "checkTimeSlotAvailability: " + model.toString());
 
@@ -1390,7 +1391,6 @@ public class ApiUtils {
             AppUtils.showRequestDialog(requireActivity);
 
 
-
         try {
             final Api api = URLUtils.getPharmacyApisRef();
             Call<ProductDetailModelResponse> productdetails = api.getproductdetails(pId);
@@ -2018,30 +2018,8 @@ public class ApiUtils {
         });
     }
 
-
-    public static void getlabdash( final ApiCallbackInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getlabapisRef();
-        labmodel labmodel = new labmodel();
-        labmodel.setMemberId("221261");
-
-        Call<labdashboardresponse> call = iRestInterfaces.getlabdashboard(labmodel);
-        call.enqueue(new Callback<labdashboardresponse>() {
-            @Override
-            public void onResponse(@NotNull Call<labdashboardresponse> call, @NotNull Response<labdashboardresponse> response) {
-                if (response.code() == 200 && response.body().getResponseCode() == 1)
-                    if (response.isSuccessful()) {
-                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                    } else {
-                        apiCallbackInterface.onError(response.message());
-                    }
-                else apiCallbackInterface.onError(String.valueOf(response.code()));
-
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<labdashboardresponse> call, Throwable t) {
-                apiCallbackInterface.onFailed(t);
-            }
-        });
+    //Lab Apis
+    public static Call<ApiLabResponse> getLabDashboard(Dashboard model) {
+        return URLUtils.getLabApisRef().getLabDashboard(model);
     }
 }

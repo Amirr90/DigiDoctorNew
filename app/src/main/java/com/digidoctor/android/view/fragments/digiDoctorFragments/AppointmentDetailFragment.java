@@ -106,6 +106,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
                 return;
             String jsonString = appointmentModels.get(0).toString();
             appointmentModel = new OnlineAppointmentModel();
+
             Gson gson = new Gson();
             appointmentModel = gson.fromJson(jsonString, OnlineAppointmentModel.class);
             Log.d(TAG, "onViewCreated: appointmentModel " + appointmentModel.toString());

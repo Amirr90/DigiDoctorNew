@@ -1,3 +1,4 @@
+
 package com.digidoctor.android.view.fragments.pharmacy;
 
 import android.content.pm.ActivityInfo;
