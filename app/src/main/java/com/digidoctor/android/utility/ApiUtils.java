@@ -532,7 +532,7 @@ public class ApiUtils {
             model.setUserMobileNo((String) map.get(MOBILE_NUMBER));
             model.setIsEraUser((String) map.get(KEY_IS_ERA_USER));
             model.setAppointmentId((String) map.get(KEY_APPOINTMENT_ID));
-        //    model.setIsRevisit((Boolean) map.get(IS_REVISIT));
+            //    model.setIsRevisit((Boolean) map.get(IS_REVISIT));
 
             Log.d("TAG", "checkTimeSlotAvailability: " + model.toString());
 
@@ -1391,7 +1391,6 @@ public class ApiUtils {
             AppUtils.showRequestDialog(requireActivity);
 
 
-
         try {
             final Api api = URLUtils.getPharmacyApisRef();
             Call<ProductDetailModelResponse> productdetails = api.getproductdetails(pId);
@@ -1578,7 +1577,7 @@ public class ApiUtils {
         addAddressModel.setAddressType("22");
 
         Api iRestInterfaces = URLUtils.getPharmacyApisRef();
-        Call<AddAdressResponse> call = iRestInterfaces.AddAddress(addAdressModel);
+        Call<AddAdressResponse> call = iRestInterfaces.AddAddress(addAddressModel);
 
         call.enqueue(new Callback<AddAdressResponse>() {
             @Override

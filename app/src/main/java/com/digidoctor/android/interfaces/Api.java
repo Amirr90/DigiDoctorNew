@@ -317,7 +317,7 @@ public interface Api {
 
 
     @POST("updateAddress")
-    Call<getaddressModel> updateaddress(@Body AddAdressModel pharmacyModel);
+    Call<getaddressModel> updateaddress(@Body AddAddressModel pharmacyModel);
 
 
     @POST("cancelOrder")
@@ -328,11 +328,6 @@ public interface Api {
 
     @POST("productRating")
     Call<addProductRatingResponse> postproductrating(@Body addProductRating addProductRating);
-
-
-    @POST("Lab/labDasboard")
-    Call<labdashboardresponse> getlabdashboard(
-            @Body labmodel labmodel);
 
     @FormUrlEncoded
     @POST("medicineReport")
