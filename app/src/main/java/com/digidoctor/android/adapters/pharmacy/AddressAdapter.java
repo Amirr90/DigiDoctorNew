@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.AddressviewBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
-import com.digidoctor.android.model.pharmacyModel.AddAdressModel;
+import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.DeleteAddress;
 import com.digidoctor.android.model.pharmacyModel.getaddressModel;
 import com.digidoctor.android.utility.ApiUtils;
@@ -68,7 +68,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressA
 
         holder.addressviewBinding.cardView.setOnClickListener(view -> {
 
-            AddAdressModel addAdressModel1 = new AddAdressModel();
+            AddAddressModel addAddressModel1 = new AddAddressModel();
             if (addAdressModel.getIsSaturdayOpen().equals("true")) {
                 setIsSaturdayOpen = "1";
             } else {
@@ -81,22 +81,22 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressA
                 setIsSundayOpen = "0";
             }
 
-            addAdressModel1.setAddressId(addAdressModel.getAddressId());
-            addAdressModel1.setMemberId("221261");
-            addAdressModel1.setName(addAdressModel.getName());
-            addAdressModel1.setHouseNo(addAdressModel.getHouseNo());
-            addAdressModel1.setMobileno(addAdressModel.getMobileNo());
-            addAdressModel1.setCity(addAdressModel.getCity());
-            addAdressModel1.setPincode(addAdressModel.getPincode());
-            addAdressModel1.setArea(addAdressModel.getArea());
-            addAdressModel1.setState(addAdressModel.getState());
-            addAdressModel1.setLocality(addAdressModel.getLocality());
-            addAdressModel1.setIsDefault("1");
-            addAdressModel1.setAddressType(addAdressModel.getAddressType());
-            addAdressModel1.setIsSaturdayOpen(setIsSaturdayOpen);
-            addAdressModel1.setIsSundayOpen(setIsSaturdayOpen);
+            addAddressModel1.setAddressId(addAdressModel.getAddressId());
+            addAddressModel1.setMemberId("221261");
+            addAddressModel1.setName(addAdressModel.getName());
+            addAddressModel1.setHouseNo(addAdressModel.getHouseNo());
+            addAddressModel1.setMobileno(addAdressModel.getMobileNo());
+            addAddressModel1.setCity(addAdressModel.getCity());
+            addAddressModel1.setPincode(addAdressModel.getPincode());
+            addAddressModel1.setArea(addAdressModel.getArea());
+            addAddressModel1.setState(addAdressModel.getState());
+            addAddressModel1.setLocality(addAdressModel.getLocality());
+            addAddressModel1.setIsDefault("1");
+            addAddressModel1.setAddressType(addAdressModel.getAddressType());
+            addAddressModel1.setIsSaturdayOpen(setIsSaturdayOpen);
+            addAddressModel1.setIsSundayOpen(setIsSaturdayOpen);
 
-            ApiUtils.update_Address(addAdressModel1, activity, new ApiCallbackInterface() {
+            ApiUtils.update_Address(addAddressModel1, activity, new ApiCallbackInterface() {
                 @Override
                 public void onSuccess(List<?> o) {
                     AppUtils.hideDialog();

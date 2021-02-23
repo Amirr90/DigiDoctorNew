@@ -52,17 +52,11 @@ public class ProductSizeAdapter extends RecyclerView.Adapter<ProductSizeAdapter.
         final ProductDetailModelResponse.ProductDetailsList.SizeDetails sizeDetails = getproductsize.get(position);
         holder.productsizelayoutBinding.textView135.setText(sizeDetails.getSize());
 
-        if (sizeDetails == null)
-            return;
         if (sizeDetails.getIsSelected() == 1) {
             selectedPosition = position;
         }
 
-      /*  if (colorDetails.getIsSelected() == 1) {
-            holder.productcolorlayoutBinding.cardviewColor.setBackgroundResource(R.drawable.flavourgreen);
-            holder.productcolorlayoutBinding.cardviewColor.setTextColor(Color.parseColor("#ffffff"));
-        }
-*/
+
         if (selectedPosition == position) {
             holder.productsizelayoutBinding.textView135.setBackgroundResource(R.drawable.flavourgreen);
             holder.productsizelayoutBinding.textView135.setTextColor(Color.WHITE);

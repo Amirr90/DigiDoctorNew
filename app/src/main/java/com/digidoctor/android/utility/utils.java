@@ -38,6 +38,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -133,7 +134,7 @@ public class utils {
             }
         }
 
-        activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        Objects.requireNonNull(activity).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
     }
 
@@ -180,7 +181,7 @@ public class utils {
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
-        Date date = null;
+        Date date;
         String str = null;
 
         try {
@@ -200,7 +201,7 @@ public class utils {
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
-        Date date = null;
+        Date date;
         String str = null;
 
         try {
@@ -211,32 +212,6 @@ public class utils {
         }
         return str;
     }
-
-    public static ArrayList<HashMap<String, String>> getNextWeekDays() {
-        ArrayList<HashMap<String, String>> list = new ArrayList<>();
-        HashMap<String, String> hashMap = new HashMap<>();
-        SimpleDateFormat sdfDate = new SimpleDateFormat("dd", Locale.getDefault());
-        SimpleDateFormat sdfDay = new SimpleDateFormat("EEE", Locale.getDefault());
-        SimpleDateFormat sdfDateSend = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
-        for (int i = 0; i < 7; i++) {
-            hashMap = new HashMap<>();
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DATE, i);
-            String date = sdfDate.format(calendar.getTime());
-            String day = sdfDay.format(calendar.getTime());
-            String dateSend = sdfDateSend.format(calendar.getTime());
-
-            hashMap.put("date", date);
-            hashMap.put("day", day);
-            hashMap.put("dateSend", dateSend);
-
-            list.add(hashMap);
-
-        }
-        return list;
-    }
-
 
     public static String getJSONFromModel(Object o) {
         Gson gson = new Gson();
@@ -488,7 +463,7 @@ public class utils {
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
-        Date date = null;
+        Date date;
         String str = null;
 
         try {
@@ -506,7 +481,7 @@ public class utils {
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
-        Date date = null;
+        Date date;
         String str = null;
 
         try {
@@ -524,7 +499,7 @@ public class utils {
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
-        Date date = null;
+        Date date;
         String str = null;
 
         try {
@@ -535,96 +510,6 @@ public class utils {
         }
         return str;
     }
-
-
-    public static String getLastSeen(String time) {
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-            Date past = format.parse(time);
-            Date now = new Date();
-            long seconds = TimeUnit.MILLISECONDS.toSeconds(now.getTime() - past.getTime());
-            long minutes = TimeUnit.MILLISECONDS.toMinutes(now.getTime() - past.getTime());
-            long hours = TimeUnit.MILLISECONDS.toHours(now.getTime() - past.getTime());
-            long days = TimeUnit.MILLISECONDS.toDays(now.getTime() - past.getTime());
-
-
-            if (seconds < 60) {
-                return seconds + " seconds ago";
-            } else if (minutes < 60) {
-                return minutes + " minutes ago";
-            } else if (hours < 24) {
-                return hours + " hours ago";
-            } else {
-                return days + " days ago";
-            }
-        } catch (Exception j) {
-            j.printStackTrace();
-
-            return j.getLocalizedMessage();
-        }
-    }
-
-    public static String getLastSeen(long timestamp) {
-        try {
-            String time = String.valueOf(timestamp);
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-            Date past = format.parse(time);
-            Date now = new Date();
-            long seconds = TimeUnit.MILLISECONDS.toSeconds(now.getTime() - past.getTime());
-            long minutes = TimeUnit.MILLISECONDS.toMinutes(now.getTime() - past.getTime());
-            long hours = TimeUnit.MILLISECONDS.toHours(now.getTime() - past.getTime());
-            long days = TimeUnit.MILLISECONDS.toDays(now.getTime() - past.getTime());
-
-
-            if (seconds < 60) {
-                return seconds + " seconds ago";
-            } else if (minutes < 60) {
-                return minutes + " minutes ago";
-            } else if (hours < 24) {
-                return hours + " hours ago";
-            } else {
-                return days + " days ago";
-            }
-        } catch (Exception j) {
-            j.printStackTrace();
-
-            return j.getLocalizedMessage();
-        }
-    }
-
-    public static String getTimeAgo(long time) {
-        if (time < 1000000000000L) {
-            time *= 1000;
-        }
-        long now = System.currentTimeMillis();
-        if (time > now || time <= 0) {
-            return null;
-        }
-        final long diff = now - time;
-        if (diff < MINUTE_MILLIS) {
-            return "just now";
-        } else if (diff < 2 * MINUTE_MILLIS) {
-            return "a minute ago";
-        } else if (diff < 50 * MINUTE_MILLIS) {
-            return diff / MINUTE_MILLIS + " minutes ago";
-        } else if (diff < 90 * MINUTE_MILLIS) {
-            return "an hour ago";
-        } else if (diff < 24 * HOUR_MILLIS) {
-            return diff / HOUR_MILLIS + " hours ago";
-        } else if (diff < 48 * HOUR_MILLIS) {
-            return "yesterday";
-        } else {
-            return diff / DAY_MILLIS + " days ago";
-        }
-    }
-
-    public static String getDateInDMY(long timestamp) {
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d, ''yy");
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis((int) timestamp);
-        return formatter.format(calendar.getTime());
-    }
-
 
     public static StringBuilder getDocTiming(String jsonString) throws JSONException {
 

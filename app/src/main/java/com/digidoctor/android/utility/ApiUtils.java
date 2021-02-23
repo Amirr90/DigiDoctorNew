@@ -50,11 +50,12 @@ import com.digidoctor.android.model.UploadPresDataModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
-import com.digidoctor.android.model.addproductratingresponse;
-import com.digidoctor.android.model.addproductreating;
+import com.digidoctor.android.model.addProductRatingResponse;
+import com.digidoctor.android.model.addProductRating;
+import com.digidoctor.android.model.labmodel.ApiLabResponse;
 import com.digidoctor.android.model.labmodel.labdashboardresponse;
-import com.digidoctor.android.model.labmodel.labmodel;
-import com.digidoctor.android.model.pharmacyModel.AddAdressModel;
+import com.digidoctor.android.model.labmodel.labModel;
+import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
 import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
 import com.digidoctor.android.model.pharmacyModel.AddtoWishlist;
@@ -1559,24 +1560,24 @@ public class ApiUtils {
     public static void add_address(final Activity activity, Map<String, String> map, final ApiCallbackInterface apiCallbackInterface) {
         AppUtils.showRequestDialog(activity);
 
-        AddAdressModel addAdressModel = new AddAdressModel();
-        addAdressModel.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
+        AddAddressModel addAddressModel = new AddAddressModel();
+        addAddressModel.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
 
-        addAdressModel.setName(map.get("Full_name"));
-        addAdressModel.setMobileno(map.get("Mobile"));
-        addAdressModel.setHouseNo(map.get("House"));
-        addAdressModel.setPincode(map.get("ZipCode"));
-        addAdressModel.setCity(map.get("City"));
-        addAdressModel.setState(map.get("State"));
-        addAdressModel.setArea(map.get("area"));
-        addAdressModel.setLocality(map.get("locality"));
-        addAdressModel.setIsDefault(map.get("isDefault"));
-        addAdressModel.setIsSundayOpen(map.get("setIsSundayOpen"));
-        addAdressModel.setIsSaturdayOpen(map.get("setIsSaturdayOpen"));
-        addAdressModel.setAddressType("22");
+        addAddressModel.setName(map.get("Full_name"));
+        addAddressModel.setMobileno(map.get("Mobile"));
+        addAddressModel.setHouseNo(map.get("House"));
+        addAddressModel.setPincode(map.get("ZipCode"));
+        addAddressModel.setCity(map.get("City"));
+        addAddressModel.setState(map.get("State"));
+        addAddressModel.setArea(map.get("area"));
+        addAddressModel.setLocality(map.get("locality"));
+        addAddressModel.setIsDefault(map.get("isDefault"));
+        addAddressModel.setIsSundayOpen(map.get("setIsSundayOpen"));
+        addAddressModel.setIsSaturdayOpen(map.get("setIsSaturdayOpen"));
+        addAddressModel.setAddressType("22");
 
         Api iRestInterfaces = URLUtils.getPharmacyApisRef();
-        Call<AddAdressResponse> call = iRestInterfaces.AddAddress(addAdressModel);
+        Call<AddAdressResponse> call = iRestInterfaces.AddAddress(addAddressModel);
 
         call.enqueue(new Callback<AddAdressResponse>() {
             @Override
@@ -1882,12 +1883,12 @@ public class ApiUtils {
 
     }
 
-    public static void update_Address(AddAdressModel addAdressModel, Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+    public static void update_Address(AddAddressModel addAddressModel, Activity activity, final ApiCallbackInterface apiCallbackInterface) {
         AppUtils.showRequestDialog(activity);
 
 
         Api iRestInterfaces = URLUtils.getPharmacyApisRef();
-        Call<getaddressModel> call = iRestInterfaces.updateaddress(addAdressModel);
+        Call<getaddressModel> call = iRestInterfaces.updateaddress(addAddressModel);
 
         call.enqueue(new Callback<getaddressModel>() {
             @Override
@@ -1938,7 +1939,7 @@ public class ApiUtils {
             }
 
             @Override
-            public void onFailure(Call<OrderDetailModel> call, Throwable t) {
+            public void onFailure(@NotNull Call<OrderDetailModel> call, Throwable t) {
                 AppUtils.hideDialog();
             }
         });
@@ -1958,7 +1959,7 @@ public class ApiUtils {
         Call<getfilltervarentmodel> call = iRestInterfaces.getFillterVarient(fillter);
         call.enqueue(new Callback<getfilltervarentmodel>() {
             @Override
-            public void onResponse(Call<getfilltervarentmodel> call, Response<getfilltervarentmodel> response) {
+            public void onResponse(@NotNull Call<getfilltervarentmodel> call, Response<getfilltervarentmodel> response) {
                 if (response.isSuccessful() && Objects.requireNonNull(response.body()).getResponseCode() == 1) {
                     AppUtils.hideDialog();
                     apiCallbackInterface.onSuccess(response.body().getResponseValue());
@@ -1983,18 +1984,18 @@ public class ApiUtils {
     public static void add_rating(final Activity activity, Map<String, String> map, final ApiCallbackInterface apiCallbackInterface) {
         AppUtils.showRequestDialog(activity);
 
-        addproductreating addproductreating = new addproductreating();
-        addproductreating.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
-        addproductreating.setProductInfoCode(map.get("pinfo"));
-        addproductreating.setReview(map.get("review"));
-        addproductreating.setStarrating(map.get("rating"));
+        addProductRating addProductRating = new addProductRating();
+        addProductRating.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
+        addProductRating.setProductInfoCode(map.get("pinfo"));
+        addProductRating.setReview(map.get("review"));
+        addProductRating.setStarRating(map.get("rating"));
 
         Api iRestInterfaces = URLUtils.getPharmacyApisRef();
-        Call<addproductratingresponse> call = iRestInterfaces.postproductrating(addproductreating);
+        Call<addProductRatingResponse> call = iRestInterfaces.postproductrating(addProductRating);
 
-        call.enqueue(new Callback<addproductratingresponse>() {
+        call.enqueue(new Callback<addProductRatingResponse>() {
             @Override
-            public void onResponse(@NotNull Call<addproductratingresponse> call, @NotNull Response<addproductratingresponse> response) {
+            public void onResponse(@NotNull Call<addProductRatingResponse> call, @NotNull Response<addProductRatingResponse> response) {
 
                 if (response.code() == 200 && response.body() != null) {
                     if (response.isSuccessful()) {
@@ -2011,40 +2012,16 @@ public class ApiUtils {
             }
 
             @Override
-            public void onFailure(@NotNull Call<addproductratingresponse> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<addProductRatingResponse> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
             }
         });
     }
 
 
-    public static void getlabdash(final Activity activity, ApiCallbackInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getlabapisRef();
-        labmodel labmodel = new labmodel();
-        labmodel.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
 
-        Call<labdashboardresponse> call = iRestInterfaces.getlabdashboard(labmodel);
-        call.enqueue(new Callback<labdashboardresponse>() {
-            @Override
-            public void onResponse(@NotNull Call<labdashboardresponse> call, @NotNull Response<labdashboardresponse> response) {
-                if (response.code() == 200 && response.body().getResponseCode() == 1)
-                    if (response.isSuccessful()) {
-                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                    } else {
-                        apiCallbackInterface.onError(response.message());
-                    }
-                else apiCallbackInterface.onError(String.valueOf(response.code()));
-
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<labdashboardresponse> call, Throwable t) {
-                apiCallbackInterface.onFailed(t);
-            }
-        });
+    //Lab Apis
+    public static Call<ApiLabResponse> getLabDashboard(Dashboard model) {
+        return URLUtils.getLabApisRef().getLabDashboard(model);
     }
-
-
-
-
 }

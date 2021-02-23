@@ -23,11 +23,9 @@ public class OrderPLacedFRagment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
         navController = Navigation.findNavController(view);
 
-//
         orderplacedfragmentBinding.textView133.setText("Congratulations! Your order " + getArguments().getString("orderNo") + " has been placed successfully");
 
 

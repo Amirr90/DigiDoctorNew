@@ -9,19 +9,15 @@ public class BannerText {
     @SerializedName("bannerText")
     @Expose
     private String bannerText;
+    @SerializedName("callingNo")
+    @Expose
+    private String callingNo;
 
     public String getBannerText() {
         return bannerText;
     }
 
-    public void setBannerText(String bannerText) {
-        this.bannerText = bannerText;
-    }
-
-    @Override
-    public String toString() {
-        return "BannerText{" +
-                "bannerText='" + bannerText + '\'' +
-                '}';
+    public String getCallingNo() {
+        return callingNo;
     }
 }

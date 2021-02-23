@@ -213,10 +213,6 @@ public class BookAppointmentFragment extends Fragment {
 
     private void showDialog(List<PaymentMode> paymentModes) {
 
-        final CharSequence[] items = new CharSequence[paymentModes.size()];
-        for (int a = 0; a < paymentModes.size(); a++) {
-            items[a] = paymentModes.get(a).getPaymentMode();
-        }
 
         PaymentViewBinding paymentViewBinding = PaymentViewBinding.inflate(requireActivity().getLayoutInflater());
         paymentViewBinding.recyclerView5.setAdapter(new PaymentAdapter(paymentModes));

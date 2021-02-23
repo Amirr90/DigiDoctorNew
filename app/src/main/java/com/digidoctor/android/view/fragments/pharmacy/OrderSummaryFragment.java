@@ -32,6 +32,7 @@ import com.digidoctor.android.view.activity.PatientDashboard;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
 
@@ -49,7 +50,6 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
         final List<CartDetailsResponse.GetCartDetails> getCartDetails = new ArrayList<>();
         final List<CartDetailsResponse.GetCartDetails.GetPriceDetails> gp = new ArrayList<>();
@@ -234,7 +234,7 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
         super.onResume();
         AppUtils.hideDialog();
         getaddress();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 
 

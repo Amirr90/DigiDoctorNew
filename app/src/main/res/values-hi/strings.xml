@@ -1265,4 +1265,7 @@
     <string name="search_pharmacy_hint">Search Medicine here</string>
     <string name="favourite">favourite</string>
     <string name="cart">cart</string>
+    <string name="search_medicine_amp_healthcare"><![CDATA[search medicine & healthcare...]]></string>
+    <string name="shop_by_category">Shop by Category</string>
+    <string name="todo">To Do</string>
 </resources>

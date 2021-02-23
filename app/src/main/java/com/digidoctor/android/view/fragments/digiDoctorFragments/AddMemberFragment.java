@@ -120,8 +120,8 @@ public class AddMemberFragment extends Fragment implements MyDialogInterface {
 
     }
 
-    private void uploadImage(File imagFile) throws IOException {
-        ApiUtils.uploadProfileImage(imagFile, new ApiCallbackInterface() {
+    private void uploadImage(File imageFile) throws IOException {
+        ApiUtils.uploadProfileImage(imageFile, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 List<String> Path = (List<String>) o;

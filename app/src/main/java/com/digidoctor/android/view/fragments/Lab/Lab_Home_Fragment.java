@@ -1,5 +1,7 @@
 package com.digidoctor.android.view.fragments.Lab;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -19,21 +23,32 @@ import com.digidoctor.android.adapters.labadapter.HealthPackageAdapter;
 import com.digidoctor.android.adapters.labadapter.sliderimageadapter;
 import com.digidoctor.android.databinding.LabTestHomeBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
+import com.digidoctor.android.interfaces.ApiInterface;
+import com.digidoctor.android.model.labmodel.BannerText;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
 import com.digidoctor.android.model.labmodel.PackageDetail;
+import com.digidoctor.android.model.labmodel.PathalogyDetail;
+import com.digidoctor.android.model.labmodel.labModel;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
+import com.digidoctor.android.utility.ArrayUtil;
+import com.digidoctor.android.utility.Response;
+import com.digidoctor.android.viewHolder.PatientViewModel;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import static com.digidoctor.android.utility.ArrayUtil.objectToJSONArray;
 
 public class Lab_Home_Fragment extends Fragment {
 
     private static final String TAG = "Lab_Home_Fragment";
     LabTestHomeBinding labTestHomeBinding;
-    sliderimageadapter sliderimageadapter;
-    HealthPackageAdapter healthPackageAdapter;
     NavController navController;
+
+    PatientViewModel viewModel;
 
 
     @Nullable
@@ -47,71 +62,64 @@ public class Lab_Home_Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         navController = Navigation.findNavController(view);
+        viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
 
-        List<LabDashBoardmodel.SliderImage> sliderimageoflab = new ArrayList<>();
+        viewModel.getLabDashboardModel("10", "20").observe(getViewLifecycleOwner(), labDashBoardmodel -> {
 
-        List<PackageDetail> packageDetails = new ArrayList<>();
+            List<LabDashBoardmodel.SliderImage> sliderImages = labDashBoardmodel.getSliderImage();
+            if (null != sliderImages && !sliderImages.isEmpty())
+                setSliderData(sliderImages);
 
-
-        sliderimageadapter = new sliderimageadapter(sliderimageoflab, requireActivity());
-
-        healthPackageAdapter = new HealthPackageAdapter(packageDetails);
-
-
-        labTestHomeBinding.bannerSlider1.setAdapter(sliderimageadapter);
+            List<PackageDetail> packageDetails = labDashBoardmodel.getPackageDetails();
+            if (null != packageDetails && !packageDetails.isEmpty())
+                setPackagesData(packageDetails);
 
 
-        labTestHomeBinding.healthpackagerecyclerview.setAdapter(healthPackageAdapter);
+            List<BannerText> bannerTextList = labDashBoardmodel.getBannerTextList();
+            if (null != bannerTextList && !bannerTextList.isEmpty())
+                setBannerData(bannerTextList);
 
-
-        ApiUtils.getlabdash(requireActivity(), new ApiCallbackInterface() {
-            @Override
-            public void onSuccess(List<?> o) {
-                AppUtils.hideDialog();
-                List<LabDashBoardmodel> models = (List<LabDashBoardmodel>) o;
-                List<LabDashBoardmodel.SliderImage> sliderImages = models.get(0).getSliderImage();
-
-                Log.d(TAG, "onSuccess: " + sliderimageoflab);
-
-                sliderimageoflab.addAll(sliderImages);
-                sliderimageadapter.notifyDataSetChanged();
-
-
-//                List<PackageDetail> packageDetails1 = models.get(0).getResponseValue().get(0).getPackageDetails();
-//                Log.d(TAG, "onSuccess: " + packageDetails1);
-//                packageDetails.addAll(packageDetails1);
-//                healthPackageAdapter.notifyDataSetChanged();
-
-
-            }
-
-            @Override
-            public void onError(String s) {
-                AppUtils.hideDialog();
-                Toast.makeText(requireActivity(), "" + s, Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onFailed(Throwable throwable) {
-                AppUtils.hideDialog();
-                Toast.makeText(requireActivity(), "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
-            }
+            List<PathalogyDetail> pathalogyDetailList = labDashBoardmodel.getPathalogyDetailList();
+            if (null != pathalogyDetailList && !pathalogyDetailList.isEmpty())
+                setPathalogyDetailData(pathalogyDetailList);
         });
 
+    }
 
-        labTestHomeBinding.textView158.setOnClickListener(view1 -> navController.navigate(R.id.action_lab_Home_Fragment_to_health_Checkup_Categories_Fragment));
+    private void setPathalogyDetailData(List<PathalogyDetail> pathalogyDetailList) {
+    }
 
+    private void setBannerData(List<BannerText> bannerTextList) {
+        BannerText bannerText = bannerTextList.get(0);
+        labTestHomeBinding.textView156.setText(bannerText.getBannerText());
+        labTestHomeBinding.bannerCall.setOnClickListener(v -> {
+            startCalling(bannerText.getCallingNo());
+        });
+    }
+
+    private void startCalling(String callingNo)
+    {
+        Uri u = Uri.parse("tel:" + callingNo);
+        Intent i = new Intent(Intent.ACTION_DIAL, u);
+        try {
+            startActivity(i);
+        } catch (SecurityException s) {
+            Toast.makeText(requireActivity(), "An error occurred", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void setPackagesData(List<PackageDetail> packageDetails) {
+    }
+
+    private void setSliderData(List<LabDashBoardmodel.SliderImage> sliderImages) {
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
 
     }
 

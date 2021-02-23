@@ -3,10 +3,11 @@ package com.digidoctor.android.model.labmodel;
 import java.util.List;
 
 public class LabDashBoardmodel {
-
-
     List<SliderImage> sliderImage;
     List<PackageDetail> packageDetails;
+    List<BannerText> bannerTextList;
+    List<PathalogyDetail> pathalogyDetailList;
+
 
     public List<PackageDetail> getPackageDetails() {
         return packageDetails;
@@ -16,8 +17,6 @@ public class LabDashBoardmodel {
         this.packageDetails = packageDetails;
     }
 
-    List<BannerText> bannerTextList;
-    List<PathalogyDetail> pathalogyDetailList;
 
 
     public List<SliderImage> getSliderImage() {

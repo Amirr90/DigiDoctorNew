@@ -50,7 +50,6 @@ public class AllCategoryFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         navController = Navigation.findNavController(view);
         sbc = new ArrayList<>();
 

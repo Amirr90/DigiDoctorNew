@@ -24,8 +24,8 @@ public class FileUtils {
     public static String getPath(final Context context, final Uri uri) {
         // check here to KITKAT or new version
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-        String selection = null;
-        String[] selectionArgs = null;
+        String selection;
+        String[] selectionArgs;
         // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
             // ExternalStorageProvider
@@ -35,7 +35,7 @@ public class FileUtils {
                 final String type = split[0];
 
                 String fullPath = getPathFromExtSD(split);
-                if (fullPath != "") {
+                if (!fullPath.equals("")) {
                     return fullPath;
                 } else {
                     return null;

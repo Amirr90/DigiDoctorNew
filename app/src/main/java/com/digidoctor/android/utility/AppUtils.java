@@ -182,7 +182,7 @@ public class AppUtils {
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
-        Date date = null;
+        Date date;
         String str = null;
 
         try {
@@ -200,7 +200,7 @@ public class AppUtils {
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
-        Date date = null;
+        Date date;
         String str = null;
 
         try {
@@ -219,7 +219,7 @@ public class AppUtils {
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outPattern);
 
-        Date date = null;
+        Date date;
         String str = null;
 
         try {
@@ -297,17 +297,15 @@ public class AppUtils {
 
     private static String getShareDocText(DoctorModel doctorModel) {
 
-        StringBuilder builder = new StringBuilder();
-        builder.append("hi there !!\nI found A great Doctor '")
-                .append(doctorModel.getDrName())
-                .append("' having")
-                .append(" Years of experience in ")
-                .append(doctorModel.getSpeciality())
-                .append(".")
-                .append("\nVisit Doctor's profile ")
-                .append("https://www.com.digidoctor/doctor/")
-                .append(doctorModel.getId());
-        return builder.toString();
+        return "hi there !!\nI found A great Doctor '" +
+                doctorModel.getDrName() +
+                "' having" +
+                " Years of experience in " +
+                doctorModel.getSpeciality() +
+                "." +
+                "\nVisit Doctor's profile " +
+                "https://www.com.digidoctor/doctor/" +
+                doctorModel.getId();
     }
 
 

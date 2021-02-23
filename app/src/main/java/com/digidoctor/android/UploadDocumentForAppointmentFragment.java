@@ -197,9 +197,6 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
             }
 
         }
-        if (requestCode == 0) {
-
-        }
 
     }
 

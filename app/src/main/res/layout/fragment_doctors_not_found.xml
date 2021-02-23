@@ -33,7 +33,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="58dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Sorry!"
+                android:text="Sorry !"
                 android:textColor="#262E3F"
                 android:textSize="17sp"
                 android:textStyle="bold" />

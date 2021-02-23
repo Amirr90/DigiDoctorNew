@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
+import com.digidoctor.android.interfaces.ApiInterface;
 import com.digidoctor.android.interfaces.NewApiInterface;
 import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.ChatModel;
@@ -23,8 +24,13 @@ import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
+import com.digidoctor.android.model.labmodel.BannerText;
+import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
+import com.digidoctor.android.model.labmodel.PackageDetail;
+import com.digidoctor.android.model.labmodel.PathalogyDetail;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
+import com.digidoctor.android.utility.Response;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
 import java.util.HashMap;
@@ -38,6 +44,7 @@ import static com.digidoctor.android.utility.ApiUtils.getSymptomWithIconsData;
 import static com.digidoctor.android.utility.ApiUtils.specialityData;
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
+import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.logout;
 
 public class PatientRepo {
@@ -53,6 +60,10 @@ public class PatientRepo {
     public MutableLiveData<List<InvestigationModel>> investigationMutableLiveData;
     public MutableLiveData<List<AppointmentModel>> appointmentMutableLiveData;
     public MutableLiveData<List<ChatModel>> chatMutableLiveData;
+
+
+    //Lab member Variable
+    public MutableLiveData<LabDashBoardmodel> labDashboardModelMutableLiveData;
 
 
     public LiveData<List<ChatModel>> getChatData(AppointmentModel user) {
@@ -448,11 +459,7 @@ public class PatientRepo {
     private void loadPatientDashboardData(Dashboard dashboard) {
         if (PatientDashboard.getInstance() != null)
             showRequestDialog(PatientDashboard.getInstance());
-       /* final List<DashboardModel1> dashboardModel1s = new ArrayList<>();
-        dashboardModel1s.add(new DashboardModel1("Specialities"));
-        dashboardModel1s.add(new DashboardModel1("Symptoms"));
-        dashboardModel1s.add(new DashboardModel1("Tests"));
-        dashboardModel1s.add(new DashboardModel1("Pharmacy"));*/
+
         getPatientDasboard(dashboard, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
@@ -484,6 +491,48 @@ public class PatientRepo {
                 AppUtils.hideDialog();
                 if (PatientDashboard.getInstance() != null)
                     Toast.makeText(PatientDashboard.getInstance(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+
+    public LiveData<LabDashBoardmodel> getLabDashboardModel(String lat, String lng) {
+        if (labDashboardModelMutableLiveData == null)
+            labDashboardModelMutableLiveData = new MutableLiveData<>();
+
+        Dashboard dashboard = new Dashboard();
+        dashboard.setLat(lat);
+        dashboard.setLat(lng);
+        dashboard.setMemberId(String.valueOf(getPrimaryUser(PatientDashboard.getInstance()).getMemberId()));
+
+        loadLabDashboardData(dashboard);
+        return labDashboardModelMutableLiveData;
+    }
+
+    private void loadLabDashboardData(Dashboard dashboard) {
+        showRequestDialog(PatientDashboard.getInstance());
+        Response.getDashboardResponse(ApiUtils.getLabDashboard(dashboard), new ApiInterface() {
+            @Override
+            public void onSuccess(Object obj) {
+                hideDialog();
+                List<LabDashBoardmodel> dashboardData = (List<LabDashBoardmodel>) obj;
+                if (null == dashboardData || dashboardData.isEmpty())
+                    return;
+
+                LabDashBoardmodel labDashBoardmodel = dashboardData.get(0);
+                if (null == labDashboardModelMutableLiveData)
+                    labDashboardModelMutableLiveData = new MutableLiveData<>();
+
+                labDashboardModelMutableLiveData.setValue(labDashBoardmodel);
+
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                hideDialog();
+                Log.d("TAG", "onFailed: " + msg);
             }
         });
 
