@@ -1,7 +1,5 @@
 package com.digidoctor.android.view.fragments.Lab;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -118,7 +116,7 @@ public class Lab_Home_Fragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
     }
 
