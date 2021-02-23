@@ -99,7 +99,8 @@ public class Lab_Home_Fragment extends Fragment {
         });
     }
 
-    private void startCalling(String callingNo) {
+    private void startCalling(String callingNo)
+    {
         Uri u = Uri.parse("tel:" + callingNo);
         Intent i = new Intent(Intent.ACTION_DIAL, u);
         try {
@@ -118,7 +119,7 @@ public class Lab_Home_Fragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
 
     }
 

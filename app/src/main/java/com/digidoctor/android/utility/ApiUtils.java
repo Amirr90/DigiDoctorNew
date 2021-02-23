@@ -1939,7 +1939,7 @@ public class ApiUtils {
             }
 
             @Override
-            public void onFailure(Call<OrderDetailModel> call, Throwable t) {
+            public void onFailure(@NotNull Call<OrderDetailModel> call, Throwable t) {
                 AppUtils.hideDialog();
             }
         });
@@ -1959,7 +1959,7 @@ public class ApiUtils {
         Call<getfilltervarentmodel> call = iRestInterfaces.getFillterVarient(fillter);
         call.enqueue(new Callback<getfilltervarentmodel>() {
             @Override
-            public void onResponse(Call<getfilltervarentmodel> call, Response<getfilltervarentmodel> response) {
+            public void onResponse(@NotNull Call<getfilltervarentmodel> call, Response<getfilltervarentmodel> response) {
                 if (response.isSuccessful() && Objects.requireNonNull(response.body()).getResponseCode() == 1) {
                     AppUtils.hideDialog();
                     apiCallbackInterface.onSuccess(response.body().getResponseValue());
@@ -2017,6 +2017,8 @@ public class ApiUtils {
             }
         });
     }
+
+
 
     //Lab Apis
     public static Call<ApiLabResponse> getLabDashboard(Dashboard model) {
