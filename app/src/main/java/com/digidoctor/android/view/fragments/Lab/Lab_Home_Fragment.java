@@ -13,42 +13,33 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.digidoctor.android.R;
-import com.digidoctor.android.adapters.labadapter.HealthPackageAdapter;
-import com.digidoctor.android.adapters.labadapter.sliderimageadapter;
+import com.digidoctor.android.adapters.labadapter.CategoryAdapter;
+import com.digidoctor.android.adapters.labadapter.LabsAdapter;
+import com.digidoctor.android.adapters.labadapter.PackagesAdapter;
 import com.digidoctor.android.databinding.LabTestHomeBinding;
-import com.digidoctor.android.interfaces.ApiCallbackInterface;
-import com.digidoctor.android.interfaces.ApiInterface;
+import com.digidoctor.android.model.LabModel;
+import com.digidoctor.android.model.PackageModel;
 import com.digidoctor.android.model.labmodel.BannerText;
+import com.digidoctor.android.model.labmodel.CategoryModel;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
-import com.digidoctor.android.model.labmodel.PackageDetail;
-import com.digidoctor.android.model.labmodel.PathalogyDetail;
-import com.digidoctor.android.model.labmodel.labModel;
-import com.digidoctor.android.utility.ApiUtils;
-import com.digidoctor.android.utility.AppUtils;
-import com.digidoctor.android.utility.ArrayUtil;
-import com.digidoctor.android.utility.Response;
 import com.digidoctor.android.viewHolder.PatientViewModel;
-import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static com.digidoctor.android.utility.ArrayUtil.objectToJSONArray;
 
 public class Lab_Home_Fragment extends Fragment {
 
     private static final String TAG = "Lab_Home_Fragment";
     LabTestHomeBinding labTestHomeBinding;
     NavController navController;
-
     PatientViewModel viewModel;
+    PackagesAdapter packagesAdapter;
+    CategoryAdapter categoryAdapter;
+    LabsAdapter labsAdapter;
 
 
     @Nullable
@@ -66,30 +57,50 @@ public class Lab_Home_Fragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
 
+        //Packages Adapter
+        packagesAdapter = new PackagesAdapter();
+        labTestHomeBinding.healthPackageRecyclerview.setAdapter(packagesAdapter);
+
+
+        //CategoryAdapter
+        categoryAdapter = new CategoryAdapter();
+        labTestHomeBinding.recCategory.setAdapter(categoryAdapter);
+
+        //LabsAdapter
+        labsAdapter = new LabsAdapter();
+        labTestHomeBinding.recLab.setAdapter(labsAdapter);
+
+
         viewModel.getLabDashboardModel("10", "20").observe(getViewLifecycleOwner(), labDashBoardmodel -> {
 
             List<LabDashBoardmodel.SliderImage> sliderImages = labDashBoardmodel.getSliderImage();
             if (null != sliderImages && !sliderImages.isEmpty())
                 setSliderData(sliderImages);
 
-            List<PackageDetail> packageDetails = labDashBoardmodel.getPackageDetails();
+            //packages
+            List<PackageModel> packageDetails = labDashBoardmodel.getPackageDetails();
             if (null != packageDetails && !packageDetails.isEmpty())
-                setPackagesData(packageDetails);
+                packagesAdapter.submitList(packageDetails);
 
 
-            List<BannerText> bannerTextList = labDashBoardmodel.getBannerTextList();
+            //category
+            List<CategoryModel> categoryModels = labDashBoardmodel.getCategoryDetails();
+            if (null != categoryModels && !categoryModels.isEmpty())
+                categoryAdapter.submitList(categoryModels);
+
+
+            List<BannerText> bannerTextList = labDashBoardmodel.getBannerText();
             if (null != bannerTextList && !bannerTextList.isEmpty())
                 setBannerData(bannerTextList);
 
-            List<PathalogyDetail> pathalogyDetailList = labDashBoardmodel.getPathalogyDetailList();
-            if (null != pathalogyDetailList && !pathalogyDetailList.isEmpty())
-                setPathalogyDetailData(pathalogyDetailList);
+            //Labs
+            List<LabModel> labModels = labDashBoardmodel.getPathalogyDetails();
+            if (null != labModels && !labModels.isEmpty())
+                labsAdapter.submitList(labModels);
         });
 
     }
 
-    private void setPathalogyDetailData(List<PathalogyDetail> pathalogyDetailList) {
-    }
 
     private void setBannerData(List<BannerText> bannerTextList) {
         BannerText bannerText = bannerTextList.get(0);
@@ -99,8 +110,7 @@ public class Lab_Home_Fragment extends Fragment {
         });
     }
 
-    private void startCalling(String callingNo)
-    {
+    private void startCalling(String callingNo) {
         Uri u = Uri.parse("tel:" + callingNo);
         Intent i = new Intent(Intent.ACTION_DIAL, u);
         try {
@@ -110,8 +120,6 @@ public class Lab_Home_Fragment extends Fragment {
         }
     }
 
-    private void setPackagesData(List<PackageDetail> packageDetails) {
-    }
 
     private void setSliderData(List<LabDashBoardmodel.SliderImage> sliderImages) {
     }

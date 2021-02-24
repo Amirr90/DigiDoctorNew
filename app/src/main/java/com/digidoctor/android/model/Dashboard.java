@@ -1,3 +1,4 @@
+
 package com.digidoctor.android.model;
 
 public class Dashboard {
@@ -32,7 +33,7 @@ public class Dashboard {
 
     @Override
     public String toString() {
-        return "Dashboard{" +
+        return "{" +
                 "lat='" + lat + '\'' +
                 ", lng='" + lng + '\'' +
                 '}';

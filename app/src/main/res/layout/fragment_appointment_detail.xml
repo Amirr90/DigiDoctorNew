@@ -354,6 +354,20 @@
                     app:spanCount="3"
                     tools:listitem="@layout/symptoms_attachment_view" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recOldAppointments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    tools:itemCount="3"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.931"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView204"
+                    tools:listitem="@layout/old_appointments_views" />
+
                 <ImageView
                     android:id="@+id/ivMap"
                     android:layout_width="25dp"
@@ -367,6 +381,17 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView94"
                     app:srcCompat="@drawable/ic_baseline_map_24"
                     android:contentDescription="TODO" />
+
+                <TextView
+                    android:fontFamily="@font/poppins"
+                    android:id="@+id/textView204"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="Old Appointments"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recFiles" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 

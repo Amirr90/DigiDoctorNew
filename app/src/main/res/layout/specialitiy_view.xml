@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginRight="5dp">
 
 
@@ -22,28 +22,27 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerHorizontal="true"
+            android:contentDescription="TODO"
             android:elevation="@dimen/_10sdp"
             android:loadSpecialityImage="@{speciality.imagePath}"
-            app:srcCompat="@drawable/homeopathy"
-            android:contentDescription="TODO" />
+            app:srcCompat="@drawable/homeopathy" />
 
-        <androidx.cardview.widget.CardView
+        <RelativeLayout
+            android:id="@+id/llspeality"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_40sdp"
             android:layout_marginEnd="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_5sdp"
-            android:elevation="@dimen/_100sdp"
-            app:cardCornerRadius="8dp">
+            android:background="@drawable/round_border_with_white_bg"
+            android:clickable="true"
+            app:cardCornerRadius="8dp"
+            android:focusable="true">
 
             <LinearLayout
-                android:id="@+id/llspeality"
                 android:layout_width="match_parent"
                 android:layout_height="163dp"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/_10sdp">
 
@@ -78,16 +77,16 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:text="@{speciality.noOfDoctors}"
                     android:id="@+id/docCount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semibold"
                     android:gravity="center"
+                    android:text="@{speciality.noOfDoctors}"
                     android:textColor="@android:color/black"
                     android:textSize="17sp"
                     android:textStyle="bold" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

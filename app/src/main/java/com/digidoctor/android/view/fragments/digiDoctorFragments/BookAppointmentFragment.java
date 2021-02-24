@@ -162,19 +162,6 @@ public class BookAppointmentFragment extends Fragment {
         });
 
 
-       /* User user = new User();
-        getResponse(DemoApi(user), new DemoAoiInterface() {
-            @Override
-            public void onSuccess(Object obj) {
-
-            }
-
-            @Override
-            public void onFailed(String msg) {
-
-            }
-        });*/
-
     }
 
     private void getPayMode() {

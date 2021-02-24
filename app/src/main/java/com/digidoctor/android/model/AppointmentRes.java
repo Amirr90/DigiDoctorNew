@@ -19,4 +19,5 @@ public class AppointmentRes {
     public List<AppointmentModel> getResponseValue() {
         return responseValue;
     }
+
 }

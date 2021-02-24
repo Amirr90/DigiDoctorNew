@@ -231,6 +231,16 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 navController.navigate(R.id.profileFragment);
             }
         });
+        mainBinding.imageView45.setOnClickListener(view -> {
+            closeDrawer();
+            if (user.getIsExists() == 1) {
+                Bundle mBundle = new Bundle();
+                mBundle.putString("FROM", "DashboardFragment");
+                navController.navigate(R.id.showMemberListFragment, mBundle);
+            } else {
+                navController.navigate(R.id.profileFragment);
+            }
+        });
 
         checkForUpdate();
     }
@@ -338,7 +348,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     }
 
     public String getLat() {
-        if (lat == null) return "";
+        if (lat == null) return "0";
         else
             return lat;
     }
@@ -348,7 +358,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     }
 
     public String getLng() {
-        if (lng == null) return "";
+        if (lng == null) return "0";
         else
             return lng;
     }
@@ -417,7 +427,8 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 break;
 
             case 11:
-                navController.navigate(R.id.changeLanguageFragment);
+                Toast.makeText(instance, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+                //navController.navigate(R.id.changeLanguageFragment);
                 break;
             case 12:
                 shareApp("https://digidoctor.in/invitation?invitationCode=" + getPrimaryUser(PatientDashboard.getInstance()).getMemberId(), "This is demo description", this);

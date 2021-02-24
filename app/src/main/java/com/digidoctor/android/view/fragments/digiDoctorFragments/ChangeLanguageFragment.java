@@ -53,7 +53,6 @@ public class ChangeLanguageFragment extends Fragment {
                              Bundle savedInstanceState) {
         changeLanguageBinding = FragmentChangeLanguageBinding.inflate(getLayoutInflater());
         selectedLanguageId = Integer.parseInt(utils.getString(LANGUAGE, requireActivity()));
-
         return changeLanguageBinding.getRoot();
     }
 

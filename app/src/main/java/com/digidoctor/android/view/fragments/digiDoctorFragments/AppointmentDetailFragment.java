@@ -17,9 +17,11 @@ import androidx.navigation.Navigation;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.FilesAdapter;
+import com.digidoctor.android.adapters.OldAppointmentsAdapter;
 import com.digidoctor.android.databinding.FragmentAppointmentDetailBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.OnClickListener;
+import com.digidoctor.android.model.AppointmentDetailsRes;
 import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.FileModel;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
@@ -55,13 +57,18 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
     FragmentAppointmentDetailBinding detailBinding;
 
     FilesAdapter adapter;
+
     List<FileModel> modelList;
+
+
+    List<AppointmentModel> oldList;
 
 
     String appointmentId = null;
 
     AppointmentDetailFragmentArgs detailFragmentArgs;
 
+    OldAppointmentsAdapter oldAppointmentAdapter;
     PatientViewModel viewModel;
 
 
@@ -97,14 +104,21 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
 
 
         modelList = new ArrayList<>();
+        oldList = new ArrayList<>();
         adapter = new FilesAdapter(modelList);
         detailBinding.recFiles.setAdapter(adapter);
 
-        viewModel.getAppointmentList(user).observe(getViewLifecycleOwner(), (List<AppointmentModel> appointmentModels) -> {
+
+        oldAppointmentAdapter = new OldAppointmentsAdapter(oldList);
+        detailBinding.recOldAppointments.setAdapter(oldAppointmentAdapter);
+
+        viewModel.getAppointmentDetails(user).observe(getViewLifecycleOwner(), (List<AppointmentDetailsRes.Appointments> appointmentModels) -> {
 
             if (appointmentModels.isEmpty())
                 return;
-            String jsonString = appointmentModels.get(0).toString();
+
+            String jsonString = appointmentModels.get(0).getAppointmentDetails().get(0).toString();
+            Log.d(TAG, "onViewCreated: " + jsonString);
             appointmentModel = new OnlineAppointmentModel();
 
             Gson gson = new Gson();
@@ -118,6 +132,11 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
 
             detailBinding.btnReVisit.setVisibility(appointmentModel.isPrescribed() ? appointmentModel.getIsVisit() == 1 ? View.VISIBLE : View.GONE : View.GONE);
             detailBinding.btnAction.setVisibility(View.VISIBLE);
+
+
+            if (!appointmentModels.isEmpty())
+                oldList.addAll(appointmentModels.get(0).getOtherAppointments());
+            oldAppointmentAdapter.notifyDataSetChanged();
             AppUtils.hideDialog();
 
         });
@@ -160,6 +179,8 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             Bundle bundle = new Bundle();
             bundle.putString("model", model);
             bundle.putBoolean("reVisit", true);
+            bundle.putInt("docFee", appointmentModel.getDoctorFees());
+            bundle.putInt("docId", appointmentModel.getDoctorId());
             Log.d(TAG, "onItemClick: " + model);
             navController.navigate(R.id.action_appointmentDetailFragment_to_reScheduleFragment, bundle);
         });

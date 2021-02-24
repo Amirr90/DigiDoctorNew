@@ -5,16 +5,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.widget.NestedScrollView;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -22,23 +12,29 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.MedicineDetailsFragmentBinding;
 import com.digidoctor.android.interfaces.Api;
-import com.digidoctor.android.model.pharmacyModel.CustomTypefaceSpan;
+
 import com.digidoctor.android.model.pharmacyModel.GetMedicineReportModel;
 import com.digidoctor.android.model.pharmacyModel.GetMedicineReportRes;
-import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
+import com.digidoctor.android.utility.CustomTypefaceSpan;
 import com.digidoctor.android.utility.URLUtils;
 import com.digidoctor.android.utility.utils;
 import com.google.android.flexbox.AlignItems;
@@ -47,7 +43,6 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
-import com.mazenrashed.dotsindicator.Utils;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
