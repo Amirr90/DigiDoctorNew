@@ -54,6 +54,7 @@ import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
 import static com.digidoctor.android.utility.utils.KEY_DOC_ID;
 import static com.digidoctor.android.utility.utils.KEY_IS_ERA_USER;
 import static com.digidoctor.android.utility.utils.KEY_PATIENT_NAME;
+import static com.digidoctor.android.utility.utils.KEY_REVISIT;
 import static com.digidoctor.android.utility.utils.MEMBER_ID;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.logout;
@@ -93,6 +94,15 @@ public class BookAppointment extends Credentials {
     private String paymentId;
     private String trxId;
     private String paymentMode;
+    private Boolean isRevisit;
+
+    public Boolean getRevisit() {
+        return isRevisit;
+    }
+
+    public void setRevisit(Boolean revisit) {
+        isRevisit = revisit;
+    }
 
     public String getPaymentMode() {
         return paymentMode;
@@ -358,13 +368,13 @@ public class BookAppointment extends Credentials {
         map.put(APPOINTMENT_TIME, getAppointTime());
         map.put(KEY_IS_ERA_USER, getIsEraUser());
         map.put(KEY_APPOINTMENT_ID, getAppointmentId());
+        map.put(KEY_REVISIT, getRevisit());
 
         checkTimeSlotAvailability(map, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> obj) {
                 List<CheckSlotAvailabilityDataRes> response = (List<CheckSlotAvailabilityDataRes>) obj;
                 if (response != null) {
-
                     if (response.get(0).getIsAvailable() == 1) {
                         if (payMode == PAY_MODE_CASH) {
                             startBookingAppointment(null);
@@ -425,6 +435,7 @@ public class BookAppointment extends Credentials {
                     String tId = models.get(0).getTaxId();
                     setTrxId(tId);
                     utils.setString("txid", tId, activity);
+                    Log.d(TAG, "onSuccess: Trx Id" + tId);
                     if (payMode == PAY_MODE_PAY_U_MONEY)
                         startPayUBizPayment();
                     else
@@ -465,7 +476,9 @@ public class BookAppointment extends Credentials {
         Checkout.preload(activity);
         Checkout checkout = new Checkout();
 
-        checkout.setKeyID("rzp_live_BwhTaXRxeklaAI");
+        // checkout.setKeyID("rzp_live_BwhTaXRxeklaAI");
+        checkout.setKeyID("rzp_test_41Dk0t9QjLuFZl");
+
         bookAppointment.setTrxId(tId);
         String image = "https://digidoctor.in/assets/images/logonew.png";
 
@@ -490,7 +503,8 @@ public class BookAppointment extends Credentials {
     @Override
     public String toString() {
         return "{" +
-                "userMobileNo='" + userMobileNo + '\'' +
+                "payMode=" + payMode +
+                ", userMobileNo='" + userMobileNo + '\'' +
                 ", memberId='" + memberId + '\'' +
                 ", patientName='" + patientName + '\'' +
                 ", mobileNo='" + mobileNo + '\'' +
@@ -515,8 +529,7 @@ public class BookAppointment extends Credentials {
                 ", paymentId='" + paymentId + '\'' +
                 ", trxId='" + trxId + '\'' +
                 ", paymentMode='" + paymentMode + '\'' +
-                ", activity=" + activity +
-                ", bookAppointmentInterface=" + bookAppointmentInterface +
+                ", isRevisit=" + isRevisit +
                 '}';
     }
 
@@ -540,7 +553,13 @@ public class BookAppointment extends Credentials {
 
         Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
 
-        Call<OnlineAppointmentRes> call = iRestInterfaces.onlineAppointment2(appointment);
+        //need to check for Revisit Appointment here
+
+        Call<OnlineAppointmentRes> call;
+        if (isRevisit) {
+            call = iRestInterfaces.revisitAppointment(appointment);
+        } else call = iRestInterfaces.onlineAppointment2(appointment);
+
         call.enqueue(new Callback<OnlineAppointmentRes>() {
             @Override
             public void onResponse(@NotNull Call<OnlineAppointmentRes> call, @NotNull Response<OnlineAppointmentRes> response) {

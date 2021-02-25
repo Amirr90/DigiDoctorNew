@@ -37,9 +37,8 @@ public class PrescriptionAdapter extends ListAdapter<GetPatientMedicationMainMod
 
     }
 
-    public class PrescriptionVH extends RecyclerView.ViewHolder {
+    public static class PrescriptionVH extends RecyclerView.ViewHolder {
         PrescriptionViewBinding prescriptionViewBinding;
-
         public PrescriptionVH(PrescriptionViewBinding prescriptionViewBinding) {
             super(prescriptionViewBinding.getRoot());
             this.prescriptionViewBinding = prescriptionViewBinding;

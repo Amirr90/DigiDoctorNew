@@ -51,7 +51,6 @@ public class DoctorProfileFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
         if (getArguments() != null) {
-
             Gson gson = new Gson();
             doctorModel = gson.fromJson(getArguments().getString("docModel"), DoctorModel.class);
 
@@ -76,7 +75,6 @@ public class DoctorProfileFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
         shortProfileBinding.btnBookAppointment.setOnClickListener(v -> {
-            Log.d(TAG, "onItemClick: " + doctorModel);
             Bundle bundle = new Bundle();
             bundle.putString("docModel", getJSONFromModel(doctorModel));
             navController.navigate(R.id.action_doctorShortProfileFragment_to_chooseTimeFragment2, bundle);

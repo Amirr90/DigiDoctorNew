@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="appointment"
+            type="com.digidoctor.android.model.AppointmentModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/oldAppointmentView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="@dimen/_10sdp">
+
+
+
+        <TextView
+            android:id="@+id/textView201"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="#262E3F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView202"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@{`#`+appointment.appointmentIdView}"
+            android:textColor="#803F4E6E"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/textView201"
+            app:layout_constraintTop_toBottomOf="@+id/textView201" />
+
+        <TextView
+            android:id="@+id/textView203"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="11:30 AM, January 12, 2021"
+            android:textColor="#3F4E6E"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/textView202"
+            app:layout_constraintTop_toBottomOf="@+id/textView202" />
+
+
+        <TextView
+            android:id="@+id/textView95"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/round_for_search"
+            android:backgroundTint="@{appointment.isReshedule==0?!appointment.isPrescribed?Color.parseColor(`#39B54A`):Color.parseColor(`#EDA537`):Color.parseColor(`#EDA537`)}"
+            android:fontFamily="@font/poppins"
+            android:gravity="center_horizontal"
+            android:paddingLeft="15dp"
+            android:paddingTop="4dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="4dp"
+            android:text="@{appointment.isReshedule==0?appointment.isPrescribed?`View Prescription`:`Confirmed`:`Re Schedule`,default=`Confirmed`}"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/textView202"
+            app:layout_constraintTop_toBottomOf="@+id/textView202" />
+
+
+        <ImageView
+            android:id="@+id/btnShowPrescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

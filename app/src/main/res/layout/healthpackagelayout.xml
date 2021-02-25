@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="packageModel"
+            type="com.digidoctor.android.model.PackageModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,10 +39,10 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="9dp"
                     android:layout_marginTop="11dp"
+                    android:contentDescription="TODO"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/helathpackage"
-                    android:contentDescription="TODO" />
+                    app:srcCompat="@drawable/helathpackage" />
 
                 <TextView
                     android:id="@+id/textView146"
@@ -47,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="17dp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:text="Full Body Package + Covid-19 Antibody Check"
+                    android:text="@{packageModel.packageName}"
                     android:textColor="#2B3344"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"

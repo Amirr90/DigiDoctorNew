@@ -10,6 +10,7 @@ import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.NewApiInterface;
 import com.digidoctor.android.model.AddInvestigationModel;
+import com.digidoctor.android.model.AppointmentDetailsRes;
 import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.AppointmentRes;
 import com.digidoctor.android.model.ChatModel;
@@ -862,6 +863,32 @@ public class ApiUtils {
 
             @Override
             public void onFailure(@NotNull Call<AppointmentRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void getAppointmentDetails(User model, final ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<AppointmentDetailsRes> call = iRestInterfaces.getAppointmentDetails(model);
+
+        call.enqueue(new Callback<AppointmentDetailsRes>() {
+            @Override
+            public void onResponse(@NotNull Call<AppointmentDetailsRes> call, @NotNull Response<AppointmentDetailsRes> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    AppointmentDetailsRes responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(responseModel.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(responseModel.getResponseMessage());
+                    }
+                } else
+                    apiCallbackInterface.onError(response.message());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<AppointmentDetailsRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
                 apiCallbackInterface.onFailed(t);
             }
@@ -2017,7 +2044,6 @@ public class ApiUtils {
             }
         });
     }
-
 
 
     //Lab Apis

@@ -22,6 +22,15 @@ public class BookAppointment2 {
     private String paymentId;
     private String trxId;
     private String paymentMode;
+    private String firstAppointmentId;
+
+    public String getFirstAppointmentId() {
+        return firstAppointmentId;
+    }
+
+    public void setFirstAppointmentId(String firstAppointmentId) {
+        this.firstAppointmentId = firstAppointmentId;
+    }
 
     public String getPaymentMode() {
         return paymentMode;
@@ -216,6 +225,7 @@ public class BookAppointment2 {
                 ", paymentId='" + paymentId + '\'' +
                 ", trxId='" + trxId + '\'' +
                 ", paymentMode='" + paymentMode + '\'' +
+                ", firstAppointmentId='" + firstAppointmentId + '\'' +
                 '}';
     }
 }

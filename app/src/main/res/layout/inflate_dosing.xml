@@ -166,20 +166,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <!--
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:background="@color/grey_box"
-                app:layout_constraintTop_toBottomOf="@id/tvResult" />
--->
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!--
-            android:background="@drawable/rectangle_dosing"
-            android:backgroundTint="@color/orange"-->
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clAdultDose"
             android:layout_width="match_parent"
@@ -187,34 +178,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintTop_toBottomOf="@+id/clAdultDoseHeader">
 
-            <!--
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/barrierVerticalMain"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                app:barrierDirection="right"
-                app:constraint_referenced_ids="tvAilment" />
--->
 
-            <!--<TextView
-                android:id="@+id/tvAilment"
-                android:layout_width="@dimen/_90sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:fontFamily="@font/calibri"
-                android:text="Ailment"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_11sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText" />-->
-
-            <!--
-                app:layout_constraintLeft_toRightOf="@+id/barrierVerticalMain"-->
             <TextView
                 android:id="@+id/tvRoute"
                 android:layout_width="0dp"
@@ -314,15 +278,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvWeight"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <!--
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:background="@color/grey_box"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            app:layout_constraintTop_toBottomOf="@id/tvDose" />
-            -->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,22 +1,28 @@
 package com.digidoctor.android.model.labmodel;
 
+import com.digidoctor.android.model.LabModel;
+import com.digidoctor.android.model.PackageModel;
+
 import java.util.List;
 
 public class LabDashBoardmodel {
     List<SliderImage> sliderImage;
-    List<PackageDetail> packageDetails;
-    List<BannerText> bannerTextList;
-    List<PathalogyDetail> pathalogyDetailList;
+    List<CategoryModel> categoryDetails;
+    List<PackageModel> packageDetails;
+    List<BannerText> bannerText;
+    List<LabModel> pathalogyDetails;
 
+    public List<CategoryModel> getCategoryDetails() {
+        return categoryDetails;
+    }
 
-    public List<PackageDetail> getPackageDetails() {
+    public List<PackageModel> getPackageDetails() {
         return packageDetails;
     }
 
-    public void setPackageDetails(List<PackageDetail> packageDetails) {
+    public void setPackageDetails(List<PackageModel> packageDetails) {
         this.packageDetails = packageDetails;
     }
-
 
 
     public List<SliderImage> getSliderImage() {
@@ -27,30 +33,29 @@ public class LabDashBoardmodel {
         this.sliderImage = sliderImage;
     }
 
-    public List<PackageDetail> getPackageDetailList() {
+    public List<PackageModel> getPackageDetailList() {
         return packageDetails;
     }
 
-    public void setPackageDetailList(List<PackageDetail> packageDetailList) {
+    public void setPackageDetailList(List<PackageModel> packageDetailList) {
         packageDetails = packageDetailList;
     }
 
-    public List<BannerText> getBannerTextList() {
-        return bannerTextList;
+    public List<BannerText> getBannerText() {
+        return bannerText;
     }
 
-    public void setBannerTextList(List<BannerText> bannerTextList) {
-        this.bannerTextList = bannerTextList;
+    public void setBannerText(List<BannerText> bannerText) {
+        this.bannerText = bannerText;
     }
 
-    public List<PathalogyDetail> getPathalogyDetailList() {
-        return pathalogyDetailList;
+    public List<LabModel> getPathalogyDetails() {
+        return pathalogyDetails;
     }
 
-    public void setPathalogyDetailList(List<PathalogyDetail> pathalogyDetailList) {
-        this.pathalogyDetailList = pathalogyDetailList;
+    public void setPathalogyDetails(List<LabModel> pathalogyDetails) {
+        this.pathalogyDetails = pathalogyDetails;
     }
-
 
 
     public class SliderImage {

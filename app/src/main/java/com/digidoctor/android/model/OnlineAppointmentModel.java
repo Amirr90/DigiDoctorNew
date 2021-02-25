@@ -21,6 +21,17 @@ public class OnlineAppointmentModel {
     String attachFile;
     String workingHours;
     int isVisit;
+    Integer doctorFees;
+    Integer firstAppointmentId;
+
+
+    public Integer getFirstAppointmentId() {
+        return firstAppointmentId;
+    }
+
+    public Integer getDoctorFees() {
+        return doctorFees;
+    }
 
     public int getIsVisit() {
         return isVisit;
@@ -174,7 +185,7 @@ public class OnlineAppointmentModel {
 
     @Override
     public String toString() {
-        return "OnlineAppointmentModel{" +
+        return "{" +
                 "doctorId=" + doctorId +
                 ", isEraUser=" + isEraUser +
                 ", patientName='" + patientName + '\'' +
@@ -189,6 +200,8 @@ public class OnlineAppointmentModel {
                 ", attachFile='" + attachFile + '\'' +
                 ", workingHours='" + workingHours + '\'' +
                 ", isVisit=" + isVisit +
+                ", doctorFees=" + doctorFees +
+                ", firstAppointmentId=" + firstAppointmentId +
                 ", appointmentId='" + appointmentId + '\'' +
                 ", visitDate='" + visitDate + '\'' +
                 ", visitTime='" + visitTime + '\'' +

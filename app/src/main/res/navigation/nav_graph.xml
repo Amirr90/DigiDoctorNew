@@ -382,6 +382,9 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"
             app:popUpTo="@id/patientDashboardFragment" />
+        <action
+            android:id="@+id/action_reScheduleFragment_to_bookAppointmentFragment"
+            app:destination="@id/bookAppointmentFragment" />
     </fragment>
     <fragment
         android:id="@+id/chooseVitalHistoryTypeFragment"
@@ -522,6 +525,9 @@
             android:name="appointmentId"
             android:defaultValue="0"
             app:argType="string" />
+        <action
+            android:id="@+id/action_appointmentDetailFragment_to_doctorShortProfileFragment"
+            app:destination="@id/doctorShortProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/addInvestigationFragment"

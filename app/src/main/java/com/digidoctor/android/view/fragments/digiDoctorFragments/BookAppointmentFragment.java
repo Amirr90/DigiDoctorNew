@@ -76,6 +76,8 @@ public class BookAppointmentFragment extends Fragment {
     int selectedPaymentId = -1;
     int selectedItem = -1;
     String payModeTitle = null;
+    Boolean isRevisit = false;
+    Integer firstAppointmentId = 0;
 
 
     @Override
@@ -97,8 +99,16 @@ public class BookAppointmentFragment extends Fragment {
             Toast.makeText(requireActivity(), R.string.date_taime_not_selected, Toast.LENGTH_SHORT).show();
             return;
         }
+
         date = getArguments().getString("date");
         time = getArguments().getString("time");
+        isRevisit = getArguments().getBoolean("isRevisit", false);
+        firstAppointmentId = getArguments().getInt("firstAppointmentId", 0);
+
+        appointmentBinding.btnSelectOtherMember.setVisibility(isRevisit ? View.GONE : View.VISIBLE);
+        appointmentBinding.btnSelf.setVisibility(isRevisit ? View.GONE : View.VISIBLE);
+
+
         Log.d(TAG, "onViewCreated: Date " + date);
 
         //getting  user
@@ -115,8 +125,8 @@ public class BookAppointmentFragment extends Fragment {
             return;
         }
 
-
         String docString = getArguments().getString("docModel");
+
         Gson gson = new Gson();
         doctorModel = gson.fromJson(docString, DoctorModel.class);
 
@@ -161,19 +171,6 @@ public class BookAppointmentFragment extends Fragment {
             changeButtonBackground();
         });
 
-
-       /* User user = new User();
-        getResponse(DemoApi(user), new DemoAoiInterface() {
-            @Override
-            public void onSuccess(Object obj) {
-
-            }
-
-            @Override
-            public void onFailed(String msg) {
-
-            }
-        });*/
 
     }
 
@@ -282,6 +279,9 @@ public class BookAppointmentFragment extends Fragment {
         bookAppointment.setIsEraUser(String.valueOf(doctorModel.getIsEraUser()));
         bookAppointment.setDrFee(String.valueOf(doctorModel.getDrFee()));
         bookAppointment.setPaymentMode(payModeTitle);
+        bookAppointment.setRevisit(isRevisit);
+        if (isRevisit)
+            bookAppointment.setAppointmentId(String.valueOf(firstAppointmentId));
 
 
         Log.d(TAG, "onClick: " + bookAppointment.toString());

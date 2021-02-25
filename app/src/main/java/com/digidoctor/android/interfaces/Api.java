@@ -1,6 +1,7 @@
 package com.digidoctor.android.interfaces;
 
 import com.digidoctor.android.model.AddInvestigationModel;
+import com.digidoctor.android.model.AppointmentDetailsRes;
 import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.AppointmentRes;
 import com.digidoctor.android.model.ChatModel;
@@ -203,6 +204,11 @@ public interface Api {
     @POST("getPatientAppointmentList")
     Call<AppointmentRes> getAppointmentData(
             @Body User model);
+
+    @POST("appointmentDetails")
+    Call<AppointmentDetailsRes> getAppointmentDetails(
+            @Body User model);
+
 
     @POST("patientMedication")
     Call<VitalResponse> addPrescription(

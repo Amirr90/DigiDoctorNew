@@ -11,6 +11,7 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.ApiInterface;
 import com.digidoctor.android.interfaces.NewApiInterface;
+import com.digidoctor.android.model.AppointmentDetailsRes;
 import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.ChatModel;
 import com.digidoctor.android.model.Dashboard;
@@ -24,10 +25,7 @@ import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
-import com.digidoctor.android.model.labmodel.BannerText;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
-import com.digidoctor.android.model.labmodel.PackageDetail;
-import com.digidoctor.android.model.labmodel.PathalogyDetail;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.Response;
@@ -58,7 +56,11 @@ public class PatientRepo {
     public MutableLiveData<List<User>> memberModelMutableLiveData;
     public MutableLiveData<List<VitalResponse.VitalDateVise>> vitalsMutableLiveData;
     public MutableLiveData<List<InvestigationModel>> investigationMutableLiveData;
+
     public MutableLiveData<List<AppointmentModel>> appointmentMutableLiveData;
+
+    public MutableLiveData<List<AppointmentDetailsRes.Appointments>> appointmentMutableLivedetails;
+
     public MutableLiveData<List<ChatModel>> chatMutableLiveData;
 
 
@@ -101,12 +103,42 @@ public class PatientRepo {
 
     }
 
+    public LiveData<List<AppointmentDetailsRes.Appointments>> getAppointmentDetails(User user) {
+        if (appointmentMutableLivedetails == null) {
+            appointmentMutableLivedetails = new MutableLiveData<>();
+        }
+        loadAppointmentDetails(user);
+        return appointmentMutableLivedetails;
+
+    }
+
     private void loadAppointmentData(User user) {
         ApiUtils.getAppointmentData(user, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> obj) {
                 List<AppointmentModel> models = (List<AppointmentModel>) obj;
                 appointmentMutableLiveData.setValue(models);
+            }
+
+            @Override
+            public void onError(String s) {
+                Log.d("InvestigationData", "onError: " + s);
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Log.d("InvestigationData", "onFailed: " + throwable.getLocalizedMessage());
+            }
+        });
+    }
+
+    private void loadAppointmentDetails(User user) {
+        ApiUtils.getAppointmentDetails(user, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> obj) {
+                List<AppointmentDetailsRes.Appointments> models = (List<AppointmentDetailsRes.Appointments>) obj;
+                Log.d("loadAppointmentDetails", "onSuccess: "+models.get(0));
+                appointmentMutableLivedetails.setValue(models);
             }
 
             @Override
