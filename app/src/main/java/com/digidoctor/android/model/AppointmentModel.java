@@ -38,6 +38,24 @@ public class AppointmentModel {
     private String attachFile;
     String workingHours;
     int isVisit;
+    int firstAppointmentId;
+    int isReshedule;
+
+    public int getIsReshedule() {
+        return isReshedule;
+    }
+
+    public void setIsReshedule(int isReshedule) {
+        this.isReshedule = isReshedule;
+    }
+
+    public int getFirstAppointmentId() {
+        return firstAppointmentId;
+    }
+
+    public void setFirstAppointmentId(int firstAppointmentId) {
+        this.firstAppointmentId = firstAppointmentId;
+    }
 
     public int getIsVisit() {
         return isVisit;
@@ -316,7 +334,6 @@ public class AppointmentModel {
                 Objects.equals(getServiceProviderDetailsId(), that.getServiceProviderDetailsId());
     }
 
-
     @Override
     public String toString() {
         return "{" +
@@ -351,6 +368,8 @@ public class AppointmentModel {
                 ", attachFile='" + attachFile + '\'' +
                 ", workingHours='" + workingHours + '\'' +
                 ", isVisit=" + isVisit +
+                ", firstAppointmentId=" + firstAppointmentId +
+                ", isReshedule=" + isReshedule +
                 '}';
     }
 

@@ -164,4 +164,68 @@ public class DoctorModel {
                 ", workingHours='" + workingHours + '\'' +
                 '}';
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setDrFee(int drFee) {
+        this.drFee = drFee;
+    }
+
+    public void setNoofPatients(int noofPatients) {
+        this.noofPatients = noofPatients;
+    }
+
+    public void setIsEraUser(int isEraUser) {
+        this.isEraUser = isEraUser;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public void setReview(int review) {
+        this.review = review;
+    }
+
+    public void setDrName(String drName) {
+        this.drName = drName;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+    public void setYearOfExperience(String yearOfExperience) {
+        this.yearOfExperience = yearOfExperience;
+    }
+
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setProfilePhotoPath(String profilePhotoPath) {
+        this.profilePhotoPath = profilePhotoPath;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setWorkingHours(String workingHours) {
+        this.workingHours = workingHours;
+    }
 }

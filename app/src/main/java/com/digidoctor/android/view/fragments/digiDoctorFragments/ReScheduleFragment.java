@@ -28,6 +28,7 @@ import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.BookAppointmentInterface;
 import com.digidoctor.android.model.CalendarModel;
 import com.digidoctor.android.model.CheckSlotAvailabilityDataRes;
+import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.GetAppointmentSlotsDataRes;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.OnlineAppointmentRes;
@@ -36,9 +37,11 @@ import com.digidoctor.android.model.PaymentMode;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
+import com.digidoctor.android.utility.BookAppointment;
 import com.digidoctor.android.utility.BookAppointment2;
 import com.digidoctor.android.utility.NewDashboardUtils;
 import com.digidoctor.android.utility.URLUtils;
+import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.gson.Gson;
 
@@ -63,6 +66,7 @@ import static com.digidoctor.android.utility.AppUtils.PAY_MODE_RAZOR_PAYY;
 import static com.digidoctor.android.utility.AppUtils.getCurrentDateInWeekMonthDayFormat;
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.parseDateToFormatDMY;
+import static com.digidoctor.android.utility.AppUtils.parseUserDate;
 import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_CASH;
 import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_RAZOR_PAY;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_DATE;
@@ -74,6 +78,8 @@ import static com.digidoctor.android.utility.utils.KEY_IS_ERA_USER;
 import static com.digidoctor.android.utility.utils.MEMBER_ID;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.RE_SCHEDULE;
+import static com.digidoctor.android.utility.utils.TOKEN;
+import static com.digidoctor.android.utility.utils.getJSONFromModel;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.getUserForBooking;
 import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
@@ -104,11 +110,19 @@ public class ReScheduleFragment extends Fragment {
 
     Integer drFee = 0;
     Integer docId = 0;
+    Integer firstAppointmentId = 0;
+
+    int selectedPaymentId = -1;
     public static ReScheduleFragment instance;
 
     public static ReScheduleFragment getInstance() {
         return instance;
     }
+
+    int selectedItem = -1;
+    String payModeTitle = null;
+    public static BookAppointment bookAppointment;
+    String time;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -137,6 +151,7 @@ public class ReScheduleFragment extends Fragment {
         isRevisit = getArguments().getBoolean("reVisit", false);
         drFee = getArguments().getInt("docFee", 0);
         docId = getArguments().getInt("docId", 0);
+        firstAppointmentId = getArguments().getInt("firstAppointmentId", 0);
 
         appointmentModel = new OnlineAppointmentModel();
         Gson gson = new Gson();
@@ -266,7 +281,21 @@ public class ReScheduleFragment extends Fragment {
                 .setPositiveButton(R.string.yes,
                         (dialog, id) -> {
                             dialog.cancel();
-                            checkTimeSlot(date, time);
+                            if (isRevisit && drFee > 0) {
+                                // getPayMode(time, date);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("date", date);
+                                bundle.putString("time", time);
+                                bundle.putBoolean("isRevisit", true);
+                                bundle.putInt("firstAppointmentId", getArguments().getInt("firstAppointmentId", 0));
+
+                                DoctorModel doctorModel = new DoctorModel();
+                                doctorModel.setDrFee(drFee);
+                                doctorModel.setId(docId);
+                                bundle.putString("docModel", doctorModel.toString());
+                                navController.navigate(R.id.action_reScheduleFragment_to_bookAppointmentFragment, bundle);
+                            } else
+                                checkTimeSlot(date, time);
 
                         })
                 .setNegativeButton(R.string.no, (dialog, id) -> dialog.cancel()).show();
@@ -284,10 +313,7 @@ public class ReScheduleFragment extends Fragment {
         map.put(IS_REVISIT, isRevisit);
         map.put(KEY_IS_ERA_USER, String.valueOf(appointmentModel.getIsEraUser()));
         map.put(KEY_APPOINTMENT_ID, appointmentModel.getAppointmentId());
-
-
         Log.d(TAG, "checkTimeSlot: MAP:=> " + map.toString());
-
         ApiUtils.checkTimeSlotAvailability(map, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> obj) {
@@ -298,30 +324,26 @@ public class ReScheduleFragment extends Fragment {
                 if (response != null) {
 
                     if (response.get(0).getIsAvailable() == 1) {
-                        if (isRevisit && drFee > 0) {
-                            getPayMode();
-                        } else {
-                            reScheduleAppointment(time, new BookAppointmentInterface() {
-                                @Override
-                                public void onAppointmentBooked(OnlineAppointmentModel appointmentModel) {
-                                    Toast.makeText(requireContext(), R.string.appointment_re_scheduled_successfully, Toast.LENGTH_SHORT).show();
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("key", RE_SCHEDULE);
-                                    navController.navigate(R.id.action_reScheduleFragment_to_cancelAppointmentFragment2, bundle);
-                                }
+                        reScheduleAppointment(time, new BookAppointmentInterface() {
+                            @Override
+                            public void onAppointmentBooked(OnlineAppointmentModel appointmentModel) {
+                                Toast.makeText(requireContext(), R.string.appointment_re_scheduled_successfully, Toast.LENGTH_SHORT).show();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("key", RE_SCHEDULE);
+                                navController.navigate(R.id.action_reScheduleFragment_to_cancelAppointmentFragment2, bundle);
+                            }
 
-                                @Override
-                                public void onFailed(String msg) {
-                                    Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show();
-                                }
+                            @Override
+                            public void onFailed(String msg) {
+                                Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show();
+                            }
 
-                                @Override
-                                public void onError(String errorMsg) {
-                                    Toast.makeText(requireActivity(), errorMsg, Toast.LENGTH_SHORT).show();
+                            @Override
+                            public void onError(String errorMsg) {
+                                Toast.makeText(requireActivity(), errorMsg, Toast.LENGTH_SHORT).show();
 
-                                }
-                            });
-                        }
+                            }
+                        });
                     } else {
                         Toast.makeText(requireActivity(), getString(R.string.slot_not_available), Toast.LENGTH_SHORT).show();
                     }
@@ -339,10 +361,12 @@ public class ReScheduleFragment extends Fragment {
                 Toast.makeText(requireActivity(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
 
-    private void getPayMode() {
+    private void getPayMode(String time, String date) {
+
         AppUtils.showRequestDialog(requireActivity());
         PayModeModel payModeModel = new PayModeModel(String.valueOf(docId));
         ApiUtils.getPayMode(payModeModel, new ApiCallbackInterface() {
@@ -355,7 +379,7 @@ public class ReScheduleFragment extends Fragment {
                     for (PaymentMode mode : paymentModes)
                         Log.d(TAG, "onSuccess PayMode: " + mode.getPaymentMode());
 
-                    showDialog(paymentModes);
+                    showDialog(paymentModes, time, date);
                 }
 
 
@@ -374,10 +398,11 @@ public class ReScheduleFragment extends Fragment {
                 Toast.makeText(requireActivity(), "try again", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
 
-    private void showDialog(List<PaymentMode> paymentModes) {
+    private void showDialog(List<PaymentMode> paymentModes, String time, String date) {
 
 
         PaymentViewBinding paymentViewBinding = PaymentViewBinding.inflate(requireActivity().getLayoutInflater());
@@ -392,21 +417,73 @@ public class ReScheduleFragment extends Fragment {
 
 
         paymentViewBinding.btnSelf.setOnClickListener(view -> {
-            /*if (selectedPaymentId < 0)
+            if (selectedPaymentId < 0)
                 Toast.makeText(requireActivity(), R.string.select_payment_option, Toast.LENGTH_SHORT).show();
             else {
                 dialog.dismiss();
                 if (selectedPaymentId == PAY_MODE_PAY_ON_VISIT) {
-                    bookAppointment(PAY_MODE_CASH);
+                    bookAppointment(PAY_MODE_CASH, time, date);
                 } else if (selectedPaymentId == PAY_MODE_RAZOR_PAYY) {
-                    bookAppointment(PAY_MODE_RAZOR_PAY);
+                    bookAppointment(PAY_MODE_RAZOR_PAY, time, date);
                 } else {
-                    bookAppointment(PAY_MODE_PAY_U_MONEY);
+                    bookAppointment(PAY_MODE_PAY_U_MONEY, time, date);
                 }
-            }*/
+            }
 
         });
 
+    }
+
+
+    private void bookAppointment(int payMode, String time, String date) {
+        User bookingUser = getUserForBooking(requireActivity());
+        bookAppointment = new BookAppointment(requireActivity());
+
+
+        //Setting Parameters
+        bookAppointment.setUserMobileNo(user.getMobileNo());
+        bookAppointment.setMemberId(bookingUser.getPrimaryStatus() == 1 ? String.valueOf(bookingUser.getId()) : String.valueOf(bookingUser.getMemberId()));
+        bookAppointment.setPatientName(bookingUser.getName());
+        bookAppointment.setServiceProviderDetailsId(String.valueOf(docId));
+        bookAppointment.setAppointDate(parseDateToFormatDMY(date));
+        bookAppointment.setAppointTime(time);
+        bookAppointment.setAppointmentId("0");
+        bookAppointment.setGuardianTypeId("0");
+        bookAppointment.setDtPaymentTable("");
+        bookAppointment.setTrxId("");
+        bookAppointment.setMemberId(String.valueOf(bookingUser.getId()));
+        bookAppointment.setDob(parseUserDate(bookingUser.getDob()));
+        bookAppointment.setMobileNo(bookingUser.getMobileNo());
+        bookAppointment.setEmail(bookingUser.getEmailId());
+        bookAppointment.setToken(utils.getString(TOKEN, requireActivity()));
+        bookAppointment.setGender(String.valueOf(bookingUser.getGender()));
+        bookAppointment.setIsEraUser("0");
+        bookAppointment.setDrFee(String.valueOf(drFee));
+        bookAppointment.setPaymentMode(payModeTitle);
+        bookAppointment.setRevisit(isRevisit);
+
+
+        Log.d(TAG, "onClick: " + bookAppointment.toString());
+        bookAppointment.initBooking(payMode, new BookAppointmentInterface() {
+            @Override
+            public void onAppointmentBooked(OnlineAppointmentModel appointmentModel) {
+                Bundle bundle = new Bundle();
+                bundle.putString("appointmentModel", getJSONFromModel(appointmentModel));
+                Toast.makeText(PatientDashboard.getInstance(), "Appointment Booked " + appointmentModel.getAppointmentId(), Toast.LENGTH_SHORT).show();
+                navController.navigate(R.id.action_bookAppointmentFragment_to_appointmentDoneFragment, bundle);
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(PatientDashboard.getInstance(), msg, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(String errorMsg) {
+                Toast.makeText(PatientDashboard.getInstance(), errorMsg, Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     private void reScheduleAppointment(String time, final BookAppointmentInterface bookAppointmentInterface) {
@@ -419,9 +496,12 @@ public class ReScheduleFragment extends Fragment {
         appointment2.setAppointTime(time);
         appointment2.setIsEraUser(String.valueOf(appointmentModel.getIsEraUser()));
         appointment2.setAppointmentId(appointmentModel.getAppointmentId());
+        appointment2.setAppointmentId(appointmentModel.getAppointmentId());
+        appointment2.setFirstAppointmentId(String.valueOf(firstAppointmentId));
         AppUtils.showRequestDialog(requireActivity());
         Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<OnlineAppointmentRes> call;
+
         if (!isRevisit) {
             call = iRestInterfaces.onlineAppointment2(appointment2);
         } else call = iRestInterfaces.revisitAppointment(appointment2);
@@ -492,7 +572,7 @@ public class ReScheduleFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull PaymentAdapter.PaymentVH holder, int position) {
             PaymentMode paymentOptionModel = items.get(position);
-           /* holder.paymentOption.setPaymentOption(paymentOptionModel);
+            holder.paymentOption.setPaymentOption(paymentOptionModel);
 
             holder.paymentOption.checkBox.setChecked(selectedItem == position);
 
@@ -501,7 +581,7 @@ public class ReScheduleFragment extends Fragment {
                 selectedItem = position;
                 selectedPaymentId = paymentOptionModel.getId();
                 notifyDataSetChanged();
-            });*/
+            });
 
         }
 

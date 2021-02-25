@@ -91,6 +91,7 @@ public class utils {
     public static final String IS_REVISIT = "is_revist";
     public static final String KEY_IS_ERA_USER = "isEraUser";
     public static final String KEY_APPOINTMENT_ID = "appointmentId";
+    public static final String KEY_REVISIT = "isRevisit";
     public static final String KEY_PRESCRIPTION_ID = "prescriptionId";
 
     public static final String KEY_SYMPTOM_ID = "symptomId";

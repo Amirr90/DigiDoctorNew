@@ -22,6 +22,12 @@ public class OnlineAppointmentModel {
     String workingHours;
     int isVisit;
     Integer doctorFees;
+    Integer firstAppointmentId;
+
+
+    public Integer getFirstAppointmentId() {
+        return firstAppointmentId;
+    }
 
     public Integer getDoctorFees() {
         return doctorFees;
@@ -195,6 +201,7 @@ public class OnlineAppointmentModel {
                 ", workingHours='" + workingHours + '\'' +
                 ", isVisit=" + isVisit +
                 ", doctorFees=" + doctorFees +
+                ", firstAppointmentId=" + firstAppointmentId +
                 ", appointmentId='" + appointmentId + '\'' +
                 ", visitDate='" + visitDate + '\'' +
                 ", visitTime='" + visitTime + '\'' +

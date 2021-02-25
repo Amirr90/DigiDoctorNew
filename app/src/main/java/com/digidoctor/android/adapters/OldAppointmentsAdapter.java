@@ -8,17 +8,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.OldAppointmentsViewsBinding;
+import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.model.AppointmentModel;
+import com.digidoctor.android.utility.AppUtils;
 
 import java.util.List;
 
 public class OldAppointmentsAdapter extends RecyclerView.Adapter<OldAppointmentsAdapter.AppointmentsVH> {
 
-    public OldAppointmentsAdapter(List<AppointmentModel> appointmentModels) {
-        this.appointmentModels = appointmentModels;
-    }
 
     List<AppointmentModel> appointmentModels;
+    AdapterInterface adapterInterface;
+
+    public OldAppointmentsAdapter(List<AppointmentModel> appointmentModels, AdapterInterface adapterInterface) {
+        this.appointmentModels = appointmentModels;
+        this.adapterInterface = adapterInterface;
+    }
 
     @NonNull
     @Override
@@ -31,8 +36,17 @@ public class OldAppointmentsAdapter extends RecyclerView.Adapter<OldAppointments
 
     @Override
     public void onBindViewHolder(@NonNull OldAppointmentsAdapter.AppointmentsVH holder, int position) {
-        AppointmentModel appointmentModel = appointmentModels.get(position);
 
+        AppointmentModel appointmentModel = appointmentModels.get(position);
+        holder.binding.setAppointment(appointmentModel);
+        holder.binding.textView201.setText(AppUtils.parseDate(appointmentModel.getAppointDate(), "E, dd MMM yyyy"));
+
+        holder.binding.oldAppointmentView.setOnClickListener(v -> {
+            adapterInterface.onItemClicked(appointmentModel);
+        });
+        holder.binding.btnShowPrescription.setOnClickListener(v -> {
+            holder.binding.btnShowPrescription.setRotation(180);
+        });
 
     }
 
