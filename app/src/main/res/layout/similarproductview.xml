@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
 
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="180dp"
             android:id="@+id/similarcardview"
@@ -30,7 +30,12 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/allproductlayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/textView55"
@@ -55,12 +60,12 @@
                     android:layout_marginStart="7dp"
                     android:layout_marginTop="9dp"
                     android:layout_marginEnd="9dp"
+                    android:contentDescription="TODO"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/wish"
-                    android:contentDescription="TODO" />
+                    app:srcCompat="@drawable/wish" />
 
                 <ImageView
                     android:id="@+id/imageView4"
@@ -69,12 +74,12 @@
                     android:layout_marginStart="34dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="36dp"
+                    android:contentDescription="TODO"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/pro"
-                    android:contentDescription="TODO" />
+                    app:srcCompat="@drawable/pro" />
 
                 <TextView
                     android:id="@+id/PName"
@@ -151,7 +156,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,8 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import java.util.Objects;
 
-public class AppointmentModel {
+public class
+AppointmentModel {
 
     private String appointmentId;
     private String isEraUser;
