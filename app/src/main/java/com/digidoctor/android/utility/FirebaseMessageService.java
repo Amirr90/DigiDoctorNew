@@ -214,7 +214,6 @@ public class FirebaseMessageService extends FirebaseMessagingService {
 
     // Playing notification sound
     public void playNotificationSound() {
-
         try {
             Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             Ringtone r = RingtoneManager.getRingtone(this, notificationSoundUri);

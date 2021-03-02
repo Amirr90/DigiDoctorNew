@@ -18,6 +18,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.digidoctor.android.adapters.labadapter.CategoryAdapter;
+import com.digidoctor.android.adapters.labadapter.LabSliderAdapter;
 import com.digidoctor.android.adapters.labadapter.LabsAdapter;
 import com.digidoctor.android.adapters.labadapter.PackagesAdapter;
 import com.digidoctor.android.databinding.LabTestHomeBinding;
@@ -28,6 +29,7 @@ import com.digidoctor.android.model.labmodel.CategoryModel;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,7 +41,9 @@ public class Lab_Home_Fragment extends Fragment {
     PatientViewModel viewModel;
     PackagesAdapter packagesAdapter;
     CategoryAdapter categoryAdapter;
+    LabSliderAdapter labSliderAdapter;
     LabsAdapter labsAdapter;
+    List<LabDashBoardmodel.SliderImage> imageUrls;
 
 
     @Nullable
@@ -56,6 +60,10 @@ public class Lab_Home_Fragment extends Fragment {
         navController = Navigation.findNavController(view);
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
+        //Slider Adapter
+        imageUrls = new ArrayList<>();
+        labSliderAdapter = new LabSliderAdapter(imageUrls);
+        labTestHomeBinding.recBannerSlider.setAdapter(labsAdapter);
 
         //Packages Adapter
         packagesAdapter = new PackagesAdapter();
@@ -97,6 +105,16 @@ public class Lab_Home_Fragment extends Fragment {
             List<LabModel> labModels = labDashBoardmodel.getPathalogyDetails();
             if (null != labModels && !labModels.isEmpty())
                 labsAdapter.submitList(labModels);
+
+
+            //Banner
+            List<LabDashBoardmodel.SliderImage> imageList = labDashBoardmodel.getSliderImage();
+            if (null != imageList && !imageList.isEmpty()) {
+                imageUrls.clear();
+                imageUrls.addAll(imageList);
+                labSliderAdapter.notifyDataSetChanged();
+            }
+
         });
 
     }

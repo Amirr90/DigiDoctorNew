@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="banner"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,13 +19,14 @@
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="140dp"
+            android:LoadInvestigationImage="@{banner}"
+            android:contentDescription="TODO"
+            android:scaleType="fitXY"
             android:src="@drawable/banner_one"
-            android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="TODO" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
