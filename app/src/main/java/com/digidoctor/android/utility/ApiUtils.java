@@ -8,11 +8,13 @@ import android.widget.Toast;
 import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
+import com.digidoctor.android.interfaces.CartInterface;
 import com.digidoctor.android.interfaces.NewApiInterface;
 import com.digidoctor.android.model.AddInvestigationModel;
 import com.digidoctor.android.model.AppointmentDetailsRes;
 import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.AppointmentRes;
+import com.digidoctor.android.model.CartRes;
 import com.digidoctor.android.model.ChatModel;
 import com.digidoctor.android.model.ChatResponse;
 import com.digidoctor.android.model.CheckLoginRes;
@@ -54,6 +56,7 @@ import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.model.addProductRatingResponse;
 import com.digidoctor.android.model.addProductRating;
 import com.digidoctor.android.model.labmodel.ApiLabResponse;
+import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.labdashboardresponse;
 import com.digidoctor.android.model.labmodel.labModel;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
@@ -2049,5 +2052,88 @@ public class ApiUtils {
     //Lab Apis
     public static Call<ApiLabResponse> getLabDashboard(Dashboard model) {
         return URLUtils.getLabApisRef().getLabDashboard(model);
+    }
+
+
+    public static void getCartData(Activity activity, CartInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        User user = getPrimaryUser(activity);
+        Call<CartRes> call = iRestInterfaces.cartDetails(user);
+        call.enqueue(new Callback<CartRes>() {
+            @Override
+            public void onResponse(@NotNull Call<CartRes> call, @NotNull Response<CartRes> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    CartRes responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        apiCallbackInterface.cartItem(responseModel.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onFailed(responseModel.getResponseMessage());
+                    }
+                } else {
+                    apiCallbackInterface.onFailed("failed to get cart Data !!");
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<CartRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void addItemToCart(CartModel model, CartInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<CartRes> call = iRestInterfaces.addToCart(model);
+        call.enqueue(new Callback<CartRes>() {
+            @Override
+            public void onResponse(@NotNull Call<CartRes> call, @NotNull Response<CartRes> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    CartRes responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        apiCallbackInterface.onCartItemAdded(responseModel.getResponseValue());
+                        apiCallbackInterface.cartItem(responseModel.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onFailed(responseModel.getResponseMessage());
+                    }
+                } else {
+                    apiCallbackInterface.onFailed("failed to add cart item !!");
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<CartRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+
+    }
+
+    public static void deleteFromCart(CartModel model, CartInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<CartRes> call = iRestInterfaces.deleteCart(model);
+        call.enqueue(new Callback<CartRes>() {
+            @Override
+            public void onResponse(@NotNull Call<CartRes> call, @NotNull Response<CartRes> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    CartRes responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        apiCallbackInterface.cartItem(responseModel.getResponseValue());
+                        apiCallbackInterface.onCartItemDeleted(responseModel.getResponseValue());
+                    } else {
+                        apiCallbackInterface.onFailed(responseModel.getResponseMessage());
+                    }
+                } else {
+                    apiCallbackInterface.onFailed("failed to delete cart item !!");
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<CartRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
     }
 }

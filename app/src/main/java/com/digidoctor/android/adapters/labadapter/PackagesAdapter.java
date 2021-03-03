@@ -10,11 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.HealthpackagelayoutBinding;
 import com.digidoctor.android.model.PackageModel;
+import com.digidoctor.android.utility.Cart;
 
 public class PackagesAdapter extends ListAdapter<PackageModel, PackagesAdapter.LabsVH> {
+    Cart cart;
 
     public PackagesAdapter() {
         super(PackageModel.itemCallback);
+        cart = new Cart();
     }
 
     @NonNull
@@ -29,10 +32,14 @@ public class PackagesAdapter extends ListAdapter<PackageModel, PackagesAdapter.L
     public void onBindViewHolder(@NonNull LabsVH holder, int position) {
         PackageModel packageModel = getItem(position);
         holder.binding.setPackageModel(packageModel);
+        holder.binding.btnAddToCart.setOnClickListener(v -> {
+            cart.addItemToCart("", String.valueOf(packageModel.getPackageId()));
+        });
     }
 
     public static class LabsVH extends RecyclerView.ViewHolder {
         HealthpackagelayoutBinding binding;
+
         public LabsVH(@NonNull HealthpackagelayoutBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

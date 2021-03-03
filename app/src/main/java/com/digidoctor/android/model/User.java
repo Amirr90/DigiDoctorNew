@@ -11,7 +11,6 @@ import java.util.Objects;
 public class User {
 
 
-
     String appointmentId;
 
     public String getAppointmentId() {
@@ -97,6 +96,19 @@ public class User {
     @Expose
     private Integer doctorsCount;
 
+
+    @SerializedName("uniqueNo")
+    @Expose
+    private String uniqueNo;
+
+
+    public String getUniqueNo() {
+        return uniqueNo;
+    }
+
+    public void setUniqueNo(String uniqueNo) {
+        this.uniqueNo = uniqueNo;
+    }
 
     public void setMemberId(int memberId) {
         this.memberId = memberId;

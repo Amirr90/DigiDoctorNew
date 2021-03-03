@@ -4,6 +4,7 @@ import com.digidoctor.android.model.AddInvestigationModel;
 import com.digidoctor.android.model.AppointmentDetailsRes;
 import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.AppointmentRes;
+import com.digidoctor.android.model.CartRes;
 import com.digidoctor.android.model.ChatModel;
 import com.digidoctor.android.model.ChatResponse;
 import com.digidoctor.android.model.CheckLoginRes;
@@ -48,6 +49,7 @@ import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.model.addProductRatingResponse;
 import com.digidoctor.android.model.addProductRating;
 import com.digidoctor.android.model.labmodel.ApiLabResponse;
+import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.labdashboardresponse;
 import com.digidoctor.android.model.labmodel.labModel;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
@@ -77,6 +79,7 @@ import com.digidoctor.android.model.pharmacyModel.getfilltervarentmodel;
 import com.digidoctor.android.model.pharmacyModel.shopbycategoryRes;
 import com.digidoctor.android.utility.ApiResponse;
 import com.digidoctor.android.utility.BookAppointment2;
+import com.digidoctor.android.utility.Cart;
 
 import java.util.Map;
 
@@ -346,6 +349,15 @@ public interface Api {
     //Lab Apis
     @POST("labDasboard")
     Call<ApiLabResponse> getLabDashboard(@Body Dashboard labmodel);
+
+    @POST("cartDetails")
+    Call<CartRes> cartDetails(@Body User model);
+
+    @POST("addToCart")
+    Call<CartRes> addToCart(@Body CartModel model);
+
+    @POST("deleteCart")
+    Call<CartRes> deleteCart(@Body CartModel model);
 
 
 }

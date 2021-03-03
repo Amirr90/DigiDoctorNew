@@ -94,7 +94,7 @@
                     android:textColor="#7DCE64"
                     android:textSize="@dimen/_13sdp"
                     app:layout_constraintStart_toEndOf="@+id/textView149"
-                    app:layout_constraintTop_toTopOf="@+id/button10" />
+                    app:layout_constraintTop_toTopOf="@+id/btnAddToCart" />
 
                 <TextView
                     android:id="@+id/textView149"
@@ -123,7 +123,7 @@
                     app:layout_constraintVertical_bias="1.0" />
 
                 <Button
-                    android:id="@+id/button10"
+                    android:id="@+id/btnAddToCart"
                     android:layout_width="81dp"
                     android:layout_height="@dimen/_28sdp"
                     android:layout_marginTop="16dp"
