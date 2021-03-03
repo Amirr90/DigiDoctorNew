@@ -3,7 +3,6 @@ package com.digidoctor.android.view.fragments.Lab;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +17,26 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.digidoctor.android.adapters.labadapter.CategoryAdapter;
+import com.digidoctor.android.adapters.labadapter.LabSliderAdapter;
 import com.digidoctor.android.adapters.labadapter.LabsAdapter;
 import com.digidoctor.android.adapters.labadapter.PackagesAdapter;
 import com.digidoctor.android.databinding.LabTestHomeBinding;
+import com.digidoctor.android.interfaces.CartInterface;
+import com.digidoctor.android.interfaces.PackagesInterface;
 import com.digidoctor.android.model.LabModel;
 import com.digidoctor.android.model.PackageModel;
 import com.digidoctor.android.model.labmodel.BannerText;
+import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.CategoryModel;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
+import com.digidoctor.android.utility.Cart;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Lab_Home_Fragment extends Fragment {
+public class Lab_Home_Fragment extends Fragment implements PackagesInterface, CartInterface {
 
     private static final String TAG = "Lab_Home_Fragment";
     LabTestHomeBinding labTestHomeBinding;
@@ -39,7 +44,11 @@ public class Lab_Home_Fragment extends Fragment {
     PatientViewModel viewModel;
     PackagesAdapter packagesAdapter;
     CategoryAdapter categoryAdapter;
+    LabSliderAdapter labSliderAdapter;
     LabsAdapter labsAdapter;
+    List<LabDashBoardmodel.SliderImage> imageUrls;
+
+    Cart cart;
 
 
     @Nullable
@@ -54,8 +63,13 @@ public class Lab_Home_Fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+        cart = new Cart(requireActivity());
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
+        //Slider Adapter
+        imageUrls = new ArrayList<>();
+        labSliderAdapter = new LabSliderAdapter(imageUrls);
+        labTestHomeBinding.recBannerSlider.setAdapter(labsAdapter);
 
         //Packages Adapter
         packagesAdapter = new PackagesAdapter();
@@ -97,6 +111,16 @@ public class Lab_Home_Fragment extends Fragment {
             List<LabModel> labModels = labDashBoardmodel.getPathalogyDetails();
             if (null != labModels && !labModels.isEmpty())
                 labsAdapter.submitList(labModels);
+
+
+            //Banner
+            List<LabDashBoardmodel.SliderImage> imageList = labDashBoardmodel.getSliderImage();
+            if (null != imageList && !imageList.isEmpty()) {
+                imageUrls.clear();
+                imageUrls.addAll(imageList);
+                labSliderAdapter.notifyDataSetChanged();
+            }
+
         });
 
     }
@@ -132,4 +156,35 @@ public class Lab_Home_Fragment extends Fragment {
     }
 
 
+    @Override
+    public void onItemClicked(Object obj) {
+        String packageId = (String) obj;
+        cart.addItemToCart("", packageId);
+    }
+
+    @Override
+    public void onFailed(String msg) {
+        Toast.makeText(requireActivity(), "" + msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCartItemAdded(Object obj) {
+        Toast.makeText(requireActivity(), "Added successfully !!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCartItemDeleted(Object obj) {
+        Toast.makeText(requireActivity(), "removed successfully !!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void cartItem(Object obj) {
+        List<CartModel> cartModelList = (List<CartModel>) obj;
+        //CartModel cartModel = (CartModel) obj;
+
+    }
+
+    public CartInterface getCartInterface() {
+        return this;
+    }
 }

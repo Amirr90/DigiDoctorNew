@@ -152,7 +152,7 @@ public class PatientDashboardFragment extends Fragment {
         ArrayList<String> images = new ArrayList<>();
         for (BannerModel bannerModel : bannerDetails)
             images.add(bannerModel.getSliderImages());
-        dashboard2Binding.bannerSlider1.setAdapter(new MainSliderAdapter(images));
+        dashboard2Binding.recBannerSlider.setAdapter(new MainSliderAdapter(images));
     }
 
     @Override

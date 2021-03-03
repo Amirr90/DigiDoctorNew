@@ -96,7 +96,6 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
         if (getArguments() == null)
             PatientDashboard.getInstance().onSupportNavigateUp();
 
-        AppUtils.showRequestDialog(requireActivity());
         detailFragmentArgs = AppointmentDetailFragmentArgs.fromBundle(getArguments());
 
         appointmentId = detailFragmentArgs.getAppointmentId();
@@ -253,7 +252,6 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             Bundle bundle = new Bundle();
             bundle.putString("model", model);
             bundle.putBoolean("reVisit", false);
-            Log.d(TAG, "onItemClick: " + model);
             navController.navigate(R.id.action_appointmentDetailFragment_to_reScheduleFragment, bundle);
         } else if (tag.equals(PRESCRIBE)) {
             getMedicationData(appointmentModel.getAppointmentId());
@@ -273,7 +271,6 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
                 GetPatientMedicationMainModel getPatientMedicationMainModels = models.get(0);
                 Bundle bundle = new Bundle();
                 bundle.putString("presModel", getJSONFromModel(getPatientMedicationMainModels));
-                Log.d("TAG", "onItemClickedString: " + getJSONFromModel(getPatientMedicationMainModels));
                 navController.navigate(R.id.action_appointmentDetailFragment_to_visitFragment, bundle);
             }
 
@@ -293,7 +290,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
 
     @Override
     public void onItemClicked(Object o) {
-
-
+        int pos = (int) o;
+        detailBinding.recOldAppointments.scrollToPosition(pos);
     }
 }
