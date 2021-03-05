@@ -18,6 +18,7 @@ import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.utility.AppUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OldAppointmentsAdapter extends RecyclerView.Adapter<OldAppointmentsAdapter.AppointmentsVH> {
@@ -144,6 +145,8 @@ public class OldAppointmentsAdapter extends RecyclerView.Adapter<OldAppointments
 
     @Override
     public int getItemCount() {
+        if (null == appointmentModels)
+            appointmentModels = new ArrayList<>();
         return appointmentModels.size();
     }
 

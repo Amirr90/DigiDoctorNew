@@ -23,6 +23,24 @@ public class BookAppointment2 {
     private String trxId;
     private String paymentMode;
     private String firstAppointmentId;
+    private Boolean isRevisit;
+    private Integer otherAppointmentsCounts;
+
+    public Integer getOtherAppointmentsCounts() {
+        return otherAppointmentsCounts;
+    }
+
+    public void setOtherAppointmentsCounts(Integer otherAppointmentsCounts) {
+        this.otherAppointmentsCounts = otherAppointmentsCounts;
+    }
+
+    public Boolean getRevisit() {
+        return isRevisit;
+    }
+
+    public void setRevisit(Boolean revisit) {
+        isRevisit = revisit;
+    }
 
     public String getFirstAppointmentId() {
         return firstAppointmentId;
@@ -226,6 +244,8 @@ public class BookAppointment2 {
                 ", trxId='" + trxId + '\'' +
                 ", paymentMode='" + paymentMode + '\'' +
                 ", firstAppointmentId='" + firstAppointmentId + '\'' +
+                ", isRevisit=" + isRevisit +
+                ", otherAppointmentsCounts=" + otherAppointmentsCounts +
                 '}';
     }
 }

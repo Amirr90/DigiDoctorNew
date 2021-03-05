@@ -252,6 +252,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             Bundle bundle = new Bundle();
             bundle.putString("model", model);
             bundle.putBoolean("reVisit", false);
+            bundle.putInt("reVisitCount", oldAppointmentAdapter.getItemCount());
             navController.navigate(R.id.action_appointmentDetailFragment_to_reScheduleFragment, bundle);
         } else if (tag.equals(PRESCRIBE)) {
             getMedicationData(appointmentModel.getAppointmentId());

@@ -9,6 +9,7 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.CartInterface;
+import com.digidoctor.android.interfaces.LabOrderInterface;
 import com.digidoctor.android.interfaces.NewApiInterface;
 import com.digidoctor.android.model.AddInvestigationModel;
 import com.digidoctor.android.model.AppointmentDetailsRes;
@@ -57,6 +58,8 @@ import com.digidoctor.android.model.addProductRatingResponse;
 import com.digidoctor.android.model.addProductRating;
 import com.digidoctor.android.model.labmodel.ApiLabResponse;
 import com.digidoctor.android.model.labmodel.CartModel;
+import com.digidoctor.android.model.labmodel.LabOrderModel;
+import com.digidoctor.android.model.labmodel.LabOrderRes;
 import com.digidoctor.android.model.labmodel.labdashboardresponse;
 import com.digidoctor.android.model.labmodel.labModel;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
@@ -526,8 +529,6 @@ public class ApiUtils {
         try {
             if (PatientDashboard.getInstance() != null)
                 AppUtils.showRequestDialog(PatientDashboard.getInstance());
-
-
             CheckTimeSlotModel model = new CheckTimeSlotModel();
             model.setMemberId((String) map.get(MEMBER_ID));
             model.setServiceProviderDetailsId((String) map.get(KEY_DOC_ID));
@@ -2133,6 +2134,86 @@ public class ApiUtils {
             public void onFailure(@NotNull Call<CartRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
                 apiCallbackInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void placeOrder(LabOrderModel model, LabOrderInterface labOrderInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<LabOrderRes> call = iRestInterfaces.placeOrder(model);
+        call.enqueue(new Callback<LabOrderRes>() {
+            @Override
+            public void onResponse(@NotNull Call<LabOrderRes> call, @NotNull Response<LabOrderRes> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    LabOrderRes responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        labOrderInterface.onOrderPlaced(responseModel.getResponseValue());
+                        labOrderInterface.orders(responseModel.getResponseValue());
+                    } else {
+                        labOrderInterface.onFailed(responseModel.getResponseMessage());
+                    }
+                } else {
+                    labOrderInterface.onFailed("failed to place order !!");
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<LabOrderRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                labOrderInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void getOrders(LabOrderModel model, LabOrderInterface labOrderInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<LabOrderRes> call = iRestInterfaces.getOrders(model);
+        call.enqueue(new Callback<LabOrderRes>() {
+            @Override
+            public void onResponse(@NotNull Call<LabOrderRes> call, @NotNull Response<LabOrderRes> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    LabOrderRes responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        labOrderInterface.orders(responseModel.getResponseValue());
+                    } else {
+                        labOrderInterface.onFailed(responseModel.getResponseMessage());
+                    }
+                } else {
+                    labOrderInterface.onFailed("failed to get orders !!");
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<LabOrderRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                labOrderInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void cancelOrder(LabOrderModel model, LabOrderInterface labOrderInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<LabOrderRes> call = iRestInterfaces.getOrders(model);
+        call.enqueue(new Callback<LabOrderRes>() {
+            @Override
+            public void onResponse(@NotNull Call<LabOrderRes> call, @NotNull Response<LabOrderRes> response) {
+                if ((response.code() == 200 && null != response.body())) {
+                    LabOrderRes responseModel = response.body();
+                    if (responseModel.getResponseCode() == 1) {
+                        labOrderInterface.orders(responseModel.getResponseValue());
+                        labOrderInterface.onCancelOrder(responseModel.getResponseValue());
+                    } else {
+                        labOrderInterface.onFailed(responseModel.getResponseMessage());
+                    }
+                } else {
+                    labOrderInterface.onFailed("failed to cancel order !!");
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<LabOrderRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                labOrderInterface.onFailed(t.getLocalizedMessage());
             }
         });
     }

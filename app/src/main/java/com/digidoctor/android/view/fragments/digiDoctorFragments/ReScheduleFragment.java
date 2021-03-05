@@ -1,6 +1,7 @@
 package com.digidoctor.android.view.fragments.digiDoctorFragments;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -207,6 +208,7 @@ public class ReScheduleFragment extends Fragment {
 
 
     private void getDocTimeSlot(final String date) {
+        AppUtils.showRequestDialog(requireActivity());
         getDoctorsTimeSlots(String.valueOf(appointmentModel.getDoctorId()),
                 date,
                 String.valueOf(appointmentModel.getIsEraUser()),
@@ -319,12 +321,10 @@ public class ReScheduleFragment extends Fragment {
             public void onSuccess(List<?> obj) {
 
                 Log.d(TAG, "onSuccess: " + obj);
-
                 List<CheckSlotAvailabilityDataRes> response = (List<CheckSlotAvailabilityDataRes>) obj;
                 if (response != null) {
-
                     if (response.get(0).getIsAvailable() == 1) {
-                        reScheduleAppointment(time, new BookAppointmentInterface() {
+                        reScheduleAppointment(time, getArguments().getInt("reVisitCount", 0), new BookAppointmentInterface() {
                             @Override
                             public void onAppointmentBooked(OnlineAppointmentModel appointmentModel) {
                                 Toast.makeText(requireContext(), R.string.appointment_re_scheduled_successfully, Toast.LENGTH_SHORT).show();
@@ -336,11 +336,13 @@ public class ReScheduleFragment extends Fragment {
                             @Override
                             public void onFailed(String msg) {
                                 Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show();
+                                showDialog(msg);
                             }
 
                             @Override
                             public void onError(String errorMsg) {
                                 Toast.makeText(requireActivity(), errorMsg, Toast.LENGTH_SHORT).show();
+                                showDialog(errorMsg);
 
                             }
                         });
@@ -362,6 +364,11 @@ public class ReScheduleFragment extends Fragment {
             }
         });
 
+    }
+
+    private void showDialog(String msg) {
+        new AlertDialog.Builder(requireActivity()).setMessage(msg)
+                .setPositiveButton(getString(R.string.dismiss), (dialog, which) -> dialog.dismiss());
     }
 
 
@@ -486,7 +493,7 @@ public class ReScheduleFragment extends Fragment {
         });
     }
 
-    private void reScheduleAppointment(String time, final BookAppointmentInterface bookAppointmentInterface) {
+    private void reScheduleAppointment(String time, int otherAppointmentsCounts, final BookAppointmentInterface bookAppointmentInterface) {
         User bookingUser = getUserForBooking(requireActivity());
         BookAppointment2 appointment2 = new BookAppointment2();
         appointment2.setMemberId((bookingUser.getPrimaryStatus() == 1 ? String.valueOf(bookingUser.getId()) : String.valueOf(bookingUser.getMemberId())));
@@ -494,8 +501,9 @@ public class ReScheduleFragment extends Fragment {
         appointment2.setServiceProviderDetailsId(String.valueOf(appointmentModel.getDoctorId()));
         appointment2.setAppointDate(parseDateToFormatDMY(date));
         appointment2.setAppointTime(time);
+        appointment2.setRevisit(isRevisit);
+        appointment2.setOtherAppointmentsCounts(otherAppointmentsCounts);
         appointment2.setIsEraUser(String.valueOf(appointmentModel.getIsEraUser()));
-        appointment2.setAppointmentId(appointmentModel.getAppointmentId());
         appointment2.setAppointmentId(appointmentModel.getAppointmentId());
         appointment2.setFirstAppointmentId(String.valueOf(firstAppointmentId));
         AppUtils.showRequestDialog(requireActivity());

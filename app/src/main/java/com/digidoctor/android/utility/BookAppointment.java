@@ -477,7 +477,7 @@ public class BookAppointment extends Credentials {
         Checkout checkout = new Checkout();
 
         // checkout.setKeyID("rzp_live_BwhTaXRxeklaAI");
-        checkout.setKeyID("rzp_test_41Dk0t9QjLuFZl");
+        checkout.setKeyID("rzp_test_dUtqKgNQUPcSDE");
 
         bookAppointment.setTrxId(tId);
         String image = "https://digidoctor.in/assets/images/logonew.png";
