@@ -213,6 +213,23 @@ public class AppUtils {
     }
 
 
+    public static String parseDate(String inDate, String outPattern, String inputPattern) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outPattern);
+
+        Date date;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(inDate);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+
+    }
+
     public static String parseDate(String inDate, String outPattern) {
 
         String inputPattern = "dd/MM/yy";
@@ -386,4 +403,42 @@ public class AppUtils {
         return list;
 
     }
+
+    public static Boolean getFreeVisitData(Integer reVisitTime, String appointDate, String selectedDate) {
+        String dateSelected = parseDate(selectedDate, "dd MMMM yyyy", "yyyy/MM/dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+        Calendar c = Calendar.getInstance();
+        try {
+            Date date1 = sdf.parse(appointDate);
+            c.setTime(date1); // Now use today date.
+            c.add(Calendar.DATE, reVisitTime); // Adding 5 days
+            String output = sdf.format(c.getTime());
+            System.out.println(output);
+            Log.d(TAG, "selectedDate: " + dateSelected);
+            Log.d(TAG, "getFreeVisitData: " + output);
+            return dateSelected.compareTo(output) < 0;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static String getLastFreeVisitDate(Integer reVisitTime, String appointDate) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+        Calendar c = Calendar.getInstance();
+        try {
+            Date date1 = sdf.parse(appointDate);
+            c.setTime(date1); // Now use today date.
+            c.add(Calendar.DATE, reVisitTime); // Adding 5 days
+            String output = sdf.format(c.getTime());
+            System.out.println(output);
+            Log.d(TAG, "getFreeVisitData: " + output);
+            return output;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
 }

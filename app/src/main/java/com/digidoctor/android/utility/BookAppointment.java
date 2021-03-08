@@ -374,7 +374,8 @@ public class BookAppointment extends Credentials {
             @Override
             public void onSuccess(List<?> obj) {
                 List<CheckSlotAvailabilityDataRes> response = (List<CheckSlotAvailabilityDataRes>) obj;
-                if (response != null) {
+
+                if (response != null && !response.isEmpty()) {
                     if (response.get(0).getIsAvailable() == 1) {
                         if (payMode == PAY_MODE_CASH) {
                             startBookingAppointment(null);
