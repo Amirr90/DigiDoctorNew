@@ -23,7 +23,11 @@ public class OnlineAppointmentModel {
     int isVisit;
     Integer doctorFees;
     Integer firstAppointmentId;
+    Integer reVisitTime;
 
+    public Integer getReVisitTime() {
+        return reVisitTime;
+    }
 
     public Integer getFirstAppointmentId() {
         return firstAppointmentId;
@@ -202,6 +206,7 @@ public class OnlineAppointmentModel {
                 ", isVisit=" + isVisit +
                 ", doctorFees=" + doctorFees +
                 ", firstAppointmentId=" + firstAppointmentId +
+                ", reVisitTime=" + reVisitTime +
                 ", appointmentId='" + appointmentId + '\'' +
                 ", visitDate='" + visitDate + '\'' +
                 ", visitTime='" + visitTime + '\'' +

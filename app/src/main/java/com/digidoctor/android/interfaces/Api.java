@@ -50,6 +50,8 @@ import com.digidoctor.android.model.addProductRatingResponse;
 import com.digidoctor.android.model.addProductRating;
 import com.digidoctor.android.model.labmodel.ApiLabResponse;
 import com.digidoctor.android.model.labmodel.CartModel;
+import com.digidoctor.android.model.labmodel.LabOrderModel;
+import com.digidoctor.android.model.labmodel.LabOrderRes;
 import com.digidoctor.android.model.labmodel.labdashboardresponse;
 import com.digidoctor.android.model.labmodel.labModel;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
@@ -358,6 +360,14 @@ public interface Api {
 
     @POST("deleteCart")
     Call<CartRes> deleteCart(@Body CartModel model);
+
+
+    @POST("placeOrder")
+    Call<LabOrderRes> placeOrder(@Body LabOrderModel model);
+
+
+    @POST("getOrders")
+    Call<LabOrderRes> getOrders(@Body LabOrderModel model);
 
 
 }

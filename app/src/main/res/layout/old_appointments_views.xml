@@ -7,6 +7,9 @@
 
         <import type="android.graphics.Color" />
 
+        <variable
+            name="adapterInterface"
+            type="com.digidoctor.android.interfaces.AdapterInterface" />
 
         <variable
             name="appointment"
@@ -16,6 +19,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:onClick="@{()->adapterInterface.onItemClicked(appointment.appointmentId)}"
         android:id="@+id/oldAppointmentView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,13 +85,11 @@
 
 
         <ImageView
+            android:rotation="-90"
             android:id="@+id/btnShowPrescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />

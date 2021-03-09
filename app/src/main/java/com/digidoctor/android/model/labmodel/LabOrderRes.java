@@ -1,14 +1,15 @@
-package com.digidoctor.android.model;
+package com.digidoctor.android.model.labmodel;
 
-import com.digidoctor.android.model.labmodel.CartModel;
+import com.digidoctor.android.model.CartRes;
 
 import java.util.List;
 
-public class CartRes {
+public class LabOrderRes {
+
 
     String responseMessage;
     Integer responseCode;
-    List<CartModel> responseValue;
+    List<LabOrderModel> responseValue;
 
     public String getResponseMessage() {
         return responseMessage;
@@ -18,7 +19,10 @@ public class CartRes {
         return responseCode;
     }
 
-    public List<CartModel> getResponseValue() {
+    public List<LabOrderModel> getResponseValue() {
         return responseValue;
     }
+
+
 }
+

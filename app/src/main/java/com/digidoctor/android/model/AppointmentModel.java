@@ -41,6 +41,19 @@ AppointmentModel {
     int isVisit;
     int firstAppointmentId;
     int isReshedule;
+    Integer reVisitTime;
+
+    public void setIsVisit(int isVisit) {
+        this.isVisit = isVisit;
+    }
+
+    public Integer getReVisitTime() {
+        return reVisitTime;
+    }
+
+    public void setReVisitTime(Integer reVisitTime) {
+        this.reVisitTime = reVisitTime;
+    }
 
     public int getIsReshedule() {
         return isReshedule;
@@ -371,6 +384,7 @@ AppointmentModel {
                 ", isVisit=" + isVisit +
                 ", firstAppointmentId=" + firstAppointmentId +
                 ", isReshedule=" + isReshedule +
+                ", reVisitTime=" + reVisitTime +
                 '}';
     }
 

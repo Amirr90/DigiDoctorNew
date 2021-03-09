@@ -146,6 +146,7 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
 
 
     private void setSliderData(List<LabDashBoardmodel.SliderImage> sliderImages) {
+
     }
 
     @Override

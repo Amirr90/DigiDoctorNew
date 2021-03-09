@@ -374,7 +374,8 @@ public class BookAppointment extends Credentials {
             @Override
             public void onSuccess(List<?> obj) {
                 List<CheckSlotAvailabilityDataRes> response = (List<CheckSlotAvailabilityDataRes>) obj;
-                if (response != null) {
+
+                if (response != null && !response.isEmpty()) {
                     if (response.get(0).getIsAvailable() == 1) {
                         if (payMode == PAY_MODE_CASH) {
                             startBookingAppointment(null);
@@ -477,7 +478,7 @@ public class BookAppointment extends Credentials {
         Checkout checkout = new Checkout();
 
         // checkout.setKeyID("rzp_live_BwhTaXRxeklaAI");
-        checkout.setKeyID("rzp_test_41Dk0t9QjLuFZl");
+        checkout.setKeyID("rzp_test_dUtqKgNQUPcSDE");
 
         bookAppointment.setTrxId(tId);
         String image = "https://digidoctor.in/assets/images/logonew.png";

@@ -105,7 +105,6 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <!-- Branch init -->
         <meta-data
             android:name="io.branch.sdk.BranchKey"
             android:value="key_live_dhYiqeGuLRtNQ8OJlDZ3skfetDdT6vpa" />

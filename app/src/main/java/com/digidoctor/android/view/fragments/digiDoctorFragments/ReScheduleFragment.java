@@ -1,3 +1,4 @@
+
 package com.digidoctor.android.view.fragments.digiDoctorFragments;
 
 import android.app.AlertDialog;
@@ -13,16 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.CalendarAdapter;
 import com.digidoctor.android.adapters.TimeSlotsAdapter;
 import com.digidoctor.android.databinding.FragmentReScheduleBinding;
-import com.digidoctor.android.databinding.LogoutOptionViewBinding;
-import com.digidoctor.android.databinding.PaymentViewBinding;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.BookAppointmentInterface;
@@ -32,16 +28,12 @@ import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.GetAppointmentSlotsDataRes;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.OnlineAppointmentRes;
-import com.digidoctor.android.model.PayModeModel;
-import com.digidoctor.android.model.PaymentMode;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
-import com.digidoctor.android.utility.BookAppointment;
 import com.digidoctor.android.utility.BookAppointment2;
 import com.digidoctor.android.utility.NewDashboardUtils;
 import com.digidoctor.android.utility.URLUtils;
-import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.gson.Gson;
 
@@ -60,15 +52,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.digidoctor.android.utility.ApiUtils.getDoctorsTimeSlots;
-import static com.digidoctor.android.utility.AppUtils.PAY_MODE_PAY_ON_VISIT;
-import static com.digidoctor.android.utility.AppUtils.PAY_MODE_PAY_U_MONEY;
-import static com.digidoctor.android.utility.AppUtils.PAY_MODE_RAZOR_PAYY;
 import static com.digidoctor.android.utility.AppUtils.getCurrentDateInWeekMonthDayFormat;
-import static com.digidoctor.android.utility.AppUtils.hideDialog;
+import static com.digidoctor.android.utility.AppUtils.getLastFreeVisitDate;
 import static com.digidoctor.android.utility.AppUtils.parseDateToFormatDMY;
-import static com.digidoctor.android.utility.AppUtils.parseUserDate;
-import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_CASH;
-import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_RAZOR_PAY;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_DATE;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_TIME;
 import static com.digidoctor.android.utility.utils.IS_REVISIT;
@@ -78,11 +64,8 @@ import static com.digidoctor.android.utility.utils.KEY_IS_ERA_USER;
 import static com.digidoctor.android.utility.utils.MEMBER_ID;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.RE_SCHEDULE;
-import static com.digidoctor.android.utility.utils.TOKEN;
-import static com.digidoctor.android.utility.utils.getJSONFromModel;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.getUserForBooking;
-import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
 import static com.digidoctor.android.utility.utils.logout;
 
 
@@ -105,24 +88,18 @@ public class ReScheduleFragment extends Fragment {
 
     List<String> workingDays;
 
-    boolean isRevisit = false;
+    boolean isRevisit;
 
 
     Integer drFee = 0;
     Integer docId = 0;
     Integer firstAppointmentId = 0;
-
-    int selectedPaymentId = -1;
     public static ReScheduleFragment instance;
 
     public static ReScheduleFragment getInstance() {
         return instance;
     }
 
-    int selectedItem = -1;
-    String payModeTitle = null;
-    public static BookAppointment bookAppointment;
-    String time;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -183,6 +160,18 @@ public class ReScheduleFragment extends Fragment {
             date = calendarAdapter.getItem().getDateSend();
             getDocTimeSlot(date);
         }
+
+
+        if (isRevisit) {
+            showDateAlertDialog();
+        }
+    }
+
+    private void showDateAlertDialog() {
+        new AlertDialog.Builder(requireActivity())
+                .setMessage("Your Free re-visit is Available till\n" + getLastFreeVisitDate(appointmentModel.getReVisitTime(), appointmentModel.getAppointDate()))
+                .setPositiveButton("Dismiss", (dialog, which) -> dialog.dismiss()).show();
+
     }
 
     public void scrollToPosition(int position) {
@@ -207,6 +196,7 @@ public class ReScheduleFragment extends Fragment {
 
 
     private void getDocTimeSlot(final String date) {
+        AppUtils.showRequestDialog(requireActivity());
         getDoctorsTimeSlots(String.valueOf(appointmentModel.getDoctorId()),
                 date,
                 String.valueOf(appointmentModel.getIsEraUser()),
@@ -263,7 +253,13 @@ public class ReScheduleFragment extends Fragment {
     }
 
     private void showRescheduleDialog(final Object obj) {
+
+
         final String time = (String) obj;
+
+
+        Boolean isFree = AppUtils.getFreeVisitData(appointmentModel.getReVisitTime(), appointmentModel.getAppointDate(), date);
+
         String msg;
         String title;
         if (isRevisit) {
@@ -281,8 +277,10 @@ public class ReScheduleFragment extends Fragment {
                 .setPositiveButton(R.string.yes,
                         (dialog, id) -> {
                             dialog.cancel();
-                            if (isRevisit && drFee > 0) {
-                                // getPayMode(time, date);
+                            if (isRevisit && !isFree) {
+
+
+                                //navigating to paymentGateway !!
                                 Bundle bundle = new Bundle();
                                 bundle.putString("date", date);
                                 bundle.putString("time", time);
@@ -300,6 +298,7 @@ public class ReScheduleFragment extends Fragment {
                         })
                 .setNegativeButton(R.string.no, (dialog, id) -> dialog.cancel()).show();
     }
+
 
     private void checkTimeSlot(String date, String time) {
 
@@ -319,12 +318,10 @@ public class ReScheduleFragment extends Fragment {
             public void onSuccess(List<?> obj) {
 
                 Log.d(TAG, "onSuccess: " + obj);
-
                 List<CheckSlotAvailabilityDataRes> response = (List<CheckSlotAvailabilityDataRes>) obj;
                 if (response != null) {
-
                     if (response.get(0).getIsAvailable() == 1) {
-                        reScheduleAppointment(time, new BookAppointmentInterface() {
+                        reScheduleAppointment(time, getArguments().getInt("reVisitCount", 0), new BookAppointmentInterface() {
                             @Override
                             public void onAppointmentBooked(OnlineAppointmentModel appointmentModel) {
                                 Toast.makeText(requireContext(), R.string.appointment_re_scheduled_successfully, Toast.LENGTH_SHORT).show();
@@ -336,11 +333,13 @@ public class ReScheduleFragment extends Fragment {
                             @Override
                             public void onFailed(String msg) {
                                 Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show();
+                                showDialog(msg);
                             }
 
                             @Override
                             public void onError(String errorMsg) {
                                 Toast.makeText(requireActivity(), errorMsg, Toast.LENGTH_SHORT).show();
+                                showDialog(errorMsg);
 
                             }
                         });
@@ -364,129 +363,13 @@ public class ReScheduleFragment extends Fragment {
 
     }
 
-
-    private void getPayMode(String time, String date) {
-
-        AppUtils.showRequestDialog(requireActivity());
-        PayModeModel payModeModel = new PayModeModel(String.valueOf(docId));
-        ApiUtils.getPayMode(payModeModel, new ApiCallbackInterface() {
-            @Override
-            public void onSuccess(List<?> o) {
-                hideDialog();
-                hideSoftKeyboard(requireActivity());
-                List<PaymentMode> paymentModes = (List<PaymentMode>) o;
-                if (null != paymentModes) {
-                    for (PaymentMode mode : paymentModes)
-                        Log.d(TAG, "onSuccess PayMode: " + mode.getPaymentMode());
-
-                    showDialog(paymentModes, time, date);
-                }
-
-
-            }
-
-            @Override
-            public void onError(String s) {
-                hideDialog();
-                Toast.makeText(requireActivity(), s, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailed(Throwable throwable) {
-                hideDialog();
-                Log.d(TAG, "onFailed: " + throwable.getLocalizedMessage());
-                Toast.makeText(requireActivity(), "try again", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+    private void showDialog(String msg) {
+        new AlertDialog.Builder(requireActivity()).setMessage(msg)
+                .setPositiveButton(getString(R.string.dismiss), (dialog, which) -> dialog.dismiss());
     }
 
 
-    private void showDialog(List<PaymentMode> paymentModes, String time, String date) {
-
-
-        PaymentViewBinding paymentViewBinding = PaymentViewBinding.inflate(requireActivity().getLayoutInflater());
-        paymentViewBinding.recyclerView5.setAdapter(new PaymentAdapter(paymentModes));
-        paymentViewBinding.recyclerView5.addItemDecoration(new DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL));
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        AlertDialog dialog = builder.create();
-        dialog.setView(paymentViewBinding.getRoot());
-        dialog.show();
-
-
-        paymentViewBinding.btnSelf.setOnClickListener(view -> {
-            if (selectedPaymentId < 0)
-                Toast.makeText(requireActivity(), R.string.select_payment_option, Toast.LENGTH_SHORT).show();
-            else {
-                dialog.dismiss();
-                if (selectedPaymentId == PAY_MODE_PAY_ON_VISIT) {
-                    bookAppointment(PAY_MODE_CASH, time, date);
-                } else if (selectedPaymentId == PAY_MODE_RAZOR_PAYY) {
-                    bookAppointment(PAY_MODE_RAZOR_PAY, time, date);
-                } else {
-                    bookAppointment(PAY_MODE_PAY_U_MONEY, time, date);
-                }
-            }
-
-        });
-
-    }
-
-
-    private void bookAppointment(int payMode, String time, String date) {
-        User bookingUser = getUserForBooking(requireActivity());
-        bookAppointment = new BookAppointment(requireActivity());
-
-
-        //Setting Parameters
-        bookAppointment.setUserMobileNo(user.getMobileNo());
-        bookAppointment.setMemberId(bookingUser.getPrimaryStatus() == 1 ? String.valueOf(bookingUser.getId()) : String.valueOf(bookingUser.getMemberId()));
-        bookAppointment.setPatientName(bookingUser.getName());
-        bookAppointment.setServiceProviderDetailsId(String.valueOf(docId));
-        bookAppointment.setAppointDate(parseDateToFormatDMY(date));
-        bookAppointment.setAppointTime(time);
-        bookAppointment.setAppointmentId("0");
-        bookAppointment.setGuardianTypeId("0");
-        bookAppointment.setDtPaymentTable("");
-        bookAppointment.setTrxId("");
-        bookAppointment.setMemberId(String.valueOf(bookingUser.getId()));
-        bookAppointment.setDob(parseUserDate(bookingUser.getDob()));
-        bookAppointment.setMobileNo(bookingUser.getMobileNo());
-        bookAppointment.setEmail(bookingUser.getEmailId());
-        bookAppointment.setToken(utils.getString(TOKEN, requireActivity()));
-        bookAppointment.setGender(String.valueOf(bookingUser.getGender()));
-        bookAppointment.setIsEraUser("0");
-        bookAppointment.setDrFee(String.valueOf(drFee));
-        bookAppointment.setPaymentMode(payModeTitle);
-        bookAppointment.setRevisit(isRevisit);
-
-
-        Log.d(TAG, "onClick: " + bookAppointment.toString());
-        bookAppointment.initBooking(payMode, new BookAppointmentInterface() {
-            @Override
-            public void onAppointmentBooked(OnlineAppointmentModel appointmentModel) {
-                Bundle bundle = new Bundle();
-                bundle.putString("appointmentModel", getJSONFromModel(appointmentModel));
-                Toast.makeText(PatientDashboard.getInstance(), "Appointment Booked " + appointmentModel.getAppointmentId(), Toast.LENGTH_SHORT).show();
-                navController.navigate(R.id.action_bookAppointmentFragment_to_appointmentDoneFragment, bundle);
-            }
-
-            @Override
-            public void onFailed(String msg) {
-                Toast.makeText(PatientDashboard.getInstance(), msg, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError(String errorMsg) {
-                Toast.makeText(PatientDashboard.getInstance(), errorMsg, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
-    private void reScheduleAppointment(String time, final BookAppointmentInterface bookAppointmentInterface) {
+    private void reScheduleAppointment(String time, int otherAppointmentsCounts, final BookAppointmentInterface bookAppointmentInterface) {
         User bookingUser = getUserForBooking(requireActivity());
         BookAppointment2 appointment2 = new BookAppointment2();
         appointment2.setMemberId((bookingUser.getPrimaryStatus() == 1 ? String.valueOf(bookingUser.getId()) : String.valueOf(bookingUser.getMemberId())));
@@ -494,8 +377,9 @@ public class ReScheduleFragment extends Fragment {
         appointment2.setServiceProviderDetailsId(String.valueOf(appointmentModel.getDoctorId()));
         appointment2.setAppointDate(parseDateToFormatDMY(date));
         appointment2.setAppointTime(time);
+        appointment2.setRevisit(isRevisit);
+        appointment2.setOtherAppointmentsCounts(otherAppointmentsCounts);
         appointment2.setIsEraUser(String.valueOf(appointmentModel.getIsEraUser()));
-        appointment2.setAppointmentId(appointmentModel.getAppointmentId());
         appointment2.setAppointmentId(appointmentModel.getAppointmentId());
         appointment2.setFirstAppointmentId(String.valueOf(firstAppointmentId));
         AppUtils.showRequestDialog(requireActivity());
@@ -529,9 +413,19 @@ public class ReScheduleFragment extends Fragment {
             Toast.makeText(requireActivity(), getString(R.string.retry), Toast.LENGTH_SHORT).show();
     }
 
+
     private List<CalendarModel> getNextWeekDays() {
+
+        Log.d(TAG, "reScheduleAppointment: isRevisit " + isRevisit);
+
         List<CalendarModel> calendarModelList = new ArrayList<>();
-        ArrayList<HashMap<String, String>> getNextWeekDays = NewDashboardUtils.getNextWeekDays();
+        ArrayList<HashMap<String, String>> getNextWeekDays;
+
+        if (null != getArguments() && getArguments().getInt("reVisitCount") > 0)
+            getNextWeekDays = NewDashboardUtils.getNextWeekDaysForReschedule(appointmentModel.getAppointDate());
+        else
+            getNextWeekDays = NewDashboardUtils.getNextWeekDays();
+
         for (int a = 0; a < getNextWeekDays.size(); a++) {
             Log.d(TAG, "getNextWeekDays: " + workingDays.contains(getNextWeekDays.get(a).get("day")));
             if (workingDays.contains(getNextWeekDays.get(a).get("day"))) {
@@ -554,50 +448,5 @@ public class ReScheduleFragment extends Fragment {
         return calendarModelList;
     }
 
-    public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentVH> {
-        List<PaymentMode> items;
-
-        public PaymentAdapter(List<PaymentMode> items) {
-            this.items = items;
-        }
-
-        @NonNull
-        @Override
-        public PaymentAdapter.PaymentVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            LogoutOptionViewBinding paymentOption = LogoutOptionViewBinding.inflate(inflater, parent, false);
-            return new PaymentAdapter.PaymentVH(paymentOption);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull PaymentAdapter.PaymentVH holder, int position) {
-            PaymentMode paymentOptionModel = items.get(position);
-            holder.paymentOption.setPaymentOption(paymentOptionModel);
-
-            holder.paymentOption.checkBox.setChecked(selectedItem == position);
-
-            holder.paymentOption.checkBox.setOnClickListener(view -> {
-                payModeTitle = paymentOptionModel.getPaymentMode();
-                selectedItem = position;
-                selectedPaymentId = paymentOptionModel.getId();
-                notifyDataSetChanged();
-            });
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return items.size();
-        }
-
-        public class PaymentVH extends RecyclerView.ViewHolder {
-            LogoutOptionViewBinding paymentOption;
-
-            public PaymentVH(@NonNull LogoutOptionViewBinding paymentOption) {
-                super(paymentOption.getRoot());
-                this.paymentOption = paymentOption;
-            }
-        }
-    }
 
 }

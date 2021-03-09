@@ -6,6 +6,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -23,6 +24,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
+
+import static com.digidoctor.android.utility.AppUtils.parseDate;
+import static com.digidoctor.android.utility.AppUtils.shareApp;
 
 public class NewDashboardUtils {
 
@@ -63,21 +67,17 @@ public class NewDashboardUtils {
     }
 
 
-
     public static ArrayList<HashMap<String, String>> getNextWeekDays() {
 
+        Log.d("TAG", "getNextWeekDays: ");
         ArrayList<HashMap<String, String>> list = new ArrayList<>();
-
-
         HashMap<String, String> hashMap;
-
         SimpleDateFormat sdfDate = new SimpleDateFormat("dd", Locale.getDefault());
         SimpleDateFormat sdfDay = new SimpleDateFormat("EEE", Locale.getDefault());
         SimpleDateFormat sdfDateSend = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
 
         for (int i = 0; i < 7; i++) {
             hashMap = new HashMap<>();
-
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DATE, i);
             String date = sdfDate.format(calendar.getTime());
@@ -93,6 +93,46 @@ public class NewDashboardUtils {
         }
 
         return list;
+    }
+
+    public static ArrayList<HashMap<String, String>> getNextWeekDaysForReschedule(String startDate) {
+
+        Log.d("TAG", "getNextWeekDaysForReschedule: " + startDate);
+        SimpleDateFormat formatter1 = new SimpleDateFormat("dd MMMM yyyy");
+        ArrayList<HashMap<String, String>> list = new ArrayList<>();
+        HashMap<String, String> hashMap;
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd", Locale.getDefault());
+        SimpleDateFormat sdfDay = new SimpleDateFormat("EEE", Locale.getDefault());
+        SimpleDateFormat sdfDateSend = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+        Date date1 = null;
+        try {
+            date1 = formatter1.parse(startDate);
+            for (int i = 0; i < 7; i++) {
+                hashMap = new HashMap<>();
+                Calendar calendar = Calendar.getInstance();
+
+                calendar.setTime(date1);
+
+                calendar.add(Calendar.DATE, i);
+                String date = sdfDate.format(calendar.getTime());
+                String day = sdfDay.format(calendar.getTime());
+                String dateSend = sdfDateSend.format(calendar.getTime());
+
+                hashMap.put("date", date);
+                hashMap.put("day", day);
+                hashMap.put("dateSend", dateSend);
+
+                list.add(hashMap);
+
+            }
+
+            return list;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return list;
+        }
+
+
     }
 
 

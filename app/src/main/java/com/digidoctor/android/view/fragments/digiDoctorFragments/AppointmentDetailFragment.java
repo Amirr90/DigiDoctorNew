@@ -252,6 +252,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             Bundle bundle = new Bundle();
             bundle.putString("model", model);
             bundle.putBoolean("reVisit", false);
+            bundle.putInt("reVisitCount", oldAppointmentAdapter.getItemCount());
             navController.navigate(R.id.action_appointmentDetailFragment_to_reScheduleFragment, bundle);
         } else if (tag.equals(PRESCRIBE)) {
             getMedicationData(appointmentModel.getAppointmentId());
@@ -260,6 +261,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
     }
 
     private void getMedicationData(String appointmentId) {
+        AppUtils.showRequestDialog(requireActivity());
         ApiUtils.getPatientMedicationDetail(appointmentId, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
@@ -290,7 +292,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
 
     @Override
     public void onItemClicked(Object o) {
-        int pos = (int) o;
-        detailBinding.recOldAppointments.scrollToPosition(pos);
+        String appointmentId = (String) o;
+        getMedicationData(appointmentId);
     }
 }
