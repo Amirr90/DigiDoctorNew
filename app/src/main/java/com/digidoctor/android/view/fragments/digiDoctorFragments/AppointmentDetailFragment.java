@@ -55,25 +55,15 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
 
     NavController navController;
     OnlineAppointmentModel appointmentModel;
-
     FragmentAppointmentDetailBinding detailBinding;
-
     FilesAdapter adapter;
-
     List<FileModel> modelList;
-
-
     List<AppointmentModel> oldList;
-
-
     String appointmentId = null;
-
     AppointmentDetailFragmentArgs detailFragmentArgs;
-
     OldAppointmentsAdapter oldAppointmentAdapter;
     PatientViewModel viewModel;
     User user;
-
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
