@@ -106,23 +106,23 @@
                         android:layout_height="180dp"
                         android:layout_below="@+id/profile_image"
                         android:layout_marginTop="16dp"
+                        android:contentDescription="TODO"
                         android:scaleType="fitXY"
                         android:src="@drawable/banner_one"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/profile_image"
-                        android:contentDescription="TODO" />
+                        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
                     <ImageView
                         android:id="@+id/ivMenu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="TODO"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/profile_image"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/profile_image"
-                        app:srcCompat="@drawable/ic_baseline_menu_24"
-                        android:contentDescription="TODO" />
+                        app:srcCompat="@drawable/ic_baseline_menu_24" />
 
                     <ImageView
                         android:id="@+id/ivSearchIcon"
@@ -131,12 +131,12 @@
                         android:layout_marginEnd="12dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
+                        android:contentDescription="TODO"
                         android:focusable="true"
                         app:layout_constraintBottom_toBottomOf="@+id/view8"
                         app:layout_constraintEnd_toStartOf="@+id/view8"
                         app:layout_constraintTop_toTopOf="@+id/view8"
-                        app:srcCompat="@drawable/ic_search_black_24dp"
-                        android:contentDescription="TODO" />
+                        app:srcCompat="@drawable/ic_search_black_24dp" />
 
                     <View
                         android:id="@+id/view8"
@@ -224,4 +224,6 @@
         </ScrollView>
 
     </FrameLayout>
+
+
 </layout>
