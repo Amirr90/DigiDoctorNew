@@ -10,7 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
@@ -32,10 +32,11 @@
                 android:id="@+id/ratingBar3"
                 style="@android:style/Widget.Material.Light.RatingBar"
                 android:layout_width="244dp"
-                android:layout_height="53dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:layout_marginBottom="16dp"
                 android:max="5"
+                android:stepSize="1"
                 app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName5"
                 app:layout_constraintEnd_toEndOf="@+id/textView191"
                 app:layout_constraintStart_toStartOf="@+id/textView191"
@@ -43,15 +44,16 @@
 
             <EditText
                 android:id="@+id/editTextTextPersonName5"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="10dp"
                 android:ems="10"
                 android:gravity="top"
                 android:hint="Write a Review"
-                android:inputType="textPersonName"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
                 android:textColor="#151B1B"
                 android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="@+id/textView191"
@@ -60,19 +62,18 @@
 
             <ImageView
                 android:id="@+id/imageView67"
-
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="30dp"
+                android:contentDescription="TODO"
                 app:layout_constraintBottom_toTopOf="@+id/textView191"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/rating"
-                android:contentDescription="TODO" />
+                app:srcCompat="@drawable/rating" />
 
             <TextView
                 android:id="@+id/textView191"
@@ -96,7 +97,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/add_button"
-                android:text="Continue"
+                android:text="@string/submit"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textStyle="bold"

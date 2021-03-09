@@ -1,7 +1,6 @@
 
 package com.digidoctor.android.view.fragments.pharmacy;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +23,7 @@ import com.digidoctor.android.adapters.pharmacy.ProductMaterialAdapter;
 import com.digidoctor.android.adapters.pharmacy.ProductSizeAdapter;
 import com.digidoctor.android.adapters.pharmacy.ProductSliderviewAdapter;
 import com.digidoctor.android.adapters.pharmacy.SimilarproductADapter;
-import com.digidoctor.android.adapters.pharmacy.ratingandreviewadapter;
+import com.digidoctor.android.adapters.pharmacy.RatingAndReviewAdapter;
 import com.digidoctor.android.databinding.FragmentProductDetailsBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.User;
@@ -58,7 +57,7 @@ public class ProductDetailsFragment extends Fragment {
     FragmentProductDetailsBinding fragmentProductDetailsBinding;
     NavController navController;
     ProductDetaillAdapter productDetaillAdapter;
-    ratingandreviewadapter ratingandreviewadapter;
+    RatingAndReviewAdapter ratingandreviewadapter;
     SimilarproductADapter similarproductADapter;
     ProductSliderviewAdapter productSliderviewAdapter;
     ProductSizeAdapter productSizeAdapter;
@@ -104,7 +103,7 @@ public class ProductDetailsFragment extends Fragment {
 
 
         productDetaillAdapter = new ProductDetaillAdapter(requireActivity());
-        ratingandreviewadapter = new ratingandreviewadapter(productReviewLists, requireActivity());
+        ratingandreviewadapter = new RatingAndReviewAdapter(productReviewLists);
         similarproductADapter = new SimilarproductADapter(similarProducts, requireActivity());
         productSliderviewAdapter = new ProductSliderviewAdapter(productDetailsSliders, requireActivity());
         productSizeAdapter = new ProductSizeAdapter(sizeDetails, requireActivity());

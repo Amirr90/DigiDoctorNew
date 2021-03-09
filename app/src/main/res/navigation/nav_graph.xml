@@ -528,6 +528,10 @@
         <action
             android:id="@+id/action_appointmentDetailFragment_to_doctorShortProfileFragment"
             app:destination="@id/doctorShortProfileFragment" />
+        <action
+            android:id="@+id/action_appointmentDetailFragment_to_doctorsReviewList"
+            app:destination="@id/doctorsReviewList"
+            app:popUpTo="@id/patientDashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/addInvestigationFragment"
@@ -815,5 +819,10 @@
         android:id="@+id/medicineDetailsFragment"
         android:name="com.digidoctor.android.view.fragments.pharmacy.MedicineDetailsFragment"
         android:label="Medicine Detail" />
+    <fragment
+        android:id="@+id/doctorsReviewList"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.DoctorsReviewList"
+        android:label="Reviews"
+        tools:layout="@layout/doctors_review_list_fragment" />
 
 </navigation>

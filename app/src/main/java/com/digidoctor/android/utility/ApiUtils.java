@@ -26,9 +26,11 @@ import com.digidoctor.android.model.Dashboard;
 import com.digidoctor.android.model.DemoResponse;
 import com.digidoctor.android.model.DocBySpecialityRes;
 import com.digidoctor.android.model.DocBySymptomsRes;
+import com.digidoctor.android.model.DocModel;
 import com.digidoctor.android.model.GenerateOtpModel;
 import com.digidoctor.android.model.GenerateOtpRes;
 import com.digidoctor.android.model.GetAppointmentSlotsRes;
+import com.digidoctor.android.model.GetDocRevModelRes;
 import com.digidoctor.android.model.GetMembersRes;
 import com.digidoctor.android.model.GetOrderRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
@@ -54,6 +56,7 @@ import com.digidoctor.android.model.UploadPresDataModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
+import com.digidoctor.android.model.WriteReviewModel;
 import com.digidoctor.android.model.addProductRatingResponse;
 import com.digidoctor.android.model.addProductRating;
 import com.digidoctor.android.model.labmodel.ApiLabResponse;
@@ -2217,4 +2220,51 @@ public class ApiUtils {
             }
         });
     }
+
+
+    public static void WriteReview(WriteReviewModel model, ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<LabOrderRes> call = iRestInterfaces.writeAReview(model);
+
+        call.enqueue(new Callback<LabOrderRes>() {
+            @Override
+            public void onResponse(@NotNull Call<LabOrderRes> call, @NotNull Response<LabOrderRes> response) {
+                if (response.isSuccessful() && null != response.body()) {
+                    if (response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<LabOrderRes> call, @NotNull Throwable t) {
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+
+    }
+
+
+    public static void getDoctorsReviews(DocModel model, ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<GetDocRevModelRes> call = iRestInterfaces.getdoctorreview(model);
+        call.enqueue(new Callback<GetDocRevModelRes>() {
+            @Override
+            public void onResponse(@NotNull Call<GetDocRevModelRes> call, @NotNull Response<GetDocRevModelRes> response) {
+                if (response.isSuccessful() && null != response.body()) {
+                    if (response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<GetDocRevModelRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+
 }

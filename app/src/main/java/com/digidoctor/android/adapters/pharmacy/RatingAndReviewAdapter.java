@@ -2,39 +2,43 @@ package com.digidoctor.android.adapters.pharmacy;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.RatingAndReviewViewBinding;
+import com.digidoctor.android.model.GetDocRevModelRes;
 import com.digidoctor.android.model.pharmacyModel.ProductDetailModelResponse;
 
 import java.util.List;
 
-public class ratingandreviewadapter extends RecyclerView.Adapter<ratingandreviewadapter.ratingandreviewVH> {
-    Context ctx;
+public class RatingAndReviewAdapter extends RecyclerView.Adapter<RatingAndReviewAdapter.ratingandreviewVH> {
+
+
     private final List<ProductDetailModelResponse.ProductDetailsList.ReviewDetails> getallreview;
 
-    public ratingandreviewadapter(List<ProductDetailModelResponse.ProductDetailsList.ReviewDetails> getallreview, Context ctx) {
-        this.getallreview = getallreview;
-        this.ctx = ctx;
+    public RatingAndReviewAdapter( List<ProductDetailModelResponse.ProductDetailsList.ReviewDetails> getallreview) {
 
+        this.getallreview = getallreview;
     }
 
 
     @NonNull
     @Override
-    public ratingandreviewadapter.ratingandreviewVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RatingAndReviewAdapter.ratingandreviewVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         RatingAndReviewViewBinding ratingAndReviewViewBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.rating_and_review_view, parent, false);
-        return new ratingandreviewadapter.ratingandreviewVH(ratingAndReviewViewBinding);
+        return new RatingAndReviewAdapter.ratingandreviewVH(ratingAndReviewViewBinding);
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ratingandreviewadapter.ratingandreviewVH holder, int position) {
+    public void onBindViewHolder(@NonNull RatingAndReviewAdapter.ratingandreviewVH holder, int position) {
         ProductDetailModelResponse.ProductDetailsList.ReviewDetails reviewList = getallreview.get(position);
         holder.ratingAndReviewViewBinding.textView100.setText(reviewList.getReviewBy());
         holder.ratingAndReviewViewBinding.textView102.setText(reviewList.getStarRating());
@@ -50,7 +54,6 @@ public class ratingandreviewadapter extends RecyclerView.Adapter<ratingandreview
 
         return getallreview.size();
     }
-
 
 
     public class ratingandreviewVH extends RecyclerView.ViewHolder {

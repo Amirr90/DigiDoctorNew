@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.digidoctor.android.adapters.pharmacy.ratingandreviewadapter;
+import com.digidoctor.android.adapters.pharmacy.RatingAndReviewAdapter;
 import com.digidoctor.android.databinding.AllratingandreviewBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.User;
@@ -33,7 +33,7 @@ public class AllRatingAndReviewFragment extends Fragment {
 
     AllratingandreviewBinding allRatingAndReviewFragment;
     NavController navController;
-    ratingandreviewadapter ratingandreviewadapter;
+    RatingAndReviewAdapter ratingandreviewadapter;
     String ProductID;
     String SizeId = null;
     private List<ProductDetailModelResponse.ProductDetailsList.ReviewDetails> getallreview;
@@ -59,7 +59,7 @@ public class AllRatingAndReviewFragment extends Fragment {
 
         ProductID = getArguments().getString("productId");
 
-        ratingandreviewadapter = new ratingandreviewadapter(getallreview, requireActivity());
+        ratingandreviewadapter = new RatingAndReviewAdapter(getallreview);
 
 
         allRatingAndReviewFragment.ratingreview.setAdapter(ratingandreviewadapter);

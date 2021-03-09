@@ -1,5 +1,8 @@
 package com.digidoctor.android.view.fragments.digiDoctorFragments;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +23,7 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.FilesAdapter;
 import com.digidoctor.android.adapters.OldAppointmentsAdapter;
 import com.digidoctor.android.databinding.FragmentAppointmentDetailBinding;
+import com.digidoctor.android.databinding.WriteareviveBinding;
 import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.OnClickListener;
@@ -29,6 +33,7 @@ import com.digidoctor.android.model.FileModel;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.OnlineAppointmentModel;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.model.WriteReviewModel;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.view.activity.PatientDashboard;
@@ -45,9 +50,11 @@ import java.util.List;
 
 import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
 import static com.digidoctor.android.utility.utils.getJSONFromModel;
+import static com.digidoctor.android.utility.utils.getUserForBooking;
+import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
 
 
-public class AppointmentDetailFragment extends Fragment implements OnClickListener, AdapterInterface {
+public class AppointmentDetailFragment extends Fragment implements OnClickListener, AdapterInterface, DialogInterface {
     private static final String TAG = "AppointmentDetailFragme";
     public static final String PRESCRIBE = "1";
     public static final String CONFIRMED = "2";
@@ -64,6 +71,8 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
     OldAppointmentsAdapter oldAppointmentAdapter;
     PatientViewModel viewModel;
     User user;
+    AlertDialog dialog;
+
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -190,8 +199,71 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             oldAppointmentAdapter.notifyDataSetChanged();
             AppUtils.hideDialog();
 
+
+            if (appointmentModel.isPrescribed())
+                showWriteRevivewDialog(appointmentModel);
+
+
         });
 
+    }
+
+    private void showWriteRevivewDialog(OnlineAppointmentModel appointmentModel) {
+        LayoutInflater layoutInflater = (LayoutInflater) requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        WriteareviveBinding imagePreviewBinding = WriteareviveBinding.inflate(layoutInflater, null, false);
+        imagePreviewBinding.textView191.setText("Write a Review for your Doctor");
+
+
+        imagePreviewBinding.button17.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isAllValidate(imagePreviewBinding)) {
+                    dialog.dismiss();
+                    writeReview(imagePreviewBinding);
+                }
+            }
+        });
+        dialog = new AlertDialog.Builder(requireActivity())
+                .setView(imagePreviewBinding.getRoot())
+                .show();
+
+    }
+
+
+    private boolean isAllValidate(WriteareviveBinding imagePreviewBinding) {
+
+        return true;
+    }
+
+    private void writeReview(WriteareviveBinding imagePreviewBinding) {
+        hideSoftKeyboard(requireActivity());
+        AppUtils.showRequestDialog(requireActivity());
+        WriteReviewModel writeReviewModel = new WriteReviewModel();
+        writeReviewModel.setMemberId(getUserForBooking(requireActivity()).getMemberId());
+        writeReviewModel.setReview(imagePreviewBinding.editTextTextPersonName5.getText().toString());
+        writeReviewModel.setStarRating((int) imagePreviewBinding.ratingBar3.getRating());
+        writeReviewModel.setServiceProviderDetailsId(appointmentModel.getDoctorId());
+
+
+        ApiUtils.WriteReview(writeReviewModel, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                AppUtils.hideDialog();
+                navController.navigate(R.id.action_appointmentDetailFragment_to_doctorsReviewList);
+
+            }
+
+            @Override
+            public void onError(String s) {
+                AppUtils.hideDialog();
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                AppUtils.hideDialog();
+            }
+        });
     }
 
     public void addAppointmentRelatedData(String attachFile) {
@@ -284,5 +356,16 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
     public void onItemClicked(Object o) {
         String appointmentId = (String) o;
         getMedicationData(appointmentId);
+    }
+
+    @Override
+    public void cancel() {
+
+    }
+
+    @Override
+    public void dismiss() {
+
+
     }
 }

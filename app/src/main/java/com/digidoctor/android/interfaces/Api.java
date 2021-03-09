@@ -15,9 +15,11 @@ import com.digidoctor.android.model.Dashboard;
 import com.digidoctor.android.model.DemoResponse;
 import com.digidoctor.android.model.DocBySpecialityRes;
 import com.digidoctor.android.model.DocBySymptomsRes;
+import com.digidoctor.android.model.DocModel;
 import com.digidoctor.android.model.GenerateOtpModel;
 import com.digidoctor.android.model.GenerateOtpRes;
 import com.digidoctor.android.model.GetAppointmentSlotsRes;
+import com.digidoctor.android.model.GetDocRevModelRes;
 import com.digidoctor.android.model.GetMembersRes;
 import com.digidoctor.android.model.GetOrderRes;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
@@ -46,6 +48,7 @@ import com.digidoctor.android.model.UploadPresDataModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
+import com.digidoctor.android.model.WriteReviewModel;
 import com.digidoctor.android.model.addProductRatingResponse;
 import com.digidoctor.android.model.addProductRating;
 import com.digidoctor.android.model.labmodel.ApiLabResponse;
@@ -368,6 +371,14 @@ public interface Api {
 
     @POST("getOrders")
     Call<LabOrderRes> getOrders(@Body LabOrderModel model);
+
+
+    @POST("writeReview")
+    Call<LabOrderRes> writeAReview(@Body WriteReviewModel model);
+
+
+    @POST("getDoctorReview")
+    Call<GetDocRevModelRes> getdoctorreview(@Body DocModel model);
 
 
 }
