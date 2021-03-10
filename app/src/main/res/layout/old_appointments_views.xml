@@ -189,7 +189,7 @@
                 android:text="@{appointment.clinicName}"
                 android:textColor="#3F4E6E"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toStartOf="@+id/ivMap"
+
                 app:layout_constraintStart_toStartOf="@+id/textView94"
                 app:layout_constraintTop_toBottomOf="@+id/textView94" />
 

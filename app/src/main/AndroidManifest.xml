@@ -141,7 +141,6 @@
                 <action android:name="myReceiver" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".BluetoothBroadcastReceiver"
             android:enabled="true"
