@@ -21,7 +21,7 @@
     <color name="green">#39DA2D</color>
     <color name="text_color">#1E1F26</color>
 
-
+    <color name="placeholder_bg">#dddddd</color>
     <color name="p3">#39B54A</color>
     <color name="p4">#39B54A</color>
     <color name="p5">#39B54A</color>

@@ -38,6 +38,7 @@ import ss.com.bannerslider.ImageLoadingService;
 import ss.com.bannerslider.Slider;
 
 import static com.digidoctor.android.utility.AppUtils.getDashboardList;
+import static com.digidoctor.android.utility.utils.fadeIn;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
 
@@ -130,7 +131,10 @@ public class PatientDashboardFragment extends Fragment {
 
     public void loadData(String lat, String lng) {
         viewModel.getDashboardData(lat, lng).observe(getViewLifecycleOwner(), patientDashboardModel -> {
-            dashboard2Binding.getRoot().setVisibility(View.VISIBLE);
+            dashboard2Binding.shimmerHOmeScreen.setVisibility(patientDashboardModel == null ? View.VISIBLE : View.GONE);
+            dashboard2Binding.homeView.setVisibility(patientDashboardModel == null ? View.GONE : View.VISIBLE);
+            dashboard2Binding.homeView.setAnimation(fadeIn(requireActivity()));
+
             if (patientDashboardModel != null) {
                 String image = patientDashboardModel.getTopImage().get(0).getTopImage();
                 if (null != image && !image.isEmpty())
@@ -142,6 +146,7 @@ public class PatientDashboardFragment extends Fragment {
 
 
             }
+
         });
 
     }

@@ -137,7 +137,7 @@ public class PatientRepo {
             @Override
             public void onSuccess(List<?> obj) {
                 List<AppointmentDetailsRes.Appointments> models = (List<AppointmentDetailsRes.Appointments>) obj;
-                Log.d("loadAppointmentDetails", "onSuccess: "+models.get(0));
+                Log.d("loadAppointmentDetails", "onSuccess: " + models.get(0));
                 appointmentMutableLivedetails.setValue(models);
             }
 
@@ -489,13 +489,9 @@ public class PatientRepo {
     }
 
     private void loadPatientDashboardData(Dashboard dashboard) {
-        if (PatientDashboard.getInstance() != null)
-            showRequestDialog(PatientDashboard.getInstance());
-
         getPatientDasboard(dashboard, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
-                AppUtils.hideDialog();
                 PatientDashboardModel dashboardModel = (PatientDashboardModel) o.get(0);
                 if (null != dashboardModel) {
                     patientDashboardModelMutableLiveData.setValue(dashboardModel);
@@ -504,7 +500,6 @@ public class PatientRepo {
 
             @Override
             public void onError(String s) {
-                AppUtils.hideDialog();
                 try {
                     if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
                         logout(PatientDashboard.getInstance(), true);
@@ -520,9 +515,8 @@ public class PatientRepo {
 
             @Override
             public void onFailed(Throwable throwable) {
-                AppUtils.hideDialog();
-                if (PatientDashboard.getInstance() != null)
-                    Toast.makeText(PatientDashboard.getInstance(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(PatientDashboard.getInstance(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
