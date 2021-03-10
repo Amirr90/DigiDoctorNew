@@ -214,24 +214,22 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
         imagePreviewBinding.textView191.setText("Write a Review for your Doctor");
 
 
-        imagePreviewBinding.button17.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        imagePreviewBinding.button17.setOnClickListener(v -> {
 
-                if (isAllValidate(imagePreviewBinding)) {
-                    dialog.dismiss();
-                    writeReview(imagePreviewBinding);
-                }
+            if (isAllValidate(imagePreviewBinding)) {
+                dialog.dismiss();
+                writeReview(imagePreviewBinding);
             }
         });
-        dialog = new AlertDialog.Builder(requireActivity())
-                .setView(imagePreviewBinding.getRoot())
-                .show();
+        dialog = new AlertDialog.Builder(requireActivity()).create();
+        dialog.setView(imagePreviewBinding.getRoot());
+        dialog.show();
 
     }
 
 
     private boolean isAllValidate(WriteareviveBinding imagePreviewBinding) {
+
 
         return true;
     }
