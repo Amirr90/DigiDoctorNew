@@ -94,6 +94,7 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
 
         getData(map);
 
+
         recommendedDoctorsBinding.editTextTextSearchRecDoc.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 RecommendedDoctorsFragment.this.performSearch(v.getText().toString());

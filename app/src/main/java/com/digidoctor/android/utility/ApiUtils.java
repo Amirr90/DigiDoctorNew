@@ -273,8 +273,8 @@ public class ApiUtils {
         symptomModel.setDoctorName(map.get(KEY_DOC_NAME));
 
         try {
-            if (PatientDashboard.getInstance() != null)
-                AppUtils.showRequestDialog(PatientDashboard.getInstance());
+//            if (PatientDashboard.getInstance() != null)
+//                AppUtils.showRequestDialog(PatientDashboard.getInstance());
             final Api api = URLUtils.getAPIServiceForPatient();
             Call<DocBySymptomsRes> specialityResCall = api.getDoctorProfileBySymptom(symptomModel);
             specialityResCall.enqueue(new Callback<DocBySymptomsRes>() {

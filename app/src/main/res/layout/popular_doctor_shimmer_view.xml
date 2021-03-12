@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cradview1"
+            android:layout_width="0dp"
+            android:layout_height="226dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="1dp"
+            android:elevation="5dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/cardView6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{()->recommendedInterface.onItemClicked(doc)}">
+
+
+                <View
+                    android:id="@+id/profile_image"
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="11dp"
+                    android:background="@color/placeholder_bg" />
+
+
+                <View
+
+                    android:id="@+id/imageView32"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="13dp"
+                    android:background="@color/placeholder_bg"
+                    android:contentDescription="TODO"
+                    app:srcCompat="@drawable/video_camera" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/profile_image"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp">
+
+                    <View
+                        android:id="@+id/textView97"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/placeholder_bg"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:singleLine="true"
+                        android:text="Rehan"
+                        android:textAlignment="center"
+                        android:textColor="#262E3F"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/textView98"
+                        android:layout_width="wrap_content"
+                        android:layout_height="10dp"
+                        android:layout_below="@id/textView97"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/placeholder_bg"
+                        android:text="Era "
+
+                        />
+
+                    <View
+                        android:id="@+id/textView99"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_below="@id/textView98"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/placeholder_bg"
+                        android:text="5 Years" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textView99"
+                        android:gravity="center_horizontal">
+
+                        <View
+                            android:id="@+id/textView100"
+                            android:layout_width="wrap_content"
+                            android:layout_height="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_toEndOf="@+id/imageView33"
+                            android:background="@color/placeholder_bg" />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView6"
+            android:layout_width="0dp"
+            android:layout_height="226dp"
+            android:layout_marginStart="10dp"
+            android:elevation="5dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cradview1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cradview1"
+            app:layout_constraintTop_toTopOf="@+id/cradview1">
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{()->recommendedInterface.onItemClicked(doc)}">
+
+
+                <View
+                    android:id="@+id/profile_imagee"
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="11dp"
+                    android:background="@color/placeholder_bg" />
+
+
+                <View
+
+                    android:id="@+id/imageView322"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="13dp"
+                    android:background="@color/placeholder_bg"
+                    android:contentDescription="TODO"
+                    app:srcCompat="@drawable/video_camera" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/profile_imagee"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp">
+
+                    <View
+                        android:id="@+id/textView977"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/placeholder_bg"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:singleLine="true"
+                        android:text="Rehan"
+                        android:textAlignment="center"
+                        android:textColor="#262E3F"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/textView988"
+                        android:layout_width="wrap_content"
+                        android:layout_height="10dp"
+                        android:layout_below="@id/textView977"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/placeholder_bg"
+                        android:text="Era "
+
+                        />
+
+                    <View
+                        android:id="@+id/textView999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_below="@id/textView988"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/placeholder_bg"
+                        android:text="5 Years" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textView999"
+                        android:gravity="center_horizontal">
+
+                        <View
+                            android:id="@+id/textView1000"
+                            android:layout_width="wrap_content"
+                            android:layout_height="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_toEndOf="@+id/imageView33"
+                            android:background="@color/placeholder_bg" />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
