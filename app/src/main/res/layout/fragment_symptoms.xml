@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragments.digiDoctorFragments.SymptomsFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -58,6 +59,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone" />
+
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                shimmer:duration="700"
+                android:visibility="visible"
+                android:id="@+id/shimmerHOmeScreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <include layout="@layout/symptoms_shimmer" />
+
+
+                </LinearLayout>
+
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/symptomsRec"

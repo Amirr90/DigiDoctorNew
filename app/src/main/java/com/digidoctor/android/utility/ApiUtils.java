@@ -172,8 +172,8 @@ public class ApiUtils {
         specialityModel.setProblemName(specialityName);
 
         try {
-            if (PatientDashboard.getInstance() != null)
-                AppUtils.showRequestDialog(PatientDashboard.getInstance());
+//            if (PatientDashboard.getInstance() != null)
+//                AppUtils.showRequestDialog(PatientDashboard.getInstance());
 
             final Api api = URLUtils.getAPIServiceForPatient();
             Call<SpecialityRes> specialityResCall = api.getSpeciality(specialityModel);
@@ -302,9 +302,6 @@ public class ApiUtils {
 
             SymptomModel symptomModel = new SymptomModel();
             symptomModel.setProblemName(symptomName);
-
-            if (PatientDashboard.getInstance() != null)
-                AppUtils.showRequestDialog(PatientDashboard.getInstance());
 
             final Api api = URLUtils.getAPIServiceForPatient();
             Call<SymptomsRes> specialityResCall = api.getProblemsWithIcon(symptomModel);

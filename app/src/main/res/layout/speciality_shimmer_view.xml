@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="170dp"
+        android:layout_height="200dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <View
+            android:id="@+id/imageView21"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shimmer_round"
+            android:backgroundTint="@color/GreyColo"
+            android:elevation="100dp"
+            app:layout_constraintBottom_toTopOf="@+id/cv1"
+            app:layout_constraintStart_toStartOf="@+id/cv1"
+            app:layout_constraintTop_toTopOf="@+id/cv1" />
+
+        <View
+            android:id="@+id/cv1"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/shimmer_round"
+            android:backgroundTint="@color/GreyColo"
+            android:paddingBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </View>
+
+        <View
+            android:id="@+id/textView55"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="25dp"
+            android:background="@color/GreyColo"
+            android:elevation="@dimen/dimen_10dp"
+            android:fontFamily="@font/poppins"
+            android:paddingRight="@dimen/_5sdp"
+            android:text="@string/find_doctors_by"
+            android:textColor="@color/TextGrayColo"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/cv1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView21" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/GreyColo"
+            android:elevation="@dimen/dimen_10dp"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingRight="@dimen/_5sdp"
+            android:text="Symptom"
+            android:textColor="@color/GreyColo"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView55"
+            app:layout_constraintStart_toStartOf="@+id/textView55"
+            app:layout_constraintTop_toBottomOf="@+id/textView55" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

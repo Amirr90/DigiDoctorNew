@@ -49,8 +49,11 @@ public class SpecialitiesFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
+
         getSpecialityData(specialityName);
-        PatientDashboardFragmentDirections.ActionPatientDashboardFragmentToSubSpecialistFragment action=PatientDashboardFragmentDirections.actionPatientDashboardFragmentToSubSpecialistFragment();
+        PatientDashboardFragmentDirections.ActionPatientDashboardFragmentToSubSpecialistFragment action = PatientDashboardFragmentDirections.actionPatientDashboardFragmentToSubSpecialistFragment();
+        specialitiesBinding.shimmerHOmeScreen.setVisibility(PatientDashboard.getInstance() != null ? View.VISIBLE : View.GONE);
+
         specialitiesBinding.editTextTextSearchSpeciality.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

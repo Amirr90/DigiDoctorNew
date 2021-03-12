@@ -21,6 +21,7 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.SymptomsAdapter;
 import com.digidoctor.android.databinding.FragmentSymptomsBinding;
 import com.digidoctor.android.model.SymptomModel;
+import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
 import org.jetbrains.annotations.NotNull;
@@ -84,7 +85,7 @@ public class SymptomsFragment extends Fragment {
 
         symptoms2Binding.btnProceedOnSymptomPage.setOnClickListener(v -> navController.navigate(R.id.action_symptomsFragment2_to_recommendedDoctorsFragment2));
 
-
+        symptoms2Binding.shimmerHOmeScreen.setVisibility(PatientDashboard.getInstance() != null ? View.VISIBLE : View.GONE);
         symptoms2Binding.btnProceedOnSymptomPage.setOnClickListener(view1 -> {
             if (symptomsIds.isEmpty()) {
                 Toast.makeText(requireActivity(), R.string.select_symptoms, Toast.LENGTH_SHORT).show();
