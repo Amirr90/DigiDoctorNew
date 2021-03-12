@@ -7,7 +7,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="170dp"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
@@ -21,14 +21,15 @@
             android:id="@+id/imageView21"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="10dp"
             android:background="@drawable/shimmer_round"
             android:backgroundTint="@color/GreyColo"
             android:elevation="100dp"
             app:layout_constraintBottom_toTopOf="@+id/cv1"
-            app:layout_constraintStart_toStartOf="@+id/cv1"
-            app:layout_constraintTop_toTopOf="@+id/cv1" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cv1"
+            app:layout_constraintVertical_bias="0.506" />
 
         <View
             android:id="@+id/cv1"

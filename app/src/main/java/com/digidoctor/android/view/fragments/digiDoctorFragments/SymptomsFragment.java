@@ -85,7 +85,9 @@ public class SymptomsFragment extends Fragment {
 
         symptoms2Binding.btnProceedOnSymptomPage.setOnClickListener(v -> navController.navigate(R.id.action_symptomsFragment2_to_recommendedDoctorsFragment2));
 
-        symptoms2Binding.shimmerHOmeScreen.setVisibility(PatientDashboard.getInstance() != null ? View.VISIBLE : View.GONE);
+        //set Shimmer to Visible
+        symptoms2Binding.shimmerSymptomsScreen.setVisibility(View.VISIBLE);
+
         symptoms2Binding.btnProceedOnSymptomPage.setOnClickListener(view1 -> {
             if (symptomsIds.isEmpty()) {
                 Toast.makeText(requireActivity(), R.string.select_symptoms, Toast.LENGTH_SHORT).show();
@@ -131,8 +133,10 @@ public class SymptomsFragment extends Fragment {
     private void getSymptomData(String symptomName) {
 
         viewModel.getSymptomsData(symptomName).observe(getViewLifecycleOwner(), symptomModels -> {
+            symptoms2Binding.shimmerSymptomsScreen.setVisibility(symptomModels.isEmpty() ? View.VISIBLE : View.GONE);
+            symptoms2Binding.symptomsRec.setVisibility(symptomModels.isEmpty() ? View.GONE : View.VISIBLE);
             symptomsAdapter.submitList(symptomModels);
-            symptoms2Binding.progressBar2.setVisibility(View.GONE);
+            //symptoms2Binding.progressBar2.setVisibility(View.GONE);
         });
     }
 

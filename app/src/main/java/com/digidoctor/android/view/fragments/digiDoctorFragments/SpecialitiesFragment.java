@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.digidoctor.android.adapters.ShimmerAdapter;
 import com.digidoctor.android.adapters.SpecialityAdapter;
 import com.digidoctor.android.databinding.FragmentSpecialitiesBinding;
 import com.digidoctor.android.view.activity.PatientDashboard;
@@ -46,6 +47,8 @@ public class SpecialitiesFragment extends Fragment {
 
         specialityAdapter = new SpecialityAdapter(requireActivity());
         specialitiesBinding.specRec.setAdapter(specialityAdapter);
+        //set ShimmerAdapter
+        specialitiesBinding.recShimmerSpeciality.setAdapter(new ShimmerAdapter());
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
@@ -87,7 +90,9 @@ public class SpecialitiesFragment extends Fragment {
         viewModel.getSpecialityData(specialityName).observe(getViewLifecycleOwner(), specialityModels -> {
             if (null != specialityModels) {
                 specialityAdapter.submitList(specialityModels);
-                specialitiesBinding.progressBar3.setVisibility(View.GONE);
+                // specialitiesBinding.progressBar3.setVisibility(View.GONE);
+                specialitiesBinding.recShimmerSpeciality.setVisibility(specialityModels.isEmpty() ? View.VISIBLE : View.GONE);
+                specialitiesBinding.specRec.setVisibility(specialityModels.isEmpty() ? View.GONE : View.VISIBLE);
             } else PatientDashboard.getInstance().onSupportNavigateUp();
 
         });

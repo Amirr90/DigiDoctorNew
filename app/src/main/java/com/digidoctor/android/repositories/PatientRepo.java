@@ -477,14 +477,14 @@ public class PatientRepo {
     public LiveData<PatientDashboardModel> getDashboardData(String lat, String lng) {
         if (patientDashboardModelMutableLiveData == null) {
             patientDashboardModelMutableLiveData = new MutableLiveData<>();
+            Dashboard dashboard = new Dashboard();
+            dashboard.setLat(lat);
+            dashboard.setLat(lng);
+            loadPatientDashboardData(dashboard);
 
         }
 
-        Dashboard dashboard = new Dashboard();
-        dashboard.setLat(lat);
-        dashboard.setLat(lng);
 
-        loadPatientDashboardData(dashboard);
         return patientDashboardModelMutableLiveData;
     }
 
