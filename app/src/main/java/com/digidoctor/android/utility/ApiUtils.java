@@ -1,6 +1,7 @@
 package com.digidoctor.android.utility;
 
 import android.app.Activity;
+import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
@@ -125,6 +126,7 @@ import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.TOKEN;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.getString;
+import static com.digidoctor.android.utility.utils.isNetworkConnected;
 import static com.digidoctor.android.utility.utils.logout;
 
 
@@ -135,33 +137,36 @@ public class ApiUtils {
     public static final int RESPONSE_FAILED = 0;
     public static final int RESPONSE_LOGOUT = 2;
 
-    public static void getPatientDasboard(Dashboard dashboard,
-                                          final ApiCallbackInterface apiCallbackInterface) {
+    public static void getPatientDasboard(Dashboard dashboard, final ApiCallbackInterface apiCallbackInterface) {
 
-        try {
-            final Api api = URLUtils.getAPIServiceForPatient();
-            Call<DashBoardRes> dashBoardResCall = api.patientDasboard(dashboard);
+        if (isNetworkConnected(App.context))
+            try {
+                final Api api = URLUtils.getAPIServiceForPatient();
+                Call<DashBoardRes> dashBoardResCall = api.patientDasboard(dashboard);
 
-            dashBoardResCall.enqueue(new Callback<DashBoardRes>() {
-                @Override
-                public void onResponse(@NotNull Call<DashBoardRes> call, @NotNull Response<DashBoardRes> response) {
-                    if (response.code() == 200 && null != response.body()) {
-                        if (response.body().getResponseCode() == 1) {
-                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                        } else {
-                            apiCallbackInterface.onError(response.body().getResponseMessage());
-                        }
-                    } else apiCallbackInterface.onError(response.message());
-                }
+                dashBoardResCall.enqueue(new Callback<DashBoardRes>() {
+                    @Override
+                    public void onResponse(@NotNull Call<DashBoardRes> call, @NotNull Response<DashBoardRes> response) {
+                        if (response.code() == 200 && null != response.body()) {
+                            if (response.body().getResponseCode() == 1) {
+                                apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                            } else {
+                                apiCallbackInterface.onError(response.body().getResponseMessage());
+                            }
+                        } else apiCallbackInterface.onError(response.message());
+                    }
 
-                @Override
-                public void onFailure(@NotNull Call<DashBoardRes> call, @NotNull Throwable t) {
-                    apiCallbackInterface.onError(t.getLocalizedMessage());
-                }
-            });
+                    @Override
+                    public void onFailure(@NotNull Call<DashBoardRes> call, @NotNull Throwable t) {
+                        apiCallbackInterface.onError(t.getLocalizedMessage());
+                    }
+                });
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        else {
+            apiCallbackInterface.onError(App.context.getString(R.string.no_internet));
         }
     }
 

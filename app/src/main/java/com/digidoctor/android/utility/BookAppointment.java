@@ -68,7 +68,6 @@ public class BookAppointment extends Credentials {
     private final String SALT = "PxXF1pqL";
 
     private Integer payMode;
-
     private String userMobileNo;
     private String memberId;
     private String patientName;

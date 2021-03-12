@@ -2,9 +2,11 @@ package com.digidoctor.android.view.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
@@ -28,6 +30,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.NavAdapter;
+import com.digidoctor.android.broadcast.InternetBroadcastReceiver;
 import com.digidoctor.android.databinding.ActivityDashBoardBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.NavigationInterface;
@@ -83,6 +86,8 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     private static final String TAG = "PatientDashboard";
 
 
+    InternetBroadcastReceiver broadcastReceiver = new InternetBroadcastReceiver();
+
     public static PatientDashboard instance;
 
 
@@ -137,6 +142,10 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_dash_board);
 
         instance = this;
+
+
+        //Register Broadcast Receiver
+        registerBroadcast();
 
         user = getPrimaryUser(getInstance());
 
@@ -195,6 +204,17 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         });
     }
 
+    private void registerBroadcast() {
+        //Create Intent Filter here
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(broadcastReceiver, filter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
+    }
 
     public void updateUser() {
         user = getPrimaryUser(this);
