@@ -525,8 +525,6 @@ public class utils {
             builder.append(day).append("\n").append(timeFrom).append(" - ").append(timeTo);
             builder.append("\n\n");
         }
-
-
         return builder;
     }
 }

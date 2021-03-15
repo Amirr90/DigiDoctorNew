@@ -445,6 +445,11 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     navController.navigate(R.id.addMemberFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
+            case 6:
+                if (user.getIsExists() == 1)
+                    navController.navigate(R.id.getPlacedOrderFragment);
+                else navController.navigate(R.id.profileFragment);
+                break;
 
             case 11:
                 Toast.makeText(instance, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();

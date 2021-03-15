@@ -98,6 +98,7 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
                 chats.clear();
 
                 chats.addAll(chatModelList);
+                //
                 // Collections.sort(chats, Collections.reverseOrder());
 
 

@@ -17,6 +17,7 @@ import androidx.navigation.Navigation;
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.PopularDoctorsAdapter;
 import com.digidoctor.android.adapters.RecommendedDoctorsAdapter;
+import com.digidoctor.android.adapters.ShimmerAdapter;
 import com.digidoctor.android.databinding.FragmentRecommendedDoctorsBinding;
 import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.model.DoctorModel;
@@ -87,6 +88,7 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
         popularDoctorsAdapter = new PopularDoctorsAdapter(this, requireActivity());
         recommendedDoctorsBinding.recommendedRec.setAdapter(doctorsAdapter);
         recommendedDoctorsBinding.popularRec.setAdapter(popularDoctorsAdapter);
+        recommendedDoctorsBinding.shimmerPopularDoc.setAdapter(new ShimmerAdapter(R.layout.popular_doctor_shimmer_view));
 
         map.put(KEY_SYMPTOM_ID, symptomID);
         map.put(KEY_DOC_NAME, null);

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.ShimmerAdapter;
 import com.digidoctor.android.adapters.SpecialityAdapter;
 import com.digidoctor.android.databinding.FragmentSpecialitiesBinding;
@@ -48,7 +49,7 @@ public class SpecialitiesFragment extends Fragment {
         specialityAdapter = new SpecialityAdapter(requireActivity());
         specialitiesBinding.specRec.setAdapter(specialityAdapter);
         //set ShimmerAdapter
-        specialitiesBinding.recShimmerSpeciality.setAdapter(new ShimmerAdapter());
+        specialitiesBinding.recShimmerSpeciality.setAdapter(new ShimmerAdapter(R.layout.speciality_shimmer_view));
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 

@@ -7,16 +7,22 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.digidoctor.android.databinding.SpecialityShimmerViewBinding;
-
 public class ShimmerAdapter extends RecyclerView.Adapter<ShimmerAdapter.ShimmerVH> {
+    int layoutId;
+
+    public ShimmerAdapter(int layoutId) {
+        this.layoutId = layoutId;
+    }
+
     @NonNull
     @Override
     public ShimmerVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        SpecialityShimmerViewBinding shimmerViewBinding = SpecialityShimmerViewBinding.inflate(layoutInflater, parent, false);
-        return new ShimmerVH(shimmerViewBinding.getRoot());
+        View view = layoutInflater.inflate(layoutId, parent, false);
+        return new ShimmerVH(view);
+
     }
+
     @Override
     public void onBindViewHolder(@NonNull ShimmerVH holder, int position) {
 
@@ -26,6 +32,7 @@ public class ShimmerAdapter extends RecyclerView.Adapter<ShimmerAdapter.ShimmerV
     public int getItemCount() {
         return 15;
     }
+
     public static class ShimmerVH extends RecyclerView.ViewHolder {
         public ShimmerVH(@NonNull View itemView) {
             super(itemView);

@@ -5,9 +5,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.digidoctor.android.R;
+import com.digidoctor.android.adapters.ShimmerAdapter;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
 import static android.view.View.GONE;
@@ -34,6 +36,11 @@ public class CustomLoadImage {
             }
         }
 
+    }
+
+    @BindingAdapter("android:loadCustomShimmerAdapter")
+    public static void loadCustomShimmerAdapter(RecyclerView recView, int layout) {
+        recView.setAdapter(new ShimmerAdapter(layout));
     }
 
     @BindingAdapter("android:loadCustomProductImage")
