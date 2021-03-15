@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -53,22 +54,41 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/sub_speciality_view" />
 
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerHOmeScreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        shimmer:duration="700">
+
+      <!--  <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/shimmerSubSpeciality"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:loadCustomShimmerAdapter="@layout/shimmer_doctor_view"
+            android:padding="@dimen/_10sdp"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/shimmer_doctor_view" />-->
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/rlNoDocFound"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="241dp"
-            android:src="@drawable/no_doc_image"
-            android:contentDescription="TODO" />
+            android:contentDescription="TODO"
+            android:src="@drawable/no_doc_image" />
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,7 +99,8 @@
             android:text="@string/sorry"
             android:textColor="#262E3F"
             android:textSize="17sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -92,6 +113,5 @@
             android:textColor="#262E3F"
             android:textSize="17sp" />
     </RelativeLayout>
-
 
 </LinearLayout>

@@ -29,6 +29,7 @@
         tools:ignore="MissingConstraints">
 
         <RelativeLayout
+            android:padding="@dimen/dimen_5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -91,15 +92,19 @@
                 android:textSize="14sp" />
 
             <View
+
                 android:id="@+id/ivShareDocProfile"
                 android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:elevation="@dimen/_5sdp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/imageView20"
                 android:layout_alignParentEnd="true"
-                android:layout_margin="3dp"
-                android:clickable="true"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="3dp"
                 android:background="@color/GreyColo"
+                android:clickable="true"
                 android:contentDescription="TODO"
+                android:elevation="@dimen/_5sdp"
                 android:focusable="true"
                 android:padding="5dp"
                 app:srcCompat="@drawable/share_doc_profile_image" />
