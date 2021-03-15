@@ -109,6 +109,7 @@ public class AddMemberFragment extends Fragment implements MyDialogInterface {
                     Uri uri = data.getData();
                     addMemberBinding.profileImage.setImageURI(uri);
                     File file = FileUtil.from(requireActivity(), uri);
+                    Log.d(TAG, "onActivityResult: " + file);
                     uploadImage(file);
                 } catch (IOException e) {
                     e.printStackTrace();
