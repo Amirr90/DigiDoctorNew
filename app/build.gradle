@@ -31,6 +31,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    android {
+        // ...
+        aaptOptions {
+            noCompress "tflite"
+        }
+    }
 }
 
 dependencies {
@@ -171,6 +178,10 @@ dependencies {
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
     implementation 'com.borjabravo:readmoretextview:2.1.0'
     implementation 'com.google.android:flexbox:2.0.1'
+
+
+    ///ml Kit
+    implementation 'com.google.mlkit:smart-reply:16.1.1'
 
 
 }

@@ -14,16 +14,26 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.digidoctor.android.adapters.ChatAdapter;
+import com.digidoctor.android.adapters.SmartSuggestionAdapter;
 import com.digidoctor.android.databinding.FragmentChatForAppointmentBinding;
 import com.digidoctor.android.interfaces.ChatInterface;
 import com.digidoctor.android.interfaces.NewApiInterface;
+import com.digidoctor.android.interfaces.SuggestionInterface;
 import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.ChatModel;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.viewHolder.PatientViewModel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.mlkit.nl.smartreply.SmartReply;
+import com.google.mlkit.nl.smartreply.SmartReplyGenerator;
+import com.google.mlkit.nl.smartreply.SmartReplySuggestion;
+import com.google.mlkit.nl.smartreply.SmartReplySuggestionResult;
+import com.google.mlkit.nl.smartreply.TextMessage;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +43,7 @@ import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
 
-public class ChatForAppointmentFragment extends Fragment implements ChatInterface {
+public class ChatForAppointmentFragment extends Fragment implements ChatInterface, SuggestionInterface {
     private static final String TAG = "ChatForAppointmentFragm";
     FragmentChatForAppointmentBinding chat;
     NavController navController;
@@ -45,6 +55,11 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
     String uid;
 
     PatientViewModel viewModel;
+    SmartSuggestionAdapter suggestionAdapter;
+    List<String> suggestionMsg;
+
+
+    ArrayList<TextMessage> conversation = new ArrayList<TextMessage>();
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -84,8 +99,12 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
         chat.btnSendMsg.setOnClickListener(view1 -> {
             if (chat.editTextTextPersonName4.getText().toString().isEmpty())
                 return;
-            sendMsg();
+            sendMsg(chat.editTextTextPersonName4.getText().toString());
         });
+
+        suggestionMsg = new ArrayList<>();
+        suggestionAdapter = new SmartSuggestionAdapter(suggestionMsg, this::onSuggestionItemClicked);
+        chat.recSmartSuggestion.setAdapter(suggestionAdapter);
 
     }
 
@@ -101,6 +120,14 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
                 //
                 // Collections.sort(chats, Collections.reverseOrder());
 
+                if (chatModelList.size() > 1) {
+                    addSenderMsg(chatModelList.get(0).getMessage());
+                    addReceiverMsg(chatModelList.get(1).getMessage());
+                    Log.d(TAG, "loadLiveData: 0 " + chatModelList.get(0).getMessage());
+                    Log.d(TAG, "loadLiveData: 1 " + chatModelList.get(1).getMessage());
+                    getSmartReply();
+                }
+
 
             }
             adapter.notifyDataSetChanged();
@@ -115,10 +142,10 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
     }
 
 
-    public ChatModel getChat() {
+    public ChatModel getChat(String msg) {
         ChatModel chatModel = new ChatModel();
         chatModel.setAppointmentId(AppointmentId);
-        chatModel.setMessage(chat.editTextTextPersonName4.getText().toString());
+        chatModel.setMessage(msg);
         chatModel.setSenderId(String.valueOf(getPrimaryUser(requireActivity()).getMemberId()));
         chatModel.setReceiverId(doId);
         chatModel.setSeen(false);
@@ -127,10 +154,11 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
         return chatModel;
     }
 
-    private void sendMsg() {
+    private void sendMsg(String msg) {
         adapter.notifyDataSetChanged();
-        adapter.addChatItems(getChat());
-        ApiUtils.getChatResponse(ApiUtils.sendMsg(getChat()), new NewApiInterface() {
+        adapter.addChatItems(getChat(msg));
+        addSenderMsg(msg);
+        ApiUtils.getChatResponse(ApiUtils.sendMsg(getChat(msg)), new NewApiInterface() {
             @Override
             public void onSuccess(Object obj) {
                 List<ChatModel> chatModels = (List<ChatModel>) obj;
@@ -139,6 +167,14 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
                 chats.addAll(chatModels);
                 adapter.notifyDataSetChanged();
                 updateVisibility();
+
+                if (chatModels.size() > 1) {
+                    addSenderMsg(chatModels.get(1).getMessage());
+                    addReceiverMsg(chatModels.get(0).getMessage());
+                    Log.d(TAG, "loadLiveData: 0 " + chatModels.get(0).getMessage());
+                    Log.d(TAG, "loadLiveData: 1 " + chatModels.get(1).getMessage());
+                    getSmartReply();
+                }
             }
 
             @Override
@@ -156,4 +192,39 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
 
     }
 
+
+    private void addSenderMsg(String msg) {
+        conversation.add(TextMessage.createForLocalUser(
+                msg, System.currentTimeMillis()));
+    }
+
+    private void addReceiverMsg(String msg) {
+        conversation.add(TextMessage.createForRemoteUser(
+                msg, System.currentTimeMillis(), doId));
+    }
+
+    private void getSmartReply() {
+        SmartReplyGenerator smartReply = SmartReply.getClient();
+        smartReply.suggestReplies(conversation)
+                .addOnSuccessListener(result -> {
+                    if (result.getStatus() == SmartReplySuggestionResult.STATUS_NOT_SUPPORTED_LANGUAGE) {
+                        Log.d(TAG, "onSuccess: language not supported !!");
+                    } else if (result.getStatus() == SmartReplySuggestionResult.STATUS_SUCCESS) {
+                        suggestionMsg.clear();
+                        for (SmartReplySuggestion suggestionMsg1 : result.getSuggestions()) {
+                            Log.d(TAG, "smartReply: " + suggestionMsg1.getText());
+                            suggestionMsg.add(suggestionMsg1.getText());
+                        }
+                        suggestionAdapter.notifyDataSetChanged();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
+                });
+    }
+
+    @Override
+    public void onSuggestionItemClicked(String msg) {
+        sendMsg(msg);
+    }
 }
