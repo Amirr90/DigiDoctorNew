@@ -47,12 +47,12 @@
                     android:id="@+id/imageView20"
                     android:layout_width="54dp"
                     android:layout_height="54dp"
+                    android:contentDescription="@string/todo"
                     android:loadCustomDoctorImage="@{appointmentModel.profilePhotoPath}"
                     android:padding="2dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/doc_image"
-                    android:contentDescription="@string/todo" />
+                    app:srcCompat="@drawable/doc_image" />
 
                 <TextView
 
@@ -88,10 +88,10 @@
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_marginTop="23dp"
+                    android:contentDescription="TODO"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView112"
-                    app:srcCompat="@drawable/location_pin"
-                    android:contentDescription="TODO" />
+                    app:srcCompat="@drawable/location_pin" />
 
                 <TextView
                     android:id="@+id/textView94"
@@ -132,11 +132,11 @@
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_marginTop="20dp"
+                    android:contentDescription="TODO"
                     android:src="@drawable/calender"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView113"
-                    app:tint="@color/colorPrimary"
-                    android:contentDescription="TODO" />
+                    app:tint="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/textView117"
@@ -206,10 +206,10 @@
                     android:layout_width="13dp"
                     android:layout_height="13dp"
                     android:layout_marginTop="18dp"
+                    android:contentDescription="TODO"
                     android:src="@drawable/medical_problem_icon"
                     app:layout_constraintStart_toStartOf="@+id/imageView18"
-                    app:layout_constraintTop_toBottomOf="@+id/view5"
-                    android:contentDescription="TODO" />
+                    app:layout_constraintTop_toBottomOf="@+id/view5" />
 
                 <TextView
                     android:id="@+id/textView121"
@@ -288,12 +288,12 @@
                     android:layout_height="25dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
+                    android:contentDescription="TODO"
                     android:focusable="true"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/chat_icon"
-                    android:contentDescription="TODO" />
+                    app:srcCompat="@drawable/chat_icon" />
 
                 <LinearLayout
                     android:id="@+id/uploadFilesView"
@@ -375,19 +375,19 @@
                     android:layout_marginEnd="4dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
+                    android:contentDescription="TODO"
                     android:focusable="true"
                     app:layout_constraintBottom_toBottomOf="@+id/textView113"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView94"
-                    app:srcCompat="@drawable/ic_baseline_map_24"
-                    android:contentDescription="TODO" />
+                    app:srcCompat="@drawable/ic_baseline_map_24" />
 
                 <TextView
-                    android:fontFamily="@font/poppins"
                     android:id="@+id/textView204"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
+                    android:fontFamily="@font/poppins"
                     android:text="Old Appointments"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     app:layout_constraintStart_toStartOf="parent"

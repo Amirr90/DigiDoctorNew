@@ -88,7 +88,7 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
         popularDoctorsAdapter = new PopularDoctorsAdapter(this, requireActivity());
         recommendedDoctorsBinding.recommendedRec.setAdapter(doctorsAdapter);
         recommendedDoctorsBinding.popularRec.setAdapter(popularDoctorsAdapter);
-        recommendedDoctorsBinding.shimmerPopularDoc.setAdapter(new ShimmerAdapter(R.layout.popular_doctor_shimmer_view));
+        recommendedDoctorsBinding.popularRec.setAdapter(new ShimmerAdapter(R.layout.popular_doctor_shimmer_view));
 
         map.put(KEY_SYMPTOM_ID, symptomID);
         map.put(KEY_DOC_NAME, null);
