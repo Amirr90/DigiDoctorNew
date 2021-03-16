@@ -53,7 +53,7 @@
                         android:layout_marginTop="20dp"
                         android:fontFamily="@font/poppins_semibold"
                         android:text="@string/upload_profile_photo"
-                        android:textColor="#0A586C"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -99,7 +99,8 @@
                             android:textColor="#BCBCBC"
                             android:textSize="12sp"
                             android:textStyle="bold"
-                            app:drawableLeftCompat="@drawable/smartphone_small" />
+                            android:drawableTint="@color/colorPrimary"
+                            app:drawableLeftCompat="@drawable/user_small" />
 
                         <EditText
                             android:id="@+id/etNumber"
@@ -121,6 +122,7 @@
                             android:fontFamily="@font/poppins_bold"
                             android:text="@string/address"
                             android:textColor="#BCBCBC"
+                            android:drawableTint="@color/colorPrimary"
                             android:textSize="12sp"
                             android:textStyle="bold"
                             app:drawableLeftCompat="@drawable/address_small" />
@@ -159,6 +161,7 @@
                             android:layout_marginBottom="20dp"
                             android:gravity="center_vertical"
                             android:hint="@string/gender_here"
+                            android:drawableTint="@color/colorPrimary"
                             android:onClick="@{()->dialogInterface.onGenderItemClick()}"
                             android:paddingStart="5dp"
                             android:paddingEnd="10dp"
@@ -176,6 +179,7 @@
                             android:gravity="center_vertical"
                             android:text="@string/dob"
                             android:textColor="#BCBCBC"
+                            android:drawableTint="@color/colorPrimary"
                             android:textSize="12sp"
                             android:textStyle="bold"
                             app:drawableLeftCompat="@drawable/cake_small" />
@@ -192,6 +196,7 @@
                             android:onClick="@{()->dialogInterface.onAgeItemClick()}"
                             android:paddingStart="5dp"
                             android:paddingEnd="10dp"
+                            android:drawableTint="@color/colorPrimary"
                             android:textColor="#424242"
                             android:textColorHint="#D2D2D2"
                             android:textSize="14sp"
