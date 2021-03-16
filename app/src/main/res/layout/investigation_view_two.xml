@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -57,9 +58,9 @@
                 android:id="@+id/imageView44"
                 android:layout_width="104dp"
                 android:layout_height="113dp"
+                android:contentDescription="TODO"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="TODO" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView96"
@@ -102,17 +103,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-
                 android:id="@+id/textView106"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/poppins"
+                android:maxLines="2"
                 android:text="@{investigationModel.receiptNo}"
                 android:textColor="#262E3F"
                 android:textSize="14sp"
                 android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="@+id/textView103"
                 app:layout_constraintEnd_toEndOf="@+id/view3"
                 app:layout_constraintStart_toEndOf="@+id/textView103"
                 app:layout_constraintTop_toTopOf="@+id/textView103" />
@@ -121,7 +121,6 @@
                 android:id="@+id/textView108"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
 
                 android:fontFamily="@font/poppins"
                 android:text="@{investigationModel.pathologyName}"
@@ -130,7 +129,7 @@
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView103"
-                app:layout_constraintTop_toBottomOf="@+id/textView103" />
+                app:layout_constraintTop_toBottomOf="@+id/textView106" />
 
             <LinearLayout
                 android:layout_width="match_parent"
