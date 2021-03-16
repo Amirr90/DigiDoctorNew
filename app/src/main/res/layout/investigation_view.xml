@@ -143,7 +143,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView108">
 
                 <Button
-                    android:visibility="gone"
                     android:layout_width="0dp"
                     android:layout_height="42dp"
                     android:layout_marginRight="6dp"
@@ -153,7 +152,8 @@
                     android:setCustomVisibility="@{investigationModel.filePath}"
                     android:text="@string/download"
                     android:textAllCaps="false"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/btnCancelAppointment"
