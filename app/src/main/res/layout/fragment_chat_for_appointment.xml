@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatForAppointmentFragment">
+    tools:context=".view.fragments.digiDoctorFragments.ChatForAppointmentFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,6 +78,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:reverseLayout="true"
+            app:stackFromEnd="true"
             tools:itemCount="5"
             tools:listitem="@layout/sender_view" />
 

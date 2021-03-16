@@ -1,4 +1,4 @@
-package com.digidoctor.android;
+package com.digidoctor.android.view.fragments.digiDoctorFragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -23,8 +23,6 @@ import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.ChatModel;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.viewHolder.PatientViewModel;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.mlkit.nl.smartreply.SmartReply;
 import com.google.mlkit.nl.smartreply.SmartReplyGenerator;
 import com.google.mlkit.nl.smartreply.SmartReplySuggestion;
@@ -33,9 +31,7 @@ import com.google.mlkit.nl.smartreply.TextMessage;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -93,7 +89,7 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
         chat.chatRec.setAdapter(adapter);
 
 
-        loadLiveData();
+        loadData();
 
 
         chat.btnSendMsg.setOnClickListener(view1 -> {
@@ -108,7 +104,7 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
 
     }
 
-    private void loadLiveData() {
+    private void loadData() {
         AppointmentModel appointmentModel = new AppointmentModel();
         appointmentModel.setAppointmentId(AppointmentId);
 
@@ -117,6 +113,7 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
                 chats.clear();
 
                 chats.addAll(chatModelList);
+                Log.d(TAG, "loadData: " + chats.size());
                 //
                 // Collections.sort(chats, Collections.reverseOrder());
 
@@ -130,6 +127,8 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
 
 
             }
+            if (chats.size() > 0)
+                chat.chatRec.scrollToPosition(0);
             adapter.notifyDataSetChanged();
             updateVisibility();
         });
@@ -166,15 +165,29 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
                 chats.clear();
                 chats.addAll(chatModels);
                 adapter.notifyDataSetChanged();
+                chat.chatRec.scrollToPosition(adapter.getItemCount() - 1);
                 updateVisibility();
 
                 if (chatModels.size() > 1) {
-                    addSenderMsg(chatModels.get(1).getMessage());
+                    for (ChatModel chatModel : chatModels) {
+                        if (chatModel.getSenderId().equals(uid)) {
+                            addSenderMsg(chatModel.getMessage());
+                            Log.d(TAG, "loadLiveData: 0 " + chatModel.getMessage());
+
+
+                        } else {
+                            addReceiverMsg(chatModel.getMessage());
+                            Log.d(TAG, "loadLiveData: 1 " + chatModel.getMessage());
+                        }
+                    }
+                  /*  addSenderMsg(chatModels.get(1).getMessage());
                     addReceiverMsg(chatModels.get(0).getMessage());
                     Log.d(TAG, "loadLiveData: 0 " + chatModels.get(0).getMessage());
-                    Log.d(TAG, "loadLiveData: 1 " + chatModels.get(1).getMessage());
+                    Log.d(TAG, "loadLiveData: 1 " + chatModels.get(1).getMessage());*/
                     getSmartReply();
                 }
+                if (chats.size() > 0)
+                    chat.chatRec.scrollToPosition(0);
             }
 
             @Override

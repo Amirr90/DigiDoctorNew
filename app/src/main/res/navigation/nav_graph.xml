@@ -571,7 +571,7 @@
         tools:layout="@layout/fragment_single_image_view" />
     <fragment
         android:id="@+id/chatForAppointmentFragment"
-        android:name="com.digidoctor.android.ChatForAppointmentFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.ChatForAppointmentFragment"
         android:label="Chat"
         tools:layout="@layout/fragment_chat_for_appointment" />
 
