@@ -35,7 +35,8 @@
                 android:background="@drawable/cartview_round_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -116,13 +117,13 @@
                         android:id="@+id/imageView66"
                         android:layout_width="0dp"
                         android:layout_height="15dp"
+                        android:contentDescription="TODO"
                         android:src="@drawable/ic_baseline_star_24"
                         app:layout_constraintBottom_toBottomOf="@+id/textView41"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/textView41"
-                        app:layout_constraintTop_toTopOf="@+id/textView41"
-                        android:contentDescription="TODO" />
+                        app:layout_constraintTop_toTopOf="@+id/textView41" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -247,9 +248,9 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:background="@drawable/elipse"
+                    android:contentDescription="TODO"
                     android:visibility="gone"
-                    app:srcCompat="@drawable/ic_baseline_share_24"
-                    android:contentDescription="TODO" />
+                    app:srcCompat="@drawable/ic_baseline_share_24" />
 
                 <TextView
                     android:id="@+id/textView60"
@@ -711,7 +712,7 @@
                     android:layout_width="2dp"
                     android:layout_height="154dp"
                     android:layout_marginEnd="7dp"
-                    android:background="#707070"
+                    android:background="#CDCCCC"
                     app:layout_constraintBottom_toBottomOf="@+id/textView89"
                     app:layout_constraintEnd_toStartOf="@+id/textView95"
                     app:layout_constraintStart_toEndOf="@+id/textView89"
@@ -721,7 +722,8 @@
                     android:id="@+id/progressBar"
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                     android:layout_width="0dp"
-                    android:layout_height="10dp"
+                    android:layout_height="7dp"
+                    android:progressDrawable="@drawable/progress_drawable"
                     android:layout_marginEnd="3dp"
                     android:progress="@{product.fivestarPerc}"
                     android:progressTint="@color/p5"
@@ -734,9 +736,10 @@
                     android:id="@+id/progressBar2"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="0dp"
-                    android:layout_height="10dp"
+                    android:layout_height="7dp"
                     android:layout_marginEnd="3dp"
                     android:background="#FEFEFE"
+                    android:progressDrawable="@drawable/progress_drawable"
                     android:indeterminate="false"
                     android:progress="@{product.fourstarPerc}"
                     android:progressTint="@color/p4"
@@ -749,9 +752,10 @@
                     android:id="@+id/progressBar4"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="0dp"
-                    android:layout_height="10dp"
+                    android:layout_height="7dp"
                     android:layout_marginEnd="3dp"
                     android:progress="@{product.threestarPerc}"
+                    android:progressDrawable="@drawable/progress_drawable"
                     android:progressTint="@color/p3"
                     app:layout_constraintBottom_toBottomOf="@+id/textView96"
                     app:layout_constraintEnd_toStartOf="@+id/textView92"
@@ -762,7 +766,8 @@
                     android:id="@+id/progressBar5"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="0dp"
-                    android:layout_height="10dp"
+                    android:layout_height="7dp"
+                    android:progressDrawable="@drawable/progress_drawable"
                     android:layout_marginEnd="3dp"
                     android:background="@drawable/cartview_round_layout"
                     android:progress="@{product.onestarPerc}"
@@ -776,7 +781,8 @@
                     android:id="@+id/progressBar6"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="0dp"
-                    android:layout_height="10dp"
+                    android:layout_height="7dp"
+                    android:progressDrawable="@drawable/progress_drawable"
                     android:layout_marginEnd="3dp"
                     android:progress="@{product.twostarPerc}"
                     android:progressTint="@color/p1"
@@ -945,13 +951,15 @@
                 <View
                     android:id="@+id/view3"
                     android:layout_width="0dp"
-                    android:layout_height="1dp"
+                    android:layout_height="2dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="12dp"
+                    android:background="#BBBBBB"
                     app:layout_constraintBottom_toTopOf="@+id/recyclerView2"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view2" />
 
@@ -981,19 +989,20 @@
                     android:id="@+id/imageView42"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
+                    android:contentDescription="TODO"
                     app:layout_constraintBottom_toBottomOf="@+id/textView88"
                     app:layout_constraintStart_toEndOf="@+id/textView88"
                     app:layout_constraintTop_toTopOf="@+id/textView88"
-                    app:srcCompat="@drawable/st"
-                    android:contentDescription="TODO" />
+                    app:srcCompat="@drawable/st" />
 
                 <TextView
                     android:id="@+id/textView141"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
+                    android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="View All Ratings"
                     android:textColor="#EDA537"
