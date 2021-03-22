@@ -13,14 +13,16 @@
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="215dp"
+        android:layout_height="200dp"
         android:layout_margin="10dp"
         android:background="@drawable/border"
+        android:backgroundTint="@color/white"
         app:cardCornerRadius="10dp"
-        app:cardElevation="3dp"
+        app:cardElevation="2dp"
         app:cardMaxElevation="3dp"
+        android:alpha="0.9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -33,6 +35,7 @@
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground"
             android:elevation="10dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +91,7 @@
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="4dp"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/poppins_bold"
                 android:maxLines="2"
                 android:text="Azithramycin"
                 android:textColor="#2B3344"
@@ -104,7 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="4dp"
-                android:layout_marginBottom="46dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/poppins"
                 android:maxLines="1"
                 android:text="Total 10 Active Silver"
                 android:textColor="#707070"
@@ -148,6 +152,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </layout>

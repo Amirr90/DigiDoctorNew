@@ -92,13 +92,15 @@
 
                 android:id="@+id/textView103"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="7dp"
+                android:layout_marginBottom="43dp"
                 android:fontFamily="@font/poppins"
                 android:text="Reciept No."
                 android:textColor="#B3757575"
                 android:textSize="14sp"
                 android:textStyle="normal"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout14"
                 app:layout_constraintStart_toStartOf="@+id/llImage"
                 app:layout_constraintTop_toBottomOf="@+id/view3" />
 
@@ -121,26 +123,26 @@
             <TextView
                 android:id="@+id/textView108"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="1dp"
-
                 android:fontFamily="@font/poppins"
                 android:text="@{investigationModel.receiptNo}"
                 android:textColor="#262E3F"
                 android:textSize="14sp"
                 android:textStyle="normal"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout14"
                 app:layout_constraintStart_toStartOf="@+id/textView103"
                 app:layout_constraintTop_toBottomOf="@+id/textView103" />
 
             <LinearLayout
+                android:id="@+id/linearLayout14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView108">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <Button
                     android:layout_width="0dp"
