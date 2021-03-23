@@ -156,7 +156,7 @@ public class User {
 
     int memberId;
 
-    public int getMemberId() {
+    public Integer getMemberId() {
         return memberId;
     }
 
@@ -269,7 +269,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "{" +
                 "memberId=" + memberId +
                 ", address='" + address + '\'' +
                 ", dob='" + dob + '\'' +

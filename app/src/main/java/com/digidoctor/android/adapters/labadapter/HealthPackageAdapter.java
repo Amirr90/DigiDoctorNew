@@ -36,7 +36,7 @@ public class HealthPackageAdapter extends RecyclerView.Adapter<HealthPackageAdap
 
         holder.healthpackagelayoutBinding.textView146.setText(packageDetail.getPackageName());
         holder.healthpackagelayoutBinding.textView147.setText(packageDetail.getDescription());
-        holder.healthpackagelayoutBinding.textView148.setText(packageDetail.getNoOfTests());
+        holder.healthpackagelayoutBinding.tvTestCount.setText(packageDetail.getNoOfTests());
         holder.healthpackagelayoutBinding.textView149.setText(packageDetail.getPackagePrice());
 
     }

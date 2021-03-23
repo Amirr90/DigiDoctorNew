@@ -152,6 +152,32 @@ public class AppUtils {
 
     }
 
+    public static void showRequestDialog(Context activity) {
+
+        //Log.d("Token-Number", AppSettings.getString(AppSettings.token));
+
+        try {
+            if (!((Activity) activity).isFinishing()) {
+                if (progressDialog == null) {
+
+                    progressDialog = ProgressDialog.show(activity, null, null, false, true);
+                    progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(android.R.color.transparent)));
+                    progressDialog.setContentView(R.layout.progress_bar);
+                    progressDialog.show();
+                } else {
+
+                    progressDialog = ProgressDialog.show(activity, null, null, false, true);
+                    progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(android.R.color.transparent)));
+                    progressDialog.setContentView(R.layout.progress_bar);
+                    progressDialog.show();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     public static void hideDialog() {
         try {

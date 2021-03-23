@@ -74,8 +74,9 @@
                         android:id="@+id/ivName"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
+                        android:contentDescription="@string/todo"
                         app:srcCompat="@drawable/user_small_icon"
-                        android:contentDescription="TODO" />
+                        app:tint="@color/colorPrimary" />
 
                     <TextView
                         android:id="@+id/tvName"
@@ -122,8 +123,9 @@
                         android:id="@+id/ivEmail"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
+                        android:contentDescription="@string/todo"
                         app:srcCompat="@drawable/email"
-                        android:contentDescription="TODO" />
+                        app:tint="@color/colorPrimary" />
 
                     <TextView
                         android:id="@+id/tvEmail"
@@ -136,7 +138,6 @@
                         android:textSize="12sp" />
 
                     <EditText
-                        android:maxLength="50"
                         android:id="@+id/editTextTextPersonEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -147,6 +148,7 @@
                         android:fontFamily="@font/poppins_medium"
                         android:hint="@string/enter_your_email"
                         android:inputType="textEmailAddress"
+                        android:maxLength="50"
                         android:text="@{user.emailId}"
                         android:textColor="#262E3F"
                         android:textColorHint="#BCBCBC"
@@ -171,15 +173,15 @@
                         android:id="@+id/ivNumber"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/smartphone"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="@string/todo"
+                        app:srcCompat="@drawable/smartphone" />
 
                     <TextView
                         android:id="@+id/tvNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@+id/ivNumber"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@+id/ivNumber"
                         android:text="@string/mobile_no"
                         android:textColor="#BCBCBC"
                         android:textSize="12sp" />
@@ -223,11 +225,12 @@
                     android:padding="5dp">
 
                     <ImageView
+                        app:tint="@color/colorPrimary"
                         android:id="@+id/ivDob"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/cake"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="@string/todo"
+                        app:srcCompat="@drawable/cake" />
 
                     <TextView
                         android:id="@+id/tvDob"
@@ -252,7 +255,8 @@
                         android:text="@{user.dob}"
                         android:textColor="#262E3F"
                         android:textColorHint="#BCBCBC"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:ignore="RtlSymmetry" />
 
                     <ImageView
                         android:id="@+id/ivDobDialog"
@@ -261,8 +265,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="10dp"
-                        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="@string/todo"
+                        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
 
                     <View
                         android:layout_width="match_parent"
@@ -284,11 +288,12 @@
                     android:padding="5dp">
 
                     <ImageView
+                        app:tint="@color/colorPrimary"
                         android:id="@+id/ivGender"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/gender"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="@string/todo"
+                        app:srcCompat="@drawable/gender" />
 
                     <TextView
                         android:id="@+id/tvGender"
@@ -330,8 +335,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="10dp"
-                        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="@string/todo"
+                        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -341,11 +346,12 @@
                     android:padding="5dp">
 
                     <ImageView
+                        app:tint="@color/colorPrimary"
                         android:id="@+id/ivAddress"
                         android:layout_width="14dp"
                         android:layout_height="17dp"
-                        app:srcCompat="@drawable/address"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="@string/todo"
+                        app:srcCompat="@drawable/address" />
 
                     <TextView
                         android:id="@+id/tvAddress"
@@ -358,7 +364,6 @@
                         android:textSize="12sp" />
 
                     <EditText
-                        android:maxLength="150"
                         android:id="@+id/editTextTextPersonAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -369,6 +374,7 @@
                         android:fontFamily="@font/poppins_medium"
                         android:hint="@string/address"
                         android:inputType="textMultiLine"
+                        android:maxLength="150"
                         android:overScrollMode="always"
                         android:text="@{user.address}"
                         android:textColor="#262E3F"

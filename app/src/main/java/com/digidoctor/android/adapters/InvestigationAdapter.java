@@ -135,6 +135,7 @@ public class InvestigationAdapter extends RecyclerView.Adapter {
 
     public static class InvestigationVHOne extends RecyclerView.ViewHolder {
         InvestigationViewBinding binding;
+
         public InvestigationVHOne(@NonNull InvestigationViewBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

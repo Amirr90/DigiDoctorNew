@@ -1,12 +1,19 @@
 package com.digidoctor.android.model.labmodel;
 
-import com.digidoctor.android.model.User;
-
-public class CartModel extends User {
+public class CartModel {
     String testId;
     String packageId;
     String uniqueNo;
     String cartId;
+    String memberId;
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(int memberId) {
+        this.memberId = String.valueOf(memberId);
+    }
 
     public String getCartId() {
         return cartId;

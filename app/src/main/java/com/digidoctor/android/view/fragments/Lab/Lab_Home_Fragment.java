@@ -3,6 +3,7 @@ package com.digidoctor.android.view.fragments.Lab;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ import com.digidoctor.android.interfaces.PackagesInterface;
 import com.digidoctor.android.model.LabModel;
 import com.digidoctor.android.model.PackageModel;
 import com.digidoctor.android.model.labmodel.BannerText;
-import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.CategoryModel;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
 import com.digidoctor.android.utility.Cart;
@@ -63,7 +63,7 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        cart = new Cart(requireActivity());
+        cart = new Cart(requireActivity(), this);
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
         //Slider Adapter
@@ -72,7 +72,8 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
         labTestHomeBinding.recBannerSlider.setAdapter(labsAdapter);
 
         //Packages Adapter
-        packagesAdapter = new PackagesAdapter();
+        Cart cart = new Cart(requireActivity(), this);
+        packagesAdapter = new PackagesAdapter(cart);
         labTestHomeBinding.healthPackageRecyclerview.setAdapter(packagesAdapter);
 
 
@@ -120,6 +121,11 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
                 imageUrls.addAll(imageList);
                 labSliderAdapter.notifyDataSetChanged();
             }
+
+
+            //getting Test details
+            Log.d(TAG, "onViewCreated: name " + packageDetails.get(0).getGroupDetails().get(0).getGroupName());
+            Log.d(TAG, "onViewCreated: testSize " + packageDetails.get(0).getGroupDetails().get(0).getTestDetails().size());
 
         });
 
@@ -180,8 +186,7 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
 
     @Override
     public void cartItem(Object obj) {
-        List<CartModel> cartModelList = (List<CartModel>) obj;
-        //CartModel cartModel = (CartModel) obj;
+        Toast.makeText(requireActivity(), "Clicked !!", Toast.LENGTH_SHORT).show();
 
     }
 

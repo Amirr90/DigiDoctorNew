@@ -49,14 +49,12 @@ import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.model.WriteReviewModel;
-import com.digidoctor.android.model.addProductRatingResponse;
 import com.digidoctor.android.model.addProductRating;
+import com.digidoctor.android.model.addProductRatingResponse;
 import com.digidoctor.android.model.labmodel.ApiLabResponse;
 import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.LabOrderModel;
 import com.digidoctor.android.model.labmodel.LabOrderRes;
-import com.digidoctor.android.model.labmodel.labdashboardresponse;
-import com.digidoctor.android.model.labmodel.labModel;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
 import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
@@ -82,9 +80,7 @@ import com.digidoctor.android.model.pharmacyModel.ProductModel;
 import com.digidoctor.android.model.pharmacyModel.getaddressModel;
 import com.digidoctor.android.model.pharmacyModel.getfilltervarentmodel;
 import com.digidoctor.android.model.pharmacyModel.shopbycategoryRes;
-import com.digidoctor.android.utility.ApiResponse;
 import com.digidoctor.android.utility.BookAppointment2;
-import com.digidoctor.android.utility.Cart;
 
 import java.util.Map;
 

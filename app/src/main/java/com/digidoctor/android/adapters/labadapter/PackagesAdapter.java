@@ -1,25 +1,28 @@
 package com.digidoctor.android.adapters.labadapter;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.HealthpackagelayoutBinding;
+import com.digidoctor.android.interfaces.CartInterface;
 import com.digidoctor.android.model.PackageModel;
 import com.digidoctor.android.utility.Cart;
 
 public class PackagesAdapter extends ListAdapter<PackageModel, PackagesAdapter.LabsVH> {
+    private static final String TAG = "PackagesAdapter";
     Cart cart;
 
-    public PackagesAdapter() {
+    public PackagesAdapter(Cart cart) {
         super(PackageModel.itemCallback);
-        cart = new Cart();
+        this.cart = cart;
     }
-
     @NonNull
     @Override
     public LabsVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -28,6 +31,7 @@ public class PackagesAdapter extends ListAdapter<PackageModel, PackagesAdapter.L
         return new LabsVH(binding);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull LabsVH holder, int position) {
         PackageModel packageModel = getItem(position);
@@ -35,6 +39,16 @@ public class PackagesAdapter extends ListAdapter<PackageModel, PackagesAdapter.L
         holder.binding.btnAddToCart.setOnClickListener(v -> {
             cart.addItemToCart("", String.valueOf(packageModel.getPackageId()));
         });
+
+        try {
+            String testCount = String.valueOf(packageModel.getGroupDetails().get(position).getTestDetails().size());
+            holder.binding.tvTestCount.setText("Includes " + testCount + " tests");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d(TAG, "onBindViewHolder: " + e.getLocalizedMessage());
+        }
+
+
     }
 
     public static class LabsVH extends RecyclerView.ViewHolder {

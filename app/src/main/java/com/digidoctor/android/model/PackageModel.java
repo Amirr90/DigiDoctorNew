@@ -3,66 +3,76 @@ package com.digidoctor.android.model;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
+import java.util.List;
 import java.util.Objects;
 
 public class PackageModel {
 
-    Integer packageId;
-    Integer packagePrice;
-    Integer discountPerc;
-    Integer mrp;
-    Integer cartStatus;
-    Integer noOfTests;
+    String packageId;
+    String packagePrice;
+    String discountPerc;
+    String mrp;
+    String cartStatus;
+    String noOfTests;
     String packageName;
     String description;
     String testDetails;
 
+    List<GroupDetails> groupDetails;
 
-    public Integer getPackageId() {
+    public List<GroupDetails> getGroupDetails() {
+        return groupDetails;
+    }
+
+    public void setGroupDetails(List<GroupDetails> groupDetails) {
+        this.groupDetails = groupDetails;
+    }
+
+    public String getPackageId() {
         return packageId;
     }
 
-    public void setPackageId(Integer packageId) {
+    public void setPackageId(String packageId) {
         this.packageId = packageId;
     }
 
-    public Integer getPackagePrice() {
+    public String getPackagePrice() {
         return packagePrice;
     }
 
-    public void setPackagePrice(Integer packagePrice) {
+    public void setPackagePrice(String packagePrice) {
         this.packagePrice = packagePrice;
     }
 
-    public Integer getDiscountPerc() {
+    public String getDiscountPerc() {
         return discountPerc;
     }
 
-    public void setDiscountPerc(Integer discountPerc) {
+    public void setDiscountPerc(String discountPerc) {
         this.discountPerc = discountPerc;
     }
 
-    public Integer getMrp() {
+    public String getMrp() {
         return mrp;
     }
 
-    public void setMrp(Integer mrp) {
+    public void setMrp(String mrp) {
         this.mrp = mrp;
     }
 
-    public Integer getCartStatus() {
+    public String getCartStatus() {
         return cartStatus;
     }
 
-    public void setCartStatus(Integer cartStatus) {
+    public void setCartStatus(String cartStatus) {
         this.cartStatus = cartStatus;
     }
 
-    public Integer getNoOfTests() {
+    public String getNoOfTests() {
         return noOfTests;
     }
 
-    public void setNoOfTests(Integer noOfTests) {
+    public void setNoOfTests(String noOfTests) {
         this.noOfTests = noOfTests;
     }
 
@@ -88,6 +98,22 @@ public class PackageModel {
 
     public void setTestDetails(String testDetails) {
         this.testDetails = testDetails;
+    }
+
+
+    @Override
+    public String toString() {
+        return "{" +
+                "packageId='" + packageId + '\'' +
+                ", packagePrice='" + packagePrice + '\'' +
+                ", discountPerc='" + discountPerc + '\'' +
+                ", mrp='" + mrp + '\'' +
+                ", cartStatus='" + cartStatus + '\'' +
+                ", noOfTests='" + noOfTests + '\'' +
+                ", packageName='" + packageName + '\'' +
+                ", description='" + description + '\'' +
+                ", testDetails='" + testDetails + '\'' +
+                '}';
     }
 
     @Override
@@ -123,18 +149,26 @@ public class PackageModel {
         }
     };
 
-    @Override
-    public String toString() {
-        return "{" +
-                "packageId=" + packageId +
-                ", packagePrice=" + packagePrice +
-                ", discountPerc=" + discountPerc +
-                ", mrp=" + mrp +
-                ", cartStatus=" + cartStatus +
-                ", noOfTests=" + noOfTests +
-                ", packageName='" + packageName + '\'' +
-                ", description='" + description + '\'' +
-                ", testDetails='" + testDetails + '\'' +
-                '}';
+
+    public static class GroupDetails {
+        String groupName;
+        List<TestDetails> testDetails;
+
+        public String getGroupName() {
+            return groupName;
+        }
+
+        public List<TestDetails> getTestDetails() {
+            return testDetails;
+        }
     }
+
+    public static class TestDetails {
+        String testName;
+
+        public String getTestName() {
+            return testName;
+        }
+    }
+
 }

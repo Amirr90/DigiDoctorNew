@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/poppins"
-        android:text="You have not booked any Appointment !!"
+        android:text="@string/you_have_not_booked_any_appointment"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
@@ -35,13 +35,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
+        android:contentDescription="@string/todo"
         app:layout_constraintBottom_toTopOf="@+id/textView157"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/no_appointment_image"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/no_appointment_image" />
 
     <Button
         android:id="@+id/btnBookAppointment"

@@ -35,11 +35,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -302,7 +299,7 @@ public class utils {
     }
 
     public static User getPrimaryUser(Activity activity) {
-        SharedPreferences pref = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences pref = App.context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         Gson gson = new Gson();
         String json = pref.getString(USER, "");
         return gson.fromJson(json, User.class);

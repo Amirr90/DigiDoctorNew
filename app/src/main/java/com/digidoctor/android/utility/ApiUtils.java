@@ -1,7 +1,6 @@
 package com.digidoctor.android.utility;
 
 import android.app.Activity;
-import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
@@ -58,14 +57,12 @@ import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.model.WriteReviewModel;
-import com.digidoctor.android.model.addProductRatingResponse;
 import com.digidoctor.android.model.addProductRating;
+import com.digidoctor.android.model.addProductRatingResponse;
 import com.digidoctor.android.model.labmodel.ApiLabResponse;
 import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.LabOrderModel;
 import com.digidoctor.android.model.labmodel.LabOrderRes;
-import com.digidoctor.android.model.labmodel.labdashboardresponse;
-import com.digidoctor.android.model.labmodel.labModel;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
 import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
@@ -2089,11 +2086,13 @@ public class ApiUtils {
     }
 
     public static void addItemToCart(CartModel model, CartInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+
+        Api iRestInterfaces = URLUtils.getLabApisRef();
         Call<CartRes> call = iRestInterfaces.addToCart(model);
         call.enqueue(new Callback<CartRes>() {
             @Override
             public void onResponse(@NotNull Call<CartRes> call, @NotNull Response<CartRes> response) {
+                AppUtils.hideDialog();
                 if ((response.code() == 200 && null != response.body())) {
                     CartRes responseModel = response.body();
                     if (responseModel.getResponseCode() == 1) {

@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_margin="@dimen/_5sdp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/first"
-        android:layout_width="0dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginEnd="13dp"
+        android:padding="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/cartview_round_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,17 +20,13 @@
             android:id="@+id/TVbestprice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="13dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Best Price"
             android:textColor="#2B3344"
             android:textSize="@dimen/_13sdp"
-            app:layout_constraintBottom_toTopOf="@+id/tvgaureenteed"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/IVbestprice"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintTop_toTopOf="@+id/IVbestprice" />
 
         <TextView
             android:id="@+id/tvgaureenteed"
@@ -40,9 +35,6 @@
             android:text="Guaranted"
             android:textColor="#3F4E6E"
             android:textSize="@dimen/_11sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/TVbestprice"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/TVbestprice"
             app:layout_constraintTop_toBottomOf="@+id/TVbestprice" />
 
@@ -51,12 +43,10 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="9dp"
-            android:layout_marginTop="11dp"
-            android:layout_marginBottom="11dp"
+            android:contentDescription="TODO"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/first"
-            android:contentDescription="TODO" />
+            app:srcCompat="@drawable/first" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
