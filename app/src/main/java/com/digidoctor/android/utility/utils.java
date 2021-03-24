@@ -51,6 +51,7 @@ import static com.digidoctor.android.utility.AppUtils.hideDialog;
 public class utils {
 
 
+    public static final String MAC_ADDRESS = "macAddress";
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
@@ -114,6 +115,11 @@ public class utils {
     public static final String BLE_DEVICE_TYPE = "deviceType";
     public static final String APP_TYPE = "DD";
     public static final String SERVICE_PROVIDER_ID_TYPE = "6";
+    public static final String OMRON = "omron";
+    public static final String MEDCHECK = "medcheck";
+    public static final String MEDITIVE = "meditive";
+    public static final String CONTROL_D = "control_d";
+    public static final String VIA_OXIMETER = "via_oximeter";
 
 
     public static void hideSoftKeyboard(Activity activity) {

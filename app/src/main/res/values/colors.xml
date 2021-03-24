@@ -18,7 +18,7 @@
     <color name="greyLight">#F1F4F9</color>
     <color name="textColor">#3F4E6E</color>
     <color name="red">#F44336</color>
-    <color name="green">#39DA2D</color>
+    <color name="black">#000000</color>
     <color name="text_color">#1E1F26</color>
 
     <color name="placeholder_bg">#dddddd</color>
@@ -28,5 +28,8 @@
     <color name="p2">#F5A346</color>
     <color name="p1">#FF0D0D</color>
     <color name="demo">#0A586C</color>
+
+    <color name="orange">#f26522</color>
+    <color name="green">#00b894</color>
 
 </resources>

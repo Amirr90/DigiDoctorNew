@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,8 @@ import com.digidoctor.android.adapters.BluetoothDevicesAdapter;
 import com.digidoctor.android.adapters.BluetoothScanDevicesAdapter;
 import com.digidoctor.android.databinding.FragmentSearchBlutoothDeviceBinding;
 import com.digidoctor.android.interfaces.OnClickListener;
+import com.digidoctor.android.utility.utils;
+import com.digidoctor.android.view.activity.MedCheckDeviceGetData;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -58,6 +61,10 @@ public class SearchBluetoothDeviceFragment extends Fragment implements OnClickLi
         return instance;
     }
 
+
+    String deviceType;
+
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,6 +82,9 @@ public class SearchBluetoothDeviceFragment extends Fragment implements OnClickLi
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
+        if (getArguments() == null)
+            return;
+        deviceType = getArguments().getString(utils.BLE_DEVICE_TYPE);
         //paired Devices Adapter
         devicesList = new ArrayList<>();
         adapter = new BluetoothDevicesAdapter(devicesList, this);
@@ -150,6 +160,9 @@ public class SearchBluetoothDeviceFragment extends Fragment implements OnClickLi
     public void onItemClick(Object object) {
         BluetoothDevice bluetoothDevice = (BluetoothDevice) object;
         Log.d(TAG, "onItemClick: " + bluetoothDevice.getName());
+        Log.d(TAG, "macAddress: " + bluetoothDevice.getAddress());
+        Bundle bundle = new Bundle();
+        bundle.putString(utils.MAC_ADDRESS, bluetoothDevice.getAddress());
 
         //Connecting A Device
       /*  connectThread = new ConnectThread();
@@ -180,8 +193,23 @@ public class SearchBluetoothDeviceFragment extends Fragment implements OnClickLi
         }*/
 
 
+        switch (deviceType) {
+            case utils.MEDCHECK:
+                /*navController.navigate(R.id.action_searchBluetoothDeviceFragment_to_medCheckFragment, bundle);*/
+                startActivity(new Intent(requireActivity(), MedCheckDeviceGetData.class));
+                break;
+            default:
+                Toast.makeText(requireActivity(), "device not supported !!", Toast.LENGTH_SHORT).show();
+
+        }
+
+
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 
     public void ScanBLEDevices() {
         if (null == btAdapter)

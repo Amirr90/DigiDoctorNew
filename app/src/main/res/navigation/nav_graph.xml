@@ -460,7 +460,15 @@
         android:id="@+id/searchBluetoothDeviceFragment"
         android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment"
         android:label="Seaching Device"
-        tools:layout="@layout/fragment_search_blutooth_device" />
+        tools:layout="@layout/fragment_search_blutooth_device" >
+        <action
+            android:id="@+id/action_searchBluetoothDeviceFragment_to_medCheckFragment"
+            app:destination="@id/medCheckFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/investigationFragment"
         android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.InvestigationFragment"
@@ -831,5 +839,10 @@
         android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.DoctorsReviewList"
         android:label="Reviews"
         tools:layout="@layout/doctors_review_list_fragment" />
+    <fragment
+        android:id="@+id/medCheckFragment"
+        android:name="com.digidoctor.android.MedCheckFragment"
+        android:label="@string/medcheck"
+        tools:layout="@layout/fragment_med_check" />
 
 </navigation>

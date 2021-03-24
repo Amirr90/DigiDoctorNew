@@ -5,6 +5,9 @@
 
     <data>
 
+
+        <import type="com.digidoctor.android.utility.utils" />
+
         <variable
             name="listener"
             type="com.digidoctor.android.interfaces.OnClickListener" />
@@ -49,12 +52,12 @@
                     android:id="@+id/imageView39"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
+                    android:contentDescription="TODO"
                     android:src="@drawable/bp_chart_icon"
                     app:layout_constraintBottom_toBottomOf="@+id/linearLayout5"
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout5"
-                    app:layout_constraintTop_toTopOf="@+id/linearLayout5"
-                    android:contentDescription="TODO" />
+                    app:layout_constraintTop_toTopOf="@+id/linearLayout5" />
 
                 <TextView
                     android:id="@+id/textView51"
@@ -71,13 +74,13 @@
                     app:layout_constraintTop_toTopOf="@+id/linearLayout5" />
 
                 <LinearLayout
-                    android:onClick="@{()->listener.onItemClick(`omron`)}"
                     android:id="@+id/linearLayout7"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="70dp"
                     android:background="#EDF6FF"
+                    android:onClick="@{()->listener.onItemClick(utils.OMRON)}"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/textView51"
@@ -87,15 +90,14 @@
                     android:id="@+id/imageView40"
                     android:layout_width="wrap_content"
                     android:layout_height="17sp"
+                    android:contentDescription="TODO"
                     android:src="@drawable/omron"
                     app:layout_constraintBottom_toBottomOf="@+id/linearLayout7"
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout7"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout7"
-                    app:layout_constraintTop_toTopOf="@+id/linearLayout7"
-                    android:contentDescription="TODO" />
+                    app:layout_constraintTop_toTopOf="@+id/linearLayout7" />
 
                 <LinearLayout
-                    android:onClick="@{()->listener.onItemClick(`medcheck`)}"
                     android:id="@+id/linearLayout8"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
@@ -112,18 +114,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="17sp"
                         android:layout_gravity="center"
-                        android:src="@drawable/medcheck"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="TODO"
+                        android:src="@drawable/medcheck" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:onClick="@{()->listener.onItemClick(`meditive`)}"
                     android:id="@+id/linearLayout9"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="8dp"
                     android:background="#EDF6FF"
                     android:gravity="center"
+                    android:onClick="@{()->listener.onItemClick(utils.MEDITIVE)}"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout8"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout8"
@@ -133,8 +135,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="17sp"
                         android:layout_gravity="center"
-                        android:src="@drawable/meditive"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="TODO"
+                        android:src="@drawable/meditive" />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -165,16 +167,15 @@
                     android:id="@+id/imageView42"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
+                    android:contentDescription="TODO"
                     android:src="@drawable/bp_chart_icon"
                     app:layout_constraintBottom_toBottomOf="@+id/linearLayout11"
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout11"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout11"
-                    app:layout_constraintTop_toTopOf="@+id/linearLayout11"
-                    android:contentDescription="TODO" />
+                    app:layout_constraintTop_toTopOf="@+id/linearLayout11" />
 
 
                 <LinearLayout
-                    android:onClick="@{()->listener.onItemClick(`control_d`)}"
                     android:id="@+id/linearLayout10"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
@@ -182,6 +183,7 @@
                     android:layout_marginEnd="70dp"
                     android:background="#EDF6FF"
                     android:gravity="center"
+                    android:onClick="@{()->listener.onItemClick(utils.CONTROL_D)}"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/textView52"
@@ -191,14 +193,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="17sp"
                         android:layout_gravity="center"
-                        android:src="@drawable/control_d"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="TODO"
+                        android:src="@drawable/control_d" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:onClick="@{()->listener.onItemClick(`via`)}"
                     android:id="@+id/linearLayout20"
-                    android:layout_width="250dp"
+                    android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="8dp"
                     android:background="#EDF6FF"
@@ -212,8 +213,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="17sp"
                         android:layout_gravity="center"
-                        android:src="@drawable/via_oximeter"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="TODO"
+                        android:src="@drawable/via_oximeter" />
                 </LinearLayout>
 
                 <TextView

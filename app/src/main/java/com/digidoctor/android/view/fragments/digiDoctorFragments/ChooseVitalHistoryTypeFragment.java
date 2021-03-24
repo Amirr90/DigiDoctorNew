@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -105,7 +104,7 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
     @Override
     public void onResume() {
         super.onResume();
-        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 
     private void showSelectVitalCategoryList() {
@@ -178,8 +177,8 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
             navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_addVitalsFragment);
 
         else if (model.getTitle().equalsIgnoreCase(getString(R.string.live)))
-            // navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_selectDeviceFragment);
-            Toast.makeText(requireActivity(), getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+            navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_selectDeviceFragment);
+            //Toast.makeText(requireActivity(), getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
         else showSelectVitalCategoryList();
     }
 

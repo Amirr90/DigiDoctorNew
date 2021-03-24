@@ -1019,6 +1019,7 @@
     <string name="age">Age</string>
     <string name="you_have_not_booked_any_appointment">You have not booked any Appointment !!</string>
     <string name="affordable_health_package">Affordable Health Package</string>
+    <string name="per_min">per min</string>
 
 
 </resources>

@@ -1,5 +1,6 @@
 package com.digidoctor.android.view.fragments.digiDoctorFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentSelectDeviceBinding;
 import com.digidoctor.android.interfaces.OnClickListener;
+import com.digidoctor.android.view.activity.MedCheckDeviceGetData;
+import com.digidoctor.android.view.activity.ViaOximeterScanActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -46,13 +48,18 @@ public class SelectDeviceFragment extends Fragment implements OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
-        deviceBinding.setListener(this);
+        // deviceBinding.setListener(this);
+
+        deviceBinding.linearLayout8.setOnClickListener(v -> startActivity(new Intent(requireActivity(), MedCheckDeviceGetData.class)));
+        deviceBinding.linearLayout20.setOnClickListener(v ->
+                startActivity(new Intent(requireActivity(), ViaOximeterScanActivity.class).putExtra("show", "0")));
+
     }
 
     @Override
     public void onItemClick(Object object) {
         Bundle bundle = new Bundle();
         bundle.putString(BLE_DEVICE_TYPE, (String) object);
-        navController.navigate(R.id.action_selectDeviceFragment_to_searchBluetoothDeviceFragment, bundle);
+        // navController.navigate(R.id.action_selectDeviceFragment_to_searchBluetoothDeviceFragment, bundle);
     }
 }

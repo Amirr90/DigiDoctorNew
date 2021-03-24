@@ -90,6 +90,10 @@
         <activity
             android:name=".utility.ImagePickerActivity"
             android:screenOrientation="portrait" />
+        <activity android:name="com.digidoctor.android.view.activity.MedCheckDeviceGetData" />
+        <activity android:name="com.digidoctor.android.view.activity.DeviceConnectionActivity" />
+        <activity android:name="com.digidoctor.android.view.activity.ViaOximeterScanActivity" />
+        <activity android:name="com.digidoctor.android.view.activity.DataActivity" />
 
         <service android:name=".utility.GetAddressIntentService" />
 
@@ -133,7 +137,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".broadcast.InternetBroadcastReceiver"/>
+        <receiver android:name=".broadcast.InternetBroadcastReceiver" />
         <receiver
             android:name=".utility.WakefulBroadcasterReceiver"
             android:enabled="true"
@@ -152,3 +156,4 @@
         </receiver>
     </application>
 </manifest>
+
