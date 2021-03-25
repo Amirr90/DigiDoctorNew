@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 
 import com.digidoctor.android.databinding.FragmentSelectDeviceBinding;
 import com.digidoctor.android.interfaces.OnClickListener;
+import com.digidoctor.android.view.activity.DeviceScanActivity;
 import com.digidoctor.android.view.activity.MedCheckDeviceGetData;
 import com.digidoctor.android.view.activity.ViaOximeterScanActivity;
 
@@ -53,6 +54,9 @@ public class SelectDeviceFragment extends Fragment implements OnClickListener {
         deviceBinding.linearLayout8.setOnClickListener(v -> startActivity(new Intent(requireActivity(), MedCheckDeviceGetData.class)));
         deviceBinding.linearLayout20.setOnClickListener(v ->
                 startActivity(new Intent(requireActivity(), ViaOximeterScanActivity.class).putExtra("show", "0")));
+        deviceBinding.linearLayout9.setOnClickListener(v ->
+                startActivity(new Intent(requireActivity(), DeviceScanActivity.class)
+                        .putExtra("show", "0")));
 
     }
 

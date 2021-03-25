@@ -80,16 +80,10 @@ public class DeviceConnectionActivity extends MedCheckActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_connection);
-        Toolbar toolbar = findViewById(R.id.toolbar2);
- /*       setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Add Data");*/
-
 
         dialog = new ProgressDialog(DeviceConnectionActivity.this);
 
-
+        initTime();
         dialog = new ProgressDialog(this);
         if (getIntent() != null && getIntent().hasExtra("DATA")) {
             mBleDevice = getIntent().getParcelableExtra("DATA");
@@ -111,6 +105,7 @@ public class DeviceConnectionActivity extends MedCheckActivity implements View.O
     }
 
     private void initView() {
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -206,7 +201,7 @@ public class DeviceConnectionActivity extends MedCheckActivity implements View.O
             mTvConnectionState.setTextColor(getResources().getColor(R.color.green));
         else if (message.equalsIgnoreCase("Disconnected"))
             mTvConnectionState.setTextColor(getResources().getColor(R.color.red));
-        else mTvConnectionState.setTextColor(getResources().getColor(R.color.greyLight));
+        else mTvConnectionState.setTextColor(getResources().getColor(R.color.colorPrimary));
 
         mTvConnectionState.setText(message);
         mBtnConnect.setEnabled(!(state == EventReadingProgress.COMPLETED));
