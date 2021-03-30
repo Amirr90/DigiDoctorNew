@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.labadapter.CategoryAdapter;
 import com.digidoctor.android.adapters.labadapter.LabSliderAdapter;
 import com.digidoctor.android.adapters.labadapter.LabsAdapter;
@@ -85,6 +86,7 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
         labsAdapter = new LabsAdapter();
         labTestHomeBinding.recLab.setAdapter(labsAdapter);
 
+        labTestHomeBinding.tvViewAllPackages.setOnClickListener(v -> navController.navigate(R.id.action_lab_Home_Fragment_to_test_Package_Fragment));
 
         viewModel.getLabDashboardModel("10", "20").observe(getViewLifecycleOwner(), labDashBoardmodel -> {
 
@@ -186,8 +188,7 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
 
     @Override
     public void cartItem(Object obj) {
-        Toast.makeText(requireActivity(), "Clicked !!", Toast.LENGTH_SHORT).show();
-
+        navController.navigate(R.id.action_lab_Home_Fragment_to_fragmentCartListLab);
     }
 
     public CartInterface getCartInterface() {

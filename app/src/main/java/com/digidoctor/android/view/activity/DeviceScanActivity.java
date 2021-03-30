@@ -1,13 +1,6 @@
 package com.digidoctor.android.view.activity;
 
 
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.digidoctor.android.R;
-
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.ListActivity;
 import android.bluetooth.BluetoothAdapter;
@@ -27,6 +20,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.digidoctor.android.R;
+
+import java.util.ArrayList;
 
 public class DeviceScanActivity extends ListActivity {
 

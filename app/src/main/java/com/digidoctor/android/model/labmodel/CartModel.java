@@ -6,6 +6,11 @@ public class CartModel {
     String uniqueNo;
     String cartId;
     String memberId;
+    String name;
+
+    public String getName() {
+        return name;
+    }
 
     public String getMemberId() {
         return memberId;

@@ -1,7 +1,12 @@
 package com.digidoctor.android.model.labmodel;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.Objects;
 
 public class PackageDetail {
     @SerializedName("packageId")
@@ -28,20 +33,6 @@ public class PackageDetail {
     @SerializedName("cartStatus")
     @Expose
     private Integer cartStatus;
-
-    @Override
-    public String toString() {
-        return "PackageDetail{" +
-                "packageId=" + packageId +
-                ", packageName='" + packageName + '\'' +
-                ", description='" + description + '\'' +
-                ", noOfTests=" + noOfTests +
-                ", packagePrice=" + packagePrice +
-                ", discountPerc=" + discountPerc +
-                ", mrp=" + mrp +
-                ", cartStatus=" + cartStatus +
-                '}';
-    }
 
     public int getPackageId() {
         return packageId;
@@ -106,4 +97,51 @@ public class PackageDetail {
     public void setCartStatus(int cartStatus) {
         this.cartStatus = cartStatus;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PackageDetail that = (PackageDetail) o;
+        return packageId == that.packageId &&
+                noOfTests == that.noOfTests &&
+                packagePrice == that.packagePrice &&
+                discountPerc == that.discountPerc &&
+                mrp == that.mrp &&
+                Objects.equals(packageName, that.packageName) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(cartStatus, that.cartStatus);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(packageId, packageName, description, noOfTests, packagePrice, discountPerc, mrp, cartStatus);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "packageId=" + packageId +
+                ", packageName='" + packageName + '\'' +
+                ", description='" + description + '\'' +
+                ", noOfTests=" + noOfTests +
+                ", packagePrice=" + packagePrice +
+                ", discountPerc=" + discountPerc +
+                ", mrp=" + mrp +
+                ", cartStatus=" + cartStatus +
+                '}';
+    }
+
+
+    public static DiffUtil.ItemCallback<PackageDetail> itemCallback = new DiffUtil.ItemCallback<PackageDetail>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull PackageDetail oldItem, @NonNull PackageDetail newItem) {
+            return oldItem.getPackageName().equals(newItem.getPackageName());
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull PackageDetail oldItem, @NonNull PackageDetail newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 }

@@ -460,7 +460,7 @@
         android:id="@+id/searchBluetoothDeviceFragment"
         android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment"
         android:label="Seaching Device"
-        tools:layout="@layout/fragment_search_blutooth_device" >
+        tools:layout="@layout/fragment_search_blutooth_device">
         <action
             android:id="@+id/action_searchBluetoothDeviceFragment_to_medCheckFragment"
             app:destination="@id/medCheckFragment"
@@ -806,6 +806,20 @@
         <action
             android:id="@+id/action_lab_Home_Fragment_to_health_Checkup_Categories_Fragment"
             app:destination="@id/health_Checkup_Categories_Fragment" />
+        <action
+            android:id="@+id/action_lab_Home_Fragment_to_fragmentCartListLab"
+            app:destination="@id/fragmentCartListLab"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_lab_Home_Fragment_to_test_Package_Fragment"
+            app:destination="@id/test_Package_Fragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/health_Checkup_Categories_Fragment"
@@ -844,5 +858,15 @@
         android:name="com.digidoctor.android.MedCheckFragment"
         android:label="@string/medcheck"
         tools:layout="@layout/fragment_med_check" />
+    <fragment
+        android:id="@+id/fragmentCartListLab"
+        android:name="com.digidoctor.android.view.fragments.Lab.FragmentCartListLab"
+        android:label="@string/cart"
+        tools:layout="@layout/fragment_cart_list_lab" />
+    <fragment
+        tools:layout="@layout/test_packages_fragment"
+        android:id="@+id/test_Package_Fragment"
+        android:name="com.digidoctor.android.view.fragments.Lab.Test_Package_Fragment"
+        android:label="@string/affordable_health_package" />
 
 </navigation>

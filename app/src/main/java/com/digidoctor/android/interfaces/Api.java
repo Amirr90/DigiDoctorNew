@@ -55,6 +55,7 @@ import com.digidoctor.android.model.labmodel.ApiLabResponse;
 import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.LabOrderModel;
 import com.digidoctor.android.model.labmodel.LabOrderRes;
+import com.digidoctor.android.model.labmodel.PackagesRes;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
 import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
@@ -377,6 +378,8 @@ public interface Api {
     Call<GetDocRevModelRes> getdoctorreview(@Body DocModel model);
 
 
+    @POST("getAllPackages")
+    Call<PackagesRes> getPackageData(@Body User model);
 }
 
 
