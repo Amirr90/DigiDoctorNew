@@ -2098,7 +2098,7 @@ public class ApiUtils {
                     CartRes responseModel = response.body();
                     if (responseModel.getResponseCode() == 1) {
                         apiCallbackInterface.onCartItemAdded(responseModel.getResponseValue());
-                        apiCallbackInterface.cartItem(responseModel.getResponseValue());
+                        /* apiCallbackInterface.cartItem(responseModel.getResponseValue());*/
                     } else {
                         apiCallbackInterface.onFailed(responseModel.getResponseMessage());
                     }
@@ -2281,7 +2281,7 @@ public class ApiUtils {
                     if (response.body().getResponseCode() == 1) {
                         apiCallbackInterface.onSuccess(response.body().getResponseValue());
                     } else apiCallbackInterface.onError(response.body().getResponseMessage());
-                }
+                } else apiCallbackInterface.onError("error : " + response.code());
             }
 
             @Override

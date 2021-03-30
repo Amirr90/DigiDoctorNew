@@ -14,23 +14,24 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.labadapter.HealthPackageListAdapter;
 import com.digidoctor.android.databinding.TestPackagesFragmentBinding;
-import com.digidoctor.android.model.labmodel.PackageDetail;
+import com.digidoctor.android.interfaces.CartInterface;
+import com.digidoctor.android.utility.AppUtils;
+import com.digidoctor.android.utility.Cart;
 import com.digidoctor.android.viewHolder.LabViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-public class Test_Package_Fragment extends Fragment {
+public class Test_Package_Fragment extends Fragment implements CartInterface {
     NavController navController;
 
     TestPackagesFragmentBinding testPackagesFragmentBinding;
     HealthPackageListAdapter adapter;
-    List<PackageDetail> packageDetailList;
-
     LabViewModel labViewModel;
+
+    Cart cart;
 
     @Nullable
     @Override
@@ -48,9 +49,11 @@ public class Test_Package_Fragment extends Fragment {
         //init LabViewModel
         labViewModel = new ViewModelProvider(this).get(LabViewModel.class);
 
+
+        //int cart Class
+        cart = new Cart(requireActivity(), this);
         //init Adapter
-        packageDetailList = new ArrayList<>();
-        adapter = new HealthPackageListAdapter();
+        adapter = new HealthPackageListAdapter(cart);
 
 
         //init RecyclerView
@@ -61,14 +64,15 @@ public class Test_Package_Fragment extends Fragment {
     }
 
     private void getPackageData() {
+        AppUtils.showRequestDialog(requireActivity());
         labViewModel.packageLiveData().observe(getViewLifecycleOwner(), packageDetails -> {
-            packageDetailList.clear();
             if (packageDetails.isEmpty()) {
                 Toast.makeText(requireActivity(), "Packages not found !!", Toast.LENGTH_SHORT).show();
             } else {
-                adapter.submitList(packageDetailList);
+                adapter.submitList(packageDetails);
             }
 
+            AppUtils.hideDialog();
         });
     }
 
@@ -76,5 +80,27 @@ public class Test_Package_Fragment extends Fragment {
     public void onResume() {
         super.onResume();
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
+    }
+
+    @Override
+    public void onFailed(String msg) {
+
+    }
+
+    @Override
+    public void onCartItemAdded(Object obj) {
+        Toast.makeText(requireActivity(), getString(R.string.added_successfully), Toast.LENGTH_SHORT).show();
+        getPackageData();
+
+    }
+
+    @Override
+    public void onCartItemDeleted(Object obj) {
+
+    }
+
+    @Override
+    public void cartItem(Object obj) {
+        navController.navigate(R.id.action_test_Package_Fragment_to_fragmentCartListLab);
     }
 }

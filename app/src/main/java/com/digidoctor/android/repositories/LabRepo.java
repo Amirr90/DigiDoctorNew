@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.labmodel.PackageDetail;
+import com.digidoctor.android.model.labmodel.PackagesRes;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.App;
 
@@ -26,8 +27,11 @@ public class LabRepo {
         ApiUtils.getPackageData(new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
-                List<PackageDetail> packageDetails = (List<PackageDetail>) o;
-                mutablePackagesLiveData.setValue(packageDetails);
+                List<PackagesRes.Packages> packageDetails = (List<PackagesRes.Packages>) o;
+                if (!packageDetails.isEmpty()) {
+
+                    mutablePackagesLiveData.setValue(packageDetails.get(0).getPackageDetails());
+                }
             }
 
             @Override

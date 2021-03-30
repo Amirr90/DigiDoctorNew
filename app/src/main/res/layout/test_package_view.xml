@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="com.digidoctor.android.utility.utils" />
+
         <variable
             name="packageDetails"
             type="com.digidoctor.android.model.labmodel.PackageDetail" />
@@ -44,7 +47,7 @@
                 android:id="@+id/textView162"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Includes 4 tests"
+                android:text="@{`includes `+packageDetails.noOfTests+` Tests`}"
                 android:textColor="#3F4E6E"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintStart_toStartOf="@+id/textView161"
@@ -58,7 +61,7 @@
                 android:drawableLeft="@drawable/rupee"
                 android:drawablePadding="5dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="@{packageDetails.packagePrice}"
+                android:text="@{``+packageDetails.packagePrice}"
                 android:textColor="#3F4E6E"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold"
@@ -67,13 +70,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView162" />
 
             <Button
-                android:id="@+id/button15"
+                android:id="@+id/btnAddToCartPackages"
                 android:layout_width="82dp"
                 android:layout_height="28dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/add_button"
-                android:text="Add test"
+                android:text="@{packageDetails.cartStatus.equals(`0`)?utils.ADD_TO_CART:utils.GO_TO_CART}"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_11sdp"

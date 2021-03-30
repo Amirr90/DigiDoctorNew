@@ -16,7 +16,7 @@ public class PackagesRes {
 
     @SerializedName("responseValue")
     @Expose
-    private List<PackageDetail> responseValue = null;
+    private List<Packages> responseValue = null;
 
     public Integer getResponseCode() {
         return responseCode;
@@ -26,7 +26,15 @@ public class PackagesRes {
         return responseMessage;
     }
 
-    public List<PackageDetail> getResponseValue() {
+    public List<Packages> getResponseValue() {
         return responseValue;
+    }
+
+    public static class Packages {
+        public List<PackageDetail> getPackageDetails() {
+            return packageDetails;
+        }
+
+        List<PackageDetail> packageDetails;
     }
 }

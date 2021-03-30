@@ -11,7 +11,7 @@ import java.util.Objects;
 public class PackageDetail {
     @SerializedName("packageId")
     @Expose
-    private int packageId;
+    private String packageId;
     @SerializedName("packageName")
     @Expose
     private String packageName;
@@ -32,13 +32,13 @@ public class PackageDetail {
     private int mrp;
     @SerializedName("cartStatus")
     @Expose
-    private Integer cartStatus;
+    private String cartStatus;
 
-    public int getPackageId() {
+    public String getPackageId() {
         return packageId;
     }
 
-    public void setPackageId(int packageId) {
+    public void setPackageId(String packageId) {
         this.packageId = packageId;
     }
 
@@ -90,11 +90,11 @@ public class PackageDetail {
         this.mrp = mrp;
     }
 
-    public int getCartStatus() {
+    public String getCartStatus() {
         return cartStatus;
     }
 
-    public void setCartStatus(int cartStatus) {
+    public void setCartStatus(String cartStatus) {
         this.cartStatus = cartStatus;
     }
 

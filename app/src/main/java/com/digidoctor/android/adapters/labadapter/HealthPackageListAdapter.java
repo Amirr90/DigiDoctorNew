@@ -9,10 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.TestPackageViewBinding;
 import com.digidoctor.android.model.labmodel.PackageDetail;
+import com.digidoctor.android.utility.Cart;
+import com.digidoctor.android.utility.utils;
 
 public class HealthPackageListAdapter extends ListAdapter<PackageDetail, HealthPackageListAdapter.HealthVH> {
-    public HealthPackageListAdapter() {
+    Cart cart;
+
+    public HealthPackageListAdapter(Cart cart) {
         super(PackageDetail.itemCallback);
+        this.cart = cart;
     }
 
     @NonNull
@@ -28,6 +33,12 @@ public class HealthPackageListAdapter extends ListAdapter<PackageDetail, HealthP
     public void onBindViewHolder(@NonNull HealthVH holder, int position) {
         PackageDetail packageDetail = getItem(position);
         holder.binding.setPackageDetails(packageDetail);
+
+        holder.binding.btnAddToCartPackages.setOnClickListener(v -> {
+            if (holder.binding.btnAddToCartPackages.getText().toString().equals(utils.ADD_TO_CART)) {
+                cart.addItemToCart("", packageDetail.getPackageId());
+            } else cart.onCartItemClicked(packageDetail.getPackageId());
+        });
 
     }
 

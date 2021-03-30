@@ -54,6 +54,7 @@ public class utils {
     public static final String MAC_ADDRESS = "macAddress";
     public static final String GO_TO_CART = "Go To Cart";
     public static final String ADD_TO_CART = "Add To Cart";
+    public static final String ADDED = "Added";
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
