@@ -3,7 +3,6 @@ package com.digidoctor.android.view.fragments.Lab;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import androidx.navigation.Navigation;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.labadapter.CategoryAdapter;
+import com.digidoctor.android.adapters.labadapter.LabHomeGridAdapter;
 import com.digidoctor.android.adapters.labadapter.LabSliderAdapter;
 import com.digidoctor.android.adapters.labadapter.LabsAdapter;
 import com.digidoctor.android.adapters.labadapter.PackagesAdapter;
@@ -37,6 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.digidoctor.android.utility.utils.fadeIn;
+
 public class Lab_Home_Fragment extends Fragment implements PackagesInterface, CartInterface {
 
     private static final String TAG = "Lab_Home_Fragment";
@@ -48,8 +50,12 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
     LabSliderAdapter labSliderAdapter;
     LabsAdapter labsAdapter;
     List<LabDashBoardmodel.SliderImage> imageUrls;
-
     Cart cart;
+    public static Lab_Home_Fragment instance;
+
+    public static Lab_Home_Fragment getInstance() {
+        return instance;
+    }
 
 
     @Nullable
@@ -70,11 +76,11 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
         //Slider Adapter
         imageUrls = new ArrayList<>();
         labSliderAdapter = new LabSliderAdapter(imageUrls);
-        labTestHomeBinding.recBannerSlider.setAdapter(labsAdapter);
+        labTestHomeBinding.recBannerSlider.setAdapter(labSliderAdapter);
 
         //Packages Adapter
         Cart cart = new Cart(requireActivity(), this);
-        packagesAdapter = new PackagesAdapter(cart);
+        packagesAdapter = new PackagesAdapter(cart, this);
         labTestHomeBinding.healthPackageRecyclerview.setAdapter(packagesAdapter);
 
 
@@ -90,10 +96,9 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
 
         viewModel.getLabDashboardModel("10", "20").observe(getViewLifecycleOwner(), labDashBoardmodel -> {
 
-            List<LabDashBoardmodel.SliderImage> sliderImages = labDashBoardmodel.getSliderImage();
-            if (null != sliderImages && !sliderImages.isEmpty())
-                setSliderData(sliderImages);
 
+            labTestHomeBinding.contentconstrainet.setVisibility(null == labDashBoardmodel ? View.GONE : View.VISIBLE);
+            labTestHomeBinding.contentconstrainet.setAnimation(fadeIn(requireActivity()));
             //packages
             List<PackageModel> packageDetails = labDashBoardmodel.getPackageDetails();
             if (null != packageDetails && !packageDetails.isEmpty())
@@ -124,13 +129,20 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
                 labSliderAdapter.notifyDataSetChanged();
             }
 
-
-            //getting Test details
-            Log.d(TAG, "onViewCreated: name " + packageDetails.get(0).getGroupDetails().get(0).getGroupName());
-            Log.d(TAG, "onViewCreated: testSize " + packageDetails.get(0).getGroupDetails().get(0).getTestDetails().size());
-
         });
 
+
+        //setting HomeGrid Adapter
+        labTestHomeBinding.recyclerView9.setAdapter(new LabHomeGridAdapter());
+
+
+        //setting Listener to tvViewAll Category
+        labTestHomeBinding.textView153.setOnClickListener(v -> navController.navigate(R.id.action_lab_Home_Fragment_to_labHealthCategoryFragment));
+
+    }
+
+    public void onNavigateUp(Lab_Home_FragmentDirections.ActionLabHomeFragmentToTestDetailsFRagment id) {
+        navController.navigate(id);
     }
 
 
@@ -153,10 +165,6 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
     }
 
 
-    private void setSliderData(List<LabDashBoardmodel.SliderImage> sliderImages) {
-
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -168,7 +176,10 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
     @Override
     public void onItemClicked(Object obj) {
         String packageId = (String) obj;
-        cart.addItemToCart("", packageId);
+        //cart.addItemToCart("", packageId);
+        Lab_Home_FragmentDirections.ActionLabHomeFragmentToTestDetailsFRagment action = Lab_Home_FragmentDirections.actionLabHomeFragmentToTestDetailsFRagment();
+        action.setPackageId(packageId);
+        navController.navigate(action);
     }
 
     @Override

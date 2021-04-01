@@ -1,3 +1,4 @@
+
 package com.digidoctor.android.view.fragments.Lab;
 
 import android.os.Bundle;
@@ -18,20 +19,21 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.labadapter.HealthPackageListAdapter;
 import com.digidoctor.android.databinding.TestPackagesFragmentBinding;
 import com.digidoctor.android.interfaces.CartInterface;
+import com.digidoctor.android.interfaces.PackagesInterface;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.Cart;
 import com.digidoctor.android.viewHolder.LabViewModel;
 
 import java.util.Objects;
 
-public class Test_Package_Fragment extends Fragment implements CartInterface {
+public class Test_Package_Fragment extends Fragment implements CartInterface, PackagesInterface {
     NavController navController;
 
     TestPackagesFragmentBinding testPackagesFragmentBinding;
     HealthPackageListAdapter adapter;
     LabViewModel labViewModel;
-
     Cart cart;
+
 
     @Nullable
     @Override
@@ -52,13 +54,13 @@ public class Test_Package_Fragment extends Fragment implements CartInterface {
 
         //int cart Class
         cart = new Cart(requireActivity(), this);
+
         //init Adapter
-        adapter = new HealthPackageListAdapter(cart);
+        adapter = new HealthPackageListAdapter(cart,this);
 
 
         //init RecyclerView
         testPackagesFragmentBinding.testrecyclerview.setAdapter(adapter);
-
 
         getPackageData();
     }
@@ -102,5 +104,12 @@ public class Test_Package_Fragment extends Fragment implements CartInterface {
     @Override
     public void cartItem(Object obj) {
         navController.navigate(R.id.action_test_Package_Fragment_to_fragmentCartListLab);
+    }
+
+    @Override
+    public void onItemClicked(Object obj) {
+        Test_Package_FragmentDirections.ActionTestPackageFragmentToTestDetailsFRagment action = Test_Package_FragmentDirections.actionTestPackageFragmentToTestDetailsFRagment();
+        action.setPackageId((String) obj);
+        navController.navigate(action);
     }
 }

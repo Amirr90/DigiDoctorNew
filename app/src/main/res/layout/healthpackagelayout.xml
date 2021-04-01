@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp">
 
-
+<!--
         <androidx.cardview.widget.CardView
             android:id="@+id/healthpackage"
             android:layout_width="228dp"
@@ -28,121 +28,124 @@
             app:cardCornerRadius="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">-->
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@drawable/cartview_round_layout"
+            android:id="@+id/constraintLayout"
+            android:layout_width="228dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/imageView53"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="TODO"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/helathpackage" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView146"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp">
+                android:layout_marginTop="17dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:maxLines="1"
+                android:text="@{packageModel.packageName}"
+                android:textColor="#2B3344"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageView53"
+                app:layout_constraintTop_toBottomOf="@+id/imageView53" />
+
+            <TextView
+                android:id="@+id/textView147"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:maxLines="2"
+                android:text="@{packageModel.description}"
+                android:textColor="#3F4E6E"
+                android:textSize="@dimen/_11sdp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textView146"
+                app:layout_constraintTop_toBottomOf="@+id/textView146" />
+
+            <TextView
+                android:id="@+id/tvTestCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="#EDA537"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/textView147"
+                app:layout_constraintTop_toBottomOf="@+id/textView147" />
+
+            <TextView
+                android:id="@+id/textView150"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@{`Discount `+packageModel.discountPerc}"
+                android:textColor="#7DCE64"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toEndOf="@+id/textView149"
+                app:layout_constraintTop_toTopOf="@+id/btnAddToCart" />
+
+            <TextView
+                android:id="@+id/textView149"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_marginTop="4dp"
+                android:drawableStart="@drawable/rupee"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView150" />
+
+            <TextView
+                android:id="@+id/textView151"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/rupee"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@{packageModel.packagePrice}"
+                android:textColor="#2B3344"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView149"
+                app:layout_constraintTop_toBottomOf="@+id/textView149"
+                app:layout_constraintVertical_bias="1.0"
+                tools:ignore="UseCompatTextViewDrawableXml" />
+
+            <Button
+                android:id="@+id/btnAddToCart"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="2dp"
+                android:background="@drawable/add_button"
+                android:text="@{packageModel.cartStatus.equals(`0`)?utils.ADD_TO_CART:utils.GO_TO_CART}"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTestCount" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <ImageView
-                    android:id="@+id/imageView53"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:contentDescription="TODO"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/helathpackage" />
-
-                <TextView
-                    android:id="@+id/textView146"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:maxLines="1"
-                    android:text="@{packageModel.packageName}"
-                    android:textColor="#2B3344"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/imageView53"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView53" />
-
-                <TextView
-                    android:id="@+id/textView147"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:maxLines="2"
-                    android:text="@{packageModel.description}"
-                    android:textColor="#3F4E6E"
-                    android:textSize="@dimen/_11sdp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/textView146"
-                    app:layout_constraintTop_toBottomOf="@+id/textView146" />
-
-                <TextView
-                    android:id="@+id/tvTestCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="11dp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:textColor="#EDA537"
-                    android:textSize="@dimen/_11sdp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/textView147"
-                    app:layout_constraintTop_toBottomOf="@+id/textView147" />
-
-                <TextView
-                    android:id="@+id/textView150"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="@{`Discount `+packageModel.discountPerc}"
-                    android:textColor="#7DCE64"
-                    android:textSize="@dimen/_13sdp"
-                    app:layout_constraintStart_toEndOf="@+id/textView149"
-                    app:layout_constraintTop_toTopOf="@+id/btnAddToCart" />
-
-                <TextView
-                    android:id="@+id/textView149"
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginTop="4dp"
-                    android:drawableStart="@drawable/rupee"
-                    android:textSize="@dimen/_13sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView150" />
-
-                <TextView
-                    android:id="@+id/textView151"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:drawableLeft="@drawable/rupee"
-                    android:drawablePadding="5dp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="@{packageModel.packagePrice}"
-                    android:textColor="#2B3344"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView149"
-                    app:layout_constraintTop_toBottomOf="@+id/textView149"
-                    app:layout_constraintVertical_bias="1.0"
-                    tools:ignore="UseCompatTextViewDrawableXml" />
-
-                <Button
-                    android:id="@+id/btnAddToCart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_28sdp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="2dp"
-                    android:background="@drawable/add_button"
-                    android:text="@{packageModel.cartStatus.equals(`0`)?utils.ADD_TO_CART:utils.GO_TO_CART}"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTestCount" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </androidx.cardview.widget.CardView>
+<!--        </androidx.cardview.widget.CardView>-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

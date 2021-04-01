@@ -32,6 +32,7 @@ import com.digidoctor.android.model.MedicineRes;
 import com.digidoctor.android.model.MemberModel;
 import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.OnlineAppointmentSlots;
+import com.digidoctor.android.model.PackageModel;
 import com.digidoctor.android.model.PayModeModel;
 import com.digidoctor.android.model.PrescriptionModel;
 import com.digidoctor.android.model.Registration;
@@ -55,6 +56,7 @@ import com.digidoctor.android.model.labmodel.ApiLabResponse;
 import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.LabOrderModel;
 import com.digidoctor.android.model.labmodel.LabOrderRes;
+import com.digidoctor.android.model.labmodel.PackageRes;
 import com.digidoctor.android.model.labmodel.PackagesRes;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
@@ -355,8 +357,10 @@ public interface Api {
     @POST("cartDetails")
     Call<CartRes> cartDetails(@Body User model);
 
+
     @POST("addToCart")
     Call<CartRes> addToCart(@Body CartModel model);
+
 
     @POST("deleteCart")
     Call<CartRes> deleteCart(@Body CartModel model);
@@ -380,6 +384,10 @@ public interface Api {
 
     @POST("getAllPackages")
     Call<PackagesRes> getPackageData(@Body User model);
+
+
+    @POST("getPackageDetails")
+    Call<PackageRes> getPackageDataById(@Body PackageModel model);
 }
 
 

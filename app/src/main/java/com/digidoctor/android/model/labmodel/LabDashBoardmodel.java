@@ -24,44 +24,22 @@ public class LabDashBoardmodel {
         this.packageDetails = packageDetails;
     }
 
-
     public List<SliderImage> getSliderImage() {
         return sliderImage;
     }
-
-    public void setSliderImage(List<SliderImage> sliderImage) {
-        this.sliderImage = sliderImage;
-    }
-
-    public List<PackageModel> getPackageDetailList() {
-        return packageDetails;
-    }
-
-    public void setPackageDetailList(List<PackageModel> packageDetailList) {
-        packageDetails = packageDetailList;
-    }
-
     public List<BannerText> getBannerText() {
         return bannerText;
     }
-
-    public void setBannerText(List<BannerText> bannerText) {
-        this.bannerText = bannerText;
-    }
-
     public List<LabModel> getPathalogyDetails() {
         return pathalogyDetails;
     }
 
-    public void setPathalogyDetails(List<LabModel> pathalogyDetails) {
-        this.pathalogyDetails = pathalogyDetails;
-    }
 
 
-    public class SliderImage {
+
+    public static class SliderImage {
 
         String sliderImage;
-
         @Override
         public String toString() {
             return "SliderImage{" +
@@ -73,9 +51,6 @@ public class LabDashBoardmodel {
             return sliderImage;
         }
 
-        public void setSliderImage(String sliderImage) {
-            this.sliderImage = sliderImage;
-        }
     }
 
 

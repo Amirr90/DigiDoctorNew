@@ -820,6 +820,20 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_lab_Home_Fragment_to_testDetailsFRagment"
+            app:destination="@id/testDetailsFRagment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_lab_Home_Fragment_to_labHealthCategoryFragment"
+            app:destination="@id/labHealthCategoryFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/health_Checkup_Categories_Fragment"
@@ -867,7 +881,7 @@
         tools:layout="@layout/test_packages_fragment"
         android:id="@+id/test_Package_Fragment"
         android:name="com.digidoctor.android.view.fragments.Lab.Test_Package_Fragment"
-        android:label="@string/affordable_health_package" >
+        android:label="@string/affordable_health_package">
         <action
             android:id="@+id/action_test_Package_Fragment_to_fragmentCartListLab"
             app:destination="@id/fragmentCartListLab"
@@ -875,6 +889,28 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_test_Package_Fragment_to_testDetailsFRagment"
+            app:destination="@id/testDetailsFRagment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
+    <fragment
+        tools:layout="@layout/fragment_test_details"
+        android:id="@+id/testDetailsFRagment"
+        android:name="com.digidoctor.android.view.fragments.Lab.TestDetailsFragment"
+        android:label="Details">
+        <argument
+            android:name="packageId"
+            app:argType="string"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/labHealthCategoryFragment"
+        android:name="com.digidoctor.android.LabHealthCategoryFragment"
+        android:label="@string/select_categories"
+        tools:layout="@layout/fragment_lab_health_category" />
 
 </navigation>

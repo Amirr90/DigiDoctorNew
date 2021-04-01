@@ -1,52 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_5sdp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="homeModel"
+            type="com.digidoctor.android.adapters.labadapter.LabHomeGridAdapter.GridModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/first"
-        android:padding="@dimen/_10sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/cartview_round_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_margin="@dimen/_5sdp">
 
-        <TextView
-            android:id="@+id/TVbestprice"
-            android:layout_width="wrap_content"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/first"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Best Price"
-            android:textColor="#2B3344"
-            android:textSize="@dimen/_13sdp"
+            android:background="@drawable/cartview_round_layout"
+            android:padding="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/IVbestprice"
-            app:layout_constraintTop_toTopOf="@+id/IVbestprice" />
-
-        <TextView
-            android:id="@+id/tvgaureenteed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Guaranted"
-            android:textColor="#3F4E6E"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintStart_toStartOf="@+id/TVbestprice"
-            app:layout_constraintTop_toBottomOf="@+id/TVbestprice" />
-
-        <ImageView
-            android:id="@+id/IVbestprice"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="9dp"
-            android:contentDescription="TODO"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/first" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/TVbestprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@{homeModel.title}"
+                android:textColor="#2B3344"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/IVbestprice"
+                app:layout_constraintTop_toTopOf="@+id/IVbestprice" />
+
+            <TextView
+                android:id="@+id/tvgaureenteed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{homeModel.description}"
+                android:textColor="#3F4E6E"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toStartOf="@+id/TVbestprice"
+                app:layout_constraintTop_toBottomOf="@+id/TVbestprice" />
+
+            <ImageView
+                android:id="@+id/IVbestprice"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="9dp"
+                android:contentDescription="TODO"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/first" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -17,6 +17,12 @@ public class PackageModel {
     String packageName;
     String description;
     String testDetails;
+    String pathologyName;
+
+
+    public String getPathologyName() {
+        return pathologyName;
+    }
 
     List<GroupDetails> groupDetails;
 
@@ -165,7 +171,6 @@ public class PackageModel {
 
     public static class TestDetails {
         String testName;
-
         public String getTestName() {
             return testName;
         }

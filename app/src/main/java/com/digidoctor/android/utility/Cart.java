@@ -17,19 +17,17 @@ public class Cart {
         this.cartInterface = cartInterface;
     }
 
-    public Cart() {
-    }
 
     public void addItemToCart(String testId, String packageId) {
         CartModel cartModel = new CartModel();
         cartModel.setMemberId(utils.getPrimaryUser(activity).getMemberId());
         cartModel.setTestId(testId);
         cartModel.setPackageId(packageId);
+        Log.d(TAG, "addItemToCart: " + cartModel);
 
         if (null == utils.getPrimaryUser(activity).getMemberId())
             cartModel.setUniqueNo(utils.getPrimaryUser(activity).getUniqueNo());
 
-        Log.d(TAG, "addItemToCart: " + cartModel);
         AppUtils.showRequestDialog(activity);
         ApiUtils.addItemToCart(cartModel, cartInterface);
     }

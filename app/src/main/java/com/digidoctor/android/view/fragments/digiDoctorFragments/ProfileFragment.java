@@ -186,7 +186,7 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
 
     }
 
-    private void uploadImage(File imagFile) throws IOException {
+    private void uploadImage(File imagFile)  {
         AppUtils.showRequestDialog(requireActivity());
         ApiUtils.uploadProfileImage(imagFile, new ApiCallbackInterface() {
             @Override

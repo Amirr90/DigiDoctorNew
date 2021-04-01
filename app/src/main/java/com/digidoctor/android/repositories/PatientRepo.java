@@ -27,7 +27,6 @@ import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
 import com.digidoctor.android.utility.ApiUtils;
-import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.Response;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
@@ -525,15 +524,16 @@ public class PatientRepo {
 
 
     public LiveData<LabDashBoardmodel> getLabDashboardModel(String lat, String lng) {
-        if (labDashboardModelMutableLiveData == null)
+        if (labDashboardModelMutableLiveData == null) {
             labDashboardModelMutableLiveData = new MutableLiveData<>();
 
-        Dashboard dashboard = new Dashboard();
-        dashboard.setLat(lat);
-        dashboard.setLat(lng);
-        dashboard.setMemberId(String.valueOf(getPrimaryUser(PatientDashboard.getInstance()).getMemberId()));
+            Dashboard dashboard = new Dashboard();
+            dashboard.setLat(lat);
+            dashboard.setLat(lng);
+            dashboard.setMemberId(String.valueOf(getPrimaryUser(PatientDashboard.getInstance()).getMemberId()));
 
-        loadLabDashboardData(dashboard);
+            loadLabDashboardData(dashboard);
+        }
         return labDashboardModelMutableLiveData;
     }
 

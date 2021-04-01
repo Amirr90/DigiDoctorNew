@@ -3,6 +3,7 @@ package com.digidoctor.android.viewHolder;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.digidoctor.android.model.PackageModel;
 import com.digidoctor.android.model.labmodel.PackageDetail;
 import com.digidoctor.android.repositories.LabRepo;
 
@@ -14,4 +15,10 @@ public class LabViewModel extends ViewModel {
     public LiveData<List<PackageDetail>> packageLiveData() {
         return labRepo.getPackageLiveData();
     }
+    public LiveData<PackageModel> getPackageData(String packageID) {
+        return labRepo.getPackageData(packageID);
+    }
+
+    /*public LiveData<List<PackageDetail>> getAllCategoryData() {
+    }*/
 }

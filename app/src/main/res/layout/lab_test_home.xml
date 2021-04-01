@@ -19,10 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/contentconstrainet"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
 
                 <RelativeLayout
@@ -86,7 +88,7 @@
                     android:layout_marginEnd="8dp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/recBannerSlider"
                     app:spanCount="2"
@@ -111,8 +113,8 @@
                     android:id="@+id/healthPackageRecyclerview"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:orientation="horizontal"
+                    android:paddingStart="@dimen/_3sdp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toTopOf="@+id/checkupcategorieslayout"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -124,8 +126,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/checkupcategorieslayout"
                     android:layout_width="match_parent"
-                    android:layout_height="198dp"
-                    android:background="@color/white"
+                    android:layout_height="wrap_content"
+                    android:background="#F2F6FE"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/healthPackageRecyclerview">
@@ -149,10 +151,10 @@
                         android:id="@+id/textView153"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="24dp"
+                        android:layout_marginEnd="18dp"
                         android:fontFamily="@font/poppins_semibold"
                         android:padding="@dimen/_10sdp"
-                        android:text="View All"
+                        android:text="@string/view_all"
                         android:textColor="#3F4E6E"
                         app:layout_constraintBottom_toBottomOf="@+id/textView152"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -162,9 +164,13 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recCategory"
                         android:layout_width="0dp"
-                        android:layout_height="140dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:orientation="horizontal"
+                        android:paddingStart="@dimen/_5sdp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -243,7 +249,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:background="@color/white"
+                    android:background="#F2F6FE"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardView">
@@ -267,11 +273,14 @@
                         android:id="@+id/textView158"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="31dp"
+                        android:layout_marginEnd="18dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:fontFamily="@font/poppins_semibold"
-                        android:padding="@dimen/_10sdp"
-                        android:text="View All"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@string/view_all"
+
                         android:textColor="#3F4E6E"
                         app:layout_constraintBottom_toBottomOf="@+id/textView157"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -283,6 +292,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
+                        android:paddingStart="@dimen/_5sdp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -295,7 +305,7 @@
                     android:id="@+id/tvViewAllPackages"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="18dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"

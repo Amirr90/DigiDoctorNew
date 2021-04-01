@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.HealthpackagelayoutBinding;
+import com.digidoctor.android.interfaces.PackagesInterface;
 import com.digidoctor.android.model.PackageModel;
 import com.digidoctor.android.utility.Cart;
 import com.digidoctor.android.utility.utils;
@@ -17,10 +18,12 @@ import com.digidoctor.android.utility.utils;
 public class PackagesAdapter extends ListAdapter<PackageModel, PackagesAdapter.LabsVH> {
     private static final String TAG = "PackagesAdapter";
     Cart cart;
+    PackagesInterface packagesInterface;
 
-    public PackagesAdapter(Cart cart) {
+    public PackagesAdapter(Cart cart, PackagesInterface packagesInterface) {
         super(PackageModel.itemCallback);
         this.cart = cart;
+        this.packagesInterface = packagesInterface;
     }
 
     @NonNull
@@ -42,6 +45,11 @@ public class PackagesAdapter extends ListAdapter<PackageModel, PackagesAdapter.L
                 cart.addItemToCart("", packageId);
             else cart.onCartItemClicked(packageId);
 
+        });
+
+        holder.binding.getRoot().setOnClickListener(v -> {
+            String packageId = String.valueOf(packageModel.getPackageId());
+            packagesInterface.onItemClicked(packageId);
         });
 
         try {

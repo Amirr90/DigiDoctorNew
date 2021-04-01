@@ -8,16 +8,19 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.TestPackageViewBinding;
+import com.digidoctor.android.interfaces.PackagesInterface;
 import com.digidoctor.android.model.labmodel.PackageDetail;
 import com.digidoctor.android.utility.Cart;
 import com.digidoctor.android.utility.utils;
 
 public class HealthPackageListAdapter extends ListAdapter<PackageDetail, HealthPackageListAdapter.HealthVH> {
     Cart cart;
+    PackagesInterface packagesInterface;
 
-    public HealthPackageListAdapter(Cart cart) {
+    public HealthPackageListAdapter(Cart cart, PackagesInterface packagesInterface) {
         super(PackageDetail.itemCallback);
         this.cart = cart;
+        this.packagesInterface = packagesInterface;
     }
 
     @NonNull
@@ -39,6 +42,8 @@ public class HealthPackageListAdapter extends ListAdapter<PackageDetail, HealthP
                 cart.addItemToCart("", packageDetail.getPackageId());
             } else cart.onCartItemClicked(packageDetail.getPackageId());
         });
+
+        holder.binding.getRoot().setOnClickListener(v -> packagesInterface.onItemClicked(packageDetail.getPackageId()));
 
     }
 

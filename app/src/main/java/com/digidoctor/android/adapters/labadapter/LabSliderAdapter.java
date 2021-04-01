@@ -1,5 +1,6 @@
 package com.digidoctor.android.adapters.labadapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -12,6 +13,7 @@ import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
 import java.util.List;
 
 public class LabSliderAdapter extends RecyclerView.Adapter<LabSliderAdapter.LabsSliderVH> {
+    private static final String TAG = "LabSliderAdapter";
     List<LabDashBoardmodel.SliderImage> imageLists;
 
     public LabSliderAdapter(List<LabDashBoardmodel.SliderImage> imageLists) {
@@ -31,6 +33,7 @@ public class LabSliderAdapter extends RecyclerView.Adapter<LabSliderAdapter.Labs
 
         LabDashBoardmodel.SliderImage imageUrl = imageLists.get(position);
 
+        Log.d(TAG, "onBindViewHolder: "+imageUrl.getSliderImage());
         holder.binding.setBanner(imageUrl.getSliderImage());
     }
 

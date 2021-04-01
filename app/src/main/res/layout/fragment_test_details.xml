@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="packages"
+            type="com.digidoctor.android.model.PackageModel" />
     </data>
 
 
@@ -14,14 +17,14 @@
         android:background="#F2F6FE">
 
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +46,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="15dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="Full Body Package + Covid-19 Antibody Check"
+                        android:text="@{packages.packageName}"
                         android:textColor="#2B3344"
                         android:textSize="13dp"
                         android:textStyle="bold"
@@ -70,7 +73,7 @@
                         android:drawableLeft="@drawable/rupee"
                         android:drawablePadding="5dp"
                         android:fontFamily="@font/poppins"
-                        android:text="2265"
+                        android:text="@{packages.packagePrice}"
                         android:textSize="@dimen/_13sdp"
                         app:layout_constraintEnd_toStartOf="@+id/textView168"
                         app:layout_constraintHorizontal_bias="0.83"
@@ -99,13 +102,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:layout_marginBottom="2dp"
-                        android:drawableLeft="@drawable/rupee"
                         android:drawablePadding="5dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="1028"
+                        android:text="@{packages.packagePrice}"
                         android:textColor="#2B3344"
-                        android:textSize="17dp"
+                        android:textSize="17sp"
                         android:textStyle="bold"
+                        app:drawableLeftCompat="@drawable/rupee"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/textView168"
                         app:layout_constraintStart_toStartOf="@+id/textView167"
@@ -118,7 +121,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="14dp"
                     android:layout_marginEnd="14dp"
                     android:background="@drawable/cartview_round_layout"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -127,15 +130,16 @@
 
 
                     <ImageView
+
                         android:id="@+id/imageView57"
                         android:layout_width="68dp"
                         android:layout_height="26dp"
-                        android:layout_marginStart="11dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:contentDescription="TODO"
                         android:src="@drawable/labimages"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:contentDescription="TODO" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView164"
@@ -143,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="Vimta Labs"
+                        android:text="@{packages.pathologyName}"
                         android:textColor="#262E3F"
                         android:textSize="17dp"
                         android:textStyle="bold"
@@ -166,7 +170,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="16dp"
                         android:text="@string/working_hours_07_00am_08_30pm"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/textView171"
                         app:layout_constraintTop_toBottomOf="@+id/textView171" />
 
@@ -186,10 +193,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
+                        android:contentDescription="TODO"
                         android:src="@drawable/ic_baseline_location_on_24"
                         app:layout_constraintStart_toStartOf="@+id/textView164"
-                        app:layout_constraintTop_toBottomOf="@+id/textView164"
-                        android:contentDescription="TODO" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView164" />
 
                     <TextView
                         android:id="@+id/textView173"
@@ -206,21 +213,24 @@
                         android:id="@+id/imageView61"
                         android:layout_width="16dp"
                         android:layout_height="17dp"
-                        android:layout_marginStart="11dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:contentDescription="TODO"
                         android:src="@drawable/calender"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view5"
-                        android:contentDescription="TODO" />
+                        app:layout_constraintTop_toBottomOf="@+id/view5" />
 
                     <TextView
                         android:id="@+id/textView174"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="11dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_marginBottom="15dp"
                         android:text="@string/_29_sep_2020_timing_12_00"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/textView173"
                         app:layout_constraintTop_toBottomOf="@+id/textView173" />
 
@@ -245,7 +255,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/testo"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="14dp"
@@ -258,10 +268,10 @@
                         android:id="@+id/textView175"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="Test Description"
+                        android:text="Description"
                         android:textColor="#2B3344"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
@@ -270,13 +280,15 @@
                     <TextView
                         android:id="@+id/textView176"
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Full Body Package + COVID antibody test gives a detailed evaluation of your general health and detects any recent or prior COVID infection. This package is suitable for males and females of all age groups. It includes a unique diagnostic profile of tests for a comprehensive health evaluation along with tests for COVID antibody detection. Full body packageThe full body package is a comprehensive health evaluation for healthy individuals, which is also useful for people suffering from diabetes, kidney, or liver disease, in order to monitor the progress of their treatment."
+                        android:text="@{packages.description}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/textView175"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView175" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -312,6 +324,7 @@
                         android:id="@+id/precautions"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_margin="@dimen/_10sdp"
                         android:gravity="center_vertical"
                         android:text="Do not eat or drink anything other than water for 8-12 hours before the test." />
 
@@ -335,9 +348,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_300sdp"
                     android:layout_marginStart="14dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="14dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/cartview_round_layout"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/include">
@@ -347,22 +362,24 @@
                         android:id="@+id/textView177"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="Test Included :63"
+                        android:text="@{`Total Tests ` +packages.noOfTests}"
                         android:textColor="#2B3344"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recTestList"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_marginStart="2dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginEnd="2dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp"
+                        android:nestedScrollingEnabled="true"
                         android:orientation="vertical"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -379,7 +396,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

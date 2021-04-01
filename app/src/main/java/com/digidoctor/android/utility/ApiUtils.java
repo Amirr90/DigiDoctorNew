@@ -41,6 +41,7 @@ import com.digidoctor.android.model.Login;
 import com.digidoctor.android.model.MedicineRes;
 import com.digidoctor.android.model.MemberModel;
 import com.digidoctor.android.model.OnlineAppointmentSlots;
+import com.digidoctor.android.model.PackageModel;
 import com.digidoctor.android.model.PayModeModel;
 import com.digidoctor.android.model.PrescriptionModel;
 import com.digidoctor.android.model.Registration;
@@ -63,6 +64,7 @@ import com.digidoctor.android.model.labmodel.ApiLabResponse;
 import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.LabOrderModel;
 import com.digidoctor.android.model.labmodel.LabOrderRes;
+import com.digidoctor.android.model.labmodel.PackageRes;
 import com.digidoctor.android.model.labmodel.PackagesRes;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
@@ -2286,6 +2288,29 @@ public class ApiUtils {
 
             @Override
             public void onFailure(@NotNull Call<PackagesRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void loadPackageDataById(String packageID, ApiCallbackInterface apiCallbackInterface) {
+        PackageModel packageModel = new PackageModel();
+        packageModel.setPackageId(packageID);
+        Api iRestInterfaces = URLUtils.getLabApisRef();
+        Call<PackageRes> call = iRestInterfaces.getPackageDataById(packageModel);
+        call.enqueue(new Callback<PackageRes>() {
+            @Override
+            public void onResponse(@NotNull Call<PackageRes> call, @NotNull Response<PackageRes> response) {
+                if (response.isSuccessful() && null != response.body()) {
+                    if (response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                } else apiCallbackInterface.onError("error : " + response.code());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<PackageRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
                 apiCallbackInterface.onFailed(t);
             }
