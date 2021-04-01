@@ -149,7 +149,7 @@
                         android:id="@+id/textView153"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="31dp"
+                        android:layout_marginEnd="24dp"
                         android:fontFamily="@font/poppins_semibold"
                         android:padding="@dimen/_10sdp"
                         android:text="View All"
@@ -290,6 +290,20 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView158"
                         tools:listitem="@layout/certified_lab_view" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tvViewAllPackages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/view_all"
+                    app:layout_constraintBottom_toBottomOf="@+id/TVaffordable"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/TVaffordable" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

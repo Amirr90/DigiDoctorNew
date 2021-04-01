@@ -6,14 +6,13 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.HealthpackagelayoutBinding;
-import com.digidoctor.android.interfaces.CartInterface;
 import com.digidoctor.android.model.PackageModel;
 import com.digidoctor.android.utility.Cart;
+import com.digidoctor.android.utility.utils;
 
 public class PackagesAdapter extends ListAdapter<PackageModel, PackagesAdapter.LabsVH> {
     private static final String TAG = "PackagesAdapter";
@@ -23,6 +22,7 @@ public class PackagesAdapter extends ListAdapter<PackageModel, PackagesAdapter.L
         super(PackageModel.itemCallback);
         this.cart = cart;
     }
+
     @NonNull
     @Override
     public LabsVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,7 +37,11 @@ public class PackagesAdapter extends ListAdapter<PackageModel, PackagesAdapter.L
         PackageModel packageModel = getItem(position);
         holder.binding.setPackageModel(packageModel);
         holder.binding.btnAddToCart.setOnClickListener(v -> {
-            cart.addItemToCart("", String.valueOf(packageModel.getPackageId()));
+            String packageId = String.valueOf(packageModel.getPackageId());
+            if (holder.binding.btnAddToCart.getText().toString().equals(utils.ADD_TO_CART))
+                cart.addItemToCart("", packageId);
+            else cart.onCartItemClicked(packageId);
+
         });
 
         try {

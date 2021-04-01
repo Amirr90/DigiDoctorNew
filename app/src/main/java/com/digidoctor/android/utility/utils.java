@@ -52,6 +52,8 @@ public class utils {
 
 
     public static final String MAC_ADDRESS = "macAddress";
+    public static final String GO_TO_CART = "Go To Cart";
+    public static final String ADD_TO_CART = "Add To Cart";
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
@@ -305,6 +307,13 @@ public class utils {
     }
 
     public static User getPrimaryUser(Activity activity) {
+        SharedPreferences pref = App.context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = pref.getString(USER, "");
+        return gson.fromJson(json, User.class);
+    }
+
+    public static User getPrimaryUser() {
         SharedPreferences pref = App.context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         Gson gson = new Gson();
         String json = pref.getString(USER, "");

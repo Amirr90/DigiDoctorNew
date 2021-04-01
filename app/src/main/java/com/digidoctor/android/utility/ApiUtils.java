@@ -63,6 +63,7 @@ import com.digidoctor.android.model.labmodel.ApiLabResponse;
 import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.LabOrderModel;
 import com.digidoctor.android.model.labmodel.LabOrderRes;
+import com.digidoctor.android.model.labmodel.PackagesRes;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
 import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
@@ -2059,7 +2060,7 @@ public class ApiUtils {
 
 
     public static void getCartData(Activity activity, CartInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Api iRestInterfaces = URLUtils.getLabApisRef();
         User user = getPrimaryUser(activity);
         Call<CartRes> call = iRestInterfaces.cartDetails(user);
         call.enqueue(new Callback<CartRes>() {
@@ -2116,7 +2117,7 @@ public class ApiUtils {
     }
 
     public static void deleteFromCart(CartModel model, CartInterface apiCallbackInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Api iRestInterfaces = URLUtils.getLabApisRef();
         Call<CartRes> call = iRestInterfaces.deleteCart(model);
         call.enqueue(new Callback<CartRes>() {
             @Override
@@ -2143,7 +2144,7 @@ public class ApiUtils {
     }
 
     public static void placeOrder(LabOrderModel model, LabOrderInterface labOrderInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Api iRestInterfaces = URLUtils.getLabApisRef();
         Call<LabOrderRes> call = iRestInterfaces.placeOrder(model);
         call.enqueue(new Callback<LabOrderRes>() {
             @Override
@@ -2170,7 +2171,7 @@ public class ApiUtils {
     }
 
     public static void getOrders(LabOrderModel model, LabOrderInterface labOrderInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Api iRestInterfaces = URLUtils.getLabApisRef();
         Call<LabOrderRes> call = iRestInterfaces.getOrders(model);
         call.enqueue(new Callback<LabOrderRes>() {
             @Override
@@ -2196,7 +2197,7 @@ public class ApiUtils {
     }
 
     public static void cancelOrder(LabOrderModel model, LabOrderInterface labOrderInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Api iRestInterfaces = URLUtils.getLabApisRef();
         Call<LabOrderRes> call = iRestInterfaces.getOrders(model);
         call.enqueue(new Callback<LabOrderRes>() {
             @Override
@@ -2268,4 +2269,26 @@ public class ApiUtils {
     }
 
 
+    public static void getPackageData(ApiCallbackInterface apiCallbackInterface) {
+        User model = new User();
+        model.setMemberId(getPrimaryUser().getMemberId());
+        Api iRestInterfaces = URLUtils.getLabApisRef();
+        Call<PackagesRes> call = iRestInterfaces.getPackageData(model);
+        call.enqueue(new Callback<PackagesRes>() {
+            @Override
+            public void onResponse(@NotNull Call<PackagesRes> call, @NotNull Response<PackagesRes> response) {
+                if (response.isSuccessful() && null != response.body()) {
+                    if (response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<PackagesRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
 }

@@ -9,9 +9,9 @@ android {
         applicationId "com.digidoctor.android"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 73
+        versionCode 76
 
-        versionName "1.0.10"
+        versionName "1.0.13"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

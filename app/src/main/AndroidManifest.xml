@@ -94,6 +94,10 @@
         <activity android:name="com.digidoctor.android.view.activity.DeviceConnectionActivity" />
         <activity android:name="com.digidoctor.android.view.activity.ViaOximeterScanActivity" />
         <activity android:name="com.digidoctor.android.view.activity.DataActivity" />
+        <activity android:name="com.digidoctor.android.view.activity.DeviceScanActivity" />
+        <activity android:name="com.digidoctor.android.view.activity.DeviceConnectScanActivity" />
+        <activity android:name=".view.activity.DeviceControlActivity" />
+
 
         <service android:name=".utility.GetAddressIntentService" />
 
@@ -131,6 +135,10 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
+        <service
+            android:name=".blueTooth.BluetoothLeService1"
+            android:enabled="true" />
+
         <receiver android:name=".utility.OTPReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
@@ -156,4 +164,5 @@
         </receiver>
     </application>
 </manifest>
+
 

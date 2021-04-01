@@ -41,11 +41,15 @@ public class Cart {
     }
 
     public void deleteAllItemFromCart() {
-
     }
 
     public void getCart() {
         ApiUtils.getCartData(activity, cartInterface);
+    }
+
+
+    public void onCartItemClicked(Object obj) {
+        cartInterface.cartItem(obj);
     }
 
 

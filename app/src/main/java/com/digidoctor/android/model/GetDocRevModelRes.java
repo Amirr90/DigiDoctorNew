@@ -10,12 +10,15 @@ public class GetDocRevModelRes {
     @SerializedName("responseCode")
     @Expose
     private Integer responseCode;
+
     @SerializedName("responseMessage")
     @Expose
     private String responseMessage;
+
     @SerializedName("responseValue")
     @Expose
     private List<GetDoctorReviewList> responseValue = null;
+
 
     public Integer getResponseCode() {
         return responseCode;

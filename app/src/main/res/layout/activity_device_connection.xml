@@ -66,6 +66,7 @@
                  android:textSize="@dimen/_16sdp" />
 
              <TextView
+                 android:textColor="@color/colorPrimary"
                  android:id="@+id/tvStatus"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
@@ -369,6 +370,19 @@
                  </LinearLayout>
 
 
+
+                 <TextView
+                     android:layout_marginTop="@dimen/_10sdp"
+                     android:id="@+id/btnSaveData"
+                     android:layout_width="match_parent"
+                     android:layout_height="@dimen/_50sdp"
+                     android:layout_alignParentBottom="true"
+                     android:background="@drawable/ripple_orange"
+                     android:gravity="center"
+                     android:text="Save Data"
+                     android:textColor="@color/white"
+                     android:textSize="@dimen/_18sdp"
+                     android:textStyle="bold" />
              </LinearLayout>
          </ScrollView>
 
@@ -571,17 +585,6 @@
              android:textColor="@android:color/white" />
      </LinearLayout>
 
-     <TextView
-         android:id="@+id/btnSaveData"
-         android:layout_width="match_parent"
-         android:layout_height="@dimen/_50sdp"
-         android:layout_alignParentBottom="true"
-         android:background="@drawable/ripple_orange"
-         android:gravity="center"
-         android:text="Save Data"
-         android:textColor="@color/white"
-         android:textSize="@dimen/_18sdp"
-         android:textStyle="bold" />
 <!--    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
