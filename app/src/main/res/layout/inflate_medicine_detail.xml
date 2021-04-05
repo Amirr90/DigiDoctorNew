@@ -201,7 +201,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Dose"
+                    android:text="@string/dose"
                     android:textColor="@color/textColorBlack"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -223,7 +223,7 @@
                 android:id="@+id/recyclerViewAdultDose"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@+id/clAdultDoseHeader"></androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintTop_toBottomOf="@+id/clAdultDoseHeader"/>
 
             <TextView
                 android:id="@+id/tvPediatricDose"
@@ -337,7 +337,7 @@
                 android:id="@+id/recyclerViewPediatricDose"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@+id/clPediatricDoseHeader"></androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintTop_toBottomOf="@+id/clPediatricDoseHeader"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

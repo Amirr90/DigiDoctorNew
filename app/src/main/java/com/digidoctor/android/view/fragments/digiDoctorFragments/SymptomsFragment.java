@@ -21,7 +21,6 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.SymptomsAdapter;
 import com.digidoctor.android.databinding.FragmentSymptomsBinding;
 import com.digidoctor.android.model.SymptomModel;
-import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
 import org.jetbrains.annotations.NotNull;

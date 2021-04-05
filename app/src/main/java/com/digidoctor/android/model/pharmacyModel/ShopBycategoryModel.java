@@ -54,7 +54,7 @@ public class ShopBycategoryModel {
         return categoryList;
     }
 
-    public class CategoryModel {
+    public static class CategoryModel {
         private String categoryName;
        private int categoryId;
         private String imagePath;
@@ -127,7 +127,7 @@ public class ShopBycategoryModel {
         }
     }
 
-    public class TopSearchproductList {
+    public static class TopSearchproductList {
         public String getProductId() {
             return productId;
         }
@@ -168,7 +168,7 @@ public class ShopBycategoryModel {
 
     }
 
-    public class SliderImage {
+    public static class SliderImage {
 
         public String getSliderImage() {
             return sliderImage;

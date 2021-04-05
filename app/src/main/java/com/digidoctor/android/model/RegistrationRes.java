@@ -38,7 +38,7 @@ public class RegistrationRes {
     }
 
 
-    public class OtpModel {
+    public static class OtpModel {
         String mobileNo;
         String otp;
 

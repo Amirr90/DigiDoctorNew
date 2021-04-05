@@ -2,7 +2,6 @@ package com.getmedcheck.lib;
 
 import android.content.Context;
 
-import com.getmedcheck.lib.constant.Constants;
 import com.getmedcheck.lib.events.EventBleScanResult;
 import com.getmedcheck.lib.events.EventClearCommand;
 import com.getmedcheck.lib.events.EventDeviceConnectionStatus;

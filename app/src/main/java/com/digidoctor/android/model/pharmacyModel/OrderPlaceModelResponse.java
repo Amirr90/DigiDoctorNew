@@ -32,7 +32,7 @@ public class OrderPlaceModelResponse {
     String responseMessage;
     List<GetOrderPlaced> responseValue;
 
-    public class GetOrderPlaced {
+    public static class GetOrderPlaced {
 
 
         String orderNo;

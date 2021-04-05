@@ -20,12 +20,13 @@
             android:background="@drawable/size_flavour_text"
             android:clickable="true"
             android:padding="10dp"
-            android:text="250 ml"
+            android:text="@string/_250_ml"
             android:textAlignment="viewStart"
             android:textColor="#3F4E6E"
             android:textSize="9sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:focusable="true" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

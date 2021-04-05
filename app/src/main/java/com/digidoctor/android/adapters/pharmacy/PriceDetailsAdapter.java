@@ -29,7 +29,7 @@ public class PriceDetailsAdapter extends RecyclerView.Adapter<PriceDetailsAdapte
     @Override
     public PriceDetailsAdapter.PriceDetailsVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         FragmentCartListBinding fragmentCartListBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.fragment_cart_list, parent, false);
-        return new PriceDetailsAdapter.PriceDetailsVH(fragmentCartListBinding);
+        return new PriceDetailsVH(fragmentCartListBinding);
 
 
     }
@@ -47,7 +47,7 @@ public class PriceDetailsAdapter extends RecyclerView.Adapter<PriceDetailsAdapte
         return getallPrice.size();
     }
 
-    public class PriceDetailsVH extends RecyclerView.ViewHolder {
+    public static class PriceDetailsVH extends RecyclerView.ViewHolder {
         FragmentCartListBinding fragmentCartListBinding;
 
         public PriceDetailsVH(@NonNull FragmentCartListBinding fragmentCartListBinding) {

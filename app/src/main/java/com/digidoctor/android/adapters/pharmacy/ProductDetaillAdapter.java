@@ -25,7 +25,7 @@ public class ProductDetaillAdapter extends RecyclerView.Adapter<ProductDetaillAd
     public ProductDetaillAdapter.ProductDetaillVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         FragmentProductDetailsBinding fragmentProductDetailsBinding = FragmentProductDetailsBinding.inflate(inflater, parent, false);
-        return new ProductDetaillAdapter.ProductDetaillVH(fragmentProductDetailsBinding);
+        return new ProductDetaillVH(fragmentProductDetailsBinding);
 
 
     }
@@ -40,7 +40,7 @@ public class ProductDetaillAdapter extends RecyclerView.Adapter<ProductDetaillAd
         return 0;
     }
 
-    public class ProductDetaillVH extends RecyclerView.ViewHolder {
+    public static class ProductDetaillVH extends RecyclerView.ViewHolder {
         FragmentProductDetailsBinding fragmentProductDetailsBinding;
         public ProductDetaillVH(@NonNull FragmentProductDetailsBinding itemView) {
             super(itemView.getRoot());

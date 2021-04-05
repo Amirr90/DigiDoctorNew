@@ -73,7 +73,7 @@ public class MemberAdapter extends ListAdapter<User, MemberAdapter.MemberVH> {
                 User user = getPrimaryUser(activity);
                 User mainUser = getMainUser(activity);
 
-                if (member.getMemberId() == user.getMemberId())
+                if (member.getMemberId().equals(user.getMemberId()))
                     updateUser(mainUser);
 
                 AppUtils.hideDialog();
@@ -108,7 +108,7 @@ public class MemberAdapter extends ListAdapter<User, MemberAdapter.MemberVH> {
         PatientDashboard.getInstance().onSupportNavigateUp();
     }
 
-    public class MemberVH extends RecyclerView.ViewHolder {
+    public static class MemberVH extends RecyclerView.ViewHolder {
         MemberViewBinding memberViewBinding;
 
         public MemberVH(MemberViewBinding memberViewBinding) {

@@ -21,7 +21,7 @@ public class DeleteCartModelResponse {
     List<getcartdeletedetails> responseValue;
 
 
-    public class getcartdeletedetails {
+    public static class getcartdeletedetails {
 
         List<CartDetailsResponse.GetCartDetails> productDetails;
         List<CartDetailsResponse.GetCartDetails.GetPriceDetails> priceDetails;

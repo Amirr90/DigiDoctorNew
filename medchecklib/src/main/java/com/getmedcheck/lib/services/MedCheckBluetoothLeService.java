@@ -218,7 +218,7 @@ public class MedCheckBluetoothLeService extends Service {
                     mAction = ACTION_WRITE_CHARACTERISTICS_USING_MAC;
                     mDeviceMacAddress = intent.getStringExtra(DEVICE_MAC_ADDRESS);
                     if (mBluetoothGatt != null) {
-                        writeCharacteristicCommand(mBluetoothGatt, Constants.WRITE_CHARACTERISTICS_UUID, Constants.BLE_COMMAND_BT09);
+                        writeCharacteristicCommand(mBluetoothGatt, Constants.BLE_COMMAND_BT09);
                     }
                     break;
                 case ACTION_CLEAR_DEVICE_USING_MAC:
@@ -408,28 +408,28 @@ public class MedCheckBluetoothLeService extends Service {
 
     //----------------------------- MyBluetoothGattCallback ----------------------------------
 
-    private void writeCharacteristicCommand(BluetoothGatt gatt, String uuid, String value) {
+    private void writeCharacteristicCommand(BluetoothGatt gatt, String value) {
         for (BluetoothGattService gattService : gatt.getServices()) {
             for (BluetoothGattCharacteristic gattCharacteristic : gattService.getCharacteristics()) {
 
-                if (gattCharacteristic.getUuid().toString().equals(uuid)) {
+                if (gattCharacteristic.getUuid().toString().equals(Constants.WRITE_CHARACTERISTICS_UUID)) {
                     gattCharacteristic.setValue(value);
                     gatt.writeCharacteristic(gattCharacteristic);
                     currentCharacteristics = value;
-                    Log.d(TAG, "#writeCharacteristicCommand with: uuid = [" + uuid + "], value = [" + value + "] :: " + gattService.getUuid().toString());
+                    Log.d(TAG, "#writeCharacteristicCommand with: uuid = [" + Constants.WRITE_CHARACTERISTICS_UUID + "], value = [" + value + "] :: " + gattService.getUuid().toString());
                 }
             }
         }
     }
 
-    private void writeBleCommand(BluetoothGatt gatt, String uuid, byte[] value, String characteristicValue) {
+    private void writeBleCommand(BluetoothGatt gatt, byte[] value, String characteristicValue) {
         for (BluetoothGattService gattService : gatt.getServices()) {
             for (BluetoothGattCharacteristic gattCharacteristic : gattService.getCharacteristics()) {
-                if (gattCharacteristic.getUuid().toString().equals(uuid)) {
+                if (gattCharacteristic.getUuid().toString().equals(Constants.WRITE_CHARACTERISTICS_UUID)) {
                     gattCharacteristic.setValue(value);
                     gatt.writeCharacteristic(gattCharacteristic);
                     currentCharacteristics = characteristicValue;
-                    Log.d(TAG, "writeCharacteristicCommand with: uuid = [" + uuid + "], value = [" + currentCharacteristics + "]");
+                    Log.d(TAG, "writeCharacteristicCommand with: uuid = [" + Constants.WRITE_CHARACTERISTICS_UUID + "], value = [" + currentCharacteristics + "]");
                 }
             }
         }
@@ -575,7 +575,7 @@ public class MedCheckBluetoothLeService extends Service {
         byteCmd[0] = (byte) 0xA9;
         byteCmd[1] = (byte) user;
 
-        writeBleCommand(gatt, Constants.WRITE_CHARACTERISTICS_UUID, byteCmd, Constants.BLE_COMMAND_CLEAR);
+        writeBleCommand(gatt, byteCmd, Constants.BLE_COMMAND_CLEAR);
         mCountDownTimerClear.start();
     }
 
@@ -595,7 +595,7 @@ public class MedCheckBluetoothLeService extends Service {
         byteCmd[5] = (byte) aCalendar.get(Calendar.MINUTE);
         byteCmd[6] = (byte) aCalendar.get(Calendar.SECOND);
 
-        writeBleCommand(gatt, Constants.WRITE_CHARACTERISTICS_UUID, byteCmd, Constants.BLE_COMMAND_TIME_SYNC);
+        writeBleCommand(gatt, byteCmd, Constants.BLE_COMMAND_TIME_SYNC);
         EventBus.getDefault().post(new EventTimeSyncCommand(EventTimeSyncCommand.TIME_SYNC_START));
         EventBus.getDefault().post(new EventReadingProgress(EventReadingProgress.TIME_SYNC, "Time Sync"));
     }
@@ -603,20 +603,19 @@ public class MedCheckBluetoothLeService extends Service {
     /**
      * start countdown timer for sync command
      *
-     * @param time time
      * @param gatt bluetooth gatt
      */
-    private void startCountDownTimerForWait(long time, final BluetoothGatt gatt) {
+    private void startCountDownTimerForWait(final BluetoothGatt gatt) {
         cancelTimeSyncTimer();
         mHandlerSyncTimer = new Handler(Looper.getMainLooper());
         mRunnableSyncTimer = new Runnable() {
             @Override
             public void run() {
                 EventBus.getDefault().post(new EventTimeSyncCommand(EventTimeSyncCommand.TIME_SYNC_FAIL));
-                writeCharacteristicCommand(gatt, Constants.WRITE_CHARACTERISTICS_UUID, Constants.BLE_COMMAND_BT09);
+                writeCharacteristicCommand(gatt, Constants.BLE_COMMAND_BT09);
             }
         };
-        mHandlerSyncTimer.postDelayed(mRunnableSyncTimer, time);
+        mHandlerSyncTimer.postDelayed(mRunnableSyncTimer, Constants.TIME_OUT_TIME);
     }
 
     private class MyBluetoothGattCallback extends BluetoothGattCallback {
@@ -713,9 +712,9 @@ public class MedCheckBluetoothLeService extends Service {
                     writeTimeSyncCommand(gatt);
                     // start timer for 3 sec to wait for time sync command, if time sync command not executed within 3 sec
                     // automatic bt9 command executed
-                    startCountDownTimerForWait(Constants.TIME_OUT_TIME, gatt);
+                    startCountDownTimerForWait(gatt);
                 } else {
-                    writeCharacteristicCommand(gatt, Constants.WRITE_CHARACTERISTICS_UUID, Constants.BLE_COMMAND_BT09);
+                    writeCharacteristicCommand(gatt, Constants.BLE_COMMAND_BT09);
                 }
             }
         }
@@ -768,7 +767,7 @@ public class MedCheckBluetoothLeService extends Service {
             else if (currentCharacteristics.equals(Constants.BLE_COMMAND_TIME_SYNC)) {
                 EventBus.getDefault().post(new EventTimeSyncCommand(EventTimeSyncCommand.TIME_SYNC_COMPLETE));
                 cancelTimeSyncTimer();
-                writeCharacteristicCommand(gatt, Constants.WRITE_CHARACTERISTICS_UUID, Constants.BLE_COMMAND_BT09);
+                writeCharacteristicCommand(gatt, Constants.BLE_COMMAND_BT09);
             }
             // command BT:9
             else if (currentCharacteristics.equals(Constants.BLE_COMMAND_BT09)) {
@@ -814,14 +813,14 @@ public class MedCheckBluetoothLeService extends Service {
                                 }
 
                                 String command = getBpmUserCommand();
-                                writeCharacteristicCommand(gatt, Constants.WRITE_CHARACTERISTICS_UUID, command);
+                                writeCharacteristicCommand(gatt, command);
                                 Log.e(TAG, "Write HL158HC " + command + " on " + mDeviceMacAddress);
 
                             }
                             // BGM
                             else if (gatt.getDevice().getName().startsWith(Constants.BLOOD_GLUCOSE_DEVICE_ID)
                                     || gatt.getDevice().getName().startsWith(Constants.BLOOD_GLUCOSE_DEVICE_ID_NEW)) {
-                                writeCharacteristicCommand(gatt, Constants.WRITE_CHARACTERISTICS_UUID, Constants.BLE_COMMAND_BT00);
+                                writeCharacteristicCommand(gatt, Constants.BLE_COMMAND_BT00);
                                 Log.e(TAG, "Write HL568HC " + Constants.BLE_COMMAND_BT00 + " on " + mDeviceMacAddress);
                             }
                         }

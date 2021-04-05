@@ -32,7 +32,7 @@ public class ClinicAdapter extends ListAdapter<TopClinicsModel, ClinicAdapter.Da
 
     }
 
-    public class DashboardVH extends RecyclerView.ViewHolder {
+    public static class DashboardVH extends RecyclerView.ViewHolder {
         DashBoardViewHorizontal2Binding dashBoardViewBinding;
 
 

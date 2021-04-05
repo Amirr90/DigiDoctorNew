@@ -76,7 +76,7 @@ public class AddInvestigationTestInformationAdapter extends RecyclerView.Adapter
         return testInformationModels;
     }
 
-    public class InvestigationVH extends RecyclerView.ViewHolder {
+    public static class InvestigationVH extends RecyclerView.ViewHolder {
         AddInvestigationViewBinding binding;
 
         public InvestigationVH(@NonNull AddInvestigationViewBinding binding) {

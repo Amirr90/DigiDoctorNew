@@ -21,11 +21,10 @@ public class RetrofitClient {
         httpClient.addInterceptor(logging);
         httpClient.dispatcher(dispatcher);
 
-        final Retrofit build = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();
-        return build;
     }
 }

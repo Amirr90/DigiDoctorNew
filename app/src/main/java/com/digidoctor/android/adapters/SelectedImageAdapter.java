@@ -51,7 +51,7 @@ public class SelectedImageAdapter extends RecyclerView.Adapter<SelectedImageAdap
         return uriList.size();
     }
 
-    public class ImageVH extends RecyclerView.ViewHolder {
+    public static class ImageVH extends RecyclerView.ViewHolder {
         SelectedImageViewBinding selectedImageViewBinding;
 
         public ImageVH(@NonNull SelectedImageViewBinding selectedImageViewBinding) {

@@ -90,7 +90,7 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
         return popularProductLists.size();
     }
 
-    public class PopularProductVH extends RecyclerView.ViewHolder {
+    public static class PopularProductVH extends RecyclerView.ViewHolder {
         PopularproductviewBinding popularproductviewBinding;
 
         public PopularProductVH(@NonNull PopularproductviewBinding itemView) {

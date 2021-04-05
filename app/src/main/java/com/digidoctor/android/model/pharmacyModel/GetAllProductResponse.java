@@ -27,7 +27,7 @@ public class GetAllProductResponse {
 
     }
 
-    public class GetProduct extends Observable {
+    public static class GetProduct extends Observable {
 
         int productId;
         String productName;

@@ -38,7 +38,7 @@ public class CoupnemodelRes {
     }
 
 
-    public class CouponModelList {
+    public static class CouponModelList {
 
         String couponStatus;
 

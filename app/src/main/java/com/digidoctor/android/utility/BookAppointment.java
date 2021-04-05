@@ -704,8 +704,7 @@ public class BookAppointment extends Credentials {
             md.update(str.getBytes());
             byte[] mb = md.digest();
 
-            for (int i = 0; i < mb.length; i++) {
-                byte temp = mb[i];
+            for (byte temp : mb) {
                 String s = Integer.toHexString(temp);
                 while (s.length() < 2) {
                     s = "0" + s;

@@ -23,8 +23,8 @@ public class StringUtils {
 
     public static String getByteInStringForm(byte[] data) {
         StringBuffer strNoByte = new StringBuffer();
-        for (int i = 0; i < data.length; i++) {
-            strNoByte.append(data[i] + " ");
+        for (byte datum : data) {
+            strNoByte.append(datum).append(" ");
         }
         //Log.e(TAG, "Byte: " + Arrays.toString(data));
         return strNoByte.toString() + "[" + bytesToHex(data) + "] = [" + Arrays.toString(byteArrayToBinaryByteArray(data)) + "]";
@@ -32,8 +32,8 @@ public class StringUtils {
 
     public static String getByteInString(byte[] data) {
         StringBuffer strNoByte = new StringBuffer();
-        for (int i = 0; i < data.length; i++) {
-            strNoByte.append(data[i] + " ");
+        for (byte datum : data) {
+            strNoByte.append(datum).append(" ");
         }
         //Log.e(TAG, "Byte: " + Arrays.toString(data));
         return strNoByte.toString() + "[" + bytesToHex(data) + "] = [" + Arrays.toString(byteArrayToBinaryByteArray(data)) + "]";

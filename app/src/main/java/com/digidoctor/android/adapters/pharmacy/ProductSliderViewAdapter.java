@@ -12,14 +12,14 @@ import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.List;
 
-public class ProductSliderviewAdapter extends SliderViewAdapter<ProductSliderviewAdapter.SliderAdapterVH> {
+public class ProductSliderViewAdapter extends SliderViewAdapter<ProductSliderViewAdapter.SliderAdapterVH> {
 
 
     private final Context context;
     private final List<ProductDetailModelResponse.ProductDetailsList.ProductDetailsSlider> mSliderItems;
 
 
-    public ProductSliderviewAdapter(List<ProductDetailModelResponse.ProductDetailsList.ProductDetailsSlider> mSliderItems, Context context) {
+    public ProductSliderViewAdapter(List<ProductDetailModelResponse.ProductDetailsList.ProductDetailsSlider> mSliderItems, Context context) {
         this.context = context;
         this.mSliderItems = mSliderItems;
     }
@@ -27,7 +27,6 @@ public class ProductSliderviewAdapter extends SliderViewAdapter<ProductSlidervie
 
     @Override
     public int getCount() {
-        //slider view count could be dynamic size
         return mSliderItems.size();
     }
 
@@ -35,7 +34,7 @@ public class ProductSliderviewAdapter extends SliderViewAdapter<ProductSlidervie
     public SliderAdapterVH onCreateViewHolder(ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         CustomesliderviewBinding customesliderviewBinding = CustomesliderviewBinding.inflate(inflater, parent, false);
-        return new ProductSliderviewAdapter.SliderAdapterVH(customesliderviewBinding);
+        return new SliderAdapterVH(customesliderviewBinding);
 
     }
 
@@ -53,7 +52,7 @@ public class ProductSliderviewAdapter extends SliderViewAdapter<ProductSlidervie
 
     }
 
-    public class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
+    public static class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
 
         CustomesliderviewBinding customesliderviewBinding;
 

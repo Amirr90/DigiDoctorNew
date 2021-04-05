@@ -113,7 +113,7 @@ public abstract class MedCheckBluetoothService<T> extends Service {
 
     protected void writeCharacteristics() {
         if (mBluetoothGatt != null) {
-            writeCharacteristicCommand(mBluetoothGatt, Constants.WRITE_CHARACTERISTICS_UUID, Constants.BLE_COMMAND_BT09);
+            writeCharacteristicCommand(mBluetoothGatt);
         } else {
             onError(ERROR_CODE_GATT_NULL, new Exception());
         }
@@ -204,12 +204,12 @@ public abstract class MedCheckBluetoothService<T> extends Service {
 
     //----------------------------- MyBluetoothGattCallback ----------------------------------
 
-    protected void writeCharacteristicCommand(BluetoothGatt gatt, String uuid, String value) {
+    protected void writeCharacteristicCommand(BluetoothGatt gatt) {
         for (BluetoothGattService gattService : gatt.getServices()) {
             for (BluetoothGattCharacteristic gattCharacteristic : gattService.getCharacteristics()) {
 
-                if (gattCharacteristic.getUuid().toString().equals(uuid)) {
-                    gattCharacteristic.setValue(value);
+                if (gattCharacteristic.getUuid().toString().equals(Constants.WRITE_CHARACTERISTICS_UUID)) {
+                    gattCharacteristic.setValue(Constants.BLE_COMMAND_BT09);
                     gatt.writeCharacteristic(gattCharacteristic);
                     //currentCharacteristics = value;
                     //Log.d(TAG, "#writeCharacteristicCommand with: uuid = [" + uuid + "], value = [" + value + "] :: " + gattService.getUuid().toString());

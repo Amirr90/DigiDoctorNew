@@ -1,7 +1,5 @@
 package com.digidoctor.android.model.labmodel;
 
-import com.digidoctor.android.model.CartRes;
-
 import java.util.List;
 
 public class LabOrderRes {

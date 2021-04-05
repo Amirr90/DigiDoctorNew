@@ -20,7 +20,7 @@ public class getaddressModel {
     }
 
 
-    public class getaddressDetails {
+    public static class getaddressDetails {
 
 
         String memberId;

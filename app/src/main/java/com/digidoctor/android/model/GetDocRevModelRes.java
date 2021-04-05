@@ -44,7 +44,7 @@ public class GetDocRevModelRes {
         this.responseValue = responseValue;
     }
 
-    public class GetDoctorReviewList {
+    public static class GetDoctorReviewList {
 
 
         @SerializedName("name")

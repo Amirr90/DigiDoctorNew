@@ -25,9 +25,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
 
-import static com.digidoctor.android.utility.AppUtils.parseDate;
-import static com.digidoctor.android.utility.AppUtils.shareApp;
-
 public class NewDashboardUtils {
 
 
@@ -104,7 +101,7 @@ public class NewDashboardUtils {
         SimpleDateFormat sdfDate = new SimpleDateFormat("dd", Locale.getDefault());
         SimpleDateFormat sdfDay = new SimpleDateFormat("EEE", Locale.getDefault());
         SimpleDateFormat sdfDateSend = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
-        Date date1 = null;
+        Date date1;
         try {
             date1 = formatter1.parse(startDate);
             for (int i = 0; i < 7; i++) {

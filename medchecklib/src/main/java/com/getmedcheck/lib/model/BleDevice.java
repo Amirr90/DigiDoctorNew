@@ -1,10 +1,15 @@
 package com.getmedcheck.lib.model;
 
 import android.bluetooth.BluetoothDevice;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.RequiresApi;
+
 import com.getmedcheck.lib.constant.Constants;
+
+import java.util.Objects;
 
 public class BleDevice implements Parcelable {
 
@@ -106,6 +111,7 @@ public class BleDevice implements Parcelable {
         this.status = status;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -113,15 +119,15 @@ public class BleDevice implements Parcelable {
 
         BleDevice bleDevice = (BleDevice) o;
 
-        if (device != null ? !device.equals(bleDevice.device) : bleDevice.device != null)
+        if (!Objects.equals(device, bleDevice.device))
             return false;
-        if (displayName != null ? !displayName.equals(bleDevice.displayName) : bleDevice.displayName != null)
+        if (!Objects.equals(displayName, bleDevice.displayName))
             return false;
-        if (deviceName != null ? !deviceName.equals(bleDevice.deviceName) : bleDevice.deviceName != null)
+        if (!Objects.equals(deviceName, bleDevice.deviceName))
             return false;
-        if (macAddress != null ? !macAddress.equals(bleDevice.macAddress) : bleDevice.macAddress != null)
+        if (!Objects.equals(macAddress, bleDevice.macAddress))
             return false;
-        return status != null ? status.equals(bleDevice.status) : bleDevice.status == null;
+        return Objects.equals(status, bleDevice.status);
     }
 
     @Override

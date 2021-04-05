@@ -187,9 +187,9 @@
                     android:contentDescription="TODO"
                     android:textAlignment="center"
                     android:visibility="gone"
-                    app:srcCompat="@drawable/rupee"
-                    tools:layout_editor_absoluteX="11dp"
-                    tools:layout_editor_absoluteY="170dp" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/rupee" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

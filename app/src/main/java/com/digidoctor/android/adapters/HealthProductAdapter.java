@@ -46,7 +46,7 @@ public class HealthProductAdapter extends ListAdapter<HealthProductDetailsModel,
 
     }
 
-    public class DashboadVH2 extends RecyclerView.ViewHolder {
+    public static class DashboadVH2 extends RecyclerView.ViewHolder {
         DashBoardViewHorizontal1Binding dashBoardViewBinding;
 
         public DashboadVH2(DashBoardViewHorizontal1Binding dashBoardViewBinding) {

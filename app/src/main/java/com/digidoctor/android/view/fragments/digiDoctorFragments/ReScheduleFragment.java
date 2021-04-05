@@ -426,24 +426,27 @@ public class ReScheduleFragment extends Fragment {
         else
             getNextWeekDays = NewDashboardUtils.getNextWeekDays();
 
-        for (int a = 0; a < getNextWeekDays.size(); a++) {
-            Log.d(TAG, "getNextWeekDays: " + workingDays.contains(getNextWeekDays.get(a).get("day")));
-            if (workingDays.contains(getNextWeekDays.get(a).get("day"))) {
-                calendarModelList.add(new CalendarModel(
-                        getNextWeekDays.get(a).get("date"),
-                        getNextWeekDays.get(a).get("day"),
-                        getNextWeekDays.get(a).get("dateSend"),
-                        true));
-            } else {
-                calendarModelList.add(new CalendarModel(
-                        getNextWeekDays.get(a).get("date"),
-                        getNextWeekDays.get(a).get("day"),
-                        getNextWeekDays.get(a).get("dateSend"),
-                        false));
+        if (null != workingDays) {
+            for (int a = 0; a < getNextWeekDays.size(); a++) {
+                Log.d(TAG, "getNextWeekDays: " + workingDays.contains(getNextWeekDays.get(a).get("day")));
+                if (workingDays.contains(getNextWeekDays.get(a).get("day"))) {
+                    calendarModelList.add(new CalendarModel(
+                            getNextWeekDays.get(a).get("date"),
+                            getNextWeekDays.get(a).get("day"),
+                            getNextWeekDays.get(a).get("dateSend"),
+                            true));
+                } else {
+                    calendarModelList.add(new CalendarModel(
+                            getNextWeekDays.get(a).get("date"),
+                            getNextWeekDays.get(a).get("day"),
+                            getNextWeekDays.get(a).get("dateSend"),
+                            false));
+                }
+
+
             }
-
-
-        }
+        } else
+            Toast.makeText(requireActivity(), "Doctor's TimeSlot not found !!", Toast.LENGTH_SHORT).show();
 
         return calendarModelList;
     }

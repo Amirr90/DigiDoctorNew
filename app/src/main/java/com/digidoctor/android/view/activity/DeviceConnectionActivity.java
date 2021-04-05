@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.Toolbar;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.Api;
@@ -57,9 +56,11 @@ import static com.digidoctor.android.utility.utils.isNetworkConnected;
 public class DeviceConnectionActivity extends MedCheckActivity implements View.OnClickListener {
     private Date today = new Date();
     private BleDevice mBleDevice;
-    private TextView mTvDeviceName, txtPid, txtSys, txtDias, txtPulse, btnSaveData, btnScan;
+    private TextView txtSys;
+    private TextView txtDias;
+    private TextView txtPulse;
     private TextView mTvConnectionState;
-    private Button mBtnConnect, mBtnReadData, mBtnClearData, mBtnTimeSync, mBtnDisconnect;
+    private Button mBtnConnect;
     private LinearLayout mLlCoreOperations, mLlBLEDeviceOperation;
     private TextView mTvResult;
     private boolean mAllPermissionsReady;
@@ -116,25 +117,25 @@ public class DeviceConnectionActivity extends MedCheckActivity implements View.O
             }
         }
 
-        mTvDeviceName = findViewById(R.id.tvDeviceName);
+        TextView mTvDeviceName = findViewById(R.id.tvDeviceName);
         mTvConnectionState = findViewById(R.id.tvStatus);
         mLlCoreOperations = findViewById(R.id.llCoreOperations);
         mLlBLEDeviceOperation = findViewById(R.id.llBLEDeviceOperation);
-        txtPid = findViewById(R.id.txtPid);
+        TextView txtPid = findViewById(R.id.txtPid);
 
-        btnScan = findViewById(R.id.btnScan);
+        TextView btnScan = findViewById(R.id.btnScan);
         btnScan.setOnClickListener(this);
         mBtnConnect = findViewById(R.id.btnConnect);
         mBtnConnect.setOnClickListener(this);
-        mBtnReadData = findViewById(R.id.btnReadData);
+        Button mBtnReadData = findViewById(R.id.btnReadData);
         mBtnReadData.setOnClickListener(this);
-        mBtnClearData = findViewById(R.id.btnClearData);
+        Button mBtnClearData = findViewById(R.id.btnClearData);
         mBtnClearData.setOnClickListener(this);
-        mBtnTimeSync = findViewById(R.id.btnTimeSync);
+        Button mBtnTimeSync = findViewById(R.id.btnTimeSync);
         mBtnTimeSync.setOnClickListener(this);
-        mBtnDisconnect = findViewById(R.id.btnDisconnect);
+        Button mBtnDisconnect = findViewById(R.id.btnDisconnect);
         mBtnDisconnect.setOnClickListener(this);
-        btnSaveData = findViewById(R.id.btnSaveData);
+        TextView btnSaveData = findViewById(R.id.btnSaveData);
         btnSaveData.setOnClickListener(this);
 
         mTvResult = findViewById(R.id.tvResult);

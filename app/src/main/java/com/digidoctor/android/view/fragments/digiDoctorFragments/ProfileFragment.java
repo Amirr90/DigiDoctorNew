@@ -186,9 +186,9 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
 
     }
 
-    private void uploadImage(File imagFile)  {
+    private void uploadImage(File imageFile)  {
         AppUtils.showRequestDialog(requireActivity());
-        ApiUtils.uploadProfileImage(imagFile, new ApiCallbackInterface() {
+        ApiUtils.uploadProfileImage(imageFile, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 AppUtils.hideDialog();

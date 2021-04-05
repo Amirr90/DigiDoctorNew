@@ -47,7 +47,7 @@ public class AppointmentAdapter extends ListAdapter<AppointmentModel, Appointmen
     }
 
 
-    public class AppointmentVH extends RecyclerView.ViewHolder {
+    public static class AppointmentVH extends RecyclerView.ViewHolder {
         AppointmentViewBinding binding;
 
         public AppointmentVH(@NonNull AppointmentViewBinding binding) {

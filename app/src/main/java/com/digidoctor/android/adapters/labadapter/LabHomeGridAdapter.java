@@ -51,7 +51,7 @@ public class LabHomeGridAdapter extends RecyclerView.Adapter<LabHomeGridAdapter.
         }
     }
 
-    public
+    public static
     class GridModel {
         String title;
         String description;

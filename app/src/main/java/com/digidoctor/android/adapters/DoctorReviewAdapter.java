@@ -1,6 +1,5 @@
 package com.digidoctor.android.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -37,7 +36,7 @@ public class DoctorReviewAdapter extends RecyclerView.Adapter<DoctorReviewAdapte
 
 
         holder.ratingAndReviewViewBinding.textView100.setText(getDoctorReviewList.getName());
-        holder.ratingAndReviewViewBinding.textView102.setText(String.valueOf(getDoctorReviewList.getStarRating()));
+        holder.ratingAndReviewViewBinding.textView206.setText(String.valueOf(getDoctorReviewList.getStarRating()));
         holder.ratingAndReviewViewBinding.textView101.setText(getDoctorReviewList.getReviewDate());
         holder.ratingAndReviewViewBinding.textView103.setText(getDoctorReviewList.getReview());
 

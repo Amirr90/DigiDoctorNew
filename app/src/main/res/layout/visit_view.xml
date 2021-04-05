@@ -27,9 +27,9 @@
                 android:id="@+id/llImage3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="21dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/round_circle"
                 android:backgroundTint="#EAF2FD"
                 android:gravity="center"
@@ -46,7 +46,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/llImage3">
+                android:layout_toEndOf="@id/llImage3">
 
 
                 <TextView
@@ -57,7 +57,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@{medicineDetail.medicineName}"
                     android:textColor="#262E3F"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -69,7 +69,7 @@
                     android:fontFamily="@font/poppins"
                     android:text="@{medicineDetail.dosageFormName}"
                     android:textColor="#3F4E6E"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:textStyle="normal" />
 
                 <View
@@ -78,7 +78,7 @@
                     android:layout_height="1dp"
                     android:layout_below="@+id/tvType"
                     android:layout_marginTop="17dp"
-                    android:layout_marginRight="13dp"
+                    android:layout_marginEnd="13dp"
                     android:background="#EEEEEE" />
 
                 <LinearLayout
@@ -98,28 +98,26 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/view2"
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/poppins"
                             android:text="@string/frequency"
                             android:textColor="#9F9F9F"
-                            android:textSize="13dp" />
+                            android:textSize="13sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/textView28"
                             android:layout_marginTop="4dp"
                             android:fontFamily="@font/poppins"
                             android:text="@{medicineDetail.frequencyName}"
                             android:textColor="#414141"
-                            android:textSize="14dp" />
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -130,7 +128,7 @@
                             android:fontFamily="@font/poppins"
                             android:text="@string/duration"
                             android:textColor="#9F9F9F"
-                            android:textSize="13dp" />
+                            android:textSize="13sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -139,7 +137,7 @@
                             android:fontFamily="@font/poppins"
                             android:text="@{medicineDetail.durationInDays+` (Days)`}"
                             android:textColor="#414141"
-                            android:textSize="14dp" />
+                            android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -165,18 +163,17 @@
                             android:fontFamily="@font/poppins"
                             android:text="@string/strength"
                             android:textColor="#9F9F9F"
-                            android:textSize="13dp" />
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/textView29"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/textView28"
                             android:layout_marginTop="4dp"
                             android:fontFamily="@font/poppins"
                             android:text="@{medicineDetail.strength}"
                             android:textColor="#414141"
-                            android:textSize="14dp" />
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -193,7 +190,7 @@
                             android:fontFamily="@font/poppins"
                             android:text="@string/unit"
                             android:textColor="#9F9F9F"
-                            android:textSize="13dp" />
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/textView31"

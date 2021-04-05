@@ -90,13 +90,11 @@ public class AddMemberFragment extends Fragment implements MyDialogInterface {
         });
 
 
-        addMemberBinding.textView5.setOnClickListener(view1 -> {
-            ImagePicker.Companion.with(this)
-                    .crop(4f, 4f)                    //Crop image(Optional), Check Customization for more option
-                    .compress(512)            //Final image size will be less than 1 MB(Optional)
-                    .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
-                    .start();
-        });
+        addMemberBinding.textView5.setOnClickListener(view1 -> ImagePicker.Companion.with(this)
+                .crop(4f, 4f)                    //Crop image(Optional), Check Customization for more option
+                .compress(512)            //Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
+                .start());
     }
 
 
@@ -121,7 +119,7 @@ public class AddMemberFragment extends Fragment implements MyDialogInterface {
 
     }
 
-    private void uploadImage(File imageFile) throws IOException {
+    private void uploadImage(File imageFile) {
         ApiUtils.uploadProfileImage(imageFile, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {

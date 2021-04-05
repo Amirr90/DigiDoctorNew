@@ -25,7 +25,7 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
     public OrderDetailsAdapter.OrderDetailsAdapterVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         FragmentOrderDetailsBinding fragmentProductDetailsBinding = FragmentOrderDetailsBinding.inflate(inflater, parent, false);
-        return new OrderDetailsAdapter.OrderDetailsAdapterVH(fragmentProductDetailsBinding);
+        return new OrderDetailsAdapterVH(fragmentProductDetailsBinding);
 
     }
 
@@ -44,7 +44,7 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
         return 0;
     }
 
-    public class OrderDetailsAdapterVH extends RecyclerView.ViewHolder {
+    public static class OrderDetailsAdapterVH extends RecyclerView.ViewHolder {
 
 
         FragmentOrderDetailsBinding fragmentOrderDetailsBinding;

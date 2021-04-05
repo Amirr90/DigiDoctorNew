@@ -30,8 +30,7 @@ import java.util.Date;
 import java.util.Map;
 
 public class FirebaseMessageService extends FirebaseMessagingService {
-
-    private static final String TAG = "             ";
+    private static final String TAG = "FirebaseMessageService";
 
     String CHANNEL_ID = "com.digidoctor.android";
 

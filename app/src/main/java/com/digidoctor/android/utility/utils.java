@@ -160,9 +160,8 @@ public class utils {
 
     public static String getDateInDMYFormatFromTimestamp(long currentTimeMillis) {
         try {
-            String value = new java.text.SimpleDateFormat("yyyy-MM-dd").
-                    format(new java.util.Date(currentTimeMillis));
-            return value;
+            return new SimpleDateFormat("yyyy-MM-dd").
+                    format(new Date(currentTimeMillis));
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -172,9 +171,8 @@ public class utils {
 
     public static String getDateInDMYFormatFromTimestampInDayMonthFormat(long currentTimeMillis) {
         try {
-            String value = new java.text.SimpleDateFormat("dd MMMM yyyy").
-                    format(new java.util.Date(currentTimeMillis));
-            return value;
+            return new SimpleDateFormat("dd MMMM yyyy").
+                    format(new Date(currentTimeMillis));
         } catch (Exception e) {
             e.printStackTrace();
             return null;

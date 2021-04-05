@@ -91,24 +91,9 @@ public class ViaOximeterScanActivity extends AppCompatActivity  implements Adapt
         mListView.setOnItemClickListener(this);
         mScanListAdapter.notifyDataSetChanged();
 
-        btnStartScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ViaOximeterScanActivity.this.startScans();
-            }
-        });
-        btnStopScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ViaOximeterScanActivity.this.stopScans();
-            }
-        });
-        ivGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViaOximeterScanActivity.this.goBack();
-            }
-        });
+        btnStartScan.setOnClickListener(view -> ViaOximeterScanActivity.this.startScans());
+        btnStopScan.setOnClickListener(view -> ViaOximeterScanActivity.this.stopScans());
+        ivGoBack.setOnClickListener(v -> ViaOximeterScanActivity.this.goBack());
 
         startScans();
 
@@ -219,40 +204,32 @@ public class ViaOximeterScanActivity extends AppCompatActivity  implements Adapt
         Log.d(TAG, "connect:address: " + searchResult.getAddress());
         Log.d(TAG, "connect:name: " + searchResult.getName());
 
-        OxiOprateManager.getMangerInstance(getApplicationContext()).connectDevice(searchResult.getAddress(), searchResult.getName(), new IConnectResponse() {
-            @Override
-            public void connectState(int code, BleGattProfile bleGattProfile, boolean isUpdateModel) {
-                if (code == Code.REQUEST_SUCCESS) {
-                    //蓝牙与设备的连接状态
-                    Log.i(TAG, "Connection Success");
-                } else {
-                    Log.i(TAG, "Connection Failure");
-                }
+        OxiOprateManager.getMangerInstance(getApplicationContext()).connectDevice(searchResult.getAddress(), searchResult.getName(), (code, bleGattProfile, isUpdateModel) -> {
+            if (code == Code.REQUEST_SUCCESS) {
+                //蓝牙与设备的连接状态
+                Log.i(TAG, "Connection Success");
+            } else {
+                Log.i(TAG, "Connection Failure");
             }
-        }, new INotifyResponse() {
-            @Override
-            public void notifyState(int state) {
-                if (state == Code.REQUEST_SUCCESS) {
-                    Log.i(TAG, "Notify Success");
-                    Intent intent = new Intent(ViaOximeterScanActivity.this, DataActivity.class);
-                    intent.putExtra("mac", searchResult.getAddress());
-                    intent.putExtra("show", ViaOximeterScanActivity.this.getIntent().getStringExtra("show"));
-                    ViaOximeterScanActivity.this.startActivity(intent);
-                } else {
-                    Log.i(TAG, "Notify Fail");
-                }
+        }, state -> {
+            if (state == Code.REQUEST_SUCCESS) {
+                Log.i(TAG, "Notify Success");
+                Intent intent = new Intent(ViaOximeterScanActivity.this, DataActivity.class);
+                intent.putExtra("mac", searchResult.getAddress());
+                intent.putExtra("show", ViaOximeterScanActivity.this.getIntent().getStringExtra("show"));
+                ViaOximeterScanActivity.this.startActivity(intent);
+            } else {
+                Log.i(TAG, "Notify Fail");
             }
         });
     }
 
-    public class ScanListAdapter extends BaseAdapter {
+    public static class ScanListAdapter extends BaseAdapter {
 
         List<SearchResult> itemData;
         private LayoutInflater mLayoutInflater;
-        private Context mContext;
 
         public ScanListAdapter(Context mContext, List<SearchResult> itemData) {
-            this.mContext = mContext;
             this.itemData = itemData;
             this.mLayoutInflater = LayoutInflater.from(mContext);
         }

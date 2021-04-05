@@ -55,7 +55,7 @@ import java.util.List;
     }
 
 
-     public  class filltervarientList {
+     public static class filltervarientList {
 
          @SerializedName("id")
          @Expose

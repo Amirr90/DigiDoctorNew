@@ -55,7 +55,7 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
     List<String> suggestionMsg;
 
 
-    ArrayList<TextMessage> conversation = new ArrayList<TextMessage>();
+    ArrayList<TextMessage> conversation = new ArrayList<>();
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -99,7 +99,7 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
         });
 
         suggestionMsg = new ArrayList<>();
-        suggestionAdapter = new SmartSuggestionAdapter(suggestionMsg, this::onSuggestionItemClicked);
+        suggestionAdapter = new SmartSuggestionAdapter(suggestionMsg, this);
         chat.recSmartSuggestion.setAdapter(suggestionAdapter);
 
     }
@@ -231,9 +231,7 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
                         suggestionAdapter.notifyDataSetChanged();
                     }
                 })
-                .addOnFailureListener(e -> {
-                    Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
-                });
+                .addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e.getLocalizedMessage()));
     }
 
     @Override

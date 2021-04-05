@@ -1,24 +1,16 @@
 
 package com.digidoctor.android.adapters;
 
-import android.animation.ValueAnimator;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.OldAppointmentsViewsBinding;
 import com.digidoctor.android.interfaces.AdapterInterface;
-import com.digidoctor.android.model.AppointmentDetailsRes;
 import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.utility.AppUtils;
-import com.digidoctor.android.view.fragments.digiDoctorFragments.AppointmentDetailFragment;
 
 import java.util.ArrayList;
 import java.util.List;

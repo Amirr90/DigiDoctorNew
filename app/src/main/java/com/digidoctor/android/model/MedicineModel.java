@@ -128,7 +128,7 @@ public class MedicineModel {
 
     }
 
-    public class MedicineFrequencyModel {
+    public static class MedicineFrequencyModel {
 
         private String id;
         private String name;

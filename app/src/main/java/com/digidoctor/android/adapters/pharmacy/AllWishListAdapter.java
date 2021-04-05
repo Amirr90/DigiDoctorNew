@@ -42,7 +42,7 @@ public class AllWishListAdapter extends RecyclerView.Adapter<AllWishListAdapter.
     @Override
     public ViewholderVh onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         WishlistViewBinding wishlistViewBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.wishlist_view, parent, false);
-        return new AllWishListAdapter.ViewholderVh(wishlistViewBinding);
+        return new ViewholderVh(wishlistViewBinding);
 
     }
 
@@ -157,7 +157,7 @@ public class AllWishListAdapter extends RecyclerView.Adapter<AllWishListAdapter.
         return allWishlist.size();
     }
 
-    public class ViewholderVh extends RecyclerView.ViewHolder {
+    public static class ViewholderVh extends RecyclerView.ViewHolder {
 
         WishlistViewBinding wishlistViewBinding;
         FragmentMyWishListBinding fragmentMyWishListBinding;

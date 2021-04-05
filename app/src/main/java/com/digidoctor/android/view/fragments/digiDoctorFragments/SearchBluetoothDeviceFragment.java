@@ -74,7 +74,7 @@ public class SearchBluetoothDeviceFragment extends Fragment implements OnClickLi
     }
 
     private void showLoadingView() {
-        new Handler().postDelayed(() -> searchBLEDevice(), 1000);
+        new Handler().postDelayed(this::searchBLEDevice, 1000);
     }
 
     @Override
@@ -193,14 +193,11 @@ public class SearchBluetoothDeviceFragment extends Fragment implements OnClickLi
         }*/
 
 
-        switch (deviceType) {
-            case utils.MEDCHECK:
-                /*navController.navigate(R.id.action_searchBluetoothDeviceFragment_to_medCheckFragment, bundle);*/
-                startActivity(new Intent(requireActivity(), MedCheckDeviceGetData.class));
-                break;
-            default:
-                Toast.makeText(requireActivity(), "device not supported !!", Toast.LENGTH_SHORT).show();
-
+        if (utils.MEDCHECK.equals(deviceType)) {
+            /*navController.navigate(R.id.action_searchBluetoothDeviceFragment_to_medCheckFragment, bundle);*/
+            startActivity(new Intent(requireActivity(), MedCheckDeviceGetData.class));
+        } else {
+            Toast.makeText(requireActivity(), "device not supported !!", Toast.LENGTH_SHORT).show();
         }
 
 

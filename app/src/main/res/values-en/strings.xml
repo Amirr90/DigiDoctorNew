@@ -668,7 +668,7 @@
     <string name="quantity_required">Please enter quantity!</string>
     <string name="quantity_must_be_greater">Quantity must be greater than 0!</string>
     <string name="other_details">Other Details</string>
-    <string name="updating_timimg">Updating Doctor\'s Timing, Please wait...</string>
+    <string name="updating_timing">Updating Doctor\'s Timing, Please wait…</string>
     <string name="updated_successfully">Timing Updated Successfully</string>
     <string name="add_new_time_slot">Add New Time Slot</string>
     <string name="password_required">Password Required to Add Doctor</string>
@@ -1013,7 +1013,7 @@
     <string name="search_pharmacy_hint">Search Medicine here</string>
     <string name="favourite">favourite</string>
     <string name="cart">cart</string>
-    <string name="search_medicine_amp_healthcare"><![CDATA[search medicine & healthcare...]]></string>
+    <string name="search_medicine_amp_health_care"><![CDATA[search medicine & healthcare...]]></string>
     <string name="shop_by_category">Shop by Category</string>
     <string name="todo">To Do</string>
     <string name="age">Age</string>
@@ -1021,6 +1021,13 @@
     <string name="affordable_health_package">Affordable Health Package</string>
     <string name="per_min">per min</string>
     <string name="added_successfully">Added Successfully !!</string>
+    <string name="symptom_tracker">Symptom Tracker</string>
+    <string name="problem_submitted">Problem submitted successfully !!</string>
+    <string name="Write_a_Review_for_your_Doctor">Write a Review for your Doctor</string>
+    <string name="filePath">filePath</string>
+    <string name="fileType">fileType</string>
+    <string name="reVisitCount">reVisitCount</string>
+    <string name="_250_ml">250 ml</string>
 
 
 </resources>

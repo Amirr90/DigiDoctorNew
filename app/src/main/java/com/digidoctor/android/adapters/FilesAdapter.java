@@ -73,7 +73,7 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.FilesVH> {
         }
     }
 
-    public class FilesVH extends RecyclerView.ViewHolder {
+    public static class FilesVH extends RecyclerView.ViewHolder {
         SymptomsAttachmentViewBinding binding;
 
         public FilesVH(@NonNull SymptomsAttachmentViewBinding binding) {

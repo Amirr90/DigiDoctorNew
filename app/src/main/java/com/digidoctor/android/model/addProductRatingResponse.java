@@ -1,7 +1,5 @@
 package com.digidoctor.android.model;
 
-import org.jetbrains.annotations.NotNull;
-
 public class addProductRatingResponse {
     String memberId;
     String productInfoCode;

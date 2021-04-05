@@ -71,6 +71,7 @@ public class AppUtils {
         navModels.add(new NavModel(activity.getString(R.string.logout), R.drawable.logout));
         navModels.add(new NavModel(activity.getString(R.string.change_language), R.drawable.language_icon));
         navModels.add(new NavModel(activity.getString(R.string.share_app), R.drawable.language_icon));
+        navModels.add(new NavModel(activity.getString(R.string.symptom_tracker), R.drawable.language_icon));
         return navModels;
     }
 
@@ -132,19 +133,10 @@ public class AppUtils {
 
         try {
             if (!((Activity) activity).isFinishing()) {
-                if (progressDialog == null) {
-
-                    progressDialog = ProgressDialog.show(activity, null, null, false, true);
-                    progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(android.R.color.transparent)));
-                    progressDialog.setContentView(R.layout.progress_bar);
-                    progressDialog.show();
-                } else {
-
-                    progressDialog = ProgressDialog.show(activity, null, null, false, true);
-                    progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(android.R.color.transparent)));
-                    progressDialog.setContentView(R.layout.progress_bar);
-                    progressDialog.show();
-                }
+                progressDialog = ProgressDialog.show(activity, null, null, false, true);
+                progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(android.R.color.transparent)));
+                progressDialog.setContentView(R.layout.progress_bar);
+                progressDialog.show();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,19 +150,10 @@ public class AppUtils {
 
         try {
             if (!((Activity) activity).isFinishing()) {
-                if (progressDialog == null) {
-
-                    progressDialog = ProgressDialog.show(activity, null, null, false, true);
-                    progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(android.R.color.transparent)));
-                    progressDialog.setContentView(R.layout.progress_bar);
-                    progressDialog.show();
-                } else {
-
-                    progressDialog = ProgressDialog.show(activity, null, null, false, true);
-                    progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(android.R.color.transparent)));
-                    progressDialog.setContentView(R.layout.progress_bar);
-                    progressDialog.show();
-                }
+                progressDialog = ProgressDialog.show(activity, null, null, false, true);
+                progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(android.R.color.transparent)));
+                progressDialog.setContentView(R.layout.progress_bar);
+                progressDialog.show();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -408,7 +391,7 @@ public class AppUtils {
 
     public static List<HashMap<String, String>> jsonObjectToList(JSONObject jsonObject) {
 
-        List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+        List<HashMap<String, String>> list = new ArrayList<>();
 
         try {
             Iterator<String> iterator = jsonObject.keys();

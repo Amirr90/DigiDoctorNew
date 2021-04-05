@@ -39,6 +39,7 @@ import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.pharmacyModel.CartCount;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.GetAddressIntentService;
+import com.digidoctor.android.utility.WakefulBroadcasterReceiver;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment;
 import com.digidoctor.android.viewHolder.PatientViewModel;
@@ -47,7 +48,6 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.grisoftware.updatechecker.GoogleChecker;
 import com.payu.base.models.ErrorResponse;
 import com.payu.checkoutpro.utils.PayUCheckoutProConstants;
 import com.payu.ui.model.listeners.PayUCheckoutProListener;
@@ -202,6 +202,25 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             if (null != cartItem)
                 cartItem.setVisible(destination.getId() != R.id.cart_Details_Fragment);
         });
+
+        if (null != getIntent().getStringExtra("twillioAccessToken")) {
+            String type = getIntent().getStringExtra("type");
+            if (null != type && type.equals("1"))
+                showNotification();
+            else Log.d(TAG, "notificationType is not 1: ");
+        } else Log.d(TAG, "notification data is null: ");
+    }
+
+    private void showNotification() {
+        Intent myIntent = new Intent(this, WakefulBroadcasterReceiver.class);
+        myIntent.setAction("myReceiver");
+        myIntent.putExtra("roomName", getIntent().getStringExtra("roomName"));
+        myIntent.putExtra("accessToken", getIntent().getStringExtra("twillioAccessToken"));
+        myIntent.putExtra("message", getIntent().getStringExtra("msg"));
+        myIntent.putExtra("title", getIntent().getStringExtra("title"));
+        myIntent.putExtra("profilePhotoPath", getIntent().getStringExtra("profilePhotoPath"));
+        myIntent.putExtra("doctorName", getIntent().getStringExtra("doctorName"));
+        sendBroadcast(myIntent);
     }
 
     private void registerBroadcast() {
@@ -266,7 +285,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     }
 
     private void checkForUpdate() {
-        new GoogleChecker("com.digidoctor.android", PatientDashboard.this, true, "en");
+        //new GoogleChecker("com.digidoctor.android", PatientDashboard.this, true, "en");
     }
 
 
@@ -439,6 +458,14 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     navController.navigate(R.id.chooseVitalHistoryTypeFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
+            case 13:
+
+            case 11:
+                /* if (user.getIsExists() == 1)
+                    navController.navigate(R.id.symptomTrackerFragment);
+                else navController.navigate(R.id.profileFragment);*/
+                Toast.makeText(instance, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+                break;
 
             case 4:
                 if (user.getIsExists() == 1)
@@ -450,11 +477,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     navController.navigate(R.id.getPlacedOrderFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
-
-            case 11:
-                Toast.makeText(instance, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-                //navController.navigate(R.id.changeLanguageFragment);
-                break;
+            //navController.navigate(R.id.changeLanguageFragment);
             case 12:
                 shareApp("https://digidoctor.in/invitation?invitationCode=" + getPrimaryUser(PatientDashboard.getInstance()).getMemberId(), "This is demo description", this);
                 break;
@@ -476,6 +499,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);*/
+        Log.d(TAG, "openBrowser: open browser called !!");
     }
 
 

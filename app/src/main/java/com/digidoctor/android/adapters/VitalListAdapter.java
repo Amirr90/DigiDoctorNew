@@ -51,7 +51,7 @@ public class VitalListAdapter extends ListAdapter<VitalResponse.VitalDateVise, V
 
     }
 
-    public class VitalVH extends RecyclerView.ViewHolder {
+    public static class VitalVH extends RecyclerView.ViewHolder {
         VitalViewBinding vitalViewBinding;
 
         public VitalVH(@NonNull VitalViewBinding vitalViewBinding) {

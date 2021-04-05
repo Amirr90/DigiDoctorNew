@@ -88,7 +88,7 @@ public class TopSearchProductListAdapter extends RecyclerView.Adapter<TopSearchP
         return topSearchproductLists.size();
     }
 
-    public class TopSearchProductList extends RecyclerView.ViewHolder {
+    public static class TopSearchProductList extends RecyclerView.ViewHolder {
         PopularproductviewBinding popularproductviewBinding;
 
         public TopSearchProductList(@NonNull PopularproductviewBinding itemView) {

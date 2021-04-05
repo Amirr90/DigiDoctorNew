@@ -46,7 +46,7 @@ public class VitalTypeAdapter extends RecyclerView.Adapter<VitalTypeAdapter.Vita
         return vitalTypeModelList.size();
     }
 
-    public class VitalTypeVH extends RecyclerView.ViewHolder {
+    public static class VitalTypeVH extends RecyclerView.ViewHolder {
         VitalHistoryTypeViewBinding typeViewBinding;
 
         public VitalTypeVH(VitalHistoryTypeViewBinding typeViewBinding) {

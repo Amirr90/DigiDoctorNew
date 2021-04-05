@@ -45,7 +45,7 @@ public class OrderDetailModel {
         }
 
 
-        public class ProductDetails {
+        public static class ProductDetails {
             int orderDetailsId;
             String productName;
             String brandName;
@@ -184,7 +184,7 @@ public class OrderDetailModel {
             }
         }
 
-        public class GetOrderStatus {
+        public static class GetOrderStatus {
 
             String orderStatus;
             String orderDate;
@@ -254,7 +254,7 @@ public class OrderDetailModel {
             }
         }
 
-        public class relatedProducts {
+        public static class relatedProducts {
 
 
             String productName;
@@ -314,7 +314,7 @@ public class OrderDetailModel {
             }
         }
 
-        public class PriceDetails {
+        public static class PriceDetails {
             int totalProducts;
             int mrp;
             int finalAmount;

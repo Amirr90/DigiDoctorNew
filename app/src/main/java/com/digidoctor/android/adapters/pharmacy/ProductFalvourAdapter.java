@@ -40,7 +40,7 @@ public class ProductFalvourAdapter extends RecyclerView.Adapter<ProductFalvourAd
     @Override
     public ViewHolderVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ProductsizelayoutBinding productsizelayoutBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.productsizelayout, parent, false);
-        return new ProductFalvourAdapter.ViewHolderVH(productsizelayoutBinding);
+        return new ViewHolderVH(productsizelayoutBinding);
     }
 
     @Override
@@ -82,40 +82,35 @@ public class ProductFalvourAdapter extends RecyclerView.Adapter<ProductFalvourAd
         model.setMemberId(String.valueOf(user.getMemberId()));
         model.setProductId(Integer.parseInt(ProductDetailsFragment.getInstance().productId));
 
-        try {
-            ApiUtils.getProductdetailsbyProductID(model, activity, new ApiCallbackInterface() {
+        ApiUtils.getProductdetailsbyProductID(model, activity, new ApiCallbackInterface() {
 
-                @Override
-                public void onSuccess(List<?> o) {
-                    List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
-                    //   Log.d("TAG", "onSuccess: " + models.get(0).getProductDetails());
+            @Override
+            public void onSuccess(List<?> o) {
+                List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
+                //   Log.d("TAG", "onSuccess: " + models.get(0).getProductDetails());
 
-                    if (models.isEmpty())
-                        return;
+                if (models.isEmpty())
+                    return;
 
-                    if (models.get(0).getProductDetails().size() > 0) {
+                if (models.get(0).getProductDetails().size() > 0) {
 
 
-                        ProductDetailsFragment.getInstance().updateProduct(models);
-                        ProductDetailsFragment.getInstance().setProduct(models.get(0).getProductDetails().get(0));
-                    }
-
+                    ProductDetailsFragment.getInstance().updateProduct(models);
+                    ProductDetailsFragment.getInstance().setProduct(models.get(0).getProductDetails().get(0));
                 }
 
-                @Override
-                public void onError(String s) {
-                    Toast.makeText(activity, "" + s, Toast.LENGTH_SHORT).show();
-                }
+            }
 
-                @Override
-                public void onFailed(Throwable throwable) {
-                    Toast.makeText(activity, "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(activity, "try again", Toast.LENGTH_SHORT).show();
-        }
+            @Override
+            public void onError(String s) {
+                Toast.makeText(activity, "" + s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Toast.makeText(activity, "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -123,7 +118,7 @@ public class ProductFalvourAdapter extends RecyclerView.Adapter<ProductFalvourAd
         return getfalvour.size();
     }
 
-    public class ViewHolderVH extends RecyclerView.ViewHolder {
+    public static class ViewHolderVH extends RecyclerView.ViewHolder {
 
         ProductsizelayoutBinding productsizelayoutBinding;
 

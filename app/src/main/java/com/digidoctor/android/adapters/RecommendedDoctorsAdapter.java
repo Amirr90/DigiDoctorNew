@@ -38,7 +38,7 @@ public class RecommendedDoctorsAdapter extends ListAdapter<DoctorModel, Recommen
         holder.docViewBinding.setDoc(doctorModel);
     }
 
-    public class RecommendedVH extends RecyclerView.ViewHolder {
+    public static class RecommendedVH extends RecyclerView.ViewHolder {
         DocViewBinding docViewBinding;
 
         public RecommendedVH(DocViewBinding docViewBinding) {

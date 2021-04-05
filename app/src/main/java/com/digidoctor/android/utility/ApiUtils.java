@@ -23,7 +23,6 @@ import com.digidoctor.android.model.CheckSlotAvailabilityRes;
 import com.digidoctor.android.model.CheckTimeSlotModel;
 import com.digidoctor.android.model.DashBoardRes;
 import com.digidoctor.android.model.Dashboard;
-import com.digidoctor.android.model.DemoResponse;
 import com.digidoctor.android.model.DocBySpecialityRes;
 import com.digidoctor.android.model.DocBySymptomsRes;
 import com.digidoctor.android.model.DocModel;
@@ -94,7 +93,6 @@ import com.digidoctor.android.view.activity.PatientDashboard;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.io.File;
 import java.io.IOException;
@@ -386,14 +384,17 @@ public class ApiUtils {
                     if (response.isSuccessful() && response.body().getResponseCode() == 1) {
                         AppUtils.hideDialog();
 
-                        if (activity != null)
-                            AppUtils.showToastSort(activity, activity.getString(R.string.otp_sent_to_your));
-                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                        if (activity != null) {
+                            Toast.makeText(activity, activity.getString(R.string.otp_sent_to_your), Toast.LENGTH_SHORT).show();
+                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                        }
                     } else {
 
                         AppUtils.hideDialog();
                         if (activity != null)
-                            AppUtils.showToastSort(activity, response.body().getResponseMessage());
+                            Toast.makeText(activity, response.body().getResponseMessage(), Toast.LENGTH_SHORT).show();
+
+                        //  AppUtils.showToastSort(activity, response.body().getResponseMessage());
                     }
                 } else
                     Toast.makeText(activity, "error  " + response.code(), Toast.LENGTH_SHORT).show();
@@ -1304,43 +1305,12 @@ public class ApiUtils {
     }
 
 
-    public static void DemoApi(User user, NewApiInterface demoAoiInterface) {
-        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
-        GetPatientMedicationMainModel model = new GetPatientMedicationMainModel();
-        model.setMemberId(String.valueOf(user.getId()));
-
-        Call<DemoResponse> call = iRestInterfaces.getPatientMedicationDetails2(model);
-
-        getResponse(call, demoAoiInterface);
-    }
-
     public static Call<ChatResponse> sendMsg(ChatModel model) {
         return URLUtils.getAPIServiceForPatient().sendMsg(model);
     }
 
     public static Call<ChatResponse> getChatData(AppointmentModel model) {
         return URLUtils.getAPIServiceForPatient().getMsg(model);
-    }
-
-
-    public static void getResponse(Call<DemoResponse> call, NewApiInterface newApiInterface) {
-        call.enqueue(new Callback<DemoResponse>() {
-            @Override
-            public void onResponse(@NotNull Call<DemoResponse> call, @NotNull Response<DemoResponse> response) {
-                if (response.code() == 200 && response.body() != null) {
-                    DemoResponse responseModel = response.body();
-                    if (responseModel.getResponseCode() == 1) {
-                        newApiInterface.onSuccess(responseModel.getResponseValue());
-                    } else newApiInterface.onFailed(responseModel.getResponseMessage());
-                } else newApiInterface.onFailed(String.valueOf(response.code()));
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<DemoResponse> call, @NotNull Throwable t) {
-                AppUtils.hideDialog();
-                newApiInterface.onFailed(t.getLocalizedMessage());
-            }
-        });
     }
 
 
@@ -1420,7 +1390,7 @@ public class ApiUtils {
         });
     }
 
-    public static void getProductdetailsbyProductID(ProductModel pId, Activity requireActivity, final ApiCallbackInterface apiCallbackInterface) throws JSONException {
+    public static void getProductdetailsbyProductID(ProductModel pId, Activity requireActivity, final ApiCallbackInterface apiCallbackInterface) {
 
 
         if (PatientDashboard.getInstance() != null)

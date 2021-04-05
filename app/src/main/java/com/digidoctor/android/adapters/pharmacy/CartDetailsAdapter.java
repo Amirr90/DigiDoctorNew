@@ -35,7 +35,7 @@ public class CartDetailsAdapter extends RecyclerView.Adapter<CartDetailsAdapter.
     @Override
     public CartDetailsAdapter.CartDetailsAdapterVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         CartViewBinding cartViewBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.cart_view, parent, false);
-        return new CartDetailsAdapter.CartDetailsAdapterVH(cartViewBinding);
+        return new CartDetailsAdapterVH(cartViewBinding);
 
 
     }
@@ -109,7 +109,7 @@ public class CartDetailsAdapter extends RecyclerView.Adapter<CartDetailsAdapter.
         return getcart.size();
     }
 
-    public class CartDetailsAdapterVH extends RecyclerView.ViewHolder {
+    public static class CartDetailsAdapterVH extends RecyclerView.ViewHolder {
         CartViewBinding cartViewBinding;
 
         public CartDetailsAdapterVH(@NonNull CartViewBinding itemView) {

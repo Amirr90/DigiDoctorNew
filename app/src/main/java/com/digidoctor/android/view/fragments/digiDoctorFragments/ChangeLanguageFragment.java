@@ -127,7 +127,7 @@ public class ChangeLanguageFragment extends Fragment {
         }, 500);
     }
 
-    private class LanguageVH extends RecyclerView.ViewHolder {
+    private static class LanguageVH extends RecyclerView.ViewHolder {
         LanguageViewBinding languageViewBinding;
 
         public LanguageVH(@NonNull LanguageViewBinding languageViewBinding) {

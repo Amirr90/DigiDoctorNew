@@ -29,7 +29,7 @@ public class sliderimageadapter extends RecyclerView.Adapter<sliderimageadapter.
     @Override
     public ViewHolderVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bannerview, parent, false);
-        return new sliderimageadapter.ViewHolderVH(view);
+        return new ViewHolderVH(view);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class sliderimageadapter extends RecyclerView.Adapter<sliderimageadapter.
         return banner.size();
     }
 
-    public class ViewHolderVH extends RecyclerView.ViewHolder {
+    public static class ViewHolderVH extends RecyclerView.ViewHolder {
 
         ImageView imageView;
 

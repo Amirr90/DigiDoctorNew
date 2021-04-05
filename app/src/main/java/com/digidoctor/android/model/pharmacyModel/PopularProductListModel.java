@@ -46,7 +46,7 @@ public class PopularProductListModel {
     public List<PopularProductList> getpopularproducts() {
         return popularproductlist;
     }
-    public class PopularProductList{
+    public static class PopularProductList{
         String productId;
 
         public String getProductName() {

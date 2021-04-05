@@ -47,9 +47,7 @@ public class TimeSlotsAdapter extends RecyclerView.Adapter<TimeSlotsAdapter.Slot
 
         holder.primaryNewBinding.setTiming(timeSlotsModel);
         if (null != timeSlotsModel.getSlotDetails()) {
-            adapterSecondary = new TimeSlotsAdapterSecondary(timeSlotsModel.getSlotDetails(), o -> {
-                adapterInterface.onItemClicked(o);
-            });
+            adapterSecondary = new TimeSlotsAdapterSecondary(timeSlotsModel.getSlotDetails(), o -> adapterInterface.onItemClicked(o));
             holder.primaryNewBinding.Rec.setAdapter(adapterSecondary);
             holder.primaryNewBinding.getRoot().setAnimation(fadeIn(PatientDashboard.getInstance()));
         }
@@ -62,7 +60,7 @@ public class TimeSlotsAdapter extends RecyclerView.Adapter<TimeSlotsAdapter.Slot
         return timeSlotsModelList.size();
     }
 
-    public class SlotVH extends RecyclerView.ViewHolder {
+    public static class SlotVH extends RecyclerView.ViewHolder {
         TimingViewPrimaryNewBinding primaryNewBinding;
 
         public SlotVH(TimingViewPrimaryNewBinding primaryNewBinding) {

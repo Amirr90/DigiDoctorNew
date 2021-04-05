@@ -1,18 +1,14 @@
 package com.digidoctor.android.adapters.pharmacy;
 
-import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.RatingAndReviewViewBinding;
-import com.digidoctor.android.model.GetDocRevModelRes;
 import com.digidoctor.android.model.pharmacyModel.ProductDetailModelResponse;
 
 import java.util.List;
@@ -33,7 +29,7 @@ public class RatingAndReviewAdapter extends RecyclerView.Adapter<RatingAndReview
     public RatingAndReviewAdapter.ratingandreviewVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         RatingAndReviewViewBinding ratingAndReviewViewBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.rating_and_review_view, parent, false);
-        return new RatingAndReviewAdapter.ratingandreviewVH(ratingAndReviewViewBinding);
+        return new ratingandreviewVH(ratingAndReviewViewBinding);
 
     }
 
@@ -41,7 +37,7 @@ public class RatingAndReviewAdapter extends RecyclerView.Adapter<RatingAndReview
     public void onBindViewHolder(@NonNull RatingAndReviewAdapter.ratingandreviewVH holder, int position) {
         ProductDetailModelResponse.ProductDetailsList.ReviewDetails reviewList = getallreview.get(position);
         holder.ratingAndReviewViewBinding.textView100.setText(reviewList.getReviewBy());
-        holder.ratingAndReviewViewBinding.textView102.setText(reviewList.getStarRating());
+        holder.ratingAndReviewViewBinding.textView206.setText(reviewList.getStarRating());
         holder.ratingAndReviewViewBinding.textView101.setText(reviewList.getReviewDate());
         holder.ratingAndReviewViewBinding.textView103.setText(reviewList.getReview());
 
@@ -56,7 +52,7 @@ public class RatingAndReviewAdapter extends RecyclerView.Adapter<RatingAndReview
     }
 
 
-    public class ratingandreviewVH extends RecyclerView.ViewHolder {
+    public static class ratingandreviewVH extends RecyclerView.ViewHolder {
 
         RatingAndReviewViewBinding ratingAndReviewViewBinding;
 

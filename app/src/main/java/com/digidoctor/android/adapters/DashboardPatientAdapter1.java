@@ -3,7 +3,6 @@ package com.digidoctor.android.adapters;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
@@ -46,27 +45,25 @@ public class DashboardPatientAdapter1 extends ListAdapter<DashboardModel1, Dashb
         DashboardModel1 dashboardModel1 = getItem(position);
         holder.dashBoardViewBinding.setDashboard1(dashboardModel1);
         holder.dashBoardViewBinding.imageView21.setImageResource(images[position]);
+        holder.dashBoardViewBinding.textView55.setText(dashboardModel1.getDescription());
         holder.dashBoardViewBinding.cv1.setOnClickListener(v -> {
             if (position == 0)
                 PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_specialitiesFragment2);
             else if (position == 1)
                 PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_symptomsFragment2);
-
             else if (position == 2)
-               // Toast.makeText(activity, activity.getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(activity, activity.getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
                 PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_lab_Home_Fragment);
             else if (position == 3)
-                Toast.makeText(activity, activity.getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-            // PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_onlinePharmacyFragment);
+                // Toast.makeText(activity, activity.getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+                PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_onlinePharmacyFragment);
 
         });
-
-        holder.dashBoardViewBinding.textView55.setText(dashboardModel1.getDescription());
 
 
     }
 
-    public class DashboardModelVH extends RecyclerView.ViewHolder {
+    public static class DashboardModelVH extends RecyclerView.ViewHolder {
         DashBoardViewBinding dashBoardViewBinding;
 
         public DashboardModelVH(DashBoardViewBinding dashBoardViewBinding) {

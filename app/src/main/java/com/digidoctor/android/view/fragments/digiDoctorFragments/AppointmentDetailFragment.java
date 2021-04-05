@@ -201,17 +201,17 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
 
 
             if (appointmentModel.isPrescribed())
-                showWriteRevivewDialog(appointmentModel);
+                showWriteReviewDialog(appointmentModel);
 
 
         });
 
     }
 
-    private void showWriteRevivewDialog(OnlineAppointmentModel appointmentModel) {
+    private void showWriteReviewDialog(OnlineAppointmentModel appointmentModel) {
         LayoutInflater layoutInflater = (LayoutInflater) requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         WriteareviveBinding imagePreviewBinding = WriteareviveBinding.inflate(layoutInflater, null, false);
-        imagePreviewBinding.textView191.setText("Write a Review for your Doctor");
+        imagePreviewBinding.textView191.setText(R.string.Write_a_Review_for_your_Doctor);
 
 
         imagePreviewBinding.button17.setOnClickListener(v -> {
@@ -271,8 +271,8 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             JSONArray jsonArray = new JSONArray(attachFile);
             for (int a = 0; a < jsonArray.length(); a++) {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(a);
-                String filePath = jsonObject.getString("filePath");
-                String fileType = jsonObject.getString("fileType");
+                String filePath = jsonObject.getString(getString(R.string.filePath));
+                String fileType = jsonObject.getString(getString(R.string.fileType));
                 modelList.add(new FileModel(filePath, fileType));
             }
 
@@ -312,7 +312,7 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             Bundle bundle = new Bundle();
             bundle.putString("model", model);
             bundle.putBoolean("reVisit", false);
-            bundle.putInt("reVisitCount", oldAppointmentAdapter.getItemCount());
+            bundle.putInt(getString(R.string.reVisitCount), oldAppointmentAdapter.getItemCount());
             navController.navigate(R.id.action_appointmentDetailFragment_to_reScheduleFragment, bundle);
         } else if (tag.equals(PRESCRIBE)) {
             getMedicationData(appointmentModel.getAppointmentId());

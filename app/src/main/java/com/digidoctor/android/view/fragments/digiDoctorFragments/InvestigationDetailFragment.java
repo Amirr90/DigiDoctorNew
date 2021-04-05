@@ -76,7 +76,7 @@ public class InvestigationDetailFragment extends Fragment {
 
     }
 
-    private class InvestigationDetailsAdapter extends RecyclerView.Adapter<InvestigationDetailsAdapter.InvestigationVH> {
+    private static class InvestigationDetailsAdapter extends RecyclerView.Adapter<InvestigationDetailsAdapter.InvestigationVH> {
         List<InvestigationModel.Investigation> models;
 
         public InvestigationDetailsAdapter(List<InvestigationModel.Investigation> models) {

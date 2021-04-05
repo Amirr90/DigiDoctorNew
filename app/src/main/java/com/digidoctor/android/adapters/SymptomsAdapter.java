@@ -42,7 +42,7 @@ public class SymptomsAdapter extends ListAdapter<SymptomModel, SymptomsAdapter.S
 
     }
 
-    public class SymptomVH extends RecyclerView.ViewHolder {
+    public static class SymptomVH extends RecyclerView.ViewHolder {
         SymptomsViewBinding symptomsViewBinding;
 
         public SymptomVH(SymptomsViewBinding symptomsViewBinding) {

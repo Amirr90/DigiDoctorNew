@@ -32,7 +32,7 @@ public class InvestigationDataRes {
         }
     }
 
-    public class TestNameModel {
+    public static class TestNameModel {
 
         private int id;
         private String name;
@@ -46,7 +46,7 @@ public class InvestigationDataRes {
         }
     }
 
-    public class UnitNameModel {
+    public static class UnitNameModel {
         private int id;
         private String name;
 

@@ -21,7 +21,7 @@ public class ResponseModel {
         return responseValue;
     }
 
-    public class HashModel {
+    public static class HashModel {
         String hash;
         String taxId;
 

@@ -149,9 +149,7 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
     private void setBannerData(List<BannerText> bannerTextList) {
         BannerText bannerText = bannerTextList.get(0);
         labTestHomeBinding.textView156.setText(bannerText.getBannerText());
-        labTestHomeBinding.bannerCall.setOnClickListener(v -> {
-            startCalling(bannerText.getCallingNo());
-        });
+        labTestHomeBinding.bannerCall.setOnClickListener(v -> startCalling(bannerText.getCallingNo()));
     }
 
     private void startCalling(String callingNo) {

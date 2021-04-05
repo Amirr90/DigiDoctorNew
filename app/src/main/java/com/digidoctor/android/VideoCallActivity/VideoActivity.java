@@ -141,7 +141,7 @@ public class VideoActivity extends AppCompatActivity {
     private FloatingActionButton muteActionFab;
     private ProgressBar reconnectingProgressBar;
     private String remoteParticipantIdentity;
-    private ImageView ivSpeaker, ivBack;
+    private ImageView ivSpeaker;
     private ConstraintLayout clHeader;
 
     private VideoRenderer localVideoView;
@@ -184,7 +184,7 @@ public class VideoActivity extends AppCompatActivity {
         muteActionFab = findViewById(R.id.mute_action_fab);
 
         ivSpeaker = findViewById(R.id.ivSpeaker);
-        ivBack = findViewById(R.id.ivBack);
+        ImageView ivBack = findViewById(R.id.ivBack);
 
         clHeader = findViewById(R.id.clHeader);
 
@@ -224,11 +224,7 @@ public class VideoActivity extends AppCompatActivity {
             return Unit.INSTANCE;
         });
 
-        ivSpeaker.setOnClickListener(view -> {
-
-            showAudioDevices();
-
-        });
+        ivSpeaker.setOnClickListener(view -> showAudioDevices());
 
         ivBack.setOnClickListener(view -> {
 

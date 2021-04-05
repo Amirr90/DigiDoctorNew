@@ -1,7 +1,5 @@
 package com.digidoctor.android.model;
 
-import android.widget.ListAdapter;
-
 import java.util.List;
 
 public class AppointmentDetailsRes {
@@ -21,7 +19,7 @@ public class AppointmentDetailsRes {
         return responseValue;
     }
 
-    public class Appointments {
+    public static class Appointments {
         List<AppointmentModel> appointmentDetails;
         List<AppointmentModel> otherAppointments;
 

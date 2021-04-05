@@ -36,7 +36,7 @@ public class GetPlacedOrderAdapter extends RecyclerView.Adapter<GetPlacedOrderAd
     @Override
     public GetPlacedOrderAdapter.GetPlacedOrderAdapterVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         OrderListViewBinding orderListViewBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.order_list_view, parent, false);
-        return new GetPlacedOrderAdapter.GetPlacedOrderAdapterVH(orderListViewBinding);
+        return new GetPlacedOrderAdapterVH(orderListViewBinding);
     }
 
     @SuppressLint("ResourceAsColor")
@@ -90,7 +90,7 @@ public class GetPlacedOrderAdapter extends RecyclerView.Adapter<GetPlacedOrderAd
         return position;
     }
 
-    public class GetPlacedOrderAdapterVH extends RecyclerView.ViewHolder {
+    public static class GetPlacedOrderAdapterVH extends RecyclerView.ViewHolder {
 
         OrderListViewBinding orderListViewBinding;
 

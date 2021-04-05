@@ -89,7 +89,7 @@ public class InvestigationModel {
         return Objects.hash(getType(), getReceiptNo(), getPathologyName(), getTestDate(), getFilePath(), getInvestigation());
     }
 
-    public class Investigation {
+    public static class Investigation {
 
 
         private String testName;

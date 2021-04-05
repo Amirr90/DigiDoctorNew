@@ -30,7 +30,7 @@ public class ProductDetailModelResponse {
         return responseValue;
     }
 
-    public class ProductDetailsList {
+    public static class ProductDetailsList {
         List<ProductDetail> productDetails;
         List<ReviewDetails> reviewDetails;
         List<SimilarProduct> similarProduct;

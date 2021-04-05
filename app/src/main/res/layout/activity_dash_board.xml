@@ -50,9 +50,10 @@
                     android:background="@drawable/color_primary_gradient"
                     android:paddingStart="25dp"
                     android:paddingTop="32dp"
-                    android:paddingBottom="25dp">
+                    android:paddingBottom="25dp"
+                    tools:ignore="RtlSymmetry">
 
-                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_image_nav"
                         android:layout_width="63dp"
                         android:layout_height="63dp"
@@ -80,11 +81,11 @@
                             android:contentDescription="@string/todo"
                             android:focusable="true"
                             android:padding="@dimen/_10sdp"
-                            android:tint="@android:color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/switch_member" />
+                            app:srcCompat="@drawable/switch_member"
+                            app:tint="@android:color/white" />
 
                         <TextView
                             android:id="@+id/textView141"
@@ -125,8 +126,8 @@
                             android:layout_marginTop="3dp"
                             android:layout_marginEnd="6dp"
                             android:contentDescription="@string/todo"
-                            android:tint="@android:color/white"
-                            app:srcCompat="@drawable/edit_profile_nav_image" />
+                            app:srcCompat="@drawable/edit_profile_nav_image"
+                            app:tint="@android:color/white" />
 
                         <TextView
                             android:id="@+id/textView14"

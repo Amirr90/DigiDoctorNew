@@ -15,7 +15,7 @@ public class TimeSlotsModel {
         return timeDetails;
     }
 
-    public class TimeDetailsModel {
+    public static class TimeDetailsModel {
         String timeFrom;
         String timeTo;
 

@@ -112,7 +112,7 @@ public class TestDetailsFragment extends Fragment {
             return testDetails.size();
         }
 
-        public class TestVH extends RecyclerView.ViewHolder {
+        public static class TestVH extends RecyclerView.ViewHolder {
             TestincludelayoutviewBinding binding;
 
             public TestVH(@NonNull TestincludelayoutviewBinding binding) {

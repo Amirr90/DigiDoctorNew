@@ -253,8 +253,7 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
     }
 
     private class AdapterSelections extends RecyclerView.Adapter<HolderSelections> {
-        List<GetMedicineReportModel> data = new ArrayList<>();
-        private int lastPosition = -1;
+        List<GetMedicineReportModel> data;
 
         public AdapterSelections(List<GetMedicineReportModel> favList) {
             data = favList;
@@ -269,17 +268,14 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
 
             holder.tvSelection.setText(data.get(position).getHeading().trim());
 
-            holder.tvSelection.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            holder.tvSelection.setOnClickListener(v -> {
 
-                    float y = binding.recyclerViewMain.getY() + binding.recyclerViewMain.getChildAt(position).getY();
+                float y = binding.recyclerViewMain.getY() + binding.recyclerViewMain.getChildAt(position).getY();
 
-                    ObjectAnimator.ofInt(binding.scrollViewMain, "scrollY", (int) y).setDuration(1500).start();
+                ObjectAnimator.ofInt(binding.scrollViewMain, "scrollY", (int) y).setDuration(1500).start();
 
-                    // scrollViewMain.smoothScrollTo(0, (int) y);
+                // scrollViewMain.smoothScrollTo(0, (int) y);
 
-                }
             });
 
             holder.tvSelection.setCompoundDrawablePadding((int) getResources().getDimension(R.dimen._5sdp));
@@ -333,54 +329,11 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
                     }
 
                     break;
-
-            /*    case "Caution":
-
-                    try {
-
-                        holder.tvSelection.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_prevention, 0, 0, 0);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    break;*/
-
                 case 8:
-
-                    try {
-
-                        holder.tvSelection.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_treatment, 0, 0, 0);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    break;
 
                 case 6:
 
-                    try {
-
-                        holder.tvSelection.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_treatment, 0, 0, 0);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    break;
-
                 case 5:
-
-                    try {
-
-                        holder.tvSelection.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_treatment, 0, 0, 0);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    break;
 
                 case 3:
 
@@ -398,6 +351,7 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
                     break;
 
             }
+            int lastPosition = -1;
             setRecyclerViewAnimation(requireActivity(), holder.itemView, position, lastPosition);
         }
 
@@ -415,7 +369,7 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
         }
     }
 
-    private class HolderSelections extends RecyclerView.ViewHolder {
+    private static class HolderSelections extends RecyclerView.ViewHolder {
 
         TextView tvSelection;
 
@@ -428,19 +382,10 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
         }
     }
 
-    public static List<?> convertObjectToList(Object obj) {
-        List<?> list = new ArrayList<>();
-        if (obj.getClass().isArray()) {
-            list = Arrays.asList((Object[]) obj);
-        } else if (obj instanceof Collection) {
-            list = new ArrayList<>((Collection<?>) obj);
-        }
-        return list;
-    }
+
 
     private class AdapterMain extends RecyclerView.Adapter<HolderMain> {
-        List<GetMedicineReportModel> data = new ArrayList<>();
-        private int lastPosition = -1;
+        List<GetMedicineReportModel> data;
 
         public AdapterMain(List<GetMedicineReportModel> favList) {
             data = favList;
@@ -471,17 +416,6 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
             }
 
             switch (data.get(position).getHeadingId()) {
-
-                //Ids
-                //1. Overview
-                //2. When to use
-                //3. Dosing
-                //4. Side Effect
-                //5. Interactions
-                //6. Concerns
-                //7. Mechanism if action
-                //8. Precautions
-                //9. Nutritional Therapy
 
                 case 2:
 
@@ -533,26 +467,6 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
 
                         holder.recyclerViewSideEffects.setAdapter(new AdapterSideEffects(jsonArray));
 
-                       /* String text = "";
-
-                        for (int i = 0; i < jsonArray.length(); i++) {
-
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                            text = text + "\u2022 " + AppUtils.capitalizeFirstLetter(jsonObject.getString("sideEffects").trim()) + "<br />";
-
-                        }
-
-
-                        //  holder.tvDetail.setText(text.trim());
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            holder.tvDetail.setText(Html.fromHtml(text.trim(), Html.FROM_HTML_MODE_COMPACT));
-                        } else {
-                            holder.tvDetail.setText(Html.fromHtml(text.trim()));
-                        }
-
-                        holder.tvDetail.setPadding((int)getResources().getDimension(R.dimen._20sdp),0,0,0);*/
-                        // holder.tvDetail.setText(text.trim());
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -561,22 +475,6 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
                     break;
 
                 case 7:
-
-                    try {
-
-                        holder.ivImage.setImageResource(R.drawable.aar_ic_check);
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            holder.tvDetail.setText(Html.fromHtml(data.get(position).getBody().toString().trim(), Html.FROM_HTML_MODE_COMPACT));
-                        } else {
-                            holder.tvDetail.setText(Html.fromHtml(data.get(position).getBody().toString().trim()));
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    break;
 
                 case 9:
 
@@ -596,23 +494,6 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
 
                     break;
 
-               /* case "Caution":
-
-                    try {
-
-                        holder.ivImage.setImageResource(R.drawable.ic_prevention);
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            holder.tvDetail.setText(Html.fromHtml(data.get(position).getBody().toString().trim(), Html.FROM_HTML_MODE_COMPACT));
-                        } else {
-                            holder.tvDetail.setText(Html.fromHtml(data.get(position).getBody().toString().trim()));
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    break;*/
 
                 case 8:
 
@@ -635,7 +516,6 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
 
                         }
 
-                        //  holder.tvDetail.setText(text.trim());
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             holder.tvDetail.setText(Html.fromHtml(text.trim(), Html.FROM_HTML_MODE_COMPACT));
                         } else {
@@ -643,7 +523,6 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
                         }
 
                         holder.tvDetail.setPadding((int) getResources().getDimension(R.dimen._20sdp), 0, 0, 0);
-                        // holder.tvDetail.setText(text.trim());
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -818,6 +697,7 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
                 }
             }
 */
+            int lastPosition = -1;
             setRecyclerViewAnimation(requireActivity(), holder.itemView, position, lastPosition);
 
         }
@@ -882,7 +762,6 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
     private class AdapterInteraction extends RecyclerView.Adapter<HolderInteraction> {
         // JSONObject data;
         List<HashMap<String, String>> data;
-        private int lastPosition = -1;
 
         public AdapterInteraction(List<HashMap<String, String>> favList) {
             data = favList;
@@ -926,6 +805,7 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
                 e.printStackTrace();
             }
 
+            int lastPosition = -1;
             setRecyclerViewAnimation(requireActivity(), holder.itemView, position, lastPosition);
         }
 
@@ -960,7 +840,7 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
         }
     }
 
-    private class HolderInteraction extends RecyclerView.ViewHolder {
+    private static class HolderInteraction extends RecyclerView.ViewHolder {
 
         TextView tvHeading, tvDetail;
 
@@ -972,9 +852,6 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
     }
 
     private class AdapterSideEffects extends RecyclerView.Adapter<HolderSideEffects> {
-        // JSONObject data;
-        //List<HashMap<String, String>> data;
-        private int lastPosition = -1;
         JSONArray data;
 
         public AdapterSideEffects(JSONArray favList) {
@@ -1009,6 +886,9 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
                 e.printStackTrace();
             }
 
+            // JSONObject data;
+            //List<HashMap<String, String>> data;
+            int lastPosition = -1;
             setRecyclerViewAnimation(requireActivity(), holder.itemView, position, lastPosition);
         }
 
@@ -1017,7 +897,7 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
         }
     }
 
-    private class HolderSideEffects extends RecyclerView.ViewHolder {
+    private static class HolderSideEffects extends RecyclerView.ViewHolder {
 
         TextView tvSymptomName, tvWatchable, tvType, tvLifeThreatening;
 
@@ -1033,7 +913,6 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
 
     private class AdapterDosing extends RecyclerView.Adapter<HolderDosing> {
         JSONArray data;
-        private int lastPosition = -1;
 
         public AdapterDosing(JSONArray favList) {
             data = favList;
@@ -1078,6 +957,7 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
                 e.printStackTrace();
             }
 
+            int lastPosition = -1;
             setRecyclerViewAnimation(requireActivity(), holder.itemView, position, lastPosition);
         }
 
@@ -1087,7 +967,7 @@ public class MedicineDetailsFragment extends Fragment implements View.OnClickLis
         }
     }
 
-    private class HolderDosing extends RecyclerView.ViewHolder {
+    private static class HolderDosing extends RecyclerView.ViewHolder {
 
         TextView tvAilment, tvRoute, tvForm, tvDose;
 

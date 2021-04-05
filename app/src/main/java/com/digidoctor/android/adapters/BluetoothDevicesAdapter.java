@@ -48,7 +48,7 @@ public class BluetoothDevicesAdapter extends RecyclerView.Adapter<BluetoothDevic
         return devices.size();
     }
 
-    public class BluetoothVH extends RecyclerView.ViewHolder {
+    public static class BluetoothVH extends RecyclerView.ViewHolder {
         BtPairedDevicesViewBinding devicesViewBinding;
 
         public BluetoothVH(@NonNull BtPairedDevicesViewBinding devicesViewBinding) {

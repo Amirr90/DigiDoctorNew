@@ -26,7 +26,7 @@ public class filltervarientadapter extends RecyclerView.Adapter<filltervarientad
     public ViewHolderVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         BrandviewBinding brandviewBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.brandview, parent, false);
-        return new filltervarientadapter.ViewHolderVH(brandviewBinding);
+        return new ViewHolderVH(brandviewBinding);
 
 
     }
@@ -47,7 +47,7 @@ public class filltervarientadapter extends RecyclerView.Adapter<filltervarientad
 
     }
 
-    public class ViewHolderVH extends RecyclerView.ViewHolder {
+    public static class ViewHolderVH extends RecyclerView.ViewHolder {
         BrandviewBinding brandviewBinding;
 
         public ViewHolderVH(@NonNull BrandviewBinding itemView) {

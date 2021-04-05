@@ -21,8 +21,9 @@ import static com.digidoctor.android.utility.utils.setString;
 
 public class SplashScreen extends AppCompatActivity {
     private static final String TAG = "SplashScreen";
-
     ActivityMainBinding activityMainBinding;
+    String doctorName;
+    String twillioAccessToken, roomName, msg, title, profilePhotoPath, type;
 
 
     @Override
@@ -39,12 +40,21 @@ public class SplashScreen extends AppCompatActivity {
         // create();
         generateFcmToken(SplashScreen.this);
 
-        new Handler().postDelayed(() -> {
 
+        getData();
+
+        new Handler().postDelayed(() -> {
             boolean loggedIn = getLoginStatus(IS_LOGIN, SplashScreen.this);
             Intent intent;
             if (loggedIn) {
-                intent = new Intent(SplashScreen.this, PatientDashboard.class);
+                intent = new Intent(SplashScreen.this, PatientDashboard.class)
+                        .putExtra("twillioAccessToken", twillioAccessToken)
+                        .putExtra("roomName", roomName)
+                        .putExtra("msg", msg)
+                        .putExtra("title", title)
+                        .putExtra("doctorName", doctorName)
+                        .putExtra("profilePhotoPath", profilePhotoPath)
+                        .putExtra("type", type);
             } else {
                 intent = new Intent(SplashScreen.this, SignUpJourneyActivity.class);
             }
@@ -63,6 +73,44 @@ public class SplashScreen extends AppCompatActivity {
             Log.e("newToken2", newToken);
         });
 
+    }
+
+
+    private void getData() {
+        if (null != getIntent().getExtras()) {
+            for (String key : getIntent().getExtras().keySet()) {
+                if (key.equals("twillioAccessToken")) {
+                    Log.d(TAG, "getData: twillioAccessToken " + getIntent().getExtras().getString(key));
+                    twillioAccessToken = getIntent().getExtras().getString(key);
+                }
+                if (key.equals("doctorName")) {
+                    Log.d(TAG, "getData: doctorName " + getIntent().getExtras().getString(key));
+                    doctorName = getIntent().getExtras().getString(key);
+                }
+                if (key.equals("message")) {
+                    Log.d(TAG, "getData: message " + getIntent().getExtras().getString(key));
+                    msg = getIntent().getExtras().getString(key);
+                }
+                if (key.equals("type")) {
+                    Log.d(TAG, "getData: type " + getIntent().getExtras().getString(key));
+                    type = getIntent().getExtras().getString(key);
+                }
+                if (key.equals("profilePhotoPath")) {
+                    Log.d(TAG, "getData: profilePhotoPath " + getIntent().getExtras().getString(key));
+                    profilePhotoPath = getIntent().getExtras().getString(key);
+                }
+                if (key.equals("title")) {
+                    Log.d(TAG, "getData: title " + getIntent().getExtras().getString(key));
+                    title = getIntent().getExtras().getString(key);
+                }
+                if (key.equals("roomName")) {
+                    Log.d(TAG, "getData: roomName " + getIntent().getExtras().getString(key));
+                    roomName = getIntent().getExtras().getString(key);
+                }
+            }
+        } else {
+            Log.d(TAG, "getData: null");
+        }
     }
 
 }

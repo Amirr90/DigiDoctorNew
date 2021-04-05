@@ -122,7 +122,7 @@ public class ShowImageFileFragment extends Fragment implements OnClickListener {
 
     }
 
-    private class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageVH> {
+    private static class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageVH> {
 
         List<ImageModel> imageLists;
         OnClickListener clickListener;

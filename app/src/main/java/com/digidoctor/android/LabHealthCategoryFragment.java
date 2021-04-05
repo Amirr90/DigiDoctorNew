@@ -71,7 +71,7 @@ public class LabHealthCategoryFragment extends Fragment {
         public CategoryAdapterAll.CategoryVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
             HealthCheckupCategoryLabLayoutLinearBinding binding = HealthCheckupCategoryLabLayoutLinearBinding.inflate(layoutInflater, parent, false);
-            return new CategoryAdapterAll.CategoryVH(binding);
+            return new CategoryVH(binding);
         }
 
         @Override
@@ -80,7 +80,7 @@ public class LabHealthCategoryFragment extends Fragment {
             holder.binding.setCategoryModel(categoryModel);
         }
 
-        public class CategoryVH extends RecyclerView.ViewHolder {
+        public static class CategoryVH extends RecyclerView.ViewHolder {
             HealthCheckupCategoryLabLayoutLinearBinding binding;
 
             public CategoryVH(@NonNull HealthCheckupCategoryLabLayoutLinearBinding binding) {

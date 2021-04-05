@@ -55,7 +55,7 @@ public class SubSpecialityAdapter extends ListAdapter<DoctorModel, SubSpeciality
     }
 
 
-    public class SubSpecialityVH extends RecyclerView.ViewHolder {
+    public static class SubSpecialityVH extends RecyclerView.ViewHolder {
         SubSpecialityViewBinding subSpecialityViewBinding;
 
         public SubSpecialityVH(SubSpecialityViewBinding subSpecialityViewBinding) {

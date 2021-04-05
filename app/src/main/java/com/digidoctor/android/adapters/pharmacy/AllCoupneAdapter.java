@@ -30,7 +30,7 @@ public class AllCoupneAdapter extends RecyclerView.Adapter<AllCoupneAdapter.View
     @Override
     public ViewHolderVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         AvailableCoupneViewBinding availableCoupneViewBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.available_coupne_view, parent, false);
-        return new AllCoupneAdapter.ViewHolderVH(availableCoupneViewBinding);
+        return new ViewHolderVH(availableCoupneViewBinding);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class AllCoupneAdapter extends RecyclerView.Adapter<AllCoupneAdapter.View
         return coupnedetails.size();
     }
 
-    public class ViewHolderVH extends RecyclerView.ViewHolder {
+    public static class ViewHolderVH extends RecyclerView.ViewHolder {
 
         AvailableCoupneViewBinding availableCoupneViewBinding;
 

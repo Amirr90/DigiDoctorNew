@@ -1,7 +1,6 @@
 package com.digidoctor.android.view.fragments.pharmacy;
 
 import android.app.AlertDialog;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;

@@ -77,7 +77,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.Medici
         return medicineModelList;
     }
 
-    public class MedicineVH extends RecyclerView.ViewHolder {
+    public static class MedicineVH extends RecyclerView.ViewHolder {
         AddPrescriptionViewBinding viewBinding;
 
         public MedicineVH(@NonNull AddPrescriptionViewBinding viewBinding) {

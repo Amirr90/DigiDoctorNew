@@ -21,8 +21,6 @@ import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.fragments.pharmacy.ProductDetailsFragment;
 
-import org.json.JSONException;
-
 import java.util.List;
 
 import static com.digidoctor.android.view.fragments.pharmacy.ProductDetailsFragment.AllProductModels;
@@ -44,7 +42,7 @@ public class ProductSizeAdapter extends RecyclerView.Adapter<ProductSizeAdapter.
     @Override
     public ProductSizeAdapter.ProductSizeAdapterVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ProductsizelayoutBinding productsizelayoutBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.productsizelayout, parent, false);
-        return new ProductSizeAdapter.ProductSizeAdapterVH(productsizelayoutBinding);
+        return new ProductSizeAdapterVH(productsizelayoutBinding);
     }
 
     @Override
@@ -85,42 +83,37 @@ public class ProductSizeAdapter extends RecyclerView.Adapter<ProductSizeAdapter.
         model.setMemberId(String.valueOf(user.getMemberId()));
         model.setProductId(Integer.parseInt(ProductDetailsFragment.getInstance().productId));
 
-        try {
-            ApiUtils.getProductdetailsbyProductID(model, activity, new ApiCallbackInterface() {
+        ApiUtils.getProductdetailsbyProductID(model, activity, new ApiCallbackInterface() {
 
 
-                @Override
-                public void onSuccess(List<?> o) {
-                    List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
-                    Log.d(TAG, "onSuccess: " + models.get(0).getProductDetails());
-                    AllProductModels.clear();
-                    AllProductModels.addAll(models.get(0).getProductDetails());
-                    if (models.isEmpty())
-                        return;
+            @Override
+            public void onSuccess(List<?> o) {
+                List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
+                Log.d(TAG, "onSuccess: " + models.get(0).getProductDetails());
+                AllProductModels.clear();
+                AllProductModels.addAll(models.get(0).getProductDetails());
+                if (models.isEmpty())
+                    return;
 
 
-                    if (models.get(0).getProductDetails().size() > 0) {
+                if (models.get(0).getProductDetails().size() > 0) {
 
-                        ProductDetailsFragment.getInstance().updateProduct(models);
-                        ProductDetailsFragment.getInstance().setProduct(models.get(0).getProductDetails().get(0));
+                    ProductDetailsFragment.getInstance().updateProduct(models);
+                    ProductDetailsFragment.getInstance().setProduct(models.get(0).getProductDetails().get(0));
 
-                    }
                 }
+            }
 
-                @Override
-                public void onError(String s) {
-                    Toast.makeText(activity, "" + s, Toast.LENGTH_SHORT).show();
-                }
+            @Override
+            public void onError(String s) {
+                Toast.makeText(activity, "" + s, Toast.LENGTH_SHORT).show();
+            }
 
-                @Override
-                public void onFailed(Throwable throwable) {
-                    Toast.makeText(activity, "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(activity, "try again", Toast.LENGTH_SHORT).show();
-        }
+            @Override
+            public void onFailed(Throwable throwable) {
+                Toast.makeText(activity, "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -129,7 +122,7 @@ public class ProductSizeAdapter extends RecyclerView.Adapter<ProductSizeAdapter.
         return getproductsize.size();
     }
 
-    public class ProductSizeAdapterVH extends RecyclerView.ViewHolder {
+    public static class ProductSizeAdapterVH extends RecyclerView.ViewHolder {
 
 
         ProductsizelayoutBinding productsizelayoutBinding;

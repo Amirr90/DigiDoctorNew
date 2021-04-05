@@ -103,7 +103,7 @@ public class PackageDetail {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PackageDetail that = (PackageDetail) o;
-        return packageId == that.packageId &&
+        return packageId.equals(that.packageId) &&
                 noOfTests == that.noOfTests &&
                 packagePrice == that.packagePrice &&
                 discountPerc == that.discountPerc &&

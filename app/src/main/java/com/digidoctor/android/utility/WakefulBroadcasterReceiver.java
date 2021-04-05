@@ -63,7 +63,7 @@ public class WakefulBroadcasterReceiver extends BroadcastReceiver {
         videoIntent.putExtra("accessToken", intent.getStringExtra("accessToken"));
         videoIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        String msg = "", title = "";
+        String msg, title;
         msg = intent.getStringExtra("message");
         title = intent.getStringExtra("title");
 

@@ -35,7 +35,6 @@ public class AllRatingAndReviewFragment extends Fragment {
     NavController navController;
     RatingAndReviewAdapter ratingandreviewadapter;
     String ProductID;
-    String SizeId = null;
     private List<ProductDetailModelResponse.ProductDetailsList.ReviewDetails> getallreview;
 
     @Nullable
@@ -77,35 +76,29 @@ public class AllRatingAndReviewFragment extends Fragment {
         model.setMemberId(String.valueOf(user.getId()));
         model.setProductId(Integer.parseInt(ProductID));
 
-        try {
-            ApiUtils.getProductdetailsbyProductID(model, requireActivity(), new ApiCallbackInterface() {
-                @Override
-                public void onSuccess(List<?> o) {
-                    AppUtils.hideDialog();
-                    List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
-                    Log.d("TAG", "onSuccess: " + models.get(0).getReviewDetails());
-                    List<ProductDetailModelResponse.ProductDetailsList.ReviewDetails> topSearchproductLists1 = models.get(0).getReviewDetails();
+        ApiUtils.getProductdetailsbyProductID(model, requireActivity(), new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                AppUtils.hideDialog();
+                List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
+                Log.d("TAG", "onSuccess: " + models.get(0).getReviewDetails());
+                List<ProductDetailModelResponse.ProductDetailsList.ReviewDetails> topSearchproductLists1 = models.get(0).getReviewDetails();
 
-//                    Collections.reverse(topSearchproductLists1);
-                    getallreview.addAll(topSearchproductLists1);
-                    ratingandreviewadapter.notifyDataSetChanged();
+                getallreview.addAll(topSearchproductLists1);
+                ratingandreviewadapter.notifyDataSetChanged();
 
 
-                    //  allRatingAndReviewFragment.textView170.setText("All Review (" + ratingandreviewadapter.getItemCount() + ")");
-                }
+            }
 
-                @Override
-                public void onError(String s) {
-                    Toast.makeText(requireActivity(), "" + s, Toast.LENGTH_SHORT).show();
-                }
+            @Override
+            public void onError(String s) {
+                Toast.makeText(requireActivity(), "" + s, Toast.LENGTH_SHORT).show();
+            }
 
-                @Override
-                public void onFailed(Throwable throwable) {
-                    Toast.makeText(requireActivity(), "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            @Override
+            public void onFailed(Throwable throwable) {
+                Toast.makeText(requireActivity(), "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

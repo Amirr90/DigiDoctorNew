@@ -84,8 +84,8 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
 
     public CalendarModel getItem() {
         CalendarModel calendarModel;
-        if (null == calendarModelList || calendarModelList.isEmpty())
-            return null;
+        if (null == calendarModelList || calendarModelList.isEmpty()) {
+        }
         else {
             for (CalendarModel calendarModel1 : calendarModelList) {
                 if (calendarModel1.isAvailable()) {
@@ -93,8 +93,8 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
                     return calendarModel;
                 }
             }
-            return null;
         }
+        return null;
 
     }
 
@@ -109,7 +109,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
         return calendarModelList.size();
     }
 
-    public class CalenderVH extends RecyclerView.ViewHolder {
+    public static class CalenderVH extends RecyclerView.ViewHolder {
         CalenderViewBinding calenderViewBinding;
 
         public CalenderVH(CalenderViewBinding calenderViewBinding) {

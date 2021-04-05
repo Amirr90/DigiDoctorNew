@@ -59,15 +59,15 @@ public class DeviceControlActivity extends AppCompatActivity {
     public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
     public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
     private TextView mConnectionState;
-    private TextView mDataField1, mDataField2, mDataField3, btnGetData, btnScan;
+    private TextView mDataField1;
+    private TextView mDataField2;
+    private TextView mDataField3;
     EditText txtPid;
-    private Button btnSaveData;
-    private String mDeviceName;
     private Date today = new Date();
     private String mDeviceAddress;
     private ExpandableListView mGattServicesList;
     private BluetoothLeService1 mBluetoothLeService;
-    private ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics = new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
+    private ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics = new ArrayList<>();
     private boolean mConnected = false;
     private BluetoothGattCharacteristic mNotifyCharacteristic;
     private ProgressDialog dialog;
@@ -177,7 +177,7 @@ public class DeviceControlActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Add Data");*/
 
         final Intent intent = getIntent();
-        mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
+        String mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
         mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
 
         ((TextView) findViewById(R.id.device_address)).setText(mDeviceAddress);
@@ -187,10 +187,10 @@ public class DeviceControlActivity extends AppCompatActivity {
         mDataField1 = (TextView) findViewById(R.id.txtSpo2);
         mDataField2 = (TextView) findViewById(R.id.txtPulse);
         mDataField3 = (TextView) findViewById(R.id.txtSys);
-        btnGetData = (TextView) findViewById(R.id.btnGetData);
-        btnSaveData = (Button) findViewById(R.id.btnSaveData);
+        TextView btnGetData = (TextView) findViewById(R.id.btnGetData);
+        Button btnSaveData = (Button) findViewById(R.id.btnSaveData);
         txtPid = findViewById(R.id.txtPid);
-        btnScan = (TextView) findViewById(R.id.btnScan);
+        TextView btnScan = (TextView) findViewById(R.id.btnScan);
         mGattServicesList.setVisibility(View.GONE);
 
         dialog = new ProgressDialog(this);
@@ -217,64 +217,53 @@ public class DeviceControlActivity extends AppCompatActivity {
         getActionBar().setDisplayHomeAsUpEnabled(true);*/
         Intent gattServiceIntent = new Intent(this, BluetoothLeService1.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
-        btnGetData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DeviceControlActivity.this.displayData(dias, pulse, sys);
-            }
+        btnGetData.setOnClickListener(view -> DeviceControlActivity.this.displayData(dias, pulse, sys));
+        btnScan.setOnClickListener(view -> {
+       /* Intent intent1 = new Intent(DeviceControlActivity.this, ScannerActivity.class);
+        intent1.putExtra("redi", "5");
+        startActivity(intent1);*/
         });
-        btnScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-           /* Intent intent1 = new Intent(DeviceControlActivity.this, ScannerActivity.class);
-            intent1.putExtra("redi", "5");
-            startActivity(intent1);*/
-            }
-        });
-        btnSaveData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (DeviceControlActivity.this.getIntent().getStringExtra("status1") != null) {
-                    DeviceControlActivity.this.onBackPressed();
-                } else {
-                    try {
-                        if ((!pulse.equalsIgnoreCase("No data")) && (!dias.equalsIgnoreCase("No data")) && (!sys.equalsIgnoreCase("No data"))) {
-                            JSONArray dtTableArray = new JSONArray();
-                            try {
-                                JSONObject jsonObject1 = new JSONObject();
-                                jsonObject1.put("vitalId", 206);
-                                jsonObject1.put("vitalValue", pulse);
-                                dtTableArray.put(jsonObject1);
-                                JSONObject jsonObject2 = new JSONObject();
-                                jsonObject2.put("vitalId", 6);
-                                jsonObject2.put("vitalValue", dias);
-                                dtTableArray.put(jsonObject2);
-                                JSONObject jsonObject3 = new JSONObject();
-                                jsonObject3.put("vitalId", 4);
-                                jsonObject3.put("vitalValue", sys);
-                                dtTableArray.put(jsonObject3);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            if (dtTableArray.length() != 0) {
-                                if (isNetworkConnected(DeviceControlActivity.this.getApplicationContext())) {
+        btnSaveData.setOnClickListener(view -> {
+            if (DeviceControlActivity.this.getIntent().getStringExtra("status1") != null) {
+                DeviceControlActivity.this.onBackPressed();
+            } else {
+                try {
+                    if ((!pulse.equalsIgnoreCase("No data")) && (!dias.equalsIgnoreCase("No data")) && (!sys.equalsIgnoreCase("No data"))) {
+                        JSONArray dtTableArray = new JSONArray();
+                        try {
+                            JSONObject jsonObject1 = new JSONObject();
+                            jsonObject1.put("vitalId", 206);
+                            jsonObject1.put("vitalValue", pulse);
+                            dtTableArray.put(jsonObject1);
+                            JSONObject jsonObject2 = new JSONObject();
+                            jsonObject2.put("vitalId", 6);
+                            jsonObject2.put("vitalValue", dias);
+                            dtTableArray.put(jsonObject2);
+                            JSONObject jsonObject3 = new JSONObject();
+                            jsonObject3.put("vitalId", 4);
+                            jsonObject3.put("vitalValue", sys);
+                            dtTableArray.put(jsonObject3);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (dtTableArray.length() != 0) {
+                            if (isNetworkConnected(DeviceControlActivity.this.getApplicationContext())) {
 
 
-                                    String memberId = String.valueOf(getPrimaryUser(DeviceControlActivity.this).getMemberId());
-                                    if (memberId.equals("")) {
-                                        DeviceControlActivity.this.saveBluetoothVital(dtTableArray.toString(), memberId);
-                                    } else {
-                                        showToastSort(DeviceControlActivity.this.getApplicationContext(), "Please scan or enter PID");
-                                    }
+                                String memberId = String.valueOf(getPrimaryUser(DeviceControlActivity.this).getMemberId());
+                                if (memberId.equals("")) {
+                                    DeviceControlActivity.this.saveBluetoothVital(dtTableArray.toString(), memberId);
                                 } else {
-                                    Toast.makeText(DeviceControlActivity.this, "Network connection not found!", Toast.LENGTH_SHORT).show();
+                                    showToastSort(DeviceControlActivity.this.getApplicationContext(), "Please scan or enter PID");
                                 }
+                            } else {
+                                Toast.makeText(DeviceControlActivity.this, "Network connection not found!", Toast.LENGTH_SHORT).show();
                             }
-                        } else
-                            Toast.makeText(DeviceControlActivity.this, "Error in data.\nPlease retest", Toast.LENGTH_SHORT).show();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
+                        }
+                    } else
+                        Toast.makeText(DeviceControlActivity.this, "Error in data.\nPlease retest", Toast.LENGTH_SHORT).show();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
         });
@@ -398,12 +387,7 @@ public class DeviceControlActivity extends AppCompatActivity {
     }
 
     private void updateConnectionState(final int resourceId) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mConnectionState.setText(resourceId);
-            }
-        });
+        runOnUiThread(() -> mConnectionState.setText(resourceId));
     }
 
     private void displayData(String data, String data1, String data2) {
@@ -416,12 +400,12 @@ public class DeviceControlActivity extends AppCompatActivity {
 
     private void displayGattServices(List<BluetoothGattService> gattServices) {
         if (gattServices == null) return;
-        String uuid = null;
+        String uuid;
         String unknownServiceString = getResources().getString(R.string.unknown_service);
         String unknownCharaString = getResources().getString(R.string.unknown_characteristic);
-        ArrayList<HashMap<String, String>> gattServiceData = new ArrayList<HashMap<String, String>>();
-        ArrayList<ArrayList<HashMap<String, String>>> gattCharacteristicData = new ArrayList<ArrayList<HashMap<String, String>>>();
-        mGattCharacteristics = new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
+        ArrayList<HashMap<String, String>> gattServiceData = new ArrayList<>();
+        ArrayList<ArrayList<HashMap<String, String>>> gattCharacteristicData = new ArrayList<>();
+        mGattCharacteristics = new ArrayList<>();
 
         String LIST_NAME = "NAME";
         String LIST_UUID = "UUID";
@@ -431,9 +415,9 @@ public class DeviceControlActivity extends AppCompatActivity {
             currentServiceData.put(LIST_NAME, SampleGattAttributes.lookup(uuid, unknownServiceString));
             currentServiceData.put(LIST_UUID, uuid);
             gattServiceData.add(currentServiceData);
-            ArrayList<HashMap<String, String>> gattCharacteristicGroupData = new ArrayList<HashMap<String, String>>();
+            ArrayList<HashMap<String, String>> gattCharacteristicGroupData = new ArrayList<>();
             List<BluetoothGattCharacteristic> gattCharacteristics = gattService.getCharacteristics();
-            ArrayList<BluetoothGattCharacteristic> charas = new ArrayList<BluetoothGattCharacteristic>();
+            ArrayList<BluetoothGattCharacteristic> charas = new ArrayList<>();
 
             for (BluetoothGattCharacteristic gattCharacteristic : gattCharacteristics) {
                 charas.add(gattCharacteristic);
@@ -470,18 +454,6 @@ public class DeviceControlActivity extends AppCompatActivity {
         intentFilter.addAction(BluetoothLeService1.ACTION_DATA_AVAILABLE);
         return intentFilter;
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-
-    public void showDialog(String msg) {
-        dialog.setMessage(msg);
-        dialog.show();
-    }
-
     public void hideDialog() {
         if (dialog != null)
             dialog.dismiss();

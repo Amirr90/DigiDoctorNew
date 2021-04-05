@@ -54,7 +54,7 @@ public class VitalResponse {
             return vitalDetails;
         }
 
-        public class VitalValueModel {
+        public static class VitalValueModel {
             String vitalName;
             String vitalValue;
 

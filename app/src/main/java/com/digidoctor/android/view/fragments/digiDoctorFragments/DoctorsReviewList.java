@@ -1,6 +1,11 @@
 package com.digidoctor.android.view.fragments.digiDoctorFragments;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,18 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.DoctorReviewAdapter;
-import com.digidoctor.android.adapters.pharmacy.RatingAndReviewAdapter;
 import com.digidoctor.android.databinding.DoctorsReviewListFragmentBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
-import com.digidoctor.android.interfaces.LabOrderInterface;
 import com.digidoctor.android.model.DocModel;
 import com.digidoctor.android.model.GetDocRevModelRes;
 import com.digidoctor.android.utility.ApiUtils;

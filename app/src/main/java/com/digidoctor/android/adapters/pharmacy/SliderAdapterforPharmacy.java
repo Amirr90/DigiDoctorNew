@@ -50,7 +50,7 @@ public class SliderAdapterforPharmacy extends  RecyclerView.Adapter<SliderAdapte
         return banner.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
 

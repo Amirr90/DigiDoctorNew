@@ -30,7 +30,7 @@ public class OrderDetailsRelatedProductAdapter extends RecyclerView.Adapter<Orde
     @Override
     public ViewholderVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         OrderListViewBinding orderListViewBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.order_list_view, parent, false);
-        return new OrderDetailsRelatedProductAdapter.ViewholderVH(orderListViewBinding);
+        return new ViewholderVH(orderListViewBinding);
 
     }
 
@@ -62,7 +62,7 @@ public class OrderDetailsRelatedProductAdapter extends RecyclerView.Adapter<Orde
         return getrelatedproducts.size();
     }
 
-    public class ViewholderVH extends RecyclerView.ViewHolder {
+    public static class ViewholderVH extends RecyclerView.ViewHolder {
         OrderListViewBinding orderListViewBinding;
 
 

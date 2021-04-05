@@ -34,7 +34,7 @@ public class AllCoupneModelResponse {
         this.responseValue = responseValue;
     }
 
-    public class GetCoupnedetails {
+    public static class GetCoupnedetails {
 
         int id;
         String couponCode;

@@ -49,14 +49,11 @@ public class DataActivity extends AppCompatActivity {
     private String time;
 
     private IBleWriteResponse getBleWriteResponse() {
-        return new IBleWriteResponse() {
-            @Override
-            public void onResponse(int state) {
-                if (state == Code.REQUEST_SUCCESS) {
-                    Log.i(TAG, "write success");
-                } else {
-                    Log.i(TAG, "write fail");
-                }
+        return state -> {
+            if (state == Code.REQUEST_SUCCESS) {
+                Log.i(TAG, "write success");
+            } else {
+                Log.i(TAG, "write fail");
             }
         };
     }
@@ -84,9 +81,7 @@ public class DataActivity extends AppCompatActivity {
             binding.txtId.setText(getIntent().getStringExtra("id"));
         }
 
-        binding.btnGetData.setOnClickListener(view -> {
-            start_recevice_data();
-        });
+        binding.btnGetData.setOnClickListener(view -> start_recevice_data());
 
         binding.btnSaveData.setOnClickListener(view -> {
 //            displayData(spo2, pulse);
@@ -162,12 +157,7 @@ public class DataActivity extends AppCompatActivity {
 
 
     public void start_recevice_data() {
-        OxiOprateManager.getMangerInstance(getApplicationContext()).startListenTestData(getBleWriteResponse(), new OnACKDataListener() {
-            @Override
-            public void onDataChange(AckData ackData) {
-                listenDetectResult();
-            }
-        });
+        OxiOprateManager.getMangerInstance(getApplicationContext()).startListenTestData(getBleWriteResponse(), ackData -> listenDetectResult());
     }
 
     public void listenDetectResult() {

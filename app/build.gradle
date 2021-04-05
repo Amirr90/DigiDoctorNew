@@ -9,10 +9,8 @@ android {
         applicationId "com.digidoctor.android"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 76
-
-        versionName "1.0.13"
-
+        versionCode 78
+        versionName "1.0.15"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -34,7 +32,6 @@ android {
     }
 
     android {
-        // ...
         aaptOptions {
             noCompress "tflite"
         }

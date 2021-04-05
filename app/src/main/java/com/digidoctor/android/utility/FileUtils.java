@@ -176,7 +176,7 @@ public class FileUtils {
     private static String getPathFromExtSD(String[] pathData) {
         final String type = pathData[0];
         final String relativePath = "/" + pathData[1];
-        String fullPath = "";
+        String fullPath;
 
         // on my Sony devices (4.4.4 & 5.1.1), `type` is a dynamic string
         // something like "71F8-2C0A", some kind of unique id per storage
@@ -189,41 +189,28 @@ public class FileUtils {
                 return fullPath;
             }
         }
-
-        // Environment.isExternalStorageRemovable() is `true` for external and internal storage
-        // so we cannot relay on it.
-        //
-        // instead, for each possible path, check if file exists
-        // we'll start with secondary storage as this could be our (physically) removable sd card
         fullPath = System.getenv("SECONDARY_STORAGE") + relativePath;
         if (fileExists(fullPath)) {
             return fullPath;
         }
 
         fullPath = System.getenv("EXTERNAL_STORAGE") + relativePath;
-        if (fileExists(fullPath))
-            return fullPath;
+        fileExists(fullPath);
 
         return fullPath;
     }
 
     private static String getDriveFilePath(Uri uri, Context context) {
         Cursor returnCursor = context.getContentResolver().query(uri, null, null, null, null);
-        /*
-         * Get the column indexes of the data in the Cursor,
-         *     * move to the first row in the Cursor, get the data,
-         *     * and display it.
-         * */
         int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
         int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
         returnCursor.moveToFirst();
         String name = (returnCursor.getString(nameIndex));
-        String size = (Long.toString(returnCursor.getLong(sizeIndex)));
         File file = new File(context.getCacheDir(), name);
         try {
             InputStream inputStream = context.getContentResolver().openInputStream(uri);
             FileOutputStream outputStream = new FileOutputStream(file);
-            int read = 0;
+            int read;
             int maxBufferSize = 1024 * 1024;
             int bytesAvailable = inputStream.available();
 

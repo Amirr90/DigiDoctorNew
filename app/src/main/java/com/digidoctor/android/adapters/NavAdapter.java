@@ -46,7 +46,7 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.NavVH> {
         return navModelList.size();
     }
 
-    public class NavVH extends RecyclerView.ViewHolder {
+    public static class NavVH extends RecyclerView.ViewHolder {
         NavViewRecItemBinding navViewRecItemBinding;
 
         public NavVH(NavViewRecItemBinding navViewRecItemBinding) {

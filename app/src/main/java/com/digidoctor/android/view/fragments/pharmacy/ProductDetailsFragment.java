@@ -21,7 +21,7 @@ import com.digidoctor.android.adapters.pharmacy.ProductDetaillAdapter;
 import com.digidoctor.android.adapters.pharmacy.ProductFalvourAdapter;
 import com.digidoctor.android.adapters.pharmacy.ProductMaterialAdapter;
 import com.digidoctor.android.adapters.pharmacy.ProductSizeAdapter;
-import com.digidoctor.android.adapters.pharmacy.ProductSliderviewAdapter;
+import com.digidoctor.android.adapters.pharmacy.ProductSliderViewAdapter;
 import com.digidoctor.android.adapters.pharmacy.SimilarproductADapter;
 import com.digidoctor.android.adapters.pharmacy.RatingAndReviewAdapter;
 import com.digidoctor.android.databinding.FragmentProductDetailsBinding;
@@ -34,8 +34,6 @@ import com.digidoctor.android.model.pharmacyModel.ProductModel;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.utils;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +57,7 @@ public class ProductDetailsFragment extends Fragment {
     ProductDetaillAdapter productDetaillAdapter;
     RatingAndReviewAdapter ratingandreviewadapter;
     SimilarproductADapter similarproductADapter;
-    ProductSliderviewAdapter productSliderviewAdapter;
+    ProductSliderViewAdapter productSliderviewAdapter;
     ProductSizeAdapter productSizeAdapter;
     ProductMaterialAdapter productMaterialAdapter;
     ProductFalvourAdapter productFalvourAdapter;
@@ -104,7 +102,7 @@ public class ProductDetailsFragment extends Fragment {
         productDetaillAdapter = new ProductDetaillAdapter(requireActivity());
         ratingandreviewadapter = new RatingAndReviewAdapter(productReviewLists);
         similarproductADapter = new SimilarproductADapter(similarProducts, requireActivity());
-        productSliderviewAdapter = new ProductSliderviewAdapter(productDetailsSliders, requireActivity());
+        productSliderviewAdapter = new ProductSliderViewAdapter(productDetailsSliders, requireActivity());
         productSizeAdapter = new ProductSizeAdapter(sizeDetails, requireActivity());
         productFalvourAdapter = new ProductFalvourAdapter(flavourDetails, requireActivity());
         productColorAdapter = new ProductColorAdapter(colorDetails, requireActivity());
@@ -124,12 +122,7 @@ public class ProductDetailsFragment extends Fragment {
         AllProductModels.clear();
         getproductdetails();
 
-        fragmentProductDetailsBinding.textView200.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_productDetailsFragment_to_medicineDetailsFragment);
-            }
-        });
+        fragmentProductDetailsBinding.textView200.setOnClickListener(v -> navController.navigate(R.id.action_productDetailsFragment_to_medicineDetailsFragment));
 
 
         fragmentProductDetailsBinding.textView141.setOnClickListener(view1 -> {
@@ -214,40 +207,35 @@ public class ProductDetailsFragment extends Fragment {
         model.setMemberId(String.valueOf(user.getId()));
         model.setProductId(Integer.parseInt(productId));
 
-        try {
-            ApiUtils.getProductdetailsbyProductID(model, requireActivity(), new ApiCallbackInterface() {
+        ApiUtils.getProductdetailsbyProductID(model, requireActivity(), new ApiCallbackInterface() {
 
 
-                @Override
-                public void onSuccess(List<?> o) {
-                    List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
-                    Log.d(TAG, "onSuccess: " + models.get(0).getProductDetails());
-                    AllProductModels.addAll(models.get(0).getProductDetails());
+            @Override
+            public void onSuccess(List<?> o) {
+                List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
+                Log.d(TAG, "onSuccess: " + models.get(0).getProductDetails());
+                AllProductModels.addAll(models.get(0).getProductDetails());
 
-                    if (!AllProductModels.isEmpty() && !models.isEmpty()) {
-                        setProduct(AllProductModels.get(0));
-                        updateProduct(models);
-                    }
-
-
+                if (!AllProductModels.isEmpty() && !models.isEmpty()) {
+                    setProduct(AllProductModels.get(0));
+                    updateProduct(models);
                 }
 
-                @Override
-                public void onError(String s) {
-                    AppUtils.hideDialog();
-                    Toast.makeText(requireActivity(), "" + s, Toast.LENGTH_SHORT).show();
-                }
 
-                @Override
-                public void onFailed(Throwable throwable) {
-                    AppUtils.hideDialog();
-                    Toast.makeText(requireActivity(), "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(requireActivity(), "try again", Toast.LENGTH_SHORT).show();
-        }
+            }
+
+            @Override
+            public void onError(String s) {
+                AppUtils.hideDialog();
+                Toast.makeText(requireActivity(), "" + s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                AppUtils.hideDialog();
+                Toast.makeText(requireActivity(), "" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

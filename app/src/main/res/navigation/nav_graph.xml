@@ -94,6 +94,13 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_patientDashboardFragment_to_symptomTrackerFragment"
+            app:destination="@id/symptomTrackerFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/symptomsFragment2"
@@ -912,5 +919,10 @@
         android:name="com.digidoctor.android.LabHealthCategoryFragment"
         android:label="@string/select_categories"
         tools:layout="@layout/fragment_lab_health_category" />
+    <fragment
+        android:id="@+id/symptomTrackerFragment"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.SymptomTrackerFragment"
+        android:label="@string/symptom_tracker"
+        tools:layout="@layout/fragment_symptom_tracker" />
 
 </navigation>

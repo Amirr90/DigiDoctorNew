@@ -117,7 +117,7 @@ public class CartDetailsResponse {
         }
 
 
-        public class GetPriceDetails {
+        public static class GetPriceDetails {
 
             String totalProducts;
             int totalMrp;

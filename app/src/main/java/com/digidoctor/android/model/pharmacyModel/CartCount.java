@@ -37,7 +37,7 @@ public class CartCount {
         return CartcountList;
     }
 
-    public class CartcountList extends CartCount   {
+    public static class CartcountList extends CartCount   {
 
         int cartCount;
 
