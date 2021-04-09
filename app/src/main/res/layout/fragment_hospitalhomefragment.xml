@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/_13sdp"
+    tools:context=".view.fragments.hospitalHomeFragment"
+    tools:ignore="RtlSymmetry">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView69"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:src="@drawable/ic_hospital_buildings"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView207"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="21dp"
+                android:fontFamily="@font/poppins"
+                android:lineSpacingExtra="10dp"
+                android:lineSpacingMultiplier="1"
+                android:text="Hospital"
+                android:textColor="#3F4E6E"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView69"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView208"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Medanta Hospital, Lucknow"
+                android:textColor="#262E3F"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageView69"
+                app:layout_constraintTop_toBottomOf="@+id/textView207" />
+
+            <TextView
+                android:id="@+id/textView209"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="256 Feedback"
+                android:textColor="#3F4E6E"
+                android:textSize="14sp"
+                app:drawableLeftCompat="@drawable/ic_feedback"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textView208"
+                app:layout_constraintTop_toBottomOf="@+id/textView208" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout16"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout16"
+            tools:listitem="@layout/hospital_banner_view" />
+
+        <TextView
+            android:id="@+id/textView210"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="24dp"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/poppins"
+            android:gravity="center"
+            android:text="Sector - A, Amar Shaheed Path, Lucknow, Uttar Pradesh 226030"
+            android:textAlignment="textStart"
+            android:textColor="#3F4E6E"
+            android:textSize="14sp"
+            app:drawableLeftCompat="@drawable/ic_pin_location"
+            app:layout_constraintEnd_toStartOf="@+id/imageView71"
+            app:layout_constraintStart_toStartOf="@+id/recyclerView6"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView6"
+            tools:ignore="RtlCompat" />
+
+        <TextView
+            android:id="@+id/textView211"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/poppins"
+            android:gravity="center"
+            android:text="+91 522 4505 050"
+            android:textColor="#3F4E6E"
+            android:textSize="14sp"
+            app:drawableLeftCompat="@drawable/ic_call"
+            app:layout_constraintStart_toStartOf="@+id/textView210"
+            app:layout_constraintTop_toBottomOf="@+id/textView210" />
+
+        <ImageView
+            android:id="@+id/imageView71"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/pinnacle_map"
+            app:layout_constraintBottom_toBottomOf="@+id/textView210"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView210" />
+
+        <TextView
+            android:id="@+id/textView212"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Overall"
+            android:textColor="#262E3F"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView211"
+            app:layout_constraintTop_toBottomOf="@+id/textView211" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView212"
+            app:layout_constraintTop_toBottomOf="@+id/textView212"
+            tools:listitem="@layout/hospital_tab_view" />
+
+        <TextView
+            android:id="@+id/textView214"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/white"
+            android:fontFamily="@font/poppins"
+            android:paddingLeft="@dimen/_13sdp"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingRight="@dimen/_13sdp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipcing elit, sed do eiusmod tempor cididunt ut labore dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation amco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt culpa qui official deserunt mollit anim id est laborum."
+            android:textColor="#3F4E6E"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/recyclerView10"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView10"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -56,8 +56,12 @@ import com.digidoctor.android.model.labmodel.ApiLabResponse;
 import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.LabOrderModel;
 import com.digidoctor.android.model.labmodel.LabOrderRes;
+import com.digidoctor.android.model.labmodel.LabRes;
 import com.digidoctor.android.model.labmodel.PackageRes;
 import com.digidoctor.android.model.labmodel.PackagesRes;
+import com.digidoctor.android.model.labmodel.SearchRes;
+import com.digidoctor.android.model.patientModel.AddMemberProblemModel;
+import com.digidoctor.android.model.patientModel.AttributeModel;
 import com.digidoctor.android.model.patientModel.GetAllProblemRes;
 import com.digidoctor.android.model.patientModel.GetAllSuggestedProblemRes;
 import com.digidoctor.android.model.patientModel.GetAttributeListResp;
@@ -395,50 +399,62 @@ public interface Api {
 
     //SymptomCheckerApis
 
-
-    @FormUrlEncoded
     @POST("getProblemsWithIcon")
-    Call<GetProblemsWithIconRes> getProblemsWithIcon(
-            @Header("x-access-token") String token,
-            @Field("userMobileNo") String userMobileNo
+    Call<GetProblemsWithIconRes> getProblemsWithIcon2(
+            @Body SymptomModel symptomModel
     );
 
-    @FormUrlEncoded
     @POST("getAttributeByProblem")
     Call<GetAttributeListResp> getAttributeByProblem(
-            @Header("x-access-token") String token,
-            @Field("userMobileNo") String userMobileNo,
-            @Field("problemId") String problemId
-    );
+            @Body AttributeModel model);
 
-    @FormUrlEncoded
+
+    @POST("getAllProblems")
+    Call<GetAllProblemRes> getAllProblems(
+            @Body AddMemberProblemModel addMemberProblemModel);
+    /* @FormUrlEncoded
     @POST("getAllProblems")
     Call<GetAllProblemRes> getAllProblems(
             @Header("x-access-token") String token,
             @Field("userMobileNo") String userMobileNo,
             @Field("alphabet") String alphabet
-    );
+    );*/
 
-    @FormUrlEncoded
+    /*@FormUrlEncoded
     @POST("getAllSuggestedProblem")
     Call<GetAllSuggestedProblemRes> getAllSuggestedProblem(
             @Header("x-access-token") String token,
             @Field("userMobileNo") String userMobileNo,
             @Field("memberId") String memberId
     );
+*/
+    @POST("getAllSuggestedProblem")
+    Call<GetAllSuggestedProblemRes> getAllSuggestedProblem(
+            @Body AddMemberProblemModel addMemberProblemModel
+    );
 
 
-    @FormUrlEncoded
+    /*   @FormUrlEncoded
+       @POST("addMemberProblem")
+       Call<RegistrationRes> addMemberProblem(
+               @Header("x-access-token") String token,
+               @Field("userMobileNo") String userMobileNo,
+               @Field("memberId") String memberId,
+               @Field("problemDate") String problemDate,
+               @Field("dtDataTable") String dtDataTable,
+               @Field("isUPCovidApp") String isUpCovid,
+               @Field("problemTime") String problemTime
+       );*/
     @POST("addMemberProblem")
     Call<RegistrationRes> addMemberProblem(
-            @Header("x-access-token") String token,
-            @Field("userMobileNo") String userMobileNo,
-            @Field("memberId") String memberId,
-            @Field("problemDate") String problemDate,
-            @Field("dtDataTable") String dtDataTable,
-            @Field("isUPCovidApp") String isUpCovid,
-            @Field("problemTime") String problemTime
+            @Body AddMemberProblemModel addMemberProblemModel
     );
+
+    @POST("getAllLabs")
+    Call<LabRes> getLabData();
+
+    @POST("    searchPackageAndTest")
+    Call<SearchRes> getSearchData(@Body User user);
 }
 
 

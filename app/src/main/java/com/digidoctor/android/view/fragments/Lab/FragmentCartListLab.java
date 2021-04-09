@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.labadapter.CartAdapter;
 import com.digidoctor.android.databinding.FragmentCartListLabBinding;
 import com.digidoctor.android.interfaces.CartInterface;
@@ -60,10 +61,13 @@ public class FragmentCartListLab extends Fragment implements CartInterface {
 
         //init Adapter
         cartModelList = new ArrayList<>();
-        adapter = new CartAdapter(cartModelList, cart);
+        adapter = new CartAdapter(cartModelList, cart, requireActivity());
 
         //init Recyclerview
         binding.recCart.setAdapter(adapter);
+
+
+        binding.btnContinueToLab.setOnClickListener(v -> navController.navigate(R.id.action_fragmentCartListLab_to_allLabsFragment));
 
     }
 

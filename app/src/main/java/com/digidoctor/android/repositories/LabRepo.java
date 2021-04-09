@@ -1,23 +1,29 @@
 package com.digidoctor.android.repositories;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
+import com.digidoctor.android.model.LabModel;
 import com.digidoctor.android.model.PackageModel;
 import com.digidoctor.android.model.labmodel.PackageDetail;
 import com.digidoctor.android.model.labmodel.PackageRes;
 import com.digidoctor.android.model.labmodel.PackagesRes;
+import com.digidoctor.android.model.labmodel.SearchRes;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.App;
+import com.digidoctor.android.utility.AppUtils;
 
 import java.util.List;
 
 public class LabRepo {
     public MutableLiveData<List<PackageDetail>> mutablePackagesLiveData;
     public MutableLiveData<PackageModel> mutablePackagesData;
+    public MutableLiveData<List<LabModel>> mutableLabsData;
+    public MutableLiveData<List<SearchRes.SearchModel>> mutableSearchData;
 
     public LiveData<List<PackageDetail>> getPackageLiveData() {
         if (mutablePackagesLiveData == null)
@@ -68,6 +74,63 @@ public class LabRepo {
                 PackageModel packageModel = packages.get(0).getPackageDetails().get(0);
                 if (null != packageModel)
                     mutablePackagesData.setValue(packageModel);
+            }
+
+            @Override
+            public void onError(String s) {
+                Toast.makeText(App.context, s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Toast.makeText(App.context, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public LiveData<List<LabModel>> getAllLabs() {
+        if (mutableLabsData == null)
+            mutableLabsData = new MutableLiveData<>();
+        loadLabsDataData();
+        return mutableLabsData;
+    }
+
+    private void loadLabsDataData() {
+        ApiUtils.getLabData(new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                List<LabModel> models = (List<LabModel>) o;
+                if (null != models)
+                    mutableLabsData.setValue(models);
+            }
+
+            @Override
+            public void onError(String s) {
+                Toast.makeText(App.context, s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Toast.makeText(App.context, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public LiveData<List<SearchRes.SearchModel>> getTestAndPackageData() {
+        if (mutableSearchData == null) {
+            mutableSearchData = new MutableLiveData<>();
+            loadLabsSearchData();
+        }
+        return mutableSearchData;
+    }
+
+    private void loadLabsSearchData() {
+        ApiUtils.searchLabsANdPackages(new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                List<SearchRes.SearchModel> models = (List<SearchRes.SearchModel>) o;
+                if (null != models)
+                    mutableSearchData.setValue(models);
             }
 
             @Override

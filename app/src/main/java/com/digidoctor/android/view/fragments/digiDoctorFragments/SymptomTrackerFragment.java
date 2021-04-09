@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,9 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.FragmentSymptomTrackerBinding;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.model.RegistrationRes;
+import com.digidoctor.android.model.SymptomModel;
+import com.digidoctor.android.model.patientModel.AddMemberProblemModel;
+import com.digidoctor.android.model.patientModel.AttributeModel;
 import com.digidoctor.android.model.patientModel.GetAllProblemModel;
 import com.digidoctor.android.model.patientModel.GetAllProblemRes;
 import com.digidoctor.android.model.patientModel.GetAllSuggestedProblemModel;
@@ -46,7 +50,6 @@ import com.digidoctor.android.model.patientModel.GetAttributeListResp;
 import com.digidoctor.android.model.patientModel.GetProblemsWithIconModel;
 import com.digidoctor.android.model.patientModel.GetProblemsWithIconRes;
 import com.digidoctor.android.utility.URLUtils;
-import com.digidoctor.android.utility.utils;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -66,10 +69,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.digidoctor.android.utility.AppUtils.capitalizeFirstLetter;
+import static com.digidoctor.android.utility.AppUtils.parseDate;
 import static com.digidoctor.android.utility.AppUtils.showToastSort;
 import static com.digidoctor.android.utility.NewDashboardUtils.getNextWeekDays;
 import static com.digidoctor.android.utility.NewDashboardUtils.isNetworkConnected;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
+import static com.digidoctor.android.utility.utils.getUserForBooking;
 import static com.digidoctor.android.utility.utils.hideSoftKeyboard;
 
 
@@ -313,11 +318,12 @@ public class SymptomTrackerFragment extends Fragment implements View.OnClickList
 
     private void hitGetProblemsWithIcon() {
 
+        SymptomModel symptomModel = new SymptomModel();
 
-        Api iRestInterfaces = URLUtils.getApisServiceForSymptomChecker();
-        Call<GetProblemsWithIconRes> call = iRestInterfaces.getProblemsWithIcon(
-                customToken,
-                utils.getPrimaryUser(requireActivity()).getMobileNo());
+
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<GetProblemsWithIconRes> call = iRestInterfaces.getProblemsWithIcon2(
+                symptomModel);
 
         call.enqueue(new Callback<GetProblemsWithIconRes>() {
             @Override
@@ -464,11 +470,13 @@ public class SymptomTrackerFragment extends Fragment implements View.OnClickList
 
     //GetAttributeList
     private void hitGetAttributeList(String problemId, final RecyclerView recyclerView, final ProgressBar progressBar) {
-        Api iRestInterfaces = URLUtils.getApisServiceForSymptomChecker();
+
+        AttributeModel model = new AttributeModel();
+        model.setProblemId(problemId);
+        model.setUserMobileNo(mobileNumber);
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<GetAttributeListResp> call = iRestInterfaces.getAttributeByProblem(
-                customToken,
-                mobileNumber,
-                problemId);
+                model);
 
         call.enqueue(new Callback<GetAttributeListResp>() {
             @Override
@@ -736,11 +744,14 @@ public class SymptomTrackerFragment extends Fragment implements View.OnClickList
     }
 
     private void hitGetAllProblem(String alphabet, final AutoCompleteTextView editText, final RecyclerView recyclerView) {
-        Api iRestInterfaces = URLUtils.getApisServiceForSymptomChecker();
+
+        AddMemberProblemModel model = new AddMemberProblemModel();
+        model.setUserMobileNo(mobileNumber);
+        model.setAlphabet(alphabet);
+
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
         Call<GetAllProblemRes> call = iRestInterfaces.getAllProblems(
-                customToken,
-                mobileNumber,
-                alphabet);
+                model);
 
         call.enqueue(new Callback<GetAllProblemRes>() {
             @SuppressLint("NewApi")
@@ -922,11 +933,12 @@ public class SymptomTrackerFragment extends Fragment implements View.OnClickList
     private void hitGetAllSuggestedProblem(final RecyclerView recyclerView) {
 
         String memberId = null;
-        Api iRestInterfaces = URLUtils.getApisServiceForSymptomChecker();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        AddMemberProblemModel model = new AddMemberProblemModel();
+        model.setUserMobileNo(mobileNumber);
+        model.setMemberId(String.valueOf(getUserForBooking(requireActivity()).getMemberId()));
         Call<GetAllSuggestedProblemRes> call = iRestInterfaces.getAllSuggestedProblem(
-                customToken,
-                mobileNumber,
-                "203"
+                model
         );
 
         call.enqueue(new Callback<GetAllSuggestedProblemRes>() {
@@ -1062,13 +1074,18 @@ public class SymptomTrackerFragment extends Fragment implements View.OnClickList
     private void hitAddMemberProblem() {
 
         String time = hour + ":" + minutes;
-        Api iRestInterfaces = URLUtils.getApisServiceForSymptomChecker();
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+
+        AddMemberProblemModel model = new AddMemberProblemModel();
+        model.setUserMobileNo(mobileNumber);
+        model.setMemberId(String.valueOf(getPrimaryUser(requireActivity()).getMemberId()));
+        model.setProblemDate(parseDate(problemDate, "yyyy-MM-dd", "yyyy/MM/dd"));
+        model.setProblemTime(time);
+        model.setIsUpCovid("0");
+        model.setDtDataTable(jsonArraySuggestedProblemProvable.toString());
+
         Call<RegistrationRes> call = iRestInterfaces.addMemberProblem(
-                customToken,
-                mobileNumber,
-                String.valueOf(getPrimaryUser(requireActivity()).getMemberId()),
-                problemDate,
-                jsonArraySuggestedProblemProvable.toString(), "0", time);
+                model);
 
         call.enqueue(new Callback<RegistrationRes>() {
             @SuppressLint("NewApi")
@@ -1077,10 +1094,11 @@ public class SymptomTrackerFragment extends Fragment implements View.OnClickList
 
                 if (response.isSuccessful() && response.body().getResponseCode() == 1) {
 
-                    showToastSort(requireActivity(), getString(R.string.problem_submitted));
+                    Toast.makeText(requireActivity(), R.string.problem_submitted, Toast.LENGTH_SHORT).show();
                     navController.navigateUp();
 
-                }
+                } else
+                    Toast.makeText(requireActivity(), "" + response.body().getResponseMessage(), Toast.LENGTH_SHORT).show();
 
 
             }

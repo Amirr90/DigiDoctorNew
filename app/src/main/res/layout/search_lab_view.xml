@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.R.drawable" />
+
+        <variable
+            name="details"
+            type="com.digidoctor.android.model.labmodel.SearchRes.SearchModel.Details" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:id="@+id/textView216"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:drawablePadding="@dimen/dimen_10dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@{details.name}"
+            android:textColor="#262E3F"
+            android:textSize="11sp"
+            app:drawableLeftCompat="@drawable/ic_microscope"
+            app:layout_constraintEnd_toStartOf="@+id/imageView73"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView73"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/textView216"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView216"
+            app:srcCompat="@drawable/ic_cart" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

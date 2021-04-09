@@ -139,6 +139,13 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
         //setting Listener to tvViewAll Category
         labTestHomeBinding.textView153.setOnClickListener(v -> navController.navigate(R.id.action_lab_Home_Fragment_to_labHealthCategoryFragment));
 
+        //setting Listener to ViewAll Labs
+        labTestHomeBinding.textView158.setOnClickListener(v -> navController.navigate(R.id.action_lab_Home_Fragment_to_allLabsFragment));
+
+
+        //setting Listener to search Labs
+        labTestHomeBinding.editTextTextSearchSpeciality.setOnClickListener(v -> navController.navigate(R.id.action_lab_Home_Fragment_to_searchLabsAndTestFragment));
+
     }
 
     public void onNavigateUp(Lab_Home_FragmentDirections.ActionLabHomeFragmentToTestDetailsFRagment id) {

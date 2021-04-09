@@ -1,5 +1,7 @@
 package com.digidoctor.android.model.labmodel;
 
+import java.util.List;
+
 public class CartModel {
     String testId;
     String packageId;
@@ -7,6 +9,11 @@ public class CartModel {
     String cartId;
     String memberId;
     String name;
+    List<Test> packageTestList;
+
+    public List<Test> getPackageTestList() {
+        return packageTestList;
+    }
 
     public String getName() {
         return name;
@@ -50,5 +57,18 @@ public class CartModel {
 
     public void setUniqueNo(String uniqueNo) {
         this.uniqueNo = uniqueNo;
+    }
+
+    public static class Test {
+        String testName;
+        String id;
+
+        public String getId() {
+            return id;
+        }
+
+        public String getTestName() {
+            return testName;
+        }
     }
 }

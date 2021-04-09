@@ -24,7 +24,7 @@
                 android:id="@+id/contentconstrainet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:visibility="visible">
 
 
                 <RelativeLayout
@@ -41,7 +41,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <EditText
+                    <TextView
+                        android:text="@string/search_lab"
                         android:id="@+id/editTextTextSearchSpeciality"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -52,9 +53,6 @@
                         android:drawableEnd="@drawable/magnifier"
                         android:drawablePadding="10dp"
                         android:ems="10"
-                        android:hint="Search Test,Packages,labs Here"
-                        android:imeOptions="actionSearch"
-                        android:inputType="textPersonName"
                         android:paddingLeft="20dp"
                         android:paddingTop="10dp"
                         android:paddingRight="20dp"

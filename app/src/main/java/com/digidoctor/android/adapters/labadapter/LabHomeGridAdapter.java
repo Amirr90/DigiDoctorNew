@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.LabHomeView2Binding;
 
 import java.util.ArrayList;
@@ -16,10 +17,10 @@ public class LabHomeGridAdapter extends RecyclerView.Adapter<LabHomeGridAdapter.
 
     private List<GridModel> getData() {
         List<GridModel> strings = new ArrayList<>();
-        strings.add(new GridModel("Best Price", "Best Price Description"));
-        strings.add(new GridModel("Best Price", "Best Price Description"));
-        strings.add(new GridModel("Best Price", "Best Price Description"));
-        strings.add(new GridModel("Best Price", "Best Price Description"));
+        strings.add(new GridModel("Best Price", "Guaranteed", R.drawable.first));
+        strings.add(new GridModel("Home Sample", "Pick Up", R.drawable.ic_home_sample));
+        strings.add(new GridModel("View Reports", "Online", R.drawable.ic_view_reports));
+        strings.add(new GridModel("100% safe &", "Hygienic", R.drawable.ic_safe));
         return strings;
     }
 
@@ -35,6 +36,7 @@ public class LabHomeGridAdapter extends RecyclerView.Adapter<LabHomeGridAdapter.
     @Override
     public void onBindViewHolder(@NonNull LabHomeGridAdapter.HomeVH holder, int position) {
         holder.binding.setHomeModel(homeGridList.get(position));
+        holder.binding.IVbestprice.setImageResource(homeGridList.get(position).getImage());
     }
 
     @Override
@@ -55,10 +57,17 @@ public class LabHomeGridAdapter extends RecyclerView.Adapter<LabHomeGridAdapter.
     class GridModel {
         String title;
         String description;
+        int image;
 
-        public GridModel(String title, String description) {
+        public GridModel(String title, String description, int image) {
             this.title = title;
             this.description = description;
+            this.image = image;
+        }
+
+
+        public int getImage() {
+            return image;
         }
 
         public String getTitle() {

@@ -29,11 +29,15 @@
                 android:id="@+id/TVbestprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="@{homeModel.title}"
+                android:text="@{homeModel.title,default=`Bestr Price`}"
                 android:textColor="#2B3344"
                 android:textSize="@dimen/_13sdp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/IVbestprice"
                 app:layout_constraintTop_toTopOf="@+id/IVbestprice" />
 
@@ -41,9 +45,12 @@
                 android:id="@+id/tvgaureenteed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:text="@{homeModel.description}"
                 android:textColor="#3F4E6E"
                 android:textSize="@dimen/_11sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/TVbestprice"
                 app:layout_constraintTop_toBottomOf="@+id/TVbestprice" />
 
@@ -51,7 +58,7 @@
                 android:id="@+id/IVbestprice"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="9dp"
+                android:layout_marginStart="4dp"
                 android:contentDescription="TODO"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

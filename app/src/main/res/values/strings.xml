@@ -1003,7 +1003,7 @@
     <string name="search_product_here">Search Product Here</string>
     <string name="not_connected_to_internet">Not connected to internet</string>
     <string name="_3_1263_sector_3_bhawani_chauraha_jankipuram_extn_lucknow_u_p_226021">3/1263, Sector-3, Bhawani Chauraha Jankipuram Extn, Lucknow U.P - 226021.</string>
-    <string name="working_hours_07_00am_08_30pm">Working Hours: 07:00AM - 08:30PM</string>
+    <string name="working_hours_07_00am_08_30pm">Working Hours: 12:00PM - 06:00PM</string>
     <string name="appointment_date">Appointment Date</string>
     <string name="_29_sep_2020_timing_12_00">29 Sep, 2020,Timing: 12:00</string>
     <string name="upload_file">Upload File</string>
@@ -1030,6 +1030,7 @@
     <string name="fileType">fileType</string>
     <string name="reVisitCount">reVisitCount</string>
     <string name="_250_ml">250 ml</string>
+    <string name="search_lab">Search Lab, Packages and Tests here</string>
 
 
 </resources>

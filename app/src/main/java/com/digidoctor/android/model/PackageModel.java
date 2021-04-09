@@ -18,7 +18,17 @@ public class PackageModel {
     String description;
     String testDetails;
     String pathologyName;
+    String appointmentDate;
+    String labAddress;
 
+
+    public String getLabAddress() {
+        return labAddress;
+    }
+
+    public String getAppointmentDate() {
+        return appointmentDate;
+    }
 
     public String getPathologyName() {
         return pathologyName;
@@ -171,6 +181,7 @@ public class PackageModel {
 
     public static class TestDetails {
         String testName;
+
         public String getTestName() {
             return testName;
         }

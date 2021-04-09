@@ -38,6 +38,24 @@ public class CustomLoadImage {
 
     }
 
+    @BindingAdapter("android:loadCustomLabImage")
+    public static void loadLabImage(ImageView imageView, String imagePath) {
+        if (null != imagePath && !imagePath.isEmpty()) {
+            try {
+                Glide.with(PatientDashboard.getInstance())
+                        .load(imagePath)
+                        .centerCrop()
+                        .placeholder(R.drawable.lab_icon)
+                        .into(imageView);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d(TAG, "loadImage: " + e.getLocalizedMessage());
+            }
+        }
+
+    }
+
     @BindingAdapter("android:loadCustomShimmerAdapter")
     public static void loadCustomShimmerAdapter(RecyclerView recView, int layout) {
         recView.setAdapter(new ShimmerAdapter(layout));

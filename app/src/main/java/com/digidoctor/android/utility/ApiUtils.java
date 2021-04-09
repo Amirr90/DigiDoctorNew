@@ -63,8 +63,10 @@ import com.digidoctor.android.model.labmodel.ApiLabResponse;
 import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.LabOrderModel;
 import com.digidoctor.android.model.labmodel.LabOrderRes;
+import com.digidoctor.android.model.labmodel.LabRes;
 import com.digidoctor.android.model.labmodel.PackageRes;
 import com.digidoctor.android.model.labmodel.PackagesRes;
+import com.digidoctor.android.model.labmodel.SearchRes;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
 import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
@@ -2281,6 +2283,51 @@ public class ApiUtils {
 
             @Override
             public void onFailure(@NotNull Call<PackageRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void getLabData(ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getLabApisRef();
+        Call<LabRes> call = iRestInterfaces.getLabData();
+        call.enqueue(new Callback<LabRes>() {
+            @Override
+            public void onResponse(@NotNull Call<LabRes> call, @NotNull Response<LabRes> response) {
+                if (response.isSuccessful() && null != response.body()) {
+                    if (response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                } else apiCallbackInterface.onError("error : " + response.code());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<LabRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void searchLabsANdPackages(ApiCallbackInterface apiCallbackInterface) {
+
+        User user = new User();
+        user.setMemberId(getPrimaryUser().getMemberId());
+        Api iRestInterfaces = URLUtils.getLabApisRef();
+        Call<SearchRes> call = iRestInterfaces.getSearchData(user);
+        call.enqueue(new Callback<SearchRes>() {
+            @Override
+            public void onResponse(@NotNull Call<SearchRes> call, @NotNull Response<SearchRes> response) {
+                if (response.isSuccessful() && null != response.body()) {
+                    if (response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                } else apiCallbackInterface.onError("error : " + response.code());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<SearchRes> call, @NotNull Throwable t) {
                 AppUtils.hideDialog();
                 apiCallbackInterface.onFailed(t);
             }

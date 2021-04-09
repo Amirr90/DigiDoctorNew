@@ -71,7 +71,7 @@ public class AppUtils {
         navModels.add(new NavModel(activity.getString(R.string.logout), R.drawable.logout));
         navModels.add(new NavModel(activity.getString(R.string.change_language), R.drawable.language_icon));
         navModels.add(new NavModel(activity.getString(R.string.share_app), R.drawable.language_icon));
-        navModels.add(new NavModel(activity.getString(R.string.symptom_tracker), R.drawable.language_icon));
+        navModels.add(new NavModel(activity.getString(R.string.symptom_tracker), R.drawable.symptom_tracker_image));
         return navModels;
     }
 

@@ -841,6 +841,20 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_lab_Home_Fragment_to_allLabsFragment"
+            app:destination="@id/allLabsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_lab_Home_Fragment_to_searchLabsAndTestFragment"
+            app:destination="@id/searchLabsAndTestFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/health_Checkup_Categories_Fragment"
@@ -883,7 +897,15 @@
         android:id="@+id/fragmentCartListLab"
         android:name="com.digidoctor.android.view.fragments.Lab.FragmentCartListLab"
         android:label="@string/cart"
-        tools:layout="@layout/fragment_cart_list_lab" />
+        tools:layout="@layout/fragment_cart_list_lab" >
+        <action
+            android:id="@+id/action_fragmentCartListLab_to_allLabsFragment"
+            app:destination="@id/allLabsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
     <fragment
         tools:layout="@layout/test_packages_fragment"
         android:id="@+id/test_Package_Fragment"
@@ -924,5 +946,20 @@
         android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.SymptomTrackerFragment"
         android:label="@string/symptom_tracker"
         tools:layout="@layout/fragment_symptom_tracker" />
+    <fragment
+        android:id="@+id/hospitalhomefragment"
+        android:name="com.digidoctor.android.view.fragments.hospitalHomeFragment"
+        android:label="fragment_hospitalhomefragment"
+        tools:layout="@layout/fragment_hospitalhomefragment" />
+    <fragment
+        android:id="@+id/allLabsFragment"
+        android:name="com.digidoctor.android.AllLabsFragment"
+        android:label="Labs"
+        tools:layout="@layout/fragment_all_labs" />
+    <fragment
+        android:id="@+id/searchLabsAndTestFragment"
+        android:name="com.digidoctor.android.SearchLabsAndTestFragment"
+        android:label="fragment_search_labs_and_test"
+        tools:layout="@layout/fragment_search_labs_and_test" />
 
 </navigation>
