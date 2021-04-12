@@ -2378,6 +2378,7 @@ public class ApiUtils {
             SymptomsModel symptomsModel = new SymptomsModel();
             symptomsModel.setMemberId(memberId);
             symptomsModel.setProblemName(toString);
+
             Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
             Call<SubmitProblemRes> problemResCall = iRestInterfaces.updatePatientSymptomNotification(symptomsModel);
 

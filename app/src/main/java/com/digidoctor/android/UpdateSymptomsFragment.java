@@ -105,12 +105,12 @@ public class UpdateSymptomsFragment extends Fragment {
                             builder.append(problemsContain.get(a) + ",");
                         }
 
-                        AppUtils.showRequestDialog(requireActivity());
+                        //AppUtils.showRequestDialog(requireActivity());
                         ApiUtils.submitSymptomsRes(builder.toString(), memberId, new ApiCallbackInterface() {
                             @Override
                             public void onSuccess(List<?> o) {
 
-                                hideDialog();
+                                hideDialog();  hideDialog();
                                 Toast.makeText(requireActivity(), "Submitted successfully !!", Toast.LENGTH_SHORT).show();
                                 navController.navigateUp();
                             }
