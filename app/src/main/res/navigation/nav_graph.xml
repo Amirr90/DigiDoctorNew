@@ -945,7 +945,15 @@
         android:id="@+id/symptomTrackerFragment"
         android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.SymptomTrackerFragment"
         android:label="@string/symptom_tracker"
-        tools:layout="@layout/fragment_symptom_tracker" />
+        tools:layout="@layout/fragment_symptom_tracker" >
+        <action
+            android:id="@+id/action_symptomTrackerFragment_to_updateSymptomsFragment"
+            app:destination="@id/updateSymptomsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/hospitalhomefragment"
         android:name="com.digidoctor.android.view.fragments.hospitalHomeFragment"
@@ -961,5 +969,10 @@
         android:name="com.digidoctor.android.SearchLabsAndTestFragment"
         android:label="fragment_search_labs_and_test"
         tools:layout="@layout/fragment_search_labs_and_test" />
+    <fragment
+        android:id="@+id/updateSymptomsFragment"
+        android:name="com.digidoctor.android.UpdateSymptomsFragment"
+        android:label="Update Symptoms"
+        tools:layout="@layout/fragment_update_symptoms" />
 
 </navigation>

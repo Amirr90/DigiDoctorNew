@@ -1,9 +1,12 @@
 package com.digidoctor.android.utility;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.Api;
@@ -49,8 +52,11 @@ import com.digidoctor.android.model.ResponseModel;
 import com.digidoctor.android.model.SaveMultipleFileRes;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SpecialityRes;
+import com.digidoctor.android.model.SubmitProblemRes;
 import com.digidoctor.android.model.SymptomModel;
+import com.digidoctor.android.model.SymptomsModel;
 import com.digidoctor.android.model.SymptomsRes;
+import com.digidoctor.android.model.SymptomsRes2;
 import com.digidoctor.android.model.TransactionModel;
 import com.digidoctor.android.model.UploadPresDataModel;
 import com.digidoctor.android.model.User;
@@ -91,6 +97,7 @@ import com.digidoctor.android.model.pharmacyModel.ProductModel;
 import com.digidoctor.android.model.pharmacyModel.getaddressModel;
 import com.digidoctor.android.model.pharmacyModel.getfilltervarentmodel;
 import com.digidoctor.android.model.pharmacyModel.shopbycategoryRes;
+import com.digidoctor.android.repositories.PatientRepo;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
 import org.jetbrains.annotations.NotNull;
@@ -2333,4 +2340,73 @@ public class ApiUtils {
             }
         });
     }
+
+    public static void getSymptomsNotification(String memberId, final PatientRepo.SymptomsNotificationInterface notificationInterface) {
+        try {
+            SymptomsModel symptomModel = new SymptomsModel();
+            symptomModel.setMemberId(memberId);
+            Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+            final Call<SymptomsRes2> resCall = iRestInterfaces.getPatientSymptomNotification(symptomModel);
+            resCall.enqueue(new Callback<SymptomsRes2>() {
+                @Override
+                public void onResponse(@NotNull Call<SymptomsRes2> call, @NotNull Response<SymptomsRes2> response) {
+
+                    if (response.code() == 200) {
+                        if (response.body().getResponseCode() == 1) {
+                            notificationInterface.onResponseSuccess(response.body().getResponseValue());
+                        } else
+                            Toast.makeText(App.context, response.body().getResponseMessage(), Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(App.context, response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<SymptomsRes2> call, @NotNull Throwable t) {
+
+                    Toast.makeText(App.context, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void submitSymptomsRes(String toString, String memberId, ApiCallbackInterface apiCallbackInterface) {
+        try {
+
+            SymptomsModel symptomsModel = new SymptomsModel();
+            symptomsModel.setMemberId(memberId);
+            symptomsModel.setProblemName(toString);
+            Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+            Call<SubmitProblemRes> problemResCall = iRestInterfaces.updatePatientSymptomNotification(symptomsModel);
+
+            problemResCall.enqueue(new Callback<SubmitProblemRes>() {
+                @Override
+                public void onResponse(@NotNull Call<SubmitProblemRes> call, @NotNull Response<SubmitProblemRes> response) {
+                    if (response.code() == 200) {
+                        if (response.body().getResponseCode() == 1) {
+                            List<String> strings = new ArrayList<>();
+                            strings.add("added");
+                            apiCallbackInterface.onSuccess(strings);
+                        } else
+                            apiCallbackInterface.onError("" + response.body().getResponseCode());
+                    } else
+                        apiCallbackInterface.onError("" + response.errorBody());
+
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<SubmitProblemRes> call, @NotNull Throwable t) {
+
+                    apiCallbackInterface.onFailed(t);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

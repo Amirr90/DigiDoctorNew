@@ -42,8 +42,11 @@ import com.digidoctor.android.model.ResponseModel;
 import com.digidoctor.android.model.SaveMultipleFileRes;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SpecialityRes;
+import com.digidoctor.android.model.SubmitProblemRes;
 import com.digidoctor.android.model.SymptomModel;
+import com.digidoctor.android.model.SymptomsModel;
 import com.digidoctor.android.model.SymptomsRes;
+import com.digidoctor.android.model.SymptomsRes2;
 import com.digidoctor.android.model.TransactionModel;
 import com.digidoctor.android.model.UploadPresDataModel;
 import com.digidoctor.android.model.User;
@@ -453,8 +456,15 @@ public interface Api {
     @POST("getAllLabs")
     Call<LabRes> getLabData();
 
-    @POST("    searchPackageAndTest")
+    @POST("searchPackageAndTest")
     Call<SearchRes> getSearchData(@Body User user);
+
+    @POST("getPatientSymptomNotification")
+    Call<SymptomsRes2> getPatientSymptomNotification(@Body SymptomsModel symptomsModel);
+
+
+    @POST("updatePatientSymptomNotification")
+    Call<SubmitProblemRes> updatePatientSymptomNotification(@Body SymptomsModel symptomsModel);
 }
 
 

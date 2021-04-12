@@ -26,6 +26,7 @@ import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
+import com.digidoctor.android.model.patientModel.SymptomsNotificationModel;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.Response;
 import com.digidoctor.android.view.activity.PatientDashboard;
@@ -61,6 +62,9 @@ public class PatientRepo {
     public MutableLiveData<List<AppointmentDetailsRes.Appointments>> appointmentMutableLivedetails;
 
     public MutableLiveData<List<ChatModel>> chatMutableLiveData;
+
+    public MutableLiveData<List<SymptomsNotificationModel>> symptomsNotificationModelMutableLiveData;
+
 
 
     //Lab member Variable
@@ -563,6 +567,29 @@ public class PatientRepo {
         });
 
 
+    }
+
+    public LiveData<List<SymptomsNotificationModel>> getSymptomsNotificationData( String memberId) {
+        if (symptomsNotificationModelMutableLiveData == null)
+            symptomsNotificationModelMutableLiveData = new MutableLiveData<>();
+        loadNotificationData(memberId);
+
+        return symptomsNotificationModelMutableLiveData;
+    }
+
+    private void loadNotificationData(String memberId) {
+
+
+        ApiUtils.getSymptomsNotification(memberId, symptomsNotificationModelsList -> {
+
+            if (symptomsNotificationModelMutableLiveData == null)
+                symptomsNotificationModelMutableLiveData = new MutableLiveData<>();
+            symptomsNotificationModelMutableLiveData.setValue(symptomsNotificationModelsList);
+        });
+    }
+
+    public interface SymptomsNotificationInterface {
+        void onResponseSuccess(List<SymptomsNotificationModel> symptomsNotificationModelsList);
     }
 }
 

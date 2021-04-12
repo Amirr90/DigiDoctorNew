@@ -1281,4 +1281,8 @@
     <string name="reVisitCount">reVisitCount</string>
     <string name="_250_ml">250 ml</string>
     <string name="search_lab">Search_lab</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="no_suggestion_found">No suggestion found !!</string>
+    <string name="problem_not_selected">Problem not selected !!</string>
 </resources>

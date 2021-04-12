@@ -201,6 +201,16 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 searchItem.setVisible(destination.getId() == R.id.onlinePharmacyFragment);
             if (null != cartItem)
                 cartItem.setVisible(destination.getId() != R.id.cart_Details_Fragment);
+
+            if (null != searchItem && null != cartItem && null != favouriteItem) {
+                switch (destination.getId()) {
+                    case R.id.updateSymptomsFragment:
+                        searchItem.setVisible(false);
+                        cartItem.setVisible(false);
+                        favouriteItem.setVisible(false);
+
+                }
+            }
         });
 
         if (null != getIntent().getStringExtra("twillioAccessToken")) {

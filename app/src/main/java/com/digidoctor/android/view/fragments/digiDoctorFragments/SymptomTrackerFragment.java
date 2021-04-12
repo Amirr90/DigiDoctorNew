@@ -27,6 +27,7 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -49,7 +50,9 @@ import com.digidoctor.android.model.patientModel.GetAttributeListModel;
 import com.digidoctor.android.model.patientModel.GetAttributeListResp;
 import com.digidoctor.android.model.patientModel.GetProblemsWithIconModel;
 import com.digidoctor.android.model.patientModel.GetProblemsWithIconRes;
+import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.URLUtils;
+import com.digidoctor.android.viewHolder.PatientViewModel;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -87,6 +90,8 @@ public class SymptomTrackerFragment extends Fragment implements View.OnClickList
 
     private Dialog dialog;
 
+    PatientViewModel viewModel;
+
     private String problemDate = "";
 
     private List<GetAttributeListDataResp> getAttributeListDataRespList = new ArrayList<>();
@@ -117,8 +122,22 @@ public class SymptomTrackerFragment extends Fragment implements View.OnClickList
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+
+        checkForSymptoms();
         init();
         setListeners();
+    }
+
+    private void checkForSymptoms() {
+
+        String memberId = String.valueOf(getUserForBooking(requireActivity()).getMemberId());
+        viewModel = new ViewModelProvider(this).get(PatientViewModel.class);
+        viewModel.getSymptomsNotificationData(memberId).observe(getViewLifecycleOwner(), symptomsNotificationModels -> {
+            if (null != symptomsNotificationModels && !symptomsNotificationModels.isEmpty()) {
+                navController.navigate(R.id.action_symptomTrackerFragment_to_updateSymptomsFragment);
+            }
+        });
+
     }
 
 
