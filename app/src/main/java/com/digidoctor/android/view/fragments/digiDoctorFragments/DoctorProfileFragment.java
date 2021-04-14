@@ -51,6 +51,8 @@ public class DoctorProfileFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
         if (getArguments() != null) {
+
+
             Gson gson = new Gson();
             doctorModel = gson.fromJson(getArguments().getString("docModel"), DoctorModel.class);
 
@@ -101,5 +103,7 @@ public class DoctorProfileFragment extends Fragment {
         }
 
     }
+
+    
 
 }

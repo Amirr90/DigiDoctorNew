@@ -2,6 +2,8 @@ package com.digidoctor.android;
 
 import android.os.Bundle;
 
+import android.widget.Filter;
+import android.widget.Filterable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -114,5 +116,7 @@ public class SearchLabsAndTestFragment extends Fragment {
                 this.binding = binding;
             }
         }
+
+
     }
 }

@@ -92,6 +92,37 @@ public class NewDashboardUtils {
         return list;
     }
 
+    public static ArrayList<HashMap<String, String>> getNextWeekDaysForAddSymptoms() {
+//        SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd-MMM-yyyy");
+
+        ArrayList<HashMap<String, String>> list = new ArrayList<>();
+
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd", Locale.getDefault());
+        SimpleDateFormat sdfDay = new SimpleDateFormat("EEE", Locale.getDefault());
+        SimpleDateFormat sdfDateSend = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+
+        for (int i = 0; i < 7; i++) {
+            hashMap = new HashMap<>();
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DATE, (-i));
+            String date = sdfDate.format(calendar.getTime());
+            String day = sdfDay.format(calendar.getTime());
+            String dateSend = sdfDateSend.format(calendar.getTime());
+
+            hashMap.put("date", date);
+            hashMap.put("day", day);
+            hashMap.put("dateSend", dateSend);
+
+            list.add(hashMap);
+
+        }
+
+        return list;
+    }
+
     public static ArrayList<HashMap<String, String>> getNextWeekDaysForReschedule(String startDate) {
 
         Log.d("TAG", "getNextWeekDaysForReschedule: " + startDate);
@@ -102,6 +133,7 @@ public class NewDashboardUtils {
         SimpleDateFormat sdfDay = new SimpleDateFormat("EEE", Locale.getDefault());
         SimpleDateFormat sdfDateSend = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
         Date date1;
+
         try {
             date1 = formatter1.parse(startDate);
             for (int i = 0; i < 7; i++) {

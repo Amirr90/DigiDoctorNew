@@ -102,6 +102,13 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"
             app:popUpTo="@id/patientDashboardFragment" />
+        <action
+            android:id="@+id/action_patientDashboardFragment_to_updateSymptomsFragment"
+            app:destination="@id/updateSymptomsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/symptomsFragment2"
@@ -975,6 +982,14 @@
         android:id="@+id/updateSymptomsFragment"
         android:name="com.digidoctor.android.UpdateSymptomsFragment"
         android:label="Update Symptoms"
-        tools:layout="@layout/fragment_update_symptoms" />
+        tools:layout="@layout/fragment_update_symptoms" >
+        <action
+            android:id="@+id/action_updateSymptomsFragment_to_symptomTrackerFragment"
+            app:destination="@id/symptomTrackerFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
 
 </navigation>

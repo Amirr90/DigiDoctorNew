@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -31,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.digidoctor.android.utility.utils.fadeIn;
 import static com.digidoctor.android.utility.utils.getUserForBooking;
@@ -92,6 +94,7 @@ public class UpdateSymptomsFragment extends Fragment {
 
         setSpinnerData();
 
+        notificationBinding.setProblem(String.valueOf(counter));
         notificationBinding.btnNext.setOnClickListener(view12 -> {
             if (submitStatus) {
                 // TODO: 12-10-2020 upload Problem feedback data
@@ -110,7 +113,8 @@ public class UpdateSymptomsFragment extends Fragment {
                             @Override
                             public void onSuccess(List<?> o) {
 
-                                hideDialog();  hideDialog();
+                                hideDialog();
+                                hideDialog();
                                 Toast.makeText(requireActivity(), "Submitted successfully !!", Toast.LENGTH_SHORT).show();
                                 navController.navigateUp();
                             }
@@ -145,6 +149,7 @@ public class UpdateSymptomsFragment extends Fragment {
 
         });
 
+        notificationBinding.tvAddMoreSymptoms.setOnClickListener(v -> navController.navigate(R.id.action_updateSymptomsFragment_to_symptomTrackerFragment));
         notificationBinding.btnPrevious.setOnClickListener(view13 -> {
             try {
                 ProblemPosition = ProblemPosition - 1;
@@ -175,11 +180,17 @@ public class UpdateSymptomsFragment extends Fragment {
             notificationBinding.cvYes.setChecked(!notificationBinding.cvYes.isChecked());
             notificationBinding.cvNo.setChecked(false);
 
+            if (problemsContain == null)
+                problemsContain = new ArrayList<>();
+
+            if (problemsContain.contains("" + symptomsNotificationModelList.get(ProblemPosition).getProblemId()))
+                problemsContain.remove("" + symptomsNotificationModelList.get(ProblemPosition).getProblemId());
 
         });
 
 
-        notificationBinding.btnGotoDashboard.setOnClickListener(view1 -> navController.navigateUp());
+        notificationBinding.btnGotoDashboard.setOnClickListener(view1 -> navController.navigate(R.id.action_updateSymptomsFragment_to_symptomTrackerFragment))
+        ;
     }
 
     private void getNotificationData(String memberId) {
@@ -267,5 +278,11 @@ public class UpdateSymptomsFragment extends Fragment {
     public void hideDialog() {
         if (dialog != null)
             dialog.dismiss();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 }

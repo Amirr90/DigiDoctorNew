@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -18,12 +17,10 @@ import android.view.ViewGroup;
 
 import com.digidoctor.android.adapters.labadapter.ViewAllLabAdapter;
 import com.digidoctor.android.databinding.FragmentAllLabsBinding;
-import com.digidoctor.android.model.LabModel;
 import com.digidoctor.android.viewHolder.LabViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Objects;
 
 

@@ -38,10 +38,26 @@
                 tools:context=".view.activity_view.SymptomsNotification">
 
 
+                <TextView
+                    android:id="@+id/tvAddMoreSymptoms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:drawableEnd="@drawable/ic_baseline_add_24"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:gravity="right"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/add_more_symptoms"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/rlQuestion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvAddMoreSymptoms"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginRight="@dimen/_5sdp"
@@ -75,10 +91,10 @@
                                     android:id="@+id/tv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="problem number "
+                                    android:text="@string/problem_number"
                                     android:textColor="@android:color/white"
                                     android:textSize="@dimen/_20sdp"
-                                    android:visibility="gone" />
+                                    android:visibility="visible" />
 
                                 <TextView
                                     android:id="@+id/tvProblemCounter"
@@ -241,7 +257,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:padding="@dimen/_10sdp"
-                    android:text="@string/no_suggestion_found"
+                    android:text="@string/no_symptoms_found"
                     android:textSize="@dimen/_18sdp" />
 
                 <Button
@@ -253,7 +269,7 @@
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:background="@drawable/ripple_effect"
-                    android:text="@string/goto_dashboard"
+                    android:text="@string/add_more_symptoms"
                     android:textColor="@android:color/white" />
             </RelativeLayout>
 

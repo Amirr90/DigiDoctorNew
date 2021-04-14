@@ -75,6 +75,7 @@ import static com.digidoctor.android.utility.AppUtils.capitalizeFirstLetter;
 import static com.digidoctor.android.utility.AppUtils.parseDate;
 import static com.digidoctor.android.utility.AppUtils.showToastSort;
 import static com.digidoctor.android.utility.NewDashboardUtils.getNextWeekDays;
+import static com.digidoctor.android.utility.NewDashboardUtils.getNextWeekDaysForAddSymptoms;
 import static com.digidoctor.android.utility.NewDashboardUtils.isNetworkConnected;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.getUserForBooking;
@@ -123,23 +124,10 @@ public class SymptomTrackerFragment extends Fragment implements View.OnClickList
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
-        checkForSymptoms();
+
         init();
         setListeners();
     }
-
-    private void checkForSymptoms() {
-
-        String memberId = String.valueOf(getUserForBooking(requireActivity()).getMemberId());
-        viewModel = new ViewModelProvider(this).get(PatientViewModel.class);
-        viewModel.getSymptomsNotificationData(memberId).observe(getViewLifecycleOwner(), symptomsNotificationModels -> {
-            if (null != symptomsNotificationModels && !symptomsNotificationModels.isEmpty()) {
-                navController.navigate(R.id.action_symptomTrackerFragment_to_updateSymptomsFragment);
-            }
-        });
-
-    }
-
 
     private void init() {
 
@@ -149,7 +137,7 @@ public class SymptomTrackerFragment extends Fragment implements View.OnClickList
         hour = c.get(Calendar.HOUR_OF_DAY);
         minutes = c.get(Calendar.MINUTE);
         ArrayList<HashMap<String, String>> daysList = new ArrayList<>();
-        daysList.addAll(getNextWeekDays());
+        daysList.addAll(getNextWeekDaysForAddSymptoms());
 
         jsonArraySuggestedProblemProvable = new JSONArray();
 
