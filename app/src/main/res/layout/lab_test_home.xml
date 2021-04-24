@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F2F6FE"
-        tools:context=".view.fragments.Lab.Lab_Home_Fragment">
+        tools:context=".view.fragments.lab.Lab_Home_Fragment">
 
 
         <ScrollView
@@ -27,7 +27,7 @@
                 android:visibility="visible">
 
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/searchbarlayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -41,13 +41,49 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:text="@string/search_lab"
-                        android:id="@+id/editTextTextSearchSpeciality"
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:id="@+id/ivBack"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="12dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+
+                    <ImageView
+                        android:id="@+id/ivSearchLabIcon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView76"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_search" />
+
+                    <ImageView
+                        android:id="@+id/imageView76"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_toEndOf="@+id/editTextTextSearchSpeciality"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_cart" />
+
+                    <TextView
+                        android:id="@+id/editTextTextSearchSpeciality"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
                         android:background="@drawable/round_for_search"
                         android:backgroundTint="@android:color/white"
                         android:drawableEnd="@drawable/magnifier"
@@ -58,9 +94,30 @@
                         android:paddingRight="20dp"
                         android:paddingBottom="10dp"
                         android:singleLine="true"
+                        android:text="@string/search_lab"
                         android:textColorHint="#A2B3B8"
-                        android:textSize="14sp" />
-                </RelativeLayout>
+                        android:textSize="14sp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView76"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView193"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Lab Dashboard"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivBack"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.6" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recBannerSlider"

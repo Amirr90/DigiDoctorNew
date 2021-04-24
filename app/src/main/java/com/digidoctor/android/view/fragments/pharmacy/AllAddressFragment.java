@@ -47,7 +47,7 @@ public class AllAddressFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         navController = Navigation.findNavController(view);
 
 
@@ -66,7 +66,6 @@ public class AllAddressFragment extends Fragment {
     }
 
     public void getaddress() {
-
         ApiUtils.getadddetails(requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
@@ -101,8 +100,6 @@ public class AllAddressFragment extends Fragment {
 
             }
         });
-
-
     }
 
     @Override
@@ -110,6 +107,6 @@ public class AllAddressFragment extends Fragment {
         super.onResume();
         AppUtils.hideDialog();
         getaddress();
-        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 }

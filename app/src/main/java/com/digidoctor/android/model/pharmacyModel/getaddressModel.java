@@ -21,8 +21,6 @@ public class getaddressModel {
 
 
     public static class getaddressDetails {
-
-
         String memberId;
         String name;
         String mobileNo;

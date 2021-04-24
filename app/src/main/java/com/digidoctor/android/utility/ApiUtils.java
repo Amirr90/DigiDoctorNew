@@ -1,7 +1,6 @@
 package com.digidoctor.android.utility;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,6 +8,7 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentActivity;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.adapters.labadapter.AddressRes;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.CartInterface;
@@ -70,6 +70,8 @@ import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.LabOrderModel;
 import com.digidoctor.android.model.labmodel.LabOrderRes;
 import com.digidoctor.android.model.labmodel.LabRes;
+import com.digidoctor.android.model.labmodel.LabSlotModel;
+import com.digidoctor.android.model.labmodel.LabSlotsRes;
 import com.digidoctor.android.model.labmodel.PackageRes;
 import com.digidoctor.android.model.labmodel.PackagesRes;
 import com.digidoctor.android.model.labmodel.SearchRes;
@@ -603,11 +605,8 @@ public class ApiUtils {
 
     @EverythingIsNonNull
     public static void getPatientMedicationDetails(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
-        if (PatientDashboard.getInstance() != null)
-            AppUtils.showRequestDialog(activity);
 
         Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
-
         GetPatientMedicationMainModel model = new GetPatientMedicationMainModel();
         User user = getPrimaryUser(activity);
         model.setMemberId(String.valueOf(user.getId()));
@@ -661,6 +660,8 @@ public class ApiUtils {
             transactionModel.setAppointTime((String) map.get(APPOINTMENT_TIME));
             transactionModel.setServiceProviderDetailsID((String) map.get(KEY_DOC_ID));
             transactionModel.setIsEraUser((String) map.get(KEY_IS_ERA_USER));
+            if (null != map.get("transactionType"))
+                transactionModel.setTransactionType((String) map.get("transactionType"));
 
             AppUtils.showRequestDialog(activity);
             Log.d("TAG", "checkTimeSlotAvailability: " + map.toString());
@@ -2410,4 +2411,53 @@ public class ApiUtils {
     }
 
 
+    public static void getAllAddress(FragmentActivity activity, ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        PharmacyModel pharmacyModel = new PharmacyModel();
+        pharmacyModel.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
+
+        Call<AddressRes> call = iRestInterfaces.getadd2(pharmacyModel);
+        call.enqueue(new Callback<AddressRes>() {
+            @Override
+            public void onResponse(@NotNull Call<AddressRes> call, @NotNull Response<AddressRes> response) {
+                if (response.isSuccessful() && response.body().getResponseCode() == 1) {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    if (activity != null)
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                } else {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<AddressRes> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+            }
+        });
+
+
+    }
+
+    public static void getLabTimeSlots(LabSlotModel model, ApiCallbackInterface apiCallbackInterface) {
+
+        Api iRestInterfaces = URLUtils.getLabApisRef();
+        Call<LabSlotsRes> call = iRestInterfaces.getLabTimeSlots(model);
+        call.enqueue(new Callback<LabSlotsRes>() {
+            @Override
+            public void onResponse(@NotNull Call<LabSlotsRes> call, @NotNull Response<LabSlotsRes> response) {
+                if (response.isSuccessful() && null != response.body()) {
+                    if (response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                } else apiCallbackInterface.onError("error : " + response.code());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<LabSlotsRes> call, @NotNull Throwable t) {
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
 }

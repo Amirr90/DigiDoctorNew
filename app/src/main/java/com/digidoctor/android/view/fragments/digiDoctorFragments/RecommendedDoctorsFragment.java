@@ -88,7 +88,6 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
         popularDoctorsAdapter = new PopularDoctorsAdapter(this, requireActivity());
         recommendedDoctorsBinding.recommendedRec.setAdapter(doctorsAdapter);
         recommendedDoctorsBinding.popularRec.setAdapter(popularDoctorsAdapter);
-        recommendedDoctorsBinding.popularRec.setAdapter(new ShimmerAdapter(R.layout.popular_doctor_shimmer_view));
 
         map.put(KEY_SYMPTOM_ID, symptomID);
         map.put(KEY_DOC_NAME, null);
@@ -118,6 +117,11 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
             List<DoctorModel> recDocList = doctorModelRes.get(0).getRecomendedDoctor();
             List<DoctorModel> popDocList = doctorModelRes.get(0).getPopularDoctor();
 
+
+            recommendedDoctorsBinding.shimmerHOmeScreen2.setVisibility(View.GONE);
+            recommendedDoctorsBinding.shimmerHOmeScreen.setVisibility(View.GONE);
+
+
             recommendedDoctorsBinding.tvRecommendedDoc.setVisibility(recDocList.isEmpty() ? View.GONE : View.VISIBLE);
             recommendedDoctorsBinding.tvPopularDoc.setVisibility(popDocList.isEmpty() ? View.GONE : View.VISIBLE);
 
@@ -125,8 +129,11 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
             recommendedDoctorsBinding.rlNoDocFound2.setVisibility(recDocList.isEmpty() && popDocList.isEmpty() ? View.VISIBLE : View.GONE);
             recommendedDoctorsBinding.llViewHolder.setVisibility(recDocList.isEmpty() && popDocList.isEmpty() ? View.GONE : View.VISIBLE);
 
+
             doctorsAdapter.submitList(recDocList);
             popularDoctorsAdapter.submitList(popDocList);
+
+
 
         });
     }
@@ -138,12 +145,7 @@ public class RecommendedDoctorsFragment extends Fragment implements AdapterInter
         DoctorModel doctorModel = (DoctorModel) o;
         Bundle bundle = new Bundle();
         bundle.putString("docModel", getJSONFromModel(doctorModel));
-        Log.d(TAG, "onItemClicked: " + doctorModel.toString());
-        try {
-            Log.d(TAG, "onItemClicked: " + getJSONFromModel(doctorModel));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         navController.navigate(R.id.action_recommendedDoctorsFragment_to_doctorShortProfileFragment, bundle);
     }
 

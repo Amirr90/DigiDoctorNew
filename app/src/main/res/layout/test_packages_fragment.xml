@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        tools:context=".view.fragments.Lab.Test_Package_Fragment"
+        tools:context=".view.fragments.lab.Test_Package_Fragment"
         android:layout_height="match_parent">
 
         <ScrollView

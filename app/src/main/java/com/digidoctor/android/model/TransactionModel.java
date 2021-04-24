@@ -10,6 +10,15 @@ public class TransactionModel {
     private String appointTime;
     private String serviceProviderDetailsID;
     private String isEraUser;
+    private String transactionType;
+
+    public String getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(String transactionType) {
+        this.transactionType = transactionType;
+    }
 
     public String getPaymentAmount() {
         return paymentAmount;

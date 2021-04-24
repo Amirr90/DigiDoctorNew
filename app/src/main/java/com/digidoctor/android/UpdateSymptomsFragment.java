@@ -94,7 +94,7 @@ public class UpdateSymptomsFragment extends Fragment {
 
         setSpinnerData();
 
-        notificationBinding.setProblem(String.valueOf(counter));
+
         notificationBinding.btnNext.setOnClickListener(view12 -> {
             if (submitStatus) {
                 // TODO: 12-10-2020 upload Problem feedback data
@@ -112,8 +112,6 @@ public class UpdateSymptomsFragment extends Fragment {
                         ApiUtils.submitSymptomsRes(builder.toString(), memberId, new ApiCallbackInterface() {
                             @Override
                             public void onSuccess(List<?> o) {
-
-                                hideDialog();
                                 hideDialog();
                                 Toast.makeText(requireActivity(), "Submitted successfully !!", Toast.LENGTH_SHORT).show();
                                 navController.navigateUp();
@@ -149,7 +147,11 @@ public class UpdateSymptomsFragment extends Fragment {
 
         });
 
-        notificationBinding.tvAddMoreSymptoms.setOnClickListener(v -> navController.navigate(R.id.action_updateSymptomsFragment_to_symptomTrackerFragment));
+        notificationBinding.tvAddMoreSymptoms.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("memberId", memberId);
+            navController.navigate(R.id.action_updateSymptomsFragment_to_symptomTrackerFragment, bundle);
+        });
         notificationBinding.btnPrevious.setOnClickListener(view13 -> {
             try {
                 ProblemPosition = ProblemPosition - 1;
@@ -189,7 +191,11 @@ public class UpdateSymptomsFragment extends Fragment {
         });
 
 
-        notificationBinding.btnGotoDashboard.setOnClickListener(view1 -> navController.navigate(R.id.action_updateSymptomsFragment_to_symptomTrackerFragment))
+        notificationBinding.btnGotoDashboard.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("memberId", memberId);
+            navController.navigate(R.id.action_updateSymptomsFragment_to_symptomTrackerFragment, bundle);
+        })
         ;
     }
 
@@ -201,8 +207,13 @@ public class UpdateSymptomsFragment extends Fragment {
             symptomsNotificationModelList = symptomsNotificationModels;
             problemsContain = new ArrayList<>();
             if (symptomsNotificationModelList != null && !symptomsNotificationModelList.isEmpty()) {
+                counter = 1;
+                notificationBinding.setProblem(String.valueOf(counter));
+                problemsContain.clear();
+                ProblemPosition = 0;
                 setProblem(ProblemPosition);
             }
+
         });
     }
 
@@ -233,8 +244,7 @@ public class UpdateSymptomsFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 memberId = memberIds.get(i);
-                getNotificationData(memberIds.get(i));
-
+                getNotificationData(memberId);
 
             }
 
@@ -248,6 +258,7 @@ public class UpdateSymptomsFragment extends Fragment {
     }
 
     private void setProblem(int problemPosition) {
+
         notificationBinding.cvYes.setChecked(false);
         notificationBinding.cvNo.setChecked(false);
         notificationBinding.rlQuestion.setAnimation(fadeIn(requireActivity()));

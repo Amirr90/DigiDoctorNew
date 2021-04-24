@@ -28,6 +28,7 @@ import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
 import com.digidoctor.android.model.patientModel.SymptomsNotificationModel;
 import com.digidoctor.android.utility.ApiUtils;
+import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.Response;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
@@ -64,7 +65,6 @@ public class PatientRepo {
     public MutableLiveData<List<ChatModel>> chatMutableLiveData;
 
     public MutableLiveData<List<SymptomsNotificationModel>> symptomsNotificationModelMutableLiveData;
-
 
 
     //Lab member Variable
@@ -273,9 +273,11 @@ public class PatientRepo {
 
     private void loadPrescriptionData(final Activity activity) {
 
+        AppUtils.showRequestDialog(activity);
         getPatientMedicationDetails(activity, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
+                AppUtils.hideDialog();
                 List<GetPatientMedicationMainModel> patientMedicationMainModels = (List<GetPatientMedicationMainModel>) o;
                 if (patientMedicationMainModels != null) {
                     prescriptionModelMutableLiveData.setValue(patientMedicationMainModels);
@@ -284,6 +286,7 @@ public class PatientRepo {
 
             @Override
             public void onError(String s) {
+                AppUtils.hideDialog();
                 Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
                 try {
                     if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
@@ -298,6 +301,7 @@ public class PatientRepo {
 
             @Override
             public void onFailed(Throwable throwable) {
+                AppUtils.hideDialog();
                 Toast.makeText(activity, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -530,14 +534,14 @@ public class PatientRepo {
     public LiveData<LabDashBoardmodel> getLabDashboardModel(String lat, String lng) {
         if (labDashboardModelMutableLiveData == null) {
             labDashboardModelMutableLiveData = new MutableLiveData<>();
-
-            Dashboard dashboard = new Dashboard();
-            dashboard.setLat(lat);
-            dashboard.setLat(lng);
-            dashboard.setMemberId(String.valueOf(getPrimaryUser(PatientDashboard.getInstance()).getMemberId()));
-
-            loadLabDashboardData(dashboard);
         }
+
+
+        Dashboard dashboard = new Dashboard();
+        dashboard.setLat(lat);
+        dashboard.setLat(lng);
+        dashboard.setMemberId(String.valueOf(getPrimaryUser(PatientDashboard.getInstance()).getMemberId()));
+        loadLabDashboardData(dashboard);
         return labDashboardModelMutableLiveData;
     }
 
@@ -569,7 +573,7 @@ public class PatientRepo {
 
     }
 
-    public LiveData<List<SymptomsNotificationModel>> getSymptomsNotificationData( String memberId) {
+    public LiveData<List<SymptomsNotificationModel>> getSymptomsNotificationData(String memberId) {
         if (symptomsNotificationModelMutableLiveData == null)
             symptomsNotificationModelMutableLiveData = new MutableLiveData<>();
         loadNotificationData(memberId);

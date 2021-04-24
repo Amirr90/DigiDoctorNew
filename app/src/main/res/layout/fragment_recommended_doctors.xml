@@ -125,7 +125,7 @@
 
                         <com.facebook.shimmer.ShimmerFrameLayout
                             shimmer:duration="700"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             android:id="@+id/shimmerHOmeScreen2"
                             android:layout_width="match_parent"
                             android:layout_marginTop="@dimen/_10sdp"
@@ -135,7 +135,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
-
                                 <include layout="@layout/popular_doctor_shimmer_view" />
                             </LinearLayout>
 
@@ -171,7 +170,7 @@
 
                     <com.facebook.shimmer.ShimmerFrameLayout
                         shimmer:duration="700"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:id="@+id/shimmerHOmeScreen"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="@dimen/_10sdp"

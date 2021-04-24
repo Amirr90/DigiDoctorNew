@@ -3,77 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#F2F6FE"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.Lab.MyOrderListFragment">
+    android:id="@+id/home"
+    android:background="#F2F6FE"
+    tools:context=".view.fragments.lab.MyOrderListFragment">
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
 
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="13dp"
-                android:background="@drawable/tabl"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tabBackground="@drawable/tablaypurcorner"
-                app:tabIndicator="@null"
-                app:tabInlineLabel="true"
-                app:tabSelectedTextColor="@color/white"
-                app:tabTextColor="#0A586C">
-
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/Home"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:icon="@drawable/ic_baseline_home_24"
-                    android:text="Home Visit"
-                    android:textAlignment="center" />
-
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/Lab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:icon="@drawable/lab_icon"
-                    android:text="Lab Visit"
-                    android:textAlignment="center" />
-
-
-            </com.google.android.material.tabs.TabLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="13dp"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-                app:spanCount="6"
-                tools:itemCount="6"
-                tools:listitem="@layout/lab_order_list_view_layout" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

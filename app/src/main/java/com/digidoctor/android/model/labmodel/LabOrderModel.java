@@ -12,7 +12,52 @@ public class LabOrderModel {
     private String appointmentDate;
     private String appointmentTime;
     private String pathalogyId;
+    private String visitType;
 
+
+    Integer id;
+    Integer finalAmount;
+    String orderNo;
+    String pathologyName;
+    String testName;
+    String orderDate;
+    String orderStatus;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getFinalAmount() {
+        return finalAmount;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public String getPathologyName() {
+        return pathologyName;
+    }
+
+    public String getTestName() {
+        return testName;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public String getVisitType() {
+        return visitType;
+    }
+
+    public void setVisitType(String visitType) {
+        this.visitType = visitType;
+    }
 
     public String getMemberId() {
         return memberId;

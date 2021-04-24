@@ -40,4 +40,6 @@ public class GetAppointmentSlotsDataRes {
         this.slotDetails = slotDetails;
     }
 
+
+
 }

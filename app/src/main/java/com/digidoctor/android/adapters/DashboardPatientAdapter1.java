@@ -3,6 +3,7 @@ package com.digidoctor.android.adapters;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
@@ -51,12 +52,15 @@ public class DashboardPatientAdapter1 extends ListAdapter<DashboardModel1, Dashb
                 PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_specialitiesFragment2);
             else if (position == 1)
                 PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_symptomsFragment2);
-            else if (position == 2)
+           /* else if (position == 2)
                 //Toast.makeText(activity, activity.getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
                 PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_lab_Home_Fragment);
             else if (position == 3)
                 // Toast.makeText(activity, activity.getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
                 PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_onlinePharmacyFragment);
+*/
+            else
+                Toast.makeText(activity, activity.getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
 
         });
 

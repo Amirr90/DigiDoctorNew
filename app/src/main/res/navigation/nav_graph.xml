@@ -258,7 +258,7 @@
     <fragment
         android:id="@+id/doctorShortProfileFragment"
         android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.DoctorProfileFragment"
-        android:label="@string/profile"
+        android:label="Doctor Profile"
         tools:layout="@layout/fragment_doctor_short_profile">
         <action
             android:id="@+id/action_doctorShortProfileFragment_to_chooseTimeFragment2"
@@ -815,7 +815,7 @@
     </fragment>
     <fragment
         android:id="@+id/lab_Home_Fragment"
-        android:name="com.digidoctor.android.view.fragments.Lab.Lab_Home_Fragment"
+        android:name="com.digidoctor.android.view.fragments.lab.Lab_Home_Fragment"
         android:label="Lab"
         tools:layout="@layout/lab_test_home">
         <action
@@ -863,10 +863,17 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_lab_Home_Fragment_to_fragmentCartListLab2"
+            app:destination="@id/fragmentCartListLab"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/health_Checkup_Categories_Fragment"
-        android:name="com.digidoctor.android.view.fragments.Lab.Health_Checkup_Categories_Fragment"
+        android:name="com.digidoctor.android.view.fragments.lab.Health_Checkup_Categories_Fragment"
         android:label="Health Checkup Categories"
         tools:layout="@layout/health_checkup_category_lab_layout" />
     <fragment
@@ -903,12 +910,19 @@
         tools:layout="@layout/fragment_med_check" />
     <fragment
         android:id="@+id/fragmentCartListLab"
-        android:name="com.digidoctor.android.view.fragments.Lab.FragmentCartListLab"
-        android:label="@string/cart"
-        tools:layout="@layout/fragment_cart_list_lab" >
+        android:name="com.digidoctor.android.view.fragments.lab.FragmentCartListLab"
+        android:label="Lab Cart"
+        tools:layout="@layout/fragment_cart_list_lab">
         <action
             android:id="@+id/action_fragmentCartListLab_to_allLabsFragment"
             app:destination="@id/allLabsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_fragmentCartListLab_to_timeSlotForLabFragment"
+            app:destination="@id/timeSlotForLabFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
@@ -917,7 +931,7 @@
     <fragment
         tools:layout="@layout/test_packages_fragment"
         android:id="@+id/test_Package_Fragment"
-        android:name="com.digidoctor.android.view.fragments.Lab.Test_Package_Fragment"
+        android:name="com.digidoctor.android.view.fragments.lab.Test_Package_Fragment"
         android:label="@string/affordable_health_package">
         <action
             android:id="@+id/action_test_Package_Fragment_to_fragmentCartListLab"
@@ -937,7 +951,7 @@
     <fragment
         tools:layout="@layout/fragment_test_details"
         android:id="@+id/testDetailsFRagment"
-        android:name="com.digidoctor.android.view.fragments.Lab.TestDetailsFragment"
+        android:name="com.digidoctor.android.view.fragments.lab.TestDetailsFragment"
         android:label="Details">
         <argument
             android:name="packageId"
@@ -991,5 +1005,51 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
     </fragment>
+    <fragment
+        android:id="@+id/timeSlotForLabFragment"
+        android:name="com.digidoctor.android.TimeSlotForLabFragment"
+        android:label="@string/select_time"
+        tools:layout="@layout/fragment_time_slot_for_lab">
+        <action
+            android:id="@+id/action_timeSlotForLabFragment_to_addMemberFragment"
+            app:destination="@id/addMemberFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_timeSlotForLabFragment_to_fragmentReviewOrderLab"
+            app:destination="@id/fragmentReviewOrderLab"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_timeSlotForLabFragment_to_addressFragment"
+            app:destination="@id/addressFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentReviewOrderLab"
+        android:name="com.digidoctor.android.view.fragments.lab.FragmentReviewOrderLab"
+        android:label="Review Order"
+        tools:layout="@layout/fragment_review_order_lab" >
+        <action
+            android:id="@+id/action_fragmentReviewOrderLab_to_labOrdersFragment"
+            app:destination="@id/labOrdersFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@id/patientDashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/labOrdersFragment"
+        android:name="com.digidoctor.android.view.fragments.lab.LabOrdersFragment"
+        android:label="Lab Orders"
+        tools:layout="@layout/fragment_lab_orders" />
 
 </navigation>

@@ -107,7 +107,6 @@ public class AddVitalsFragment extends Fragment {
                 && vitalModel.getRandomBloodSugar().isEmpty()
                 && vitalModel.getSpo2().isEmpty()
                 && vitalModel.getRespiratoryRate().isEmpty())
-
             return false;
 
         else if (!vitalModel.getSys().isEmpty() && vitalModel.getDia().isEmpty()) {

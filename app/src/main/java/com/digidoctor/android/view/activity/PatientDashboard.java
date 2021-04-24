@@ -70,6 +70,7 @@ import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.view.fragments.digiDoctorFragments.BookAppointmentFragment.bookAppointment;
 import static com.digidoctor.android.view.fragments.digiDoctorFragments.PatientDashboardFragment.dashboard2Binding;
 import static com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment.REQUEST_ENABLE_BT;
+import static com.digidoctor.android.view.fragments.lab.FragmentReviewOrderLab.payment;
 
 public class PatientDashboard extends AppCompatActivity implements PaymentResultWithDataListener, NavigationInterface, PayUCheckoutProListener {
 
@@ -205,9 +206,26 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             if (null != searchItem && null != cartItem && null != favouriteItem) {
                 switch (destination.getId()) {
                     case R.id.updateSymptomsFragment:
-                        searchItem.setVisible(false);
-                        cartItem.setVisible(false);
-                        favouriteItem.setVisible(false);
+                    case R.id.symptomTrackerFragment:
+                    case R.id.appointmentsFragment:
+                    case R.id.appointmentDetailFragment:
+                    case R.id.symptomsFragment2:
+                    case R.id.recommendedDoctorsFragment:
+                    case R.id.doctorShortProfileFragment:
+                    case R.id.prescriptionHistoryFragment:
+                    case R.id.addPrescriptionManuallyFragment:
+                    case R.id.chooseTimeFragment2:
+                    case R.id.bookAppointmentFragment:
+                    case R.id.profileFragment:
+                    case R.id.visitFragment:
+                    case R.id.fragmentCartListLab:
+                    case R.id.testDetailsFRagment:
+                        hideAllItem();
+                        break;
+
+                    case R.id.timeSlotForLabFragment:
+                        hideFavouriteIcon();
+
 
                 }
             }
@@ -219,6 +237,18 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 showNotification();
             else Log.d(TAG, "notificationType is not 1: ");
         } else Log.d(TAG, "notification data is null: ");
+    }
+
+    private void hideFavouriteIcon() {
+        searchItem.setVisible(false);
+        cartItem.setVisible(true);
+        favouriteItem.setVisible(false);
+    }
+
+    private void hideAllItem() {
+        searchItem.setVisible(false);
+        cartItem.setVisible(false);
+        favouriteItem.setVisible(false);
     }
 
     private void showNotification() {
@@ -368,7 +398,15 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
         Log.d(TAG, "onPaymentSuccess: " + status);
 
-        bookAppointment.startBookingAppointment(paymentData.getPaymentId());
+        if (null != bookAppointment)
+            bookAppointment.startBookingAppointment(paymentData.getPaymentId());
+
+        if (null != payment)
+            try {
+                payment.paymentSuccess();
+            } catch (Exception e) {
+                payment.paymentFailed(e.getLocalizedMessage());
+            }
 
         Log.d(TAG, "onPaymentSuccessData: " + paymentData.getData());
     }
@@ -443,6 +481,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     @Override
     public void onNavigationItemClicked(int pos) {
         mainBinding.drawerLayout.close();
+
         switch (pos) {
             case 0:
                 if (user.getIsExists() == 1)
@@ -474,6 +513,11 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     navController.navigate(R.id.updateSymptomsFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
+            /*case 14:
+                if (user.getIsExists() == 1)
+                    navController.navigate(R.id.labOrdersFragment);
+                else navController.navigate(R.id.profileFragment);
+                break;*/
             case 11:
                 /* if (user.getIsExists() == 1)
                     navController.navigate(R.id.symptomTrackerFragment);

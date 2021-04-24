@@ -9,7 +9,39 @@ public class CartModel {
     String cartId;
     String memberId;
     String name;
+    String pathalogyAddress;
+    String pathologyName;
+    String price;
+    String pathalogyId;
+    String pathImage;
+
+    public String getPathalogyId() {
+        return pathalogyId;
+    }
+
+    public String getPathImage() {
+        return pathImage;
+    }
+
     List<Test> packageTestList;
+    List<CartAmountModel> cartAmount;
+
+
+    public String getPathologyName() {
+        return pathologyName;
+    }
+
+    public String getPathalogyAddress() {
+        return pathalogyAddress;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public List<CartAmountModel> getCartAmount() {
+        return cartAmount;
+    }
 
     public List<Test> getPackageTestList() {
         return packageTestList;
@@ -69,6 +101,14 @@ public class CartModel {
 
         public String getTestName() {
             return testName;
+        }
+    }
+
+    public static class CartAmountModel {
+        Integer totalAmount;
+
+        public Integer getTotalAmount() {
+            return totalAmount;
         }
     }
 }

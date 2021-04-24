@@ -56,7 +56,7 @@ public class VitalModel extends BaseObservable {
 
     @Bindable
     public String getTemperature() {
-        return temperature;
+        return null == temperature ? "" : temperature;
     }
 
     public void setTemperature(String temperature) {
@@ -66,7 +66,7 @@ public class VitalModel extends BaseObservable {
 
     @Bindable
     public String getRandomBloodSugar() {
-        return randomBloodSugar;
+        return null == randomBloodSugar ? "" : randomBloodSugar;
     }
 
     public void setRandomBloodSugar(String randomBloodSugar) {
@@ -76,7 +76,7 @@ public class VitalModel extends BaseObservable {
 
     @Bindable
     public String getSpo2() {
-        return spo2;
+        return null == spo2 ? "" : spo2;
     }
 
     public void setSpo2(String spo2) {
@@ -86,7 +86,7 @@ public class VitalModel extends BaseObservable {
 
     @Bindable
     public String getRespiratoryRate() {
-        return respiratoryRate;
+        return null == respiratoryRate ? "" : respiratoryRate;
     }
 
     public void setRespiratoryRate(String respiratoryRate) {
@@ -146,7 +146,7 @@ public class VitalModel extends BaseObservable {
 
     @Override
     public String toString() {
-        return "VitalModel{" +
+        return "{" +
                 "sys='" + sys + '\'' +
                 ", dia='" + dia + '\'' +
                 ", pulseRate='" + pulseRate + '\'' +

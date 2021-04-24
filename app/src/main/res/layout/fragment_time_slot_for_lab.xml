@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:paddingStart="13dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="13dp"
+    android:paddingBottom="16dp"
+    tools:context=".TimeSlotForLabFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView217"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Address Details"
+            android:textColor="#2B3344"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout3"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/cardView7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView217">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNoAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView75"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/labaddress"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pagerAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent" />
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView7"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:background="?attr/selectableItemBackground"
+            android:visibility="visible"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/relativeLayout3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/relativeLayout3"
+            app:layout_constraintTop_toTopOf="@+id/relativeLayout3">
+
+            <ImageView
+                android:id="@+id/imageView74"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_add_24" />
+        </androidx.cardview.widget.CardView>
+
+        <ProgressBar
+            android:id="@+id/progressBarViewPager"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/relativeLayout3"
+            app:layout_constraintEnd_toEndOf="@+id/relativeLayout3"
+            app:layout_constraintStart_toStartOf="@+id/relativeLayout3"
+            app:layout_constraintTop_toTopOf="@+id/relativeLayout3" />
+
+
+        <TextView
+            android:id="@+id/tvSelectMember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Select Member"
+            android:textColor="#2B3344"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/relativeLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout3" />
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/spinnerSelectMember"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvSelectMember"
+            app:layout_constraintTop_toBottomOf="@+id/tvSelectMember" />
+
+        <TextView
+            android:id="@+id/tvSelectTimeSlot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/select_member"
+            android:textColor="#2B3344"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/spinnerSelectMember"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerSelectMember" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/tvSelectTimeSlot"
+            tools:layout_editor_absoluteX="13dp">
+
+            <TextView
+                android:id="@+id/tvCurrentDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_10sdp"
+                android:padding="@dimen/_5sdp"
+                android:textColor="#262E3F"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:drawableLeftCompat="@drawable/ic_calendar"
+                app:drawableTint="@color/PrimaryColor" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/calRec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/calender_view" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/timingRec"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="3"
+                tools:itemCount="8"
+                tools:listitem="@layout/timing_view_secondary_lab" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -53,6 +53,7 @@ import com.digidoctor.android.model.patientModel.GetProblemsWithIconRes;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.URLUtils;
 import com.digidoctor.android.viewHolder.PatientViewModel;
+import com.google.api.LogDescriptor;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -108,8 +109,8 @@ public class SymptomTrackerFragment extends Fragment implements View.OnClickList
     private int hour = 0;
     private int minutes = 0;
 
-    String customToken = "";
     String mobileNumber;
+    String memberId;
 
 
     @Nullable
@@ -124,7 +125,11 @@ public class SymptomTrackerFragment extends Fragment implements View.OnClickList
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
+        if (null == getArguments())
+            memberId = String.valueOf(getUserForBooking(requireActivity()).getMemberId());
+        else memberId = getArguments().getString("memberId");
 
+        Log.d(TAG, "onViewCreated: "+memberId);
         init();
         setListeners();
     }
@@ -1085,7 +1090,7 @@ public class SymptomTrackerFragment extends Fragment implements View.OnClickList
 
         AddMemberProblemModel model = new AddMemberProblemModel();
         model.setUserMobileNo(mobileNumber);
-        model.setMemberId(String.valueOf(getPrimaryUser(requireActivity()).getMemberId()));
+        model.setMemberId(memberId);
         model.setProblemDate(parseDate(problemDate, "yyyy-MM-dd", "yyyy/MM/dd"));
         model.setProblemTime(time);
         model.setIsUpCovid("0");

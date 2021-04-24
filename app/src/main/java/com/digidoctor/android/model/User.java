@@ -154,7 +154,7 @@ public class User {
         this.doctorsCount = doctorsCount;
     }
 
-    int memberId;
+    Integer memberId;
 
     public Integer getMemberId() {
         return memberId;

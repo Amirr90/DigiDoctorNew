@@ -1,5 +1,6 @@
 package com.digidoctor.android.interfaces;
 
+import com.digidoctor.android.adapters.labadapter.AddressRes;
 import com.digidoctor.android.model.AddInvestigationModel;
 import com.digidoctor.android.model.AppointmentDetailsRes;
 import com.digidoctor.android.model.AppointmentModel;
@@ -60,6 +61,8 @@ import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.LabOrderModel;
 import com.digidoctor.android.model.labmodel.LabOrderRes;
 import com.digidoctor.android.model.labmodel.LabRes;
+import com.digidoctor.android.model.labmodel.LabSlotModel;
+import com.digidoctor.android.model.labmodel.LabSlotsRes;
 import com.digidoctor.android.model.labmodel.PackageRes;
 import com.digidoctor.android.model.labmodel.PackagesRes;
 import com.digidoctor.android.model.labmodel.SearchRes;
@@ -310,6 +313,10 @@ public interface Api {
     Call<getaddressModel> getadd(
             @Body PharmacyModel pharmacyModel);
 
+    @POST("getAddress")
+    Call<AddressRes> getadd2(
+            @Body PharmacyModel pharmacyModel);
+
     @POST("couponDetails")
     Call<AllCoupneModelResponse> getCoupnedetails(@Body PharmacyModel pharmacyModel);
 
@@ -465,6 +472,11 @@ public interface Api {
 
     @POST("updatePatientSymptomNotification")
     Call<SubmitProblemRes> updatePatientSymptomNotification(@Body SymptomsModel symptomsModel);
+
+    @POST("getTimeSlots")
+    Call<LabSlotsRes> getLabTimeSlots(@Body LabSlotModel model);
+
+
 }
 
 

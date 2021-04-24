@@ -7,7 +7,11 @@ public class LabOrderRes {
 
     String responseMessage;
     Integer responseCode;
-    List<LabOrderModel> responseValue;
+    List<OrderType> responseValue;
+
+    public List<OrderType> getResponseValue() {
+        return responseValue;
+    }
 
     public String getResponseMessage() {
         return responseMessage;
@@ -17,10 +21,18 @@ public class LabOrderRes {
         return responseCode;
     }
 
-    public List<LabOrderModel> getResponseValue() {
-        return responseValue;
-    }
+    public static class OrderType {
+        List<LabOrderModel> homeVisit;
+        List<LabOrderModel> labVisiit;
 
+        public List<LabOrderModel> getHomeVisit() {
+            return homeVisit;
+        }
+
+        public List<LabOrderModel> getLabVisiit() {
+            return labVisiit;
+        }
+    }
 
 }
 

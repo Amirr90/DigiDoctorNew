@@ -1037,6 +1037,7 @@
     <string name="problem_not_selected">Problem not selected !!</string>
     <string name="no_symptoms_found">No symptoms found</string>
     <string name="problem_number">Problem Number</string>
+    <string name="lab_order">Lab Orders</string>
 
 
 </resources>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="cartModel"
+            type="com.digidoctor.android.model.labmodel.CartModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+
+        <TextView
+            android:id="@+id/textView186"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:fontFamily="@font/poppins"
+            android:text="@{cartModel.name}"
+            android:textColor="#3F4E6E"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textView194"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:drawableLeft="@drawable/rupee"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@{cartModel.price}"
+            android:textColor="#2B3344"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/textView186"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView186" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

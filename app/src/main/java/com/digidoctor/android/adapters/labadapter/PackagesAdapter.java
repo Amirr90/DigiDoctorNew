@@ -41,9 +41,12 @@ public class PackagesAdapter extends ListAdapter<PackageModel, PackagesAdapter.L
         holder.binding.setPackageModel(packageModel);
         holder.binding.btnAddToCart.setOnClickListener(v -> {
             String packageId = String.valueOf(packageModel.getPackageId());
-            if (holder.binding.btnAddToCart.getText().toString().equals(utils.ADD_TO_CART))
+            if (holder.binding.btnAddToCart.getText().toString().equals(utils.ADD_TO_CART)) {
                 cart.addItemToCart("", packageId);
-            else cart.onCartItemClicked(packageId);
+                holder.binding.btnAddToCart.setText(utils.GO_TO_CART);
+            } else {
+                cart.onCartItemClicked(packageId);
+            }
 
         });
 
