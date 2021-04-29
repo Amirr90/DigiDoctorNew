@@ -1038,6 +1038,18 @@
     <string name="no_symptoms_found">No symptoms found</string>
     <string name="problem_number">Problem Number</string>
     <string name="lab_order">Lab Orders</string>
+    <string name="request_for_home_isolation">Request for Home Isolation</string>
+    <string name="enter_your_name">Enter Your Name</string>
+    <string name="select_hospital">Select Hospital</string>
+    <string name="enter_your_comorbid">Enter Your Comorbid</string>
+    <string name="enter_your_symptoms">Enter Your Symptoms</string>
+    <string name="select_package">Select Package</string>
+    <string name="enter_allergies_if_any">Enter Allergies if any</string>
+    <string name="enter_life_support_oxygen_if_using">Enter Life Support Oxygen if using(%)</string>
+    <string name="select_date_of_onset_on_symptom">Select Date of OnSet on Symptom</string>
+    <string name="request">Request</string>
+    <string name="select_covid_test_date">Select Covid Test Date</string>
+    <string name="home_isolation_request">Home Isolation Request</string>
 
 
 </resources>

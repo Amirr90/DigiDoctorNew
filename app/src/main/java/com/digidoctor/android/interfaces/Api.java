@@ -72,6 +72,9 @@ import com.digidoctor.android.model.patientModel.GetAllProblemRes;
 import com.digidoctor.android.model.patientModel.GetAllSuggestedProblemRes;
 import com.digidoctor.android.model.patientModel.GetAttributeListResp;
 import com.digidoctor.android.model.patientModel.GetProblemsWithIconRes;
+import com.digidoctor.android.model.patientModel.HomeIsolationReqModel;
+import com.digidoctor.android.model.patientModel.HospitalAndPackageResponse2;
+import com.digidoctor.android.model.patientModel.IsolationResponse;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
 import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
@@ -477,6 +480,14 @@ public interface Api {
     Call<LabSlotsRes> getLabTimeSlots(@Body LabSlotModel model);
 
 
+    @POST("getHospitalAndPackageList")
+    Call<HospitalAndPackageResponse2> loadHospitalAndPackage();
+
+    @POST("homeIsolationRequest")
+    Call<ResponseModel> sendHomeIsolationRequest(@Body HomeIsolationReqModel homeIsolationReqModel);
+
+    @POST("homeIsolationRequestList")
+    Call<IsolationResponse> getIsolationReqData(@Body User user);
 }
 
 

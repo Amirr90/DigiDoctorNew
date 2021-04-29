@@ -220,6 +220,8 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     case R.id.visitFragment:
                     case R.id.fragmentCartListLab:
                     case R.id.testDetailsFRagment:
+                    case R.id.homeIsolationFragment:
+                    case R.id.homeIsolationRequestListFragment:
                         hideAllItem();
                         break;
 
@@ -546,6 +548,11 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 showRequestDialog(this);
                 if (utils.logout(this))
                     hideDialog();
+                break;
+            case 15:
+                if (user.getIsExists() == 1)
+                    navController.navigate(R.id.homeIsolationRequestListFragment);
+                else navController.navigate(R.id.profileFragment);
                 break;
             default:
                 Toast.makeText(instance, "Coming Soon", Toast.LENGTH_SHORT).show();

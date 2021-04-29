@@ -1,0 +1,65 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="@dimen/_10sdp">
+
+
+        <RadioGroup
+            android:id="@+id/genderRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <RadioButton
+                android:id="@+id/raRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:checked="true"
+                android:fontFamily="@font/poppins"
+                android:padding="@dimen/_10sdp"
+                android:text="RA"
+                android:textSize="14sp" />
+
+
+            <RadioButton
+                android:id="@+id/otRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:fontFamily="@font/poppins"
+                android:padding="@dimen/_10sdp"
+                android:text="OT"
+                android:textSize="14sp" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/etO2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/genderRadioGroup"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="5dp"
+            android:ems="10"
+            android:hint="Type O2 value here..."
+            android:inputType="numberDecimal"
+            android:maxLength="5"
+            android:textColor="@color/TextPrimaryColor"
+            android:textColorHighlight="@color/TextSecondaryColor"
+            android:textColorHint="#CCAEACAC"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:visibility="@{otRadioButton.checked?View.VISIBLE:View.GONE}">
+
+        </EditText>
+
+    </RelativeLayout>
+</layout>

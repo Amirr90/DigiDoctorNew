@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="isolationModel"
+            type="com.digidoctor.android.model.patientModel.HomeIsolationReqModel" />
+
+        <variable
+            name="user"
+            type="com.digidoctor.android.model.User" />
+
+        <variable
+            name="vital"
+            type="com.digidoctor.android.model.VitalModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_10sdp"
+        android:orientation="vertical"
+        tools:context=".HomeIsolationFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_rectangle_2dp"
+                    android:padding="@dimen/_5sdp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawableEnd="@drawable/ic_baseline_supervised_user_circle_24"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:enabled="false"
+                        android:fontFamily="@font/poppins"
+                        android:hint="@string/enter_your_name"
+                        android:maxLength="60"
+                        android:maxLines="2"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:text="@{user.name}"
+                        android:textColor="@color/text_color"
+                        android:textColorHighlight="@color/TextSecondaryColor"
+                        android:textColorHint="#CCAEACAC"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border_rectangle_2dp"
+                    android:enabled="false"
+                    android:padding="@dimen/_5sdp"
+                    app:prefixText="+91"
+                    app:prefixTextAppearance="@color/TextSecondaryColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawableEnd="@drawable/ic_baseline_send_to_mobile_24"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:enabled="false"
+                        android:fontFamily="@font/poppins"
+                        android:hint="@string/enter_your_mobile_number"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:padding="@dimen/_10sdp"
+                        android:text="@{user.mobileNo.trim()}"
+                        android:textColor="@color/TextPrimaryColor"
+                        android:textColorHighlight="@color/TextSecondaryColor"
+                        android:textColorHint="#CCAEACAC"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvHospital"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border_rectangle_2dp"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:drawableTint="@color/colorPrimary"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center_vertical"
+                    android:hint="@string/select_hospital"
+                    android:padding="@dimen/_15sdp"
+                    android:textColor="@color/TextPrimaryColor"
+                    android:textColorHint="#CCAEACAC"
+                    android:textSize="14sp"
+                    app:drawableEndCompat="@drawable/arrow_down" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border_rectangle_2dp"
+                    android:padding="@dimen/_5sdp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins"
+                        android:hint="@string/enter_your_comorbid"
+                        android:inputType="textMultiLine"
+                        android:maxLength="60"
+                        android:maxLines="5"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:text="@={isolationModel.comorbidities}"
+                        android:textColor="@color/text_color"
+                        android:textColorHighlight="@color/TextSecondaryColor"
+                        android:textColorHint="#CCAEACAC"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border_rectangle_2dp"
+                    android:padding="@dimen/_5sdp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins"
+                        android:hint="@string/enter_your_symptoms"
+                        android:inputType="textMultiLine"
+                        android:maxLength="60"
+                        android:maxLines="5"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:text="@={isolationModel.currentProblem}"
+                        android:textColor="@color/text_color"
+                        android:textColorHighlight="@color/TextSecondaryColor"
+                        android:textColorHint="#CCAEACAC"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvSelectPackages"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border_rectangle_2dp"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center_vertical"
+                    android:hint="@string/select_package"
+                    android:maxLength="150"
+                    android:maxLines="5"
+                    android:padding="@dimen/_15sdp"
+                    android:textColor="@color/TextPrimaryColor"
+                    android:textColorHint="#CCAEACAC"
+                    android:textSize="14sp"
+                    app:drawableEndCompat="@drawable/arrow_down"
+                    app:drawableTint="@color/colorPrimary" />
+
+                <Switch
+                    android:id="@+id/covidSwitchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:padding="@dimen/_15sdp"
+                    android:text="Do You perform Covid Test?"
+                    android:textColor="@color/TextPrimaryColor"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+                <TextView
+                    android:id="@+id/tvCoronaTestDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border_rectangle_2dp"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center_vertical"
+                    android:hint="@string/select_covid_test_date"
+                    android:padding="@dimen/_15sdp"
+                    android:text="@={isolationModel.testdate}"
+                    android:textColor="@color/TextPrimaryColor"
+                    android:textColorHint="#CCAEACAC"
+                    android:textSize="14sp"
+                    android:visibility="@{covidSwitchBtn.checked?View.VISIBLE:View.GONE}"
+
+                    app:drawableEndCompat="@drawable/ic_baseline_edit_calendar_24"
+                    app:drawableTint="@color/colorPrimary" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border_rectangle_2dp"
+                    android:padding="@dimen/_5sdp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins"
+                        android:hint="@string/enter_allergies_if_any"
+                        android:maxLength="60"
+                        android:maxLines="2"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:text="@={isolationModel.allergires}"
+                        android:textColor="@color/text_color"
+                        android:textColorHighlight="@color/TextSecondaryColor"
+                        android:textColorHint="#CCAEACAC"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvLifeSupport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border_rectangle_2dp"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center_vertical"
+                    android:hint="Select Life Support"
+                    android:padding="@dimen/_15sdp"
+                    android:textColor="@color/TextPrimaryColor"
+                    android:textColorHint="#CCAEACAC"
+                    android:textSize="14sp"
+                    app:drawableEndCompat="@drawable/arrow_down"
+                    app:drawableTint="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tvDateOnSetSymptom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border_rectangle_2dp"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center_vertical"
+                    android:hint="@string/select_date_of_onset_on_symptom"
+                    android:padding="@dimen/_15sdp"
+                    android:text="@={isolationModel.onSetDate}"
+                    android:textColor="@color/TextPrimaryColor"
+                    android:textColorHint="#CCAEACAC"
+                    android:textSize="14sp"
+                    app:drawableEndCompat="@drawable/ic_baseline_edit_calendar_24" />
+
+
+                <TextView
+                    android:id="@+id/textView197"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:drawableRight="@drawable/add"
+                    android:drawablePadding="@dimen/_15sdp"
+                    android:drawableTint="@color/colorPrimary"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_10sdp"
+                    android:text="Add Vitals"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border_rectangle_2dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="14dp"
+                    android:paddingTop="17dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="17dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout2"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/round_circle"
+                            android:backgroundTint="#FFEDD4"
+                            android:orientation="horizontal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/imageView19"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:contentDescription="TODO"
+                            android:src="@drawable/bp_chart_icon"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+                            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
+
+                        <TextView
+                            android:id="@+id/textView49"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="@string/blood_pressure"
+                            android:textColor="#23384D"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
+
+                        <EditText
+                            android:id="@+id/textView53"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/border_rectangle"
+                            android:gravity="center_vertical"
+                            android:hint="@string/systolic"
+                            android:inputType="numberDecimal"
+                            android:maxLength="3"
+                            android:maxLines="1"
+                            android:paddingStart="20dp"
+                            android:text="@={vital.sys}"
+                            android:textColor="#3F4E6E"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toStartOf="@+id/textView54"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_chainStyle="packed"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+                        <EditText
+                            android:id="@+id/textView54"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginStart="4dp"
+                            android:background="@drawable/border_rectangle"
+                            android:gravity="center_vertical"
+                            android:hint="@string/diastolic"
+                            android:inputType="numberDecimal"
+                            android:maxLength="3"
+                            android:maxLines="1"
+                            android:paddingStart="20dp"
+                            android:text="@={vital.dia}"
+                            android:textColor="#3F4E6E"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView53"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/textView53"
+                            app:layout_constraintTop_toTopOf="@+id/textView53" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout3"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/round_circle"
+                            android:backgroundTint="#EAE2FF"
+                            android:orientation="horizontal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <ImageView
+                            android:id="@+id/imageView24"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:contentDescription="TODO"
+                            android:src="@drawable/pulse_rate_icon"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
+                            app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout3"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
+
+                        <TextView
+                            android:id="@+id/textView56"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="@string/pulse_rate"
+                            android:textColor="#23384D"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
+
+                        <EditText
+                            android:id="@+id/textView59"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/border_rectangle"
+                            android:gravity="center_vertical"
+                            android:hint="@string/pulse_rate_value"
+                            android:inputType="numberDecimal"
+                            android:maxLength="3"
+                            android:maxLines="1"
+                            android:paddingStart="20dp"
+                            android:text="@={vital.pulseRate}"
+                            android:textColor="#3F4E6E"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout3"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout4"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/round_circle"
+                            android:backgroundTint="#FFE4E8"
+                            android:orientation="vertical"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imageView25"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:contentDescription="TODO"
+                            android:src="@drawable/thermometer"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
+                            app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout4" />
+
+                        <TextView
+                            android:id="@+id/textView62"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="@string/temperature"
+                            android:textColor="#23384D"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout4"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout4" />
+
+                        <EditText
+
+                            android:id="@+id/textView63"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/border_rectangle"
+                            android:gravity="center_vertical"
+                            android:hint="@string/temperature_value"
+                            android:inputType="numberDecimal"
+                            android:maxLength="6"
+                            android:maxLines="1"
+                            android:paddingStart="20dp"
+                            android:text="@={vital.temperature}"
+                            android:textColor="#3F4E6E"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout6"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/round_circle"
+                            android:backgroundTint="#E5FFEF"
+                            android:orientation="vertical"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imageView31"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:contentDescription="TODO"
+                            android:src="@drawable/blood_sugar_icon"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout6"
+                            app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout6"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout6" />
+
+                        <TextView
+                            android:id="@+id/textView64"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="@string/random_blood_sugar"
+                            android:textColor="#23384D"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout6"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout6"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout6" />
+
+                        <EditText
+                            android:id="@+id/textView69"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/border_rectangle"
+                            android:gravity="center_vertical"
+                            android:hint="@string/blood_sugar_value"
+                            android:inputType="numberDecimal"
+                            android:maxLength="3"
+                            android:maxLines="1"
+                            android:paddingStart="20dp"
+                            android:text="@={vital.randomBloodSugar}"
+                            android:textColor="#3F4E6E"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout6"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout8"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/round_circle"
+                            android:backgroundTint="#E2EEFF"
+                            android:orientation="vertical"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/imageView35"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_weight="1"
+                            android:contentDescription="TODO"
+                            android:src="@drawable/spo_icon"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout8"
+                            app:layout_constraintEnd_toEndOf="@+id/linearLayout8"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout8" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="@string/spo2"
+                            android:textColor="#23384D"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout8"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout8"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout8" />
+
+                        <EditText
+                            android:id="@+id/textView73"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_rectangle"
+                            android:gravity="center_vertical"
+                            android:hint="@string/spo2_value"
+                            android:inputType="numberDecimal"
+                            android:maxLength="5"
+                            android:maxLines="1"
+                            android:paddingStart="20dp"
+                            android:text="@={vital.spo2}"
+                            android:textColor="#3F4E6E"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout8"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout9"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/round_circle"
+                            android:backgroundTint="#E3D9FF"
+                            android:orientation="vertical"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imageView37"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_weight="1"
+                            android:contentDescription="TODO"
+                            android:src="@drawable/respiratory_icon"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout9"
+                            app:layout_constraintEnd_toEndOf="@+id/linearLayout9"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout9"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout9" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="@string/respiratory_rate"
+                            android:textColor="#23384D"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout9"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout9"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout9" />
+
+                        <EditText
+                            android:id="@+id/textView75"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_rectangle"
+                            android:gravity="center_vertical"
+                            android:hint="@string/respiratory_rate_value"
+                            android:inputType="numberDecimal"
+                            android:maxLength="5"
+                            android:maxLines="1"
+                            android:paddingStart="20dp"
+                            android:text="@={vital.respiratoryRate}"
+                            android:textColor="#3F4E6E"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout9"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout9"
+                            tools:ignore="RtlSymmetry" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnRequestIsolation"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:background="@drawable/add_button"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/request"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </ScrollView>
+
+
+    </LinearLayout>
+</layout>

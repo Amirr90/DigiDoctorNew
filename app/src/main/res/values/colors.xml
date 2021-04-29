@@ -32,4 +32,7 @@
     <color name="orange">#f26522</color>
     <color name="green">#00b894</color>
 
+    <color name="green700">#66BB6A</color>
+    <color name="yellow700">#EDA537</color>
+
 </resources>

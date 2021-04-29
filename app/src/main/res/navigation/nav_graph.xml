@@ -109,6 +109,12 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_patientDashboardFragment_to_homeIsolationFragment"
+            app:destination="@id/homeIsolationFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/symptomsFragment2"
@@ -645,9 +651,9 @@
     </fragment>
     <fragment
         android:id="@+id/allCategoryFragment"
-        tools:layout="@layout/fragment_all_category"
         android:name="com.digidoctor.android.view.fragments.pharmacy.AllCategoryFragment"
-        android:label="All Category">
+        android:label="All Category"
+        tools:layout="@layout/fragment_all_category">
         <action
             android:id="@+id/action_allCategoryFragment_to_allProductsFragment"
             app:destination="@id/allProductsFragment"
@@ -691,9 +697,9 @@
     </fragment>
     <fragment
         android:id="@+id/cart_Details_Fragment"
-        tools:layout="@layout/fragment_cart_list"
         android:name="com.digidoctor.android.view.fragments.pharmacy.Cart_Details_Fragment"
-        android:label="Cart Details">
+        android:label="Cart Details"
+        tools:layout="@layout/fragment_cart_list">
         <action
             android:id="@+id/action_cart_Details_Fragment_to_orderSummaryFragment"
             app:destination="@id/orderSummaryFragment" />
@@ -709,9 +715,9 @@
     </fragment>
     <fragment
         android:id="@+id/addressFragment"
-        tools:layout="@layout/fragment_address_fragment"
         android:name="com.digidoctor.android.view.fragments.pharmacy.AddressFragment"
-        android:label="Add Address">
+        android:label="Add Address"
+        tools:layout="@layout/fragment_address_fragment">
         <action
             android:id="@+id/action_addressFragment_to_allAddressFragment"
             app:destination="@id/allAddressFragment"
@@ -720,9 +726,9 @@
     </fragment>
     <fragment
         android:id="@+id/orderSummaryFragment"
-        tools:layout="@layout/fragment_order_summary"
         android:name="com.digidoctor.android.view.fragments.pharmacy.OrderSummaryFragment"
-        android:label="Order Summary">
+        android:label="Order Summary"
+        tools:layout="@layout/fragment_order_summary">
         <action
             android:id="@+id/action_orderSummaryFragment_to_orderPLacedFRagment"
             app:destination="@id/orderPLacedFRagment"
@@ -737,9 +743,9 @@
     </fragment>
     <fragment
         android:id="@+id/allCoupneFragment"
-        tools:layout="@layout/available_coupne_view"
         android:name="com.digidoctor.android.view.fragments.pharmacy.AllCoupneFragment"
-        android:label="All Coupons">
+        android:label="All Coupons"
+        tools:layout="@layout/available_coupne_view">
         <action
             android:id="@+id/action_allCoupneFragment_to_cart_Details_Fragment"
             app:destination="@id/cart_Details_Fragment"
@@ -751,9 +757,9 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentAllWishLIstProduct"
-        tools:layout="@layout/fragment_my_wish_list"
         android:name="com.digidoctor.android.view.fragments.pharmacy.FragmentAllWishLIstProduct"
-        android:label="All WishList Products">
+        android:label="All WishList Products"
+        tools:layout="@layout/fragment_my_wish_list">
         <action
             android:id="@+id/action_fragmentAllWishLIstProduct_to_cart_Details_Fragment"
             app:destination="@id/cart_Details_Fragment" />
@@ -763,9 +769,9 @@
     </fragment>
     <fragment
         android:id="@+id/orderPLacedFRagment"
-        tools:layout="@layout/orderplacedfragment"
         android:name="com.digidoctor.android.view.fragments.pharmacy.OrderPLacedFRagment"
-        android:label="Place Order">
+        android:label="Place Order"
+        tools:layout="@layout/orderplacedfragment">
         <action
             android:id="@+id/action_orderPLacedFRagment_to_onlinePharmacyFragment"
             app:destination="@id/onlinePharmacyFragment" />
@@ -775,9 +781,9 @@
     </fragment>
     <fragment
         android:id="@+id/getPlacedOrderFragment"
-        tools:layout="@layout/order_list_view"
         android:name="com.digidoctor.android.view.fragments.pharmacy.GetPlacedOrderFragment"
-        android:label="@string/myorder">
+        android:label="@string/myorder"
+        tools:layout="@layout/order_list_view">
         <action
             android:id="@+id/action_getPlacedOrderFragment_to_orderDetailsFragment"
             app:destination="@id/orderDetailsFragment" />
@@ -798,9 +804,9 @@
     </fragment>
     <fragment
         android:id="@+id/allAddressFragment"
-        tools:layout="@layout/getalladdress"
         android:name="com.digidoctor.android.view.fragments.pharmacy.AllAddressFragment"
-        android:label=" Address">
+        android:label=" Address"
+        tools:layout="@layout/getalladdress">
         <action
             android:id="@+id/action_allAddressFragment_to_addressFragment"
             app:destination="@id/addressFragment"
@@ -877,15 +883,15 @@
         android:label="Health Checkup Categories"
         tools:layout="@layout/health_checkup_category_lab_layout" />
     <fragment
-        tools:layout="@layout/rating_and_review_view"
         android:id="@+id/allRatingAndReviewFragment"
         android:name="com.digidoctor.android.view.fragments.pharmacy.AllRatingAndReviewFragment"
-        android:label="All Rating &amp; Review" />
+        android:label="All Rating &amp; Review"
+        tools:layout="@layout/rating_and_review_view" />
     <fragment
         android:id="@+id/updateAddressFragment"
-        tools:layout="@layout/fragment_update_address"
         android:name="com.digidoctor.android.view.fragments.pharmacy.UpdateAddressFragment"
-        android:label="Update Address">
+        android:label="Update Address"
+        tools:layout="@layout/fragment_update_address">
         <action
             android:id="@+id/action_updateAddressFragment_to_addressFragment"
             app:popUpTo="@id/allAddressFragment" />
@@ -929,10 +935,10 @@
             app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
-        tools:layout="@layout/test_packages_fragment"
         android:id="@+id/test_Package_Fragment"
         android:name="com.digidoctor.android.view.fragments.lab.Test_Package_Fragment"
-        android:label="@string/affordable_health_package">
+        android:label="@string/affordable_health_package"
+        tools:layout="@layout/test_packages_fragment">
         <action
             android:id="@+id/action_test_Package_Fragment_to_fragmentCartListLab"
             app:destination="@id/fragmentCartListLab"
@@ -949,14 +955,14 @@
             app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_test_details"
         android:id="@+id/testDetailsFRagment"
         android:name="com.digidoctor.android.view.fragments.lab.TestDetailsFragment"
-        android:label="Details">
+        android:label="Details"
+        tools:layout="@layout/fragment_test_details">
         <argument
             android:name="packageId"
-            app:argType="string"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/labHealthCategoryFragment"
@@ -967,7 +973,7 @@
         android:id="@+id/symptomTrackerFragment"
         android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.SymptomTrackerFragment"
         android:label="@string/symptom_tracker"
-        tools:layout="@layout/fragment_symptom_tracker" >
+        tools:layout="@layout/fragment_symptom_tracker">
         <action
             android:id="@+id/action_symptomTrackerFragment_to_updateSymptomsFragment"
             app:destination="@id/updateSymptomsFragment"
@@ -996,7 +1002,7 @@
         android:id="@+id/updateSymptomsFragment"
         android:name="com.digidoctor.android.UpdateSymptomsFragment"
         android:label="Update Symptoms"
-        tools:layout="@layout/fragment_update_symptoms" >
+        tools:layout="@layout/fragment_update_symptoms">
         <action
             android:id="@+id/action_updateSymptomsFragment_to_symptomTrackerFragment"
             app:destination="@id/symptomTrackerFragment"
@@ -1036,7 +1042,7 @@
         android:id="@+id/fragmentReviewOrderLab"
         android:name="com.digidoctor.android.view.fragments.lab.FragmentReviewOrderLab"
         android:label="Review Order"
-        tools:layout="@layout/fragment_review_order_lab" >
+        tools:layout="@layout/fragment_review_order_lab">
         <action
             android:id="@+id/action_fragmentReviewOrderLab_to_labOrdersFragment"
             app:destination="@id/labOrdersFragment"
@@ -1051,5 +1057,24 @@
         android:name="com.digidoctor.android.view.fragments.lab.LabOrdersFragment"
         android:label="Lab Orders"
         tools:layout="@layout/fragment_lab_orders" />
+    <fragment
+        android:id="@+id/homeIsolationFragment"
+        android:name="com.digidoctor.android.HomeIsolationFragment"
+        android:label="Home Isolation Request"
+        tools:layout="@layout/fragment_home_isolation" >
+        <action
+            android:id="@+id/action_homeIsolationFragment_to_homeIsolationRequestListFragment"
+            app:destination="@id/homeIsolationRequestListFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@id/patientDashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeIsolationRequestListFragment"
+        android:name="com.digidoctor.android.HomeIsolationRequestListFragment"
+        android:label="Isolation Requests"
+        tools:layout="@layout/fragment_home_isolation_request_list" />
 
 </navigation>

@@ -125,6 +125,8 @@ public class PatientDashboardFragment extends Fragment {
             PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_subSpecialistFragment, bundle);
         });
 
+        //listener for homeIsolationTv
+        dashboard2Binding.tvHomeIsolation.setOnClickListener(v -> navController.navigate(R.id.action_patientDashboardFragment_to_homeIsolationFragment));
         dashboard2Binding.tvLocation.setOnClickListener(view13 -> Log.d(TAG, "onViewCreated: Clicked"));
     }
 

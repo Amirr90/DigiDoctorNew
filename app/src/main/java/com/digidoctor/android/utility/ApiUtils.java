@@ -75,6 +75,9 @@ import com.digidoctor.android.model.labmodel.LabSlotsRes;
 import com.digidoctor.android.model.labmodel.PackageRes;
 import com.digidoctor.android.model.labmodel.PackagesRes;
 import com.digidoctor.android.model.labmodel.SearchRes;
+import com.digidoctor.android.model.patientModel.HomeIsolationReqModel;
+import com.digidoctor.android.model.patientModel.HospitalAndPackageResponse2;
+import com.digidoctor.android.model.patientModel.IsolationResponse;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
 import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
@@ -2456,6 +2459,68 @@ public class ApiUtils {
 
             @Override
             public void onFailure(@NotNull Call<LabSlotsRes> call, @NotNull Throwable t) {
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void loadHospitalAndPackage(ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<HospitalAndPackageResponse2> call = iRestInterfaces.loadHospitalAndPackage();
+        call.enqueue(new Callback<HospitalAndPackageResponse2>() {
+            @Override
+            public void onResponse(@NotNull Call<HospitalAndPackageResponse2> call, @NotNull Response<HospitalAndPackageResponse2> response) {
+                if (response.isSuccessful() && null != response.body()) {
+                    if (response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                } else apiCallbackInterface.onError("error : " + response.code());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<HospitalAndPackageResponse2> call, @NotNull Throwable t) {
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void sendHomeIsolationRequest(HomeIsolationReqModel homeIsolationReqModel, ApiCallbackInterface apiCallbackInterface) {
+
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<ResponseModel> call = iRestInterfaces.sendHomeIsolationRequest(homeIsolationReqModel);
+        call.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseModel> call, @NotNull Response<ResponseModel> response) {
+                if (response.isSuccessful() && null != response.body()) {
+                    if (response.body().getResponseCode() == 1) {
+                        List<String> list = new ArrayList<>();
+                        apiCallbackInterface.onSuccess(list);
+                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                } else apiCallbackInterface.onError("error : " + response.code());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseModel> call, @NotNull Throwable t) {
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void isolationData(User user, ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<IsolationResponse> call = iRestInterfaces.getIsolationReqData(user);
+        call.enqueue(new Callback<IsolationResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<IsolationResponse> call, @NotNull Response<IsolationResponse> response) {
+                if (response.isSuccessful() && null != response.body()) {
+                    if (response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                } else apiCallbackInterface.onError("error : " + response.code());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<IsolationResponse> call, @NotNull Throwable t) {
                 apiCallbackInterface.onFailed(t);
             }
         });

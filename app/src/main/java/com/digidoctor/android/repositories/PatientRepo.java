@@ -26,8 +26,10 @@ import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
+import com.digidoctor.android.model.patientModel.HospitalAndPackageResponse;
 import com.digidoctor.android.model.patientModel.SymptomsNotificationModel;
 import com.digidoctor.android.utility.ApiUtils;
+import com.digidoctor.android.utility.App;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.Response;
 import com.digidoctor.android.view.activity.PatientDashboard;
@@ -63,6 +65,7 @@ public class PatientRepo {
     public MutableLiveData<List<AppointmentDetailsRes.Appointments>> appointmentMutableLivedetails;
 
     public MutableLiveData<List<ChatModel>> chatMutableLiveData;
+    public MutableLiveData<List<HospitalAndPackageResponse>> loadHospitalAndPackageList;
 
     public MutableLiveData<List<SymptomsNotificationModel>> symptomsNotificationModelMutableLiveData;
 
@@ -589,6 +592,36 @@ public class PatientRepo {
             if (symptomsNotificationModelMutableLiveData == null)
                 symptomsNotificationModelMutableLiveData = new MutableLiveData<>();
             symptomsNotificationModelMutableLiveData.setValue(symptomsNotificationModelsList);
+        });
+    }
+
+    public LiveData<List<HospitalAndPackageResponse>> getHospitalAndPackageList() {
+
+        if (loadHospitalAndPackageList == null) {
+            loadHospitalAndPackageList = new MutableLiveData<>();
+            loadHospitalAndPackageList();
+        }
+        return loadHospitalAndPackageList;
+    }
+
+
+    private void loadHospitalAndPackageList() {
+        ApiUtils.loadHospitalAndPackage(new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                loadHospitalAndPackageList.setValue((List<HospitalAndPackageResponse>) o);
+            }
+
+            @Override
+            public void onError(String s) {
+                Toast.makeText(App.context, "failed to load hospital list !!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Toast.makeText(App.context, "something went wrong, try again !!", Toast.LENGTH_SHORT).show();
+                Log.d("loadHospitalAnd", "onFailed: " + throwable.getLocalizedMessage());
+            }
         });
     }
 
