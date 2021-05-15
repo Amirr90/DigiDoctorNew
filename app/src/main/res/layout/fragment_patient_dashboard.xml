@@ -35,7 +35,7 @@
         </com.facebook.shimmer.ShimmerFrameLayout>
 
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/homeView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,7 +46,6 @@
                 android:layout_height="wrap_content"
                 android:background="@color/BackgroundColor"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/_40sdp"
                 android:visibility="visible">
 
 
@@ -127,13 +126,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
                         android:layout_below="@+id/profile_image"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="8dp"
                         android:contentDescription="TODO"
                         android:scaleType="fitXY"
                         android:src="@drawable/banner_one"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvHomeIsolation" />
+                        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
                     <ImageView
                         android:id="@+id/ivMenu"
@@ -169,25 +169,29 @@
                         app:layout_constraintEnd_toStartOf="@+id/tvLocation"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:padding="@dimen/_10sdp"
-                        android:id="@+id/tvHomeIsolation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="18dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:drawablePadding="10dp"
-                        android:focusable="true"
-                        android:fontFamily="@font/poppins_medium"
-                        android:text="@string/request_for_home_isolation"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="18sp"
-                        app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/ivMenu"
-                        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tvHomeIsolation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:background="@drawable/add_button"
+                    android:clickable="true"
+                    android:drawablePadding="10dp"
+                    android:focusable="true"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center_horizontal"
+                    android:paddingLeft="@dimen/_20sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_20sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="@string/request_for_home_isolation"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rec1"
@@ -196,20 +200,29 @@
                     android:layout_marginTop="15dp"
                     android:nestedScrollingEnabled="false"
                     android:padding="@dimen/_10sdp"
+                    android:visibility="visible"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"
                     tools:itemCount="4"
                     tools:listitem="@layout/dash_board_view" />
 
 
-                <ss.com.bannerslider.Slider
-                    android:id="@+id/recBannerSlider"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_120sdp"
+                    android:layout_height="145dp"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="45dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginRight="15dp"
-                    app:slider_indicatorSize="12dp" />
+                    android:visibility="visible"
+                    app:cardCornerRadius="@dimen/_10sdp">
+
+                    <ss.com.bannerslider.Slider
+                        android:id="@+id/recBannerSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="145dp"
+                        app:slider_indicatorSize="12dp" />
+                </androidx.cardview.widget.CardView>
+
 
                 <TextView
                     android:id="@+id/textView57"
@@ -233,6 +246,7 @@
                     android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
                     android:padding="@dimen/_10sdp"
+                    android:visibility="visible"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/dash_board_view_horizontal1" />
 
@@ -252,6 +266,7 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
+
                     android:id="@+id/rec3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -261,8 +276,291 @@
                     android:visibility="visible"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/dash_board_view_horizontal2" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/textView220"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_100sdp"
+                        android:text="Doctors in Demands"
+                        android:textColor="#2B3344"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/btnUpload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/round_for_search"
+                        android:backgroundTint="@color/yellow700"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
+                        android:text="@string/view_all"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recDoctorInDemand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/doc_view" />
+
+
+                <!-- Blog View -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_100sdp"
+                        android:text="Doctors in Demands"
+                        android:textColor="#2B3344"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/round_for_search"
+                        android:backgroundTint="@color/yellow700"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
+                        android:text="@string/view_all"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recBlog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/blog_view" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:background="#F2F2F2"
+                    android:padding="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_40sdp">
+
+                    <ImageView
+                        android:id="@+id/imageView78"
+                        android:layout_width="107dp"
+                        android:layout_height="30dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/logo_digi_doctor"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView225"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:lineSpacingExtra="-5dp"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eleifend, orci sed egestas faucibus, leo sapien laoreet massa, feugiat, Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                        android:textColor="#2B3344"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="@+id/imageView78"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView78" />
+
+                    <ImageView
+                        android:id="@+id/imageView79"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="2dp"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView791"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView225"
+                        shimmer:srcCompat="@drawable/app_icon" />
+
+                    <TextView
+                        android:id="@+id/textView227"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/poppins"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="-7dp"
+                        android:lineSpacingMultiplier="5"
+                        android:text="Our Users"
+                        android:textColor="#E62B3344"
+                        android:textSize="11sp"
+                        app:layout_constraintStart_toStartOf="@+id/imageView79"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView79" />
+
+                    <TextView
+
+                        android:id="@+id/textView228"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="32dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="-7dp"
+                        android:lineSpacingMultiplier="5"
+                        android:text="3.5 Lakh"
+                        android:textColor="#2B3344"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView227"
+                        app:layout_constraintTop_toBottomOf="@+id/textView227" />
+
+
+                    <ImageView
+                        android:id="@+id/imageView791"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView79"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView792"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/imageView79"
+                        app:layout_constraintTop_toTopOf="@+id/imageView79"
+                        shimmer:srcCompat="@drawable/app_icon" />
+
+                    <TextView
+                        android:id="@+id/textView2271"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/poppins"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="-7dp"
+                        android:lineSpacingMultiplier="5"
+                        android:text="Our Doctors"
+                        android:textColor="#E62B3344"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toEndOf="@+id/imageView791"
+                        app:layout_constraintStart_toStartOf="@+id/imageView791"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView791" />
+
+                    <TextView
+
+                        android:id="@+id/textView2281"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="-7dp"
+                        android:lineSpacingMultiplier="5"
+                        android:text="10,475"
+                        android:textColor="#2B3344"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/textView2271"
+                        app:layout_constraintStart_toStartOf="@+id/textView2271"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2271" />
+
+                    <ImageView
+                        android:id="@+id/imageView792"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="10dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView791"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/imageView791"
+                        app:layout_constraintTop_toTopOf="@+id/imageView791"
+                        shimmer:srcCompat="@drawable/app_icon" />
+
+                    <TextView
+                        android:id="@+id/textView2272"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/poppins"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="-7dp"
+                        android:lineSpacingMultiplier="5"
+                        android:text="Our Hospitals"
+                        android:textColor="#E62B3344"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toEndOf="@+id/imageView792"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView792" />
+
+                    <TextView
+
+                        android:id="@+id/textView2282"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="-7dp"
+                        android:lineSpacingMultiplier="5"
+                        android:text="5,000"
+                        android:textColor="#2B3344"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/textView2272"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2272" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
-        </ScrollView>
+
+
+        </androidx.core.widget.NestedScrollView>
 
     </FrameLayout>
 

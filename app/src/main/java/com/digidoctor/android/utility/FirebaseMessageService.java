@@ -42,6 +42,8 @@ public class FirebaseMessageService extends FirebaseMessagingService {
 
     Context context;
 
+    int directionId;
+
     @Override
     public void onNewToken(String token) {
         Log.v(TAG, "Refreshed token: " + token);
@@ -131,10 +133,16 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             Log.d(TAG, "createNotification: in Type ");
 
             Bundle bundle = new Bundle();
-            bundle.putString("appointmentId", appointmentId);
+            if (type == 4) {
+                directionId = R.id.homeIsolationRequestDetailFragment;
+                bundle.putString("id", appointmentId);
+            } else {
+                directionId = R.id.appointmentDetailFragment;
+                bundle.putString("appointmentId", appointmentId);
+            }
             PendingIntent pendingIntent = new NavDeepLinkBuilder(PatientDashboard.getInstance())
                     .setGraph(R.navigation.nav_graph)
-                    .setDestination(R.id.appointmentDetailFragment)
+                    .setDestination(directionId)
                     .setArguments(bundle)
                     .createPendingIntent();
 

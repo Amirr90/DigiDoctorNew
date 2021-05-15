@@ -23,6 +23,12 @@ public class DashboardPatientAdapter1 extends ListAdapter<DashboardModel1, Dashb
             R.drawable.lab_test,
             R.drawable.pharmacy};
 
+    Integer[] imagesBackground = new Integer[]{
+            R.drawable.doctor_dash,
+            R.drawable.cough_dash,
+            R.drawable.flask,
+            R.drawable.medicine};
+
     Activity activity;
 
 
@@ -46,6 +52,7 @@ public class DashboardPatientAdapter1 extends ListAdapter<DashboardModel1, Dashb
         DashboardModel1 dashboardModel1 = getItem(position);
         holder.dashBoardViewBinding.setDashboard1(dashboardModel1);
         holder.dashBoardViewBinding.imageView21.setImageResource(images[position]);
+        holder.dashBoardViewBinding.ivBackgroundImages.setImageResource(imagesBackground[position]);
         holder.dashBoardViewBinding.textView55.setText(dashboardModel1.getDescription());
         holder.dashBoardViewBinding.cv1.setOnClickListener(v -> {
             if (position == 0)

@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.digidoctor.android.AddMedicineReminderBottomFragment;
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.labadapter.AddressRes;
 import com.digidoctor.android.interfaces.Api;
@@ -78,6 +79,7 @@ import com.digidoctor.android.model.labmodel.SearchRes;
 import com.digidoctor.android.model.patientModel.HomeIsolationReqModel;
 import com.digidoctor.android.model.patientModel.HospitalAndPackageResponse2;
 import com.digidoctor.android.model.patientModel.IsolationResponse;
+import com.digidoctor.android.model.patientModel.MedicineReminderResponse;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
 import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
@@ -138,6 +140,7 @@ import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.TOKEN;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.utility.utils.getString;
+import static com.digidoctor.android.utility.utils.getUserForBooking;
 import static com.digidoctor.android.utility.utils.isNetworkConnected;
 import static com.digidoctor.android.utility.utils.logout;
 
@@ -2522,6 +2525,48 @@ public class ApiUtils {
             @Override
             public void onFailure(@NotNull Call<IsolationResponse> call, @NotNull Throwable t) {
                 apiCallbackInterface.onFailed(t);
+            }
+        });
+    }
+
+    public static void MedicineReminderList(FragmentActivity fragmentActivity, ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        User user = new User();
+        user.setMemberId(getUserForBooking(fragmentActivity).getMemberId());
+        Call<MedicineReminderResponse> call = iRestInterfaces.getMedicineReminderList(user);
+        call.enqueue(new Callback<MedicineReminderResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<MedicineReminderResponse> call, @NotNull Response<MedicineReminderResponse> response) {
+                if (response.isSuccessful() && null != response.body()) {
+                    if (response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                } else apiCallbackInterface.onError("error : " + response.code());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<MedicineReminderResponse> call, @NotNull Throwable t) {
+                apiCallbackInterface.onError(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void updateAlarm(AddMedicineReminderBottomFragment.UpdateAlarmModel alarmModel, ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<ResponseModel> call = iRestInterfaces.updateAlarm(alarmModel);
+        call.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseModel> call, @NotNull Response<ResponseModel> response) {
+                if (response.isSuccessful() && null != response.body()) {
+                    if (response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                } else apiCallbackInterface.onError("error : " + response.code());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseModel> call, @NotNull Throwable t) {
+                apiCallbackInterface.onError(t.getLocalizedMessage());
             }
         });
     }

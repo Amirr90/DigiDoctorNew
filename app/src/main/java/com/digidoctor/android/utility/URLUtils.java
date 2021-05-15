@@ -10,7 +10,7 @@ public class URLUtils {
     final static String MedicineReportAPI = "http://182.156.200.179:330/";*/
 
 
-      //Test
+    //Test
       public static final String BASE_URL_NEW_API = "http://52.172.134.222:207/api/v1.0/Patient/";
       public static final String BASE_URL_NEW_API_DOCTOR = "http://52.172.134.222:207/api/v1.0/Doctor/";
       public static final String BASE_URL_NEW_API_PHARMACY = "http://52.172.134.222:207/api/v1.0/Pharmacy/";

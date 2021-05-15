@@ -130,7 +130,8 @@ public class HomeIsolationFragment extends Fragment {
         AppUtils.showRequestDialog(requireActivity());
         HomeIsolationReqModel homeIsolationReqModel = binding.getIsolationModel();
         homeIsolationReqModel.setMemberId(user.getMemberId());
-        homeIsolationReqModel.setTestdate(AppUtils.parseDate(homeIsolationReqModel.getTestdate(), "yyyy-MM-dd", "EEE, MMM d, ''yyyy"));
+        if (null != homeIsolationReqModel.getTestdate())
+            homeIsolationReqModel.setTestdate(AppUtils.parseDate(homeIsolationReqModel.getTestdate(), "yyyy-MM-dd", "EEE, MMM d, ''yyyy"));
         homeIsolationReqModel.setOnSetDate(AppUtils.parseDate(homeIsolationReqModel.getOnSetDate(), "yyyy-MM-dd", "EEE, MMM d, ''yyyy"));
         homeIsolationReqModel.setDtDataTable(getDtTableValue(binding.getVital()));
         ApiUtils.sendHomeIsolationRequest(homeIsolationReqModel, new ApiCallbackInterface() {
@@ -210,6 +211,7 @@ public class HomeIsolationFragment extends Fragment {
         packageBuilder.setItems(items, (dialog, item) -> {
             showToast(items[item].toString(), binding.tvSelectPackages);
             homeIsolationReqModel.setPackageId(hospitalList.get(item).getId());
+            binding.tvPackagePrice.setText(AppUtils.getCurrencyFormat(hospitalList.get(item).getPackagePrice()));
             dialog.dismiss();
 
         });
@@ -232,25 +234,25 @@ public class HomeIsolationFragment extends Fragment {
         } else if (binding.covidSwitchBtn.isChecked() && null == binding.getIsolationModel().getTestdate() && binding.tvCoronaTestDate.getText().toString().isEmpty()) {
             Toasty.warning(requireActivity(), "Select Corona Test Date !!", Toast.LENGTH_SHORT, true).show();
             return false;
-        } else if (null == binding.getIsolationModel().getAllergires() || binding.getIsolationModel().getAllergires().isEmpty()) {
+        } /*else if (null == binding.getIsolationModel().getAllergires() || binding.getIsolationModel().getAllergires().isEmpty()) {
             Toasty.warning(requireActivity(), "Enter Allergy !!", Toast.LENGTH_SHORT, true).show();
             return false;
-        } else if (null == binding.getIsolationModel().getLifeSupport() || binding.tvLifeSupport.getText().toString().isEmpty()) {
+        }*/ else if (null == binding.getIsolationModel().getLifeSupport() || binding.tvLifeSupport.getText().toString().isEmpty()) {
             Toasty.warning(requireActivity(), "Select Life support from list !!", Toast.LENGTH_SHORT, true).show();
             return false;
         } else if (null == binding.getIsolationModel().getOnSetDate() || binding.tvDateOnSetSymptom.getText().toString().isEmpty()) {
             Toasty.warning(requireActivity(), "Select onSet Date of Symptoms !!", Toast.LENGTH_SHORT, true).show();
             return false;
-        } else if (null == binding.getVital())
-            return false;
-        else if (binding.getVital().getSys().isEmpty()
+        } /*else if (null == binding.getVital())
+            return false;*/
+       /* else if (binding.getVital().getSys().isEmpty()
                 && binding.getVital().getDia().isEmpty()
                 && binding.getVital().getPulseRate().isEmpty()
                 && binding.getVital().getTemperature().isEmpty()
                 && binding.getVital().getRandomBloodSugar().isEmpty()
                 && binding.getVital().getSpo2().isEmpty()
                 && binding.getVital().getRespiratoryRate().isEmpty())
-            return false;
+            return false;*/
 
         else if (!vitalModel.getSys().isEmpty() && vitalModel.getDia().isEmpty()) {
             Toast.makeText(requireActivity(), getString(R.string.please_fill_diastolic), Toast.LENGTH_SHORT).show();

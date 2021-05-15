@@ -17,7 +17,12 @@ public class HospitalAndPackageResponse {
 
     public static class PackageModel {
         Integer id;
+        Integer packagePrice;
         String packageName;
+
+        public Integer getPackagePrice() {
+            return packagePrice;
+        }
 
         public Integer getId() {
             return id;

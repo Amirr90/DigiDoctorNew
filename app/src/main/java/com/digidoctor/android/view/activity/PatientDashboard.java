@@ -222,6 +222,8 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     case R.id.testDetailsFRagment:
                     case R.id.homeIsolationFragment:
                     case R.id.homeIsolationRequestListFragment:
+                    case R.id.homeIsolationRequestDetailFragment:
+                    case R.id.medicineReminderListFragment:
                         hideAllItem();
                         break;
 
@@ -254,6 +256,12 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     }
 
     private void showNotification() {
+       /* String type = getIntent().getStringExtra("type");
+        if (type.equalsIgnoreCase("4")) {
+
+        } else {
+
+        }*/
         Intent myIntent = new Intent(this, WakefulBroadcasterReceiver.class);
         myIntent.setAction("myReceiver");
         myIntent.putExtra("roomName", getIntent().getStringExtra("roomName"));
@@ -552,6 +560,11 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             case 15:
                 if (user.getIsExists() == 1)
                     navController.navigate(R.id.homeIsolationRequestListFragment);
+                else navController.navigate(R.id.profileFragment);
+                break;
+            case 16:
+                if (user.getIsExists() == 1)
+                    navController.navigate(R.id.medicineReminderListFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
             default:

@@ -19,6 +19,15 @@
 
 
         <ImageView
+            android:id="@+id/ivBackgroundImages"
+            android:layout_width="110dp"
+            android:layout_height="140dp"
+            android:elevation="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/cv1"
+            app:layout_constraintEnd_toEndOf="@+id/cv1"
+            app:srcCompat="@drawable/medicine" />
+
+        <ImageView
             android:id="@+id/imageView21"
             android:layout_width="68dp"
             android:layout_height="68dp"
@@ -36,7 +45,6 @@
             android:layout_height="130dp"
             android:layout_marginStart="2dp"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="2dp"
             android:layout_marginBottom="2dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"

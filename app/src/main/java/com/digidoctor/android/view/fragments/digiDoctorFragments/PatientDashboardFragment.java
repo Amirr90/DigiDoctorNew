@@ -15,11 +15,14 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.adapters.BlogAdapter;
 import com.digidoctor.android.adapters.ClinicAdapter;
 import com.digidoctor.android.adapters.DashboardPatientAdapter1;
 import com.digidoctor.android.adapters.HealthProductAdapter;
 import com.digidoctor.android.adapters.MainSliderAdapter;
+import com.digidoctor.android.adapters.RecommendedDoctorsAdapter;
 import com.digidoctor.android.databinding.FragmentPatientDashboardBinding;
+import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.model.BannerModel;
 import com.digidoctor.android.model.DashboardModel1;
 import com.digidoctor.android.model.User;
@@ -42,12 +45,14 @@ import static com.digidoctor.android.utility.utils.fadeIn;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
 
-public class PatientDashboardFragment extends Fragment {
+public class PatientDashboardFragment extends Fragment implements AdapterInterface {
 
     public static FragmentPatientDashboardBinding dashboard2Binding;
     DashboardPatientAdapter1 adapter1;
     HealthProductAdapter adapter2;
     ClinicAdapter adapter3;
+    BlogAdapter blogAdapter;
+    RecommendedDoctorsAdapter docInDemandAdapter;
 
     PatientViewModel viewModel;
 
@@ -88,10 +93,16 @@ public class PatientDashboardFragment extends Fragment {
         adapter1 = new DashboardPatientAdapter1(requireActivity());
         adapter2 = new HealthProductAdapter();
         adapter3 = new ClinicAdapter();
+        blogAdapter = new BlogAdapter();
 
         dashboard2Binding.rec1.setAdapter(adapter1);
         dashboard2Binding.rec2.setAdapter(adapter2);
         dashboard2Binding.rec3.setAdapter(adapter3);
+        dashboard2Binding.recBlog.setAdapter(blogAdapter);
+
+        //doctorInDemandAdapter
+        docInDemandAdapter = new RecommendedDoctorsAdapter(this);
+        dashboard2Binding.recDoctorInDemand.setAdapter(docInDemandAdapter);
 
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
@@ -144,8 +155,16 @@ public class PatientDashboardFragment extends Fragment {
 
                 adapter2.submitList(patientDashboardModel.getHealthProductDetails());
                 adapter3.submitList(patientDashboardModel.getTopClinics());
+                docInDemandAdapter.submitList(patientDashboardModel.getDoctorDetails());
                 setSlider(patientDashboardModel.getBannerDetails());
 
+
+                //setting Doc in Demand Adapter
+                //docInDemandAdapter.submitList();
+
+
+                //notifying blog Adapter
+                blogAdapter.submitList(patientDashboardModel.getBlogDetails());
 
             }
 
@@ -169,4 +188,8 @@ public class PatientDashboardFragment extends Fragment {
 
     }
 
+    @Override
+    public void onItemClicked(Object o) {
+        // docInDemand AdapterInterface
+    }
 }

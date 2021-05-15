@@ -29,6 +29,8 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,6 +58,32 @@ public class AppUtils {
     public static final int PAY_MODE_PAY_U_MONEY = 2;
 
 
+    public static String getCurrencyFormat(Integer num) {
+        String COUNTRY = "IN";
+        String LANGUAGE = "en";
+        return NumberFormat.getCurrencyInstance(new Locale(LANGUAGE, COUNTRY)).format(num);
+    }
+
+    public static String getCurrencyFormat(double num) {
+        String COUNTRY = "IN";
+        String LANGUAGE = "en";
+        return NumberFormat.getCurrencyInstance(new Locale(LANGUAGE, COUNTRY)).format(num);
+    }
+
+    public static String getCurrencyFormat(long num) {
+        String COUNTRY = "IN";
+        String LANGUAGE = "en";
+        return NumberFormat.getCurrencyInstance(new Locale(LANGUAGE, COUNTRY)).format(num);
+    }
+
+    public static String getCurrencyFormat(String num) {
+        Double number = Double.parseDouble(num);
+        String COUNTRY = "IN";
+        String LANGUAGE = "en";
+        return NumberFormat.getCurrencyInstance(new Locale(LANGUAGE, COUNTRY)).format(number);
+
+    }
+
     public static List<NavModel> getNavData(Activity activity) {
         List<NavModel> navModels = new ArrayList<>();
         navModels.add(new NavModel(activity.getString(R.string.appointment), R.drawable.appointments));
@@ -74,6 +102,7 @@ public class AppUtils {
         navModels.add(new NavModel(activity.getString(R.string.symptom_tracker), R.drawable.symptom_tracker_image));
         navModels.add(new NavModel(activity.getString(R.string.lab_order), R.drawable.symptom_tracker_image));
         navModels.add(new NavModel(activity.getString(R.string.home_isolation_request), R.drawable.symptom_tracker_image));
+        navModels.add(new NavModel(activity.getString(R.string.medicine_reminder), R.drawable.ic_baseline_alarm_24));
         return navModels;
     }
 
@@ -452,4 +481,16 @@ public class AppUtils {
         }
     }
 
+
+    public static String prettyCount(Integer number) {
+        char[] suffix = {' ', 'k', 'M', 'B', 'T', 'P', 'E'};
+        long numValue = number.longValue();
+        int value = (int) Math.floor(Math.log10(numValue));
+        int base = value / 3;
+        if (value >= 3 && base < suffix.length) {
+            return new DecimalFormat("#0.0").format(numValue / Math.pow(10, base * 3)) + suffix[base];
+        } else {
+            return new DecimalFormat("#,##0").format(numValue);
+        }
+    }
 }

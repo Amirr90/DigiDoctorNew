@@ -1,5 +1,7 @@
 package com.digidoctor.android.model;
 
+import com.digidoctor.android.model.patientModel.BlogModel;
+
 import java.util.List;
 
 public class PatientDashboardModel {
@@ -8,6 +10,16 @@ public class PatientDashboardModel {
     List<HealthProductDetailsModel> healthProductDetails;
     List<TopClinicsModel> topClinics;
     List<BannerModel> bannerDetails;
+    List<BlogModel> blogDetails;
+    List<DoctorModel> doctorDetails;
+
+    public List<DoctorModel> getDoctorDetails() {
+        return doctorDetails;
+    }
+
+    public List<BlogModel> getBlogDetails() {
+        return blogDetails;
+    }
 
     public List<BannerModel> getBannerDetails() {
         return bannerDetails;

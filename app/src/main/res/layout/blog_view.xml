@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.digidoctor.android.utility.AppUtils" />
+
+        <variable
+            name="blog"
+            type="com.digidoctor.android.model.patientModel.BlogModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@android:color/white"
+        android:padding="12dp">
+
+
+        <ImageView
+            android:id="@+id/imageView77"
+            android:layout_width="80dp"
+            android:layout_height="94dp"
+            android:loadCustomLabImage="@{blog.imagePath}"
+            android:scaleType="centerInside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textView221"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="-7dp"
+            android:lineSpacingMultiplier="1"
+            android:text="@{blog.topic}"
+            android:textColor="#2B3344"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView77"
+            app:layout_constraintTop_toTopOf="@+id/imageView77" />
+
+        <TextView
+            android:id="@+id/textView222"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
+            android:fontFamily="@font/poppins"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="-7dp"
+            android:text="@{blog.title}"
+            android:textColor="#E62B3344"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView221"
+            app:layout_constraintTop_toBottomOf="@+id/textView221" />
+
+        <TextView
+            android:id="@+id/textView223"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/_10sdp"
+            android:fontFamily="@font/poppins"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="-7dp"
+            android:lineSpacingMultiplier="1"
+            android:text="@{blog.publishDate}"
+            android:textColor="#E67D7D7D"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_baseline_calendar_today_24"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView77"
+            app:layout_constraintStart_toStartOf="@+id/textView222" />
+
+        <TextView
+            android:id="@+id/textView224"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/_10sdp"
+            android:fontFamily="@font/poppins"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="-7dp"
+            android:lineSpacingMultiplier="1"
+            android:text="@{AppUtils.prettyCount(blog.totalLikes)}"
+            android:textColor="#E67D7D7D"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_baseline_thumb_up_alt_24"
+            app:layout_constraintBottom_toBottomOf="@+id/textView223"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView223" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

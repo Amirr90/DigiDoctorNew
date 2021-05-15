@@ -64,7 +64,7 @@
             android:layout_below="@+id/textView21"
             android:layout_toRightOf="@id/llImage"
             android:fontFamily="@font/poppins"
-            android:text="@{isolation.testDate}"
+            android:text="@{isolation.requestedDate}"
             android:textColor="#3F4E6E"
             android:textSize="15sp"
             android:textStyle="normal" />

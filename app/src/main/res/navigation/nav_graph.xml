@@ -1075,6 +1075,38 @@
         android:id="@+id/homeIsolationRequestListFragment"
         android:name="com.digidoctor.android.HomeIsolationRequestListFragment"
         android:label="Isolation Requests"
-        tools:layout="@layout/fragment_home_isolation_request_list" />
+        tools:layout="@layout/fragment_home_isolation_request_list" >
+        <action
+            android:id="@+id/action_homeIsolationRequestListFragment_to_homeIsolationRequestDetailFragment"
+            app:destination="@id/homeIsolationRequestDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeIsolationRequestDetailFragment"
+        android:name="com.digidoctor.android.HomeIsolationRequestDetailFragment"
+        android:label="Isolation Request Detail"
+        tools:layout="@layout/fragment_home_isolation_request_detail">
+        <argument
+            android:name="id"
+            android:defaultValue="0"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/medicineReminderListFragment"
+        android:name="com.digidoctor.android.MedicineReminderListFragment"
+        android:label="@string/medicine_reminder"
+        tools:layout="@layout/fragment_medicine_reminder_list" >
+        <action
+            android:id="@+id/action_medicineReminderListFragment_to_addMedicineReminderBottomFragment"
+            app:destination="@id/addMedicineReminderBottomFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/addMedicineReminderBottomFragment"
+        android:name="com.digidoctor.android.AddMedicineReminderBottomFragment"
+        android:label="fragment_add_medicine_reminder_bottom"
+        tools:layout="@layout/fragment_add_medicine_reminder_bottom" />
 
 </navigation>

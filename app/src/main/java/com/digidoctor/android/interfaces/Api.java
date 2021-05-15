@@ -1,5 +1,6 @@
 package com.digidoctor.android.interfaces;
 
+import com.digidoctor.android.AddMedicineReminderBottomFragment;
 import com.digidoctor.android.adapters.labadapter.AddressRes;
 import com.digidoctor.android.model.AddInvestigationModel;
 import com.digidoctor.android.model.AppointmentDetailsRes;
@@ -75,6 +76,7 @@ import com.digidoctor.android.model.patientModel.GetProblemsWithIconRes;
 import com.digidoctor.android.model.patientModel.HomeIsolationReqModel;
 import com.digidoctor.android.model.patientModel.HospitalAndPackageResponse2;
 import com.digidoctor.android.model.patientModel.IsolationResponse;
+import com.digidoctor.android.model.patientModel.MedicineReminderResponse;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
 import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
@@ -425,39 +427,13 @@ public interface Api {
     @POST("getAllProblems")
     Call<GetAllProblemRes> getAllProblems(
             @Body AddMemberProblemModel addMemberProblemModel);
-    /* @FormUrlEncoded
-    @POST("getAllProblems")
-    Call<GetAllProblemRes> getAllProblems(
-            @Header("x-access-token") String token,
-            @Field("userMobileNo") String userMobileNo,
-            @Field("alphabet") String alphabet
-    );*/
 
-    /*@FormUrlEncoded
-    @POST("getAllSuggestedProblem")
-    Call<GetAllSuggestedProblemRes> getAllSuggestedProblem(
-            @Header("x-access-token") String token,
-            @Field("userMobileNo") String userMobileNo,
-            @Field("memberId") String memberId
-    );
-*/
     @POST("getAllSuggestedProblem")
     Call<GetAllSuggestedProblemRes> getAllSuggestedProblem(
             @Body AddMemberProblemModel addMemberProblemModel
     );
 
 
-    /*   @FormUrlEncoded
-       @POST("addMemberProblem")
-       Call<RegistrationRes> addMemberProblem(
-               @Header("x-access-token") String token,
-               @Field("userMobileNo") String userMobileNo,
-               @Field("memberId") String memberId,
-               @Field("problemDate") String problemDate,
-               @Field("dtDataTable") String dtDataTable,
-               @Field("isUPCovidApp") String isUpCovid,
-               @Field("problemTime") String problemTime
-       );*/
     @POST("addMemberProblem")
     Call<RegistrationRes> addMemberProblem(
             @Body AddMemberProblemModel addMemberProblemModel
@@ -488,6 +464,12 @@ public interface Api {
 
     @POST("homeIsolationRequestList")
     Call<IsolationResponse> getIsolationReqData(@Body User user);
+
+    @POST("medicineReminderList")
+    Call<MedicineReminderResponse> getMedicineReminderList(@Body User user);
+
+    @POST("updateMedicineReminder")
+    Call<ResponseModel> updateAlarm(@Body AddMedicineReminderBottomFragment.UpdateAlarmModel alarmModel);
 }
 
 

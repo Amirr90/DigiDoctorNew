@@ -54,7 +54,7 @@
                         android:drawablePadding="@dimen/_10sdp"
                         android:enabled="false"
                         android:fontFamily="@font/poppins"
-                        android:hint="@string/enter_your_name"
+                        android:hint="Your name"
                         android:maxLength="60"
                         android:maxLines="2"
                         android:padding="@dimen/_10sdp"
@@ -85,7 +85,7 @@
                         android:drawablePadding="@dimen/_10sdp"
                         android:enabled="false"
                         android:fontFamily="@font/poppins"
-                        android:hint="@string/enter_your_mobile_number"
+                        android:hint="Your Mobile Number"
                         android:inputType="numberDecimal"
                         android:maxLength="13"
                         android:maxLines="1"
@@ -169,6 +169,23 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
+                    android:id="@+id/tvDateOnSetSymptom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border_rectangle_2dp"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center_vertical"
+                    android:hint="@string/select_date_of_onset_on_symptom"
+                    android:padding="@dimen/_15sdp"
+                    android:text="@={isolationModel.onSetDate}"
+                    android:textColor="@color/TextPrimaryColor"
+                    android:textColorHint="#CCAEACAC"
+                    android:textSize="14sp"
+                    app:drawableEndCompat="@drawable/ic_baseline_edit_calendar_24" />
+
+                <TextView
                     android:id="@+id/tvSelectPackages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -186,6 +203,23 @@
                     android:textSize="14sp"
                     app:drawableEndCompat="@drawable/arrow_down"
                     app:drawableTint="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tvPackagePrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border_rectangle_2dp"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center_vertical"
+                    android:hint="@string/package_price"
+                    android:maxLength="150"
+                    android:maxLines="5"
+                    android:padding="@dimen/_15sdp"
+                    android:textColor="@color/TextPrimaryColor"
+                    android:textColorHint="#CCAEACAC"
+                    android:textSize="14sp" />
 
                 <Switch
                     android:id="@+id/covidSwitchBtn"
@@ -262,23 +296,6 @@
                     android:textSize="14sp"
                     app:drawableEndCompat="@drawable/arrow_down"
                     app:drawableTint="@color/colorPrimary" />
-
-                <TextView
-                    android:id="@+id/tvDateOnSetSymptom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/border_rectangle_2dp"
-                    android:drawablePadding="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins"
-                    android:gravity="center_vertical"
-                    android:hint="@string/select_date_of_onset_on_symptom"
-                    android:padding="@dimen/_15sdp"
-                    android:text="@={isolationModel.onSetDate}"
-                    android:textColor="@color/TextPrimaryColor"
-                    android:textColorHint="#CCAEACAC"
-                    android:textSize="14sp"
-                    app:drawableEndCompat="@drawable/ic_baseline_edit_calendar_24" />
 
 
                 <TextView

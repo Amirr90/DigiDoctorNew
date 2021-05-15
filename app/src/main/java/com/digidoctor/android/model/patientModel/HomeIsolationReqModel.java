@@ -17,13 +17,84 @@ public class HomeIsolationReqModel {
     private Integer id;
     private String hospitalName;
     private String packageName;
-    private Integer comoribid;
+    private String comoribid;
     private String stymptoms;
     private String testDate;
     private String homeIsolationStatus;
     private String userMobileNo;
     private String name;
+    private String requestedDate;
+    private String vitalDetails;
+    private String lifeSupportValue;
+    private Integer packagePrice;
 
+    public String getLifeSupportValue() {
+        return lifeSupportValue;
+    }
+
+    public void setLifeSupportValue(String lifeSupportValue) {
+        this.lifeSupportValue = lifeSupportValue;
+    }
+
+    public Integer getPackagePrice() {
+        return packagePrice;
+    }
+
+    public void setPackagePrice(Integer packagePrice) {
+        this.packagePrice = packagePrice;
+    }
+
+    public String getVitalDetails() {
+        return vitalDetails;
+    }
+
+    public void setVitalDetails(String vitalDetails) {
+        this.vitalDetails = vitalDetails;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
+    public void setComoribid(String comoribid) {
+        this.comoribid = comoribid;
+    }
+
+    public void setStymptoms(String stymptoms) {
+        this.stymptoms = stymptoms;
+    }
+
+    public void setTestDate(String testDate) {
+        this.testDate = testDate;
+    }
+
+    public void setHomeIsolationStatus(String homeIsolationStatus) {
+        this.homeIsolationStatus = homeIsolationStatus;
+    }
+
+    public void setUserMobileNo(String userMobileNo) {
+        this.userMobileNo = userMobileNo;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRequestedDate(String requestedDate) {
+        this.requestedDate = requestedDate;
+    }
+
+    public String getRequestedDate() {
+        return requestedDate;
+    }
 
     public Integer getId() {
         return id;
@@ -37,7 +108,7 @@ public class HomeIsolationReqModel {
         return packageName;
     }
 
-    public Integer getComoribid() {
+    public String getComoribid() {
         return comoribid;
     }
 

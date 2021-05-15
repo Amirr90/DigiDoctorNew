@@ -75,7 +75,9 @@ public class HomeIsolationRequestListFragment extends Fragment {
                 reqModels.addAll((List<HomeIsolationReqModel>) o);
                 homeIsolationAdapter.notifyDataSetChanged();
                 Log.d(TAG, "onSuccess: " + homeIsolationAdapter.getItemCount());
-                Log.d(TAG, "onSuccess: " + reqModels.size());
+                if (homeIsolationAdapter.getItemCount() == 0)
+                    Toast.makeText(requireActivity(), "No request found !!", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -116,18 +118,27 @@ public class HomeIsolationRequestListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull IsolationVH holder, int position) {
-            holder.isolationViewBinding.setIsolation(isolationReqModels.get(position));
+            HomeIsolationReqModel homeIsolationReqModel = isolationReqModels.get(position);
+            holder.isolationViewBinding.setIsolation(homeIsolationReqModel);
 
-            String status = isolationReqModels.get(position).getHomeIsolationStatus();
+            String status = homeIsolationReqModel.getHomeIsolationStatus();
 
 
             if (null != isolationReqModels.get(position) && null != isolationReqModels.get(position).getHomeIsolationStatus()) {
-                if (status.equalsIgnoreCase("pending")) {
+                if (status.equalsIgnoreCase("Pending")) {
                     holder.isolationViewBinding.llImage.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.yellow700)));
-                } else if (status.equalsIgnoreCase("approved")) {
+                } else if (status.equalsIgnoreCase("Approved")) {
                     holder.isolationViewBinding.llImage.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.green700)));
+                } else if (status.equalsIgnoreCase("Declined")) {
+                    holder.isolationViewBinding.llImage.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                 }
             }
+
+            holder.isolationViewBinding.getRoot().setOnClickListener(v -> {
+                HomeIsolationRequestListFragmentDirections.ActionHomeIsolationRequestListFragmentToHomeIsolationRequestDetailFragment action = HomeIsolationRequestListFragmentDirections.actionHomeIsolationRequestListFragmentToHomeIsolationRequestDetailFragment();
+                action.setId(String.valueOf(homeIsolationReqModel.getId()));
+                navController.navigate(action);
+            });
         }
 
         @Override
