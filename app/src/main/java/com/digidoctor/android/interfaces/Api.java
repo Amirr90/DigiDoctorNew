@@ -77,6 +77,7 @@ import com.digidoctor.android.model.patientModel.HomeIsolationReqModel;
 import com.digidoctor.android.model.patientModel.HospitalAndPackageResponse2;
 import com.digidoctor.android.model.patientModel.IsolationResponse;
 import com.digidoctor.android.model.patientModel.MedicineReminderResponse;
+import com.digidoctor.android.model.patientModel.RecordingResponse;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
 import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
@@ -102,6 +103,7 @@ import com.digidoctor.android.model.pharmacyModel.ProductModel;
 import com.digidoctor.android.model.pharmacyModel.getaddressModel;
 import com.digidoctor.android.model.pharmacyModel.getfilltervarentmodel;
 import com.digidoctor.android.model.pharmacyModel.shopbycategoryRes;
+import com.digidoctor.android.utility.ApiRequestModel;
 import com.digidoctor.android.utility.BookAppointment2;
 
 import java.util.Map;
@@ -470,6 +472,9 @@ public interface Api {
 
     @POST("updateMedicineReminder")
     Call<ResponseModel> updateAlarm(@Body AddMedicineReminderBottomFragment.UpdateAlarmModel alarmModel);
+
+    @POST("getRecordingData")
+    Call<RecordingResponse> getRecordingData(@Body ApiRequestModel requestModel);
 }
 
 

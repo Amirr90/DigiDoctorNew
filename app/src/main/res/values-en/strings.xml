@@ -1053,6 +1053,17 @@
     <string name="time_1">Time 1</string>
     <string name="time_2">Time 2</string>
     <string name="remove_reminder">Remove Reminder</string>
+    <string name="playing">Playing</string>
+    <string name="played">Played</string>
+    <string name="stethoscope">Sethoscope</string>
+    <string name="stethoscope_description">Get Stethoscope Data</string>
+    <string name="laryngoscope">Laryngoscope</string>
+    <string name="laryngoscope_description">Get Laryngoscope Data</string>
+    <string name="download_post_covid_care_booklet">Download Post-COVID Care Booklet</string>
+    <string name="our_hospitals">Our Hospitals</string>
+    <string name="our_doctors">Our Doctors</string>
+    <string name="our_users">Our Users</string>
+    <string name="our_blogs">Our Blogs</string>
 
 
 </resources>

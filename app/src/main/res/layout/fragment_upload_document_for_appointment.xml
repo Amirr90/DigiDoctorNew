@@ -1,213 +1,368 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UploadDocumentForAppointmentFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnUploadFiles"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout13"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/_20sdp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/textView84"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:paddingLeft="@dimen/_40sdp"
-                android:paddingRight="@dimen/_40sdp"
-                android:text="@string/you_can_send"
-                android:textAlignment="center"
-                android:textColor="#262E3F"
-                android:textSize="15sp"
-                android:textStyle="normal" />
+            android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/linearLayout13"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_15sdp"
-                android:orientation="horizontal"
-                android:padding="@dimen/_10sdp"
-                android:weightSum="3">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/_20sdp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textView84"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingLeft="@dimen/_40sdp"
+                    android:paddingRight="@dimen/_40sdp"
+                    android:text="@string/you_can_send"
+                    android:textAlignment="center"
+                    android:textColor="#262E3F"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
 
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_10sdp"
+                    android:weightSum="3">
 
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/h5"
-                    android:layout_marginRight="@dimen/h5"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    <LinearLayout
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/laySelectImage"
-                        android:layout_width="62dp"
-                        android:layout_height="62dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_margin="@dimen/dimen_2dp"
-                        android:layout_marginBottom="@dimen/dimen_2dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:padding="@dimen/_10sdp"
-                        app:cardCornerRadius="@dimen/_10sdp"
-                        app:cardElevation="@dimen/dimen_5dp">
-
-                        <ImageView
-                            android:id="@+id/imageView28"
-                            android:layout_width="32dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="@dimen/_10sdp"
-                            android:src="@drawable/gal_image"
-                            android:contentDescription="TODO" />
-
-
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:gravity="center_horizontal"
-                        android:text="@string/images"
-                        android:textColor="#3F4E6E"
-                        android:textSize="18sp" />
+                        android:layout_marginLeft="@dimen/h5"
+                        android:layout_marginRight="@dimen/h5"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/laySelectImage"
+                            android:layout_width="62dp"
+                            android:layout_height="62dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_margin="@dimen/dimen_2dp"
+                            android:layout_marginBottom="@dimen/dimen_2dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:padding="@dimen/_10sdp"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            app:cardElevation="@dimen/dimen_5dp">
+
+                            <ImageView
+                                android:id="@+id/imageView28"
+                                android:layout_width="32dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:contentDescription="TODO"
+                                android:src="@drawable/gal_image" />
+
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/images"
+                            android:textColor="#3F4E6E"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/laySelectAudio"
+                            android:layout_width="62dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="@dimen/dimen_2dp"
+                            android:background="@drawable/rectangle_outline"
+                            android:elevation="@dimen/dimen_5dp"
+                            android:padding="@dimen/_10sdp"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="@dimen/dimen_5dp">
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:contentDescription="TODO"
+                                android:src="@drawable/audio_file" />
+
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/audio"
+                            android:textColor="#3F4E6E"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/laySelectVideo"
+                            android:layout_width="62dp"
+                            android:layout_height="62dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="@dimen/dimen_2dp"
+                            android:background="@drawable/rectangle_outline"
+                            android:elevation="@dimen/dimen_5dp"
+                            android:padding="@dimen/_10sdp"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="@dimen/dimen_5dp">
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:contentDescription="TODO"
+                                android:src="@drawable/video_file" />
+
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/video"
+                            android:textColor="#3F4E6E"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
 
-                <LinearLayout
+            </LinearLayout>
 
-                    android:layout_width="0dp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recFiles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout13"
+                app:spanCount="3"
+                tools:itemCount="3"
+                tools:listitem="@layout/symptoms_attachment_view" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout131"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/_20sdp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recFiles">
+
+                <TextView
+                    android:id="@+id/textView841"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="center_horizontal"
+                    android:paddingLeft="@dimen/_40sdp"
+                    android:paddingRight="@dimen/_40sdp"
+                    android:text="You can also add Stethoscope sound(audio) and video"
+                    android:textAlignment="center"
+                    android:textColor="#262E3F"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/laySelectAudio"
-                        android:layout_width="62dp"
-                        android:layout_height="60dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="@dimen/dimen_2dp"
-                        android:background="@drawable/rectangle_outline"
-                        android:elevation="@dimen/dimen_5dp"
-                        android:padding="@dimen/_10sdp"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="@dimen/dimen_5dp">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="@dimen/_10sdp"
-                            android:src="@drawable/audio_file"
-                            android:contentDescription="TODO" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_10sdp"
+                    android:weightSum="2">
 
 
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:id="@+id/recordAudio"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:gravity="center_horizontal"
-                        android:text="@string/audio"
-                        android:textColor="#3F4E6E"
-                        android:textSize="18sp" />
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/layStethoscopeAudio"
+                            android:layout_width="62dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="@dimen/dimen_2dp"
+                            android:background="@drawable/rectangle_outline"
+                            android:elevation="@dimen/dimen_5dp"
+                            android:padding="@dimen/_10sdp"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="@dimen/dimen_5dp">
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:contentDescription="TODO"
+                                android:src="@drawable/stethoscope_with_mic" />
+
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/audio"
+                            android:textColor="#3F4E6E"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/layVideo"
+                            android:layout_width="62dp"
+                            android:layout_height="62dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="@dimen/dimen_2dp"
+                            android:background="@drawable/rectangle_outline"
+                            android:elevation="@dimen/dimen_5dp"
+                            android:padding="@dimen/_10sdp"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="@dimen/dimen_5dp">
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:contentDescription="TODO"
+                                android:src="@drawable/laryngoscope" />
+
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/video"
+                            android:textColor="#3F4E6E"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
-                <LinearLayout
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/laySelectVideo"
-                        android:layout_width="62dp"
-                        android:layout_height="62dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="@dimen/dimen_2dp"
-                        android:background="@drawable/rectangle_outline"
-                        android:elevation="@dimen/dimen_5dp"
-                        android:padding="@dimen/_10sdp"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="@dimen/dimen_5dp">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="@dimen/_10sdp"
-                            android:src="@drawable/video_file"
-                            android:contentDescription="TODO" />
-
-
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:gravity="center_horizontal"
-                        android:text="@string/video"
-                        android:textColor="#3F4E6E"
-                        android:textSize="18sp" />
-                </LinearLayout>
 
             </LinearLayout>
 
 
-        </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recSte"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout131"
+                tools:itemCount="3"
+                tools:listitem="@layout/audio_video_view" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recFiles"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout13"
-            app:spanCount="3"
-            tools:listitem="@layout/symptoms_attachment_view" />
-        <Button
-            android:id="@+id/btnUploadFiles"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/send_document"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/btnUploadFiles"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/send_document"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

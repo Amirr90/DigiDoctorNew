@@ -7,9 +7,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.SymptomsAttachmentViewBinding;
 import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.model.FileModel;
+import com.digidoctor.android.view.activity.PatientDashboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +43,27 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.FilesVH> {
         FileModel fileModel = modelList.get(position);
         holder.binding.setFile(fileModel);
 
+        String fileType = fileModel.getFileType();
+
+        if (fileModel.getThumbnail() != null) {
+            holder.binding.imageView55.setImageResource(fileModel.getThumbnail());
+        } else {
+            if (null != fileType)
+                if (fileType.equalsIgnoreCase("aac")) {
+                    holder.binding.imageView55.setImageResource(R.drawable.audio_file);
+                } else if (fileType.equalsIgnoreCase("jpeg") || fileType.equalsIgnoreCase("png") || fileType.equalsIgnoreCase("jpg")) {
+                    Glide.with(PatientDashboard.getInstance())
+                            .load(fileModel.getFilePath())
+                            .centerCrop()
+                            .placeholder(R.drawable.profile)
+                            .into(holder.binding.imageView55);
+                }
+        }
+
+
         if (null != adapterInterface)
             holder.binding.ivDeleteFiles.setOnClickListener(view -> adapterInterface.onItemClicked(position));
-          
+
         holder.binding.ivDeleteFiles.setVisibility(null == adapterInterface ? View.GONE : View.VISIBLE);
     }
 

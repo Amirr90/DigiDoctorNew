@@ -158,8 +158,6 @@ public abstract class MedCheckActivity extends AppCompatActivity {
     protected void checkAllConditions() {
 
         if (PermissionHelper.hasPermissions(this, PermissionHelper.Permission.LOCATIONS_PERMISSION)) {
-
-
             LocationSettingsRequest.Builder locationSettingBuilder = new LocationSettingsRequest.Builder();
             locationSettingBuilder.addLocationRequest(new LocationRequest());
             LocationSettingsRequest locationSetting = locationSettingBuilder.build();
@@ -193,6 +191,7 @@ public abstract class MedCheckActivity extends AppCompatActivity {
             PermissionHelper.requestPermissions(this,
                     PermissionHelper.Permission.LOCATIONS_PERMISSION,
                     REQUEST_CODE_LOCATION_PERMISSION);
+            Toast.makeText(this, "Permission required !! ", Toast.LENGTH_SHORT).show();
         }
     }
 

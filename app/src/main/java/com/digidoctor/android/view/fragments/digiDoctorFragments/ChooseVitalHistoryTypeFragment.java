@@ -98,6 +98,18 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
                 R.drawable.live_icon));
 
 
+        vitalTypeModelList.add(new VitalTypeModel(
+                getString(R.string.stethoscope),
+                getString(R.string.stethoscope_description),
+                R.drawable.stethoscope_with_mic));
+
+
+        vitalTypeModelList.add(new VitalTypeModel(
+                getString(R.string.laryngoscope),
+                getString(R.string.laryngoscope_description),
+                R.drawable.laryngoscope));
+
+
         typeAdapter.notifyDataSetChanged();
     }
 
@@ -178,8 +190,16 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
 
         else if (model.getTitle().equalsIgnoreCase(getString(R.string.live)))
             navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_selectDeviceFragment);
-            //Toast.makeText(requireActivity(), getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-        else showSelectVitalCategoryList();
+
+        else if (model.getTitle().equalsIgnoreCase(getString(R.string.stethoscope))) {
+            Bundle bundle = new Bundle();
+            bundle.putString("type", "stetho" );
+            navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_stethAndLaryngoDataFragment, bundle);
+        } else if (model.getTitle().equalsIgnoreCase(getString(R.string.laryngoscope))) {
+            Bundle bundle = new Bundle();
+            bundle.putString("type","laringoscope");
+            navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_stethAndLaryngoDataFragment, bundle);
+        } else showSelectVitalCategoryList();
     }
 
     private class SelectVitalCategoryListAdapter extends RecyclerView.Adapter<SelectVitalCategoryListAdapter.CategoryVH> {

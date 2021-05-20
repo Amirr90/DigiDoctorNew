@@ -80,6 +80,7 @@ import com.digidoctor.android.model.patientModel.HomeIsolationReqModel;
 import com.digidoctor.android.model.patientModel.HospitalAndPackageResponse2;
 import com.digidoctor.android.model.patientModel.IsolationResponse;
 import com.digidoctor.android.model.patientModel.MedicineReminderResponse;
+import com.digidoctor.android.model.patientModel.RecordingResponse;
 import com.digidoctor.android.model.pharmacyModel.AddAddressModel;
 import com.digidoctor.android.model.pharmacyModel.AddAdressResponse;
 import com.digidoctor.android.model.pharmacyModel.AddToCartModel;
@@ -2566,6 +2567,26 @@ public class ApiUtils {
 
             @Override
             public void onFailure(@NotNull Call<ResponseModel> call, @NotNull Throwable t) {
+                apiCallbackInterface.onError(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void getData(ApiRequestModel requestModel, ApiCallbackInterface apiCallbackInterface) {
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<RecordingResponse> call = iRestInterfaces.getRecordingData(requestModel);
+        call.enqueue(new Callback<RecordingResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<RecordingResponse> call, @NotNull Response<RecordingResponse> response) {
+                if (response.isSuccessful() && null != response.body()) {
+                    if (response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                } else apiCallbackInterface.onError("error : " + response.code());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<RecordingResponse> call, @NotNull Throwable t) {
                 apiCallbackInterface.onError(t.getLocalizedMessage());
             }
         });

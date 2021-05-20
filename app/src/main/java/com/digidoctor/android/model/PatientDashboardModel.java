@@ -12,6 +12,11 @@ public class PatientDashboardModel {
     List<BannerModel> bannerDetails;
     List<BlogModel> blogDetails;
     List<DoctorModel> doctorDetails;
+    List<DDStatsModel> countDetails;
+
+    public List<DDStatsModel> getCountDetails() {
+        return countDetails;
+    }
 
     public List<DoctorModel> getDoctorDetails() {
         return doctorDetails;

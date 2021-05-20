@@ -2,8 +2,17 @@ package com.digidoctor.android.model;
 
 public class UploadPresDataModel {
 
-    private  String appointmentId;
-    private  String dtDataTable;
+    private String appointmentId;
+    private String dtDataTable;
+    private String recordingType;
+
+    public String getRecordingType() {
+        return recordingType;
+    }
+
+    public void setRecordingType(String recordingType) {
+        this.recordingType = recordingType;
+    }
 
     public UploadPresDataModel() {
     }

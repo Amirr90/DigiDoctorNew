@@ -6,6 +6,12 @@
 
     <data>
 
+        <import type="com.digidoctor.android.utility.AppUtils" />
+
+        <variable
+            name="stats"
+            type="com.digidoctor.android.model.DDStatsModel" />
+
         <variable
             name="user"
             type="com.digidoctor.android.model.User" />
@@ -179,7 +185,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="18dp"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:background="@drawable/add_button"
+                    android:background="@drawable/home_button_background"
                     android:clickable="true"
                     android:drawablePadding="10dp"
                     android:focusable="true"
@@ -205,6 +211,30 @@
                     app:spanCount="2"
                     tools:itemCount="4"
                     tools:listitem="@layout/dash_board_view" />
+
+
+                <TextView
+                    android:id="@+id/tvDownloadPostCovid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="18dp"
+                    android:background="@drawable/home_button_background"
+                    android:clickable="true"
+                    android:drawablePadding="10dp"
+                    android:focusable="true"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center_horizontal"
+                    android:paddingLeft="@dimen/_20sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_20sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="@string/download_post_covid_care_booklet"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
 
 
                 <androidx.cardview.widget.CardView
@@ -300,7 +330,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
-                        android:id="@+id/btnUpload"
+                        android:id="@+id/btnViewAllDoctor"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_gravity="center"
@@ -347,7 +377,7 @@
                         android:fontFamily="@font/poppins_semibold"
                         android:paddingStart="@dimen/_10sdp"
                         android:paddingEnd="@dimen/_100sdp"
-                        android:text="Doctors in Demands"
+                        android:text="@string/our_blogs"
                         android:textColor="#2B3344"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -356,6 +386,8 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
+                        android:visibility="gone"
+                        android:id="@+id/btnOurBlogs"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_gravity="center"
@@ -413,7 +445,7 @@
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/poppins_medium"
                         android:lineSpacingExtra="-5dp"
-                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eleifend, orci sed egestas faucibus, leo sapien laoreet massa, feugiat, Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                        android:text="@{stats.description.toString()}"
                         android:textColor="#2B3344"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="@+id/imageView78"
@@ -442,7 +474,7 @@
                         android:includeFontPadding="false"
                         android:lineSpacingExtra="-7dp"
                         android:lineSpacingMultiplier="5"
-                        android:text="Our Users"
+                        android:text="@string/our_users"
                         android:textColor="#E62B3344"
                         android:textSize="11sp"
                         app:layout_constraintStart_toStartOf="@+id/imageView79"
@@ -458,7 +490,7 @@
                         android:includeFontPadding="false"
                         android:lineSpacingExtra="-7dp"
                         android:lineSpacingMultiplier="5"
-                        android:text="3.5 Lakh"
+                        android:text="@{stats.userCount.toString()}"
                         android:textColor="#2B3344"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -489,7 +521,7 @@
                         android:includeFontPadding="false"
                         android:lineSpacingExtra="-7dp"
                         android:lineSpacingMultiplier="5"
-                        android:text="Our Doctors"
+                        android:text="@string/our_doctors"
                         android:textColor="#E62B3344"
                         android:textSize="11sp"
                         app:layout_constraintEnd_toEndOf="@+id/imageView791"
@@ -505,7 +537,7 @@
                         android:includeFontPadding="false"
                         android:lineSpacingExtra="-7dp"
                         android:lineSpacingMultiplier="5"
-                        android:text="10,475"
+                        android:text="@{stats.doctorsCount.toString()}"
                         android:textColor="#2B3344"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -535,7 +567,7 @@
                         android:includeFontPadding="false"
                         android:lineSpacingExtra="-7dp"
                         android:lineSpacingMultiplier="5"
-                        android:text="Our Hospitals"
+                        android:text="@string/our_hospitals"
                         android:textColor="#E62B3344"
                         android:textSize="11sp"
                         app:layout_constraintEnd_toEndOf="@+id/imageView792"
@@ -550,7 +582,7 @@
                         android:includeFontPadding="false"
                         android:lineSpacingExtra="-7dp"
                         android:lineSpacingMultiplier="5"
-                        android:text="5,000"
+                        android:text="@{stats.hospitalCount.toString()}"
                         android:textColor="#2B3344"
                         android:textSize="14sp"
                         android:textStyle="bold"

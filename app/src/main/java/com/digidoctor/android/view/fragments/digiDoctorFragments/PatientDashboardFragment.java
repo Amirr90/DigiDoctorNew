@@ -24,8 +24,10 @@ import com.digidoctor.android.adapters.RecommendedDoctorsAdapter;
 import com.digidoctor.android.databinding.FragmentPatientDashboardBinding;
 import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.model.BannerModel;
+import com.digidoctor.android.model.DDStatsModel;
 import com.digidoctor.android.model.DashboardModel1;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.PicassoImageLoadingService;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
@@ -139,6 +141,16 @@ public class PatientDashboardFragment extends Fragment implements AdapterInterfa
         //listener for homeIsolationTv
         dashboard2Binding.tvHomeIsolation.setOnClickListener(v -> navController.navigate(R.id.action_patientDashboardFragment_to_homeIsolationFragment));
         dashboard2Binding.tvLocation.setOnClickListener(view13 -> Log.d(TAG, "onViewCreated: Clicked"));
+        dashboard2Binding.tvDownloadPostCovid.setOnClickListener(v -> {
+            AppUtils appUtils = new AppUtils();
+            appUtils.downloadPdf(requireActivity());
+        });
+
+        dashboard2Binding.btnViewAllDoctor.setOnClickListener(view12 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("id", "0");
+            PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_subSpecialistFragment, bundle);
+        });
     }
 
 
@@ -166,10 +178,18 @@ public class PatientDashboardFragment extends Fragment implements AdapterInterfa
                 //notifying blog Adapter
                 blogAdapter.submitList(patientDashboardModel.getBlogDetails());
 
+                //updateAppStats
+                if (null != patientDashboardModel.getCountDetails() && !patientDashboardModel.getCountDetails().isEmpty())
+                    updateAppStats(patientDashboardModel.getCountDetails().get(0));
+
             }
 
         });
 
+    }
+
+    private void updateAppStats(DDStatsModel ddStatsModel) {
+        dashboard2Binding.setStats(ddStatsModel);
     }
 
 

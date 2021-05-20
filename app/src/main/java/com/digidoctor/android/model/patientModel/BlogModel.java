@@ -17,7 +17,7 @@ public class BlogModel {
     String publishDate;
 
     public Integer getTotalLikes() {
-        return totalLikes;
+        return null == totalLikes ? 0 : totalLikes;
     }
 
     public Integer getId() {

@@ -433,6 +433,13 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_chooseVitalHistoryTypeFragment_to_stethAndLaryngoDataFragment"
+            app:destination="@id/stethAndLaryngoDataFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/addPrescriptionManuallyFragment"
@@ -1108,5 +1115,24 @@
         android:name="com.digidoctor.android.AddMedicineReminderBottomFragment"
         android:label="fragment_add_medicine_reminder_bottom"
         tools:layout="@layout/fragment_add_medicine_reminder_bottom" />
+    <fragment
+        android:id="@+id/audioRecorderFragment"
+        android:name="com.digidoctor.android.AudioRecorderFragment"
+        android:label="fragment_audio_recorder"
+        tools:layout="@layout/fragment_audio_recorder" />
+    <fragment
+        android:id="@+id/stethAndLaryngoDataFragment"
+        android:name="com.digidoctor.android.StethAndLaryngoDataFragment"
+        android:label="Recording Data"
+        tools:layout="@layout/fragment_steth_and_laryngo_data" >
+        <action
+            android:id="@+id/action_stethAndLaryngoDataFragment_to_videoFragmentFragment"
+            app:destination="@id/videoFragmentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoFragmentFragment"
+        android:name="com.digidoctor.android.VideoFragmentFragment"
+        android:label="fragment_video_fragment"
+        tools:layout="@layout/fragment_video_fragment" />
 
 </navigation>

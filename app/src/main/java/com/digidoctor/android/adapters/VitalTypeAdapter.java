@@ -1,14 +1,17 @@
 package com.digidoctor.android.adapters;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.VitalHistoryTypeViewBinding;
 import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.model.VitalTypeModel;
+import com.digidoctor.android.utility.App;
 
 import java.util.List;
 
@@ -32,6 +35,16 @@ public class VitalTypeAdapter extends RecyclerView.Adapter<VitalTypeAdapter.Vita
 
     @Override
     public void onBindViewHolder(@NonNull VitalTypeVH holder, int position) {
+        if (position == 0) {
+            holder.typeViewBinding.mainLayout.setBackgroundResource(R.color.colorPrimary);
+            holder.typeViewBinding.textView34.setTextColor(Color.WHITE);
+            holder.typeViewBinding.textView36.setTextColor(Color.WHITE);
+        } else {
+            holder.typeViewBinding.mainLayout.setBackgroundResource(R.color.color_grey);
+            holder.typeViewBinding.textView34.setTextColor(App.context.getResources().getColor(R.color.TextPrimaryColor));
+            holder.typeViewBinding.textView36.setTextColor(App.context.getResources().getColor(R.color.TextSecondaryColor));
+        }
+
         try {
             VitalTypeModel typeModel = vitalTypeModelList.get(position);
             holder.typeViewBinding.setVitalType(typeModel);

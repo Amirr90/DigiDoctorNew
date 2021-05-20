@@ -224,6 +224,8 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     case R.id.homeIsolationRequestListFragment:
                     case R.id.homeIsolationRequestDetailFragment:
                     case R.id.medicineReminderListFragment:
+                    case R.id.stethAndLaryngoDataFragment:
+                    case R.id.chooseVitalHistoryTypeFragment:
                         hideAllItem();
                         break;
 

@@ -2,6 +2,7 @@ package com.digidoctor.android.utility;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +15,8 @@ import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.model.DashboardModel1;
@@ -44,6 +47,8 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.os.Environment.DIRECTORY_DOWNLOADS;
+
 public class AppUtils {
     private static final String TAG = "AppUtils";
     public static Toast mToast;
@@ -56,6 +61,10 @@ public class AppUtils {
     public static final int PAY_MODE_PAY_ON_VISIT = 4;
     public static final int PAY_MODE_RAZOR_PAYY = 3;
     public static final int PAY_MODE_PAY_U_MONEY = 2;
+    public static final int Play = 1;
+    public static final int Pause = 0;
+    public static final int Stop = 2;
+    public static final int Playing = 3;
 
 
     public static String getCurrencyFormat(Integer num) {
@@ -492,5 +501,23 @@ public class AppUtils {
         } else {
             return new DecimalFormat("#,##0").format(numValue);
         }
+    }
+
+    public void downloadPdf(FragmentActivity fragmentActivity) {
+        Toast.makeText(fragmentActivity, "Downloading pdf...", Toast.LENGTH_SHORT).show();
+        String downLoadPdfUrl = "https://digidoctor.in/PostCovidCare.pdf";
+        Uri uri = Uri.parse(downLoadPdfUrl);
+        downloadFile(App.context, uri);
+
+    }
+
+    private void downloadFile(Context context, Uri uri) {
+        DownloadManager downloadManager = (DownloadManager)
+                context.getSystemService(Context.DOWNLOAD_SERVICE);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalFilesDir(context, DIRECTORY_DOWNLOADS, "post_coivd_booklet");
+        downloadManager.enqueue(request);
+        Notification.createLocalNotification("Downloading Started", "Downloading Post Covid Booklet pdf");
     }
 }

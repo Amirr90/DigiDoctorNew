@@ -1,6 +1,7 @@
 package com.digidoctor.android.view.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -23,7 +24,7 @@ import java.util.HashMap;
 public class MedCheckDeviceGetData extends MedCheckActivity implements OnItemClickListener<BleDevice>, View.OnClickListener {
 
 
-    private static final String TAG = MedCheckDeviceGetData.class.getSimpleName();
+    private static final String TAG = "MedCheckDeviceGetData";
     private HashMap<String, BleDevice> mDeviceHashMap = new HashMap<>();
     private RecyclerView mRvScanResult;
     private Button mBtnStartScan, mBtnStopScan;
@@ -35,12 +36,6 @@ public class MedCheckDeviceGetData extends MedCheckActivity implements OnItemCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_med_check_device_get_data);
-        Toolbar toolbar = findViewById(R.id.toolbar3);
-     /*   setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.add_device));*/
-
         initViews();
         requestLocationPermission();
         checkAllConditions();
@@ -84,6 +79,7 @@ public class MedCheckDeviceGetData extends MedCheckActivity implements OnItemCli
 
         if (mScanResultAdapter != null) {
             mScanResultAdapter.setItems(new ArrayList<>(mDeviceHashMap.values()));
+            Log.d(TAG, "onDeviceScanResult: " + mDeviceHashMap.values().toString());
         }
     }
 

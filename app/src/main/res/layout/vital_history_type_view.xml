@@ -25,7 +25,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/mainLayout"
             android:background="#F2F6FE"
+
+
             android:onClick="@{()->adapterInterface.onItemClicked(vitalType)}">
 
             <ImageView
@@ -35,11 +38,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="28dp"
                 android:layout_marginBottom="28dp"
+                android:contentDescription="TODO"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/graphs_icon"
-                android:contentDescription="TODO" />
+                app:srcCompat="@drawable/customize_icon" />
 
             <TextView
                 android:id="@+id/textView34"
@@ -48,7 +51,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="13dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="@{vitalType.title}"
+                android:text="@{vitalType.title,default=`Input Vitals` }"
                 android:textColor="#272F2F"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -89,8 +92,8 @@
                     android:id="@+id/imageView16"
                     android:layout_width="10dp"
                     android:layout_height="8dp"
-                    app:srcCompat="@drawable/arrow_forward_white"
-                    android:contentDescription="TODO" />
+                    android:contentDescription="TODO"
+                    app:srcCompat="@drawable/arrow_forward_white" />
             </LinearLayout>
 
 

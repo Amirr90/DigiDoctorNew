@@ -6,6 +6,8 @@
     <data>
 
 
+        <import type="com.digidoctor.android.R" />
+
         <variable
             name="file"
             type="com.digidoctor.android.model.FileModel" />
@@ -35,24 +37,23 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
+                    android:contentDescription="TODO"
                     android:elevation="10dp"
                     android:focusable="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/payu_delete"
-                    android:contentDescription="TODO" />
+                    app:srcCompat="@drawable/payu_delete" />
 
                 <ImageView
                     android:id="@+id/imageView55"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:loadCustomUserImage="@{file.filePath}"
+                    android:contentDescription="TODO"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/avatars"
-                    android:contentDescription="TODO" />
+                    tools:srcCompat="@tools:sample/avatars" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
