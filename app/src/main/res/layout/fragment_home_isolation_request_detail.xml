@@ -52,12 +52,12 @@
                     android:textColor="#262E3F"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/tvStatus"
+                    app:layout_constraintBottom_toTopOf="@+id/tvStatus2"
                     app:layout_constraintStart_toEndOf="@+id/llImage2"
                     app:layout_constraintTop_toTopOf="@+id/llImage2" />
 
                 <TextView
-                    android:id="@+id/tvStatus"
+                    android:id="@+id/tvStatus2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tcPhysicalExamination"

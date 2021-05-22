@@ -54,14 +54,13 @@ import static com.digidoctor.android.utility.utils.getDateInDMYFormatFromTimesta
 import static com.digidoctor.android.utility.utils.isNetworkConnected;
 
 public class DeviceConnectionActivity extends MedCheckActivity implements View.OnClickListener {
-    private Date today = new Date();
     private BleDevice mBleDevice;
     private TextView txtSys;
     private TextView txtDias;
     private TextView txtPulse;
     private TextView mTvConnectionState;
     private Button mBtnConnect;
-    private LinearLayout mLlCoreOperations, mLlBLEDeviceOperation;
+    private LinearLayout mLlCoreOperations;
     private TextView mTvResult;
     private boolean mAllPermissionsReady;
     private ProgressDialog dialog;
@@ -120,8 +119,6 @@ public class DeviceConnectionActivity extends MedCheckActivity implements View.O
         TextView mTvDeviceName = findViewById(R.id.tvDeviceName);
         mTvConnectionState = findViewById(R.id.tvStatus);
         mLlCoreOperations = findViewById(R.id.llCoreOperations);
-        mLlBLEDeviceOperation = findViewById(R.id.llBLEDeviceOperation);
-        TextView txtPid = findViewById(R.id.txtPid);
 
         TextView btnScan = findViewById(R.id.btnScan);
         btnScan.setOnClickListener(this);

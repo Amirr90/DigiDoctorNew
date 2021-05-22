@@ -143,7 +143,7 @@ public class HomeIsolationRequestDetailFragment extends Fragment {
             color = getResources().getColor(R.color.red);
         }
 
-        binding.tvStatus.setTextColor(color);
+        binding.tvStatus2.setTextColor(color);
         binding.btLoading.playAnimation();
 
     }
