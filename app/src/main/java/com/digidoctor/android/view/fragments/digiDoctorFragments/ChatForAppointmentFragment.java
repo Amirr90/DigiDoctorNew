@@ -149,7 +149,7 @@ public class ChatForAppointmentFragment extends Fragment implements ChatInterfac
         chatModel.setReceiverId(doId);
         chatModel.setSeen(false);
         chatModel.setServiceProviderTypeId("6");//6 for patient
-        chatModel.setTimestamp(String.valueOf(System.currentTimeMillis()));
+        chatModel.setTimestamp(System.currentTimeMillis());
         return chatModel;
     }
 

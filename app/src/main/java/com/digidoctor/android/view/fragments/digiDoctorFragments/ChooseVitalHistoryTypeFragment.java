@@ -197,7 +197,7 @@ public class ChooseVitalHistoryTypeFragment extends Fragment implements AdapterI
             navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_stethAndLaryngoDataFragment, bundle);
         } else if (model.getTitle().equalsIgnoreCase(getString(R.string.laryngoscope))) {
             Bundle bundle = new Bundle();
-            bundle.putString("type","laringoscope");
+            bundle.putString("type","laryngoscope");
             navController.navigate(R.id.action_chooseVitalHistoryTypeFragment_to_stethAndLaryngoDataFragment, bundle);
         } else showSelectVitalCategoryList();
     }

@@ -17,7 +17,6 @@ import com.digidoctor.android.databinding.FragmentGetStartedBinding;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.SignUpJourneyActivity;
 import com.digidoctor.android.view.activity.ui.main.SectionsPagerAdapter;
-import com.google.android.material.tabs.TabLayout;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -47,7 +46,7 @@ public class GetStartedFragment extends Fragment {
         navController = Navigation.findNavController(view);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(requireContext(), ((SignUpJourneyActivity) requireContext()).getSupportFragmentManager());
         getStartedBinding.viewPager.setAdapter(sectionsPagerAdapter);
-        getStartedBinding.tabs.setupWithViewPager(getStartedBinding.viewPager);
+        //getStartedBinding.tabs.setupWithViewPager(getStartedBinding.viewPager);
 
         getStartedBinding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -58,7 +57,9 @@ public class GetStartedFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-
+                getStartedBinding.btnGetStarted.setVisibility(position == 2 ? View.VISIBLE : View.GONE);
+                if (position == 2)
+                    getStartedBinding.btnGetStarted.setAnimation(fadeIn(requireActivity()));
             }
 
             @Override
@@ -67,7 +68,7 @@ public class GetStartedFragment extends Fragment {
             }
         });
 
-        getStartedBinding.tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+/*        getStartedBinding.tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 getStartedBinding.btnGetStarted.setVisibility(tab.getPosition() == 2 ? View.VISIBLE : View.GONE);
@@ -84,7 +85,7 @@ public class GetStartedFragment extends Fragment {
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
-        });
+        });*/
 
 
         getStartedBinding.btnGetStarted.setOnClickListener(view1 -> navController.navigate(R.id.action_getStartedFragment_to_inputMobileNumberFragment));

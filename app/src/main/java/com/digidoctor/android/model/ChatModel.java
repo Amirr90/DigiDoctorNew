@@ -1,9 +1,7 @@
 package com.digidoctor.android.model;
 
-import java.sql.Timestamp;
-
 public class ChatModel {
-    String timestamp;
+    Long timestamp;
     String appointmentId;
     String message;
     Boolean isSeen;
@@ -48,12 +46,11 @@ public class ChatModel {
     }
 
     public long getTimestamp() {
-        Timestamp ts1 = Timestamp.valueOf(timestamp);
-        return ts1.getTime();
+        return timestamp;
 
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 

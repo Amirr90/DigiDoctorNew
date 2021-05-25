@@ -412,6 +412,7 @@ public class utils {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(timestamp);
         Date d = c.getTime();
+        Log.d("TAG", "createDate: " + d);
         return new SimpleDateFormat("HH:mm:ss").format(d);
 
     }

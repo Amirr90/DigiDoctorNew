@@ -226,6 +226,8 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     case R.id.medicineReminderListFragment:
                     case R.id.stethAndLaryngoDataFragment:
                     case R.id.chooseVitalHistoryTypeFragment:
+                    case R.id.chatForAppointmentFragment:
+                    case R.id.videoFragmentFragment:
                         hideAllItem();
                         break;
 
@@ -555,9 +557,9 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 openBrowser();
                 break;
             case 10:
-                showRequestDialog(this);
-                if (utils.logout(this))
-                    hideDialog();
+                if (user.getIsExists() == 1)
+                    navController.navigate(R.id.medicineReminderListFragment);
+                else navController.navigate(R.id.profileFragment);
                 break;
             case 15:
                 if (user.getIsExists() == 1)
@@ -565,9 +567,10 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 else navController.navigate(R.id.profileFragment);
                 break;
             case 16:
-                if (user.getIsExists() == 1)
-                    navController.navigate(R.id.medicineReminderListFragment);
-                else navController.navigate(R.id.profileFragment);
+                showRequestDialog(this);
+                if (utils.logout(this))
+                    hideDialog();
+
                 break;
             default:
                 Toast.makeText(instance, "Coming Soon", Toast.LENGTH_SHORT).show();

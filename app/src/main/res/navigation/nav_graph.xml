@@ -1132,7 +1132,7 @@
     <fragment
         android:id="@+id/videoFragmentFragment"
         android:name="com.digidoctor.android.VideoFragmentFragment"
-        android:label="fragment_video_fragment"
+        android:label="@string/video"
         tools:layout="@layout/fragment_video_fragment" />
 
 </navigation>

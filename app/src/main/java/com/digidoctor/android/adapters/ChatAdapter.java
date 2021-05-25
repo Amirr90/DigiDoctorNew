@@ -1,5 +1,6 @@
 package com.digidoctor.android.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -17,6 +18,7 @@ import java.util.List;
 import static com.digidoctor.android.utility.utils.createDate;
 
 public class ChatAdapter extends RecyclerView.Adapter {
+    private static final String TAG = "ChatAdapter";
     public static final int VIEW_TYPE_SENDER = 0;
     public static final int VIEW_TYPE_RECEIVER = 1;
     ChatInterface chatInterface;
@@ -61,6 +63,8 @@ public class ChatAdapter extends RecyclerView.Adapter {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Log.d(TAG, "onBindViewHolder: " + e.getLocalizedMessage());
+           // Log.d(TAG, "Timestamp: " + snapshot.getTimestamp());
         }
     }
 
@@ -80,6 +84,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
 
     public static class SenderViewHolder extends RecyclerView.ViewHolder {
         SenderViewBinding senderViewBinding;
+
         public SenderViewHolder(@NonNull SenderViewBinding senderViewBinding) {
             super(senderViewBinding.getRoot());
             this.senderViewBinding = senderViewBinding;
@@ -88,6 +93,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
 
     public static class ReceiverViewHolder extends RecyclerView.ViewHolder {
         ReceiverViewBinding receiverViewBinding;
+
         public ReceiverViewHolder(@NonNull ReceiverViewBinding receiverViewBinding) {
             super(receiverViewBinding.getRoot());
             this.receiverViewBinding = receiverViewBinding;

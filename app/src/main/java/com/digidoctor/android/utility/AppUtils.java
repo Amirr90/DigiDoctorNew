@@ -1,5 +1,6 @@
 package com.digidoctor.android.utility;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -32,6 +33,7 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -105,13 +107,14 @@ public class AppUtils {
         navModels.add(new NavModel(activity.getString(R.string.notifications), R.drawable.notification));
         navModels.add(new NavModel(activity.getString(R.string.settings), R.drawable.settings));
         navModels.add(new NavModel(activity.getString(R.string.about_us), R.drawable.aboutus));
-        navModels.add(new NavModel(activity.getString(R.string.logout), R.drawable.logout));
+        navModels.add(new NavModel(activity.getString(R.string.medicine_reminder), R.drawable.ic_baseline_alarm_24));
         navModels.add(new NavModel(activity.getString(R.string.change_language), R.drawable.language_icon));
         navModels.add(new NavModel(activity.getString(R.string.share_app), R.drawable.language_icon));
         navModels.add(new NavModel(activity.getString(R.string.symptom_tracker), R.drawable.symptom_tracker_image));
         navModels.add(new NavModel(activity.getString(R.string.lab_order), R.drawable.symptom_tracker_image));
         navModels.add(new NavModel(activity.getString(R.string.home_isolation_request), R.drawable.symptom_tracker_image));
-        navModels.add(new NavModel(activity.getString(R.string.medicine_reminder), R.drawable.ic_baseline_alarm_24));
+
+        navModels.add(new NavModel(activity.getString(R.string.logout), R.drawable.logout));
         return navModels;
     }
 
@@ -519,5 +522,23 @@ public class AppUtils {
         request.setDestinationInExternalFilesDir(context, DIRECTORY_DOWNLOADS, "post_coivd_booklet");
         downloadManager.enqueue(request);
         Notification.createLocalNotification("Downloading Started", "Downloading Post Covid Booklet pdf");
+    }
+
+    public static String getTimeFormat(long currentTimeMillis, String outFormat) {
+        try {
+
+            Timestamp ts = new Timestamp(System.currentTimeMillis());
+            Date date = ts;
+            System.out.println(date);
+
+            @SuppressLint("SimpleDateFormat") String value = new java.text.SimpleDateFormat(outFormat).
+                    format(date);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
     }
 }
