@@ -539,5 +539,9 @@ public class utils {
         }
         return builder;
     }
+
+    public static Animation slideUp(Activity requireActivity) {
+        return AnimationUtils.loadAnimation(requireActivity, R.anim.slide_up);
+    }
 }
 

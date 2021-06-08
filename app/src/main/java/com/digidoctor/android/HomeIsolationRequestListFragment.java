@@ -55,7 +55,6 @@ public class HomeIsolationRequestListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
-
         reqModels = new ArrayList<>();
         homeIsolationAdapter = new HomeIsolationAdapter(reqModels);
         binding.isolationRec.setAdapter(homeIsolationAdapter);

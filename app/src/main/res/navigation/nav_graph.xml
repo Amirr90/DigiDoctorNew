@@ -115,6 +115,9 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in" />
+        <action
+            android:id="@+id/action_patientDashboardFragment_to_botChatFragment"
+            app:destination="@id/botChatFragment" />
     </fragment>
     <fragment
         android:id="@+id/symptomsFragment2"
@@ -1068,7 +1071,7 @@
         android:id="@+id/homeIsolationFragment"
         android:name="com.digidoctor.android.HomeIsolationFragment"
         android:label="Home Isolation Request"
-        tools:layout="@layout/fragment_home_isolation" >
+        tools:layout="@layout/fragment_home_isolation">
         <action
             android:id="@+id/action_homeIsolationFragment_to_homeIsolationRequestListFragment"
             app:destination="@id/homeIsolationRequestListFragment"
@@ -1082,7 +1085,7 @@
         android:id="@+id/homeIsolationRequestListFragment"
         android:name="com.digidoctor.android.HomeIsolationRequestListFragment"
         android:label="Isolation Requests"
-        tools:layout="@layout/fragment_home_isolation_request_list" >
+        tools:layout="@layout/fragment_home_isolation_request_list">
         <action
             android:id="@+id/action_homeIsolationRequestListFragment_to_homeIsolationRequestDetailFragment"
             app:destination="@id/homeIsolationRequestDetailFragment"
@@ -1105,7 +1108,7 @@
         android:id="@+id/medicineReminderListFragment"
         android:name="com.digidoctor.android.MedicineReminderListFragment"
         android:label="@string/medicine_reminder"
-        tools:layout="@layout/fragment_medicine_reminder_list" >
+        tools:layout="@layout/fragment_medicine_reminder_list">
         <action
             android:id="@+id/action_medicineReminderListFragment_to_addMedicineReminderBottomFragment"
             app:destination="@id/addMedicineReminderBottomFragment" />
@@ -1124,7 +1127,7 @@
         android:id="@+id/stethAndLaryngoDataFragment"
         android:name="com.digidoctor.android.StethAndLaryngoDataFragment"
         android:label="Recording Data"
-        tools:layout="@layout/fragment_steth_and_laryngo_data" >
+        tools:layout="@layout/fragment_steth_and_laryngo_data">
         <action
             android:id="@+id/action_stethAndLaryngoDataFragment_to_videoFragmentFragment"
             app:destination="@id/videoFragmentFragment" />
@@ -1134,5 +1137,22 @@
         android:name="com.digidoctor.android.VideoFragmentFragment"
         android:label="@string/video"
         tools:layout="@layout/fragment_video_fragment" />
+    <fragment
+        android:id="@+id/botChatFragment"
+        android:name="com.digidoctor.android.BotChatFragment"
+        android:label="fragment_bot_chat"
+        tools:layout="@layout/fragment_bot_chat" >
+        <action
+            android:id="@+id/action_botChatFragment_to_chatWithMemberFragment"
+            app:destination="@id/chatWithMemberFragment"
+            app:enterAnim="@anim/slide_up"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatWithMemberFragment"
+        android:name="com.digidoctor.android.ChatWithMemberFragment"
+        android:label="fragment_chat_with_member"
+        tools:layout="@layout/fragment_chat_with_member" />
 
 </navigation>

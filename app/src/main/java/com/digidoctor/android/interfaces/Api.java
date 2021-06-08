@@ -475,6 +475,11 @@ public interface Api {
 
     @POST("getRecordingData")
     Call<RecordingResponse> getRecordingData(@Body ApiRequestModel requestModel);
+
+    @POST("emergencyAddUser")
+    Call<ResponseModel> emergencyAddUser(
+            @Body User user);
+
 }
 
 

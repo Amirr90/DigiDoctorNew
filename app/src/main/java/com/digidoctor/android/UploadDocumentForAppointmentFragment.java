@@ -128,8 +128,11 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
 
     private void startRec() {
 
-        Intent intent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
-        startActivityForResult(intent, REQ_CODE_SELECT_STETHO_AUDIO);
+        if (recordingType.isEmpty() || recordingType.equalsIgnoreCase("stetho")) {
+            Intent intent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
+            startActivityForResult(intent, REQ_CODE_SELECT_STETHO_AUDIO);
+        } else
+            Toast.makeText(requireActivity(), "can't select Stethoscope audio at this time !!", Toast.LENGTH_SHORT).show();
 
 
     }
@@ -290,28 +293,30 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
     }
 
     private void selectVideo(int reqCode) {
-        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            if (getFromPref(requireActivity(), ALLOW_KEY)) {
-                showSettingsAlert();
-            } else if (ContextCompat.checkSelfPermission(requireActivity(),
-                    Manifest.permission.CAMERA)
 
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                // Should we show an explanation?
-                if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
-                        Manifest.permission.CAMERA)) {
-                    showAlert();
-                } else {
-                    // No explanation needed, we can request the permission.
-                    ActivityCompat.requestPermissions(requireActivity(),
-                            new String[]{Manifest.permission.CAMERA},
-                            MY_PERMISSIONS_REQUEST_CAMERA);
+        if (recordingType.isEmpty() || recordingType.equalsIgnoreCase("laryngoscope")) {
+            if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                if (getFromPref(requireActivity(), ALLOW_KEY)) {
+                    showSettingsAlert();
+                } else if (ContextCompat.checkSelfPermission(requireActivity(),
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
+                            Manifest.permission.CAMERA)) {
+                        showAlert();
+                    } else {
+                        ActivityCompat.requestPermissions(requireActivity(),
+                                new String[]{Manifest.permission.CAMERA},
+                                MY_PERMISSIONS_REQUEST_CAMERA);
+                    }
                 }
+            } else {
+                openCamera(reqCode);
             }
-        } else {
-            openCamera(reqCode);
-        }
+        } else
+            Toast.makeText(requireActivity(), "cant add laryngoscope at this time", Toast.LENGTH_SHORT).show();
+
+
     }
 
     @Override
@@ -359,13 +364,6 @@ public class UploadDocumentForAppointmentFragment extends Fragment implements Ad
 
             } catch (Exception e) {
                 e.printStackTrace();
-            }
-
-
-            //playRecording(uri);
-
-            if (resultCode == Activity.RESULT_OK && requestCode == 12) {
-                Log.d(TAG, "onActivityResult: " + data.getData());
             }
         }
 

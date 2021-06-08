@@ -26,6 +26,7 @@ import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.model.BannerModel;
 import com.digidoctor.android.model.DDStatsModel;
 import com.digidoctor.android.model.DashboardModel1;
+import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.PicassoImageLoadingService;
@@ -43,6 +44,7 @@ import ss.com.bannerslider.ImageLoadingService;
 import ss.com.bannerslider.Slider;
 
 import static com.digidoctor.android.utility.AppUtils.getDashboardList;
+import static com.digidoctor.android.utility.NewDashboardUtils.getJSONFromModel;
 import static com.digidoctor.android.utility.utils.fadeIn;
 import static com.digidoctor.android.utility.utils.getPrimaryUser;
 
@@ -151,6 +153,11 @@ public class PatientDashboardFragment extends Fragment implements AdapterInterfa
             bundle.putString("id", "0");
             PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_subSpecialistFragment, bundle);
         });
+        dashboard2Binding.dashboardHomeImage.setOnClickListener(view12 -> {
+            PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_botChatFragment);
+        });
+
+
     }
 
 
@@ -210,6 +217,10 @@ public class PatientDashboardFragment extends Fragment implements AdapterInterfa
 
     @Override
     public void onItemClicked(Object o) {
-        // docInDemand AdapterInterface
+        DoctorModel doctorModel = (DoctorModel) o;
+        Bundle bundle = new Bundle();
+        bundle.putString("docModel", getJSONFromModel(doctorModel));
+
+        navController.navigate(R.id.doctorShortProfileFragment, bundle);
     }
 }

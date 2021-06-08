@@ -91,6 +91,8 @@ public class ChooseTimeFragment extends Fragment {
 
         String jsonString = getArguments().getString("docModel");
         doctorModel = new DoctorModel();
+
+
         Gson gson = new Gson();
         doctorModel = gson.fromJson(jsonString, DoctorModel.class);
 

@@ -1,6 +1,7 @@
 <resources>
     <!-- Base application theme. -->
     <style name="MyAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="chipIconTint">@color/yellow700</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -10,6 +11,7 @@
 
     <style name="AppTheme.NoToolbar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="chipIconTint">@color/yellow700</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="fontFamily">@font/poppins_medium</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -17,6 +19,7 @@
 
     <style name="AppTheme.NoActionBar">
         <item name="fontFamily">@font/poppins_medium</item>
+        <item name="chipIconTint">@color/yellow700</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

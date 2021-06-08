@@ -321,6 +321,7 @@ public class ApiUtils {
 
         try {
 
+            Log.d("getSymptomWithIconsData", "symptomName: " + symptomName);
             SymptomModel symptomModel = new SymptomModel();
             symptomModel.setProblemName(symptomName);
 
@@ -2588,6 +2589,46 @@ public class ApiUtils {
             @Override
             public void onFailure(@NotNull Call<RecordingResponse> call, @NotNull Throwable t) {
                 apiCallbackInterface.onError(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void emergencyAddUser(User user, ApiCallbackInterface apiCallbackInterface) {
+
+        Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+        Call<ResponseModel> specialityResCall = iRestInterfaces.emergencyAddUser(user);
+        specialityResCall.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseModel> call, @NotNull Response<ResponseModel> response) {
+                AppUtils.hideDialog();
+
+                if (response.code() == 200) {
+                    ResponseModel resModel = response.body();
+                    if (null != resModel) {
+                        int responseCode = resModel.getResponseCode();
+                        switch (responseCode) {
+                            case RESPONSE_SUCCESS:
+                                apiCallbackInterface.onSuccess(resModel.getResponseValue());
+                                break;
+                            case RESPONSE_FAILED:
+                                apiCallbackInterface.onError(resModel.getResponseMessage());
+                                break;
+                            case RESPONSE_LOGOUT:
+                                logout(PatientDashboard.getInstance());
+                                break;
+
+                        }
+                    }
+                } else {
+                    apiCallbackInterface.onError(String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseModel> call, @NotNull Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onError(t.getLocalizedMessage());
+
             }
         });
     }

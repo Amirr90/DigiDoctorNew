@@ -129,13 +129,14 @@ public class AddMedicineReminderBottomFragment extends BottomSheetDialogFragment
     }
 
     public void startAlert(int hour, int minute, int reqCode) {
+        String text = "Hi '" + utils.getUserForBooking(requireActivity()).getName() + "' it's your medicine time! " +
+                medName;
         ArrayList<Integer> days = getNextWeekDays();
         Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
         intent.putExtra(AlarmClock.EXTRA_HOUR, hour);
         intent.putExtra(AlarmClock.EXTRA_MINUTES, minute);
         intent.putExtra(AlarmClock.EXTRA_DAYS, days);
-        intent.putExtra(AlarmClock.EXTRA_MESSAGE, "Pills Reminder for " + medName);
-        //startActivity(intent);
+        intent.putExtra(AlarmClock.EXTRA_MESSAGE, text);
         startActivityForResult(intent, reqCode);
     }
 

@@ -1,20 +1,26 @@
 package com.digidoctor.android.view.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.VitalListAdapter;
@@ -66,6 +72,8 @@ public class VitalChartFragment extends Fragment {
     HIExporting hiExporting;
 
 
+
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,6 +82,7 @@ public class VitalChartFragment extends Fragment {
         return chartBinding.getRoot();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -132,6 +141,10 @@ public class VitalChartFragment extends Fragment {
                     Toast.makeText(requireActivity(), getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
                 }
         );
+
+
+
+
     }
 
 
@@ -216,6 +229,8 @@ public class VitalChartFragment extends Fragment {
             series1.setData(new ArrayList<>(Arrays.asList(sysData)));
             options.setSeries(new ArrayList<>(Arrays.asList(series1)));
         }
+
+
         chartBinding.chartView.redraw();
         chartBinding.progressBar4.setVisibility(View.GONE);
     }

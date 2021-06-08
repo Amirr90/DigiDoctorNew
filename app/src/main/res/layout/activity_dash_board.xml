@@ -49,8 +49,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/color_primary_gradient"
                     android:paddingStart="25dp"
-                    android:paddingTop="32dp"
-                    android:paddingBottom="25dp"
+                    android:paddingTop="25dp"
+                    android:paddingBottom="15dp"
                     tools:ignore="RtlSymmetry">
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -67,9 +67,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/profile_image_nav"
-                        android:layout_marginTop="20dp"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp">
+                        android:layout_marginTop="15dp">
 
                         <ImageView
                             android:id="@+id/imageView45"
@@ -91,11 +89,10 @@
                             android:id="@+id/textView141"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
                             android:text="@string/change_member"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
+                            android:fontFamily="@font/poppins"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/imageView45"
                             app:layout_constraintHorizontal_bias="0.49"
@@ -141,6 +138,7 @@
                             android:textSize="14sp" />
                     </RelativeLayout>
                 </RelativeLayout>
+
 
 
                 <androidx.recyclerview.widget.RecyclerView

@@ -95,4 +95,9 @@ public class PatientViewModel extends ViewModel {
     public LiveData<List<HospitalAndPackageResponse>> getHospitalAndPackageList() {
         return repo.getHospitalAndPackageList();
     }
+
+
+    public LiveData<List<SymptomModel>> getAppDepartmentData(String symptomName) {
+        return repo.getAppDepartmentData(symptomName);
+    }
 }

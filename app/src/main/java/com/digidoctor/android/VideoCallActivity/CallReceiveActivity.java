@@ -32,7 +32,6 @@ public class CallReceiveActivity extends AppCompatActivity implements View.OnCli
     private ActivityCallReceiveBinding binding;
 
     Ringtone r;
-
     NotificationManager notificationManager;
 
     @Override

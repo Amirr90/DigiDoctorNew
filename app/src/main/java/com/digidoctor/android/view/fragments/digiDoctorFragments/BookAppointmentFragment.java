@@ -203,7 +203,6 @@ public class BookAppointmentFragment extends Fragment {
             public void onFailed(Throwable throwable) {
                 hideDialog();
                 Log.d(TAG, "onFailed: " + throwable.getLocalizedMessage());
-                Toast.makeText(requireActivity(), "try again", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -282,15 +281,12 @@ public class BookAppointmentFragment extends Fragment {
         bookAppointment.setRevisit(isRevisit);
         if (isRevisit)
             bookAppointment.setAppointmentId(String.valueOf(firstAppointmentId));
-
-
-        Log.d(TAG, "onClick: " + bookAppointment.toString());
         bookAppointment.initBooking(payMode, new BookAppointmentInterface() {
             @Override
             public void onAppointmentBooked(OnlineAppointmentModel appointmentModel) {
                 Bundle bundle = new Bundle();
                 bundle.putString("appointmentModel", getJSONFromModel(appointmentModel));
-                Toast.makeText(PatientDashboard.getInstance(), "Appointment Booked " + appointmentModel.getAppointmentId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(PatientDashboard.getInstance(), getString(R.string.appointment_booked_successfully), Toast.LENGTH_SHORT).show();
                 navController.navigate(R.id.action_bookAppointmentFragment_to_appointmentDoneFragment, bundle);
             }
 
@@ -310,15 +306,15 @@ public class BookAppointmentFragment extends Fragment {
 
     private void showCompleteProfileDialog() {
         new AlertDialog.Builder(requireContext())
-                .setTitle("Incomplete Profile")
+                .setTitle(getString(R.string.incomplete_profile))
                 .setCancelable(false)
-                .setMessage("Your profile is incomplete,\ncomplete  profile before booking appointment")
-                .setPositiveButton("OK", (dialog, id) -> {
+                .setMessage(getString(R.string.incomple_profile_tag))
+                .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                     dialog.cancel();
                     navController.navigate(R.id.action_bookAppointmentFragment_to_profileFragment);
                 })
 
-                .setNegativeButton("Cancel", (dialogInterface, i) -> {
+                .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                     dialogInterface.cancel();
                     PatientDashboard.getInstance().onSupportNavigateUp();
                 })

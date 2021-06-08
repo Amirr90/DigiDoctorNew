@@ -68,6 +68,7 @@ public class PatientRepo {
     public MutableLiveData<List<HospitalAndPackageResponse>> loadHospitalAndPackageList;
 
     public MutableLiveData<List<SymptomsNotificationModel>> symptomsNotificationModelMutableLiveData;
+    public MutableLiveData<List<SymptomModel>> allDepartmentData;
 
 
     //Lab member Variable
@@ -621,6 +622,40 @@ public class PatientRepo {
             public void onFailed(Throwable throwable) {
                 Toast.makeText(App.context, "something went wrong, try again !!", Toast.LENGTH_SHORT).show();
                 Log.d("loadHospitalAnd", "onFailed: " + throwable.getLocalizedMessage());
+            }
+        });
+    }
+
+    public LiveData<List<SymptomModel>> getAppDepartmentData(String symptomName) {
+
+
+        if (allDepartmentData == null) {
+            allDepartmentData = new MutableLiveData<>();
+        }
+        loadAllDepartmentData(symptomName);
+        return allDepartmentData;
+    }
+
+    private void loadAllDepartmentData(String symptomName) {
+        ApiUtils.getSymptomWithIconsData(symptomName, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                AppUtils.hideDialog();
+                List<SymptomModel> symptomModelList = (List<SymptomModel>) o;
+                allDepartmentData.setValue(symptomModelList);
+
+            }
+
+            @Override
+            public void onError(String s) {
+                AppUtils.hideDialog();
+                Toast.makeText(App.context, s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                Toast.makeText(App.context, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
     }

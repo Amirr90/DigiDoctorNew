@@ -199,9 +199,9 @@ public class AppointmentDetailFragment extends Fragment implements OnClickListen
             oldAppointmentAdapter.notifyDataSetChanged();
             AppUtils.hideDialog();
 
-
+/*
             if (appointmentModel.isPrescribed())
-                showWriteReviewDialog(appointmentModel);
+                showWriteReviewDialog(appointmentModel);*/
 
 
         });

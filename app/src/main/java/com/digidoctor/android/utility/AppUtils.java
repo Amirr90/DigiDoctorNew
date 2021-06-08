@@ -52,6 +52,10 @@ import java.util.regex.Pattern;
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
 public class AppUtils {
+    public static final String SENDER = "sender";
+    public static final int VIEW_TYPE_SENDER = 0;
+    public static final int VIEW_TYPE_RECEIVER = 1;
+    public static final String RECEIVER = "receiver";
     private static final String TAG = "AppUtils";
     public static Toast mToast;
 
@@ -506,6 +510,15 @@ public class AppUtils {
         }
     }
 
+    public static void showToast(String s) {
+        try {
+            Toast.makeText(App.context, s, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void downloadPdf(FragmentActivity fragmentActivity) {
         Toast.makeText(fragmentActivity, "Downloading pdf...", Toast.LENGTH_SHORT).show();
         String downLoadPdfUrl = "https://digidoctor.in/PostCovidCare.pdf";
@@ -541,4 +554,57 @@ public class AppUtils {
 
 
     }
+
+
+    public static String StringToDate(String date) {
+
+        Calendar today = Calendar.getInstance();
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar dob = Calendar.getInstance();
+        try {
+            dob.setTime(sdf.parse(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int curYear = today.get(Calendar.YEAR);
+        int dobYear = dob.get(Calendar.YEAR);
+
+        int age = curYear - dobYear;
+
+
+        // if dob is month or day is behind today's month or day
+        // reduce age by 1
+        int curMonth = today.get(Calendar.MONTH);
+        int dobMonth = dob.get(Calendar.MONTH);
+        int months = curMonth - dobMonth;
+
+
+        int currDay = today.get(Calendar.DAY_OF_MONTH);
+        int dobdDay = dob.get(Calendar.DAY_OF_MONTH);
+        int Day = currDay - dobdDay;
+
+        Log.d(TAG, "StringToDate: curMonth " + curMonth);
+        Log.d(TAG, "StringToDate: dobMonth " + dobMonth);
+
+
+        if (dobMonth > curMonth) { // this year can't be counted!
+            age--;
+        } else if (dobMonth == curMonth) { // same month? check for day
+            int curDay = today.get(Calendar.DAY_OF_MONTH);
+            int dobDay = dob.get(Calendar.DAY_OF_MONTH);
+            if (dobDay > curDay) { // this year can't be counted!
+                age--;
+            }
+        }
+
+        if (age == 0 && months == 0)
+            return Day + " day(s) old";
+        else if (age == 0)
+            return months + " months " + Day + " day(s) old";
+        else
+            return age + "year(s) " + months + " months old";
+    }
+
 }

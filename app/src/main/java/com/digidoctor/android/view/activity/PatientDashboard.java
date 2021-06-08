@@ -48,6 +48,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.grisoftware.updatechecker.GoogleChecker;
 import com.payu.base.models.ErrorResponse;
 import com.payu.checkoutpro.utils.PayUCheckoutProConstants;
 import com.payu.ui.model.listeners.PayUCheckoutProListener;
@@ -339,7 +340,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     }
 
     private void checkForUpdate() {
-        //new GoogleChecker("com.digidoctor.android", PatientDashboard.this, true, "en");
+        new GoogleChecker("com.digidoctor.android", PatientDashboard.this, true, "en");
     }
 
 
