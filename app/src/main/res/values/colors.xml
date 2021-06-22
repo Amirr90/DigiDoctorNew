@@ -21,6 +21,7 @@
     <color name="black">#000000</color>
     <color name="text_color">#1E1F26</color>
 
+
     <color name="placeholder_bg">#dddddd</color>
     <color name="p3">#39B54A</color>
     <color name="p4">#39B54A</color>
@@ -29,8 +30,10 @@
     <color name="p1">#FF0D0D</color>
     <color name="demo">#0A586C</color>
 
+
     <color name="orange">#f26522</color>
     <color name="green">#00b894</color>
+
 
     <color name="green700">#66BB6A</color>
     <color name="yellow700">#EDA537</color>

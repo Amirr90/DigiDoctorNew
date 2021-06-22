@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.digidoctor.android.utility.AppUtils" />
+
+        <variable
+            name="adapterInterface"
+            type="com.digidoctor.android.interfaces.AdapterInterface" />
+
+        <variable
+            name="department"
+            type="com.digidoctor.android.model.SpecialityModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_5sdp"
+        android:paddingVertical="@dimen/_10sdp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout17"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_for_emc_2"
+            android:clickable="true"
+            android:elevation="@dimen/_10sdp"
+            android:focusable="true"
+            android:onClick="@{()->adapterInterface.onItemClicked(department)}"
+            android:paddingHorizontal="@dimen/_20sdp"
+            android:paddingVertical="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="37dp" />
+
+            <TextView
+                android:id="@+id/textView232"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@{department.departmentName}"
+                android:textColor="@color/TextPrimaryColor"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView85"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView233"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Available for 24*7 for chat"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView232"
+                app:layout_constraintTop_toBottomOf="@+id/textView232" />
+
+            <TextView
+                android:id="@+id/textView234"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="@{AppUtils.getCurrencyFormat(department.fees)}"
+                android:textColor="@color/TextPrimaryColor"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/textView233"
+                app:layout_constraintTop_toBottomOf="@+id/textView233" />
+
+            <ImageView
+                android:id="@+id/imageView85"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView232"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView232"
+                app:srcCompat="@drawable/addcircle"
+                app:tint="@color/green700" />
+
+            <TextView
+                android:id="@+id/textView235"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:drawableTint="@color/YellowColo"
+                android:fontFamily="@font/poppins"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:text="@string/appointment"
+                android:textColor="@color/YellowColo"
+                android:textSize="16sp"
+                app:drawableEndCompat="@drawable/payu_arrow_right"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView234" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="46dp" />
+
+        <ImageView
+            android:id="@+id/imageView83"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:elevation="@dimen/_10sdp"
+            android:loadCustomDoctorImage="@{department.imagePath}"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout17"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout17"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout17"
+            app:srcCompat="@drawable/alternative" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

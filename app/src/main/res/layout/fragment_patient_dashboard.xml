@@ -177,27 +177,21 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/tvHomeIsolation"
+                <Button
+                    android:id="@+id/tvEmergencyChat"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="18dp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:background="@drawable/home_button_background"
-                    android:clickable="true"
-                    android:drawablePadding="10dp"
-                    android:focusable="true"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center_horizontal"
-                    android:paddingLeft="@dimen/_20sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingRight="@dimen/_20sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="@string/request_for_home_isolation"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    android:fontFamily="@font/poppins"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:text="@string/emergency_chat_24_7"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/colorPrimary"
+                    app:strokeColor="@color/colorPrimary"
+                    app:strokeWidth="1dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rec1"
@@ -213,29 +207,21 @@
                     tools:listitem="@layout/dash_board_view" />
 
 
-                <TextView
+                <Button
                     android:id="@+id/tvDownloadPostCovid"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="18dp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_marginBottom="18dp"
-                    android:background="@drawable/home_button_background"
-                    android:clickable="true"
-                    android:drawablePadding="10dp"
-                    android:focusable="true"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center_horizontal"
-                    android:paddingLeft="@dimen/_20sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingRight="@dimen/_20sdp"
-                    android:paddingBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins"
+                    android:paddingVertical="@dimen/_5sdp"
                     android:text="@string/download_post_covid_care_booklet"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/colorPrimary"
+                    app:strokeColor="@color/colorPrimary"
+                    app:strokeWidth="1dp" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -386,7 +372,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
-                        android:visibility="gone"
                         android:id="@+id/btnOurBlogs"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
@@ -402,6 +387,7 @@
                         android:textColor="@android:color/white"
                         android:textSize="12sp"
                         android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

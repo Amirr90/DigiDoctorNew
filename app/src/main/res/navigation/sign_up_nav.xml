@@ -39,10 +39,10 @@
             app:popExitAnim="@anim/fade_out" />
     </fragment>
     <activity
-        tools:layout="@layout/activity_sign_up_journey"
         android:id="@+id/patientDashboard"
         android:name="com.digidoctor.android.view.activity.PatientDashboard"
-        android:label="PatientDashboard" />
+        android:label="PatientDashboard"
+        tools:layout="@layout/activity_sign_up_journey" />
     <fragment
         android:id="@+id/inputOtpFragment"
         android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.InputOtpFragment"
@@ -54,5 +54,21 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_inputOtpFragment_to_profileFragment2"
+            app:destination="@id/profileFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment2"
+        android:name="com.digidoctor.android.view.fragments.digiDoctorFragments.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment2_to_patientDashboard"
+            app:destination="@id/patientDashboard" />
     </fragment>
 </navigation>

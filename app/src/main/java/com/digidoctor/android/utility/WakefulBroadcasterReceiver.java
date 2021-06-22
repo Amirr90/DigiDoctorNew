@@ -75,8 +75,10 @@ public class WakefulBroadcasterReceiver extends BroadcastReceiver {
         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK
                         | PowerManager.ACQUIRE_CAUSES_WAKEUP
                         | PowerManager.ON_AFTER_RELEASE,
-                "MyApp::" + TAG);
+                "" +
+                        "::" + TAG);
         wakeLock.acquire(10000);
+
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addNextIntentWithParentStack(wakeIntent);

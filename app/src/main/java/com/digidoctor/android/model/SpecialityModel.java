@@ -20,13 +20,41 @@ public class SpecialityModel {
 
     int id;
     int noOfDoctors;
+    int memberId;
     String specialityName;
+    String departmentName;
     String imagePath;
     String description;
     private String problemName;
     private Integer specialityId;
     private String doctorName;
     private Integer doctorId;
+    private String isEmergency;
+    private Integer fees;
+
+    public int getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(int memberId) {
+        this.memberId = memberId;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public Integer getFees() {
+        return fees;
+    }
+
+    public String getIsEmergency() {
+        return isEmergency;
+    }
+
+    public void setIsEmergency(String isEmergency) {
+        this.isEmergency = isEmergency;
+    }
 
     public void setNoOfDoctors(int noOfDoctors) {
         this.noOfDoctors = noOfDoctors;

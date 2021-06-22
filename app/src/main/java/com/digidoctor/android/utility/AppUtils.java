@@ -17,6 +17,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import com.digidoctor.android.R;
@@ -97,6 +98,20 @@ public class AppUtils {
         String LANGUAGE = "en";
         return NumberFormat.getCurrencyInstance(new Locale(LANGUAGE, COUNTRY)).format(number);
 
+    }
+
+
+    public static boolean checkForSpecialCharacter(String inputString) {
+        Pattern pattern = Pattern.compile("[^a-zA-Z0-9-\\s-]");
+        Matcher matcher = pattern.matcher(inputString);
+        boolean isStringContainsSpecialCharacter = matcher.find();
+        if (isStringContainsSpecialCharacter) {
+            System.out.println(inputString + " contains special character");
+            return true;
+        } else {
+            System.out.println(inputString + " does NOT contain special character");
+            return false;
+        }
     }
 
     public static List<NavModel> getNavData(Activity activity) {
@@ -264,6 +279,7 @@ public class AppUtils {
             str = outputFormat.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
+
         }
         return str;
     }
@@ -279,10 +295,12 @@ public class AppUtils {
         try {
             date = inputFormat.parse(inDate);
             str = outputFormat.format(date);
+            return str;
         } catch (ParseException e) {
             e.printStackTrace();
+            return inDate;
         }
-        return str;
+
 
     }
 
@@ -517,6 +535,14 @@ public class AppUtils {
             e.printStackTrace();
         }
 
+    }
+
+    public static void showToolbar(Activity activity) {
+        Objects.requireNonNull(((AppCompatActivity) activity).getSupportActionBar()).show();
+    }
+
+    public static void hideToolbar(Activity activity) {
+        Objects.requireNonNull(((AppCompatActivity) activity).getSupportActionBar()).hide();
     }
 
     public void downloadPdf(FragmentActivity fragmentActivity) {

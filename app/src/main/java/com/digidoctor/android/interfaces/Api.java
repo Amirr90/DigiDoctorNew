@@ -18,6 +18,7 @@ import com.digidoctor.android.model.DemoResponse;
 import com.digidoctor.android.model.DocBySpecialityRes;
 import com.digidoctor.android.model.DocBySymptomsRes;
 import com.digidoctor.android.model.DocModel;
+import com.digidoctor.android.model.EraInvestigationData;
 import com.digidoctor.android.model.GenerateOtpModel;
 import com.digidoctor.android.model.GenerateOtpRes;
 import com.digidoctor.android.model.GetAppointmentSlotsRes;
@@ -480,6 +481,11 @@ public interface Api {
     Call<ResponseModel> emergencyAddUser(
             @Body User user);
 
+    @POST("ViewBillDetailsDigiDoctor")
+    Call<EraInvestigationData> loadEraInvestigationData(@Body ApiRequestModel reqModel);
+
+    @POST("emergencyAppointment")
+    Call<SpecialityRes> emcAppointment(@Body ApiRequestModel requestModel);
 }
 
 

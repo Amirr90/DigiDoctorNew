@@ -1,7 +1,9 @@
 package com.digidoctor.android.view.fragments.digiDoctorFragments;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +64,27 @@ public class InputMobileNumberFragment extends Fragment {
             } else {
                 generateOtpModel.setMobileNo(number);
                 sendOTP(number);
+            }
+        });
+
+
+        numberBinding.editTextGetMobileNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (null != s) {
+                    numberBinding.btnNext.setEnabled(s.length() == 10);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 

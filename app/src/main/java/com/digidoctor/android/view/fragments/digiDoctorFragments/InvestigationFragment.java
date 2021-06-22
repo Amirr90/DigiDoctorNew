@@ -76,6 +76,12 @@ public class InvestigationFragment extends Fragment implements OnClickListener {
 
         investigationBinding.tvAddManually.setOnClickListener(view1 -> navController.navigate(R.id.action_investigationFragment_to_addInvestigationFragment));
 
+        investigationBinding.tvViewErasInvestigationReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_investigationFragment_to_patientInvestigationReportFragment);
+            }
+        });
     }
 
 

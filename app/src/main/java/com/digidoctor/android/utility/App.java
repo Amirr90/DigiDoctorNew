@@ -1,8 +1,8 @@
 package com.digidoctor.android.utility;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+
 
 public class App extends Application {
     public static Context context;
@@ -12,4 +12,6 @@ public class App extends Application {
         super.onCreate();
         context = getApplicationContext();
     }
+
+
 }

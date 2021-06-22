@@ -11,49 +11,44 @@
 
     </data>
 
+
     <RelativeLayout
+        android:id="@+id/rlNavRoot"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingTop="@dimen/_10sdp">
 
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_marginTop="3dp"
+            android:contentDescription="@string/todo"
+            android:loadNavImage="@{navModel.image}"
+            app:srcCompat="@drawable/appointments" />
 
-        <RelativeLayout
-            android:id="@+id/rlNavRoot"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/imageView5"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@{navModel.title,default=`Login`}"
+            android:textColor="#262E3F"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/textView15"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:padding="10dp">
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:layout_marginTop="3dp"
-                android:loadNavImage="@{navModel.image}"
-                app:srcCompat="@drawable/appointments"
-                android:contentDescription="TODO" />
-
-            <TextView
-
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_toRightOf="@id/imageView5"
-                android:fontFamily="@font/poppins_medium"
-                android:text="@{navModel.title}"
-                android:textColor="#262E3F"
-                android:textSize="15dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/textView15"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="15dp"
-                android:layout_toRightOf="@id/imageView5"
-                android:background="#E1E1E1" />
-        </RelativeLayout>
+            android:layout_toEndOf="@id/imageView5"
+            android:background="#E1E1E1" />
     </RelativeLayout>
 </layout>

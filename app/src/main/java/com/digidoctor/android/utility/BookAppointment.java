@@ -13,6 +13,7 @@ import com.digidoctor.android.interfaces.BookAppointmentInterface;
 import com.digidoctor.android.model.CheckSlotAvailabilityDataRes;
 import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.ResponseModel;
+import com.digidoctor.android.model.User;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.gson.Gson;
 import com.payu.base.models.ErrorResponse;
@@ -49,6 +50,7 @@ import static com.digidoctor.android.utility.AppUtils.PAY_MODE_RAZOR_PAYY;
 import static com.digidoctor.android.utility.NewDashboardUtils.PAY_MODE_CASH;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_DATE;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_TIME;
+import static com.digidoctor.android.utility.utils.BOOKING_USER;
 import static com.digidoctor.android.utility.utils.KEY_AMOUNT;
 import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
 import static com.digidoctor.android.utility.utils.KEY_DOC_ID;
@@ -93,7 +95,16 @@ public class BookAppointment extends Credentials {
     private String paymentId;
     private String trxId;
     private String paymentMode;
+    private String amount;
     private Boolean isRevisit;
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
 
     public Boolean getRevisit() {
         return isRevisit;
@@ -568,6 +579,9 @@ public class BookAppointment extends Credentials {
                     assert response.body() != null;
                     if (response.body().getResponseCode() == 1) {
                         bookAppointmentInterface.onAppointmentBooked(response.body().getResponseValue().get(0));
+                        User user = utils.getUserForBooking(App.context);
+                        user.setPid(Integer.parseInt(response.body().getResponseValue().get(0).getPid()));
+                        utils.setUserForBooking(BOOKING_USER, App.context, user);
                     } else bookAppointmentInterface.onError(response.body().getResponseMessage());
                 } else
                     bookAppointmentInterface.onError(Objects.requireNonNull(response.errorBody()).toString());

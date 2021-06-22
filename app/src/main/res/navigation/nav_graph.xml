@@ -34,10 +34,10 @@
         <action
             android:id="@+id/action_patientDashboardFragment_to_requestLocationFragment"
             app:destination="@id/requestLocationFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit" />
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_patientDashboardFragment_to_appointmentsFragment"
             app:destination="@id/appointmentsFragment"
@@ -116,8 +116,12 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in" />
         <action
-            android:id="@+id/action_patientDashboardFragment_to_botChatFragment"
-            app:destination="@id/botChatFragment" />
+            android:id="@+id/action_patientDashboardFragment_to_emergencySpecialityFragment"
+            app:destination="@id/emergencySpecialityFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/symptomsFragment2"
@@ -522,6 +526,13 @@
         <action
             android:id="@+id/action_investigationFragment_to_showImageFileFragment"
             app:destination="@id/showImageFileFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_investigationFragment_to_patientInvestigationReportFragment"
+            app:destination="@id/patientInvestigationReportFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
@@ -1140,19 +1151,38 @@
     <fragment
         android:id="@+id/botChatFragment"
         android:name="com.digidoctor.android.BotChatFragment"
-        android:label="fragment_bot_chat"
-        tools:layout="@layout/fragment_bot_chat" >
+        android:label="Fragment "
+        tools:layout="@layout/fragment_bot_chat">
         <action
             android:id="@+id/action_botChatFragment_to_chatWithMemberFragment"
             app:destination="@id/chatWithMemberFragment"
             app:enterAnim="@anim/slide_up"
             app:popEnterAnim="@anim/slide_up"
-            app:popExitAnim="@anim/slide_down" />
+            app:popExitAnim="@anim/slide_down"
+            app:popUpTo="@id/patientDashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatWithMemberFragment"
         android:name="com.digidoctor.android.ChatWithMemberFragment"
         android:label="fragment_chat_with_member"
         tools:layout="@layout/fragment_chat_with_member" />
+    <fragment
+        android:id="@+id/emergencySpecialityFragment"
+        android:name="com.digidoctor.android.EmergencySpecialityFragment"
+        android:label="Emergency 24*7"
+        tools:layout="@layout/fragment_emergency_speciality">
+        <action
+            android:id="@+id/action_emergencySpecialityFragment_to_botChatFragment"
+            app:destination="@id/botChatFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/patientInvestigationReportFragment"
+        android:name="com.digidoctor.android.PatientInvestigationReportFragment"
+        android:label="@string/investigation_history"
+        tools:layout="@layout/fragment_patient_investigation_report" />
 
 </navigation>

@@ -91,7 +91,6 @@ public class SpecialitiesFragment extends Fragment {
         viewModel.getSpecialityData(specialityName).observe(getViewLifecycleOwner(), specialityModels -> {
             if (null != specialityModels) {
                 specialityAdapter.submitList(specialityModels);
-                // specialitiesBinding.progressBar3.setVisibility(View.GONE);
                 specialitiesBinding.recShimmerSpeciality.setVisibility(specialityModels.isEmpty() ? View.VISIBLE : View.GONE);
                 specialitiesBinding.specRec.setVisibility(specialityModels.isEmpty() ? View.GONE : View.VISIBLE);
             } else PatientDashboard.getInstance().onSupportNavigateUp();

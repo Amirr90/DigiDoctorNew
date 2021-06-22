@@ -28,6 +28,7 @@ import com.digidoctor.android.model.DDStatsModel;
 import com.digidoctor.android.model.DashboardModel1;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.utility.App;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.PicassoImageLoadingService;
 import com.digidoctor.android.view.activity.PatientDashboard;
@@ -88,9 +89,13 @@ public class PatientDashboardFragment extends Fragment implements AdapterInterfa
         if (null != user) {
             dashboard2Binding.setUser(user);
             Log.d(TAG, "PrimaryUser: " + user.toString());
+            if (user.getIsExists() == 0) {
+                navController.navigate(R.id.action_patientDashboardFragment_to_profileFragment);
+            }
+
         }
 
-        imageLoadingService = new PicassoImageLoadingService(PatientDashboard.getInstance());
+        imageLoadingService = new PicassoImageLoadingService(App.context);
         Slider.init(imageLoadingService);
 
 
@@ -141,7 +146,7 @@ public class PatientDashboardFragment extends Fragment implements AdapterInterfa
         });
 
         //listener for homeIsolationTv
-        dashboard2Binding.tvHomeIsolation.setOnClickListener(v -> navController.navigate(R.id.action_patientDashboardFragment_to_homeIsolationFragment));
+        dashboard2Binding.tvEmergencyChat.setOnClickListener(v -> navController.navigate(R.id.action_patientDashboardFragment_to_emergencySpecialityFragment));
         dashboard2Binding.tvLocation.setOnClickListener(view13 -> Log.d(TAG, "onViewCreated: Clicked"));
         dashboard2Binding.tvDownloadPostCovid.setOnClickListener(v -> {
             AppUtils appUtils = new AppUtils();
@@ -154,7 +159,7 @@ public class PatientDashboardFragment extends Fragment implements AdapterInterfa
             PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_subSpecialistFragment, bundle);
         });
         dashboard2Binding.dashboardHomeImage.setOnClickListener(view12 -> {
-            PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_botChatFragment);
+            //PatientDashboard.getInstance().navigate(R.id.action_patientDashboardFragment_to_emergencySpecialityFragment);
         });
 
 

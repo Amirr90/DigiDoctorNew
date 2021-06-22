@@ -10,6 +10,7 @@ import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.ChatModel;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.DoctorModelRes;
+import com.digidoctor.android.model.EraInvestigationData;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.InvestigationModel;
 import com.digidoctor.android.model.PatientDashboardModel;
@@ -99,5 +100,13 @@ public class PatientViewModel extends ViewModel {
 
     public LiveData<List<SymptomModel>> getAppDepartmentData(String symptomName) {
         return repo.getAppDepartmentData(symptomName);
+    }
+
+    public LiveData<List<SpecialityModel>> getEmcDepartmentData() {
+        return repo.getEmcDepartmentData();
+    }
+
+    public LiveData<EraInvestigationData> eraInvestigationData(String pid,Activity activity) {
+        return repo.eraInvestigationData(pid,activity);
     }
 }

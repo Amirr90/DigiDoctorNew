@@ -20,10 +20,15 @@ public class OnlineAppointmentModel {
     String clinicAddress;
     String attachFile;
     String workingHours;
+    String pid;
     int isVisit;
     Integer doctorFees;
     Integer firstAppointmentId;
     Integer reVisitTime;
+
+    public String getPid() {
+        return pid;
+    }
 
     public Integer getReVisitTime() {
         return reVisitTime;
@@ -186,7 +191,6 @@ public class OnlineAppointmentModel {
         this.appointmentId = appointmentId;
     }
 
-
     @Override
     public String toString() {
         return "{" +
@@ -203,6 +207,7 @@ public class OnlineAppointmentModel {
                 ", clinicAddress='" + clinicAddress + '\'' +
                 ", attachFile='" + attachFile + '\'' +
                 ", workingHours='" + workingHours + '\'' +
+                ", pid='" + pid + '\'' +
                 ", isVisit=" + isVisit +
                 ", doctorFees=" + doctorFees +
                 ", firstAppointmentId=" + firstAppointmentId +

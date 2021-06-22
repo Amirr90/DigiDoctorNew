@@ -55,6 +55,7 @@ public class utils {
     public static final String GO_TO_CART = "Go To Cart";
     public static final String ADD_TO_CART = "Add To Cart";
     public static final String ADDED = "Added";
+    public static final String CONSTANT_EMAIL_ID = "info@digidoctor.in";
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
@@ -280,6 +281,15 @@ public class utils {
         prefsEditor.commit();
     }
 
+    public static void setUserForBooking(String key, Context activity, User myObject) {
+        SharedPreferences pref = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = pref.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(myObject);
+        prefsEditor.putString(key, json);
+        prefsEditor.commit();
+    }
+
     public static void savePrimaryUserData(String key, Activity activity, User myObject) {
         SharedPreferences pref = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = pref.edit();
@@ -299,6 +309,13 @@ public class utils {
     }
 
     public static User getUserForBooking(Activity activity) {
+        SharedPreferences pref = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = pref.getString(BOOKING_USER, "");
+        return gson.fromJson(json, User.class);
+    }
+
+    public static User getUserForBooking(Context activity) {
         SharedPreferences pref = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         Gson gson = new Gson();
         String json = pref.getString(BOOKING_USER, "");

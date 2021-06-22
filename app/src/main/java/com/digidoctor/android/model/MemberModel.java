@@ -15,7 +15,15 @@ public class MemberModel {
     private String address;
     private String profilePhotoPath;
     private String memberId;
+    private String pid;
 
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
 
     public String getMemberId() {
         return memberId;
@@ -131,7 +139,7 @@ public class MemberModel {
 
     @Override
     public String toString() {
-        return "MemberModel{" +
+        return "{" +
                 "userLoginId='" + userLoginId + '\'' +
                 ", name='" + name + '\'' +
                 ", mobileNo='" + mobileNo + '\'' +
@@ -139,13 +147,14 @@ public class MemberModel {
                 ", gender='" + gender + '\'' +
                 ", dob='" + dob + '\'' +
                 ", countryId='" + countryId + '\'' +
-                ", stateID='" + stateId + '\'' +
+                ", stateId='" + stateId + '\'' +
                 ", districtId='" + districtId + '\'' +
                 ", countryCallingCode='" + countryCallingCode + '\'' +
                 ", pincode='" + pincode + '\'' +
                 ", address='" + address + '\'' +
                 ", profilePhotoPath='" + profilePhotoPath + '\'' +
                 ", memberId='" + memberId + '\'' +
+                ", pid='" + pid + '\'' +
                 '}';
     }
 }

@@ -1074,6 +1074,8 @@
     <string name="select_date_of_birth">Select your Date Of Birth.</string>
     <string name="something_went_wrong">Something went wrong !!</string>
     <string name="contact">Contact</string>
+    <string name="emergency_chat_24_7">Emergency Chat 24*7</string>
+    <string name="special_character_not_allowed">Special character not allowed !!</string>
 
 
 </resources>

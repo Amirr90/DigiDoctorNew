@@ -145,7 +145,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
         instance = this;
 
-
         //Register Broadcast Receiver
         registerBroadcast();
 
@@ -229,6 +228,9 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     case R.id.chooseVitalHistoryTypeFragment:
                     case R.id.chatForAppointmentFragment:
                     case R.id.videoFragmentFragment:
+                    case R.id.patientInvestigationReportFragment:
+                    case R.id.investigationFragment:
+                    case R.id.emergencySpecialityFragment:
                         hideAllItem();
                         break;
 
@@ -247,6 +249,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             else Log.d(TAG, "notificationType is not 1: ");
         } else Log.d(TAG, "notification data is null: ");
     }
+
 
     private void hideFavouriteIcon() {
         searchItem.setVisible(false);
@@ -336,7 +339,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             }
         });
 
-        checkForUpdate();
+        //checkForUpdate();
     }
 
     private void checkForUpdate() {

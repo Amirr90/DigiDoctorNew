@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.digidoctor.android.utility.AppUtils.checkForSpecialCharacter;
 import static com.digidoctor.android.utility.utils.fadeIn;
 import static com.digidoctor.android.utility.utils.logout;
 
@@ -189,6 +190,9 @@ public class AddMemberFragment extends Fragment implements MyDialogInterface {
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(requireActivity(), R.string.name_required, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (checkForSpecialCharacter(name)) {
+            Toast.makeText(requireActivity(), R.string.special_character_not_allowed, Toast.LENGTH_SHORT).show();
             return false;
         } else if (TextUtils.isEmpty(mobile)) {
             Toast.makeText(requireActivity(), R.string.mobile_required, Toast.LENGTH_SHORT).show();

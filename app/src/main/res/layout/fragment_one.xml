@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="patientResult"
+            type="com.digidoctor.android.model.EraInvestigationData.DtPatientResult" />
+    </data>
+
+    <FrameLayout
+        android:background="@color/BackgroundColor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".OneFragment">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recPatientRes"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/patient_investigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </FrameLayout>
+</layout>

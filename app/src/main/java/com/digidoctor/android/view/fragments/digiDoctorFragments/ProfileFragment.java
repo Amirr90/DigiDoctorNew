@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.digidoctor.android.utility.ApiUtils.patientRegistration;
+import static com.digidoctor.android.utility.AppUtils.checkForSpecialCharacter;
 import static com.digidoctor.android.utility.AppUtils.isEmailValid;
 import static com.digidoctor.android.utility.utils.BOOKING_USER;
 import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
@@ -72,12 +74,29 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
 
     String imagePath = null;
 
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         profileBinding = FragmentProfileBinding.inflate(inflater, container, false);
+
+
         profileBinding.setDialogInterface(this);
+
         return profileBinding.getRoot();
+    }
+
+    private void setGenderAdapter() {
+        String[] genderList = {"Male", "Female"};
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(requireActivity(), R.layout.dropdown_item, genderList);
+        profileBinding.editTextTextPersonGender.setAdapter(genderAdapter);
+
+        if (null != user && null != user.getGender()) {
+            Log.d(TAG, "setGenderAdapter: " + user.getGender());
+            profileBinding.editTextTextPersonGender.setText(genderList[user.getGender() - 1], false);
+            //profileBinding.editTextTextPersonGender.setListSelection(user.getGender() - 1);
+        }
+
     }
 
 
@@ -97,16 +116,15 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
         super.onViewCreated(view, savedInstanceState);
 
         user = getPrimaryUser(requireActivity());
+        setGenderAdapter();
         Log.d(TAG, "onViewCreatedUser: " + user.getPrimaryStatus());
 
         updateVisibility(user);
 
         if (user.getIsExists() == 1) {
-
             profileBinding.setUser(user);
             if (null != user && null != user.getPrimaryStatus())
                 profileBinding.editTextTextPersonNumber.setEnabled(user.getPrimaryStatus() != 1);
-
         }
 
         profileBinding.setMobile(utils.getString(utils.MOBILE_NUMBER, requireActivity()));
@@ -132,7 +150,11 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
                 .start());
 
 
+        profileBinding.inputLayDOB.setEndIconOnClickListener(v -> {
+            showSelectAgeDialog();
+        });
     }
+
 
     private boolean checkFieldsForUpdateProfile() {
 
@@ -145,6 +167,9 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(requireActivity(), R.string.name_required, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (checkForSpecialCharacter(name)) {
+            Toast.makeText(requireActivity(), R.string.special_character_not_allowed, Toast.LENGTH_SHORT).show();
             return false;
         } else if (TextUtils.isEmpty(email)) {
             Toast.makeText(requireActivity(), R.string.email_required, Toast.LENGTH_SHORT).show();
@@ -186,7 +211,7 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
 
     }
 
-    private void uploadImage(File imageFile)  {
+    private void uploadImage(File imageFile) {
         AppUtils.showRequestDialog(requireActivity());
         ApiUtils.uploadProfileImage(imageFile, new ApiCallbackInterface() {
             @Override
@@ -212,8 +237,8 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
     }
 
     private void updateVisibility(User user) {
-        profileBinding.ivDobDialog.setVisibility(user.getIsExists() == 0 ? View.VISIBLE : View.GONE);
-        profileBinding.ivGenderDialog.setVisibility(user.getIsExists() == 0 ? View.VISIBLE : View.GONE);
+       /* profileBinding.ivDobDialog.setVisibility(user.getIsExists() == 0 ? View.VISIBLE : View.GONE);
+        profileBinding.ivGenderDialog.setVisibility(user.getIsExists() == 0 ? View.VISIBLE : View.GONE);*/
     }
 
     private void updateProfile() {
@@ -346,8 +371,16 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
         address = profileBinding.editTextTextPersonAddress.getText().toString().trim();
         mobile = profileBinding.editTextTextPersonNumber.getText().toString().trim();
 
+        if (gender.equalsIgnoreCase("male"))
+            GENDER = "1";
+        else if (gender.equalsIgnoreCase("female"))
+            GENDER = "2";
+
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(requireActivity(), R.string.name_required, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (checkForSpecialCharacter(name)) {
+            Toast.makeText(requireActivity(), R.string.special_character_not_allowed, Toast.LENGTH_SHORT).show();
             return false;
         } else if (TextUtils.isEmpty(email)) {
             Toast.makeText(requireActivity(), R.string.email_required, Toast.LENGTH_SHORT).show();
@@ -420,7 +453,7 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
     private void showSelectAgeDialog() {
         LayoutInflater inflater = (LayoutInflater) requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.date_picker, null, false);
-        final DatePicker myDatePicker = (DatePicker) view.findViewById(R.id.myDatePicker);
+        final DatePicker myDatePicker = view.findViewById(R.id.myDatePicker);
 
         myDatePicker.setCalendarViewShown(false);
         myDatePicker.setMaxDate(System.currentTimeMillis());

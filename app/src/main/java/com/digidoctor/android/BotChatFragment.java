@@ -1,8 +1,6 @@
 package com.digidoctor.android;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -25,13 +23,16 @@ import com.digidoctor.android.databinding.EnterMobileNumberBinding;
 import com.digidoctor.android.databinding.EnterNameBinding;
 import com.digidoctor.android.databinding.FragmentBotChatBinding;
 import com.digidoctor.android.model.BotModel;
+import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.utils;
+import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 
 import static com.digidoctor.android.utility.AppUtils.StringToDate;
+import static com.digidoctor.android.utility.AppUtils.getJSONFromModel;
 
 public class BotChatFragment extends Fragment {
 
@@ -43,6 +44,7 @@ public class BotChatFragment extends Fragment {
     User userAddedByBot = new User();
 
     Handler handler1, handler2, handler3;
+    SpecialityModel specialityModel;
 
     private static final String TAG = "BotChatFragment";
 
@@ -59,6 +61,13 @@ public class BotChatFragment extends Fragment {
         navController = Navigation.findNavController(view);
         binding.ivBAck.setOnClickListener(v -> navController.navigateUp());
 
+
+        if (null == getArguments())
+            navController.navigateUp();
+
+
+        Gson gson = new Gson();
+        specialityModel = gson.fromJson(getArguments().getString("emcModel"), SpecialityModel.class);
 
         startBotChat();
 
@@ -90,9 +99,9 @@ public class BotChatFragment extends Fragment {
                 String msg3 = getString(R.string.please_let_us_know);
                 adapter.addItem(new BotModel(msg3, AppUtils.RECEIVER, System.currentTimeMillis()));
                 showMembers();
-            }, threadTime);
+            }, threadTime - 300);
 
-        }, threadTime);
+        }, threadTime - 300);
 
 
     }
@@ -107,7 +116,7 @@ public class BotChatFragment extends Fragment {
 
     private void showMembers() {
         binding.selectMemberLay.setVisibility(View.VISIBLE);
-        binding.selectMemberLay.setAnimation(utils.fadeIn(requireActivity()));
+        binding.selectMemberLay.setAnimation(utils.slideUp(requireActivity()));
 
         binding.tvSomeoneElse.setOnClickListener(v -> {
             if (binding.tvSomeoneElse.getText().toString().equals(getString(R.string.someone_else))) {
@@ -164,39 +173,30 @@ public class BotChatFragment extends Fragment {
         myDatePicker.setCalendarViewShown(false);
         new AlertDialog.Builder(requireActivity()).setView(view)
                 .setTitle(R.string.select_date)
-                .setPositiveButton("Go", new DialogInterface.OnClickListener() {
-                    @TargetApi(11)
-                    public void onClick(DialogInterface dialog, int id) {
+                .setPositiveButton("Go", (dialog, id) -> {
 
-                        int month = myDatePicker.getMonth() + 1;
-                        int day = myDatePicker.getDayOfMonth();
-                        int year = myDatePicker.getYear();
-                        String date = year + "-" + month + "-" + day;
-                        userAddedByBot.setDob(date);
-                        AppUtils.showToast(date);
+                    int month = myDatePicker.getMonth() + 1;
+                    int day = myDatePicker.getDayOfMonth();
+                    int year = myDatePicker.getYear();
+                    String date = year + "-" + month + "-" + day;
+                    userAddedByBot.setDob(date);
+                    AppUtils.showToast(date);
 
-                        dialog.cancel();
+                    dialog.cancel();
 
+                    new Handler().postDelayed(() -> {
+
+                        adapter.addItem(new BotModel(StringToDate(date), AppUtils.SENDER, System.currentTimeMillis()));
+                        binding.recBootChat.scrollToPosition(adapter.getItemCount() - 1);
                         new Handler().postDelayed(() -> {
-
-                            adapter.addItem(new BotModel(StringToDate(date), AppUtils.SENDER, System.currentTimeMillis()));
+                            adapter.addItem(new BotModel(getString(R.string.enter_your_mobile_number), AppUtils.RECEIVER, System.currentTimeMillis()));
                             binding.recBootChat.scrollToPosition(adapter.getItemCount() - 1);
-                            new Handler().postDelayed(() -> {
-                                adapter.addItem(new BotModel(getString(R.string.enter_your_mobile_number), AppUtils.RECEIVER, System.currentTimeMillis()));
-                                binding.recBootChat.scrollToPosition(adapter.getItemCount() - 1);
-                                enterMobileNumber();
-                            }, threadTime);
+                            enterMobileNumber();
                         }, threadTime);
-                    }
-
-
+                    }, threadTime);
                 }).show();
     }
 
-
-    private void AddMember() {
-
-    }
 
     private void enterMobileNumber() {
         new Handler().postDelayed(() -> {
@@ -207,25 +207,22 @@ public class BotChatFragment extends Fragment {
             builder.setView(mobileNumberBinding.getRoot())
                     .setMessage(R.string.enter_your_mobile_number)
                     .setCancelable(false)
-                    .setPositiveButton(R.string.submit, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            // your sign in code here
-                            String number = mobileNumberBinding.number.getText().toString();
-                            if (!TextUtils.isEmpty(number)) {
-                                adapter.addItem(new BotModel(number, AppUtils.SENDER, System.currentTimeMillis()));
-                                userAddedByBot.setMobileNo(number);
-                                binding.recBootChat.scrollToPosition(adapter.getItemCount() - 1);
-                                initToShowSpeciality(userAddedByBot);
-                            } else
-                                Toast.makeText(requireActivity(), getString(R.string.mobile_required), Toast.LENGTH_SHORT).show();
+                    .setPositiveButton(R.string.submit, (dialog, id) -> {
+                        String number = mobileNumberBinding.number.getText().toString();
+                        if (!TextUtils.isEmpty(number)) {
+                            adapter.addItem(new BotModel(number, AppUtils.SENDER, System.currentTimeMillis()));
+                            userAddedByBot.setMobileNo(number);
+                            userAddedByBot.setMemberId(0);
 
-                        }
+        ;
+                            userAddedByBot.setUserLoginId(utils.getUserForBooking(requireActivity()).getUserLoginId());
+                            binding.recBootChat.scrollToPosition(adapter.getItemCount() - 1);
+                            initToShowSpeciality(userAddedByBot);
+                        } else
+                            Toast.makeText(requireActivity(), getString(R.string.mobile_required), Toast.LENGTH_SHORT).show();
+
                     })
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // remove the dialog from the screen
-                        }
+                    .setNegativeButton(R.string.cancel, (dialog, id) -> {
                     })
                     .show();
         }, threadTime);
@@ -233,7 +230,8 @@ public class BotChatFragment extends Fragment {
     }
 
     private void initToShowSpeciality(User user) {
-        String userInString = user.toString();
+
+        String userInString = getJSONFromModel(user);
         Bundle bundle = new Bundle();
         bundle.putString("user", userInString);
         Log.d(TAG, "initToShowSpeciality: " + userInString);
@@ -263,12 +261,7 @@ public class BotChatFragment extends Fragment {
                         binding.selectMemberLay.setVisibility(View.VISIBLE);
                     }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss())
                 .setOnDismissListener(dialog -> {
                     String name1 = nameBinding.username.getText().toString();
                     if (TextUtils.isEmpty(name1))
@@ -278,6 +271,13 @@ public class BotChatFragment extends Fragment {
                 .show();
 
 
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AppUtils.hideToolbar(requireActivity());
     }
 
     private void selectGender() {

@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.digidoctor.android.R;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.ApiInterface;
+import com.digidoctor.android.interfaces.EraInvestigationApiInterface;
 import com.digidoctor.android.interfaces.NewApiInterface;
 import com.digidoctor.android.model.AppointmentDetailsRes;
 import com.digidoctor.android.model.AppointmentModel;
@@ -17,6 +18,7 @@ import com.digidoctor.android.model.ChatModel;
 import com.digidoctor.android.model.Dashboard;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.DoctorModelRes;
+import com.digidoctor.android.model.EraInvestigationData;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.InvestigationModel;
 import com.digidoctor.android.model.PatientDashboardModel;
@@ -59,6 +61,7 @@ public class PatientRepo {
     public MutableLiveData<List<User>> memberModelMutableLiveData;
     public MutableLiveData<List<VitalResponse.VitalDateVise>> vitalsMutableLiveData;
     public MutableLiveData<List<InvestigationModel>> investigationMutableLiveData;
+    public MutableLiveData<List<SpecialityModel>> specialityEmcModelMutableLiveData;
 
     public MutableLiveData<List<AppointmentModel>> appointmentMutableLiveData;
 
@@ -656,6 +659,79 @@ public class PatientRepo {
             public void onFailed(Throwable throwable) {
                 Toast.makeText(App.context, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 
+            }
+        });
+    }
+
+    public LiveData<List<SpecialityModel>> getEmcDepartmentData() {
+        if (null == specialityEmcModelMutableLiveData)
+            specialityEmcModelMutableLiveData = new MutableLiveData<>();
+        loadEmcData();
+        return specialityEmcModelMutableLiveData;
+    }
+
+    private void loadEmcData() {
+        ApiUtils.loadEmcData(new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                try {
+                    List<SpecialityModel> specialityModel = (List<SpecialityModel>) o;
+                    specialityEmcModelMutableLiveData.setValue(specialityModel);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String s) {
+
+                try {
+                    if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
+                        logout(PatientDashboard.getInstance(), true);
+                        Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+
+            }
+        });
+    }
+
+
+    public MutableLiveData<EraInvestigationData> eraInvestigationDataMutableLiveData;
+
+    public LiveData<EraInvestigationData> eraInvestigationData(String pid, Activity activity) {
+        if (null == eraInvestigationDataMutableLiveData)
+            eraInvestigationDataMutableLiveData = new MutableLiveData<>();
+        loadEraInvestigationData(pid, activity);
+        return eraInvestigationDataMutableLiveData;
+    }
+
+    private void loadEraInvestigationData(String pid, Activity activity) {
+        AppUtils.showRequestDialog(activity);
+        ApiUtils.loadEraInvestigationData(pid, new EraInvestigationApiInterface() {
+            @Override
+            public void onSuccess(Object obj) {
+                AppUtils.hideDialog();
+                EraInvestigationData eraInvestigationData = (EraInvestigationData) obj;
+                if (null != eraInvestigationData) {
+                    if (eraInvestigationData.getInvestigationResult().isEmpty())
+                        Toast.makeText(activity, "No investigation !!", Toast.LENGTH_SHORT).show();
+                    eraInvestigationDataMutableLiveData.setValue(eraInvestigationData);
+                }
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Log.d("TAG", "loadEraInvestigationData: " + msg);
+                Toast.makeText(App.context, msg, Toast.LENGTH_SHORT).show();
+                AppUtils.hideDialog();
             }
         });
     }

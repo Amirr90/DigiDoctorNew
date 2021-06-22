@@ -13,6 +13,7 @@ import com.digidoctor.android.adapters.labadapter.AddressRes;
 import com.digidoctor.android.interfaces.Api;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.CartInterface;
+import com.digidoctor.android.interfaces.EraInvestigationApiInterface;
 import com.digidoctor.android.interfaces.LabOrderInterface;
 import com.digidoctor.android.interfaces.NewApiInterface;
 import com.digidoctor.android.model.AddInvestigationModel;
@@ -30,6 +31,7 @@ import com.digidoctor.android.model.Dashboard;
 import com.digidoctor.android.model.DocBySpecialityRes;
 import com.digidoctor.android.model.DocBySymptomsRes;
 import com.digidoctor.android.model.DocModel;
+import com.digidoctor.android.model.EraInvestigationData;
 import com.digidoctor.android.model.GenerateOtpModel;
 import com.digidoctor.android.model.GenerateOtpRes;
 import com.digidoctor.android.model.GetAppointmentSlotsRes;
@@ -191,11 +193,10 @@ public class ApiUtils {
 
         SpecialityModel specialityModel = new SpecialityModel();
         specialityModel.setProblemName(specialityName);
+        if (null != utils.getUserForBooking(App.context).getMemberId())
+            specialityModel.setMemberId(utils.getUserForBooking(App.context).getMemberId());
 
         try {
-//            if (PatientDashboard.getInstance() != null)
-//                AppUtils.showRequestDialog(PatientDashboard.getInstance());
-
             final Api api = URLUtils.getAPIServiceForPatient();
             Call<SpecialityRes> specialityResCall = api.getSpeciality(specialityModel);
             specialityResCall.enqueue(new Callback<SpecialityRes>() {
@@ -2596,6 +2597,7 @@ public class ApiUtils {
     public static void emergencyAddUser(User user, ApiCallbackInterface apiCallbackInterface) {
 
         Api iRestInterfaces = URLUtils.getAPIServiceForPatient();
+
         Call<ResponseModel> specialityResCall = iRestInterfaces.emergencyAddUser(user);
         specialityResCall.enqueue(new Callback<ResponseModel>() {
             @Override
@@ -2631,5 +2633,102 @@ public class ApiUtils {
 
             }
         });
+    }
+
+    public static void loadEmcData(ApiCallbackInterface apiCallbackInterface) {
+
+        SpecialityModel specialityModel = new SpecialityModel();
+        specialityModel.setIsEmergency("1");
+
+        try {
+            final Api api = URLUtils.getAPIServiceForPatient();
+            Call<SpecialityRes> specialityResCall = api.getSpeciality(specialityModel);
+            specialityResCall.enqueue(new Callback<SpecialityRes>() {
+                @Override
+                public void onResponse(@NotNull Call<SpecialityRes> call, @NotNull Response<SpecialityRes> response) {
+                    AppUtils.hideDialog();
+                    if (response.code() == 200 && null != response.body()) {
+                        if (response.body().getResponseCode() == 1) {
+                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                        } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                    } else apiCallbackInterface.onError(response.message());
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<SpecialityRes> call, @NotNull Throwable t) {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(t.getLocalizedMessage());
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadEraInvestigationData(String pid, EraInvestigationApiInterface apiCallbackInterface) {
+        ApiRequestModel reqModel = new ApiRequestModel();
+        reqModel.setPID(pid);
+        //reqModel.setPID("2186191");
+
+        Log.d("TAG", "loadEraInvestigationData: called ");
+        Log.d("TAG", "loadEraInvestigationData: pid " + reqModel.getPID());
+        String userName = "H!$$erV!Ce";
+        String password = "0785C700-B96C-44DA-A3A7-AD76C58A9FBC";
+        try {
+            final Api api = URLUtils.getAPIServiceForPatientWithAuth(userName, password);
+            Call<EraInvestigationData> specialityResCall = api.loadEraInvestigationData(reqModel);
+            specialityResCall.enqueue(new Callback<EraInvestigationData>() {
+                @Override
+                public void onResponse(@NotNull Call<EraInvestigationData> call, @NotNull Response<EraInvestigationData> response) {
+                    AppUtils.hideDialog();
+
+                    if (response.code() == 200) {
+                        Log.d("TAG", "loadEraInvestigationData: success " + response.body());
+                    } else Log.d("TAG", "loadEraInvestigationData: " + response.code());
+                    if (response.code() == 200 && null != response.body()) {
+                        apiCallbackInterface.onSuccess(response.body());
+                    } else apiCallbackInterface.onFailed(response.message());
+
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<EraInvestigationData> call, @NotNull Throwable t) {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onFailed(t.getLocalizedMessage());
+                    Log.d("TAG", "loadEraInvestigationData onFailure: " + t.getLocalizedMessage());
+                }
+            });
+
+        } catch (
+                Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void emcAppointment(ApiRequestModel requestModel, ApiCallbackInterface apiCallbackInterface) {
+        try {
+            final Api api = URLUtils.getAPIServiceForPatient();
+            Call<SpecialityRes> specialityResCall = api.emcAppointment(requestModel);
+            specialityResCall.enqueue(new Callback<SpecialityRes>() {
+                @Override
+                public void onResponse(@NotNull Call<SpecialityRes> call, @NotNull Response<SpecialityRes> response) {
+                    AppUtils.hideDialog();
+                    if (response.code() == 200 && null != response.body()) {
+                        if (response.body().getResponseCode() == 1) {
+                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                        } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                    } else apiCallbackInterface.onError(response.message());
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<SpecialityRes> call, @NotNull Throwable t) {
+                    AppUtils.hideDialog();
+                    apiCallbackInterface.onError(t.getLocalizedMessage());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

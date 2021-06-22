@@ -12,6 +12,33 @@ public class User {
 
 
     String appointmentId;
+    Integer pid;
+    int specialityId;
+    int amount;
+
+    public Integer getPid() {
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
+    }
+
+    public int getSpecialityId() {
+        return specialityId;
+    }
+
+    public void setSpecialityId(int specialityId) {
+        this.specialityId = specialityId;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
     public String getAppointmentId() {
         return appointmentId;
@@ -270,7 +297,10 @@ public class User {
     @Override
     public String toString() {
         return "{" +
-                "memberId=" + memberId +
+                "appointmentId='" + appointmentId + '\'' +
+                ", pid='" + pid + '\'' +
+                ", specialityId=" + specialityId +
+                ", amount=" + amount +
                 ", address='" + address + '\'' +
                 ", dob='" + dob + '\'' +
                 ", gender=" + gender +
@@ -287,6 +317,8 @@ public class User {
                 ", profilePhotoPath='" + profilePhotoPath + '\'' +
                 ", clinicDetails='" + clinicDetails + '\'' +
                 ", doctorsCount=" + doctorsCount +
+                ", uniqueNo='" + uniqueNo + '\'' +
+                ", memberId=" + memberId +
                 '}';
     }
 
