@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -130,13 +131,12 @@ public class SymptomsFragment extends Fragment {
     }
 
     private void getSymptomData(String symptomName) {
-
         viewModel.getSymptomsData(symptomName).observe(getViewLifecycleOwner(), symptomModels -> {
             symptoms2Binding.shimmerSymptomsScreen.setVisibility(symptomModels.isEmpty() ? View.VISIBLE : View.GONE);
             symptoms2Binding.symptomsRec.setVisibility(symptomModels.isEmpty() ? View.GONE : View.VISIBLE);
             symptomsAdapter.submitList(symptomModels);
-            //symptoms2Binding.progressBar2.setVisibility(View.GONE);
         });
+
     }
 
     @Override

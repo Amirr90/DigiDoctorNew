@@ -8,7 +8,7 @@
     tools:context=".view.fragments.digiDoctorFragments.ShowMemberListFragment">
 
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,13 +19,18 @@
 
         <TextView
             android:id="@+id/textView27"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/add_family_member"
             android:textColor="#262E3F"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnAddOtherPatients"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView32"
@@ -45,20 +50,22 @@
         <Button
             android:id="@+id/btnAddOtherPatients"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/round_for_search"
-            android:backgroundTint="@color/YellowColo"
+            android:backgroundTint="@color/colorPrimary"
             android:fontFamily="@font/poppins_semibold"
             android:paddingLeft="20dp"
-            android:paddingTop="7dp"
+            android:paddingTop="5dp"
             android:paddingRight="20dp"
-            android:paddingBottom="7dp"
+            android:paddingBottom="5dp"
             android:text="@string/add"
             android:textColor="@android:color/white"
             android:textSize="12sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView

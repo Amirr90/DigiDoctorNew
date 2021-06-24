@@ -16,6 +16,7 @@ import com.digidoctor.android.model.AppointmentDetailsRes;
 import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.ChatModel;
 import com.digidoctor.android.model.Dashboard;
+import com.digidoctor.android.model.DocBySpecialityRes;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.DoctorModelRes;
 import com.digidoctor.android.model.EraInvestigationData;
@@ -23,7 +24,9 @@ import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.InvestigationModel;
 import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.SpecialityModel;
+import com.digidoctor.android.model.SpecialityRes;
 import com.digidoctor.android.model.SymptomModel;
+import com.digidoctor.android.model.SymptomsRes;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
@@ -78,6 +81,8 @@ public class PatientRepo {
     public MutableLiveData<LabDashBoardmodel> labDashboardModelMutableLiveData;
 
 
+    public MutableLiveData<String> specialityText;
+
     public LiveData<List<ChatModel>> getChatData(AppointmentModel user) {
         if (chatMutableLiveData == null) {
             chatMutableLiveData = new MutableLiveData<>();
@@ -85,6 +90,13 @@ public class PatientRepo {
         loadChatData(user);
         return chatMutableLiveData;
 
+    }
+
+
+    public LiveData<String> getSpecialityText() {
+        if (null == specialityText)
+            specialityText = new MutableLiveData<>();
+        return specialityText;
     }
 
     private void loadChatData(AppointmentModel user) {
@@ -368,32 +380,31 @@ public class PatientRepo {
     }
 
     private void loadDocBySpecialityData(SpecialityModel specialityModel) {
-        getDocBySpecialityById(specialityModel, new ApiCallbackInterface() {
-            @Override
-            public void onSuccess(List<?> o) {
-                if (null != (List<DoctorModel>) o)
-                    doctorModelMutableLiveData.setValue((List<DoctorModel>) o);
-            }
 
+        getDocBySpecialityById(specialityModel, new ApiUtils.SpecialityInterface() {
             @Override
-            public void onError(String s) {
-                Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
-                try {
-                    if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
-                        logout(PatientDashboard.getInstance(), true);
-                        Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+            public void onSuccess(Object o) {
+                AppUtils.hideDialog();
+                DocBySpecialityRes res = (DocBySpecialityRes) o;
+                if (null != res) {
+                    doctorModelMutableLiveData.setValue(res.getResponseValue());
                 }
 
             }
 
             @Override
-            public void onFailed(Throwable throwable) {
-                Toast.makeText(PatientDashboard.getInstance(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailed(String msg) {
+                AppUtils.hideDialog();
+                Toast.makeText(PatientDashboard.getInstance(), msg, Toast.LENGTH_SHORT).show();
+                try {
+                    if (msg.equalsIgnoreCase("Failed to authenticate token !!")) {
+                        logout(PatientDashboard.getInstance(), true);
+                        Toast.makeText(PatientDashboard.getInstance(), msg, Toast.LENGTH_SHORT).show();
+                    }
 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -409,19 +420,20 @@ public class PatientRepo {
     private void loadSymptomsData(String symptomName) {
 
 
-        getSymptomWithIconsData(symptomName, new ApiCallbackInterface() {
+        getSymptomWithIconsData(symptomName, new ApiUtils.SpecialityInterface() {
             @Override
-            public void onSuccess(List<?> o) {
+            public void onSuccess(Object o) {
+                SymptomsRes res = (SymptomsRes) o;
+
                 try {
-                    List<SymptomModel> specialityModel = (List<SymptomModel>) o;
-                    symptomsModelMutableLiveData.setValue(specialityModel);
+                    symptomsModelMutableLiveData.setValue(res.getResponseValue());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
             @Override
-            public void onError(String s) {
+            public void onFailed(String s) {
                 Toast.makeText(PatientDashboard.getInstance(), s, Toast.LENGTH_SHORT).show();
                 try {
                     if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
@@ -434,11 +446,6 @@ public class PatientRepo {
                 }
             }
 
-            @Override
-            public void onFailed(Throwable throwable) {
-                Toast.makeText(PatientDashboard.getInstance(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
-            }
         });
 
 
@@ -454,20 +461,22 @@ public class PatientRepo {
 
     private void loadSpecialityData(String specialityName) {
 
-        specialityData(specialityName, new ApiCallbackInterface() {
+        specialityData(specialityName, new ApiUtils.SpecialityInterface() {
             @Override
-            public void onSuccess(List<?> o) {
+            public void onSuccess(Object o) {
                 try {
-                    List<SpecialityModel> specialityModel = (List<SpecialityModel>) o;
-                    specialityModelMutableLiveData.setValue(specialityModel);
+                    SpecialityRes res = (SpecialityRes) o;
+                    specialityModelMutableLiveData.setValue(res.getResponseValue());
+                    if (null == specialityText)
+                        specialityText = new MutableLiveData<>();
+                    specialityText.setValue(res.getText());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
             @Override
-            public void onError(String s) {
-
+            public void onFailed(String s) {
                 try {
                     if (s.equalsIgnoreCase("Failed to authenticate token !!")) {
                         logout(PatientDashboard.getInstance(), true);
@@ -479,10 +488,6 @@ public class PatientRepo {
                 }
             }
 
-            @Override
-            public void onFailed(Throwable throwable) {
-
-            }
         });
 
 
@@ -640,26 +645,22 @@ public class PatientRepo {
     }
 
     private void loadAllDepartmentData(String symptomName) {
-        ApiUtils.getSymptomWithIconsData(symptomName, new ApiCallbackInterface() {
+        ApiUtils.getSymptomWithIconsData(symptomName, new ApiUtils.SpecialityInterface() {
             @Override
-            public void onSuccess(List<?> o) {
-                AppUtils.hideDialog();
-                List<SymptomModel> symptomModelList = (List<SymptomModel>) o;
-                allDepartmentData.setValue(symptomModelList);
-
+            public void onSuccess(Object o) {
+                SymptomsRes res = (SymptomsRes) o;
+                try {
+                    symptomsModelMutableLiveData.setValue(res.getResponseValue());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
-            public void onError(String s) {
-                AppUtils.hideDialog();
+            public void onFailed(String s) {
                 Toast.makeText(App.context, s, Toast.LENGTH_SHORT).show();
             }
 
-            @Override
-            public void onFailed(Throwable throwable) {
-                Toast.makeText(App.context, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
-            }
         });
     }
 

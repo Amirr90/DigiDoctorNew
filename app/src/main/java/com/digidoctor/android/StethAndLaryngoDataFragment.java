@@ -90,10 +90,12 @@ public class StethAndLaryngoDataFragment extends Fragment {
                     return;
                 }
                 if (recordingModelList.isEmpty()) {
-                    Toast.makeText(requireActivity(), "No Data !!", Toast.LENGTH_SHORT).show();
+                    binding.tvNoData.setText("No " + type + " Data available");
+                    setVisibilityForNoPrescription(true);
                     return;
                 }
                 recAudioList.addAll(recordingModelList);
+                setVisibilityForNoPrescription(false);
 
                 if (null != audioRecorderAdapter)
                     audioRecorderAdapter.notifyDataSetChanged();
@@ -111,6 +113,10 @@ public class StethAndLaryngoDataFragment extends Fragment {
 
             }
         });
+    }
+
+    private void setVisibilityForNoPrescription(boolean status) {
+        binding.noInvestigationLay.setVisibility(status ? View.VISIBLE : View.GONE);
     }
 
     private void setUpAudioRecView() {

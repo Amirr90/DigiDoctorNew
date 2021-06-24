@@ -6,7 +6,12 @@ public class DocBySpecialityRes {
 
     int responseCode;
     String responseMessage;
+    String text;
     List<DoctorModel> responseValue;
+
+    public String getText() {
+        return text;
+    }
 
     public int getResponseCode() {
         return responseCode;

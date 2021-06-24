@@ -33,7 +33,6 @@ import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.PicassoImageLoadingService;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
-import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -172,10 +171,15 @@ public class PatientDashboardFragment extends Fragment implements AdapterInterfa
             dashboard2Binding.homeView.setVisibility(patientDashboardModel == null ? View.GONE : View.VISIBLE);
             dashboard2Binding.homeView.setAnimation(fadeIn(requireActivity()));
 
+
             if (patientDashboardModel != null) {
                 String image = patientDashboardModel.getTopImage().get(0).getTopImage();
+                dashboard2Binding.setBannerTopImage(image);
+/*
+
                 if (null != image && !image.isEmpty())
                     Picasso.get().load(image).placeholder(R.drawable.banner_one).into(dashboard2Binding.dashboardHomeImage);
+*/
 
                 adapter2.submitList(patientDashboardModel.getHealthProductDetails());
                 adapter3.submitList(patientDashboardModel.getTopClinics());

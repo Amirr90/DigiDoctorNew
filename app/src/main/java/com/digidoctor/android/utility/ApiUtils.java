@@ -189,7 +189,7 @@ public class ApiUtils {
     }
 
 
-    public static void specialityData(String specialityName, final ApiCallbackInterface apiCallbackInterface) {
+    public static void specialityData(String specialityName, final SpecialityInterface apiCallbackInterface) {
 
         SpecialityModel specialityModel = new SpecialityModel();
         specialityModel.setProblemName(specialityName);
@@ -205,15 +205,15 @@ public class ApiUtils {
                     AppUtils.hideDialog();
                     if (response.code() == 200 && null != response.body()) {
                         if (response.body().getResponseCode() == 1) {
-                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                        } else apiCallbackInterface.onError(response.body().getResponseMessage());
-                    } else apiCallbackInterface.onError(response.message());
+                            apiCallbackInterface.onSuccess(response.body());
+                        } else apiCallbackInterface.onFailed(response.body().getResponseMessage());
+                    } else apiCallbackInterface.onFailed(response.message());
                 }
 
                 @Override
                 public void onFailure(@NotNull Call<SpecialityRes> call, @NotNull Throwable t) {
                     AppUtils.hideDialog();
-                    apiCallbackInterface.onError(t.getLocalizedMessage());
+                    apiCallbackInterface.onFailed(t.getLocalizedMessage());
                 }
             });
 
@@ -223,7 +223,7 @@ public class ApiUtils {
     }
 
 
-    public static void getDocBySpecialityById(SpecialityModel specialityModel, final ApiCallbackInterface apiCallbackInterface) {
+    public static void getDocBySpecialityById(SpecialityModel specialityModel, final SpecialityInterface apiCallbackInterface) {
         try {
             final Api api = URLUtils.getAPIServiceForPatient();
             Call<DocBySpecialityRes> specialityResCall = api.getDoctorProfileBySpeciality(specialityModel);
@@ -232,14 +232,14 @@ public class ApiUtils {
                 public void onResponse(@NotNull Call<DocBySpecialityRes> call, @NotNull Response<DocBySpecialityRes> response) {
                     if (response.code() == 200 && response.body() != null) {
                         if (response.body().getResponseCode() == 1) {
-                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                        } else apiCallbackInterface.onError(response.body().getResponseMessage());
-                    } else apiCallbackInterface.onError(response.message());
+                            apiCallbackInterface.onSuccess(response.body());
+                        } else apiCallbackInterface.onFailed(response.body().getResponseMessage());
+                    } else apiCallbackInterface.onFailed(response.message());
                 }
 
                 @Override
                 public void onFailure(@NotNull Call<DocBySpecialityRes> call, @NotNull Throwable t) {
-                    apiCallbackInterface.onError(t.getLocalizedMessage());
+                    apiCallbackInterface.onFailed(t.getLocalizedMessage());
                 }
             });
 
@@ -248,6 +248,12 @@ public class ApiUtils {
         }
     }
 
+
+    public interface SpecialityInterface {
+        void onSuccess(Object obj);
+
+        void onFailed(String msg);
+    }
 
     public static void getDoctorsTimeSlots(String docId, String date, String isEraUser, final ApiCallbackInterface apiCallbackInterface) {
         try {
@@ -318,7 +324,7 @@ public class ApiUtils {
     }
 
 
-    public static void getSymptomWithIconsData(String symptomName, final ApiCallbackInterface apiCallbackInterface) {
+    public static void getSymptomWithIconsData(String symptomName, final SpecialityInterface apiCallbackInterface) {
 
         try {
 
@@ -334,15 +340,15 @@ public class ApiUtils {
                     AppUtils.hideDialog();
                     if (response.code() == 200 && null != response.body()) {
                         if (response.body().getResponseCode() == 1) {
-                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
-                        } else apiCallbackInterface.onError(response.body().getResponseMessage());
-                    } else apiCallbackInterface.onError(response.message());
+                            apiCallbackInterface.onSuccess(response.body());
+                        } else apiCallbackInterface.onFailed(response.body().getResponseMessage());
+                    } else apiCallbackInterface.onFailed(response.message());
                 }
 
                 @Override
                 public void onFailure(@NotNull Call<SymptomsRes> call, @NotNull Throwable t) {
                     AppUtils.hideDialog();
-                    apiCallbackInterface.onError(t.getLocalizedMessage());
+                    apiCallbackInterface.onFailed(t.getLocalizedMessage());
                 }
             });
 
@@ -2668,11 +2674,9 @@ public class ApiUtils {
 
     public static void loadEraInvestigationData(String pid, EraInvestigationApiInterface apiCallbackInterface) {
         ApiRequestModel reqModel = new ApiRequestModel();
-        reqModel.setPID(pid);
-        //reqModel.setPID("2186191");
+        //reqModel.setPID(pid);
+        reqModel.setPID("2186191");
 
-        Log.d("TAG", "loadEraInvestigationData: called ");
-        Log.d("TAG", "loadEraInvestigationData: pid " + reqModel.getPID());
         String userName = "H!$$erV!Ce";
         String password = "0785C700-B96C-44DA-A3A7-AD76C58A9FBC";
         try {

@@ -11,10 +11,11 @@
         android:id="@+id/no_appointment_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:constraint_referenced_ids="imageView56,textView157,btnBookAppointment" />
 
     <TextView
+        android:lineSpacingExtra="-5dp"
         android:id="@+id/textView157"
         android:layout_width="283dp"
         android:layout_height="wrap_content"
@@ -32,7 +33,7 @@
     <ImageView
         android:id="@+id/imageView56"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_120sdp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:contentDescription="@string/todo"
@@ -66,7 +67,7 @@
         android:id="@+id/recAppointment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

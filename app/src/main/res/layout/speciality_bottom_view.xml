@@ -1,0 +1,32 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F2F2F2"
+    android:padding="@dimen/_10sdp"
+    android:paddingBottom="@dimen/_40sdp">
+
+    <ImageView
+        android:id="@+id/imageView78"
+        android:layout_width="107dp"
+        android:layout_height="30dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/logo_digi_doctor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView225"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_medium"
+        android:lineSpacingExtra="-5dp"
+        android:text="someone_else Speciality related Text here"
+        android:textColor="#2B3344"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/imageView78"
+        app:layout_constraintTop_toBottomOf="@+id/imageView78" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

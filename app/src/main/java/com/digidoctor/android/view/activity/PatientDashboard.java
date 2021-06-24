@@ -197,7 +197,18 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             }
         });
 
-        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+        changeMenuView();
+
+        if (null != getIntent().getStringExtra("twillioAccessToken")) {
+            String type = getIntent().getStringExtra("type");
+            if (null != type && type.equals("1"))
+                showNotification();
+            else Log.d(TAG, "notificationType is not 1: ");
+        } else Log.d(TAG, "notification data is null: ");
+    }
+
+    private void changeMenuView() {
+           /*     navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (null != searchItem)
                 searchItem.setVisible(destination.getId() == R.id.onlinePharmacyFragment);
             if (null != cartItem)
@@ -231,6 +242,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     case R.id.patientInvestigationReportFragment:
                     case R.id.investigationFragment:
                     case R.id.emergencySpecialityFragment:
+                    case R.id.addMemberFragment:
                         hideAllItem();
                         break;
 
@@ -240,14 +252,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
                 }
             }
-        });
-
-        if (null != getIntent().getStringExtra("twillioAccessToken")) {
-            String type = getIntent().getStringExtra("type");
-            if (null != type && type.equals("1"))
-                showNotification();
-            else Log.d(TAG, "notificationType is not 1: ");
-        } else Log.d(TAG, "notification data is null: ");
+        });*/
     }
 
 
@@ -485,8 +490,8 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull
-            int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startLocationUpdates();
@@ -548,11 +553,11 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     navController.navigate(R.id.addMemberFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
-            case 6:
+           /* case 6:
                 if (user.getIsExists() == 1)
                     navController.navigate(R.id.getPlacedOrderFragment);
                 else navController.navigate(R.id.profileFragment);
-                break;
+                break;*/
             //navController.navigate(R.id.changeLanguageFragment);
             case 12:
                 shareApp("https://digidoctor.in/invitation?invitationCode=" + getPrimaryUser(PatientDashboard.getInstance()).getMemberId(), "This is demo description", this);

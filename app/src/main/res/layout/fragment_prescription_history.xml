@@ -137,8 +137,8 @@
                         android:id="@+id/imageView12"
                         android:layout_width="124dp"
                         android:layout_height="124dp"
-                        app:srcCompat="@drawable/prescription_vector"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="TODO"
+                        app:srcCompat="@drawable/prescription_vector" />
 
                     <TextView
                         android:id="@+id/textView24"
@@ -186,6 +186,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
+                android:visibility="visible"
                 android:id="@+id/prescriptionRec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -195,6 +196,61 @@
                 android:paddingBottom="40dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/prescription_view" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:id="@+id/noPrescriptionLay"
+                android:layout_height="@dimen/_400sdp">
+
+                <TextView
+                    android:lineSpacingExtra="-5dp"
+                    android:id="@+id/textView157"
+                    android:layout_width="283dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/you_have_not_booked_any_appointment"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/btnBookAppointment"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView56"
+                    app:layout_constraintStart_toStartOf="@+id/imageView56"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView56" />
+
+                <ImageView
+                    android:id="@+id/imageView56"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_120sdp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:contentDescription="@string/todo"
+                    app:layout_constraintBottom_toTopOf="@+id/textView157"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:srcCompat="@drawable/no_appointment_image" />
+
+                <Button
+                    android:id="@+id/btnBookAppointment"
+                    android:layout_width="235dp"
+                    android:layout_height="42dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/round_for_search"
+                    android:backgroundTint="@color/PrimaryColor"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/book_appointment"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/textView157"
+                    app:layout_constraintStart_toStartOf="@+id/textView157"
+                    app:layout_constraintTop_toBottomOf="@+id/textView157" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

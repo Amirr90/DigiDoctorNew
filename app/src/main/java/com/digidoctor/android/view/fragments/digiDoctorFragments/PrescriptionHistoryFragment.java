@@ -34,8 +34,6 @@ import static com.digidoctor.android.utility.utils.getPrimaryUser;
 public class PrescriptionHistoryFragment extends Fragment implements AdapterInterface {
 
 
-
-
     FragmentPrescriptionHistoryBinding prescriptionHistoryBinding;
     NavController navController;
     PrescriptionAdapter prescriptionAdapter;
@@ -69,9 +67,10 @@ public class PrescriptionHistoryFragment extends Fragment implements AdapterInte
 
 
         viewModel.getPrescriptionData(requireActivity()).observe(getViewLifecycleOwner(), getPatientMedicationMainModels -> {
-            if (getPatientMedicationMainModels != null) {
+            if (getPatientMedicationMainModels != null && !getPatientMedicationMainModels.isEmpty()) {
                 prescriptionAdapter.submitList(getPatientMedicationMainModels);
-            }
+                setVisibilityForNoPrescription(false);
+            } else setVisibilityForNoPrescription(true);
         });
 
 
@@ -86,6 +85,10 @@ public class PrescriptionHistoryFragment extends Fragment implements AdapterInte
         prescriptionHistoryBinding.tvAddManually.setOnClickListener(view1 -> navController.navigate(R.id.action_prescriptionHistoryFragment_to_addPrescriptionManuallyFragment));
 
 
+    }
+
+    private void setVisibilityForNoPrescription(boolean status) {
+        prescriptionHistoryBinding.noPrescriptionLay.setVisibility(status ? View.VISIBLE : View.GONE);
     }
 
     @Override

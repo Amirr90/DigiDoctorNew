@@ -79,6 +79,10 @@ public class PatientViewModel extends ViewModel {
         return repo.getDocBySpeciality(specialityModel);
     }
 
+    public LiveData<String> getSpecialityText() {
+        return repo.getSpecialityText();
+    }
+
     public LiveData<List<DoctorModelRes>> getRecommendedDoctorsData(HashMap<String, String> map) {
         return repo.gerRecommendedDoctorsData(map);
     }
@@ -106,7 +110,7 @@ public class PatientViewModel extends ViewModel {
         return repo.getEmcDepartmentData();
     }
 
-    public LiveData<EraInvestigationData> eraInvestigationData(String pid,Activity activity) {
-        return repo.eraInvestigationData(pid,activity);
+    public LiveData<EraInvestigationData> eraInvestigationData(String pid, Activity activity) {
+        return repo.eraInvestigationData(pid, activity);
     }
 }

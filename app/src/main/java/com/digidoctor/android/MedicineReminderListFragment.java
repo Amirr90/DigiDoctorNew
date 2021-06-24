@@ -67,20 +67,22 @@ public class MedicineReminderListFragment extends Fragment {
 
     }
 
+    private void setVisibilityForNoPrescription(boolean status) {
+        binding.noMedicineReminderLay.setVisibility(status ? View.VISIBLE : View.GONE);
+    }
+
     public void getData() {
         ApiUtils.MedicineReminderList(requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 AppUtils.hideDialog();
                 List<MedicineReminderModel> medicineReminderModels = (List<MedicineReminderModel>) o;
-                if (null != medicineReminderModels) {
+                if (null != medicineReminderModels && !medicineReminderModels.isEmpty()) {
                     reminderModels.clear();
                     reminderModels.addAll(medicineReminderModels);
-                    binding.recMedicineReminder.setVisibility(View.VISIBLE);
-                    binding.textView219.setVisibility(View.GONE);
+                    setVisibilityForNoPrescription(false);
                 } else {
-                    binding.recMedicineReminder.setVisibility(View.GONE);
-                    binding.textView219.setVisibility(View.VISIBLE);
+                    setVisibilityForNoPrescription(true);
                 }
                 reminderAdapter.notifyDataSetChanged();
             }

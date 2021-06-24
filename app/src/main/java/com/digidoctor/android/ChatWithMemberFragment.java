@@ -75,6 +75,7 @@ public class ChatWithMemberFragment extends Fragment implements OnSearchChange {
             navController.navigateUp();
         }
 
+        amount = Integer.parseInt(getArguments().getString("fee"));
         emergencyBooking = new EmergencyBooking(requireActivity());
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);

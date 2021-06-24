@@ -4,18 +4,20 @@
 
 
     <item
+        android:visible="false"
         android:id="@+id/allProductsFragment"
         android:icon="@drawable/ic_baseline_search_24"
         android:title="@string/search_pharmacy_hint"
         app:showAsAction="always" />
     <item
+        android:visible="false"
         android:id="@+id/fragmentAllWishLIstProduct"
         android:icon="@drawable/ic_baseline_shopping_cart_24"
         android:title="@string/favourite"
         app:actionLayout="@layout/favourite_item"
         app:showAsAction="always" />
-
     <item
+        android:visible="false"
         android:id="@+id/cart_Details_Fragment"
         android:icon="@drawable/ic_baseline_shopping_cart_24"
         android:title="@string/cart"

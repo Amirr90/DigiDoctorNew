@@ -7,6 +7,7 @@ public class SymptomsRes {
     String responseMessage;
     List<SymptomModel> responseValue;
 
+
     public int getResponseCode() {
         return responseCode;
     }

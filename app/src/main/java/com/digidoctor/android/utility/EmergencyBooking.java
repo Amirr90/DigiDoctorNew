@@ -46,8 +46,9 @@ public class EmergencyBooking {
     }
 
     public void setUser(User user) {
-        if (null == user.getEmailId() || user.getEmailId().isEmpty())
-            user.setEmailId(utils.CONSTANT_EMAIL_ID);
+        //constant emailIdFor payment
+        user.setEmailId(utils.CONSTANT_EMAIL_ID);
+        Log.d(TAG, "setUser: " + user.getEmailId());
         this.user = user;
     }
 
@@ -106,6 +107,7 @@ public class EmergencyBooking {
         //setting user class ob
         payUMoney.setUser(user);
 
+        Log.d(TAG, "initPaymentGateway: " + user.toString());
         //trigger PayUMoney SDK
         payUMoney.initPayUPayment(new BookAppointmentInterface() {
             @Override

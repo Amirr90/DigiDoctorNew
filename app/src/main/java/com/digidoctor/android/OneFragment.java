@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.FragmentOneBinding;
@@ -97,6 +95,25 @@ public class OneFragment extends Fragment {
         String subTestName;
         String result;
         String unitname;
+        String resultRemark;
+        Boolean isNormalResult;
+
+
+        public Boolean getNormalResult() {
+            return isNormalResult;
+        }
+
+        public void setNormalResult(Boolean normalResult) {
+            isNormalResult = normalResult;
+        }
+
+        public String getResultRemark() {
+            return resultRemark;
+        }
+
+        public void setResultRemark(String resultRemark) {
+            this.resultRemark = resultRemark;
+        }
 
         public String getSubTestName() {
             return subTestName;

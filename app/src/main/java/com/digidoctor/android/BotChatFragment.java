@@ -43,7 +43,7 @@ public class BotChatFragment extends Fragment {
     int threadTime = 800;
     User userAddedByBot = new User();
 
-    Handler handler1, handler2, handler3;
+    Handler handler1, handler2;
     SpecialityModel specialityModel;
 
     private static final String TAG = "BotChatFragment";
@@ -179,6 +179,7 @@ public class BotChatFragment extends Fragment {
                     int day = myDatePicker.getDayOfMonth();
                     int year = myDatePicker.getYear();
                     String date = year + "-" + month + "-" + day;
+
                     userAddedByBot.setDob(date);
                     AppUtils.showToast(date);
 
@@ -186,7 +187,7 @@ public class BotChatFragment extends Fragment {
 
                     new Handler().postDelayed(() -> {
 
-                        adapter.addItem(new BotModel(StringToDate(date), AppUtils.SENDER, System.currentTimeMillis()));
+                        adapter.addItem(new BotModel(StringToDate(date, "yyyy-MM-dd"), AppUtils.SENDER, System.currentTimeMillis()));
                         binding.recBootChat.scrollToPosition(adapter.getItemCount() - 1);
                         new Handler().postDelayed(() -> {
                             adapter.addItem(new BotModel(getString(R.string.enter_your_mobile_number), AppUtils.RECEIVER, System.currentTimeMillis()));
@@ -214,7 +215,7 @@ public class BotChatFragment extends Fragment {
                             userAddedByBot.setMobileNo(number);
                             userAddedByBot.setMemberId(0);
 
-        ;
+                            ;
                             userAddedByBot.setUserLoginId(utils.getUserForBooking(requireActivity()).getUserLoginId());
                             binding.recBootChat.scrollToPosition(adapter.getItemCount() - 1);
                             initToShowSpeciality(userAddedByBot);
@@ -234,6 +235,7 @@ public class BotChatFragment extends Fragment {
         String userInString = getJSONFromModel(user);
         Bundle bundle = new Bundle();
         bundle.putString("user", userInString);
+        bundle.putString("fee", specialityModel.getFees().toString());
         Log.d(TAG, "initToShowSpeciality: " + userInString);
         navController.navigate(R.id.action_botChatFragment_to_chatWithMemberFragment, bundle);
     }

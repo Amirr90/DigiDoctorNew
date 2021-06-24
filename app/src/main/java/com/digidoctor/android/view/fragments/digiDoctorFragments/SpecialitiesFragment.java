@@ -96,6 +96,9 @@ public class SpecialitiesFragment extends Fragment {
             } else PatientDashboard.getInstance().onSupportNavigateUp();
 
         });
+
+
+        viewModel.getSpecialityText().observe(getViewLifecycleOwner(), s -> specialitiesBinding.textView225.setText(s));
     }
 
 

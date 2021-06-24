@@ -49,6 +49,7 @@ public class DoctorModel {
     public int getReview() {
         return review;
     }
+
     public int getIsEraUser() {
         return isEraUser;
     }

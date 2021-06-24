@@ -52,19 +52,59 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout12">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/noInvestigationLay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView87"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/investigation"
+                    app:layout_constraintBottom_toTopOf="@+id/textView239"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/textView239"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="No Investigation Data Available"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView87"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/imageView87"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView87" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             <androidx.recyclerview.widget.RecyclerView
-                android:paddingLeft="17dp"
-                android:paddingRight="17dp"
                 android:id="@+id/recInvestigation"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="16dp"
+                android:paddingLeft="17dp"
+                android:paddingRight="17dp"
+                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -77,22 +117,21 @@
 
             <Button
                 android:id="@+id/tvAddManually"
-                android:layout_width="137dp"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="17dp"
-                android:background="@drawable/round_for_search"
                 android:backgroundTint="@color/colorPrimary"
+                android:drawableEnd="@drawable/ic_baseline_add_24"
+                android:drawablePadding="@dimen/_10sdp"
+                android:drawableTint="@color/white"
                 android:fontFamily="@font/poppins_semibold"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:gravity="center"
                 android:text="@string/add_man"
                 android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvViewErasInvestigationReport" />
@@ -106,33 +145,34 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/investigations"
                 android:textColor="#262E3F"
-                android:textSize="23sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvAddManually"
                 app:layout_constraintEnd_toStartOf="@+id/tvAddManually"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvAddManually" />
 
             <TextView
-
-                android:paddingLeft="17dp"
-                android:paddingRight="17dp"
                 android:id="@+id/tvViewErasInvestigationReport"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="?attr/selectableItemBackground"
+                android:backgroundTint="#B8B4B4"
                 android:clickable="true"
+                android:focusable="true"
                 android:fontFamily="@font/poppins"
+                android:gravity="center_vertical"
                 android:paddingVertical="@dimen/_10sdp"
-                android:text="Era's Investigation Report"
+                android:paddingLeft="17dp"
+                android:paddingRight="17dp"
+                android:text="@string/view_era_s_investigation_report"
                 android:textColor="@color/yellow700"
                 android:textSize="20sp"
+                app:drawableEndCompat="@drawable/payu_arrow_right"
+                app:drawableTint="@color/yellow700"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:focusable="true"
-                app:drawableEndCompat="@drawable/payu_arrow_right"
-                app:drawableTint="@color/yellow700" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

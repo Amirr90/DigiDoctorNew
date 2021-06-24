@@ -68,22 +68,25 @@ public class InvestigationFragment extends Fragment implements OnClickListener {
         user.setMemberId(utils.getPrimaryUser(requireActivity()).getId());
         viewModel.getInvestigationData(user).observe(getViewLifecycleOwner(), investigationModels -> {
 
+
             submitList.clear();
-            submitList.addAll(investigationModels);
+            if (!investigationModels.isEmpty()) {
+                submitList.addAll(investigationModels);
+                setVisibilityForNoPrescription(false);
+            } else setVisibilityForNoPrescription(true);
+
             adapter.notifyDataSetChanged();
             AppUtils.hideDialog();
         });
 
         investigationBinding.tvAddManually.setOnClickListener(view1 -> navController.navigate(R.id.action_investigationFragment_to_addInvestigationFragment));
 
-        investigationBinding.tvViewErasInvestigationReport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_investigationFragment_to_patientInvestigationReportFragment);
-            }
-        });
+        investigationBinding.tvViewErasInvestigationReport.setOnClickListener(v -> navController.navigate(R.id.action_investigationFragment_to_patientInvestigationReportFragment));
     }
 
+    private void setVisibilityForNoPrescription(boolean status) {
+        investigationBinding.noInvestigationLay.setVisibility(status ? View.VISIBLE : View.GONE);
+    }
 
     @Override
     public void onItemClick(Object object) {

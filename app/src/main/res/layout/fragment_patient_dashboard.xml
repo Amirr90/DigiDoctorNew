@@ -15,6 +15,10 @@
         <variable
             name="user"
             type="com.digidoctor.android.model.User" />
+
+        <variable
+            name="bannerTopImage"
+            type="String" />
     </data>
 
 
@@ -115,6 +119,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/view8" />
 
+
                     <TextView
                         android:id="@+id/tvCity"
                         android:layout_width="wrap_content"
@@ -122,24 +127,26 @@
                         android:layout_below="@+id/tvLocation"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
+                        android:layout_marginTop="2dp"
+                        android:paddingHorizontal="@dimen/_5sdp"
+                        android:text="searching..."
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="@+id/tvLocation"
                         app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
 
-
                     <ImageView
                         android:id="@+id/dashboardHomeImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_125sdp"
                         android:layout_below="@+id/profile_image"
                         android:layout_marginTop="8dp"
                         android:contentDescription="TODO"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/banner_one"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/banner_new"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvCity" />
 
                     <ImageView
                         android:id="@+id/ivMenu"
@@ -169,7 +176,7 @@
                     <View
                         android:id="@+id/view8"
                         android:layout_width="0.5dp"
-                        android:layout_height="30dp"
+                        android:layout_height="28dp"
                         android:layout_marginEnd="12dp"
                         android:background="@color/colorPrimary"
                         app:layout_constraintEnd_toStartOf="@+id/tvLocation"

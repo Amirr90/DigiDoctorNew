@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/BackgroundColor"
+    android:orientation="vertical"
     tools:context=".view.fragments.digiDoctorFragments.SpecialitiesFragment">
 
 
-
     <RelativeLayout
+        android:id="@+id/relativeLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_round"
@@ -19,15 +19,13 @@
         android:paddingLeft="10dp"
         android:paddingTop="@dimen/_20sdp"
         android:paddingRight="10dp"
-        android:paddingBottom="@dimen/_20sdp">
+        android:paddingBottom="@dimen/_20sdp"
+        shimmer:layout_constraintEnd_toEndOf="parent"
+        shimmer:layout_constraintStart_toStartOf="parent"
+        shimmer:layout_constraintTop_toTopOf="parent">
 
 
         <EditText
-            android:imeOptions="actionSearch"
-            android:singleLine="true"
-            android:textColorHint="#A2B3B8"
-            android:textSize="14sp"
-            android:paddingRight="20dp"
             android:id="@+id/editTextTextSearchSpeciality"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,51 +37,123 @@
             android:drawablePadding="10dp"
             android:ems="10"
             android:hint="@string/search_specialty_here"
+            android:imeOptions="actionSearch"
             android:inputType="textPersonName"
             android:paddingLeft="20dp"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:singleLine="true"
+            android:textColorHint="#A2B3B8"
+            android:textSize="14sp" />
     </RelativeLayout>
 
 
     <ProgressBar
-        android:visibility="gone"
         android:id="@+id/progressBar3"
         style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        shimmer:layout_constraintBottom_toBottomOf="parent"
+        shimmer:layout_constraintEnd_toEndOf="parent"
+        shimmer:layout_constraintStart_toStartOf="parent"
+        shimmer:layout_constraintTop_toTopOf="parent" />
 
 
     <com.facebook.shimmer.ShimmerFrameLayout
-        shimmer:duration="700"
-        android:visibility="visible"
         android:id="@+id/shimmerHOmeScreen"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        shimmer:duration="700"
+        shimmer:layout_constraintEnd_toEndOf="parent"
+        shimmer:layout_constraintStart_toStartOf="parent"
+        shimmer:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recShimmerSpeciality"
-            android:padding="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:itemCount="10"
-            app:spanCount="2"
+            android:padding="@dimen/_10sdp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/speciality_shimmer_view"/>
+            app:spanCount="2"
+            tools:itemCount="10"
+            tools:listitem="@layout/speciality_shimmer_view" />
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/specRec"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/_10sdp"
-        android:paddingRight="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_20sdp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        tools:listitem="@layout/specialitiy_view" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
 
-</LinearLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/specRec"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_20sdp"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:spanCount="2"
+                tools:itemCount="2"
+                tools:listitem="@layout/specialitiy_view" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout18"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_130sdp"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="32dp"
+                android:background="#F2F2F2"
+                android:padding="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_40sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/specRec">
+
+                <ImageView
+                    android:id="@+id/imageView78"
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="16dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/logo_digi_doctor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView225"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:lineSpacingExtra="-5dp"
+                    android:text="For Children Only Pediatrics Department is Enabled."
+                    android:textAlignment="center"
+                    android:textColor="#2B3344"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView78"
+                    app:layout_constraintStart_toStartOf="@+id/imageView78"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView78" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

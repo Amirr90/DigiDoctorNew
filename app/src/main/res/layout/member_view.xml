@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="com.digidoctor.android.utility.AppUtils" />
+
         <variable
             name="member"
             type="com.digidoctor.android.model.User" />
@@ -52,11 +54,22 @@
                 android:id="@+id/textView33"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="18dp"
-                android:layout_toRightOf="@+id/ivMember"
+                android:layout_marginStart="18dp"
+                android:layout_toEndOf="@+id/ivMember"
                 android:fontFamily="@font/poppins_medium"
-                android:text="@{member.name}"
+                android:text="@{member.name,default=`Aamirre khan`}"
+                android:textColor="#3F4E6E"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/tvMemberAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView33"
+                android:layout_marginStart="18dp"
+                android:layout_toEndOf="@+id/ivMember"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@{AppUtils.StringToDate(member.dob,`dd/MM/yyyy`),default=`10 Years Old`}"
                 android:textColor="#3F4E6E"
                 android:textStyle="normal" />
 
@@ -64,22 +77,22 @@
                 android:id="@+id/radioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="right"
                 android:visibility="gone" />
 
             <ImageView
-                android:background="?selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:layout_centerVertical="true"
                 android:id="@+id/ivDeleteMember"
                 android:layout_width="30dp"
                 android:layout_height="25dp"
                 android:layout_alignParentEnd="true"
-                app:srcCompat="@drawable/delete"
+                android:layout_centerVertical="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="TODO"
                 android:focusable="true"
-                android:contentDescription="TODO" />
+                app:srcCompat="@drawable/delete" />
         </RelativeLayout>
 
 

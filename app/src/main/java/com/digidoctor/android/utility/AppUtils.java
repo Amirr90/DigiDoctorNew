@@ -582,12 +582,12 @@ public class AppUtils {
     }
 
 
-    public static String StringToDate(String date) {
+    public static String StringToDate(String date, String dateInPattern) {
 
         Calendar today = Calendar.getInstance();
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat(dateInPattern);
         Calendar dob = Calendar.getInstance();
         try {
             dob.setTime(sdf.parse(date));
@@ -629,7 +629,9 @@ public class AppUtils {
             return Day + " day(s) old";
         else if (age == 0)
             return months + " months " + Day + " day(s) old";
-        else
+        else if (months == 0) {
+            return age + "year(s)";
+        } else
             return age + "year(s) " + months + " months old";
     }
 
