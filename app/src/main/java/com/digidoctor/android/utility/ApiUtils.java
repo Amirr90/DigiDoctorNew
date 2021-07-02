@@ -45,6 +45,7 @@ import com.digidoctor.android.model.InvestigationRes;
 import com.digidoctor.android.model.Login;
 import com.digidoctor.android.model.MedicineRes;
 import com.digidoctor.android.model.MemberModel;
+import com.digidoctor.android.model.MenuResponse;
 import com.digidoctor.android.model.OnlineAppointmentSlots;
 import com.digidoctor.android.model.PackageModel;
 import com.digidoctor.android.model.PayModeModel;
@@ -156,7 +157,6 @@ public class ApiUtils {
     public static final int RESPONSE_LOGOUT = 2;
 
     public static void getPatientDasboard(Dashboard dashboard, final ApiCallbackInterface apiCallbackInterface) {
-
         if (isNetworkConnected(App.context))
             try {
                 final Api api = URLUtils.getAPIServiceForPatient();
@@ -240,6 +240,31 @@ public class ApiUtils {
                 @Override
                 public void onFailure(@NotNull Call<DocBySpecialityRes> call, @NotNull Throwable t) {
                     apiCallbackInterface.onFailed(t.getLocalizedMessage());
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void getMenuData(ApiCallbackInterface apiCallbackInterface) {
+        try {
+            final Api api = URLUtils.getAPIServiceForPatient();
+            Call<MenuResponse> specialityResCall = api.getMenuForApp();
+            specialityResCall.enqueue(new Callback<MenuResponse>() {
+                @Override
+                public void onResponse(@NotNull Call<MenuResponse> call, @NotNull Response<MenuResponse> response) {
+                    if (response.code() == 200 && response.body() != null) {
+                        if (response.body().getResponseCode() == 1) {
+                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                        } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                    } else apiCallbackInterface.onError(response.message());
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<MenuResponse> call, @NotNull Throwable t) {
+                    apiCallbackInterface.onFailed(t);
                 }
             });
 

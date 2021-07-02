@@ -1066,8 +1066,8 @@
     <string name="our_blogs">Our Blogs</string>
     <string name="incomplete_profile">Incomplete Profile</string>
     <string name="incomple_profile_tag">Your profile is incomplete,\ncomplete  profile before booking appointment</string>
-    <string name="thank_you_for_choosing">Thank you choosing DigiDoctor!\nWe are happy to help you get healthier soon.</string>
-    <string name="please_let_us_know">Please let us know who this consultation for.</string>
+    <string name="thank_you_for_choosing">Thank you for choosing DigiDoctor!\nWe are happy to help you get healthier soon.</string>
+    <string name="please_let_us_know">Please let us know who this consultation for?</string>
     <string name="someone_else">Someone else</string>
     <string name="what_is_his_name">What is his/her name?</string>
     <string name="select__your_gender">please, Select your gender.</string>

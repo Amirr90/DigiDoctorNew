@@ -55,7 +55,7 @@
                     android:layout_below="@id/textView26"
                     android:layout_toEndOf="@id/llImage"
                     android:fontFamily="@font/poppins"
-                    android:text="@{medication.specialty}"
+                    android:text="@{medication.specialty,default=``}"
                     android:textColor="#3F4E6E"
                     android:textSize="14sp"
                     android:textStyle="normal" />
@@ -98,10 +98,10 @@
                     android:layout_below="@id/view1"
                     android:layout_marginStart="28dp"
                     android:layout_marginTop="13dp"
+                    android:contentDescription="TODO"
                     android:setCustomVisibility="@{medication.testName}"
                     android:src="@drawable/check_up_icon"
-                    app:tint="@color/GreyColo"
-                    android:contentDescription="TODO" />
+                    app:tint="@color/GreyColo" />
 
                 <TextView
                     android:id="@+id/textView22"
@@ -124,8 +124,8 @@
                     android:layout_below="@id/imageView9"
                     android:layout_marginStart="28dp"
                     android:layout_marginTop="22dp"
-                    android:src="@drawable/calender"
-                    android:contentDescription="TODO" />
+                    android:contentDescription="TODO"
+                    android:src="@drawable/calender" />
 
                 <TextView
                     android:id="@+id/textView23"
@@ -294,6 +294,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:autoSizeTextType="uniform" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -322,6 +323,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:autoSizeTextType="uniform" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -351,6 +353,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:autoSizeTextType="uniform" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -364,7 +367,6 @@
                 android:textSize="12sp"
                 android:textStyle="normal"
                 app:autoSizeTextType="uniform" />
-
 
 
             <!--   Recommended  Diet-->
@@ -381,6 +383,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:autoSizeTextType="uniform" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

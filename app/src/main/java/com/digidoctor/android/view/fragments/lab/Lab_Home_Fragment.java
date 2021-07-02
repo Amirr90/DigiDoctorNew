@@ -153,9 +153,9 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
 
     }
 
-    public void onNavigateUp(Lab_Home_FragmentDirections.ActionLabHomeFragmentToTestDetailsFRagment id) {
+   /* public void onNavigateUp(Lab_Home_FragmentDirections.ActionLabHomeFragmentToTestDetailsFRagment id) {
         navController.navigate(id);
-    }
+    }*/
 
 
     private void setBannerData(List<BannerText> bannerTextList) {
@@ -185,11 +185,11 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
 
     @Override
     public void onItemClicked(Object obj) {
-        String packageId = (String) obj;
+        /*String packageId = (String) obj;
         //cart.addItemToCart("", packageId);
         Lab_Home_FragmentDirections.ActionLabHomeFragmentToTestDetailsFRagment action = Lab_Home_FragmentDirections.actionLabHomeFragmentToTestDetailsFRagment();
         action.setPackageId(packageId);
-        navController.navigate(action);
+        navController.navigate(action);*/
     }
 
     @Override

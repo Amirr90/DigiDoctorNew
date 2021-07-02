@@ -32,12 +32,9 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.NavAdapter;
 import com.digidoctor.android.broadcast.InternetBroadcastReceiver;
 import com.digidoctor.android.databinding.ActivityDashBoardBinding;
-import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.NavigationInterface;
 import com.digidoctor.android.model.NavModel;
 import com.digidoctor.android.model.User;
-import com.digidoctor.android.model.pharmacyModel.CartCount;
-import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.GetAddressIntentService;
 import com.digidoctor.android.utility.WakefulBroadcasterReceiver;
 import com.digidoctor.android.utility.utils;
@@ -63,7 +60,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import static com.digidoctor.android.utility.AppUtils.getNavData;
 import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.AppUtils.shareApp;
 import static com.digidoctor.android.utility.AppUtils.showRequestDialog;
@@ -74,8 +70,6 @@ import static com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBl
 import static com.digidoctor.android.view.fragments.lab.FragmentReviewOrderLab.payment;
 
 public class PatientDashboard extends AppCompatActivity implements PaymentResultWithDataListener, NavigationInterface, PayUCheckoutProListener {
-
-
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 101;
     ActivityDashBoardBinding mainBinding;
 
@@ -138,6 +132,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     private Location currentLocation;
     private LocationCallback locationCallback;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,11 +163,12 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         };
         startLocationUpdates();
 
+        viewModel = new ViewModelProvider(this).get(PatientViewModel.class);
         setNavRec();
 
-        viewModel = new ViewModelProvider(this).get(PatientViewModel.class);
 
-        ApiUtils.getcartcountutils(this, new ApiCallbackInterface() {
+
+/*        ApiUtils.getcartcountutils(this, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 List<CartCount.CartcountList> CartcountList = (List<CartCount.CartcountList>) o;
@@ -195,7 +191,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             public void onFailed(Throwable throwable) {
 
             }
-        });
+        });*/
 
         changeMenuView();
 
@@ -309,8 +305,14 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         navModels = new ArrayList<>();
         navAdapter = new NavAdapter(navModels, PatientDashboard.this);
         mainBinding.navRec.setAdapter(navAdapter);
-        navModels.addAll(getNavData(PatientDashboard.this));
-        navAdapter.notifyDataSetChanged();
+
+
+        viewModel.getMenuData().observe(this, navModels -> {
+            this.navModels.addAll(navModels);
+            Log.d(TAG, "setNavRec: " + navModels.toString());
+            navAdapter.notifyDataSetChanged();
+
+        });
     }
 
 
@@ -344,7 +346,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             }
         });
 
-        //checkForUpdate();
+        checkForUpdate();
     }
 
     private void checkForUpdate() {
@@ -502,9 +504,9 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     }
 
     @Override
-    public void onNavigationItemClicked(int pos) {
+    public void onNavigationItemClicked(Object obj) {
         mainBinding.drawerLayout.close();
-
+/*
         switch (pos) {
             case 0:
                 if (user.getIsExists() == 1)
@@ -536,15 +538,15 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     navController.navigate(R.id.updateSymptomsFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
-            /*case 14:
+            *//*case 14:
                 if (user.getIsExists() == 1)
                     navController.navigate(R.id.labOrdersFragment);
                 else navController.navigate(R.id.profileFragment);
-                break;*/
+                break;*//*
             case 11:
-                /* if (user.getIsExists() == 1)
+                *//* if (user.getIsExists() == 1)
                     navController.navigate(R.id.symptomTrackerFragment);
-                else navController.navigate(R.id.profileFragment);*/
+                else navController.navigate(R.id.profileFragment);*//*
                 Toast.makeText(instance, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
                 break;
 
@@ -553,11 +555,11 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                     navController.navigate(R.id.addMemberFragment);
                 else navController.navigate(R.id.profileFragment);
                 break;
-           /* case 6:
+           *//* case 6:
                 if (user.getIsExists() == 1)
                     navController.navigate(R.id.getPlacedOrderFragment);
                 else navController.navigate(R.id.profileFragment);
-                break;*/
+                break;*//*
             //navController.navigate(R.id.changeLanguageFragment);
             case 12:
                 shareApp("https://digidoctor.in/invitation?invitationCode=" + getPrimaryUser(PatientDashboard.getInstance()).getMemberId(), "This is demo description", this);
@@ -583,7 +585,53 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 break;
             default:
                 Toast.makeText(instance, "Coming Soon", Toast.LENGTH_SHORT).show();
-        }
+        }*/
+        NavModel navModel = (NavModel) obj;
+
+        if (navModel.getId() == 1) {
+            if (isProfileFilled())
+                navController.navigate(R.id.appointmentsFragment);
+            else navController.navigate(R.id.profileFragment);
+        } else if (navModel.getId() == 2) {
+            if (isProfileFilled())
+                navController.navigate(R.id.prescriptionHistoryFragment);
+            else navController.navigate(R.id.profileFragment);
+        } else if (navModel.getId() == 3) {
+            if (isProfileFilled())
+                navController.navigate(R.id.investigationFragment);
+            else navController.navigate(R.id.profileFragment);
+        } else if (navModel.getId() == 4) {
+            if (isProfileFilled())
+                navController.navigate(R.id.chooseVitalHistoryTypeFragment);
+            else navController.navigate(R.id.profileFragment);
+        } else if (navModel.getId() == 5) {
+            if (isProfileFilled())
+                navController.navigate(R.id.addMemberFragment);
+            else navController.navigate(R.id.profileFragment);
+        } else if (navModel.getId() == 11) {
+            if (isProfileFilled())
+                navController.navigate(R.id.medicineReminderListFragment);
+            else navController.navigate(R.id.profileFragment);
+        } else if (navModel.getId() == 13) {
+            shareApp("https://digidoctor.in/invitation?invitationCode=" + getPrimaryUser(PatientDashboard.getInstance()).getMemberId(), "This is demo description", this);
+        } else if (navModel.getId() == 14) {
+            if (isProfileFilled())
+                navController.navigate(R.id.symptomTrackerFragment);
+            else navController.navigate(R.id.profileFragment);
+        } else if (navModel.getId() == 16) {
+            if (isProfileFilled())
+                navController.navigate(R.id.homeIsolationRequestListFragment);
+            else navController.navigate(R.id.profileFragment);
+        } else if (navModel.getId() == 17) {
+            showRequestDialog(this);
+            if (utils.logout(this))
+                hideDialog();
+        } else Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+
+    }
+
+    private boolean isProfileFilled() {
+        return user.getIsExists() == 1;
     }
 
     private void openBrowser() {

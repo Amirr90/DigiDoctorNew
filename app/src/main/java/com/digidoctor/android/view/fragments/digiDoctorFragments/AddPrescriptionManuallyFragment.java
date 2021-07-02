@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.digidoctor.android.R;
@@ -37,6 +38,7 @@ import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.view.activity.PatientDashboard;
+import com.digidoctor.android.viewHolder.PatientViewModel;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import org.jetbrains.annotations.NotNull;
@@ -92,6 +94,9 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
     Boolean isUploadPrescription = false;
 
 
+    PatientViewModel viewModel;
+
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -105,6 +110,7 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
         super.onViewCreated(view, savedInstanceState);
 
 
+        viewModel = new ViewModelProvider(this).get(PatientViewModel.class);
         prescriptionModel = new PrescriptionModel();
         tableModelsList = new ArrayList<>();
         prescriptionModel.setStartDate(getDateInDMYFormatFromTimestampInDayMonthFormat(System.currentTimeMillis()));
@@ -424,6 +430,15 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
 
             }
         });
+
+       /* viewModel.getMedicineData().observe(getViewLifecycleOwner(), new Observer<MedicineModel>() {
+            @Override
+            public void onChanged(MedicineModel medicineModel) {
+                if (null != medicineModel)
+                    Log.d(TAG, "onChanged: " + medicineModel.getMedicineList());
+                else Log.d(TAG, "onChanged: null");
+            }
+        });*/
 
     }
 

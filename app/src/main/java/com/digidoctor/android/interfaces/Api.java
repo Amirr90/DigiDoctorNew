@@ -33,6 +33,7 @@ import com.digidoctor.android.model.Login;
 import com.digidoctor.android.model.LogoutModel;
 import com.digidoctor.android.model.MedicineRes;
 import com.digidoctor.android.model.MemberModel;
+import com.digidoctor.android.model.MenuResponse;
 import com.digidoctor.android.model.OnlineAppointmentRes;
 import com.digidoctor.android.model.OnlineAppointmentSlots;
 import com.digidoctor.android.model.PackageModel;
@@ -486,6 +487,10 @@ public interface Api {
 
     @POST("emergencyAppointment")
     Call<SpecialityRes> emcAppointment(@Body ApiRequestModel requestModel);
+
+
+    @POST("getMenuForApp")
+    Call<MenuResponse> getMenuForApp();
 }
 
 

@@ -100,8 +100,8 @@ public class ChatWithMemberFragment extends Fragment implements OnSearchChange {
             binding.chpDepartment.invalidate();
         });
 
-        binding.chpDepartment.setOnCheckedChangeListener((ChipGroup.OnCheckedChangeListener) (group, checkedId) -> {
-            Chip chip = (Chip) group.findViewById(group.getCheckedChipId());
+        binding.chpDepartment.setOnCheckedChangeListener((group, checkedId) -> {
+            Chip chip = group.findViewById(group.getCheckedChipId());
             if (chip != null) {
                 for (int a = 0; a < listSymptoms.size(); a++) {
                     if (listSymptoms.get(a).getProblemName().equalsIgnoreCase(chip.getText().toString()))

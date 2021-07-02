@@ -28,7 +28,7 @@
             android:layout_height="17dp"
             android:layout_marginTop="3dp"
             android:contentDescription="@string/todo"
-            android:loadNavImage="@{navModel.image}"
+            android:loadNavImage="@{navModel.icon}"
             app:srcCompat="@drawable/appointments" />
 
         <TextView
@@ -38,7 +38,7 @@
             android:layout_marginStart="16dp"
             android:layout_toEndOf="@id/imageView5"
             android:fontFamily="@font/poppins_medium"
-            android:text="@{navModel.title,default=`Login`}"
+            android:text="@{navModel.menuName,default=`Login`}"
             android:textColor="#262E3F"
             android:textSize="15sp" />
 

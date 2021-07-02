@@ -1,5 +1,5 @@
 package com.digidoctor.android.interfaces;
 
 public interface NavigationInterface {
-    void onNavigationItemClicked(int pos);
+    void onNavigationItemClicked(Object obj);
 }

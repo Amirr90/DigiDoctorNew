@@ -37,7 +37,7 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.NavVH> {
         NavModel navModel = navModelList.get(position);
         holder.navViewRecItemBinding.setNavModel(navModel);
 
-        holder.navViewRecItemBinding.rlNavRoot.setOnClickListener(view -> adapterInterface.onNavigationItemClicked(position));
+        holder.navViewRecItemBinding.rlNavRoot.setOnClickListener(view -> adapterInterface.onNavigationItemClicked(navModel));
 
     }
 

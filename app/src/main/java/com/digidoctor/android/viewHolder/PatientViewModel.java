@@ -13,6 +13,8 @@ import com.digidoctor.android.model.DoctorModelRes;
 import com.digidoctor.android.model.EraInvestigationData;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.InvestigationModel;
+import com.digidoctor.android.model.MedicineModel;
+import com.digidoctor.android.model.NavModel;
 import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SymptomModel;
@@ -23,6 +25,7 @@ import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
 import com.digidoctor.android.model.patientModel.HospitalAndPackageResponse;
 import com.digidoctor.android.model.patientModel.SymptomsNotificationModel;
 import com.digidoctor.android.repositories.PatientRepo;
+import com.digidoctor.android.utility.App;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +34,9 @@ import java.util.List;
 public class PatientViewModel extends ViewModel {
 
     PatientRepo repo = new PatientRepo();
+
+    public PatientViewModel() {
+    }
 
 
     public LiveData<List<ChatModel>> getChatData(AppointmentModel user) {
@@ -112,5 +118,15 @@ public class PatientViewModel extends ViewModel {
 
     public LiveData<EraInvestigationData> eraInvestigationData(String pid, Activity activity) {
         return repo.eraInvestigationData(pid, activity);
+    }
+
+    public LiveData<List<NavModel>> getMenuData() {
+        return repo.getMenuData();
+    }
+
+
+    public LiveData<MedicineModel> getMedicineData() {
+        repo = new PatientRepo(App.context);
+        return repo.getAllMedicineData();
     }
 }

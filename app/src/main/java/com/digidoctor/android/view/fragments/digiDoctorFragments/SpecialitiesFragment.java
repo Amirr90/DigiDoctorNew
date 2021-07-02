@@ -17,11 +17,15 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.ShimmerAdapter;
 import com.digidoctor.android.adapters.SpecialityAdapter;
 import com.digidoctor.android.databinding.FragmentSpecialitiesBinding;
+import com.digidoctor.android.model.SpecialityModel;
+import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -32,6 +36,7 @@ public class SpecialitiesFragment extends Fragment {
     SpecialityAdapter specialityAdapter;
     PatientViewModel viewModel;
     String specialityName;
+    List<SpecialityModel> allSpecialityData;
 
 
     @Override
@@ -67,10 +72,14 @@ public class SpecialitiesFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                if (charSequence != null && charSequence.length() > 1) {
-                    specialitiesBinding.progressBar3.setVisibility(View.VISIBLE);
-                    getSpecialityData(charSequence.toString());
+                if (charSequence != null) {
+                    if (charSequence.toString().isEmpty()) {
+                        specialitiesBinding.progressBar3.setVisibility(View.GONE);
+                        utils.hideSoftKeyboard(requireActivity());
+                        specialityAdapter.submitList(allSpecialityData);
+                    } else filterSpeciality(charSequence.toString());
                 }
+
             }
 
             @Override
@@ -79,6 +88,19 @@ public class SpecialitiesFragment extends Fragment {
             }
         });
 
+    }
+
+    private void filterSpeciality(CharSequence charSequence) {
+        List<SpecialityModel> temp = new ArrayList();
+        for (SpecialityModel d : allSpecialityData) {
+            //or use .equal(text) with you want equal match
+            //use .toLowerCase() for better matches
+            if (d.getSpecialityName().toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                temp.add(d);
+            }
+        }
+        //update recyclerview
+        specialityAdapter.submitList(temp);
     }
 
     @Override
@@ -91,6 +113,7 @@ public class SpecialitiesFragment extends Fragment {
         viewModel.getSpecialityData(specialityName).observe(getViewLifecycleOwner(), specialityModels -> {
             if (null != specialityModels) {
                 specialityAdapter.submitList(specialityModels);
+                allSpecialityData = specialityModels;
                 specialitiesBinding.recShimmerSpeciality.setVisibility(specialityModels.isEmpty() ? View.VISIBLE : View.GONE);
                 specialitiesBinding.specRec.setVisibility(specialityModels.isEmpty() ? View.GONE : View.VISIBLE);
             } else PatientDashboard.getInstance().onSupportNavigateUp();

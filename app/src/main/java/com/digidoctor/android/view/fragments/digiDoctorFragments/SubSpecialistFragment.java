@@ -19,6 +19,7 @@ import com.digidoctor.android.adapters.SubSpecialityAdapter;
 import com.digidoctor.android.databinding.FragmentSubSpecialistBinding;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.SpecialityModel;
+import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
@@ -109,6 +110,9 @@ public class SubSpecialistFragment extends Fragment implements SubSpecialityAdap
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (null != charSequence) {
                     SubSpecialistFragment.this.performSearch(charSequence.toString());
+                    if (charSequence.length() == 0) {
+                        AppUtils.hideDialog();
+                    }
                 }
             }
 
@@ -120,6 +124,7 @@ public class SubSpecialistFragment extends Fragment implements SubSpecialityAdap
 
 
     }
+
 
     private void performSearch(String docName) {
 

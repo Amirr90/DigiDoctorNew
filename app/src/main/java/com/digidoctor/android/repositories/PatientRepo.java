@@ -1,6 +1,9 @@
 package com.digidoctor.android.repositories;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -8,6 +11,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.database.AppDao;
+import com.digidoctor.android.database.AppDatabase;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.ApiInterface;
 import com.digidoctor.android.interfaces.EraInvestigationApiInterface;
@@ -22,6 +27,8 @@ import com.digidoctor.android.model.DoctorModelRes;
 import com.digidoctor.android.model.EraInvestigationData;
 import com.digidoctor.android.model.GetPatientMedicationMainModel;
 import com.digidoctor.android.model.InvestigationModel;
+import com.digidoctor.android.model.MedicineModel;
+import com.digidoctor.android.model.NavModel;
 import com.digidoctor.android.model.PatientDashboardModel;
 import com.digidoctor.android.model.SpecialityModel;
 import com.digidoctor.android.model.SpecialityRes;
@@ -82,6 +89,21 @@ public class PatientRepo {
 
 
     public MutableLiveData<String> specialityText;
+
+
+    AppDao appDao;
+    MutableLiveData<MedicineModel> mutableLiveDataMedicine;
+
+    public PatientRepo(Context application) {
+        AppDatabase userDatabase = AppDatabase.getDatabase(application);
+        appDao = userDatabase.getAppDao();
+        MedicineModel medicineModel = new MedicineModel();
+        medicineModel.setMedicineList((List<MedicineModel.MedicineDetailModel>) appDao.getAllMedicineList());
+        mutableLiveDataMedicine.setValue(medicineModel);
+    }
+
+    public PatientRepo() {
+    }
 
     public LiveData<List<ChatModel>> getChatData(AppointmentModel user) {
         if (chatMutableLiveData == null) {
@@ -650,7 +672,7 @@ public class PatientRepo {
             public void onSuccess(Object o) {
                 SymptomsRes res = (SymptomsRes) o;
                 try {
-                    symptomsModelMutableLiveData.setValue(res.getResponseValue());
+                    allDepartmentData.setValue(res.getResponseValue());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -737,8 +759,112 @@ public class PatientRepo {
         });
     }
 
+
+    public MutableLiveData<List<NavModel>> menuItemData;
+
+    public LiveData<List<NavModel>> getMenuData() {
+        if (null == menuItemData) {
+            menuItemData = new MutableLiveData<>();
+            new GetMenuFroUser(menuItemData).execute();
+        }
+        return menuItemData;
+    }
+
+
+    public LiveData<MedicineModel> getAllMedicineData() {
+        if (null == mutableLiveDataMedicine) {
+            mutableLiveDataMedicine = new MutableLiveData<>();
+            initMedicineData();
+        }
+
+        return mutableLiveDataMedicine;
+    }
+
+    private void initMedicineData() {
+        new InsertMedicineDataInTable(appDao, mutableLiveDataMedicine).execute();
+    }
+
+
+    public static class InsertMedicineDataInTable extends AsyncTask<Void, Void, Void> {
+
+        AppDao appDao;
+        MutableLiveData<MedicineModel> mutableLiveDataMedicine;
+
+        public InsertMedicineDataInTable(AppDao appDao, MutableLiveData<MedicineModel> mutableLiveDataMedicine) {
+            this.appDao = appDao;
+            this.mutableLiveDataMedicine = mutableLiveDataMedicine;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            ApiUtils.getMedicineData(new ApiCallbackInterface() {
+                @Override
+                public void onSuccess(List<?> o) {
+                    appDao.deleteAllUser();
+                    List<MedicineModel> responseValue = (List<MedicineModel>) o;
+                    for (int a = 0; a < responseValue.get(0).getMedicineList().size(); a++) {
+                        appDao.addMedicineData(responseValue.get(0).getMedicineList().get(a));
+                    }
+
+
+                    /*for (int a = 0; a < responseValue.get(0).getFrequencyList().size(); a++) {
+                        appDao.addMedicineData(responseValue.get(0).getFrequencyList().get(a));
+                    }*/
+
+
+                }
+
+                @Override
+                public void onError(String s) {
+                    hideDialog();
+
+                }
+
+                @Override
+                public void onFailed(Throwable throwable) {
+                    hideDialog();
+
+                }
+            });
+            return null;
+        }
+    }
+
     public interface SymptomsNotificationInterface {
         void onResponseSuccess(List<SymptomsNotificationModel> symptomsNotificationModelsList);
+    }
+
+
+    public static class GetMenuFroUser extends AsyncTask<Void, Void, Void> {
+
+        public MutableLiveData<List<NavModel>> menuItemData;
+
+        public GetMenuFroUser(MutableLiveData<List<NavModel>> menuItemData) {
+            this.menuItemData = menuItemData;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            ApiUtils.getMenuData(new ApiCallbackInterface() {
+                @Override
+                public void onSuccess(List<?> o) {
+                    List<NavModel> navModels = (List<NavModel>) o;
+                    menuItemData.setValue(navModels);
+                }
+
+                @Override
+                public void onError(String s) {
+
+                }
+
+                @Override
+                public void onFailed(Throwable throwable) {
+
+                }
+            });
+            return null;
+        }
     }
 }
 

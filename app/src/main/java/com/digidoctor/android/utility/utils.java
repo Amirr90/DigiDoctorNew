@@ -356,7 +356,6 @@ public class utils {
                     }).setNegativeButton(R.string.no, (dialogInterface, i) -> {
 
             }).show();
-
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -542,17 +541,34 @@ public class utils {
     }
 
     public static StringBuilder getDocTiming(String jsonString) throws JSONException {
-
+        List<String> days = new ArrayList<>();
         JSONArray jsonArray = new JSONArray(jsonString);
         StringBuilder builder = new StringBuilder();
+        Log.d("TAG", "getDocTiming: " + jsonString);
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
             String day = jsonObject.getString("dayName");
             String timeFrom = jsonObject.getString("timeFrom");
             String timeTo = jsonObject.getString("timeTo");
 
-            builder.append(day).append("\n").append(timeFrom).append(" - ").append(timeTo);
-            builder.append("\n\n");
+            if (!days.contains(day)) {
+                builder.append(day);
+                days.add(day);
+                for (int a = i + 1; a < jsonArray.length(); a++) {
+                    JSONObject jsonObject2 = (JSONObject) jsonArray.get(a);
+                    String dayName = jsonObject2.getString("dayName");
+                    String timeFrom2 = jsonObject2.getString("timeFrom");
+                    String timeTo2 = jsonObject2.getString("timeTo");
+                    if (day.equalsIgnoreCase(dayName)) {
+                        Log.d("TAG", "getDocTiming: day for a " + day + " day for b " + dayName);
+                        builder.append("\n").append(timeFrom2).append(" - ").append(timeTo2);
+                    }
+                }
+
+                builder.append("\n").append(timeFrom).append(" - ").append(timeTo);
+                builder.append("\n\n");
+            }
+
         }
         return builder;
     }

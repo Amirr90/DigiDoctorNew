@@ -29,35 +29,6 @@ public class SpecialityAdapter extends ListAdapter<SpecialityModel, RecyclerView
         super(itemCallback);
         this.activity = activity;
     }
-
-/*    @NonNull
-    @Override
-    public SpecialityVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        SpecialitiyViewBinding specialitiyViewBinding = SpecialitiyViewBinding.inflate(inflater, parent, false);
-        if (viewType == VIEW_TYPE_ADD_BOTTOM)
-            return new Bottom
-        return new SpecialityVH(specialitiyViewBinding);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull SpecialityVH holder, int position) {
-
-        final SpecialityModel specialityModel = getItem(position);
-        holder.specialitiyViewBinding.setSpeciality(specialityModel);
-
-
-        holder.specialitiyViewBinding.llspeality.setOnClickListener(v -> {
-            utils.hideSoftKeyboard(activity);
-            Bundle bundle = new Bundle();
-            bundle.putString("id", String.valueOf(specialityModel.getId()));
-            PatientDashboard.getInstance().navigate(R.id.action_specialitiesFragment2_to_subSpecialistFragment2, bundle);
-        });
-
-
-    }*/
-
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

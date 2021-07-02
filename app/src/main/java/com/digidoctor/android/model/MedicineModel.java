@@ -1,11 +1,33 @@
 package com.digidoctor.android.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.List;
 
+
 public class MedicineModel {
+    Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     List<MedicineDetailModel> medicineList;
     List<MedicineFrequencyModel> frequencyList;
+
+    public void setMedicineList(List<MedicineDetailModel> medicineList) {
+        this.medicineList = medicineList;
+    }
+
+    public void setFrequencyList(List<MedicineFrequencyModel> frequencyList) {
+        this.frequencyList = frequencyList;
+    }
 
     public List<MedicineDetailModel> getMedicineList() {
         return medicineList;
@@ -15,8 +37,11 @@ public class MedicineModel {
         return frequencyList;
     }
 
+    @Entity(tableName = "medicine_details_table")
     public static class MedicineDetailModel {
 
+        @NonNull
+        @PrimaryKey
         private String id;
         private String medicineName;
         private String strength;

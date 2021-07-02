@@ -116,7 +116,7 @@ public class AppUtils {
 
     public static List<NavModel> getNavData(Activity activity) {
         List<NavModel> navModels = new ArrayList<>();
-        navModels.add(new NavModel(activity.getString(R.string.appointment), R.drawable.appointments));
+       /* navModels.add(new NavModel(activity.getString(R.string.appointment), R.drawable.appointments));
         navModels.add(new NavModel(activity.getString(R.string.prescription_history), R.drawable.prescription));
         navModels.add(new NavModel(activity.getString(R.string.investigation_history), R.drawable.investigation));
         navModels.add(new NavModel(activity.getString(R.string.vitals_hitory), R.drawable.investigation));
@@ -133,7 +133,7 @@ public class AppUtils {
         navModels.add(new NavModel(activity.getString(R.string.lab_order), R.drawable.symptom_tracker_image));
         navModels.add(new NavModel(activity.getString(R.string.home_isolation_request), R.drawable.symptom_tracker_image));
 
-        navModels.add(new NavModel(activity.getString(R.string.logout), R.drawable.logout));
+        navModels.add(new NavModel(activity.getString(R.string.logout), R.drawable.logout));*/
         return navModels;
     }
 
