@@ -96,6 +96,7 @@
             android:name=".utility.ImagePickerActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.digidoctor.android.view.activity.MedCheckDeviceGetData" />
+        <activity android:name=".videoCall.VideoCallActivity" />
         <activity android:name="com.digidoctor.android.view.activity.DeviceConnectionActivity" />
         <activity android:name="com.digidoctor.android.view.activity.ViaOximeterScanActivity" />
         <activity android:name="com.digidoctor.android.view.activity.DataActivity" />
@@ -150,6 +151,13 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".broadcast.VideoCallActionBroadcast">
+            <intent-filter>
+                <action android:name="com.jc_code_ACTION_CALL" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+
         <receiver android:name=".broadcast.InternetBroadcastReceiver" />
         <receiver
             android:name=".utility.WakefulBroadcasterReceiver"
@@ -170,5 +178,3 @@
         </receiver>
     </application>
 </manifest>
-
-

@@ -53,9 +53,7 @@ public class FirebaseMessageService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         Log.d(TAG, "FCM Message Id: " + remoteMessage.getMessageId());
-
         Log.d(TAG, "onMessageReceived: ");
-
         Log.d(TAG, "FCM Notification Message: " + remoteMessage.getData() + "...." + remoteMessage.getFrom());
 
 
@@ -92,6 +90,7 @@ public class FirebaseMessageService extends FirebaseMessagingService {
 
                     Log.d(TAG, "onMessageReceived: roomName" + roomName);
                     Log.d(TAG, "onMessageReceived: twillioAccessToken" + twillioAccessToken);
+
                 }
 
                 if (typeMain == 2) {
@@ -127,7 +126,10 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             myIntent.putExtra("profilePhotoPath", profilePhotoPath);
             myIntent.putExtra("doctorName", doctorName);
 
-            sendBroadcast(myIntent);
+            // sendBroadcast(myIntent);
+
+            NotificationVideoCall videoCall = new NotificationVideoCall(msg, title, doctorName, profilePhotoPath,roomName);
+            videoCall.startVideo();
 
         } else {
             Log.d(TAG, "createNotification: in Type ");
@@ -228,5 +230,6 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             e.printStackTrace();
         }
     }
+
 
 }

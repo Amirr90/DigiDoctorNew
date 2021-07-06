@@ -1,6 +1,5 @@
 package com.digidoctor.android.database;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 

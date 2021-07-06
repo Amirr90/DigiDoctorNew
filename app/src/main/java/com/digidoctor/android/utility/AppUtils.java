@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -46,6 +47,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,10 +55,14 @@ import java.util.regex.Pattern;
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
 public class AppUtils {
+    public static final String CALL_STATUS = "callStatus";
     public static final String SENDER = "sender";
+    public static final String VIDEO_CALLS = "videoCalls";
     public static final int VIEW_TYPE_SENDER = 0;
     public static final int VIEW_TYPE_RECEIVER = 1;
     public static final String RECEIVER = "receiver";
+    public static final String CALL_DISCONNECTED = "disconnected";
+    public static final String CALL_CONNECTED = "connected";
     private static final String TAG = "AppUtils";
     public static Toast mToast;
 
@@ -543,6 +549,25 @@ public class AppUtils {
 
     public static void hideToolbar(Activity activity) {
         Objects.requireNonNull(((AppCompatActivity) activity).getSupportActionBar()).hide();
+    }
+
+    public static void updateTodatabase(String callDisconnected, String roomCode) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("callStatus", callDisconnected);
+        map.put("disconnectedTimestamp", System.currentTimeMillis());
+        map.put("disconnectedBy", "patient");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(AppUtils.VIDEO_CALLS).document(roomCode)
+                .update(map).addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e.getLocalizedMessage()));
+    }
+
+    public static void updateJoinedDatabase(String callConnected, String roomCode) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("callStatus", callConnected);
+        map.put("callConnectedTimestamp", System.currentTimeMillis());
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(AppUtils.VIDEO_CALLS).document(roomCode)
+                .update(map).addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e.getLocalizedMessage()));
     }
 
     public void downloadPdf(FragmentActivity fragmentActivity) {
