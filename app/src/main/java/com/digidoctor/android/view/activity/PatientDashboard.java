@@ -36,6 +36,7 @@ import com.digidoctor.android.interfaces.NavigationInterface;
 import com.digidoctor.android.model.NavModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.GetAddressIntentService;
+import com.digidoctor.android.utility.NotificationVideoCall;
 import com.digidoctor.android.utility.WakefulBroadcasterReceiver;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment;
@@ -195,12 +196,12 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
         changeMenuView();
 
-        if (null != getIntent().getStringExtra("twillioAccessToken")) {
+       /* if (null != getIntent().getStringExtra("twillioAccessToken")) {
             String type = getIntent().getStringExtra("type");
             if (null != type && type.equals("1"))
                 showNotification();
             else Log.d(TAG, "notificationType is not 1: ");
-        } else Log.d(TAG, "notification data is null: ");
+        } else Log.d(TAG, "notification data is null: ");*/
     }
 
     private void changeMenuView() {
@@ -347,6 +348,13 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         });
 
         checkForUpdate();
+
+        if (getIntent().hasExtra("action")) {
+            if (getIntent().getStringExtra("action").equalsIgnoreCase("callHistory")) {
+                navController.navigate(R.id.videoCallHistoryFragment);
+                NotificationVideoCall.cancelShowMissedCallNotification();
+            }
+        }
     }
 
     private void checkForUpdate() {
@@ -506,88 +514,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     @Override
     public void onNavigationItemClicked(Object obj) {
         mainBinding.drawerLayout.close();
-/*
-        switch (pos) {
-            case 0:
-                if (user.getIsExists() == 1)
-                    navController.navigate(R.id.appointmentsFragment);
-                else navController.navigate(R.id.profileFragment);
-                break;
-            case 1:
-                if (user.getIsExists() == 1)
-                    navController.navigate(R.id.prescriptionHistoryFragment);
-                else navController.navigate(R.id.profileFragment);
-                break;
-
-
-            case 2:
-                if (user.getIsExists() == 1)
-                    navController.navigate(R.id.investigationFragment);
-                else navController.navigate(R.id.profileFragment);
-                break;
-
-
-            case 3:
-                if (user.getIsExists() == 1)
-                    navController.navigate(R.id.chooseVitalHistoryTypeFragment);
-                else navController.navigate(R.id.profileFragment);
-                break;
-            case 13:
-                if (user.getIsExists() == 1)
-                    //navController.navigate(R.id.symptomTrackerFragment);
-                    navController.navigate(R.id.updateSymptomsFragment);
-                else navController.navigate(R.id.profileFragment);
-                break;
-            *//*case 14:
-                if (user.getIsExists() == 1)
-                    navController.navigate(R.id.labOrdersFragment);
-                else navController.navigate(R.id.profileFragment);
-                break;*//*
-            case 11:
-                *//* if (user.getIsExists() == 1)
-                    navController.navigate(R.id.symptomTrackerFragment);
-                else navController.navigate(R.id.profileFragment);*//*
-                Toast.makeText(instance, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-                break;
-
-            case 4:
-                if (user.getIsExists() == 1)
-                    navController.navigate(R.id.addMemberFragment);
-                else navController.navigate(R.id.profileFragment);
-                break;
-           *//* case 6:
-                if (user.getIsExists() == 1)
-                    navController.navigate(R.id.getPlacedOrderFragment);
-                else navController.navigate(R.id.profileFragment);
-                break;*//*
-            //navController.navigate(R.id.changeLanguageFragment);
-            case 12:
-                shareApp("https://digidoctor.in/invitation?invitationCode=" + getPrimaryUser(PatientDashboard.getInstance()).getMemberId(), "This is demo description", this);
-                break;
-            case 9:
-                openBrowser();
-                break;
-            case 10:
-                if (user.getIsExists() == 1)
-                    navController.navigate(R.id.medicineReminderListFragment);
-                else navController.navigate(R.id.profileFragment);
-                break;
-            case 15:
-                if (user.getIsExists() == 1)
-                    navController.navigate(R.id.homeIsolationRequestListFragment);
-                else navController.navigate(R.id.profileFragment);
-                break;
-            case 16:
-                showRequestDialog(this);
-                if (utils.logout(this))
-                    hideDialog();
-
-                break;
-            default:
-                Toast.makeText(instance, "Coming Soon", Toast.LENGTH_SHORT).show();
-        }*/
         NavModel navModel = (NavModel) obj;
-
         if (navModel.getId() == 1) {
             if (isProfileFilled())
                 navController.navigate(R.id.appointmentsFragment);
@@ -607,6 +534,16 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         } else if (navModel.getId() == 5) {
             if (isProfileFilled())
                 navController.navigate(R.id.addMemberFragment);
+            else navController.navigate(R.id.profileFragment);
+        } else if (navModel.getId() == 6) {
+            //init for video Cal Screen
+            if (isProfileFilled())
+                navController.navigate(R.id.videoCallHistoryFragment);
+            else navController.navigate(R.id.profileFragment);
+        } else if (navModel.getId() == 7) {
+            //init for wallet Screen
+            if (isProfileFilled())
+                navController.navigate(R.id.walletFragment);
             else navController.navigate(R.id.profileFragment);
         } else if (navModel.getId() == 11) {
             if (isProfileFilled())

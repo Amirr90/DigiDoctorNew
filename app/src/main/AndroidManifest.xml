@@ -96,12 +96,15 @@
             android:name=".utility.ImagePickerActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.digidoctor.android.view.activity.MedCheckDeviceGetData" />
-        <activity android:name=".videoCall.VideoCallActivity" />
+        <activity android:name=".newVideoCall.IncomingCallActivity"
+            android:theme="@style/AppTheme.NoToolbar"/>
+        <activity android:name=".jitsiVideoCall.VideoCallActivity" />
         <activity android:name="com.digidoctor.android.view.activity.DeviceConnectionActivity" />
         <activity android:name="com.digidoctor.android.view.activity.ViaOximeterScanActivity" />
         <activity android:name="com.digidoctor.android.view.activity.DataActivity" />
         <activity android:name="com.digidoctor.android.view.activity.DeviceScanActivity" />
         <activity android:name="com.digidoctor.android.view.activity.DeviceConnectScanActivity" />
+        <activity android:name=".newVideoCall.JitsiVideoCallActivity" />
         <activity android:name=".view.activity.DeviceControlActivity" />
 
 

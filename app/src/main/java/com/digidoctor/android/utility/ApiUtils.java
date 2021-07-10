@@ -66,6 +66,7 @@ import com.digidoctor.android.model.UploadPresDataModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
+import com.digidoctor.android.model.WalletModel;
 import com.digidoctor.android.model.WriteReviewModel;
 import com.digidoctor.android.model.addProductRating;
 import com.digidoctor.android.model.addProductRatingResponse;
@@ -271,6 +272,38 @@ public class ApiUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void getWalletData(ApiCallbackInterface apiCallbackInterface) {
+       /* try {
+            final Api api = URLUtils.getAPIServiceForPatient();
+            Call<MenuResponse> specialityResCall = api.getMenuForApp();
+            specialityResCall.enqueue(new Callback<MenuResponse>() {
+                @Override
+                public void onResponse(@NotNull Call<MenuResponse> call, @NotNull Response<MenuResponse> response) {
+                    if (response.code() == 200 && response.body() != null) {
+                        if (response.body().getResponseCode() == 1) {
+                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                        } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                    } else apiCallbackInterface.onError(response.message());
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<MenuResponse> call, @NotNull Throwable t) {
+                    apiCallbackInterface.onFailed(t);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
+        //dummy data
+        List<WalletModel> models = new ArrayList<>();
+        for (int a = 0; a < 20; a++) {
+            models.add(new WalletModel("" + a));
+        }
+        apiCallbackInterface.onSuccess(models);
     }
 
 

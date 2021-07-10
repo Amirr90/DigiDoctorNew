@@ -22,7 +22,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     List<EraInvestigationData.PatientTestResult> patientTestDate;
 
-    public ViewPagerAdapter(FragmentManager manager, List<EraInvestigationData.PatientTestResult> patientTestDate) {
+    public ViewPagerAdapter(FragmentManager manager) {
         super(manager);
         this.patientTestDate = patientTestDate;
     }

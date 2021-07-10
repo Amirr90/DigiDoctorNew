@@ -21,11 +21,13 @@ import com.digidoctor.android.model.SymptomModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
+import com.digidoctor.android.model.WalletModel;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
 import com.digidoctor.android.model.patientModel.HospitalAndPackageResponse;
 import com.digidoctor.android.model.patientModel.SymptomsNotificationModel;
 import com.digidoctor.android.repositories.PatientRepo;
 import com.digidoctor.android.utility.App;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.HashMap;
 import java.util.List;
@@ -128,5 +130,13 @@ public class PatientViewModel extends ViewModel {
     public LiveData<MedicineModel> getMedicineData() {
         repo = new PatientRepo(App.context);
         return repo.getAllMedicineData();
+    }
+
+    public LiveData<List<WalletModel>> getWallet() {
+        return repo.getWallet();
+    }
+
+    public LiveData<List<DocumentSnapshot>> getCallLogs() {
+        return repo.getCallLogs();
     }
 }

@@ -1184,5 +1184,15 @@
         android:name="com.digidoctor.android.PatientInvestigationReportFragment"
         android:label="@string/investigation_history"
         tools:layout="@layout/fragment_patient_investigation_report" />
+    <fragment
+        android:id="@+id/videoCallHistoryFragment"
+        android:name="com.digidoctor.android.VideoCallHistoryFragment"
+        android:label="Call History"
+        tools:layout="@layout/fragment_video_call_history" />
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.digidoctor.android.WalletFragment"
+        android:label="DigiDoctor Wallet"
+        tools:layout="@layout/fragment_wallet" />
 
 </navigation>

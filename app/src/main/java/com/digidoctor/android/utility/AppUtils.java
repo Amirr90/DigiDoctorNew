@@ -15,6 +15,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,8 @@ import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.LanguageModel;
 import com.digidoctor.android.model.NavModel;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
@@ -58,12 +62,24 @@ public class AppUtils {
     public static final String CALL_STATUS = "callStatus";
     public static final String SENDER = "sender";
     public static final String VIDEO_CALLS = "videoCalls";
+    public static final String CALL_REJECTED_BY = "rejectedBy";
+    public static final String PATIENT = "patient";
     public static final int VIEW_TYPE_SENDER = 0;
     public static final int VIEW_TYPE_RECEIVER = 1;
     public static final String RECEIVER = "receiver";
-    public static final String CALL_DISCONNECTED = "disconnected";
-    public static final String CALL_CONNECTED = "connected";
+    public static final String CALL_DISCONNECTED = "Disconnected";
+    public static final String CALL_CONNECTED = "Connected";
+    public static final String CALL_MISSED = "Missed";
+    public static final String CALL_ID = "callId";
+    public static final String CALL_REJECT = "Rejected";
+    public static final String VIDEO_CALLS_DEMO = "videoCallDemo";
+    public static final String CALL_ACCEPT = "Connected";
+    public static final String ICON = "icon";
+    public static final String ROOM_CODE = "roomCode";
+    public static final String CALL_RINGING = "Ringing";
+    public static final String DOCTOR_NAME = "doctorName";
     private static final String TAG = "AppUtils";
+    private static final String USERS = "Users";
     public static Toast mToast;
 
     private static final int SECOND_MILLIS = 1000;
@@ -551,9 +567,9 @@ public class AppUtils {
         Objects.requireNonNull(((AppCompatActivity) activity).getSupportActionBar()).hide();
     }
 
-    public static void updateTodatabase(String callDisconnected, String roomCode) {
+    public static void updateTodatabase(String callStatus, String roomCode) {
         Map<String, Object> map = new HashMap<>();
-        map.put("callStatus", callDisconnected);
+        map.put("callStatus", callStatus);
         map.put("disconnectedTimestamp", System.currentTimeMillis());
         map.put("disconnectedBy", "patient");
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -561,13 +577,51 @@ public class AppUtils {
                 .update(map).addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e.getLocalizedMessage()));
     }
 
-    public static void updateJoinedDatabase(String callConnected, String roomCode) {
+    public static void updateTodatabase(String callStatus, String roomCode, String rejected) {
         Map<String, Object> map = new HashMap<>();
-        map.put("callStatus", callConnected);
+        map.put("callStatus", callStatus);
+        map.put("disconnectedTimestamp", System.currentTimeMillis());
+        map.put("disconnectedBy", "patient");
+        map.put(AppUtils.CALL_REJECTED_BY, AppUtils.PATIENT);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(AppUtils.VIDEO_CALLS).document(roomCode)
+                .update(map).addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e.getLocalizedMessage()));
+    }
+
+    public static void updateJoinedDatabase(String callStatus, String roomCode) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("callStatus", callStatus);
         map.put("callConnectedTimestamp", System.currentTimeMillis());
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(AppUtils.VIDEO_CALLS).document(roomCode)
                 .update(map).addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e.getLocalizedMessage()));
+    }
+
+    public static Animation slideDown(Activity activity) {
+        return AnimationUtils.loadAnimation(activity, R.anim.slide_down);
+    }
+
+    public static void updateTokenToDatabase(String token) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+        if (null != FirebaseAuth.getInstance().getCurrentUser()) {
+            map.put("uid", FirebaseAuth.getInstance().getCurrentUser().getUid());
+            FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+            firestore.collection(AppUtils.USERS)
+                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .update(map);
+        }
+    }
+
+    public static void setUserToFirebaseDatabase(FirebaseUser user, String token) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+        map.put("uid", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore.collection(AppUtils.USERS)
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .set(map);
+
     }
 
     public void downloadPdf(FragmentActivity fragmentActivity) {
@@ -659,5 +713,6 @@ public class AppUtils {
         } else
             return age + "year(s) " + months + " months old";
     }
+
 
 }

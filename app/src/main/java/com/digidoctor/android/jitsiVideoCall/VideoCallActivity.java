@@ -1,7 +1,8 @@
-package com.digidoctor.android.videoCall;
+package com.digidoctor.android.jitsiVideoCall;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,14 +23,21 @@ import java.util.Map;
 
 public class VideoCallActivity extends JitsiMeetActivity implements JitsiMeetActivityInterface, JitsiMeetViewListener {
 
-    VideoCallActionBroadcast videoCallActionBroadcast;
 
     private static final String TAG = "VideoCallActivity";
     String roomCode;
 
+    CountDownTimer countDownTimer;
+
+    long timerStartTimestamp;
+
     private JitsiMeetView view;
     public static final String SERVER_URL = "https://theorganicdelight.com/";
     public static final String JIT_SI_SERVER_URL = "https://meet.jit.si/";
+
+    int seconds = 0;
+    int minutes = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +56,11 @@ public class VideoCallActivity extends JitsiMeetActivity implements JitsiMeetAct
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(AppUtils.VIDEO_CALLS).document(roomCode).addSnapshotListener((value, error) -> {
-            if (error == null && value.getData() != null) {
+            if (error == null && value != null) {
                 String callStatus = value.getString(AppUtils.CALL_STATUS);
                 if (AppUtils.CALL_DISCONNECTED.equalsIgnoreCase(callStatus)) {
+                    countDownTimer.cancel();
+                    NotificationVideoCall.hideCallOnProgressNotification(this);
                     view.dispose();
                     finish();
                 }
@@ -65,12 +75,9 @@ public class VideoCallActivity extends JitsiMeetActivity implements JitsiMeetAct
 
         JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
                 .setRoom(JIT_SI_SERVER_URL + roomCode)
-                .setFeatureFlag("toolbox.enabled", false)
                 .setFeatureFlag("raise-hand.enabled", false)
                 .setFeatureFlag("recording.enabled", false)
                 .setFeatureFlag("pip.enabled", true)
-                .setFeatureFlag("notifications.enabled", true)
-                .setFeatureFlag("call-integration.enabled", true)
                 .setFeatureFlag("toolbox.alwaysVisible", false)
                 .setFeatureFlag("video-share.enabled", false)
                 .setWelcomePageEnabled(false)
@@ -106,10 +113,50 @@ public class VideoCallActivity extends JitsiMeetActivity implements JitsiMeetAct
         JitsiMeetActivityDelegate.onHostDestroy(this);
     }
 
+
+    @Override
+    public void onConferenceWillJoin(Map<String, Object> data) {
+        super.onConferenceWillJoin(data);
+    }
+
     @Override
     public void onConferenceJoined(Map<String, Object> data) {
         super.onConferenceJoined(data);
         AppUtils.updateJoinedDatabase(AppUtils.CALL_CONNECTED, roomCode);
+
+
+        timerStartTimestamp = System.currentTimeMillis();
+        countDownTimer = new CountDownTimer(32 * 1000 * 60, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+                StringBuilder builder = new StringBuilder();
+                seconds++;
+                minutes = seconds / 60;
+
+                if (seconds < 10) {
+                    builder.append("0").append(seconds).append(" : ");
+                } else {
+                    builder.append("").append(seconds).append(" : ");
+                }
+                if (minutes < 10) {
+                    builder.append("0").append(minutes);
+                } else builder.append("").append(minutes);
+
+                builder.append("  minutes");
+                NotificationVideoCall.updateCallOnProgressNotification(builder.toString(), VideoCallActivity.this);
+            }
+
+            @Override
+            public void onFinish() {
+                countDownTimer.cancel();
+                NotificationVideoCall.hideCallOnProgressNotification(App.context);
+                Toast.makeText(App.context, "Call Disconnected ", Toast.LENGTH_SHORT).show();
+                AppUtils.updateTodatabase(AppUtils.CALL_DISCONNECTED, roomCode);
+            }
+        }.start();
+
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -20,7 +21,7 @@ import androidx.core.text.HtmlCompat;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.broadcast.VideoCallActionBroadcast;
-import com.digidoctor.android.videoCall.VideoCallActivity;
+import com.digidoctor.android.jitsiVideoCall.VideoCallActivity;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
 public class NotificationVideoCall {
@@ -33,6 +34,7 @@ public class NotificationVideoCall {
     public static final String DISMISS = "Dismiss";
     private static NotificationManager mManager;
     private static NotificationCompat.Builder builder;
+    private static NotificationCompat.Builder callOnProgressBuilder;
     public static int SECOND = 1000;
     static Ringtone r;
     static Thread thread;
@@ -43,12 +45,23 @@ public class NotificationVideoCall {
     String profilePhotoPath;
     static String roomName;
 
+    static MediaPlayer player;
+
+
     public NotificationVideoCall(String msg, String title, String doctorName, String profilePhotoPath, String roomName) {
         this.msg = msg;
         this.title = title;
         this.doctorName = doctorName;
         this.profilePhotoPath = profilePhotoPath;
         this.roomName = roomName;
+    }
+
+
+    public static void updateCallOnProgressNotification(String textTimer, Activity activity) {
+        if (null != callOnProgressBuilder) {
+            callOnProgressBuilder.setContentText(textTimer);
+            getManager(activity).notify(NOTIFICATION_CALL_ON_PROGRESS, callOnProgressBuilder.build());
+        }
     }
 
     public void startVideo() {
@@ -69,12 +82,13 @@ public class NotificationVideoCall {
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(msg)
                 .setContentText(doctorName + " is calling .....")
+                .setCategory(NotificationCompat.CATEGORY_CALL)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .addAction(callAction(NotificationVideoCall.ACCEPT, 1, activity))
                 .addAction(callAction(NotificationVideoCall.REJECT, 2, activity))
                 .setAutoCancel(true)
                 .setOngoing(true)
-                .setContentIntent(getVideoCallScreenIntent(activity))
+        //.setContentIntent(getVideoCallScreenIntent(activity))
         ;
         getManager(activity).notify(101, builder.build());
         playNotificationSound();
@@ -86,23 +100,24 @@ public class NotificationVideoCall {
     private static PendingIntent getVideoCallScreenIntent(Context activity) {
         Intent fullScreenIntent = new Intent(activity, VideoCallActivity.class);
         fullScreenIntent.putExtra("roomName", roomName);
-        PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(activity, 0,
+        return PendingIntent.getActivity(activity, 0,
                 fullScreenIntent, 0);
-        return fullScreenPendingIntent;
     }
 
-    public static void updateVideoCalNotification(String text, Context context) {
+    public static void showCallOnProgressNotification(String text, Context context) {
         hideNotification(context);
         if (null != builder) {
-            builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+            callOnProgressBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setContentIntent(getVideoCallScreenIntent(context));
-            builder.setContentTitle(text)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                    .setOnlyAlertOnce(true)
+                    .setContentIntent(getVideoCallScreenIntent(context))
+                    .setContentTitle(text)
                     .setContentText("with " + doctorName)
                     .setOngoing(true)
                     .addAction(callAction(NotificationVideoCall.DISMISS, 1, context));
-            getManager(context).notify(NOTIFICATION_CALL_ON_PROGRESS, builder.build());
+            getManager(context).notify(NOTIFICATION_CALL_ON_PROGRESS, callOnProgressBuilder.build());
         }
         stopSound();
         cancelShowMissedCallNotification();
@@ -114,9 +129,10 @@ public class NotificationVideoCall {
         stopSound();
     }
 
-    public static void showNotification(Activity activity) {
+    public static void showMissedCallNotification(Activity activity) {
         playAlertSound();
-        Intent fullScreenIntent = new Intent(activity, VideoCallActivity.class);
+        Intent fullScreenIntent = new Intent(activity, PatientDashboard.class);
+        fullScreenIntent.putExtra("action", "callHistory");
         PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(activity, 0,
                 fullScreenIntent, 0);
 
@@ -130,13 +146,13 @@ public class NotificationVideoCall {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(activity, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("Missed Video Call")
-                .setContentText("Dr. Rehman Ali khan")
+                .setContentText(doctorName)
                 .setContentIntent(fullScreenPendingIntent)
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                 .setLights(Color.RED, 3000, 3000)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         getManager(activity).notify(NotificationVideoCall.NOTIFICATION_MESSED_CALL, builder.build());
-
+        AppUtils.updateTodatabase(AppUtils.CALL_MISSED, roomName);
 
     }
 
@@ -167,28 +183,35 @@ public class NotificationVideoCall {
 
     public static void playNotificationSound() {
         try {
-            Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+           /* Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             r = RingtoneManager.getRingtone(App.context, notificationSoundUri);
-            r.play();
+            r.play();*/
+
+
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+            player = MediaPlayer.create(App.context, notification);
+            player.setLooping(true);
+            player.start();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void stopSound() {
-        if (null != r) {
-            r.stop();
+        if (null != player) {
+            player.stop();
         }
     }
 
     public static void updateMissedCallAlert(Activity activity) {
         SECOND = 1000;
         thread = new Thread(() -> {
-            SystemClock.sleep(14 * SECOND);
+            SystemClock.sleep(45 * SECOND);
             if (Thread.currentThread().isInterrupted())
                 return;
             hideNotification(activity);
-            showNotification(activity);
+            showMissedCallNotification(activity);
         });
         thread.start();
     }

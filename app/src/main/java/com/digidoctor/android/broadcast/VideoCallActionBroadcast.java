@@ -6,8 +6,9 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.NotificationVideoCall;
-import com.digidoctor.android.videoCall.VideoCallActivity;
+import com.digidoctor.android.jitsiVideoCall.VideoCallActivity;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.digidoctor.android.utility.NotificationVideoCall.cancelShowMissedCallNotification;
@@ -20,8 +21,7 @@ public class VideoCallActionBroadcast extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive: " + intent.getStringExtra("com.jc_code_ACTION"));
         if (intent.getStringExtra("com.jc_code_ACTION").equalsIgnoreCase(NotificationVideoCall.ACCEPT)) {
-
-            NotificationVideoCall.updateVideoCalNotification("Call is on progress", context);
+            NotificationVideoCall.showCallOnProgressNotification("Call is on progress", context);
             Intent fullScreenIntent = new Intent(context, VideoCallActivity.class);
             fullScreenIntent.putExtra("roomName", intent.getStringExtra("roomName"));
             fullScreenIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
@@ -31,11 +31,13 @@ public class VideoCallActionBroadcast extends BroadcastReceiver {
         if (intent.getStringExtra("com.jc_code_ACTION").equalsIgnoreCase(NotificationVideoCall.REJECT)) {
             hideNotification(context);
             cancelShowMissedCallNotification();
+            AppUtils.updateTodatabase(AppUtils.CALL_DISCONNECTED, intent.getStringExtra("roomName"), "rejected");
             Toast.makeText(context, "Call Rejected !!", Toast.LENGTH_SHORT).show();
         }
         if (intent.getStringExtra("com.jc_code_ACTION").equalsIgnoreCase(NotificationVideoCall.DISMISS)) {
             NotificationVideoCall.hideCallOnProgressNotification(context);
             Toast.makeText(context, "Call Disconnected !!", Toast.LENGTH_SHORT).show();
+            AppUtils.updateTodatabase(AppUtils.CALL_DISCONNECTED, intent.getStringExtra("roomName"));
         }
 
     }

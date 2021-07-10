@@ -20,14 +20,16 @@ import androidx.core.app.NotificationCompat;
 import androidx.navigation.NavDeepLinkBuilder;
 
 import com.digidoctor.android.R;
+import com.digidoctor.android.newVideoCall.IncomingCallActivity;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import org.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
-import java.util.Map;
+
+import timber.log.Timber;
 
 public class FirebaseMessageService extends FirebaseMessagingService {
     private static final String TAG = "FirebaseMessageService";
@@ -45,21 +47,32 @@ public class FirebaseMessageService extends FirebaseMessagingService {
     int directionId;
 
     @Override
-    public void onNewToken(String token) {
-        Log.v(TAG, "Refreshed token: " + token);
+    public void onNewToken(@NotNull String token) {
+        Timber.tag(TAG).v("Refreshed token: %s", token);
+        AppUtils.updateTokenToDatabase(token);
     }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        Log.d(TAG, "FCM Message Id: " + remoteMessage.getMessageId());
-        Log.d(TAG, "onMessageReceived: ");
-        Log.d(TAG, "FCM Notification Message: " + remoteMessage.getData() + "...." + remoteMessage.getFrom());
-
-
+        /*Timber.d("FCM Message Id: %s", remoteMessage.getMessageId());
+        Timber.d("FCM Notification Message: " + remoteMessage.getData() + "...." + remoteMessage.getFrom());
+*/
         context = this;
 
-        if (remoteMessage.getData() != null) {
+        Timber.d("onMessageReceived: %s", remoteMessage.getData());
+        try {
+            String callId = remoteMessage.getData().get("roomName");
+            String image = remoteMessage.getData().get("profilePhotoPath");
+            String doctorName = remoteMessage.getData().get("doctorName");
+            setupCallNotification(callId, image, doctorName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Timber.d("onMessageReceived Error: %s", e.getLocalizedMessage());
+        }
+
+
+    /*    if (remoteMessage.getData() != null) {
             Map<String, String> params = remoteMessage.getData();
             JSONObject json = new JSONObject(params);
 
@@ -88,8 +101,8 @@ public class FirebaseMessageService extends FirebaseMessagingService {
                     roomName = json.getString("roomName");
                     twillioAccessToken = json.getString("twillioAccessToken");
 
-                    Log.d(TAG, "onMessageReceived: roomName" + roomName);
-                    Log.d(TAG, "onMessageReceived: twillioAccessToken" + twillioAccessToken);
+                    Log.d(TAG, "onMessageReceived: roomName : => " + roomName);
+                    Log.d(TAG, "onMessageReceived: twillioAccessToken => " + twillioAccessToken);
 
                 }
 
@@ -110,6 +123,26 @@ public class FirebaseMessageService extends FirebaseMessagingService {
                 Log.d(TAG, "onMessageReceived: " + e.getLocalizedMessage());
             }
         }
+*/
+
+
+    }
+
+    private void setupCallNotification(String callId, String image, String doctorName) {
+        Intent intent = new Intent(this, IncomingCallActivity.class);
+        intent.putExtra(AppUtils.CALL_ID, callId);
+        intent.putExtra(AppUtils.ICON, image);
+        intent.putExtra(AppUtils.DOCTOR_NAME, doctorName);
+        /*myIntent.setAction("myReceiver");
+        myIntent.putExtra("roomName", roomName);
+        myIntent.putExtra("accessToken", twillioAccessToken);
+        myIntent.putExtra("message", msg);
+        myIntent.putExtra("title", title);
+        myIntent.putExtra("profilePhotoPath", profilePhotoPath);
+        myIntent.putExtra("doctorName", doctorName);*/
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
 
     }
 
@@ -128,8 +161,9 @@ public class FirebaseMessageService extends FirebaseMessagingService {
 
             // sendBroadcast(myIntent);
 
-            NotificationVideoCall videoCall = new NotificationVideoCall(msg, title, doctorName, profilePhotoPath,roomName);
+            NotificationVideoCall videoCall = new NotificationVideoCall(msg, title, doctorName, profilePhotoPath, roomName);
             videoCall.startVideo();
+
 
         } else {
             Log.d(TAG, "createNotification: in Type ");
@@ -220,7 +254,6 @@ public class FirebaseMessageService extends FirebaseMessagingService {
         return mManager;
     }
 
-    // Playing notification sound
     public void playNotificationSound() {
         try {
             Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

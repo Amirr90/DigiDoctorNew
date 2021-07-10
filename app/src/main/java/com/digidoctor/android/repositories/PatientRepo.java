@@ -1,7 +1,6 @@
 package com.digidoctor.android.repositories;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -37,6 +36,7 @@ import com.digidoctor.android.model.SymptomsRes;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.VitalModel;
 import com.digidoctor.android.model.VitalResponse;
+import com.digidoctor.android.model.WalletModel;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
 import com.digidoctor.android.model.patientModel.HospitalAndPackageResponse;
 import com.digidoctor.android.model.patientModel.SymptomsNotificationModel;
@@ -44,7 +44,12 @@ import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.App;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.Response;
+import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.List;
@@ -113,7 +118,6 @@ public class PatientRepo {
         return chatMutableLiveData;
 
     }
-
 
     public LiveData<String> getSpecialityText() {
         if (null == specialityText)
@@ -782,6 +786,55 @@ public class PatientRepo {
 
     private void initMedicineData() {
         new InsertMedicineDataInTable(appDao, mutableLiveDataMedicine).execute();
+    }
+
+    MutableLiveData<List<WalletModel>> mutableWalletData;
+
+    public LiveData<List<WalletModel>> getWallet() {
+        if (null == mutableWalletData)
+            mutableWalletData = new MutableLiveData<>();
+        loadWallet();
+        return mutableWalletData;
+    }
+
+    private void loadWallet() {
+        ApiUtils.getWalletData(new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                List<WalletModel> responseValue = (List<WalletModel>) o;
+                mutableWalletData.setValue(responseValue);
+            }
+
+            @Override
+            public void onError(String s) {
+                hideDialog();
+
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                hideDialog();
+
+            }
+        });
+    }
+
+    MutableLiveData<List<DocumentSnapshot>> mutableCallLogs;
+
+    public LiveData<List<DocumentSnapshot>> getCallLogs() {
+        if (null == mutableCallLogs)
+            mutableWalletData = new MutableLiveData<>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        User user = utils.getUserForBooking(App.context);
+        db.collection(AppUtils.VIDEO_CALLS).whereEqualTo("uid", "" + user.getId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (null != queryDocumentSnapshots && !queryDocumentSnapshots.isEmpty())
+                    mutableCallLogs.setValue(queryDocumentSnapshots.getDocuments());
+            }
+        });
+
+        return mutableCallLogs;
     }
 
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
@@ -12,7 +13,13 @@ import androidx.databinding.DataBindingUtil;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.databinding.ActivityMainBinding;
+import com.digidoctor.android.utility.AppUtils;
+import com.digidoctor.android.utility.utils;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
+
+import timber.log.Timber;
 
 import static com.digidoctor.android.utility.utils.IS_LOGIN;
 import static com.digidoctor.android.utility.utils.fcmToken;
@@ -43,6 +50,9 @@ public class SplashScreen extends AppCompatActivity {
 
         getData();
 
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        updateUI(currentUser);
+
         new Handler().postDelayed(() -> {
             boolean loggedIn = getLoginStatus(IS_LOGIN, SplashScreen.this);
             Intent intent;
@@ -62,6 +72,30 @@ public class SplashScreen extends AppCompatActivity {
             startActivity(intent);
             SplashScreen.this.finish();
         }, 1000);
+    }
+
+    private void updateUI(FirebaseUser currentUser) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        if (currentUser == null)
+            mAuth.signInAnonymously()
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            String token = utils.getString(fcmToken, SplashScreen.this);
+                            AppUtils.setUserToFirebaseDatabase(user, token);
+                        } else {
+                            Timber.d(task.getException(), "signInAnonymously:failure");
+                            Toast.makeText(SplashScreen.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        else {
+            Timber.d("updateUI: %s", mAuth.getCurrentUser().getUid());
+            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+                String newToken = instanceIdResult.getToken();
+                AppUtils.updateTokenToDatabase(newToken);
+            });
+        }
     }
 
 

@@ -383,6 +383,7 @@ public class utils {
                         switch (responseCode) {
                             case RESPONSE_SUCCESS: {
                                 utils.setBoolean(utils.IS_LOGIN, false, activity);
+                                logoutFromDatabase();
                                 activity.startActivity(new Intent(activity, SignUpJourneyActivity.class));
                                 activity.finish();
                                 Toast.makeText(activity, R.string.logged_out_sucvcessfully, Toast.LENGTH_SHORT).show();
@@ -406,6 +407,17 @@ public class utils {
                 Toast.makeText(activity, activity.getString(R.string.retry), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private static void logoutFromDatabase() {
+        /*AuthUI.getInstance()
+                .delete(this)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                    }
+                });*/
     }
 
     public static void logout(final Activity activity, boolean status) {

@@ -102,7 +102,7 @@ public class PatientInvestigationReportFragment extends Fragment {
     private void setupViewPager(ViewPager viewPager, List<EraInvestigationData.PatientTestResult> patientTestDate) {
 
         Log.d(TAG, "setupViewPager: " + patientTestDate.toString());
-        ViewPagerAdapter adapter = new ViewPagerAdapter(requireActivity().getSupportFragmentManager(), patientTestDate);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(requireActivity().getSupportFragmentManager());
         for (int i = 0; i < patientTestDate.size(); i++) {
             OneFragment fView = new OneFragment();
             adapter.addFrag(fView, AppUtils.parseDate(patientTestDate.get(i).getBillDate(), "d MMM yyyy", "dd-MM-yyyy"));
