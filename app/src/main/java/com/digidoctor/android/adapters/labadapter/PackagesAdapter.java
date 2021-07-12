@@ -50,7 +50,7 @@ public class PackagesAdapter extends ListAdapter<PackageModel, PackagesAdapter.L
 
         });
 
-        holder.binding.getRoot().setOnClickListener(v -> {
+        holder.binding.constraintLayout.setOnClickListener(v -> {
             String packageId = String.valueOf(packageModel.getPackageId());
             packagesInterface.onItemClicked(packageId);
         });

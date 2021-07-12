@@ -104,13 +104,10 @@ public class CallReceiveActivity extends AppCompatActivity implements View.OnCli
         switch (view.getId()) {
 
             case R.id.ivReceiveCall:
-
                 animatePickCall();
-
                 break;
 
             case R.id.ivDisconnectCall:
-
                 animateDisconnectCall();
 
                 break;

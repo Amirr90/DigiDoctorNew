@@ -43,7 +43,7 @@ public class HealthPackageListAdapter extends ListAdapter<PackageDetail, HealthP
             } else cart.onCartItemClicked(packageDetail.getPackageId());
         });
 
-        holder.binding.getRoot().setOnClickListener(v -> packagesInterface.onItemClicked(packageDetail.getPackageId()));
+        holder.binding.layout.setOnClickListener(v -> packagesInterface.onItemClicked(packageDetail.getPackageId()));
 
     }
 

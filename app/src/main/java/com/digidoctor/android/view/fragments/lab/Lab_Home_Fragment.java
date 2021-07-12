@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.labadapter.CategoryAdapter;
@@ -77,6 +79,7 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
         imageUrls = new ArrayList<>();
         labSliderAdapter = new LabSliderAdapter(imageUrls);
         labTestHomeBinding.recBannerSlider.setAdapter(labSliderAdapter);
+
 
         //Packages Adapter
         Cart cart = new Cart(requireActivity(), this);
@@ -185,11 +188,13 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
 
     @Override
     public void onItemClicked(Object obj) {
-        /*String packageId = (String) obj;
+        String packageId = (String) obj;
         //cart.addItemToCart("", packageId);
-        Lab_Home_FragmentDirections.ActionLabHomeFragmentToTestDetailsFRagment action = Lab_Home_FragmentDirections.actionLabHomeFragmentToTestDetailsFRagment();
-        action.setPackageId(packageId);
-        navController.navigate(action);*/
+//        Lab_Home_FragmentDirections.ActionLabHomeFragmentToTestDetailsFRagment action = Lab_Home_FragmentDirections.actionLabHomeFragmentToTestDetailsFRagment();
+//        action.setPackageId(packageId);
+        Bundle args = new Bundle();
+        args.putString("packageID", packageId);
+        navController.navigate(R.id.action_lab_Home_Fragment_to_testDetailsFRagment, args);
     }
 
     @Override

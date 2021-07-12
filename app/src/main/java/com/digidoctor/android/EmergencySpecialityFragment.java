@@ -47,8 +47,6 @@ public class EmergencySpecialityFragment extends Fragment implements AdapterInte
 
         navController = Navigation.findNavController(view);
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
-
-
         initRec();
 
     }

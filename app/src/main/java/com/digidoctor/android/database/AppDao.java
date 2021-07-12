@@ -14,6 +14,7 @@ import java.util.List;
 
 @Dao
 public interface AppDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addMedicineData(MedicineModel.MedicineDetailModel medicineModel);
 

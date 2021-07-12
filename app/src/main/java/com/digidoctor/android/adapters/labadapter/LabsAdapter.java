@@ -1,7 +1,10 @@
 package com.digidoctor.android.adapters.labadapter;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
@@ -10,7 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.digidoctor.android.databinding.CertifiedLabViewBinding;
 import com.digidoctor.android.model.LabModel;
 
+import es.dmoral.toasty.Toasty;
+
 public class LabsAdapter extends ListAdapter<LabModel, LabsAdapter.LabVH> {
+
+
+    Activity activity;
 
     public LabsAdapter() {
         super(LabModel.itemCallback);
@@ -29,6 +37,7 @@ public class LabsAdapter extends ListAdapter<LabModel, LabsAdapter.LabVH> {
         LabModel labModel = getItem(position);
         holder.binding.setLabModel(labModel);
 
+
     }
 
     public static class LabVH extends RecyclerView.ViewHolder {
@@ -37,6 +46,15 @@ public class LabsAdapter extends ListAdapter<LabModel, LabsAdapter.LabVH> {
         public LabVH(@NonNull CertifiedLabViewBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
+
+            binding.lay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toasty.warning(v.getContext(), "Coming Soon", Toasty.LENGTH_LONG).show();
+                }
+            });
+
         }
     }
 }

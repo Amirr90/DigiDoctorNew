@@ -20,6 +20,8 @@ import com.digidoctor.android.utility.AppUtils;
 import java.util.List;
 
 public class LabRepo {
+
+
     public MutableLiveData<List<PackageDetail>> mutablePackagesLiveData;
     public MutableLiveData<PackageModel> mutablePackagesData;
     public MutableLiveData<List<LabModel>> mutableLabsData;
@@ -125,6 +127,7 @@ public class LabRepo {
     }
 
     private void loadLabsSearchData() {
+
         ApiUtils.searchLabsANdPackages(new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {

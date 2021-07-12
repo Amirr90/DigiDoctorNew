@@ -1,6 +1,8 @@
 package com.digidoctor.android.view.fragments.pharmacy;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +32,7 @@ public class AllCategoryFragment extends Fragment {
 
     FragmentAllCategoryBinding allCategoryBinding;
     NavController navController;
-
     String CategoryData;
-    ShopBycategoryModel.CategoryModel shopBycategoryModel;
 
     private List<ShopBycategoryModel.CategoryModel> sbc;
 
@@ -60,13 +60,36 @@ public class AllCategoryFragment extends Fragment {
 
         CategoryData = getArguments().getString("catData");
 
+
+        allCategoryBinding.editTextTextSearchSpeciality.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s != null && s.length() > 3) {
+
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
         ApiUtils.getShopByCategory(requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 List<ShopBycategoryModel> models = (List<ShopBycategoryModel>) o;
                 List<ShopBycategoryModel.CategoryModel> categoryModel = models.get(0).getCategoryList();
-                sbc.addAll(categoryModel);
 
+                sbc.addAll(categoryModel);
                 adapter.notifyDataSetChanged();
 
 
@@ -90,9 +113,10 @@ public class AllCategoryFragment extends Fragment {
 
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
-        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 }

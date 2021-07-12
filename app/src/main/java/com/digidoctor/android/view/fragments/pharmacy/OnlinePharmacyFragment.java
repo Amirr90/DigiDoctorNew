@@ -25,10 +25,15 @@ import com.digidoctor.android.model.pharmacyModel.ShopBycategoryModel;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.utils;
+import com.wessam.library.LayoutImage;
+import com.wessam.library.NoInternetLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import ir.drax.netwatch.NetWatch;
+import ir.drax.netwatch.cb.NetworkChangeReceiver_navigator;
 
 public class OnlinePharmacyFragment extends Fragment {
     private static final String TAG = "OnlinePharmacyFragment";
@@ -39,6 +44,12 @@ public class OnlinePharmacyFragment extends Fragment {
     SliderAdapterforPharmacy sliderAdapterforPharmacy;
     TopSearchProductListAdapter adapter2;
     NavController navController;
+
+
+    final List<ShopBycategoryModel.CategoryModel> categoryModels = new ArrayList<>();
+    final List<ShopBycategoryModel.PopularProductList> popoularmodel = new ArrayList<>();
+    final List<ShopBycategoryModel.TopSearchproductList> topSearchproductLists = new ArrayList<>();
+    final List<ShopBycategoryModel.SliderImage> sliderImages = new ArrayList<>();
 
 
     @Nullable
@@ -56,16 +67,37 @@ public class OnlinePharmacyFragment extends Fragment {
 
         navController = Navigation.findNavController(view);
 
-        final List<ShopBycategoryModel.CategoryModel> categoryModels = new ArrayList<>();
-        final List<ShopBycategoryModel.PopularProductList> popoularmodel = new ArrayList<>();
-        final List<ShopBycategoryModel.TopSearchproductList> topSearchproductLists = new ArrayList<>();
-        final List<ShopBycategoryModel.SliderImage> sliderImages = new ArrayList<>();
-
-
         adapter2 = new TopSearchProductListAdapter(topSearchproductLists, requireActivity(), navController);
         adapter1 = new PopularProductAdapter(popoularmodel, requireActivity(), navController);
         adapter = new ShopByCategoryAdapter(categoryModels, requireActivity());
         sliderAdapterforPharmacy = new SliderAdapterforPharmacy(sliderImages, requireActivity());
+
+//        NetWatch.builder(requireActivity())
+//                .setIcon(R.drawable.payu_search_error)
+//                .setCallBack(new NetworkChangeReceiver_navigator() {
+//                    @Override
+//                    public void onConnected(int source) {
+//                        loaddashboard(categoryModels, popoularmodel, topSearchproductLists, sliderImages);
+//                        onlinePharmacyBinding.scrollable.setVisibility(View.VISIBLE);
+//
+//                    }
+//
+//                    @Override
+//                    public void onDisconnected() {
+//                        // do some other stuff
+//                        new NoInternetLayout.Builder(requireActivity(), R.layout.fragment_online_pharmacy) //change activity_main with your layout
+//                                .animate() //if you want to animate layout image
+//                                .mainTitle("Internet Disconnected") //add a title as a String or as Int from string.xml
+//                                .secondaryText("Connect to Internet and Reload the page") //add a text as a String or as Int from string.xml
+//                                .buttonText("Retry!") //add a text as a String or as Int from string.xml
+//                                .setImage(R.drawable.nointernet); //to choose image from library images(see below picture for all images)
+//                        onlinePharmacyBinding.scrollable.setVisibility(View.GONE);
+//
+//
+//                    }
+//                })
+//                .setNotificationCancelable(true)
+//                .build();
 
 
         onlinePharmacyBinding.popularRec.setAdapter(adapter1);
@@ -80,6 +112,35 @@ public class OnlinePharmacyFragment extends Fragment {
         }
         AppUtils.showRequestDialog(requireActivity());
 
+
+        loaddashboard(categoryModels, popoularmodel, topSearchproductLists, sliderImages);
+
+
+        onlinePharmacyBinding.textView58.setOnClickListener(view15 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("catData", "" + adapter.getShopCateData());
+            navController.navigate(R.id.action_onlinePharmacyFragment_to_allCategoryFragment, bundle);
+        });
+
+
+        onlinePharmacyBinding.textView6.setOnClickListener(view16 -> navController.navigate(R.id.action_onlinePharmacyFragment_to_allProductsFragment));
+        onlinePharmacyBinding.textView111.setOnClickListener(view14 -> navController.navigate(R.id.action_onlinePharmacyFragment_to_allProductsFragment));
+
+
+        onlinePharmacyBinding.wish.setOnClickListener(view13 -> {
+            navController.navigate(R.id.action_onlinePharmacyFragment_to_fragmentAllWishLIstProduct);
+            onlinePharmacyBinding.wish.setImageResource(R.drawable.heart);
+
+        });
+
+        onlinePharmacyBinding.cartimge.setOnClickListener(view12 -> navController.navigate(R.id.action_onlinePharmacyFragment_to_cart_Details_Fragment));
+
+        onlinePharmacyBinding.Borderwithprescription.setOnClickListener(view1 -> Toast.makeText(requireActivity(), "Coming Soon!", Toast.LENGTH_SHORT).show());
+
+
+    }
+
+    private void loaddashboard(List<ShopBycategoryModel.CategoryModel> categoryModels, List<ShopBycategoryModel.PopularProductList> popoularmodel, List<ShopBycategoryModel.TopSearchproductList> topSearchproductLists, List<ShopBycategoryModel.SliderImage> sliderImages) {
         ApiUtils.getShopByCategory(requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
@@ -124,32 +185,13 @@ public class OnlinePharmacyFragment extends Fragment {
         });
 
 
-        onlinePharmacyBinding.textView58.setOnClickListener(view15 -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("catData", "" + adapter.getShopCateData());
-            navController.navigate(R.id.action_onlinePharmacyFragment_to_allCategoryFragment, bundle);
-        });
-
-
-        onlinePharmacyBinding.textView6.setOnClickListener(view16 -> navController.navigate(R.id.action_onlinePharmacyFragment_to_allProductsFragment));
-        onlinePharmacyBinding.textView111.setOnClickListener(view14 -> navController.navigate(R.id.action_onlinePharmacyFragment_to_allProductsFragment));
-
-
-        onlinePharmacyBinding.wish.setOnClickListener(view13 -> {
-            navController.navigate(R.id.action_onlinePharmacyFragment_to_fragmentAllWishLIstProduct);
-            onlinePharmacyBinding.wish.setImageResource(R.drawable.heart);
-
-        });
-
-        onlinePharmacyBinding.cartimge.setOnClickListener(view12 -> navController.navigate(R.id.action_onlinePharmacyFragment_to_cart_Details_Fragment));
-
-        onlinePharmacyBinding.Borderwithprescription.setOnClickListener(view1 -> Toast.makeText(requireActivity(), "Coming Soon!", Toast.LENGTH_SHORT).show());
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
+        loaddashboard(categoryModels, popoularmodel, topSearchproductLists, sliderImages);
+//        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 }

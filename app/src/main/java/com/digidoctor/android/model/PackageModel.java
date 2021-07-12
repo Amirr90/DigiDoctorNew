@@ -1,5 +1,8 @@
 package com.digidoctor.android.model;
 
+import android.text.Html;
+import android.text.Spanned;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
@@ -100,8 +103,8 @@ public class PackageModel {
         this.packageName = packageName;
     }
 
-    public String getDescription() {
-        return description;
+    public Spanned getDescription() {
+        return Html.fromHtml(description);
     }
 
     public void setDescription(String description) {

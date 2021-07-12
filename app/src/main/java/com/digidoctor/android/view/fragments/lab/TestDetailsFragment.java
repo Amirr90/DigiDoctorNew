@@ -51,7 +51,9 @@ public class TestDetailsFragment extends Fragment {
         if (getArguments() == null)
             return;
 
-        packageId = TestDetailsFragmentArgs.fromBundle(getArguments()).getPackageId();
+        //packageId = TestDetailsFragmentArgs.fromBundle(getArguments()).getPackageId();
+        packageId = getArguments().getString("packageID");
+
         Log.d(TAG, "packageID: " + packageId);
 
         //init TestDetails Adapter

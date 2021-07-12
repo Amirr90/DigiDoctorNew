@@ -30,8 +30,8 @@ public class SimilarproductADapter extends RecyclerView.Adapter<SimilarproductAD
         this.ctx = ctx;
 
     }
-
     @NonNull
+
     @Override
     public SimilarproductADapter.SimilarproductADapterVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         SimilarproductviewBinding allproductviewBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.similarproductview, parent, false);

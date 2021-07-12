@@ -24,12 +24,12 @@
         <TextView
             android:id="@+id/textView34"
             android:layout_width="98dp"
-            android:layout_height="18dp"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
             android:text="Apply"
             android:textAlignment="center"
-            android:textColor="#EDA537"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/textView35"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView35" />

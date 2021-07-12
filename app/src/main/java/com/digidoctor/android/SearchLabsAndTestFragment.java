@@ -1,9 +1,12 @@
 package com.digidoctor.android;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.widget.Filter;
 import android.widget.Filterable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -19,10 +22,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.digidoctor.android.databinding.FragmentSearchLabsAndTestBinding;
 import com.digidoctor.android.databinding.SearchLabViewBinding;
-import com.digidoctor.android.interfaces.ApiCallbackInterface;
-import com.digidoctor.android.model.LabModel;
 import com.digidoctor.android.model.labmodel.SearchRes;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.viewHolder.LabViewModel;
@@ -30,6 +32,7 @@ import com.digidoctor.android.viewHolder.LabViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SearchLabsAndTestFragment extends Fragment {
@@ -38,6 +41,8 @@ public class SearchLabsAndTestFragment extends Fragment {
     FragmentSearchLabsAndTestBinding binding;
     SearchLabAdapter searchLabAdapter;
     LabViewModel viewModel;
+
+    List<SearchRes.SearchModel.Details> alllabtestdata;
 
 
     @Override
@@ -60,6 +65,7 @@ public class SearchLabsAndTestFragment extends Fragment {
             if (null != searchModels && searchModels.size() > 0) {
                 List<SearchRes.SearchModel.Details> details = searchModels.get(0).getDetails();
                 searchLabAdapter.submitList(details);
+                alllabtestdata = searchLabAdapter.getCurrentList();
             }
 
         });
@@ -67,12 +73,12 @@ public class SearchLabsAndTestFragment extends Fragment {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 if (charSequence != null && charSequence.length() > 3) {
-                    binding.progressBar5.setVisibility(View.VISIBLE);
                     searchData(charSequence.toString());
                 }
             }
@@ -80,6 +86,7 @@ public class SearchLabsAndTestFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
 
+                searchData(s.toString());
             }
         });
 
@@ -88,11 +95,30 @@ public class SearchLabsAndTestFragment extends Fragment {
 
     private void searchData(String keys) {
 
+        if (null != alllabtestdata) {
+            List<SearchRes.SearchModel.Details> filteredlist = new ArrayList<>();
+
+            for (int i = 0; i < alllabtestdata.size(); i++) {
+                SearchRes.SearchModel.Details d = alllabtestdata.get(i);
+                if (d.getName().toLowerCase().contains(keys.toString().toLowerCase())) {
+                    filteredlist.add(d);
+                }
+            }
+
+            searchLabAdapter.submitList(filteredlist);
+        }
+
+
     }
 
     private static class SearchLabAdapter extends ListAdapter<SearchRes.SearchModel.Details, SearchLabAdapter.SearchVH> {
+
+
+
         protected SearchLabAdapter() {
             super(SearchRes.SearchModel.Details.itemCallback);
+
+
         }
 
         @NonNull
@@ -105,8 +131,14 @@ public class SearchLabsAndTestFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull SearchLabAdapter.SearchVH holder, int position) {
+
+
             holder.binding.setDetails(getItem(position));
+
+
         }
+
+
 
         public static class SearchVH extends RecyclerView.ViewHolder {
             SearchLabViewBinding binding;

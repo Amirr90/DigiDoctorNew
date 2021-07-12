@@ -229,4 +229,7 @@ dependencies {
     implementation('org.jitsi.react:jitsi-meet-sdk:2.+') { transitive = true }
 
 
+    implementation 'com.github.draxdave:netWatch:0.d.6'
+    implementation 'com.github.MohamedWessam:no-internet-layout:0.1.1'
+
 }

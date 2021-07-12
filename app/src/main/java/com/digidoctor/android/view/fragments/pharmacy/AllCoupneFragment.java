@@ -44,7 +44,7 @@ public class AllCoupneFragment extends Fragment implements AdapterInterface {
         fragmentApplyCoupneBinding.recyclerView.setAdapter(allCoupneAdapter);
 
 
-        ApiUtils.getcoupne(requireActivity(), new ApiCallbackInterface() {
+        ApiUtils.GetCouponDetails(requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 AppUtils.hideDialog();

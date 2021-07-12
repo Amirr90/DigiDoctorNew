@@ -9,7 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recLabs"
         android:layout_width="match_parent"
-        android:layout_height="669dp"
+        android:layout_height="0dp"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
@@ -26,7 +26,9 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/round_border"
         android:backgroundTint="@color/YellowColo"
         android:fontFamily="@font/poppins_semibold"

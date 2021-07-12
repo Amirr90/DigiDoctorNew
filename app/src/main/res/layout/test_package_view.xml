@@ -69,13 +69,15 @@
                 app:layout_constraintStart_toStartOf="@+id/textView162"
                 app:layout_constraintTop_toBottomOf="@+id/textView162" />
 
-            <Button
+            <TextView
                 android:id="@+id/btnAddToCartPackages"
                 android:layout_width="82dp"
                 android:layout_height="28dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/add_button"
+                android:textAlignment="center"
+                android:gravity="center_vertical|center"
+                android:background="@drawable/button"
                 android:text="@{packageDetails.cartStatus.equals(`0`)?utils.ADD_TO_CART:utils.GO_TO_CART}"
                 android:textAllCaps="false"
                 android:textColor="@color/white"

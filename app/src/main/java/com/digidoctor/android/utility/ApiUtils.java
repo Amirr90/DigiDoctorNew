@@ -1724,12 +1724,12 @@ public class ApiUtils {
 
     }
 
-    public static void getcoupne(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+    public static void GetCouponDetails(final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
         if (PatientDashboard.getInstance() != null)
             AppUtils.showRequestDialog(activity);
         Api iRestInterfaces = URLUtils.getPharmacyApisRef();
         PharmacyModel pharmacyModel = new PharmacyModel();
-        pharmacyModel.setMemberId("23331");
+        pharmacyModel.setMemberId(String.valueOf(getPrimaryUser().getMemberId()));
 
         Call<AllCoupneModelResponse> call = iRestInterfaces.getCoupnedetails(pharmacyModel);
         call.enqueue(new Callback<AllCoupneModelResponse>() {

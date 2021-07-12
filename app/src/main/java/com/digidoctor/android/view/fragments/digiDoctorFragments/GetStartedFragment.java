@@ -88,7 +88,9 @@ public class GetStartedFragment extends Fragment {
         });*/
 
 
-        getStartedBinding.btnGetStarted.setOnClickListener(view1 -> navController.navigate(R.id.action_getStartedFragment_to_inputMobileNumberFragment));
+        getStartedBinding.btnGetStarted.setOnClickListener((View view1) -> {
+            navController.navigate(R.id.action_getStartedFragment_to_inputMobileNumberFragment);
+        });
     }
 
 
