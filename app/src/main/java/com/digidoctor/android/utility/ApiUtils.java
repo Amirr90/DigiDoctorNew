@@ -2199,8 +2199,10 @@ public class ApiUtils {
     }
 
     public static void placeOrder(LabOrderModel model, LabOrderInterface labOrderInterface) {
+
         Api iRestInterfaces = URLUtils.getLabApisRef();
         Call<LabOrderRes> call = iRestInterfaces.placeOrder(model);
+
         call.enqueue(new Callback<LabOrderRes>() {
             @Override
             public void onResponse(@NotNull Call<LabOrderRes> call, @NotNull Response<LabOrderRes> response) {

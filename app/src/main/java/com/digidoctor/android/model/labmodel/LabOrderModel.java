@@ -13,8 +13,6 @@ public class LabOrderModel {
     private String appointmentTime;
     private String pathalogyId;
     private String visitType;
-
-
     Integer id;
     Integer finalAmount;
     String orderNo;
@@ -22,6 +20,8 @@ public class LabOrderModel {
     String testName;
     String orderDate;
     String orderStatus;
+
+
 
     public Integer getId() {
         return id;

@@ -102,7 +102,9 @@ public class FragmentCartListLab extends Fragment implements CartInterface {
         List<CartModel> cartModelList = (List<CartModel>) obj;
         if (null != cartModelList && !cartModelList.isEmpty()) {
             this.cartModelList.addAll(cartModelList);
-        } else Toast.makeText(requireActivity(), "Cart Is empty !!", Toast.LENGTH_SHORT).show();
+        } else
+            binding.btnContinueToLab.setVisibility(View.GONE);
+            Toast.makeText(requireActivity(), "Cart Is empty !!", Toast.LENGTH_SHORT).show();
         adapter.notifyDataSetChanged();
     }
 

@@ -39,8 +39,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import es.dmoral.toasty.Toasty;
-
 import static com.digidoctor.android.utility.utils.getUserForBooking;
 
 
@@ -102,25 +100,22 @@ public class TimeSlotForLabFragment extends Fragment {
     private void setCalenderRec() {
 
         User user = getUserForBooking(requireActivity());
-        slotAdapter = new LabTimeSlotAdapter(timeSlotsModelList, new AdapterInterface() {
-            @Override
-            public void onItemClicked(Object o) {
-                Log.d(TAG, "onItemClicked: " + o);
-                Bundle bundle = new Bundle();
-                bundle.putString("date", date);
-                bundle.putString("memberId", memberId);
-                bundle.putString("time", (String) o);
-                bundle.putString("addressId", null == address ? "0" : address.getAddressId());
-                bundle.putString("name", null == address ? user.getName() : address.getName());
-                navController.navigate(R.id.action_timeSlotForLabFragment_to_fragmentReviewOrderLab, bundle);
-            }
+        slotAdapter = new LabTimeSlotAdapter(timeSlotsModelList, o -> {
+            Log.d(TAG, "onItemClicked: " + o);
+            Bundle bundle = new Bundle();
+            bundle.putString("date", date);
+            bundle.putString("memberId", memberId);
+            bundle.putString("time", (String) o);
+            bundle.putString("addressId", null == address ? "0" : address.getAddressId());
+            bundle.putString("name", null == address ? user.getName() : address.getName());
+            navController.navigate(R.id.action_timeSlotForLabFragment_to_fragmentReviewOrderLab, bundle);
         });
         binding.timingRec.setAdapter(slotAdapter);
 
 
         calendarAdapter = new CalendarAdapter(getNextWeekDays(), (CalendarModel calendarModel, int pos) -> {
             getLabTimeSlots(calendarModel.getDateSend());
-            date=calendarModel.getDateSend();
+            date = calendarModel.getDateSend();
         });
         binding.calRec.setAdapter(calendarAdapter);
 
@@ -137,47 +132,54 @@ public class TimeSlotForLabFragment extends Fragment {
 
     private void getLabTimeSlots(String dateSend) {
         AppUtils.showRequestDialog(requireActivity());
-        String pinCode = address.getPincode();
-        String date = AppUtils.parseDate(dateSend, "yyyy-MM-dd", "yyyy/MM/dd");
-        LabSlotModel labSlotModel = new LabSlotModel(pinCode, date, pathologyId);
-        ApiUtils.getLabTimeSlots(labSlotModel, new ApiCallbackInterface() {
-            @Override
-            public void onSuccess(List<?> o) {
-                AppUtils.hideDialog();
-                timeSlotsModelList.clear();
-                List<LabSlotModel> labSlotModels = (List<LabSlotModel>) o;
-                if (null != labSlotModels && !labSlotModels.isEmpty()) {
-                    timeSlotsModelList.addAll(labSlotModels);
+        if (null != address && null != address.getPincode()) {
 
-                } else {
-                   // Toasty.error(App.context, getString(R.string.slot_not_available) + " for pinCode " + pinCode, Toast.LENGTH_LONG, true).show();
+
+            String pinCode = address.getPincode();
+            String date = AppUtils.parseDate(dateSend, "yyyy-MM-dd", "yyyy/MM/dd");
+            LabSlotModel labSlotModel = new LabSlotModel(pinCode, date, pathologyId);
+            ApiUtils.getLabTimeSlots(labSlotModel, new ApiCallbackInterface() {
+                @Override
+                public void onSuccess(List<?> o) {
+                    AppUtils.hideDialog();
+                    timeSlotsModelList.clear();
+                    List<LabSlotModel> labSlotModels = (List<LabSlotModel>) o;
+                    if (null != labSlotModels && !labSlotModels.isEmpty()) {
+                        timeSlotsModelList.addAll(labSlotModels);
+
+                    } else {
+                        // Toasty.error(App.context, getString(R.string.slot_not_available) + " for pinCode " + pinCode, Toast.LENGTH_LONG, true).show();
+                    }
+
+                    slotAdapter.notifyDataSetChanged();
+
                 }
 
-                slotAdapter.notifyDataSetChanged();
+                @Override
+                public void onError(String s) {
+                    AppUtils.hideDialog();
+                    timeSlotsModelList.clear();
+                    AppUtils.hideDialog();
+                    Toast.makeText(App.context, s, Toast.LENGTH_SHORT).show();
+                    slotAdapter.notifyDataSetChanged();
 
-            }
+                }
 
-            @Override
-            public void onError(String s) {
-                AppUtils.hideDialog();
-                timeSlotsModelList.clear();
-                AppUtils.hideDialog();
-                Toast.makeText(requireActivity(), s, Toast.LENGTH_SHORT).show();
-                slotAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onFailed(Throwable throwable) {
-                AppUtils.hideDialog();
-                timeSlotsModelList.clear();
-                AppUtils.hideDialog();
-                Toast.makeText(requireActivity(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                slotAdapter.notifyDataSetChanged();
+                @Override
+                public void onFailed(Throwable throwable) {
+                    AppUtils.hideDialog();
+                    timeSlotsModelList.clear();
+                    AppUtils.hideDialog();
+                    Toast.makeText(App.context, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    slotAdapter.notifyDataSetChanged();
 
 
-            }
-        });
+                }
+            });
+        } else {
+            navController.navigate(R.id.addressFragment);
+
+        }
 
 
     }

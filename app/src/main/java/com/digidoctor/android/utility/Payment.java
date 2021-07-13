@@ -4,17 +4,24 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.LabOrderInterface;
 import com.digidoctor.android.model.ResponseModel;
 import com.digidoctor.android.model.labmodel.LabOrderModel;
+import com.digidoctor.android.view.fragments.lab.FragmentReviewOrderLab;
 import com.razorpay.Checkout;
+import com.razorpay.PaymentData;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import timber.log.Timber;
 
 import static com.digidoctor.android.utility.utils.APPOINTMENT_DATE;
 import static com.digidoctor.android.utility.utils.APPOINTMENT_TIME;
@@ -43,11 +50,9 @@ public class Payment extends PaymentModel {
 
     public void startPayment(String payMode) {
         this.payMode = payMode;
-
         initPayment();
 
     }
-
 
 
     public void setLabModel(LabOrderModel labModel) {
@@ -92,7 +97,12 @@ public class Payment extends PaymentModel {
         }
     }
 
-    public void paymentSuccess() {
+    public void paymentSuccess(PaymentData paymentData) throws JSONException {
+        Log.d(TAG, "paymentSuccess: " + paymentData.getData().toString());
+        Timber.d("paymentSuccess: %s", paymentData.getData().toString());
+        String dtTableData = "[{\"paymentStatus\":\"success\",\"bankRefNo\":\"" + paymentData.getData().getString("razorpay_payment_id") + "\",\"paymentAmount\":\"" + amount + "\",\"transactionNo\":\"" + paymentData.getPaymentId() + "\",\"isErauser\":" + paymentData.getUserContact() + "}]";
+
+        labModel.setDtPaymentTable(String.valueOf(paymentData.getData()));
         LabOrder labOrder = new LabOrder(activity, labModel, anInterface);
         labOrder.placeOrder();
     }

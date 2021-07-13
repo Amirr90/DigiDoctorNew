@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.digidoctor.android.databinding.FragmentLabHealthCategoryBinding;
 import com.digidoctor.android.databinding.HealthCheckupCategoryLabLayoutLinearBinding;
 import com.digidoctor.android.model.labmodel.CategoryModel;
+import com.digidoctor.android.utility.App;
 import com.digidoctor.android.viewHolder.PatientViewModel;
 
 import org.jetbrains.annotations.NotNull;
@@ -62,6 +64,7 @@ public class LabHealthCategoryFragment extends Fragment {
     }
 
     private static class CategoryAdapterAll extends ListAdapter<CategoryModel, CategoryAdapterAll.CategoryVH> {
+
         public CategoryAdapterAll() {
             super(CategoryModel.itemCallback);
         }
@@ -86,6 +89,13 @@ public class LabHealthCategoryFragment extends Fragment {
             public CategoryVH(@NonNull HealthCheckupCategoryLabLayoutLinearBinding binding) {
                 super(binding.getRoot());
                 this.binding = binding;
+
+                binding.layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(App.context, "Coming Soon", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         }
     }

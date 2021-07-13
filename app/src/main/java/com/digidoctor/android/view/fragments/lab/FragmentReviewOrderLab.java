@@ -26,6 +26,7 @@ import com.digidoctor.android.model.User;
 import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.LabOrderModel;
 import com.digidoctor.android.utility.ApiUtils;
+import com.digidoctor.android.utility.App;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.Cart;
 import com.digidoctor.android.utility.Payment;
@@ -98,11 +99,11 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
         name = getArguments().getString("name");
 
 
+
         binding.btnContinue.setOnClickListener(v -> {
             AppUtils.showRequestDialog(requireActivity());
             setLabOrderModel();
             if (!TextUtils.isEmpty(amountToPay)) {
-
                 getTrxNumber();
 
             }
@@ -121,7 +122,8 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
         map.put(KEY_DOC_ID, "0");
         map.put(APPOINTMENT_DATE, date);
         map.put(APPOINTMENT_TIME, time);
-        map.put(KEY_IS_ERA_USER, user.getIsEraUser().toString());
+
+        map.put(KEY_IS_ERA_USER, null == user.getIsEraUser() ? "0" : user.getIsEraUser().toString());
         map.put("transactionType", "lab");
 
         ApiUtils.getTransactionNo(map, requireActivity(), new ApiCallbackInterface() {
@@ -132,7 +134,7 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
                 if (null != models) {
                     String tId = models.get(0).getTaxId();
                     utils.setString("txid", tId, requireActivity());
-                    Log.d(TAG, "onSuccess: Trx Id" + tId);
+                    Log.d(TAG, "onSuccess: Trx Id" + models.get(0));
                     labOrderModel.setTrancationNo(tId);
                     payment.startPayment(labOrderModel.getPaymentMode());
                 }
@@ -171,12 +173,12 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
             String date = getArguments().getString("date");
             labOrderModel.setAppointmentDate(AppUtils.parseDate(date, "yyyy-MM-dd", "yyyy/MM/dd"));
             labOrderModel.setAppointmentTime(getArguments().getString("time"));
-            labOrderModel.setPathalogyId(pathologyID);
+            labOrderModel.setPathalogyId("1");
             labOrderModel.setMemberId(getArguments().getString("memberId"));
             labOrderModel.setPaymentMode(PAY_MODE_RAZOR_PAY);
             labOrderModel.setCouponCode("");
             labOrderModel.setUniqueNo("0");
-
+            labOrderModel.setDtPaymentTable("");
             payment.setMemberId(labOrderModel.getMemberId());
             payment.setLabModel(labOrderModel);
             payment.setLabInterface(this);
@@ -254,7 +256,7 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
         List<CartModel> cartModelList = (List<CartModel>) obj;
         if (null != cartModelList && !cartModelList.isEmpty()) {
             this.cartModelList.addAll(cartModelList);
-        } else Toast.makeText(requireActivity(), "Cart Is empty !!", Toast.LENGTH_SHORT).show();
+        } else Toast.makeText(App.context, "Cart Is empty !!", Toast.LENGTH_SHORT).show();
 
         adapter.notifyDataSetChanged();
 

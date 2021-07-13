@@ -436,7 +436,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
         if (null != payment)
             try {
-                payment.paymentSuccess();
+                payment.paymentSuccess(paymentData);
             } catch (Exception e) {
                 payment.paymentFailed(e.getLocalizedMessage());
             }
@@ -543,7 +543,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         } else if (navModel.getId() == 7) {
             //init for wallet Screen
             if (isProfileFilled())
-                navController.navigate(R.id.walletFragment);
+                navController.navigate(R.id.labOrdersFragment);
             else navController.navigate(R.id.profileFragment);
         } else if (navModel.getId() == 11) {
             if (isProfileFilled())

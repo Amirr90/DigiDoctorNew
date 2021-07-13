@@ -15,7 +15,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.digidoctor.android.R;
+
 import com.digidoctor.android.databinding.FragmentLabOrdersBinding;
 import com.digidoctor.android.databinding.LabOrderListViewLayoutBinding;
 import com.digidoctor.android.interfaces.LabOrderInterface;

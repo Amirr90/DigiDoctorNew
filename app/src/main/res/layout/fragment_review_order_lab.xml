@@ -164,7 +164,7 @@
                 <TextView
                     android:id="@+id/textView171"
                     android:layout_width="0dp"
-                    android:layout_height="47dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="16dp"
                     android:text="@{cartModel.pathalogyAddress}"
@@ -254,6 +254,7 @@
                 android:paddingLeft="21dp"
                 android:textColor="#2B3344"
                 android:textSize="13sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/labdetails" />
@@ -267,6 +268,7 @@
                 android:text="@string/apply"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
+                android:visibility="gone"
                 app:backgroundTint="#EDA537"
                 app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName2"
                 app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"

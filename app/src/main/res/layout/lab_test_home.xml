@@ -76,7 +76,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_cart" />
+                        app:srcCompat="@drawable/cart" />
 
                     <TextView
                         android:id="@+id/editTextTextSearchSpeciality"
@@ -116,6 +116,22 @@
                         app:layout_constraintStart_toEndOf="@+id/ivBack"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.6" />
+
+                    <TextView
+                        android:id="@+id/textView245"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="1"
+                        android:visibility="gone"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_20sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView76"
+                        app:layout_constraintEnd_toEndOf="@+id/imageView76"
+                        app:layout_constraintStart_toStartOf="@+id/imageView76"
+                        app:layout_constraintTop_toTopOf="@+id/imageView76" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -254,6 +270,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/bannerCall"
                         android:layout_width="match_parent"
+                        android:visibility="gone"
                         android:layout_height="match_parent">
 
                         <TextView

@@ -7,6 +7,7 @@ import com.digidoctor.android.model.AppointmentDetailsRes;
 import com.digidoctor.android.model.AppointmentModel;
 import com.digidoctor.android.model.AppointmentRes;
 import com.digidoctor.android.model.CartRes;
+import com.digidoctor.android.model.Cartresponse;
 import com.digidoctor.android.model.ChatModel;
 import com.digidoctor.android.model.ChatResponse;
 import com.digidoctor.android.model.CheckLoginRes;
@@ -414,6 +415,10 @@ public interface Api {
 
     @POST("getPackageDetails")
     Call<PackageRes> getPackageDataById(@Body PackageModel model);
+
+
+    @POST("cartCount")
+    Call<Cartresponse> getlabcartcount(@Body CartModel model);
 
 
     //SymptomCheckerApis

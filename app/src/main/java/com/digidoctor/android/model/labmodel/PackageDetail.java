@@ -29,7 +29,7 @@ public class PackageDetail {
     private int discountPerc;
     @SerializedName("mrp")
     @Expose
-    private int mrp;
+    private String mrp;
     @SerializedName("cartStatus")
     @Expose
     private String cartStatus;
@@ -82,11 +82,11 @@ public class PackageDetail {
         this.discountPerc = discountPerc;
     }
 
-    public int getMrp() {
+    public String getMrp() {
         return mrp;
     }
 
-    public void setMrp(int mrp) {
+    public void setMrp(String mrp) {
         this.mrp = mrp;
     }
 

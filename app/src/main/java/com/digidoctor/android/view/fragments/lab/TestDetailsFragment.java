@@ -16,6 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.digidoctor.android.databinding.FragmentTestDetailsBinding;
 import com.digidoctor.android.databinding.TestincludelayoutviewBinding;
 import com.digidoctor.android.model.PackageModel;
@@ -101,10 +102,14 @@ public class TestDetailsFragment extends Fragment {
             String groupName = testDetails.get(position).getGroupName();
             List<PackageModel.TestDetails> testNameList = testDetails.get(position).getTestDetails();
             StringBuilder nameAppended = new StringBuilder();
-            for (PackageModel.TestDetails name : testNameList)
-                nameAppended.append(name.getTestName()).append("\n");
+            int a = 1;
+            for (PackageModel.TestDetails name : testNameList) {
+                nameAppended.append("" + a + ". ").append(name.getTestName()).append("\n");
+                a++;
+            }
 
-            String finalString = "Group Name\n" + groupName + "\nTests Included\n" + nameAppended;
+
+            String finalString = "Group Name: " + groupName + "\nTests Included\n" + nameAppended;
 
             holder.binding.setTestNameList(finalString);
         }
