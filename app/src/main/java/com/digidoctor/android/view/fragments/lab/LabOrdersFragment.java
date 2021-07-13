@@ -40,6 +40,8 @@ public class LabOrdersFragment extends Fragment {
     NavController navController;
     LabOrderAdapter adapter;
 
+    int firsttime = 1;
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,7 +60,10 @@ public class LabOrdersFragment extends Fragment {
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                getData();
+
+
+                Log.d(TAG, "onTabSelected: " + tab.getPosition());
+                getData(tab.getPosition());
             }
 
             @Override
@@ -71,9 +76,12 @@ public class LabOrdersFragment extends Fragment {
 
             }
         });
+
+        getData(0);
+        // binding.tabLayout.selectTab(binding.tabLayout.getTabAt(0));
     }
 
-    private void getData() {
+    private void getData(int position) {
         LabOrderModel labModel = new LabOrderModel();
         labModel.setMemberId(String.valueOf(getUserForBooking(requireActivity()).getMemberId()));
         ApiUtils.getOrders(labModel, new LabOrderInterface() {
@@ -95,9 +103,21 @@ public class LabOrdersFragment extends Fragment {
                 try {
                     List<LabOrderRes.OrderType> orderTypeList = (List<LabOrderRes.OrderType>) obj;
                     if (null != orderTypeList && !orderTypeList.isEmpty()) {
-                        List<LabOrderModel> labOrderModels = orderTypeList.get(0).getHomeVisit();
-                        adapter = new LabOrderAdapter(labOrderModels);
-                        binding.recLabOrder.setAdapter(adapter);
+                        List<LabOrderModel> labOrderModels = orderTypeList.get(0).getLabVisiit();
+
+
+                        if (position == 0) {
+                            adapter = new LabOrderAdapter(orderTypeList.get(0).getHomeVisit());
+                            binding.recLabOrder.setAdapter(adapter);
+                        } else if (position == 1) {
+                            adapter = new LabOrderAdapter(orderTypeList.get(0).getLabVisiit());
+                            binding.recLabOrder.setAdapter(adapter);
+                        } else {
+                            adapter = new LabOrderAdapter(orderTypeList.get(0).getLabVisiit());
+                            binding.recLabOrder.setAdapter(adapter);
+                        }
+
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -118,7 +138,7 @@ public class LabOrdersFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        getData();
+        //  getData();
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 
