@@ -61,11 +61,26 @@ public class FirebaseMessageService extends FirebaseMessagingService {
         context = this;
 
         Timber.d("onMessageReceived: %s", remoteMessage.getData());
+        Log.d(TAG, "onMessageReceived: " + remoteMessage.getData());
         try {
-            String callId = remoteMessage.getData().get("roomName");
-            String image = remoteMessage.getData().get("profilePhotoPath");
-            String doctorName = remoteMessage.getData().get("doctorName");
-            setupCallNotification(callId, image, doctorName);
+
+
+            //checking for notification Type
+            String type = remoteMessage.getData().get("type");
+            String deepLink = remoteMessage.getData().get("deepLink");
+
+            if (type.equalsIgnoreCase(AppUtils.NOTIFICATION_TYPE_VIDEO_CALL)) {
+                String callId = remoteMessage.getData().get("roomName");
+                String image = remoteMessage.getData().get("profilePhotoPath");
+                String doctorName = remoteMessage.getData().get("doctorName");
+                setupCallNotification(callId, image, doctorName);
+            } else {
+                String message = remoteMessage.getData().get("message");
+                String titleToShow = remoteMessage.getData().get("title");
+                String appointmentId = remoteMessage.getData().get("appointmentId");
+                createNotification(titleToShow, message, type, appointmentId, deepLink);
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
             Timber.d("onMessageReceived Error: %s", e.getLocalizedMessage());
@@ -133,7 +148,10 @@ public class FirebaseMessageService extends FirebaseMessagingService {
         intent.putExtra(AppUtils.CALL_ID, callId);
         intent.putExtra(AppUtils.ICON, image);
         intent.putExtra(AppUtils.DOCTOR_NAME, doctorName);
-        /*myIntent.setAction("myReceiver");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
+          /*myIntent.setAction("myReceiver");
         myIntent.putExtra("roomName", roomName);
         myIntent.putExtra("accessToken", twillioAccessToken);
         myIntent.putExtra("message", msg);
@@ -141,14 +159,11 @@ public class FirebaseMessageService extends FirebaseMessagingService {
         myIntent.putExtra("profilePhotoPath", profilePhotoPath);
         myIntent.putExtra("doctorName", doctorName);*/
 
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-
     }
 
-    public void createNotification(String title, String msg, String roomName, int type, String twillioAccessToken, String profilePhotoPath, String doctorName, String appointmentId, String deepLink) {
+    public void createNotification(String title, String msg, String type, String appointmentId, String deepLink) {
 
-        if (type == 1) {
+  /*      if (type == 1) {
 
             Intent myIntent = new Intent(this, WakefulBroadcasterReceiver.class);
             myIntent.setAction("myReceiver");
@@ -165,84 +180,79 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             videoCall.startVideo();
 
 
+        } else {*/
+        Bundle bundle = new Bundle();
+        if (type.equals("4")) {
+            directionId = R.id.homeIsolationRequestDetailFragment;
+            bundle.putString("id", appointmentId);
         } else {
-            Log.d(TAG, "createNotification: in Type ");
+            directionId = R.id.appointmentDetailFragment;
+            bundle.putString("appointmentId", appointmentId);
+        }
+        PendingIntent pendingIntent = new NavDeepLinkBuilder(PatientDashboard.getInstance())
+                .setGraph(R.navigation.nav_graph)
+                .setDestination(directionId)
+                .setArguments(bundle)
+                .createPendingIntent();
 
-            Bundle bundle = new Bundle();
-            if (type == 4) {
-                directionId = R.id.homeIsolationRequestDetailFragment;
-                bundle.putString("id", appointmentId);
-            } else {
-                directionId = R.id.appointmentDetailFragment;
-                bundle.putString("appointmentId", appointmentId);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel androidChannel = new NotificationChannel(CHANNEL_ID,
+                    title, NotificationManager.IMPORTANCE_HIGH);
+            androidChannel.enableLights(true);
+            androidChannel.enableVibration(true);
+            androidChannel.setLightColor(Color.GREEN);
+
+            androidChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            getManager().createNotificationChannel(androidChannel);
+
+            NotificationCompat.Builder notification = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(title)
+                    .setContentText(msg)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
+                    .setAutoCancel(true) //remove notification after click
+                    .setContentIntent(pendingIntent);
+
+            if (bitmap != null) {
+                notification.setLargeIcon(bitmap);
             }
-            PendingIntent pendingIntent = new NavDeepLinkBuilder(PatientDashboard.getInstance())
-                    .setGraph(R.navigation.nav_graph)
-                    .setDestination(directionId)
-                    .setArguments(bundle)
-                    .createPendingIntent();
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Log.d(TAG, "createNotification: ");
-                NotificationChannel androidChannel = new NotificationChannel(CHANNEL_ID,
-                        title, NotificationManager.IMPORTANCE_HIGH);
-                androidChannel.enableLights(true);
-                androidChannel.enableVibration(true);
-                androidChannel.setLightColor(Color.GREEN);
+            //int timestamp = 1000;
+            int timestamp = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
 
-                androidChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-                getManager().createNotificationChannel(androidChannel);
+            getManager().notify(timestamp, notification.build());
 
-                NotificationCompat.Builder notification = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+            playNotificationSound();
+
+        } else {
+            try {
+                playNotificationSound();
+                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle(title)
                         .setContentText(msg)
+                        .setAutoCancel(true)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
-                        .setAutoCancel(true) //remove notification after click
-                        .setContentIntent(pendingIntent);
+                        .setContentIntent(pendingIntent)
+                        .setDefaults(Notification.DEFAULT_ALL)
+                        .setLights(0xFF760193, 300, 1000)
+                        .setVibrate(new long[]{200, 400});
 
                 if (bitmap != null) {
-                    notification.setLargeIcon(bitmap);
+                    notificationBuilder.setLargeIcon(bitmap);
                 }
-
-                //int timestamp = 1000;
                 int timestamp = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
-
-                getManager().notify(timestamp, notification.build());
-
-                playNotificationSound();
-
-            } else {
-                Log.d(TAG, "createNotification: else");
-                try {
-
-                    playNotificationSound();
-                    NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setContentTitle(title)
-                            .setContentText(msg)
-                            .setAutoCancel(true)
-                            .setPriority(NotificationCompat.PRIORITY_HIGH)
-                            .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
-                            .setContentIntent(pendingIntent)
-                            .setDefaults(Notification.DEFAULT_ALL)
-                            .setLights(0xFF760193, 300, 1000)
-                            .setVibrate(new long[]{200, 400});
-
-                    if (bitmap != null) {
-                        notificationBuilder.setLargeIcon(bitmap);
-                    }
-                    int timestamp = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
-                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager.notify(timestamp, notificationBuilder.build());
-                } catch (SecurityException se) {
-                    se.printStackTrace();
-                    Log.d(TAG, "createNotification: " + se.getLocalizedMessage());
-                }
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(timestamp, notificationBuilder.build());
+            } catch (SecurityException se) {
+                se.printStackTrace();
+                Log.d(TAG, "createNotification: " + se.getLocalizedMessage());
             }
-
-
         }
+
+
+        //  }
 
     }
 

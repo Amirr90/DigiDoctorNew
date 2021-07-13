@@ -35,8 +35,8 @@ import com.digidoctor.android.databinding.ActivityDashBoardBinding;
 import com.digidoctor.android.interfaces.NavigationInterface;
 import com.digidoctor.android.model.NavModel;
 import com.digidoctor.android.model.User;
+import com.digidoctor.android.newVideoCall.LocalNotification;
 import com.digidoctor.android.utility.GetAddressIntentService;
-import com.digidoctor.android.utility.NotificationVideoCall;
 import com.digidoctor.android.utility.WakefulBroadcasterReceiver;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment;
@@ -352,10 +352,11 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         if (getIntent().hasExtra("action")) {
             if (getIntent().getStringExtra("action").equalsIgnoreCase("callHistory")) {
                 navController.navigate(R.id.videoCallHistoryFragment);
-                NotificationVideoCall.cancelShowMissedCallNotification();
+                LocalNotification.hideMissedCallNotification(this);
             }
         }
     }
+
 
     private void checkForUpdate() {
         new GoogleChecker("com.digidoctor.android", PatientDashboard.this, true, "en");

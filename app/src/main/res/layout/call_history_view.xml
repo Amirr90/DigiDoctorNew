@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.digidoctor.android.utility.AppUtils" />
+
+        <variable
+            name="call"
+            type="com.digidoctor.android.model.CallModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingTop="@dimen/_10sdp">
+
+        <ImageView
+            android:id="@+id/imageView88"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_call_24" />
+
+        <TextView
+            android:id="@+id/textView245"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="-10dp"
+            android:text="@{call.doctorName,default=`Dr Name`}"
+            android:textColor="@color/text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imageView88"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+
+            android:id="@+id/textView246"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="@{AppUtils.getTimeFormat(call.getCallInitiatedTimestamp,`h:mm a`)}"
+            android:textColor="#CC3F4E6E"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView245" />
+
+        <TextView
+            android:id="@+id/textView247"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:includeFontPadding="false"
+            android:text="@{AppUtils.getTimeFormat(call.getCallInitiatedTimestamp,`EEE, MMM d`)}"
+            android:textColor="#3F4E6E"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/textView245"
+            app:layout_constraintTop_toBottomOf="@+id/textView245" />
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="8dp"
+            android:background="#66707070"
+            app:layout_constraintEnd_toEndOf="@+id/textView246"
+            app:layout_constraintStart_toStartOf="@+id/textView247"
+            app:layout_constraintTop_toBottomOf="@+id/textView247" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

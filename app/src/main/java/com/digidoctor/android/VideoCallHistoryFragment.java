@@ -1,31 +1,36 @@
 package com.digidoctor.android;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager.widget.ViewPager;
+import androidx.paging.PagedList;
 
+import com.digidoctor.android.adapters.CategoryViewHolder;
+import com.digidoctor.android.databinding.CallHistoryViewBinding;
 import com.digidoctor.android.databinding.FragmentVideoCallHistoryBinding;
+import com.digidoctor.android.model.CallModel;
 import com.digidoctor.android.utility.AppUtils;
-import com.digidoctor.android.view.fragments.digiDoctorFragments.CallFragment;
+import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.viewHolder.PatientViewModel;
-import com.google.android.material.tabs.TabLayout;
+import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
+import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.firebase.ui.firestore.paging.LoadingState;
+import com.google.firebase.firestore.Query;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import timber.log.Timber;
 
+import static com.digidoctor.android.utility.AppUtils.hideDialog;
 import static com.digidoctor.android.utility.utils.fadeIn;
 
 public class VideoCallHistoryFragment extends Fragment {
@@ -35,6 +40,7 @@ public class VideoCallHistoryFragment extends Fragment {
     private static final String TAG = "VideoCallHistoryFragmen";
 
     PatientViewModel viewModel;
+    FirestorePagingAdapter adapter;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -49,88 +55,119 @@ public class VideoCallHistoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding.getRoot().setAnimation(fadeIn(requireActivity()));
 
-        viewModel=new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
-        List<String> strings = new ArrayList<>();
-        strings.add("Received");
-        strings.add("Missed");
-        initTabbed(strings);
+        viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
 
 
-        viewModel.getCallLogs();
-
-
-    }
-
-    private void initTabbed(List<String> patientTestDate) {
-        binding.viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout));
-        binding.tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                binding.viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
+        binding.btnAllCall.setOnClickListener(v -> {
+            updateColorState(binding.btnAllCall);
+            getCallData(AppUtils.CALL_ALL);
         });
-        // binding.tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
-        setupViewPager(binding.viewPager, patientTestDate);
-        binding.tabLayout.setupWithViewPager(binding.viewPager);
+        binding.btnMissedCall.setOnClickListener(v -> {
+            updateColorState(binding.btnMissedCall);
+            getCallData(AppUtils.CALL_MISSED);
+        });
     }
 
-    private void setupViewPager(ViewPager viewPager, List<String> patientTestDate) {
+    private void updateColorState(Button btnId) {
 
-        Timber.d("setupViewPager: %s", patientTestDate.toString());
-        ViewPagerAdapter adapter = new ViewPagerAdapter(requireActivity().getSupportFragmentManager());
-        for (int i = 0; i < patientTestDate.size(); i++) {
-            CallFragment fView = new CallFragment();
-            adapter.addFrag(fView, patientTestDate.get(i));
-        }
-        viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(0);
-    }
-
-    public static class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @NotNull
-        @Override
-        public Fragment getItem(int position) {
-            Fragment frag = CallFragment.newInstance();
-            return frag;
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFrag(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        getCallData(AppUtils.CALL_ALL);
+
         AppUtils.showToolbar(requireActivity());
     }
+
+    private void getCallData(String callType) {
+        AppUtils.showRequestDialog(requireActivity());
+        Query query;
+
+        if (callType.equalsIgnoreCase(AppUtils.CALL_MISSED)) {
+            query = AppUtils.getFirestoreReference().collection(AppUtils.VIDEO_CALLS_DEMO)
+                    .whereEqualTo(AppUtils.UID, "" + utils.getUserForBooking(requireActivity()).getId())
+                    .whereEqualTo(AppUtils.CALL_STATUS, AppUtils.CALL_MISSED)
+                    .orderBy(AppUtils.callInitiatedTimestamp, Query.Direction.DESCENDING);
+
+        } else {
+            query = AppUtils.getFirestoreReference().collection(AppUtils.VIDEO_CALLS_DEMO)
+                    .whereEqualTo(AppUtils.UID, "" + utils.getUserForBooking(requireActivity()).getId())
+                    .orderBy(AppUtils.callInitiatedTimestamp, Query.Direction.DESCENDING);
+        }
+
+        query.get().addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e.getLocalizedMessage()));
+
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setInitialLoadSizeHint(10)
+                .setPageSize(5)
+                .build();
+
+        FirestorePagingOptions<CallModel> options1 = new FirestorePagingOptions.Builder<CallModel>()
+                .setLifecycleOwner(this)
+                .setQuery(query, config, CallModel.class).build();
+
+        adapter = new FirestorePagingAdapter<CallModel, CategoryViewHolder>(options1) {
+            @NonNull
+            @Override
+            public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+                CallHistoryViewBinding binding = CallHistoryViewBinding.inflate(inflater, parent, false);
+                return new CategoryViewHolder(binding);
+            }
+
+
+            @Override
+            protected void onBindViewHolder(@NonNull CategoryViewHolder holder, int position, @NonNull final CallModel model) {
+                holder.binding.setCall(model);
+                int color = getResources().getColor(R.color.text_color);
+                if (model.getCallStatus().equalsIgnoreCase(AppUtils.CALL_MISSED)) {
+                    holder.binding.textView245.setTextColor(getResources().getColor(R.color.red));
+                } else holder.binding.textView245.setTextColor(color);
+            }
+
+
+            @Override
+            protected void onError(@NonNull Exception e) {
+                super.onError(e);
+                hideDialog();
+                Timber.d("onError: %s", e.getLocalizedMessage());
+            }
+
+            @Override
+            protected void onLoadingStateChanged(@NonNull LoadingState state) {
+                super.onLoadingStateChanged(state);
+                switch (state) {
+                    case ERROR: {
+                        hideDialog();
+                        Timber.d("onLoadingStateChanged: error ");
+                        Toast.makeText(requireActivity(), "failed to get Data !!", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                    case FINISHED: {
+                        hideDialog();
+                        Timber.d("onLoadingStateChanged: FINISHED");
+                    }
+                    break;
+                    case LOADED: {
+                        hideDialog();
+                        Timber.d("onLoadingStateChanged: LOADED %s", getItemCount());
+                    }
+                    case LOADING_MORE: {
+                        Timber.d("onLoadingStateChanged: LOADING_MORE");
+                    }
+                    case LOADING_INITIAL: {
+                        hideDialog();
+                        Timber.d("onLoadingStateChanged: LOADING_INITIAL");
+
+                    }
+                    break;
+                }
+            }
+        };
+
+        binding.recCallHistory.setHasFixedSize(true);
+        binding.recCallHistory.setAdapter(adapter);
+    }
+
 }

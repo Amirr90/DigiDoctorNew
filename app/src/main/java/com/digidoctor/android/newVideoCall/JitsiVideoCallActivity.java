@@ -3,6 +3,7 @@ package com.digidoctor.android.newVideoCall;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.digidoctor.android.utility.AppUtils;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -16,8 +17,10 @@ import org.jitsi.meet.sdk.JitsiMeetViewListener;
 
 import java.util.Map;
 
+
 public class JitsiVideoCallActivity extends JitsiMeetActivity implements JitsiMeetActivityInterface, JitsiMeetViewListener {
 
+    private static final String TAG = "JitsiVideoCallActivity";
 
     String roomCode;
 
@@ -31,14 +34,17 @@ public class JitsiVideoCallActivity extends JitsiMeetActivity implements JitsiMe
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_video_call_jitsi);
 
+
         roomCode = getIntent().getStringExtra(AppUtils.ROOM_CODE);
 
-        listenForReaTimeCallStatus();
         joinMeeting(roomCode);
+        listenForReaTimeCallStatus();
+
     }
 
 
     private void listenForReaTimeCallStatus() {
+
         firebaseFirestore.collection(AppUtils.VIDEO_CALLS_DEMO)
                 .document(roomCode)
                 .addSnapshotListener(this, (value, error) -> {
@@ -60,6 +66,7 @@ public class JitsiVideoCallActivity extends JitsiMeetActivity implements JitsiMe
 
 
     private void joinMeeting(String roomCode) {
+        Log.d(TAG, "joinMeeting: ");
         view = new JitsiMeetView(this);
         JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
                 .setRoom(JIT_SI_SERVER_URL + roomCode)
@@ -99,11 +106,12 @@ public class JitsiVideoCallActivity extends JitsiMeetActivity implements JitsiMe
     @Override
     public void onConferenceTerminated(Map<String, Object> data) {
         super.onConferenceTerminated(data);
-        closeMeetingToDatabase(AppUtils.CALL_DISCONNECTED, roomCode);
+        closeMeetingToDatabase(roomCode);
     }
 
-    private void closeMeetingToDatabase(String callDisconnected, String roomCode) {
+    private void closeMeetingToDatabase(String roomCode) {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection(AppUtils.VIDEO_CALLS_DEMO).document(roomCode).update(AppUtils.CALL_STATUS, AppUtils.CALL_DISCONNECTED);
     }
+
 }

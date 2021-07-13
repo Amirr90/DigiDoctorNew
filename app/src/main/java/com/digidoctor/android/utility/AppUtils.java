@@ -78,6 +78,9 @@ public class AppUtils {
     public static final String ROOM_CODE = "roomCode";
     public static final String CALL_RINGING = "Ringing";
     public static final String DOCTOR_NAME = "doctorName";
+    public static final String NOTIFICATION_TYPE_VIDEO_CALL = "1";
+    public static final String UID = "uid";
+    public static final String CALL_ALL = "All";
     private static final String TAG = "AppUtils";
     private static final String USERS = "Users";
     public static Toast mToast;
@@ -85,6 +88,7 @@ public class AppUtils {
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
+    public static String callInitiatedTimestamp = "callInitiatedTimestamp";
     static ProgressDialog progressDialog;
 
     public static final int PAY_MODE_PAY_ON_VISIT = 4;
@@ -622,6 +626,10 @@ public class AppUtils {
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .set(map);
 
+    }
+
+    public static FirebaseFirestore getFirestoreReference() {
+        return FirebaseFirestore.getInstance();
     }
 
     public void downloadPdf(FragmentActivity fragmentActivity) {

@@ -25,6 +25,7 @@ import com.digidoctor.android.jitsiVideoCall.VideoCallActivity;
 import com.digidoctor.android.view.activity.PatientDashboard;
 
 public class NotificationVideoCall {
+
     private static final String TAG = "NotificationVideoCall";
     private static final String CHANNEL_ID = "001100";
     public static final String ACCEPT = "Accept";
@@ -45,7 +46,7 @@ public class NotificationVideoCall {
     String profilePhotoPath;
     static String roomName;
 
-    static MediaPlayer player;
+    public static MediaPlayer player;
 
 
     public NotificationVideoCall(String msg, String title, String doctorName, String profilePhotoPath, String roomName) {
@@ -151,8 +152,8 @@ public class NotificationVideoCall {
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                 .setLights(Color.RED, 3000, 3000)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        getManager(activity).notify(NotificationVideoCall.NOTIFICATION_MESSED_CALL, builder.build());
-        AppUtils.updateTodatabase(AppUtils.CALL_MISSED, roomName);
+        getManager(activity).notify(NOTIFICATION_MESSED_CALL, builder.build());
+
 
     }
 
@@ -183,24 +184,23 @@ public class NotificationVideoCall {
 
     public static void playNotificationSound() {
         try {
-           /* Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-            r = RingtoneManager.getRingtone(App.context, notificationSoundUri);
-            r.play();*/
-
-
             Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             player = MediaPlayer.create(App.context, notification);
             player.setLooping(true);
             player.start();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public static void startNotificationSound() {
+        player.start();
+    }
+
     public static void stopSound() {
         if (null != player) {
             player.stop();
+            player = null;
         }
     }
 
