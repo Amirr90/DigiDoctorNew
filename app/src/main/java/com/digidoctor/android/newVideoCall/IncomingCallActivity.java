@@ -1,9 +1,6 @@
 package com.digidoctor.android.newVideoCall;
 
 import android.content.Intent;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,14 +20,21 @@ import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
 
+import static com.digidoctor.android.newVideoCall.LocalNotification.cancelCallRingingNotification;
+import static com.digidoctor.android.utility.NotificationVideoCall.playNotificationSound;
+import static com.digidoctor.android.utility.NotificationVideoCall.player;
+import static com.digidoctor.android.utility.NotificationVideoCall.stopSound;
+
+
 public class IncomingCallActivity extends AppCompatActivity {
 
     private static final String TAG = "IncomingCallActivity";
-    Ringtone r;
 
     ActivityIncomingCallBinding binding;
     String callId, icon, doctorName;
     FirebaseFirestore firebaseFirestore;
+    String callStatus = AppUtils.CALL_RINGING;
+    LocalNotification localNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +46,15 @@ public class IncomingCallActivity extends AppCompatActivity {
         icon = getIntent().getStringExtra(AppUtils.ICON);
         doctorName = getIntent().getStringExtra(AppUtils.DOCTOR_NAME);
 
+
+        localNotification = new LocalNotification(this, callId, doctorName, icon);
+
         firebaseFirestore = FirebaseFirestore.getInstance();
-        binding.btnAcptCall.setOnClickListener(v -> acceptIncomingCall());
-        binding.btnRejectCall.setOnClickListener(v -> rejectIncomingCall());
+        binding.ivAcceptCall.setOnClickListener(v -> {
+            callStatus = AppUtils.CALL_ACCEPT;
+            acceptIncomingCall();
+        });
+        binding.ivDeclineCall.setOnClickListener(v -> rejectIncomingCall());
 
         binding.setIcon(icon);
         binding.setDrName(doctorName);
@@ -56,12 +66,13 @@ public class IncomingCallActivity extends AppCompatActivity {
     private void listenForReaTimeCallStatus() {
         firebaseFirestore.collection(AppUtils.VIDEO_CALLS_DEMO)
                 .document(callId)
-                .addSnapshotListener(this,(value, error) -> {
+                .addSnapshotListener( (value, error) -> {
                     if (null == error && null != value) {
                         String callStatus = value.getString(AppUtils.CALL_STATUS);
+                        this.callStatus = callStatus;
                         if (null != callStatus && !TextUtils.isEmpty(callStatus)) {
-                            if (callStatus.equalsIgnoreCase(AppUtils.CALL_DISCONNECTED)) {
-                                Toasty.error(App.context, "Call Rejected !!", Toast.LENGTH_SHORT).show();
+                            if (callStatus.equalsIgnoreCase(AppUtils.CALL_DISCONNECTED) || callStatus.equalsIgnoreCase(AppUtils.CALL_MISSED)) {
+                                Toasty.error(App.context, "Call  " + callStatus + " !!", Toast.LENGTH_SHORT).show();
                                 stopSound();
                                 finish();
                             }
@@ -71,6 +82,7 @@ public class IncomingCallActivity extends AppCompatActivity {
     }
 
     private void rejectIncomingCall() {
+        cancelCallRingingNotification(this);
         binding.getRoot().setAnimation(AppUtils.slideDown(this));
         Toasty.error(App.context, "Call Rejected !!", Toast.LENGTH_SHORT).show();
         updateCallStatus(AppUtils.CALL_REJECT);
@@ -79,7 +91,6 @@ public class IncomingCallActivity extends AppCompatActivity {
     }
 
     private void updateCallStatus(String status) {
-        Log.d(TAG, "updateCallStatus: "+callId);
         Map<String, Object> map = new HashMap<>();
         map.put(AppUtils.CALL_STATUS, status);
         if (status.equalsIgnoreCase(AppUtils.CALL_REJECT))
@@ -88,6 +99,7 @@ public class IncomingCallActivity extends AppCompatActivity {
                 .document(callId)
                 .update(map)
                 .addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e.getLocalizedMessage()));
+
     }
 
 
@@ -105,7 +117,12 @@ public class IncomingCallActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        playNotificationSound();
+        if (null == player)
+            playNotificationSound();
+        else if (player.isPlaying()) {
+            player.stop();
+            playNotificationSound();
+        }
         updateCallStatus(AppUtils.CALL_RINGING);
 
     }
@@ -113,21 +130,13 @@ public class IncomingCallActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        stopSound();
+        //stopSound();
+        if (callStatus.equalsIgnoreCase(AppUtils.CALL_RINGING)) {
+            LocalNotification.showCallRingingNotification("Incoming Video Call", doctorName, this);
+        } else if (callStatus.equalsIgnoreCase(AppUtils.CALL_MISSED))
+            LocalNotification.showMissedCallNotification(this);
+        finish();
     }
 
-    private void stopSound() {
-        if (null != r)
-            r.stop();
-    }
 
-    public void playNotificationSound() {
-        try {
-            Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-            r = RingtoneManager.getRingtone(this, notificationSoundUri);
-            r.play();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

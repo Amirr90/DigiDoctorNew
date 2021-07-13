@@ -823,7 +823,7 @@ public class PatientRepo {
 
     public LiveData<List<DocumentSnapshot>> getCallLogs() {
         if (null == mutableCallLogs)
-            mutableWalletData = new MutableLiveData<>();
+            mutableCallLogs = new MutableLiveData<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         User user = utils.getUserForBooking(App.context);
         db.collection(AppUtils.VIDEO_CALLS).whereEqualTo("uid", "" + user.getId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
