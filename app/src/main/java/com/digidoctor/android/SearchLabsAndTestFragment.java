@@ -22,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.digidoctor.android.databinding.FragmentSearchLabsAndTestBinding;
 import com.digidoctor.android.databinding.SearchLabViewBinding;
 import com.digidoctor.android.model.labmodel.SearchRes;
