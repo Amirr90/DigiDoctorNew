@@ -8,6 +8,19 @@
     tools:context=".view.fragments.lab.FragmentCartListLab">
 
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupLoadingLay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="textView251,progressBar11" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/mainCartViewGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="textView187,recCart,btnContinueToLab" />
+
     <TextView
         android:id="@+id/textView187"
         android:layout_width="wrap_content"
@@ -54,4 +67,27 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView251"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Loading cart items\nPlease wait"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar11"
+        app:layout_constraintStart_toStartOf="@+id/progressBar11"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar11" />
+
+    <ProgressBar
+        android:id="@+id/progressBar11"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/textView251"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 </androidx.constraintlayout.widget.ConstraintLayout>

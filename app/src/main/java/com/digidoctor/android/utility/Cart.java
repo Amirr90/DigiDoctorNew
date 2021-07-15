@@ -1,7 +1,8 @@
 package com.digidoctor.android.utility;
 
 import android.app.Activity;
-import android.util.Log;
+import android.app.ProgressDialog;
+import android.widget.Toast;
 
 import com.digidoctor.android.interfaces.CartInterface;
 import com.digidoctor.android.model.labmodel.CartModel;
@@ -12,9 +13,11 @@ public class Cart {
     Activity activity;
     CartInterface cartInterface;
 
+
     public Cart(Activity activity, CartInterface cartInterface) {
         this.activity = activity;
         this.cartInterface = cartInterface;
+
     }
 
 
@@ -23,22 +26,25 @@ public class Cart {
         cartModel.setMemberId(utils.getPrimaryUser(activity).getMemberId());
         cartModel.setTestId(testId);
         cartModel.setPackageId(packageId);
-        Log.d(TAG, "addItemToCart: " + cartModel);
+
 
         if (null == utils.getPrimaryUser(activity).getMemberId())
             cartModel.setUniqueNo(utils.getPrimaryUser(activity).getUniqueNo());
 
-        AppUtils.showRequestDialog(activity);
-        ApiUtils.addItemToCart(cartModel, cartInterface);
+        if (utils.isNetworkConnected(App.context)) {
+            AppUtils.showRequestDialog(activity);
+            ApiUtils.addItemToCart(cartModel, cartInterface);
+        } else Toast.makeText(activity, "No internet connection", Toast.LENGTH_SHORT).show();
+
     }
 
     public void deleteItemFromCart(String cartId) {
+
         CartModel cartModel = new CartModel();
         cartModel.setCartId(cartId);
-        ApiUtils.deleteFromCart(cartModel, cartInterface);
-    }
-
-    public void deleteAllItemFromCart() {
+        if (utils.isNetworkConnected(App.context)) {
+            ApiUtils.deleteFromCart(cartModel, cartInterface);
+        } else Toast.makeText(activity, "No internet connection", Toast.LENGTH_SHORT).show();
     }
 
     public void getCart() {

@@ -137,11 +137,11 @@
                     <ImageView
                         android:id="@+id/dashboardHomeImage"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_125sdp"
+                        android:layout_height="@dimen/_160sdp"
                         android:layout_below="@+id/profile_image"
                         android:layout_marginTop="8dp"
                         android:contentDescription="TODO"
-                        android:scaleType="fitStart"
+                        android:scaleType="fitXY"
                         android:src="@drawable/banner_new"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"

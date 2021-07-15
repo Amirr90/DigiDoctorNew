@@ -45,10 +45,10 @@
                             android:id="@+id/imageView20"
                             android:layout_width="54dp"
                             android:layout_height="54dp"
+                            android:contentDescription="TODO"
                             android:loadCustomDoctorImage="@{docMo.profilePhotoPath}"
                             android:padding="2dp"
-                            app:srcCompat="@drawable/doc_image"
-                            android:contentDescription="TODO" />
+                            app:srcCompat="@drawable/doc_image" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -93,8 +93,8 @@
                                 android:layout_width="12dp"
                                 android:layout_height="15dp"
                                 android:layout_marginTop="4dp"
-                                app:srcCompat="@drawable/location_pin"
-                                android:contentDescription="TODO" />
+                                android:contentDescription="TODO"
+                                app:srcCompat="@drawable/location_pin" />
 
                             <TextView
                                 android:id="@+id/textView94"
@@ -152,8 +152,8 @@
                                     android:layout_width="32dp"
                                     android:layout_height="20dp"
                                     android:layout_centerInParent="true"
-                                    android:src="@drawable/user"
-                                    android:contentDescription="TODO" />
+                                    android:contentDescription="TODO"
+                                    android:src="@drawable/user" />
                             </RelativeLayout>
 
                             <TextView
@@ -189,8 +189,8 @@
                                     android:layout_width="25dp"
                                     android:layout_height="25dp"
                                     android:layout_centerInParent="true"
-                                    android:src="@drawable/experience_big"
-                                    android:contentDescription="TODO" />
+                                    android:contentDescription="TODO"
+                                    android:src="@drawable/experience_big" />
                             </RelativeLayout>
 
                             <TextView

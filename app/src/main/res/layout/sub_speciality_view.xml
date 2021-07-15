@@ -120,11 +120,10 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:layout_marginTop="-8dp"
+                        android:layout_marginTop="3dp"
                         android:id="@+id/imageView29"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_centerVertical="true"
                         app:srcCompat="@drawable/group"
                         android:contentDescription="TODO"
                         app:tint="@color/colorPrimary" />
@@ -140,7 +139,7 @@
                         android:fontFamily="@font/poppins"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="@{String.valueOf(doctor.noofPatients)+` Patients`}"
+                        android:text="@{String.valueOf(doctor.noofPatients)+` Patients`,default=`1 Patient`}"
                         android:textColor="#3F4E6E"
                         android:textSize="14sp" />
                 </RelativeLayout>
@@ -151,11 +150,10 @@
 
                     <ImageView
                         app:tint="@color/colorPrimary"
-                        android:layout_marginTop="-5dp"
+                        android:layout_marginTop="3dp"
                         android:id="@+id/ivGraduated"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_centerVertical="true"
                         app:srcCompat="@drawable/graduated"
                         android:contentDescription="TODO" />
 
@@ -180,11 +178,10 @@
 
                     <ImageView
                         app:tint="@color/colorPrimary"
-                        android:layout_marginTop="-5dp"
+                        android:layout_marginTop="3dp"
                         android:id="@+id/ivLocationPin"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_centerVertical="true"
                         app:srcCompat="@drawable/location_pin"
                         android:contentDescription="TODO" />
 
@@ -200,7 +197,7 @@
                         android:paddingBottom="5dp"
                         android:text="@{doctor.address}"
                         android:textColor="#3F4E6E"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
                 </RelativeLayout>
 
 
@@ -234,12 +231,13 @@
                     <ImageView
                         android:id="@+id/imageView30"
                         android:layout_width="9dp"
-                        android:layout_height="0dp"
+                        android:layout_height="28dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="8dp"
                         android:contentDescription="TODO"
-                        app:layout_constraintStart_toEndOf="@+id/textView83"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:scaleType="centerInside"
+                        app:layout_constraintEnd_toStartOf="@+id/textView82"
+                        app:layout_constraintTop_toTopOf="@+id/textView82"
                         app:srcCompat="@drawable/rupee_indian" />
 
                     <TextView
@@ -247,15 +245,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
                         android:fontFamily="@font/poppins_bold"
                         android:text="@{String.valueOf(doctor.drFee)}"
                         android:textColor="#262E3F"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/imageView30"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -295,6 +292,7 @@
                         android:layout_marginBottom="2dp"
                         android:layout_weight="1"
                         android:background="@{doctor.workingHours==null?@drawable/disable_btn:@drawable/round_for_search_doc}"
+                        android:backgroundTint="@color/YellowColo"
                         android:enabled="@{doctor.workingHours==null?false:true}"
                         android:fontFamily="@font/poppins_semibold"
                         android:paddingLeft="@dimen/_10sdp"

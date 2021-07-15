@@ -231,8 +231,8 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
 
     @Override
     public void cartItem(Object obj) {
-        List<CartModel> cartModels = (List<CartModel>) obj;
-        updateCartBadge(cartModels.size());
+    /*    List<CartModel> cartModels = (List<CartModel>) obj;
+        updateCartBadge(cartModels.size());*/
         navController.navigate(R.id.action_lab_Home_Fragment_to_fragmentCartListLab);
     }
 
