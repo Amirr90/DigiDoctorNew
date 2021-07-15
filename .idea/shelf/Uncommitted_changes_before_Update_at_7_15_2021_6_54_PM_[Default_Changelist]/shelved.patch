@@ -1,0 +1,1363 @@
+Index: app/src/main/res/layout/healthpackagelayout.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<layout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <data>\r\n\r\n        <import type=\"com.digidoctor.android.utility.utils\" />\r\n\r\n        <variable\r\n            name=\"packageModel\"\r\n            type=\"com.digidoctor.android.model.PackageModel\" />\r\n    </data>\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_margin=\"@dimen/_10sdp\">\r\n\r\n        <!--\r\n                <androidx.cardview.widget.CardView\r\n                    android:id=\"@+id/healthpackage\"\r\n                    android:layout_width=\"228dp\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_margin=\"2dp\"\r\n                    android:layout_marginBottom=\"10dp\"\r\n                    android:padding=\"8dp\"\r\n                    app:cardCornerRadius=\"@dimen/_10sdp\"\r\n                    app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                    app:layout_constraintStart_toStartOf=\"parent\"\r\n                    app:layout_constraintTop_toTopOf=\"parent\">-->\r\n\r\n\r\n        <androidx.constraintlayout.widget.ConstraintLayout\r\n            android:id=\"@+id/constraintLayout\"\r\n            android:layout_width=\"228dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:background=\"@drawable/cartview_round_layout\"\r\n            android:backgroundTint=\"#F2F6FE\"\r\n            android:padding=\"@dimen/_10sdp\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\">\r\n\r\n            <ImageView\r\n                android:id=\"@+id/imageView53\"\r\n                android:layout_width=\"40dp\"\r\n                android:layout_height=\"40dp\"\r\n                android:contentDescription=\"TODO\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toTopOf=\"parent\"\r\n                app:srcCompat=\"@drawable/helathpackage\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/textView146\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginTop=\"8dp\"\r\n                android:fontFamily=\"@font/poppins_semibold\"\r\n                android:maxLines=\"2\"\r\n                android:text=\"@{packageModel.packageName}\"\r\n                android:textColor=\"#2B3344\"\r\n                android:textStyle=\"bold\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"@+id/imageView53\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/imageView53\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/textView147\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:maxLines=\"2\"\r\n                android:text=\"@{packageModel.pathologyName}\"\r\n                android:textColor=\"#3F4E6E\"\r\n                android:textSize=\"@dimen/_11sdp\"\r\n                android:visibility=\"visible\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintHorizontal_bias=\"0.0\"\r\n                app:layout_constraintStart_toStartOf=\"@+id/textView146\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/textView146\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/tvTestCount\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:fontFamily=\"@font/poppins_semibold\"\r\n                android:text=\"Includes 2 tests\"\r\n                android:textColor=\"#EDA537\"\r\n                android:textSize=\"@dimen/_11sdp\"\r\n                android:textStyle=\"bold\"\r\n                app:layout_constraintStart_toStartOf=\"@+id/textView147\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/textView147\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/textView150\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"0dp\"\r\n                android:layout_marginStart=\"10dp\"\r\n                android:text=\"@{packageModel.discountPerc +`% Off` }\"\r\n                android:textColor=\"#7DCE64\"\r\n                android:textSize=\"@dimen/_13sdp\"\r\n                app:layout_constraintBottom_toBottomOf=\"@+id/textView149\"\r\n                app:layout_constraintStart_toEndOf=\"@+id/textView149\"\r\n                app:layout_constraintTop_toTopOf=\"@+id/textView149\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/textView149\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"15dp\"\r\n                android:layout_marginTop=\"8dp\"\r\n                android:background=\"@drawable/strikethrough\"\r\n                android:gravity=\"top\"\r\n                android:text=\"@{packageModel.packagePrice}\"\r\n                android:textAlignment=\"gravity\"\r\n                android:textSize=\"@dimen/_13sdp\"\r\n                android:visibility=\"visible\"\r\n                app:layout_constraintStart_toStartOf=\"@+id/tvTestCount\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/tvTestCount\" />\r\n\r\n            <TextView\r\n                android:textSize=\"18sp\"\r\n                android:id=\"@+id/textView151\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginEnd=\"4dp\"\r\n                android:drawablePadding=\"5dp\"\r\n                android:fontFamily=\"@font/poppins_semibold\"\r\n                android:text=\"@{packageModel.mrp}\"\r\n                android:textColor=\"#2B3344\"\r\n                android:textStyle=\"bold\"\r\n                app:layout_constraintBottom_toBottomOf=\"@+id/btnAddToCart\"\r\n                app:layout_constraintEnd_toStartOf=\"@+id/btnAddToCart\"\r\n                app:layout_constraintStart_toStartOf=\"@+id/textView149\"\r\n                app:layout_constraintTop_toTopOf=\"@+id/btnAddToCart\"\r\n                tools:ignore=\"UseCompatTextViewDrawableXml\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/btnAddToCart\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"0dp\"\r\n                android:layout_marginTop=\"8dp\"\r\n                android:layout_marginEnd=\"2dp\"\r\n                android:background=\"@drawable/button\"\r\n                android:drawablePadding=\"@dimen/_10sdp\"\r\n                android:gravity=\"center\"\r\n                android:paddingHorizontal=\"@dimen/_10sdp\"\r\n                android:paddingVertical=\"@dimen/_5sdp\"\r\n                android:text=\"@{packageModel.cartStatus.equals(`0`)?utils.ADD_TO_CART:utils.GO_TO_CART,default=`Go to cart`}\"\r\n                android:textAlignment=\"center\"\r\n                android:textAllCaps=\"false\"\r\n                android:textColor=\"@color/white\"\r\n                android:textSize=\"13sp\"\r\n                app:drawableEndCompat=\"@drawable/ic_baseline_shopping_cart_24\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/textView150\" />\r\n        </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n\r\n        <!--        </androidx.cardview.widget.CardView>-->\r\n\r\n\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n</layout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/healthpackagelayout.xml	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/res/layout/healthpackagelayout.xml	(date 1626355034191)
+@@ -15,28 +15,13 @@
+     <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:layout_margin="@dimen/_10sdp">
+-
+-        <!--
+-                <androidx.cardview.widget.CardView
+-                    android:id="@+id/healthpackage"
+-                    android:layout_width="228dp"
+-                    android:layout_height="wrap_content"
+-                    android:layout_margin="2dp"
+-                    android:layout_marginBottom="10dp"
+-                    android:padding="8dp"
+-                    app:cardCornerRadius="@dimen/_10sdp"
+-                    app:layout_constraintBottom_toBottomOf="parent"
+-                    app:layout_constraintStart_toStartOf="parent"
+-                    app:layout_constraintTop_toTopOf="parent">-->
+-
+-
++        android:layout_marginEnd="@dimen/_20sdp"
++        >
+         <androidx.constraintlayout.widget.ConstraintLayout
+             android:id="@+id/constraintLayout"
+             android:layout_width="228dp"
+             android:layout_height="wrap_content"
+             android:background="@drawable/cartview_round_layout"
+-            android:backgroundTint="#F2F6FE"
+             android:padding="@dimen/_10sdp"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+@@ -118,15 +103,15 @@
+                 app:layout_constraintTop_toBottomOf="@+id/tvTestCount" />
+ 
+             <TextView
+-                android:textSize="18sp"
+                 android:id="@+id/textView151"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginEnd="4dp"
+                 android:drawablePadding="5dp"
+                 android:fontFamily="@font/poppins_semibold"
+-                android:text="@{packageModel.mrp}"
++                android:text="@{`₹`+packageModel.mrp}"
+                 android:textColor="#2B3344"
++                android:textSize="18sp"
+                 android:textStyle="bold"
+                 app:layout_constraintBottom_toBottomOf="@+id/btnAddToCart"
+                 app:layout_constraintEnd_toStartOf="@+id/btnAddToCart"
+@@ -150,7 +135,6 @@
+                 android:textAllCaps="false"
+                 android:textColor="@color/white"
+                 android:textSize="13sp"
+-                app:drawableEndCompat="@drawable/ic_baseline_shopping_cart_24"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintTop_toBottomOf="@+id/textView150" />
+         </androidx.constraintlayout.widget.ConstraintLayout>
+Index: app/src/main/res/layout/lab_test_home.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<layout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <data>\r\n\r\n    </data>\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:id=\"@+id/rootconstraint\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:background=\"@color/white\"\r\n        tools:context=\".view.fragments.lab.Lab_Home_Fragment\">\r\n\r\n\r\n        <androidx.constraintlayout.widget.Group\r\n            android:id=\"@+id/loadingView\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_margin=\"@dimen/_10sdp\"\r\n            android:visibility=\"visible\"\r\n            app:constraint_referenced_ids=\"textView250,progressBar10\"\r\n            tools:layout_editor_absoluteX=\"230dp\"\r\n            tools:layout_editor_absoluteY=\"102dp\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/textView250\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"16dp\"\r\n            android:text=\"Loading....\"\r\n            app:layout_constraintEnd_toEndOf=\"@+id/progressBar10\"\r\n            app:layout_constraintStart_toStartOf=\"@+id/progressBar10\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/progressBar10\" />\r\n\r\n        <ProgressBar\r\n            android:id=\"@+id/progressBar10\"\r\n            style=\"?android:attr/progressBarStyle\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:progressTint=\"@color/colorPrimary\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n        <ScrollView\r\n            android:id=\"@+id/contentconstrainet\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            android:visibility=\"visible\">\r\n\r\n\r\n            <androidx.constraintlayout.widget.ConstraintLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n\r\n                <androidx.constraintlayout.widget.ConstraintLayout\r\n                    android:id=\"@+id/searchbarlayout\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:background=\"@drawable/bottom_round\"\r\n                    android:orientation=\"vertical\"\r\n                    android:paddingStart=\"10dp\"\r\n                    android:paddingTop=\"20sp\"\r\n                    android:paddingEnd=\"@dimen/_10sdp\"\r\n                    android:paddingBottom=\"20sp\"\r\n                    app:layout_constraintEnd_toEndOf=\"parent\"\r\n                    app:layout_constraintStart_toStartOf=\"parent\"\r\n                    app:layout_constraintTop_toTopOf=\"parent\">\r\n\r\n                    <ImageView\r\n                        android:id=\"@+id/ivBack\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginStart=\"12dp\"\r\n                        android:background=\"?attr/selectableItemBackgroundBorderless\"\r\n                        android:clickable=\"true\"\r\n                        android:focusable=\"true\"\r\n                        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                        app:layout_constraintStart_toStartOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\"\r\n                        app:srcCompat=\"@drawable/ic_baseline_arrow_back_24\" />\r\n\r\n                    <ImageView\r\n                        android:id=\"@+id/ivSearchLabIcon\"\r\n                        android:layout_width=\"20dp\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginEnd=\"16dp\"\r\n                        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                        app:layout_constraintEnd_toStartOf=\"@+id/ivLabCart\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\"\r\n                        app:srcCompat=\"@drawable/ic_search\" />\r\n\r\n                    <ImageView\r\n                        android:id=\"@+id/ivLabCart\"\r\n                        android:layout_width=\"20dp\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginEnd=\"8dp\"\r\n                        android:layout_toEndOf=\"@+id/editTextTextSearchSpeciality\"\r\n                        android:background=\"?attr/selectableItemBackgroundBorderless\"\r\n                        android:clickable=\"true\"\r\n                        android:focusable=\"true\"\r\n                        app:layout_constraintBottom_toBottomOf=\"@+id/textView193\"\r\n                        app:layout_constraintEnd_toEndOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"@+id/textView193\"\r\n                        app:srcCompat=\"@drawable/ic_baseline_shopping_cart_24\"\r\n                        app:tint=\"@color/white\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/editTextTextSearchSpeciality\"\r\n                        android:layout_width=\"0dp\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginStart=\"16dp\"\r\n                        android:layout_marginEnd=\"16dp\"\r\n                        android:background=\"@drawable/round_for_search\"\r\n                        android:backgroundTint=\"@android:color/white\"\r\n                        android:drawableEnd=\"@drawable/magnifier\"\r\n                        android:drawablePadding=\"10dp\"\r\n                        android:ems=\"10\"\r\n                        android:paddingLeft=\"20dp\"\r\n                        android:paddingTop=\"10dp\"\r\n                        android:paddingRight=\"20dp\"\r\n                        android:paddingBottom=\"10dp\"\r\n                        android:singleLine=\"true\"\r\n                        android:text=\"@string/search_lab\"\r\n                        android:textColorHint=\"#A2B3B8\"\r\n                        android:textSize=\"14sp\"\r\n                        android:visibility=\"gone\"\r\n                        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                        app:layout_constraintEnd_toStartOf=\"@+id/ivLabCart\"\r\n                        app:layout_constraintStart_toStartOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/textView193\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginStart=\"8dp\"\r\n                        android:fontFamily=\"@font/poppins_medium\"\r\n                        android:text=\"Lab Dashboard\"\r\n                        android:textColor=\"@android:color/white\"\r\n                        android:textSize=\"18sp\"\r\n                        app:layout_constraintBottom_toBottomOf=\"@+id/ivBack\"\r\n                        app:layout_constraintStart_toEndOf=\"@+id/ivBack\"\r\n                        app:layout_constraintTop_toTopOf=\"@+id/ivBack\"\r\n                        app:layout_constraintVertical_bias=\"0.6\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/textView245\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginStart=\"15dp\"\r\n                        android:layout_marginBottom=\"15dp\"\r\n                        android:text=\"1\"\r\n                        android:textColor=\"@color/black\"\r\n                        android:textSize=\"@dimen/_20sdp\"\r\n                        android:textStyle=\"bold\"\r\n                        android:visibility=\"gone\"\r\n                        app:layout_constraintBottom_toBottomOf=\"@+id/ivLabCart\"\r\n                        app:layout_constraintEnd_toEndOf=\"@+id/ivLabCart\"\r\n                        app:layout_constraintStart_toStartOf=\"@+id/ivLabCart\"\r\n                        app:layout_constraintTop_toTopOf=\"@+id/ivLabCart\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/tvCartBadge\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:background=\"@drawable/badge_color\"\r\n                        android:paddingHorizontal=\"5dp\"\r\n                        android:text=\"9\"\r\n                        android:textColor=\"@color/white\"\r\n                        android:textSize=\"10sp\"\r\n                        app:layout_constraintBottom_toTopOf=\"@+id/ivLabCart\"\r\n                        app:layout_constraintEnd_toEndOf=\"@+id/ivLabCart\"\r\n                        app:layout_constraintStart_toStartOf=\"@+id/ivLabCart\"\r\n                        app:layout_constraintTop_toTopOf=\"@+id/ivLabCart\" />\r\n\r\n                </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n\r\n                <androidx.recyclerview.widget.RecyclerView\r\n                    android:id=\"@+id/recBannerSlider\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"140dp\"\r\n                    android:layout_marginStart=\"8dp\"\r\n                    android:layout_marginTop=\"10dp\"\r\n                    android:layout_marginEnd=\"8dp\"\r\n                    android:orientation=\"horizontal\"\r\n                    app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n                    app:layout_constraintEnd_toEndOf=\"parent\"\r\n                    app:layout_constraintHorizontal_bias=\"0.0\"\r\n                    app:layout_constraintStart_toStartOf=\"parent\"\r\n                    app:layout_constraintTop_toBottomOf=\"@+id/searchbarlayout\"\r\n                    tools:listitem=\"@layout/bannerview\" />\r\n\r\n                <androidx.recyclerview.widget.RecyclerView\r\n                    android:id=\"@+id/recyclerView9\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    app:layoutManager=\"androidx.recyclerview.widget.GridLayoutManager\"\r\n                    app:layout_constraintEnd_toEndOf=\"parent\"\r\n                    app:layout_constraintHorizontal_bias=\"0.0\"\r\n                    app:layout_constraintStart_toStartOf=\"parent\"\r\n                    app:layout_constraintTop_toBottomOf=\"@+id/recBannerSlider\"\r\n                    app:spanCount=\"2\"\r\n                    tools:itemCount=\"4\"\r\n                    tools:listitem=\"@layout/lab_home_view2\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/TVaffordable\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginStart=\"5dp\"\r\n                    android:layout_marginTop=\"16dp\"\r\n                    android:fontFamily=\"@font/poppins_semibold\"\r\n                    android:text=\"@string/affordable_health_package\"\r\n                    android:textColor=\"#2B3344\"\r\n                    android:textSize=\"@dimen/_16sdp\"\r\n                    android:textStyle=\"bold\"\r\n                    app:layout_constraintStart_toStartOf=\"@+id/recyclerView9\"\r\n                    app:layout_constraintTop_toBottomOf=\"@+id/recyclerView9\" />\r\n\r\n\r\n                <androidx.recyclerview.widget.RecyclerView\r\n                    android:id=\"@+id/healthPackageRecyclerview\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"10dp\"\r\n                    android:orientation=\"horizontal\"\r\n                    android:paddingStart=\"2dp\"\r\n                    app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n                    app:layout_constraintBottom_toTopOf=\"@+id/checkupcategorieslayout\"\r\n                    app:layout_constraintEnd_toEndOf=\"parent\"\r\n                    app:layout_constraintHorizontal_bias=\"0.0\"\r\n                    app:layout_constraintStart_toStartOf=\"parent\"\r\n                    app:layout_constraintTop_toBottomOf=\"@+id/TVaffordable\"\r\n                    tools:ignore=\"RtlSymmetry\"\r\n                    tools:listitem=\"@layout/healthpackagelayout\" />\r\n\r\n                <androidx.constraintlayout.widget.ConstraintLayout\r\n                    android:id=\"@+id/checkupcategorieslayout\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:background=\"@color/white\"\r\n                    app:layout_constraintEnd_toEndOf=\"parent\"\r\n                    app:layout_constraintStart_toStartOf=\"parent\"\r\n                    app:layout_constraintTop_toBottomOf=\"@+id/healthPackageRecyclerview\">\r\n\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/textView152\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginStart=\"13dp\"\r\n                        android:layout_marginTop=\"17dp\"\r\n                        android:fontFamily=\"@font/poppins_semibold\"\r\n                        android:text=\"Health Checkup Categories\"\r\n                        android:textColor=\"#2B3344\"\r\n                        android:textSize=\"@dimen/_16sdp\"\r\n                        android:textStyle=\"bold\"\r\n                        app:layout_constraintStart_toStartOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/textView153\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginEnd=\"8dp\"\r\n                        android:background=\"?attr/selectableItemBackground\"\r\n                        android:clickable=\"true\"\r\n                        android:drawablePadding=\"@dimen/_5sdp\"\r\n                        android:fontFamily=\"@font/poppins_semibold\"\r\n                        android:padding=\"@dimen/_10sdp\"\r\n                        android:text=\"@string/view_all\"\r\n                        android:textColor=\"#3F4E6E\"\r\n                        app:drawableEndCompat=\"@drawable/ic_baseline_keyboard_arrow_right_16\"\r\n                        app:drawableTint=\"@color/colorPrimary\"\r\n                        app:layout_constraintBottom_toBottomOf=\"@+id/textView152\"\r\n                        app:layout_constraintEnd_toEndOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"@+id/textView152\" />\r\n\r\n\r\n                    <androidx.recyclerview.widget.RecyclerView\r\n                        android:id=\"@+id/recCategory\"\r\n                        android:layout_width=\"0dp\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginTop=\"10dp\"\r\n                        android:layout_marginBottom=\"10dp\"\r\n                        android:background=\"?attr/selectableItemBackgroundBorderless\"\r\n                        android:clickable=\"true\"\r\n                        android:focusable=\"true\"\r\n                        android:orientation=\"horizontal\"\r\n                        android:paddingStart=\"@dimen/_5sdp\"\r\n                        app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n                        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                        app:layout_constraintEnd_toEndOf=\"parent\"\r\n                        app:layout_constraintStart_toStartOf=\"parent\"\r\n                        app:layout_constraintTop_toBottomOf=\"@+id/textView152\"\r\n                        tools:listitem=\"@layout/health_checkup_category_lab_layout\" />\r\n\r\n\r\n                </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n\r\n                <androidx.cardview.widget.CardView\r\n                    android:id=\"@+id/cardView\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginStart=\"13dp\"\r\n                    android:layout_marginTop=\"@dimen/_13sdp\"\r\n                    android:layout_marginEnd=\"15dp\"\r\n                    android:backgroundTint=\"#F24F84\"\r\n                    android:visibility=\"gone\"\r\n                    app:cardCornerRadius=\"@dimen/_10sdp\"\r\n                    app:layout_constraintEnd_toEndOf=\"parent\"\r\n                    app:layout_constraintStart_toStartOf=\"parent\"\r\n                    app:layout_constraintTop_toBottomOf=\"@+id/checkupcategorieslayout\">\r\n\r\n                    <androidx.constraintlayout.widget.ConstraintLayout\r\n                        android:id=\"@+id/bannerCall\"\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"match_parent\"\r\n                        android:visibility=\"visible\">\r\n\r\n                        <TextView\r\n                            android:id=\"@+id/textView155\"\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_marginStart=\"16dp\"\r\n                            android:layout_marginTop=\"16dp\"\r\n                            android:fontFamily=\"@font/poppins_semibold\"\r\n                            android:text=\"Book on call\"\r\n                            android:textColor=\"#FFFFFF\"\r\n                            android:textSize=\"16sp\"\r\n                            android:textStyle=\"bold\"\r\n                            app:layout_constraintStart_toStartOf=\"parent\"\r\n                            app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n                        <TextView\r\n                            android:id=\"@+id/textView156\"\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_marginTop=\"2dp\"\r\n                            android:layout_marginEnd=\"5dp\"\r\n                            android:fontFamily=\"@font/poppins\"\r\n                            android:textColor=\"#FFFFFF\"\r\n                            app:layout_constraintEnd_toEndOf=\"parent\"\r\n                            app:layout_constraintStart_toStartOf=\"@+id/textView155\"\r\n                            app:layout_constraintTop_toBottomOf=\"@+id/textView155\" />\r\n\r\n                        <TextView\r\n                            android:id=\"@+id/button14\"\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_marginTop=\"14dp\"\r\n                            android:layout_marginBottom=\"14dp\"\r\n                            android:background=\"@drawable/button\"\r\n                            android:padding=\"@dimen/_10sdp\"\r\n                            android:text=\"Missed Call\"\r\n                            android:textAllCaps=\"false\"\r\n                            android:textColor=\"@color/white\"\r\n                            android:textSize=\"@dimen/_10sdp\"\r\n                            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                            app:layout_constraintStart_toStartOf=\"@+id/textView156\"\r\n                            app:layout_constraintTop_toBottomOf=\"@+id/textView156\" />\r\n                    </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n                </androidx.cardview.widget.CardView>\r\n\r\n                <androidx.constraintlayout.widget.ConstraintLayout\r\n                    android:id=\"@+id/partenerlabs\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"17dp\"\r\n                    android:background=\"@color/white\"\r\n                    app:layout_constraintEnd_toEndOf=\"parent\"\r\n                    app:layout_constraintStart_toStartOf=\"parent\"\r\n                    app:layout_constraintTop_toBottomOf=\"@+id/checkupcategorieslayout\">\r\n\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/textView157\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginStart=\"16dp\"\r\n                        android:layout_marginTop=\"16dp\"\r\n                        android:fontFamily=\"@font/poppins_semibold\"\r\n                        android:text=\"Certified Partner Labs\"\r\n                        android:textColor=\"#2B3344\"\r\n                        android:textSize=\"@dimen/_16sdp\"\r\n                        android:textStyle=\"bold\"\r\n                        app:layout_constraintStart_toStartOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/textView158\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginEnd=\"8dp\"\r\n                        android:background=\"?attr/selectableItemBackground\"\r\n                        android:clickable=\"true\"\r\n                        android:drawablePadding=\"@dimen/_5sdp\"\r\n                        android:focusable=\"true\"\r\n                        android:fontFamily=\"@font/poppins_semibold\"\r\n                        android:padding=\"@dimen/_5sdp\"\r\n                        android:text=\"@string/view_all\"\r\n                        android:textColor=\"#3F4E6E\"\r\n                        app:drawableEndCompat=\"@drawable/ic_baseline_keyboard_arrow_right_16\"\r\n                        app:drawableTint=\"@color/colorPrimary\"\r\n                        app:layout_constraintBottom_toBottomOf=\"@+id/textView157\"\r\n                        app:layout_constraintEnd_toEndOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"@+id/textView157\" />\r\n\r\n                    <androidx.recyclerview.widget.RecyclerView\r\n                        android:id=\"@+id/recLab\"\r\n                        android:layout_width=\"0dp\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginTop=\"10dp\"\r\n                        android:layout_marginBottom=\"10dp\"\r\n                        android:orientation=\"horizontal\"\r\n                        android:paddingStart=\"@dimen/_5sdp\"\r\n                        app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n                        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                        app:layout_constraintEnd_toEndOf=\"parent\"\r\n                        app:layout_constraintStart_toStartOf=\"parent\"\r\n                        app:layout_constraintTop_toBottomOf=\"@+id/textView157\"\r\n                        tools:listitem=\"@layout/certified_lab_view\" />\r\n                </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/tvViewAllPackages\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginEnd=\"8dp\"\r\n                    android:background=\"?attr/selectableItemBackground\"\r\n                    android:clickable=\"true\"\r\n                    android:drawablePadding=\"@dimen/_5sdp\"\r\n                    android:focusable=\"true\"\r\n                    android:padding=\"@dimen/_10sdp\"\r\n                    android:text=\"@string/view_all\"\r\n                    android:textColor=\"#3F4E6E\"\r\n                    app:drawableEndCompat=\"@drawable/ic_baseline_keyboard_arrow_right_16\"\r\n                    app:drawableTint=\"@color/colorPrimary\"\r\n                    app:layout_constraintBottom_toBottomOf=\"@+id/TVaffordable\"\r\n                    app:layout_constraintEnd_toEndOf=\"parent\"\r\n                    app:layout_constraintTop_toTopOf=\"@+id/TVaffordable\" />\r\n\r\n\r\n            </androidx.constraintlayout.widget.ConstraintLayout>\r\n        </ScrollView>\r\n\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n</layout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/lab_test_home.xml	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/res/layout/lab_test_home.xml	(date 1626355354056)
+@@ -11,7 +11,7 @@
+         android:id="@+id/rootconstraint"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+-        android:background="@color/white"
++        android:background="@color/lab_bg"
+         tools:context=".view.fragments.lab.Lab_Home_Fragment">
+ 
+ 
+@@ -50,7 +50,7 @@
+             android:id="@+id/contentconstrainet"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+-            android:visibility="visible">
++            android:visibility="gone">
+ 
+ 
+             <androidx.constraintlayout.widget.ConstraintLayout
+@@ -182,273 +182,285 @@
+                 </androidx.constraintlayout.widget.ConstraintLayout>
+ 
+ 
+-                <androidx.recyclerview.widget.RecyclerView
+-                    android:id="@+id/recBannerSlider"
+-                    android:layout_width="0dp"
+-                    android:layout_height="140dp"
+-                    android:layout_marginStart="8dp"
+-                    android:layout_marginTop="10dp"
+-                    android:layout_marginEnd="8dp"
+-                    android:orientation="horizontal"
+-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+-                    app:layout_constraintEnd_toEndOf="parent"
+-                    app:layout_constraintHorizontal_bias="0.0"
+-                    app:layout_constraintStart_toStartOf="parent"
+-                    app:layout_constraintTop_toBottomOf="@+id/searchbarlayout"
+-                    tools:listitem="@layout/bannerview" />
++                <androidx.constraintlayout.widget.ConstraintLayout
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    app:layout_constraintEnd_toEndOf="parent"
++                    app:layout_constraintStart_toStartOf="parent"
++                    app:layout_constraintTop_toBottomOf="@+id/searchbarlayout">
++
++                    <androidx.recyclerview.widget.RecyclerView
++                        android:id="@+id/recBannerSlider"
++                        android:layout_width="0dp"
++                        android:layout_height="140dp"
++                        android:layout_marginStart="14dp"
++                        android:layout_marginTop="10dp"
++                        android:layout_marginEnd="14dp"
++                        android:orientation="horizontal"
++                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
++                        app:layout_constraintEnd_toEndOf="parent"
++
++                        app:layout_constraintHorizontal_bias="0.0"
++                        app:layout_constraintStart_toStartOf="parent"
++                        app:layout_constraintTop_toTopOf="parent"
++                        tools:listitem="@layout/bannerview" />
+ 
+-                <androidx.recyclerview.widget.RecyclerView
+-                    android:id="@+id/recyclerView9"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginTop="8dp"
+-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+-                    app:layout_constraintEnd_toEndOf="parent"
+-                    app:layout_constraintHorizontal_bias="0.0"
+-                    app:layout_constraintStart_toStartOf="parent"
+-                    app:layout_constraintTop_toBottomOf="@+id/recBannerSlider"
+-                    app:spanCount="2"
+-                    tools:itemCount="4"
+-                    tools:listitem="@layout/lab_home_view2" />
++                    <androidx.recyclerview.widget.RecyclerView
++                        android:id="@+id/recyclerView9"
++                        android:layout_width="match_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_marginStart="14dp"
++                        android:layout_marginTop="8dp"
++                        android:layout_marginEnd="14dp"
++                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
++                        app:layout_constraintEnd_toEndOf="parent"
++                        app:layout_constraintHorizontal_bias="0.0"
++                        app:layout_constraintStart_toStartOf="parent"
++                        app:layout_constraintTop_toBottomOf="@+id/recBannerSlider"
++                        app:spanCount="2"
++                        tools:itemCount="4"
++                        tools:listitem="@layout/lab_home_view2" />
+ 
+-                <TextView
+-                    android:id="@+id/TVaffordable"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginStart="5dp"
+-                    android:layout_marginTop="16dp"
+-                    android:fontFamily="@font/poppins_semibold"
+-                    android:text="@string/affordable_health_package"
+-                    android:textColor="#2B3344"
+-                    android:textSize="@dimen/_16sdp"
+-                    android:textStyle="bold"
+-                    app:layout_constraintStart_toStartOf="@+id/recyclerView9"
+-                    app:layout_constraintTop_toBottomOf="@+id/recyclerView9" />
++                    <TextView
++                        android:id="@+id/TVaffordable"
++                        android:layout_width="0dp"
++                        android:layout_height="wrap_content"
++                        android:layout_marginTop="16dp"
++                        android:fontFamily="@font/poppins_semibold"
++                        android:text="@string/affordable_health_package"
++                        android:textColor="#2B3344"
++                        android:textSize="@dimen/_16sdp"
++                        android:textStyle="bold"
++                        app:layout_constraintEnd_toStartOf="@+id/tvViewAllPackages"
++                        app:layout_constraintStart_toStartOf="@+id/recyclerView9"
++                        app:layout_constraintTop_toBottomOf="@+id/recyclerView9" />
+ 
+ 
+-                <androidx.recyclerview.widget.RecyclerView
+-                    android:id="@+id/healthPackageRecyclerview"
+-                    android:layout_width="0dp"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginTop="10dp"
+-                    android:orientation="horizontal"
+-                    android:paddingStart="2dp"
+-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+-                    app:layout_constraintBottom_toTopOf="@+id/checkupcategorieslayout"
+-                    app:layout_constraintEnd_toEndOf="parent"
+-                    app:layout_constraintHorizontal_bias="0.0"
+-                    app:layout_constraintStart_toStartOf="parent"
+-                    app:layout_constraintTop_toBottomOf="@+id/TVaffordable"
+-                    tools:ignore="RtlSymmetry"
+-                    tools:listitem="@layout/healthpackagelayout" />
++                    <androidx.recyclerview.widget.RecyclerView
++                        android:id="@+id/healthPackageRecyclerview"
++                        android:layout_width="0dp"
++                        android:layout_height="wrap_content"
++                        android:layout_marginStart="14dp"
++                        android:layout_marginTop="10dp"
++                        android:layout_marginEnd="14dp"
++                        android:orientation="horizontal"
++                        android:paddingStart="2dp"
++                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
++                        app:layout_constraintBottom_toTopOf="@+id/checkupcategorieslayout"
++                        app:layout_constraintEnd_toEndOf="parent"
++                        app:layout_constraintHorizontal_bias="0.0"
++                        app:layout_constraintStart_toStartOf="parent"
++                        app:layout_constraintTop_toBottomOf="@+id/TVaffordable"
++                        tools:ignore="RtlSymmetry"
++                        tools:listitem="@layout/healthpackagelayout" />
+ 
+-                <androidx.constraintlayout.widget.ConstraintLayout
+-                    android:id="@+id/checkupcategorieslayout"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:background="@color/white"
+-                    app:layout_constraintEnd_toEndOf="parent"
+-                    app:layout_constraintStart_toStartOf="parent"
+-                    app:layout_constraintTop_toBottomOf="@+id/healthPackageRecyclerview">
++                    <androidx.constraintlayout.widget.ConstraintLayout
++                        android:id="@+id/checkupcategorieslayout"
++                        android:layout_width="match_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_marginTop="17dp"
++                        android:background="@color/white"
++                        app:layout_constraintEnd_toEndOf="parent"
++                        app:layout_constraintStart_toStartOf="parent"
++                        app:layout_constraintTop_toBottomOf="@+id/healthPackageRecyclerview">
+ 
+ 
+-                    <TextView
+-                        android:id="@+id/textView152"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_marginStart="13dp"
+-                        android:layout_marginTop="17dp"
+-                        android:fontFamily="@font/poppins_semibold"
+-                        android:text="Health Checkup Categories"
+-                        android:textColor="#2B3344"
+-                        android:textSize="@dimen/_16sdp"
+-                        android:textStyle="bold"
+-                        app:layout_constraintStart_toStartOf="parent"
+-                        app:layout_constraintTop_toTopOf="parent" />
++                        <TextView
++                            android:id="@+id/textView152"
++                            android:layout_width="wrap_content"
++                            android:layout_height="wrap_content"
++                            android:layout_marginStart="13dp"
++                            android:layout_marginTop="17dp"
++                            android:fontFamily="@font/poppins_semibold"
++                            android:text="Health Checkup Categories"
++                            android:textColor="#2B3344"
++                            android:textSize="@dimen/_16sdp"
++                            android:textStyle="bold"
++                            app:layout_constraintStart_toStartOf="parent"
++                            app:layout_constraintTop_toTopOf="parent" />
+ 
+-                    <TextView
+-                        android:id="@+id/textView153"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_marginEnd="8dp"
+-                        android:background="?attr/selectableItemBackground"
+-                        android:clickable="true"
+-                        android:drawablePadding="@dimen/_5sdp"
+-                        android:fontFamily="@font/poppins_semibold"
+-                        android:padding="@dimen/_10sdp"
+-                        android:text="@string/view_all"
+-                        android:textColor="#3F4E6E"
+-                        app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_16"
+-                        app:drawableTint="@color/colorPrimary"
+-                        app:layout_constraintBottom_toBottomOf="@+id/textView152"
+-                        app:layout_constraintEnd_toEndOf="parent"
+-                        app:layout_constraintTop_toTopOf="@+id/textView152" />
++                        <TextView
++                            android:id="@+id/textView153"
++                            android:layout_width="wrap_content"
++                            android:layout_height="wrap_content"
++                            android:layout_marginEnd="8dp"
++                            android:background="?attr/selectableItemBackground"
++                            android:clickable="true"
++                            android:drawablePadding="@dimen/_5sdp"
++                            android:fontFamily="@font/poppins_semibold"
++                            android:padding="@dimen/_10sdp"
++                            android:text="@string/view_all"
++                            android:textColor="#3F4E6E"
++                            app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_16"
++                            app:drawableTint="@color/colorPrimary"
++                            app:layout_constraintBottom_toBottomOf="@+id/textView152"
++                            app:layout_constraintEnd_toEndOf="parent"
++                            app:layout_constraintTop_toTopOf="@+id/textView152" />
+ 
+ 
+-                    <androidx.recyclerview.widget.RecyclerView
+-                        android:id="@+id/recCategory"
+-                        android:layout_width="0dp"
+-                        android:layout_height="wrap_content"
+-                        android:layout_marginTop="10dp"
+-                        android:layout_marginBottom="10dp"
+-                        android:background="?attr/selectableItemBackgroundBorderless"
+-                        android:clickable="true"
+-                        android:focusable="true"
+-                        android:orientation="horizontal"
+-                        android:paddingStart="@dimen/_5sdp"
+-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+-                        app:layout_constraintBottom_toBottomOf="parent"
+-                        app:layout_constraintEnd_toEndOf="parent"
+-                        app:layout_constraintStart_toStartOf="parent"
+-                        app:layout_constraintTop_toBottomOf="@+id/textView152"
+-                        tools:listitem="@layout/health_checkup_category_lab_layout" />
++                        <androidx.recyclerview.widget.RecyclerView
++                            android:id="@+id/recCategory"
++                            android:layout_width="0dp"
++                            android:layout_height="wrap_content"
++                            android:layout_marginTop="10dp"
++                            android:layout_marginBottom="10dp"
++                            android:background="?attr/selectableItemBackgroundBorderless"
++                            android:clickable="true"
++                            android:focusable="true"
++                            android:orientation="horizontal"
++                            android:paddingStart="@dimen/_5sdp"
++                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
++                            app:layout_constraintBottom_toBottomOf="parent"
++                            app:layout_constraintEnd_toEndOf="parent"
++                            app:layout_constraintStart_toStartOf="parent"
++                            app:layout_constraintTop_toBottomOf="@+id/textView152"
++                            tools:listitem="@layout/health_checkup_category_lab_layout" />
+ 
+ 
+-                </androidx.constraintlayout.widget.ConstraintLayout>
++                    </androidx.constraintlayout.widget.ConstraintLayout>
+ 
+ 
+-                <androidx.cardview.widget.CardView
+-                    android:id="@+id/cardView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginStart="13dp"
+-                    android:layout_marginTop="@dimen/_13sdp"
+-                    android:layout_marginEnd="15dp"
+-                    android:backgroundTint="#F24F84"
+-                    android:visibility="gone"
+-                    app:cardCornerRadius="@dimen/_10sdp"
+-                    app:layout_constraintEnd_toEndOf="parent"
+-                    app:layout_constraintStart_toStartOf="parent"
+-                    app:layout_constraintTop_toBottomOf="@+id/checkupcategorieslayout">
++                    <androidx.cardview.widget.CardView
++                        android:id="@+id/cardView"
++                        android:layout_width="match_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_marginTop="@dimen/_13sdp"
++                        android:backgroundTint="#F24F84"
++                        android:visibility="gone"
++                        app:cardCornerRadius="@dimen/_10sdp"
++                        app:layout_constraintEnd_toEndOf="parent"
++                        app:layout_constraintStart_toStartOf="parent"
++                        app:layout_constraintTop_toBottomOf="@+id/checkupcategorieslayout">
+ 
+-                    <androidx.constraintlayout.widget.ConstraintLayout
+-                        android:id="@+id/bannerCall"
+-                        android:layout_width="match_parent"
+-                        android:layout_height="match_parent"
+-                        android:visibility="visible">
++                        <androidx.constraintlayout.widget.ConstraintLayout
++                            android:id="@+id/bannerCall"
++                            android:layout_width="match_parent"
++                            android:layout_height="match_parent"
++                            android:visibility="visible">
+ 
+-                        <TextView
+-                            android:id="@+id/textView155"
+-                            android:layout_width="wrap_content"
+-                            android:layout_height="wrap_content"
+-                            android:layout_marginStart="16dp"
+-                            android:layout_marginTop="16dp"
+-                            android:fontFamily="@font/poppins_semibold"
+-                            android:text="Book on call"
+-                            android:textColor="#FFFFFF"
+-                            android:textSize="16sp"
+-                            android:textStyle="bold"
+-                            app:layout_constraintStart_toStartOf="parent"
+-                            app:layout_constraintTop_toTopOf="parent" />
++                            <TextView
++                                android:id="@+id/textView155"
++                                android:layout_width="wrap_content"
++                                android:layout_height="wrap_content"
++                                android:layout_marginStart="16dp"
++                                android:layout_marginTop="16dp"
++                                android:fontFamily="@font/poppins_semibold"
++                                android:text="Book on call"
++                                android:textColor="#FFFFFF"
++                                android:textSize="16sp"
++                                android:textStyle="bold"
++                                app:layout_constraintStart_toStartOf="parent"
++                                app:layout_constraintTop_toTopOf="parent" />
+ 
+-                        <TextView
+-                            android:id="@+id/textView156"
+-                            android:layout_width="0dp"
+-                            android:layout_height="wrap_content"
+-                            android:layout_marginTop="2dp"
+-                            android:layout_marginEnd="5dp"
+-                            android:fontFamily="@font/poppins"
+-                            android:textColor="#FFFFFF"
+-                            app:layout_constraintEnd_toEndOf="parent"
+-                            app:layout_constraintStart_toStartOf="@+id/textView155"
+-                            app:layout_constraintTop_toBottomOf="@+id/textView155" />
++                            <TextView
++                                android:id="@+id/textView156"
++                                android:layout_width="0dp"
++                                android:layout_height="wrap_content"
++                                android:layout_marginTop="2dp"
++                                android:layout_marginEnd="5dp"
++                                android:fontFamily="@font/poppins"
++                                android:textColor="#FFFFFF"
++                                app:layout_constraintEnd_toEndOf="parent"
++                                app:layout_constraintStart_toStartOf="@+id/textView155"
++                                app:layout_constraintTop_toBottomOf="@+id/textView155" />
+ 
+-                        <TextView
+-                            android:id="@+id/button14"
+-                            android:layout_width="wrap_content"
+-                            android:layout_height="wrap_content"
+-                            android:layout_marginTop="14dp"
+-                            android:layout_marginBottom="14dp"
+-                            android:background="@drawable/button"
+-                            android:padding="@dimen/_10sdp"
+-                            android:text="Missed Call"
+-                            android:textAllCaps="false"
+-                            android:textColor="@color/white"
+-                            android:textSize="@dimen/_10sdp"
+-                            app:layout_constraintBottom_toBottomOf="parent"
+-                            app:layout_constraintStart_toStartOf="@+id/textView156"
+-                            app:layout_constraintTop_toBottomOf="@+id/textView156" />
+-                    </androidx.constraintlayout.widget.ConstraintLayout>
++                            <TextView
++                                android:id="@+id/button14"
++                                android:layout_width="wrap_content"
++                                android:layout_height="wrap_content"
++                                android:layout_marginTop="14dp"
++                                android:layout_marginBottom="14dp"
++                                android:background="@drawable/button"
++                                android:padding="@dimen/_10sdp"
++                                android:text="Missed Call"
++                                android:textAllCaps="false"
++                                android:textColor="@color/white"
++                                android:textSize="@dimen/_10sdp"
++                                app:layout_constraintBottom_toBottomOf="parent"
++                                app:layout_constraintStart_toStartOf="@+id/textView156"
++                                app:layout_constraintTop_toBottomOf="@+id/textView156" />
++                        </androidx.constraintlayout.widget.ConstraintLayout>
+ 
+-                </androidx.cardview.widget.CardView>
++                    </androidx.cardview.widget.CardView>
+ 
+-                <androidx.constraintlayout.widget.ConstraintLayout
+-                    android:id="@+id/partenerlabs"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginTop="17dp"
+-                    android:background="@color/white"
+-                    app:layout_constraintEnd_toEndOf="parent"
+-                    app:layout_constraintStart_toStartOf="parent"
+-                    app:layout_constraintTop_toBottomOf="@+id/checkupcategorieslayout">
++                    <androidx.constraintlayout.widget.ConstraintLayout
++                        android:id="@+id/partenerlabs"
++                        android:layout_width="match_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_marginTop="17dp"
++                        android:background="@color/white"
++                        app:layout_constraintEnd_toEndOf="parent"
++                        app:layout_constraintStart_toStartOf="parent"
++                        app:layout_constraintTop_toBottomOf="@+id/checkupcategorieslayout">
+ 
+ 
+-                    <TextView
+-                        android:id="@+id/textView157"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_marginStart="16dp"
+-                        android:layout_marginTop="16dp"
+-                        android:fontFamily="@font/poppins_semibold"
+-                        android:text="Certified Partner Labs"
+-                        android:textColor="#2B3344"
+-                        android:textSize="@dimen/_16sdp"
+-                        android:textStyle="bold"
+-                        app:layout_constraintStart_toStartOf="parent"
+-                        app:layout_constraintTop_toTopOf="parent" />
++                        <TextView
++                            android:id="@+id/textView157"
++                            android:layout_width="wrap_content"
++                            android:layout_height="wrap_content"
++                            android:layout_marginStart="16dp"
++                            android:layout_marginTop="16dp"
++                            android:fontFamily="@font/poppins_semibold"
++                            android:text="Certified Partner Labs"
++                            android:textColor="#2B3344"
++                            android:textSize="@dimen/_16sdp"
++                            android:textStyle="bold"
++                            app:layout_constraintStart_toStartOf="parent"
++                            app:layout_constraintTop_toTopOf="parent" />
+ 
+-                    <TextView
+-                        android:id="@+id/textView158"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_marginEnd="8dp"
+-                        android:background="?attr/selectableItemBackground"
+-                        android:clickable="true"
+-                        android:drawablePadding="@dimen/_5sdp"
+-                        android:focusable="true"
+-                        android:fontFamily="@font/poppins_semibold"
+-                        android:padding="@dimen/_5sdp"
+-                        android:text="@string/view_all"
+-                        android:textColor="#3F4E6E"
+-                        app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_16"
+-                        app:drawableTint="@color/colorPrimary"
+-                        app:layout_constraintBottom_toBottomOf="@+id/textView157"
+-                        app:layout_constraintEnd_toEndOf="parent"
+-                        app:layout_constraintTop_toTopOf="@+id/textView157" />
++                        <TextView
++                            android:id="@+id/textView158"
++                            android:layout_width="wrap_content"
++                            android:layout_height="wrap_content"
++                            android:layout_marginEnd="8dp"
++                            android:background="?attr/selectableItemBackground"
++                            android:clickable="true"
++                            android:drawablePadding="@dimen/_5sdp"
++                            android:focusable="true"
++                            android:fontFamily="@font/poppins_semibold"
++                            android:padding="@dimen/_5sdp"
++                            android:text="@string/view_all"
++                            android:textColor="#3F4E6E"
++                            app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_16"
++                            app:drawableTint="@color/colorPrimary"
++                            app:layout_constraintBottom_toBottomOf="@+id/textView157"
++                            app:layout_constraintEnd_toEndOf="parent"
++                            app:layout_constraintTop_toTopOf="@+id/textView157" />
+ 
+-                    <androidx.recyclerview.widget.RecyclerView
+-                        android:id="@+id/recLab"
+-                        android:layout_width="0dp"
+-                        android:layout_height="wrap_content"
+-                        android:layout_marginTop="10dp"
+-                        android:layout_marginBottom="10dp"
+-                        android:orientation="horizontal"
+-                        android:paddingStart="@dimen/_5sdp"
+-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+-                        app:layout_constraintBottom_toBottomOf="parent"
+-                        app:layout_constraintEnd_toEndOf="parent"
+-                        app:layout_constraintStart_toStartOf="parent"
+-                        app:layout_constraintTop_toBottomOf="@+id/textView157"
+-                        tools:listitem="@layout/certified_lab_view" />
+-                </androidx.constraintlayout.widget.ConstraintLayout>
++                        <androidx.recyclerview.widget.RecyclerView
++                            android:id="@+id/recLab"
++                            android:layout_width="0dp"
++                            android:layout_height="wrap_content"
++                            android:layout_marginTop="10dp"
++                            android:layout_marginBottom="10dp"
++                            android:orientation="horizontal"
++                            android:paddingStart="@dimen/_5sdp"
++                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
++                            app:layout_constraintBottom_toBottomOf="parent"
++                            app:layout_constraintEnd_toEndOf="parent"
++                            app:layout_constraintStart_toStartOf="parent"
++                            app:layout_constraintTop_toBottomOf="@+id/textView157"
++                            tools:listitem="@layout/certified_lab_view" />
++                    </androidx.constraintlayout.widget.ConstraintLayout>
+ 
+-                <TextView
+-                    android:id="@+id/tvViewAllPackages"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginEnd="8dp"
+-                    android:background="?attr/selectableItemBackground"
+-                    android:clickable="true"
+-                    android:drawablePadding="@dimen/_5sdp"
+-                    android:focusable="true"
+-                    android:padding="@dimen/_10sdp"
+-                    android:text="@string/view_all"
+-                    android:textColor="#3F4E6E"
+-                    app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_16"
+-                    app:drawableTint="@color/colorPrimary"
+-                    app:layout_constraintBottom_toBottomOf="@+id/TVaffordable"
+-                    app:layout_constraintEnd_toEndOf="parent"
+-                    app:layout_constraintTop_toTopOf="@+id/TVaffordable" />
++                    <TextView
++                        android:id="@+id/tvViewAllPackages"
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:layout_marginEnd="8dp"
++                        android:background="?attr/selectableItemBackground"
++                        android:clickable="true"
++                        android:drawablePadding="@dimen/_5sdp"
++                        android:focusable="true"
++                        android:padding="@dimen/_10sdp"
++                        android:text="@string/view_all"
++                        android:textColor="#3F4E6E"
++                        app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_16"
++                        app:drawableTint="@color/colorPrimary"
++                        app:layout_constraintBottom_toBottomOf="@+id/TVaffordable"
++                        app:layout_constraintEnd_toEndOf="parent"
++                        app:layout_constraintTop_toTopOf="@+id/TVaffordable" />
++                </androidx.constraintlayout.widget.ConstraintLayout>
+ 
+ 
+             </androidx.constraintlayout.widget.ConstraintLayout>
+Index: app/src/main/res/drawable/cartview_round_layout.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<shape xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n    <solid android:color=\"@color/white\"/>\r\n    <stroke android:width=\"0.5dp\"\r\n        android:color=\"@color/colorAccent\" />\r\n    <corners android:radius=\"10dip\"/>\r\n</shape>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n<!--<?xml version=\"1.0\" encoding=\"utf-8\"?>-->\r\n<!--<shape xmlns:android=\"http://schemas.android.com/apk/res/android\" >-->\r\n<!--<solid android:color=\"@color/white\" />-->\r\n<!--<size android:width=\"1dp\"/>-->\r\n<!--<padding android:bottom=\"0dp\" android:left=\"0dp\" android:right=\"0dp\" android:top=\"0dp\"/>-->\r\n<!--<corners android:topLeftRadius=\"5dp\" android:bottomLeftRadius=\"5dp\"-->\r\n<!--    android:topRightRadius=\"0.1dp\" android:bottomRightRadius=\"0.1dp\"/>-->\r\n<!--</shape>-->\r\n\r\n\r\n    <!--<?xml version=\"1.0\" encoding=\"UTF-8\"?>-->\r\n\r\n    <!--    <shape android:shape=\"rectangle\" xmlns:android=\"http://schemas.android.com/apk/res/android\">-->\r\n\r\n    <!--    <solid android:color=\"#FFFFFF\"/>-->\r\n\r\n    <!--    <corners android:bottomRightRadius=\"10sp\" android:bottomLeftRadius=\"10sp\" android:topRightRadius=\"10sp\" android:topLeftRadius=\"10sp\"/>-->\r\n\r\n    <!--    <stroke android:color=\"#ffffff\" android:width=\"5px\"/>-->\r\n\r\n    <!--</shape>-->
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/cartview_round_layout.xml	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/res/drawable/cartview_round_layout.xml	(date 1626354664049)
+@@ -1,8 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <shape xmlns:android="http://schemas.android.com/apk/res/android">
+     <solid android:color="@color/white"/>
+-    <stroke android:width="0.5dp"
+-        android:color="@color/colorAccent" />
+     <corners android:radius="10dip"/>
+ </shape>
+ 
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"colorPrimary\">#1089FE</color>\r\n    <color name=\"colorPrimaryDark\">#0F71D0</color>\r\n    <color name=\"colorAccent\">#0a586c</color>\r\n\r\n\r\n    <color name=\"TextPrimaryColor\">#262e3f</color>\r\n    <color name=\"TextSecondaryColor\">#3f4e6e</color>\r\n    <color name=\"PrimaryColor\">#1089FE</color>\r\n    <color name=\"SecondaryColor\">#1089FE</color>\r\n    <color name=\"BackgroundColor\">#f2f6fe</color>\r\n    <color name=\"GreyColo\">#D6D7D7</color>\r\n    <color name=\"YellowColo\">#EDA537</color>\r\n    <color name=\"TextGrayColo\">#B33F4E6E</color>\r\n    <color name=\"white\">#FFFFFF</color>\r\n    <color name=\"textColorBlack\">#262E3F</color>\r\n    <color name=\"greyLight\">#F1F4F9</color>\r\n    <color name=\"textColor\">#3F4E6E</color>\r\n    <color name=\"red\">#F44336</color>\r\n    <color name=\"black\">#000000</color>\r\n    <color name=\"text_color\">#1E1F26</color>\r\n\r\n\r\n    <color name=\"placeholder_bg\">#dddddd</color>\r\n    <color name=\"p3\">#39B54A</color>\r\n    <color name=\"p4\">#39B54A</color>\r\n    <color name=\"p5\">#39B54A</color>\r\n    <color name=\"p2\">#F5A346</color>\r\n    <color name=\"p1\">#FF0D0D</color>\r\n    <color name=\"demo\">#0A586C</color>\r\n\r\n\r\n    <color name=\"orange\">#f26522</color>\r\n    <color name=\"green\">#00b894</color>\r\n\r\n\r\n    <color name=\"green700\">#66BB6A</color>\r\n    <color name=\"yellow700\">#EDA537</color>\r\n\r\n\r\n    <color name=\"color_grey\">#F2F6FE</color>\r\n\r\n\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/colors.xml	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/res/values/colors.xml	(date 1626354612207)
+@@ -40,6 +40,7 @@
+ 
+ 
+     <color name="color_grey">#F2F6FE</color>
++    <color name="lab_bg">#F2F6FE</color>
+ 
+ 
+ </resources>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_patient_dashboard.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<layout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:shimmer=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <data>\r\n\r\n        <import type=\"com.digidoctor.android.utility.AppUtils\" />\r\n\r\n        <variable\r\n            name=\"stats\"\r\n            type=\"com.digidoctor.android.model.DDStatsModel\" />\r\n\r\n        <variable\r\n            name=\"user\"\r\n            type=\"com.digidoctor.android.model.User\" />\r\n\r\n        <variable\r\n            name=\"bannerTopImage\"\r\n            type=\"String\" />\r\n    </data>\r\n\r\n\r\n    <FrameLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:visibility=\"visible\"\r\n        tools:context=\".view.fragments.digiDoctorFragments.PatientDashboardFragment\">\r\n\r\n        <com.facebook.shimmer.ShimmerFrameLayout\r\n            android:id=\"@+id/shimmerHOmeScreen\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:visibility=\"visible\"\r\n            shimmer:duration=\"700\">\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:orientation=\"vertical\">\r\n\r\n                <include layout=\"@layout/shimmer_layout_view\" />\r\n            </LinearLayout>\r\n        </com.facebook.shimmer.ShimmerFrameLayout>\r\n\r\n\r\n        <androidx.core.widget.NestedScrollView\r\n            android:id=\"@+id/homeView\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:visibility=\"visible\">\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@color/BackgroundColor\"\r\n                android:orientation=\"vertical\"\r\n                android:visibility=\"visible\">\r\n\r\n\r\n                <androidx.constraintlayout.widget.ConstraintLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:padding=\"@dimen/_10sdp\">\r\n\r\n\r\n                    <de.hdodenhof.circleimageview.CircleImageView\r\n                        android:id=\"@+id/profile_image\"\r\n                        android:layout_width=\"43dp\"\r\n                        android:layout_height=\"36dp\"\r\n                        android:layout_marginStart=\"2dp\"\r\n                        android:loadCustomUserImage=\"@{user.profilePhotoPath}\"\r\n                        android:src=\"@drawable/profile\"\r\n                        app:civ_border_color=\"@color/PrimaryColor\"\r\n                        app:civ_border_width=\"0.5dp\"\r\n                        app:layout_constraintStart_toEndOf=\"@+id/ivMenu\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/tvSearchDoctor\"\r\n                        android:layout_width=\"0dp\"\r\n                        android:layout_height=\"35dp\"\r\n                        android:layout_marginStart=\"8dp\"\r\n                        android:layout_marginEnd=\"8dp\"\r\n                        android:layout_toEndOf=\"@+id/profile_image\"\r\n                        android:background=\"@drawable/round_for_search_with_outline\"\r\n                        android:clickable=\"true\"\r\n                        android:drawablePadding=\"10dp\"\r\n                        android:focusable=\"true\"\r\n                        android:fontFamily=\"@font/poppins_medium\"\r\n                        android:gravity=\"center_vertical\"\r\n                        android:hint=\"@string/search_doctor\"\r\n                        android:paddingLeft=\"20dp\"\r\n                        android:paddingRight=\"20dp\"\r\n                        android:singleLine=\"true\"\r\n                        android:textColorHint=\"#A2B3B8\"\r\n                        android:textSize=\"12sp\"\r\n                        android:visibility=\"gone\"\r\n                        app:drawableEndCompat=\"@drawable/ic_search_black_24dp\"\r\n                        app:layout_constraintBottom_toBottomOf=\"@+id/profile_image\"\r\n                        app:layout_constraintEnd_toStartOf=\"@+id/tvLocation\"\r\n                        app:layout_constraintHorizontal_bias=\"0.51\"\r\n                        app:layout_constraintStart_toEndOf=\"@+id/profile_image\"\r\n                        app:layout_constraintTop_toTopOf=\"@+id/profile_image\" />\r\n\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/tvLocation\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_alignParentEnd=\"true\"\r\n                        android:textColor=\"@color/PrimaryColor\"\r\n                        android:textSize=\"14sp\"\r\n                        android:textStyle=\"bold\"\r\n                        app:drawableStartCompat=\"@drawable/ic_baseline_location_on_24\"\r\n                        app:layout_constraintBottom_toBottomOf=\"@+id/view8\"\r\n                        app:layout_constraintEnd_toEndOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"@+id/view8\" />\r\n\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/tvCity\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_below=\"@+id/tvLocation\"\r\n                        android:layout_alignParentEnd=\"true\"\r\n                        android:layout_centerVertical=\"true\"\r\n                        android:layout_marginTop=\"2dp\"\r\n                        android:paddingHorizontal=\"@dimen/_5sdp\"\r\n                        android:text=\"searching...\"\r\n                        android:textSize=\"12sp\"\r\n                        app:layout_constraintEnd_toEndOf=\"@+id/tvLocation\"\r\n                        app:layout_constraintTop_toBottomOf=\"@+id/tvLocation\" />\r\n\r\n                    <ImageView\r\n                        android:id=\"@+id/dashboardHomeImage\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"@dimen/_125sdp\"\r\n                        android:layout_below=\"@+id/profile_image\"\r\n                        android:layout_marginTop=\"8dp\"\r\n                        android:contentDescription=\"TODO\"\r\n                        android:scaleType=\"fitStart\"\r\n                        android:src=\"@drawable/banner_new\"\r\n                        android:visibility=\"visible\"\r\n                        app:layout_constraintEnd_toEndOf=\"parent\"\r\n                        app:layout_constraintStart_toStartOf=\"parent\"\r\n                        app:layout_constraintTop_toBottomOf=\"@+id/tvCity\" />\r\n\r\n                    <ImageView\r\n                        android:id=\"@+id/ivMenu\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:contentDescription=\"TODO\"\r\n                        android:visibility=\"gone\"\r\n                        app:layout_constraintBottom_toBottomOf=\"@+id/profile_image\"\r\n                        app:layout_constraintStart_toStartOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"@+id/profile_image\"\r\n                        app:srcCompat=\"@drawable/ic_baseline_menu_24\" />\r\n\r\n                    <ImageView\r\n                        android:id=\"@+id/ivSearchIcon\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginEnd=\"12dp\"\r\n                        android:background=\"?attr/selectableItemBackgroundBorderless\"\r\n                        android:clickable=\"true\"\r\n                        android:contentDescription=\"TODO\"\r\n                        android:focusable=\"true\"\r\n                        app:layout_constraintBottom_toBottomOf=\"@+id/view8\"\r\n                        app:layout_constraintEnd_toStartOf=\"@+id/view8\"\r\n                        app:layout_constraintTop_toTopOf=\"@+id/view8\"\r\n                        app:srcCompat=\"@drawable/ic_search_black_24dp\" />\r\n\r\n                    <View\r\n                        android:id=\"@+id/view8\"\r\n                        android:layout_width=\"0.5dp\"\r\n                        android:layout_height=\"28dp\"\r\n                        android:layout_marginEnd=\"12dp\"\r\n                        android:background=\"@color/colorPrimary\"\r\n                        app:layout_constraintEnd_toStartOf=\"@+id/tvLocation\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n                </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n                <Button\r\n                    android:id=\"@+id/tvEmergencyChat\"\r\n                    style=\"@style/Widget.MaterialComponents.Button.OutlinedButton.Icon\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_gravity=\"center_horizontal\"\r\n                    android:layout_marginHorizontal=\"@dimen/_10sdp\"\r\n                    android:layout_marginTop=\"18dp\"\r\n                    android:fontFamily=\"@font/poppins\"\r\n                    android:paddingVertical=\"@dimen/_5sdp\"\r\n                    android:text=\"@string/emergency_chat_24_7\"\r\n                    android:textAppearance=\"@style/TextAppearance.AppCompat.Large\"\r\n                    android:textColor=\"@color/colorPrimary\"\r\n                    app:strokeColor=\"@color/colorPrimary\"\r\n                    app:strokeWidth=\"1dp\" />\r\n\r\n                <androidx.recyclerview.widget.RecyclerView\r\n                    android:id=\"@+id/rec1\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginTop=\"15dp\"\r\n                    android:nestedScrollingEnabled=\"false\"\r\n                    android:padding=\"@dimen/_10sdp\"\r\n                    android:visibility=\"visible\"\r\n                    app:layoutManager=\"androidx.recyclerview.widget.GridLayoutManager\"\r\n                    app:spanCount=\"2\"\r\n                    tools:itemCount=\"4\"\r\n                    tools:listitem=\"@layout/dash_board_view\" />\r\n\r\n\r\n                <Button\r\n                    android:id=\"@+id/tvDownloadPostCovid\"\r\n                    style=\"@style/Widget.MaterialComponents.Button.OutlinedButton.Icon\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_gravity=\"center_horizontal\"\r\n                    android:layout_marginHorizontal=\"@dimen/_10sdp\"\r\n                    android:layout_marginTop=\"18dp\"\r\n                    android:fontFamily=\"@font/poppins\"\r\n                    android:paddingVertical=\"@dimen/_5sdp\"\r\n                    android:text=\"@string/download_post_covid_care_booklet\"\r\n                    android:textAppearance=\"@style/TextAppearance.AppCompat.Medium\"\r\n                    android:textColor=\"@color/colorPrimary\"\r\n                    app:strokeColor=\"@color/colorPrimary\"\r\n                    app:strokeWidth=\"1dp\" />\r\n\r\n                <androidx.cardview.widget.CardView\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"145dp\"\r\n                    android:layout_marginLeft=\"15dp\"\r\n                    android:layout_marginTop=\"20dp\"\r\n                    android:layout_marginRight=\"15dp\"\r\n                    android:visibility=\"visible\"\r\n                    app:cardCornerRadius=\"@dimen/_10sdp\">\r\n\r\n                    <ss.com.bannerslider.Slider\r\n                        android:id=\"@+id/recBannerSlider\"\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"145dp\"\r\n                        app:slider_indicatorSize=\"12dp\" />\r\n                </androidx.cardview.widget.CardView>\r\n\r\n\r\n                <TextView\r\n                    android:id=\"@+id/textView57\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginStart=\"10dp\"\r\n                    android:layout_marginTop=\"40dp\"\r\n                    android:fontFamily=\"@font/poppins_semibold\"\r\n                    android:paddingLeft=\"@dimen/dimen_10dp\"\r\n                    android:paddingRight=\"@dimen/dimen_10dp\"\r\n                    android:text=\"@string/order_medicine_and_health_products\"\r\n                    android:textColor=\"#2B3344\"\r\n                    android:textSize=\"15sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n\r\n                <androidx.recyclerview.widget.RecyclerView\r\n                    android:id=\"@+id/rec2\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:nestedScrollingEnabled=\"false\"\r\n                    android:orientation=\"horizontal\"\r\n                    android:padding=\"@dimen/_10sdp\"\r\n                    android:visibility=\"visible\"\r\n                    app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n                    tools:listitem=\"@layout/dash_board_view_horizontal1\" />\r\n\r\n\r\n                <TextView\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginStart=\"10dp\"\r\n                    android:layout_marginTop=\"20dp\"\r\n                    android:fontFamily=\"@font/poppins_semibold\"\r\n                    android:paddingStart=\"@dimen/_10sdp\"\r\n                    android:paddingEnd=\"@dimen/_100sdp\"\r\n                    android:text=\"@string/find_top_clinic_near_you\"\r\n                    android:textColor=\"#2B3344\"\r\n                    android:textSize=\"14sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n\r\n                <androidx.recyclerview.widget.RecyclerView\r\n\r\n                    android:id=\"@+id/rec3\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:nestedScrollingEnabled=\"false\"\r\n                    android:orientation=\"horizontal\"\r\n                    android:padding=\"@dimen/_10sdp\"\r\n                    android:visibility=\"visible\"\r\n                    app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n                    tools:listitem=\"@layout/dash_board_view_horizontal2\" />\r\n\r\n                <androidx.constraintlayout.widget.ConstraintLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"20dp\"\r\n                    android:visibility=\"visible\">\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/textView220\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginStart=\"5dp\"\r\n                        android:fontFamily=\"@font/poppins_semibold\"\r\n                        android:paddingStart=\"@dimen/_10sdp\"\r\n                        android:paddingEnd=\"@dimen/_100sdp\"\r\n                        android:text=\"Doctors in Demands\"\r\n                        android:textColor=\"#2B3344\"\r\n                        android:textSize=\"14sp\"\r\n                        android:textStyle=\"bold\"\r\n                        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                        app:layout_constraintStart_toStartOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n                    <Button\r\n                        android:id=\"@+id/btnViewAllDoctor\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"35dp\"\r\n                        android:layout_gravity=\"center\"\r\n                        android:layout_marginEnd=\"16dp\"\r\n                        android:background=\"@drawable/round_for_search\"\r\n                        android:backgroundTint=\"@color/yellow700\"\r\n                        android:fontFamily=\"@font/poppins_semibold\"\r\n                        android:paddingStart=\"@dimen/_5sdp\"\r\n                        android:paddingEnd=\"@dimen/_5sdp\"\r\n                        android:text=\"@string/view_all\"\r\n                        android:textAllCaps=\"false\"\r\n                        android:textColor=\"@android:color/white\"\r\n                        android:textSize=\"12sp\"\r\n                        android:textStyle=\"bold\"\r\n                        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                        app:layout_constraintEnd_toEndOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\" />\r\n                </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n                <androidx.recyclerview.widget.RecyclerView\r\n                    android:id=\"@+id/recDoctorInDemand\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"10dp\"\r\n                    android:nestedScrollingEnabled=\"false\"\r\n                    android:orientation=\"horizontal\"\r\n                    android:paddingStart=\"@dimen/_10sdp\"\r\n                    android:paddingEnd=\"@dimen/_10sdp\"\r\n                    android:visibility=\"visible\"\r\n                    app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n                    tools:listitem=\"@layout/doc_view\" />\r\n\r\n\r\n                <!-- Blog View -->\r\n                <androidx.constraintlayout.widget.ConstraintLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"20dp\">\r\n\r\n                    <TextView\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginStart=\"5dp\"\r\n                        android:fontFamily=\"@font/poppins_semibold\"\r\n                        android:paddingStart=\"@dimen/_10sdp\"\r\n                        android:paddingEnd=\"@dimen/_100sdp\"\r\n                        android:text=\"@string/our_blogs\"\r\n                        android:textColor=\"#2B3344\"\r\n                        android:textSize=\"14sp\"\r\n                        android:textStyle=\"bold\"\r\n                        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                        app:layout_constraintStart_toStartOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n                    <Button\r\n                        android:id=\"@+id/btnOurBlogs\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"35dp\"\r\n                        android:layout_gravity=\"center\"\r\n                        android:layout_marginEnd=\"16dp\"\r\n                        android:background=\"@drawable/round_for_search\"\r\n                        android:backgroundTint=\"@color/yellow700\"\r\n                        android:fontFamily=\"@font/poppins_semibold\"\r\n                        android:paddingStart=\"@dimen/_5sdp\"\r\n                        android:paddingEnd=\"@dimen/_5sdp\"\r\n                        android:text=\"@string/view_all\"\r\n                        android:textAllCaps=\"false\"\r\n                        android:textColor=\"@android:color/white\"\r\n                        android:textSize=\"12sp\"\r\n                        android:textStyle=\"bold\"\r\n                        android:visibility=\"gone\"\r\n                        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                        app:layout_constraintEnd_toEndOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\" />\r\n                </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n                <androidx.recyclerview.widget.RecyclerView\r\n                    android:id=\"@+id/recBlog\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"10dp\"\r\n                    android:nestedScrollingEnabled=\"false\"\r\n                    android:orientation=\"vertical\"\r\n                    android:paddingStart=\"@dimen/_10sdp\"\r\n                    android:paddingEnd=\"@dimen/_10sdp\"\r\n                    android:visibility=\"visible\"\r\n                    app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n                    tools:itemCount=\"3\"\r\n                    tools:listitem=\"@layout/blog_view\" />\r\n\r\n                <androidx.constraintlayout.widget.ConstraintLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"@dimen/_40sdp\"\r\n                    android:background=\"#F2F2F2\"\r\n                    android:padding=\"@dimen/_10sdp\"\r\n                    android:paddingBottom=\"@dimen/_40sdp\">\r\n\r\n                    <ImageView\r\n                        android:id=\"@+id/imageView78\"\r\n                        android:layout_width=\"107dp\"\r\n                        android:layout_height=\"30dp\"\r\n                        android:scaleType=\"fitXY\"\r\n                        android:src=\"@drawable/logo_digi_doctor\"\r\n                        app:layout_constraintStart_toStartOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/textView225\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginTop=\"8dp\"\r\n                        android:fontFamily=\"@font/poppins_medium\"\r\n                        android:lineSpacingExtra=\"-5dp\"\r\n                        android:text=\"@{stats.description.toString()}\"\r\n                        android:textColor=\"#2B3344\"\r\n                        android:textSize=\"12sp\"\r\n                        app:layout_constraintStart_toStartOf=\"@+id/imageView78\"\r\n                        app:layout_constraintTop_toBottomOf=\"@+id/imageView78\" />\r\n\r\n                    <ImageView\r\n                        android:id=\"@+id/imageView79\"\r\n                        android:layout_width=\"18dp\"\r\n                        android:layout_height=\"18dp\"\r\n                        android:layout_marginStart=\"8dp\"\r\n                        android:layout_marginTop=\"24dp\"\r\n                        android:layout_marginEnd=\"2dp\"\r\n                        app:layout_constraintEnd_toStartOf=\"@+id/imageView791\"\r\n                        app:layout_constraintHorizontal_bias=\"0.5\"\r\n                        app:layout_constraintHorizontal_chainStyle=\"spread_inside\"\r\n                        app:layout_constraintStart_toStartOf=\"parent\"\r\n                        app:layout_constraintTop_toBottomOf=\"@+id/textView225\"\r\n                        shimmer:srcCompat=\"@drawable/app_icon\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/textView227\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginTop=\"4dp\"\r\n                        android:fontFamily=\"@font/poppins\"\r\n                        android:includeFontPadding=\"false\"\r\n                        android:lineSpacingExtra=\"-7dp\"\r\n                        android:lineSpacingMultiplier=\"5\"\r\n                        android:text=\"@string/our_users\"\r\n                        android:textColor=\"#E62B3344\"\r\n                        android:textSize=\"11sp\"\r\n                        app:layout_constraintStart_toStartOf=\"@+id/imageView79\"\r\n                        app:layout_constraintTop_toBottomOf=\"@+id/imageView79\" />\r\n\r\n                    <TextView\r\n\r\n                        android:id=\"@+id/textView228\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginBottom=\"32dp\"\r\n                        android:fontFamily=\"@font/poppins_semibold\"\r\n                        android:includeFontPadding=\"false\"\r\n                        android:lineSpacingExtra=\"-7dp\"\r\n                        android:lineSpacingMultiplier=\"5\"\r\n                        android:text=\"@{stats.userCount.toString()}\"\r\n                        android:textColor=\"#2B3344\"\r\n                        android:textSize=\"14sp\"\r\n                        android:textStyle=\"bold\"\r\n                        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                        app:layout_constraintStart_toStartOf=\"@+id/textView227\"\r\n                        app:layout_constraintTop_toBottomOf=\"@+id/textView227\" />\r\n\r\n\r\n                    <ImageView\r\n                        android:id=\"@+id/imageView791\"\r\n                        android:layout_width=\"18dp\"\r\n                        android:layout_height=\"18dp\"\r\n                        android:layout_marginStart=\"2dp\"\r\n                        android:layout_marginEnd=\"2dp\"\r\n                        app:layout_constraintBottom_toBottomOf=\"@+id/imageView79\"\r\n                        app:layout_constraintEnd_toStartOf=\"@+id/imageView792\"\r\n                        app:layout_constraintHorizontal_bias=\"0.5\"\r\n                        app:layout_constraintStart_toEndOf=\"@+id/imageView79\"\r\n                        app:layout_constraintTop_toTopOf=\"@+id/imageView79\"\r\n                        shimmer:srcCompat=\"@drawable/app_icon\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/textView2271\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginTop=\"4dp\"\r\n                        android:fontFamily=\"@font/poppins\"\r\n                        android:includeFontPadding=\"false\"\r\n                        android:lineSpacingExtra=\"-7dp\"\r\n                        android:lineSpacingMultiplier=\"5\"\r\n                        android:text=\"@string/our_doctors\"\r\n                        android:textColor=\"#E62B3344\"\r\n                        android:textSize=\"11sp\"\r\n                        app:layout_constraintEnd_toEndOf=\"@+id/imageView791\"\r\n                        app:layout_constraintStart_toStartOf=\"@+id/imageView791\"\r\n                        app:layout_constraintTop_toBottomOf=\"@+id/imageView791\" />\r\n\r\n                    <TextView\r\n\r\n                        android:id=\"@+id/textView2281\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:fontFamily=\"@font/poppins_semibold\"\r\n                        android:includeFontPadding=\"false\"\r\n                        android:lineSpacingExtra=\"-7dp\"\r\n                        android:lineSpacingMultiplier=\"5\"\r\n                        android:text=\"@{stats.doctorsCount.toString()}\"\r\n                        android:textColor=\"#2B3344\"\r\n                        android:textSize=\"14sp\"\r\n                        android:textStyle=\"bold\"\r\n                        app:layout_constraintEnd_toEndOf=\"@+id/textView2271\"\r\n                        app:layout_constraintStart_toStartOf=\"@+id/textView2271\"\r\n                        app:layout_constraintTop_toBottomOf=\"@+id/textView2271\" />\r\n\r\n                    <ImageView\r\n                        android:id=\"@+id/imageView792\"\r\n                        android:layout_width=\"18dp\"\r\n                        android:layout_height=\"18dp\"\r\n                        android:layout_marginStart=\"2dp\"\r\n                        android:layout_marginEnd=\"10dp\"\r\n                        app:layout_constraintBottom_toBottomOf=\"@+id/imageView791\"\r\n                        app:layout_constraintEnd_toEndOf=\"parent\"\r\n                        app:layout_constraintHorizontal_bias=\"0.5\"\r\n                        app:layout_constraintStart_toEndOf=\"@+id/imageView791\"\r\n                        app:layout_constraintTop_toTopOf=\"@+id/imageView791\"\r\n                        shimmer:srcCompat=\"@drawable/app_icon\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/textView2272\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginTop=\"4dp\"\r\n                        android:fontFamily=\"@font/poppins\"\r\n                        android:includeFontPadding=\"false\"\r\n                        android:lineSpacingExtra=\"-7dp\"\r\n                        android:lineSpacingMultiplier=\"5\"\r\n                        android:text=\"@string/our_hospitals\"\r\n                        android:textColor=\"#E62B3344\"\r\n                        android:textSize=\"11sp\"\r\n                        app:layout_constraintEnd_toEndOf=\"@+id/imageView792\"\r\n                        app:layout_constraintTop_toBottomOf=\"@+id/imageView792\" />\r\n\r\n                    <TextView\r\n\r\n                        android:id=\"@+id/textView2282\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:fontFamily=\"@font/poppins_semibold\"\r\n                        android:includeFontPadding=\"false\"\r\n                        android:lineSpacingExtra=\"-7dp\"\r\n                        android:lineSpacingMultiplier=\"5\"\r\n                        android:text=\"@{stats.hospitalCount.toString()}\"\r\n                        android:textColor=\"#2B3344\"\r\n                        android:textSize=\"14sp\"\r\n                        android:textStyle=\"bold\"\r\n                        app:layout_constraintEnd_toEndOf=\"@+id/textView2272\"\r\n                        app:layout_constraintTop_toBottomOf=\"@+id/textView2272\" />\r\n                </androidx.constraintlayout.widget.ConstraintLayout>\r\n            </LinearLayout>\r\n\r\n        </androidx.core.widget.NestedScrollView>\r\n\r\n    </FrameLayout>\r\n\r\n\r\n</layout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_patient_dashboard.xml	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/res/layout/fragment_patient_dashboard.xml	(date 1626354456221)
+@@ -137,11 +137,11 @@
+                     <ImageView
+                         android:id="@+id/dashboardHomeImage"
+                         android:layout_width="wrap_content"
+-                        android:layout_height="@dimen/_125sdp"
++                        android:layout_height="@dimen/_160sdp"
+                         android:layout_below="@+id/profile_image"
+                         android:layout_marginTop="8dp"
+                         android:contentDescription="TODO"
+-                        android:scaleType="fitStart"
++                        android:scaleType="fitXY"
+                         android:src="@drawable/banner_new"
+                         android:visibility="visible"
+                         app:layout_constraintEnd_toEndOf="parent"
+Index: app/src/main/java/com/digidoctor/android/utility/Cart.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.digidoctor.android.utility;\r\n\r\nimport android.app.Activity;\r\nimport android.util.Log;\r\n\r\nimport com.digidoctor.android.interfaces.CartInterface;\r\nimport com.digidoctor.android.model.labmodel.CartModel;\r\n\r\npublic class Cart {\r\n    private static final String TAG = \"Cart\";\r\n\r\n    Activity activity;\r\n    CartInterface cartInterface;\r\n\r\n    public Cart(Activity activity, CartInterface cartInterface) {\r\n        this.activity = activity;\r\n        this.cartInterface = cartInterface;\r\n    }\r\n\r\n\r\n    public void addItemToCart(String testId, String packageId) {\r\n        CartModel cartModel = new CartModel();\r\n        cartModel.setMemberId(utils.getPrimaryUser(activity).getMemberId());\r\n        cartModel.setTestId(testId);\r\n        cartModel.setPackageId(packageId);\r\n        Log.d(TAG, \"addItemToCart: \" + cartModel);\r\n\r\n        if (null == utils.getPrimaryUser(activity).getMemberId())\r\n            cartModel.setUniqueNo(utils.getPrimaryUser(activity).getUniqueNo());\r\n\r\n        AppUtils.showRequestDialog(activity);\r\n        ApiUtils.addItemToCart(cartModel, cartInterface);\r\n    }\r\n\r\n    public void deleteItemFromCart(String cartId) {\r\n        CartModel cartModel = new CartModel();\r\n        cartModel.setCartId(cartId);\r\n        ApiUtils.deleteFromCart(cartModel, cartInterface);\r\n    }\r\n\r\n    public void deleteAllItemFromCart() {\r\n    }\r\n\r\n    public void getCart() {\r\n        ApiUtils.getCartData(activity, cartInterface);\r\n    }\r\n\r\n\r\n    public void onCartItemClicked(Object obj) {\r\n        cartInterface.cartItem(obj);\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/digidoctor/android/utility/Cart.java	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/java/com/digidoctor/android/utility/Cart.java	(date 1626343908290)
+@@ -1,7 +1,8 @@
+ package com.digidoctor.android.utility;
+ 
+ import android.app.Activity;
+-import android.util.Log;
++import android.app.ProgressDialog;
++import android.widget.Toast;
+ 
+ import com.digidoctor.android.interfaces.CartInterface;
+ import com.digidoctor.android.model.labmodel.CartModel;
+@@ -12,9 +13,11 @@
+     Activity activity;
+     CartInterface cartInterface;
+ 
++
+     public Cart(Activity activity, CartInterface cartInterface) {
+         this.activity = activity;
+         this.cartInterface = cartInterface;
++
+     }
+ 
+ 
+@@ -23,22 +26,25 @@
+         cartModel.setMemberId(utils.getPrimaryUser(activity).getMemberId());
+         cartModel.setTestId(testId);
+         cartModel.setPackageId(packageId);
+-        Log.d(TAG, "addItemToCart: " + cartModel);
++
+ 
+         if (null == utils.getPrimaryUser(activity).getMemberId())
+             cartModel.setUniqueNo(utils.getPrimaryUser(activity).getUniqueNo());
+ 
+-        AppUtils.showRequestDialog(activity);
+-        ApiUtils.addItemToCart(cartModel, cartInterface);
++        if (utils.isNetworkConnected(App.context)) {
++            AppUtils.showRequestDialog(activity);
++            ApiUtils.addItemToCart(cartModel, cartInterface);
++        } else Toast.makeText(activity, "No internet connection", Toast.LENGTH_SHORT).show();
++
+     }
+ 
+     public void deleteItemFromCart(String cartId) {
++
+         CartModel cartModel = new CartModel();
+         cartModel.setCartId(cartId);
+-        ApiUtils.deleteFromCart(cartModel, cartInterface);
+-    }
+-
+-    public void deleteAllItemFromCart() {
++        if (utils.isNetworkConnected(App.context)) {
++            ApiUtils.deleteFromCart(cartModel, cartInterface);
++        } else Toast.makeText(activity, "No internet connection", Toast.LENGTH_SHORT).show();
+     }
+ 
+     public void getCart() {
+Index: app/src/main/java/com/digidoctor/android/view/fragments/lab/FragmentCartListLab.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.digidoctor.android.view.fragments.lab;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.navigation.NavController;\r\nimport androidx.navigation.Navigation;\r\n\r\nimport com.digidoctor.android.R;\r\nimport com.digidoctor.android.adapters.labadapter.CartAdapter;\r\nimport com.digidoctor.android.databinding.FragmentCartListLabBinding;\r\nimport com.digidoctor.android.interfaces.CartInterface;\r\nimport com.digidoctor.android.model.labmodel.CartModel;\r\nimport com.digidoctor.android.utility.AppUtils;\r\nimport com.digidoctor.android.utility.Cart;\r\n\r\nimport org.jetbrains.annotations.NotNull;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport java.util.Objects;\r\n\r\n\r\npublic class FragmentCartListLab extends Fragment implements CartInterface {\r\n    private static final String TAG = \"FragmentCartListLab\";\r\n\r\n\r\n    FragmentCartListLabBinding binding;\r\n    NavController navController;\r\n    Cart cart;\r\n    CartAdapter adapter;\r\n    List<CartModel> cartModelList;\r\n\r\n\r\n    @Override\r\n    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,\r\n                             Bundle savedInstanceState) {\r\n        binding = FragmentCartListLabBinding.inflate(getLayoutInflater());\r\n        return binding.getRoot();\r\n\r\n    }\r\n\r\n    @Override\r\n    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {\r\n        super.onViewCreated(view, savedInstanceState);\r\n        navController = Navigation.findNavController(view);\r\n\r\n\r\n        //init Cart Interface & Class\r\n        cart = new Cart(requireActivity(), this);\r\n        cart.getCart();\r\n\r\n\r\n        //init Adapter\r\n        cartModelList = new ArrayList<>();\r\n        adapter = new CartAdapter(cartModelList, cart, requireActivity());\r\n\r\n        //init Recyclerview\r\n        binding.recCart.setAdapter(adapter);\r\n\r\n\r\n        binding.btnContinueToLab.setOnClickListener(v -> navController.navigate(R.id.action_fragmentCartListLab_to_timeSlotForLabFragment));\r\n\r\n    }\r\n\r\n    @Override\r\n    public void onResume() {\r\n        super.onResume();\r\n        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();\r\n    }\r\n\r\n    @Override\r\n    public void onFailed(String msg) {\r\n        Log.d(TAG, \"onFailed: \" + msg);\r\n    }\r\n\r\n    @Override\r\n    public void onCartItemAdded(Object obj) {\r\n        Log.d(TAG, \"onCartItemAdded: \");\r\n    }\r\n\r\n    @Override\r\n    public void onCartItemDeleted(Object obj) {\r\n        AppUtils.hideDialog();\r\n        cart.getCart();\r\n        Toast.makeText(requireActivity(), \"Item Deleted Successfully !!\", Toast.LENGTH_SHORT).show();\r\n\r\n    }\r\n\r\n    @Override\r\n    public void cartItem(Object obj) {\r\n        this.cartModelList.clear();\r\n        Log.d(TAG, \"cartItem: \" + obj);\r\n        List<CartModel> cartModelList = (List<CartModel>) obj;\r\n        if (null != cartModelList && !cartModelList.isEmpty()) {\r\n            this.cartModelList.addAll(cartModelList);\r\n            adapter.notifyDataSetChanged();\r\n        } else {\r\n            binding.btnContinueToLab.setVisibility(View.GONE);\r\n           // Toast.makeText(requireActivity(), \"Cart Is empty !!\", Toast.LENGTH_SHORT).show();\r\n\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {\r\n        super.onActivityResult(requestCode, resultCode, data);\r\n\r\n        if (requireActivity().RESULT_OK == resultCode) {\r\n            if (data != null) {\r\n                Log.d(TAG, \"onActivityResult: \" + data);\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/digidoctor/android/view/fragments/lab/FragmentCartListLab.java	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/java/com/digidoctor/android/view/fragments/lab/FragmentCartListLab.java	(date 1626344533027)
+@@ -1,8 +1,8 @@
+ package com.digidoctor.android.view.fragments.lab;
+ 
+-import android.content.Intent;
++import android.app.AlertDialog;
++import android.app.ProgressDialog;
+ import android.os.Bundle;
+-import android.util.Log;
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
+@@ -18,6 +18,7 @@
+ import com.digidoctor.android.R;
+ import com.digidoctor.android.adapters.labadapter.CartAdapter;
+ import com.digidoctor.android.databinding.FragmentCartListLabBinding;
++import com.digidoctor.android.interfaces.AdapterInterface;
+ import com.digidoctor.android.interfaces.CartInterface;
+ import com.digidoctor.android.model.labmodel.CartModel;
+ import com.digidoctor.android.utility.AppUtils;
+@@ -30,7 +31,7 @@
+ import java.util.Objects;
+ 
+ 
+-public class FragmentCartListLab extends Fragment implements CartInterface {
++public class FragmentCartListLab extends Fragment implements CartInterface, AdapterInterface {
+     private static final String TAG = "FragmentCartListLab";
+ 
+ 
+@@ -39,6 +40,7 @@
+     Cart cart;
+     CartAdapter adapter;
+     List<CartModel> cartModelList;
++    ProgressDialog progressDialog;
+ 
+ 
+     @Override
+@@ -55,6 +57,9 @@
+         navController = Navigation.findNavController(view);
+ 
+ 
++        //init ProgressDialog
++        progressDialog = new ProgressDialog(requireContext());
++
+         //init Cart Interface & Class
+         cart = new Cart(requireActivity(), this);
+         cart.getCart();
+@@ -62,7 +67,7 @@
+ 
+         //init Adapter
+         cartModelList = new ArrayList<>();
+-        adapter = new CartAdapter(cartModelList, cart, requireActivity());
++        adapter = new CartAdapter(cartModelList, cart, this);
+ 
+         //init Recyclerview
+         binding.recCart.setAdapter(adapter);
+@@ -80,12 +85,16 @@
+ 
+     @Override
+     public void onFailed(String msg) {
+-        Log.d(TAG, "onFailed: " + msg);
++        binding.mainCartViewGroup.setVisibility(View.GONE);
++        binding.textView251.setText("Unable to get cart Data");
++        binding.progressBar11.setVisibility(View.GONE);
+     }
+ 
+     @Override
+     public void onCartItemAdded(Object obj) {
+-        Log.d(TAG, "onCartItemAdded: ");
++        if (null != progressDialog && progressDialog.isShowing()) {
++            progressDialog.dismiss();
++        }
+     }
+ 
+     @Override
+@@ -94,31 +103,51 @@
+         cart.getCart();
+         Toast.makeText(requireActivity(), "Item Deleted Successfully !!", Toast.LENGTH_SHORT).show();
+ 
++        if (null != progressDialog && progressDialog.isShowing()) {
++            progressDialog.dismiss();
++        }
++
++        List<CartModel> cartModels = (List<CartModel>) obj;
++        if (cartModels.isEmpty()) {
++            binding.mainCartViewGroup.setVisibility(View.GONE);
++            binding.groupLoadingLay.setVisibility(View.VISIBLE);
++            binding.textView251.setText("No Item in cart");
++            binding.progressBar11.setVisibility(View.GONE);
++        }
++
++
+     }
+ 
+     @Override
+     public void cartItem(Object obj) {
+         this.cartModelList.clear();
+-        Log.d(TAG, "cartItem: " + obj);
++
+         List<CartModel> cartModelList = (List<CartModel>) obj;
++
+         if (null != cartModelList && !cartModelList.isEmpty()) {
+             this.cartModelList.addAll(cartModelList);
+             adapter.notifyDataSetChanged();
++            binding.mainCartViewGroup.setVisibility(View.VISIBLE);
++            binding.groupLoadingLay.setVisibility(View.GONE);
+         } else {
+-            binding.btnContinueToLab.setVisibility(View.GONE);
+-           // Toast.makeText(requireActivity(), "Cart Is empty !!", Toast.LENGTH_SHORT).show();
++            binding.mainCartViewGroup.setVisibility(View.GONE);
++            binding.textView251.setText("No Item in cart");
++            binding.progressBar11.setVisibility(View.GONE);
++            // Toast.makeText(requireActivity(), "Cart Is empty !!", Toast.LENGTH_SHORT).show();
+ 
+         }
+     }
+ 
+     @Override
+-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+-        super.onActivityResult(requestCode, resultCode, data);
++    public void onItemClicked(Object o) {
++        CartModel cartModel = (CartModel) o;
++        new AlertDialog.Builder(requireActivity()).setMessage("Delete from cart??")
++                .setPositiveButton("Yes", (dialog, which) -> {
++                    dialog.dismiss();
++                    progressDialog.setMessage("Deleting cart item");
++                    progressDialog.show();
++                    cart.deleteItemFromCart(cartModel.getCartId());
++                }).setNegativeButton("No", (dialog, which) -> dialog.dismiss()).show();
+ 
+-        if (requireActivity().RESULT_OK == resultCode) {
+-            if (data != null) {
+-                Log.d(TAG, "onActivityResult: " + data);
+-            }
+-        }
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/res/layout/sub_speciality_view.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<layout xmlns:tools=\"http://schemas.android.com/tools\"\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\">\r\n\r\n    <data>\r\n\r\n        <import type=\"android.graphics.drawable.Drawable\" />\r\n\r\n        <variable\r\n            name=\"doctor\"\r\n            type=\"com.digidoctor.android.model.DoctorModel\" />\r\n\r\n        <variable\r\n            name=\"subSpecialityInterface\"\r\n            type=\"com.digidoctor.android.adapters.SubSpecialityAdapter.SubSpecialityInterface\" />\r\n    </data>\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_margin=\"@dimen/_10sdp\"\r\n        android:elevation=\"5dp\"\r\n        android:padding=\"@dimen/_10sdp\"\r\n        app:cardCornerRadius=\"8dp\">\r\n\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            android:background=\"?attr/selectableItemBackgroundBorderless\"\r\n            android:clickable=\"true\"\r\n            android:focusable=\"true\"\r\n            android:onClick=\"@{()->subSpecialityInterface.onViewDocProfile(doctor)}\"\r\n            android:orientation=\"vertical\">\r\n\r\n            <RelativeLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"match_parent\"\r\n                android:padding=\"@dimen/_10sdp\">\r\n\r\n                <ImageView\r\n                    app:tint=\"@color/colorPrimary\"\r\n                    android:id=\"@+id/imageView20\"\r\n                    android:layout_width=\"64dp\"\r\n                    android:layout_height=\"64dp\"\r\n                    android:contentDescription=\"@string/doctorprofileimage\"\r\n                    android:loadDoctorImage=\"@{doctor.profilePhotoPath}\"\r\n                    android:padding=\"2dp\"\r\n                    app:srcCompat=\"@drawable/doc_image\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/textView76\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginStart=\"8dp\"\r\n                    android:layout_toStartOf=\"@+id/ivShareDocProfile\"\r\n                    android:layout_toEndOf=\"@+id/imageView20\"\r\n                    android:fontFamily=\"@font/poppins_semibold\"\r\n                    android:singleLine=\"true\"\r\n                    android:text=\"@{doctor.drName}\"\r\n                    android:textColor=\"@color/TextPrimaryColor\"\r\n                    android:textSize=\"16sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/textView77\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_below=\"@id/textView76\"\r\n                    android:layout_marginStart=\"8dp\"\r\n                    android:layout_marginTop=\"-5dp\"\r\n                    android:layout_toStartOf=\"@+id/ivShareDocProfile\"\r\n                    android:layout_toEndOf=\"@+id/imageView20\"\r\n                    android:fontFamily=\"@font/poppins\"\r\n                    android:singleLine=\"true\"\r\n                    android:text=\"@{doctor.speciality+`,`+doctor.yearOfExperience}\"\r\n                    android:textColor=\"@color/TextSecondaryColor\"\r\n                    android:textSize=\"14sp\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/textView78\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_below=\"@id/textView77\"\r\n                    android:layout_marginStart=\"8dp\"\r\n                    android:layout_marginTop=\"-5dp\"\r\n                    android:layout_toEndOf=\"@+id/imageView20\"\r\n                    android:fontFamily=\"@font/poppins_semibold\"\r\n                    android:singleLine=\"true\"\r\n                    android:text=\"@{doctor.hospitalName}\"\r\n                    android:textColor=\"@color/PrimaryColor\"\r\n                    android:textSize=\"14sp\" />\r\n\r\n                <ImageView\r\n                    android:id=\"@+id/ivShareDocProfile\"\r\n                    android:layout_width=\"30dp\"\r\n                    android:layout_height=\"30dp\"\r\n                    android:layout_alignParentEnd=\"true\"\r\n                    android:layout_margin=\"3dp\"\r\n                    android:background=\"?attr/selectableItemBackgroundBorderless\"\r\n                    android:clickable=\"true\"\r\n                    android:focusable=\"true\"\r\n                    android:onClick=\"@{()->subSpecialityInterface.onShareProfile(doctor)}\"\r\n                    android:padding=\"5dp\"\r\n                    android:visibility=\"visible\"\r\n                    app:srcCompat=\"@drawable/share_doc_profile_image\"\r\n                    android:contentDescription=\"TODO\" />\r\n            </RelativeLayout>\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"match_parent\"\r\n                android:layout_marginTop=\"-5dp\"\r\n                android:orientation=\"vertical\"\r\n                android:padding=\"@dimen/_10sdp\">\r\n\r\n                <RelativeLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\">\r\n\r\n                    <ImageView\r\n                        android:layout_marginTop=\"-8dp\"\r\n                        android:id=\"@+id/imageView29\"\r\n                        android:layout_width=\"15dp\"\r\n                        android:layout_height=\"15dp\"\r\n                        android:layout_centerVertical=\"true\"\r\n                        app:srcCompat=\"@drawable/group\"\r\n                        android:contentDescription=\"TODO\"\r\n                        app:tint=\"@color/colorPrimary\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/textView79\"\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginStart=\"10dp\"\r\n                        android:layout_marginTop=\"-5dp\"\r\n                        android:layout_toEndOf=\"@+id/imageView29\"\r\n                        android:drawablePadding=\"@dimen/_10sdp\"\r\n                        android:fontFamily=\"@font/poppins\"\r\n                        android:paddingTop=\"5dp\"\r\n                        android:paddingBottom=\"5dp\"\r\n                        android:text=\"@{String.valueOf(doctor.noofPatients)+` Patients`}\"\r\n                        android:textColor=\"#3F4E6E\"\r\n                        android:textSize=\"14sp\" />\r\n                </RelativeLayout>\r\n\r\n                <RelativeLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\">\r\n\r\n                    <ImageView\r\n                        app:tint=\"@color/colorPrimary\"\r\n                        android:layout_marginTop=\"-5dp\"\r\n                        android:id=\"@+id/ivGraduated\"\r\n                        android:layout_width=\"15dp\"\r\n                        android:layout_height=\"15dp\"\r\n                        android:layout_centerVertical=\"true\"\r\n                        app:srcCompat=\"@drawable/graduated\"\r\n                        android:contentDescription=\"TODO\" />\r\n\r\n                    <TextView\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginStart=\"10dp\"\r\n                        android:layout_marginTop=\"-5dp\"\r\n                        android:layout_toEndOf=\"@+id/ivGraduated\"\r\n                        android:drawablePadding=\"@dimen/_10sdp\"\r\n                        android:fontFamily=\"@font/poppins\"\r\n                        android:paddingTop=\"5dp\"\r\n                        android:paddingBottom=\"5dp\"\r\n                        android:text=\"@{doctor.degree}\"\r\n                        android:textColor=\"#3F4E6E\"\r\n                        android:textSize=\"14sp\" />\r\n                </RelativeLayout>\r\n\r\n                <RelativeLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\">\r\n\r\n                    <ImageView\r\n                        app:tint=\"@color/colorPrimary\"\r\n                        android:layout_marginTop=\"-5dp\"\r\n                        android:id=\"@+id/ivLocationPin\"\r\n                        android:layout_width=\"15dp\"\r\n                        android:layout_height=\"15dp\"\r\n                        android:layout_centerVertical=\"true\"\r\n                        app:srcCompat=\"@drawable/location_pin\"\r\n                        android:contentDescription=\"TODO\" />\r\n\r\n                    <TextView\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginStart=\"10dp\"\r\n                        android:layout_marginTop=\"-5dp\"\r\n                        android:layout_toEndOf=\"@+id/ivLocationPin\"\r\n                        android:drawablePadding=\"@dimen/_10sdp\"\r\n                        android:fontFamily=\"@font/poppins\"\r\n                        android:paddingTop=\"5dp\"\r\n                        android:paddingBottom=\"5dp\"\r\n                        android:text=\"@{doctor.address}\"\r\n                        android:textColor=\"#3F4E6E\"\r\n                        android:textSize=\"12sp\" />\r\n                </RelativeLayout>\r\n\r\n\r\n                <View\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"0.2dp\"\r\n                    android:layout_marginTop=\"10dp\"\r\n                    android:background=\"@color/GreyColo\" />\r\n\r\n                <androidx.constraintlayout.widget.ConstraintLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:orientation=\"horizontal\"\r\n                    android:paddingTop=\"8dp\"\r\n                    android:paddingBottom=\"8dp\">\r\n\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/textView83\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_gravity=\"center_vertical\"\r\n                        android:fontFamily=\"@font/poppins\"\r\n                        android:text=\"@string/consulation_fee\"\r\n                        android:textColor=\"#262E3F\"\r\n                        android:textSize=\"15sp\"\r\n                        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                        app:layout_constraintStart_toStartOf=\"parent\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n                    <ImageView\r\n                        android:id=\"@+id/imageView30\"\r\n                        android:layout_width=\"9dp\"\r\n                        android:layout_height=\"0dp\"\r\n                        android:layout_gravity=\"center_vertical\"\r\n                        android:layout_marginStart=\"24dp\"\r\n                        android:contentDescription=\"TODO\"\r\n                        app:layout_constraintStart_toEndOf=\"@+id/textView83\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\"\r\n                        app:srcCompat=\"@drawable/rupee_indian\" />\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/textView82\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_gravity=\"center_vertical\"\r\n                        android:layout_marginStart=\"8dp\"\r\n                        android:layout_marginTop=\"4dp\"\r\n                        android:fontFamily=\"@font/poppins_bold\"\r\n                        android:text=\"@{String.valueOf(doctor.drFee)}\"\r\n                        android:textColor=\"#262E3F\"\r\n                        android:textSize=\"18sp\"\r\n                        android:textStyle=\"bold\"\r\n                        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                        app:layout_constraintStart_toEndOf=\"@+id/imageView30\"\r\n                        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n\r\n                </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n                <View\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"0.2dp\"\r\n                    android:background=\"@color/GreyColo\" />\r\n\r\n                <LinearLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginTop=\"@dimen/_20sdp\"\r\n                    android:orientation=\"horizontal\">\r\n\r\n                    <Button\r\n                        android:id=\"@+id/button4\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"@dimen/_30sdp\"\r\n                        android:layout_marginEnd=\"5dp\"\r\n                        android:layout_weight=\"1\"\r\n                        android:background=\"@drawable/round_for_search\"\r\n                        android:backgroundTint=\"@color/PrimaryColor\"\r\n                        android:paddingLeft=\"@dimen/_10sdp\"\r\n                        android:paddingRight=\"@dimen/_10sdp\"\r\n                        android:text=\"@string/video_consult\"\r\n                        android:textColor=\"@android:color/white\"\r\n                        android:visibility=\"gone\" />\r\n\r\n\r\n                    <Button\r\n                        android:id=\"@+id/btnBookAppointment\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"40dp\"\r\n                        android:layout_marginStart=\"5dp\"\r\n                        android:layout_marginBottom=\"2dp\"\r\n                        android:layout_weight=\"1\"\r\n                        android:background=\"@{doctor.workingHours==null?@drawable/disable_btn:@drawable/round_for_search_doc}\"\r\n                        android:enabled=\"@{doctor.workingHours==null?false:true}\"\r\n                        android:fontFamily=\"@font/poppins_semibold\"\r\n                        android:paddingLeft=\"@dimen/_10sdp\"\r\n                        android:paddingRight=\"@dimen/_10sdp\"\r\n                        android:text=\"@{doctor.workingHours==null?String.format(@string/slot_not_available):String.format(@string/book_appointment)}\"\r\n                        android:textColor=\"@{doctor.workingHours==null?@android:color/black:@android:color/white}\"\r\n                        android:textSize=\"14sp\" />\r\n\r\n\r\n                </LinearLayout>\r\n            </LinearLayout>\r\n        </LinearLayout>\r\n\r\n    </androidx.cardview.widget.CardView>\r\n</layout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/sub_speciality_view.xml	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/res/layout/sub_speciality_view.xml	(date 1626350462331)
+@@ -120,11 +120,10 @@
+                     android:layout_height="wrap_content">
+ 
+                     <ImageView
+-                        android:layout_marginTop="-8dp"
++                        android:layout_marginTop="3dp"
+                         android:id="@+id/imageView29"
+                         android:layout_width="15dp"
+                         android:layout_height="15dp"
+-                        android:layout_centerVertical="true"
+                         app:srcCompat="@drawable/group"
+                         android:contentDescription="TODO"
+                         app:tint="@color/colorPrimary" />
+@@ -140,7 +139,7 @@
+                         android:fontFamily="@font/poppins"
+                         android:paddingTop="5dp"
+                         android:paddingBottom="5dp"
+-                        android:text="@{String.valueOf(doctor.noofPatients)+` Patients`}"
++                        android:text="@{String.valueOf(doctor.noofPatients)+` Patients`,default=`1 Patient`}"
+                         android:textColor="#3F4E6E"
+                         android:textSize="14sp" />
+                 </RelativeLayout>
+@@ -151,11 +150,10 @@
+ 
+                     <ImageView
+                         app:tint="@color/colorPrimary"
+-                        android:layout_marginTop="-5dp"
++                        android:layout_marginTop="3dp"
+                         android:id="@+id/ivGraduated"
+                         android:layout_width="15dp"
+                         android:layout_height="15dp"
+-                        android:layout_centerVertical="true"
+                         app:srcCompat="@drawable/graduated"
+                         android:contentDescription="TODO" />
+ 
+@@ -180,11 +178,10 @@
+ 
+                     <ImageView
+                         app:tint="@color/colorPrimary"
+-                        android:layout_marginTop="-5dp"
++                        android:layout_marginTop="3dp"
+                         android:id="@+id/ivLocationPin"
+                         android:layout_width="15dp"
+                         android:layout_height="15dp"
+-                        android:layout_centerVertical="true"
+                         app:srcCompat="@drawable/location_pin"
+                         android:contentDescription="TODO" />
+ 
+@@ -200,7 +197,7 @@
+                         android:paddingBottom="5dp"
+                         android:text="@{doctor.address}"
+                         android:textColor="#3F4E6E"
+-                        android:textSize="12sp" />
++                        android:textSize="14sp" />
+                 </RelativeLayout>
+ 
+ 
+@@ -234,12 +231,13 @@
+                     <ImageView
+                         android:id="@+id/imageView30"
+                         android:layout_width="9dp"
+-                        android:layout_height="0dp"
++                        android:layout_height="28dp"
+                         android:layout_gravity="center_vertical"
+-                        android:layout_marginStart="24dp"
++                        android:layout_marginEnd="8dp"
+                         android:contentDescription="TODO"
+-                        app:layout_constraintStart_toEndOf="@+id/textView83"
+-                        app:layout_constraintTop_toTopOf="parent"
++                        android:scaleType="centerInside"
++                        app:layout_constraintEnd_toStartOf="@+id/textView82"
++                        app:layout_constraintTop_toTopOf="@+id/textView82"
+                         app:srcCompat="@drawable/rupee_indian" />
+ 
+                     <TextView
+@@ -247,15 +245,14 @@
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_gravity="center_vertical"
+-                        android:layout_marginStart="8dp"
+-                        android:layout_marginTop="4dp"
++                        android:layout_marginEnd="8dp"
+                         android:fontFamily="@font/poppins_bold"
+                         android:text="@{String.valueOf(doctor.drFee)}"
+                         android:textColor="#262E3F"
+                         android:textSize="18sp"
+                         android:textStyle="bold"
+                         app:layout_constraintBottom_toBottomOf="parent"
+-                        app:layout_constraintStart_toEndOf="@+id/imageView30"
++                        app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintTop_toTopOf="parent" />
+ 
+ 
+@@ -295,6 +292,7 @@
+                         android:layout_marginBottom="2dp"
+                         android:layout_weight="1"
+                         android:background="@{doctor.workingHours==null?@drawable/disable_btn:@drawable/round_for_search_doc}"
++                        android:backgroundTint="@color/YellowColo"
+                         android:enabled="@{doctor.workingHours==null?false:true}"
+                         android:fontFamily="@font/poppins_semibold"
+                         android:paddingLeft="@dimen/_10sdp"
+Index: app/src/main/res/layout/fragment_doctor_short_profile.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<layout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <data>\r\n\r\n        <variable\r\n            name=\"docMo\"\r\n            type=\"com.digidoctor.android.model.DoctorModel\" />\r\n    </data>\r\n\r\n    <FrameLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        tools:context=\".view.fragments.digiDoctorFragments.DoctorProfileFragment\">\r\n\r\n        <RelativeLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            tools:context=\".view.fragments.digiDoctorFragments.DoctorProfileFragment\">\r\n\r\n            <androidx.core.widget.NestedScrollView\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_above=\"@+id/btnBookAppointment\"\r\n                android:layout_alignParentTop=\"true\">\r\n\r\n                <LinearLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:orientation=\"vertical\">\r\n\r\n                    <RelativeLayout\r\n\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:background=\"@android:color/white\"\r\n                        android:paddingLeft=\"@dimen/_10sdp\"\r\n                        android:paddingTop=\"@dimen/_10sdp\"\r\n                        android:paddingRight=\"@dimen/_10sdp\"\r\n                        android:paddingBottom=\"25dp\">\r\n\r\n                        <ImageView\r\n                            android:id=\"@+id/imageView20\"\r\n                            android:layout_width=\"54dp\"\r\n                            android:layout_height=\"54dp\"\r\n                            android:loadCustomDoctorImage=\"@{docMo.profilePhotoPath}\"\r\n                            android:padding=\"2dp\"\r\n                            app:srcCompat=\"@drawable/doc_image\"\r\n                            android:contentDescription=\"TODO\" />\r\n\r\n                        <LinearLayout\r\n                            android:layout_width=\"match_parent\"\r\n                            android:layout_height=\"54dp\"\r\n                            android:layout_marginStart=\"12dp\"\r\n                            android:layout_toEndOf=\"@+id/imageView20\"\r\n                            android:gravity=\"center_vertical\"\r\n                            android:orientation=\"vertical\">\r\n\r\n                            <TextView\r\n                                android:id=\"@+id/textView92\"\r\n                                android:layout_width=\"match_parent\"\r\n                                android:layout_height=\"wrap_content\"\r\n                                android:fontFamily=\"@font/poppins_semibold\"\r\n                                android:text=\"@{docMo.drName}\"\r\n                                android:textColor=\"#262E3F\"\r\n                                android:textSize=\"16sp\"\r\n                                android:textStyle=\"bold\" />\r\n\r\n                            <TextView\r\n                                android:id=\"@+id/textView93\"\r\n                                android:layout_width=\"match_parent\"\r\n                                android:layout_height=\"wrap_content\"\r\n                                android:fontFamily=\"@font/poppins\"\r\n                                android:text=\"@{docMo.degree.equalsIgnoreCase(``)?docMo.speciality:docMo.speciality+`, `+docMo.degree}\"\r\n                                android:textColor=\"#3F4E6E\"\r\n                                android:textSize=\"14sp\" />\r\n                        </LinearLayout>\r\n\r\n\r\n                        <RelativeLayout\r\n\r\n                            android:layout_width=\"match_parent\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_below=\"@+id/imageView20\"\r\n                            android:layout_marginLeft=\"16dp\"\r\n                            android:layout_marginTop=\"18dp\"\r\n                            android:layout_marginRight=\"16dp\">\r\n\r\n                            <ImageView\r\n                                android:id=\"@+id/ivLocationPin\"\r\n                                android:layout_width=\"12dp\"\r\n                                android:layout_height=\"15dp\"\r\n                                android:layout_marginTop=\"4dp\"\r\n                                app:srcCompat=\"@drawable/location_pin\"\r\n                                android:contentDescription=\"TODO\" />\r\n\r\n                            <TextView\r\n                                android:id=\"@+id/textView94\"\r\n                                android:layout_width=\"wrap_content\"\r\n                                android:layout_height=\"wrap_content\"\r\n                                android:layout_marginStart=\"9dp\"\r\n                                android:layout_toEndOf=\"@+id/ivLocationPin\"\r\n                                android:fontFamily=\"@font/poppins_semibold\"\r\n                                android:text=\"@{docMo.hospitalName}\"\r\n                                android:textColor=\"#3F4E6E\"\r\n                                android:textSize=\"14sp\"\r\n                                android:textStyle=\"bold\" />\r\n\r\n                            <TextView\r\n                                android:layout_width=\"match_parent\"\r\n                                android:layout_height=\"wrap_content\"\r\n                                android:layout_below=\"@+id/textView94\"\r\n                                android:layout_marginStart=\"10dp\"\r\n                                android:layout_toEndOf=\"@+id/ivLocationPin\"\r\n                                android:drawablePadding=\"@dimen/_10sdp\"\r\n                                android:fontFamily=\"@font/poppins\"\r\n                                android:paddingTop=\"5dp\"\r\n                                android:paddingBottom=\"5dp\"\r\n                                android:text=\"@{docMo.address}\"\r\n                                android:textColor=\"#3F4E6E\"\r\n                                android:textSize=\"12sp\" />\r\n                        </RelativeLayout>\r\n\r\n                    </RelativeLayout>\r\n\r\n                    <LinearLayout\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"match_parent\"\r\n                        android:background=\"@drawable/round_from_top\"\r\n                        android:orientation=\"horizontal\"\r\n                        android:paddingStart=\"15dp\"\r\n                        android:paddingTop=\"22dp\"\r\n                        android:paddingEnd=\"22dp\"\r\n                        android:paddingBottom=\"22dp\"\r\n                        android:weightSum=\"2\">\r\n\r\n                        <RelativeLayout\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_weight=\"1\">\r\n\r\n                            <RelativeLayout\r\n                                android:id=\"@+id/imageView34\"\r\n                                android:layout_width=\"54dp\"\r\n                                android:layout_height=\"54dp\"\r\n                                android:background=\"@drawable/round_for_search\"\r\n                                android:backgroundTint=\"#F2B962\">\r\n\r\n                                <ImageView\r\n                                    android:layout_width=\"32dp\"\r\n                                    android:layout_height=\"20dp\"\r\n                                    android:layout_centerInParent=\"true\"\r\n                                    android:src=\"@drawable/user\"\r\n                                    android:contentDescription=\"TODO\" />\r\n                            </RelativeLayout>\r\n\r\n                            <TextView\r\n                                android:id=\"@+id/textView101\"\r\n                                android:layout_width=\"wrap_content\"\r\n                                android:layout_height=\"wrap_content\"\r\n                                android:layout_centerVertical=\"true\"\r\n                                android:layout_marginStart=\"12dp\"\r\n                                android:layout_toEndOf=\"@id/imageView34\"\r\n                                android:fontFamily=\"@font/poppins_medium\"\r\n                                android:text=\"@{String.valueOf(docMo.noofPatients)+`\\n`+String.format(@string/patient)}\"\r\n                                android:textAlignment=\"center\"\r\n                                android:textColor=\"@android:color/white\"\r\n                                android:textSize=\"15sp\" />\r\n\r\n                        </RelativeLayout>\r\n\r\n                        <RelativeLayout\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_weight=\"1\">\r\n\r\n                            <RelativeLayout\r\n                                android:id=\"@+id/rlImageView\"\r\n                                android:layout_width=\"54dp\"\r\n                                android:layout_height=\"54dp\"\r\n                                android:layout_marginStart=\"20dp\"\r\n                                android:background=\"@drawable/round_for_search\"\r\n                                android:backgroundTint=\"#F2B962\">\r\n\r\n                                <ImageView\r\n\r\n                                    android:layout_width=\"25dp\"\r\n                                    android:layout_height=\"25dp\"\r\n                                    android:layout_centerInParent=\"true\"\r\n                                    android:src=\"@drawable/experience_big\"\r\n                                    android:contentDescription=\"TODO\" />\r\n                            </RelativeLayout>\r\n\r\n                            <TextView\r\n                                android:id=\"@+id/textView102\"\r\n                                android:layout_width=\"wrap_content\"\r\n                                android:layout_height=\"wrap_content\"\r\n                                android:layout_alignParentEnd=\"true\"\r\n                                android:layout_centerVertical=\"true\"\r\n                                android:layout_marginStart=\"12dp\"\r\n                                android:layout_toEndOf=\"@+id/rlImageView\"\r\n                                android:fontFamily=\"@font/poppins_medium\"\r\n                                android:text=\"@{docMo.yearOfExperience}\"\r\n                                android:textAlignment=\"center\"\r\n                                android:textColor=\"@android:color/white\"\r\n                                android:textSize=\"15sp\" />\r\n\r\n                        </RelativeLayout>\r\n\r\n\r\n                    </LinearLayout>\r\n\r\n                    <LinearLayout\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:orientation=\"vertical\"\r\n                        android:paddingLeft=\"15dp\"\r\n                        android:paddingTop=\"23dp\"\r\n                        android:paddingRight=\"15dp\">\r\n\r\n                        <TextView\r\n                            android:id=\"@+id/textView104\"\r\n                            android:layout_width=\"match_parent\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:fontFamily=\"@font/poppins_semibold\"\r\n                            android:setCustomVisibility=\"@{docMo.description}\"\r\n                            android:text=\"@string/about_doc\"\r\n                            android:textColor=\"#262E3F\"\r\n                            android:textSize=\"16sp\"\r\n                            android:textStyle=\"bold\" />\r\n\r\n                        <TextView\r\n                            android:id=\"@+id/textView105\"\r\n                            android:layout_width=\"match_parent\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_marginTop=\"10dp\"\r\n                            android:fontFamily=\"@font/poppins\"\r\n                            android:setCustomVisibility=\"@{docMo.description}\"\r\n                            android:text=\"@{docMo.description}\"\r\n                            android:textColor=\"#3F4E6E\"\r\n                            android:textSize=\"12sp\" />\r\n\r\n                        <TextView\r\n                            android:layout_width=\"match_parent\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_marginTop=\"18dp\"\r\n                            android:fontFamily=\"@font/poppins_semibold\"\r\n                            android:text=\"@string/timing\"\r\n                            android:textColor=\"#262E3F\"\r\n                            android:textSize=\"16sp\"\r\n                            android:textStyle=\"bold\" />\r\n\r\n\r\n                        <TextView\r\n                            android:id=\"@+id/tvWorkingHours\"\r\n                            android:layout_width=\"match_parent\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_marginTop=\"8dp\"\r\n                            android:layout_marginBottom=\"10dp\"\r\n                            android:fontFamily=\"@font/poppins\"\r\n                            android:textColor=\"#3F4E6E\"\r\n                            android:textSize=\"12sp\" />\r\n\r\n\r\n                    </LinearLayout>\r\n\r\n                </LinearLayout>\r\n            </androidx.core.widget.NestedScrollView>\r\n\r\n            <Button\r\n                android:id=\"@+id/btnBookAppointment\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"42dp\"\r\n                android:layout_alignParentBottom=\"true\"\r\n                android:layout_margin=\"15dp\"\r\n                android:layout_marginBottom=\"10dp\"\r\n                android:background=\"@drawable/round_for_search\"\r\n                android:backgroundTint=\"@color/PrimaryColor\"\r\n                android:enabled=\"false\"\r\n                android:fontFamily=\"@font/poppins_semibold\"\r\n                android:textAllCaps=\"false\"\r\n                android:textColor=\"@android:color/white\" />\r\n        </RelativeLayout>\r\n    </FrameLayout>\r\n</layout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_doctor_short_profile.xml	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/res/layout/fragment_doctor_short_profile.xml	(date 1626350665618)
+@@ -45,10 +45,10 @@
+                             android:id="@+id/imageView20"
+                             android:layout_width="54dp"
+                             android:layout_height="54dp"
++                            android:contentDescription="TODO"
+                             android:loadCustomDoctorImage="@{docMo.profilePhotoPath}"
+                             android:padding="2dp"
+-                            app:srcCompat="@drawable/doc_image"
+-                            android:contentDescription="TODO" />
++                            app:srcCompat="@drawable/doc_image" />
+ 
+                         <LinearLayout
+                             android:layout_width="match_parent"
+@@ -93,8 +93,8 @@
+                                 android:layout_width="12dp"
+                                 android:layout_height="15dp"
+                                 android:layout_marginTop="4dp"
+-                                app:srcCompat="@drawable/location_pin"
+-                                android:contentDescription="TODO" />
++                                android:contentDescription="TODO"
++                                app:srcCompat="@drawable/location_pin" />
+ 
+                             <TextView
+                                 android:id="@+id/textView94"
+@@ -152,8 +152,8 @@
+                                     android:layout_width="32dp"
+                                     android:layout_height="20dp"
+                                     android:layout_centerInParent="true"
+-                                    android:src="@drawable/user"
+-                                    android:contentDescription="TODO" />
++                                    android:contentDescription="TODO"
++                                    android:src="@drawable/user" />
+                             </RelativeLayout>
+ 
+                             <TextView
+@@ -189,8 +189,8 @@
+                                     android:layout_width="25dp"
+                                     android:layout_height="25dp"
+                                     android:layout_centerInParent="true"
+-                                    android:src="@drawable/experience_big"
+-                                    android:contentDescription="TODO" />
++                                    android:contentDescription="TODO"
++                                    android:src="@drawable/experience_big" />
+                             </RelativeLayout>
+ 
+                             <TextView
+Index: app/src/main/res/layout/fragment_cart_list_lab.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"#F2F6FE\"\r\n    tools:context=\".view.fragments.lab.FragmentCartListLab\">\r\n\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView187\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"8dp\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:fontFamily=\"@font/poppins_semibold\"\r\n        android:text=\"Home Collection Tests\"\r\n        android:textColor=\"#2B3344\"\r\n        android:textSize=\"@dimen/_17sdp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/recCart\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_marginStart=\"8dp\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:layout_marginEnd=\"8dp\"\r\n        android:layout_marginBottom=\"8dp\"\r\n        android:orientation=\"vertical\"\r\n        app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/btnContinueToLab\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/textView187\"\r\n        app:spanCount=\"5\"\r\n        tools:itemCount=\"9\"\r\n        tools:listitem=\"@layout/car_list_lab_view_layout\" />\r\n\r\n    <Button\r\n        android:id=\"@+id/btnContinueToLab\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"24dp\"\r\n        android:layout_marginEnd=\"24dp\"\r\n        android:layout_marginBottom=\"16dp\"\r\n        android:background=\"@drawable/add_button\"\r\n        android:text=\"@string/continue_\"\r\n        android:textAllCaps=\"false\"\r\n        android:textColor=\"@color/white\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\" />\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_cart_list_lab.xml	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/res/layout/fragment_cart_list_lab.xml	(date 1626342842199)
+@@ -8,6 +8,19 @@
+     tools:context=".view.fragments.lab.FragmentCartListLab">
+ 
+ 
++    <androidx.constraintlayout.widget.Group
++        android:id="@+id/groupLoadingLay"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        app:constraint_referenced_ids="textView251,progressBar11" />
++
++    <androidx.constraintlayout.widget.Group
++        android:id="@+id/mainCartViewGroup"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:visibility="gone"
++        app:constraint_referenced_ids="textView187,recCart,btnContinueToLab" />
++
+     <TextView
+         android:id="@+id/textView187"
+         android:layout_width="wrap_content"
+@@ -54,4 +67,27 @@
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent" />
++
++    <TextView
++        android:id="@+id/textView251"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="16dp"
++        android:text="Loading cart items\nPlease wait"
++        android:textAlignment="center"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="@+id/progressBar11"
++        app:layout_constraintStart_toStartOf="@+id/progressBar11"
++        app:layout_constraintTop_toBottomOf="@+id/progressBar11" />
++
++    <ProgressBar
++        android:id="@+id/progressBar11"
++        style="?android:attr/progressBarStyle"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        app:layout_constraintBottom_toTopOf="@+id/textView251"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent"
++        app:layout_constraintVertical_chainStyle="packed" />
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><vector android:height=\"24dp\" android:tint=\"#A6A6A6\"\r\n    android:viewportHeight=\"24\" android:viewportWidth=\"24\"\r\n    android:width=\"24dp\" xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n    <path android:fillColor=\"@android:color/white\" android:pathData=\"M7,18c-1.1,0 -1.99,0.9 -1.99,2S5.9,22 7,22s2,-0.9 2,-2 -0.9,-2 -2,-2zM1,2v2h2l3.6,7.59 -1.35,2.45c-0.16,0.28 -0.25,0.61 -0.25,0.96 0,1.1 0.9,2 2,2h12v-2L7.42,15c-0.14,0 -0.25,-0.11 -0.25,-0.25l0.03,-0.12 0.9,-1.63h7.45c0.75,0 1.41,-0.41 1.75,-1.03l3.58,-6.49c0.08,-0.14 0.12,-0.31 0.12,-0.48 0,-0.55 -0.45,-1 -1,-1L5.21,4l-0.94,-2L1,2zM17,18c-1.1,0 -1.99,0.9 -1.99,2s0.89,2 1.99,2 2,-0.9 2,-2 -0.9,-2 -2,-2z\"/>\r\n</vector>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml	(date 1626342142519)
+@@ -1,5 +1,10 @@
+-<vector android:height="24dp" android:tint="#A6A6A6"
+-    android:viewportHeight="24" android:viewportWidth="24"
+-    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+-    <path android:fillColor="@android:color/white" android:pathData="M7,18c-1.1,0 -1.99,0.9 -1.99,2S5.9,22 7,22s2,-0.9 2,-2 -0.9,-2 -2,-2zM1,2v2h2l3.6,7.59 -1.35,2.45c-0.16,0.28 -0.25,0.61 -0.25,0.96 0,1.1 0.9,2 2,2h12v-2L7.42,15c-0.14,0 -0.25,-0.11 -0.25,-0.25l0.03,-0.12 0.9,-1.63h7.45c0.75,0 1.41,-0.41 1.75,-1.03l3.58,-6.49c0.08,-0.14 0.12,-0.31 0.12,-0.48 0,-0.55 -0.45,-1 -1,-1L5.21,4l-0.94,-2L1,2zM17,18c-1.1,0 -1.99,0.9 -1.99,2s0.89,2 1.99,2 2,-0.9 2,-2 -0.9,-2 -2,-2z"/>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="30dp"
++    android:height="30dp"
++    android:tint="#A6A6A6"
++    android:viewportWidth="24"
++    android:viewportHeight="24">
++    <path
++        android:fillColor="@android:color/white"
++        android:pathData="M7,18c-1.1,0 -1.99,0.9 -1.99,2S5.9,22 7,22s2,-0.9 2,-2 -0.9,-2 -2,-2zM1,2v2h2l3.6,7.59 -1.35,2.45c-0.16,0.28 -0.25,0.61 -0.25,0.96 0,1.1 0.9,2 2,2h12v-2L7.42,15c-0.14,0 -0.25,-0.11 -0.25,-0.25l0.03,-0.12 0.9,-1.63h7.45c0.75,0 1.41,-0.41 1.75,-1.03l3.58,-6.49c0.08,-0.14 0.12,-0.31 0.12,-0.48 0,-0.55 -0.45,-1 -1,-1L5.21,4l-0.94,-2L1,2zM17,18c-1.1,0 -1.99,0.9 -1.99,2s0.89,2 1.99,2 2,-0.9 2,-2 -0.9,-2 -2,-2z" />
+ </vector>
+Index: app/src/main/res/drawable/round_for_search_doc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<ripple xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:color=\"@color/colorPrimary\"\r\n    tools:targetApi=\"lollipop\">\r\n    <item>\r\n        <shape android:shape=\"rectangle\">\r\n            <corners android:radius=\"@dimen/_20sdp\" />\r\n            <solid android:color=\"@color/YellowColo\" />\r\n        </shape>\r\n    </item>\r\n\r\n</ripple>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/round_for_search_doc.xml	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/res/drawable/round_for_search_doc.xml	(date 1626349241533)
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <ripple xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+-    android:color="@color/colorPrimary"
++    android:color="@color/YellowColo"
+     tools:targetApi="lollipop">
+     <item>
+         <shape android:shape="rectangle">
+Index: app/src/main/res/drawable/ic_baseline_shopping_cart_16.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_baseline_shopping_cart_16.xml	(date 1626342078606)
++++ app/src/main/res/drawable/ic_baseline_shopping_cart_16.xml	(date 1626342078606)
+@@ -0,0 +1,10 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="16dp"
++    android:height="16dp"
++    android:tint="#A6A6A6"
++    android:viewportWidth="24"
++    android:viewportHeight="24">
++    <path
++        android:fillColor="@android:color/white"
++        android:pathData="M7,18c-1.1,0 -1.99,0.9 -1.99,2S5.9,22 7,22s2,-0.9 2,-2 -0.9,-2 -2,-2zM1,2v2h2l3.6,7.59 -1.35,2.45c-0.16,0.28 -0.25,0.61 -0.25,0.96 0,1.1 0.9,2 2,2h12v-2L7.42,15c-0.14,0 -0.25,-0.11 -0.25,-0.25l0.03,-0.12 0.9,-1.63h7.45c0.75,0 1.41,-0.41 1.75,-1.03l3.58,-6.49c0.08,-0.14 0.12,-0.31 0.12,-0.48 0,-0.55 -0.45,-1 -1,-1L5.21,4l-0.94,-2L1,2zM17,18c-1.1,0 -1.99,0.9 -1.99,2s0.89,2 1.99,2 2,-0.9 2,-2 -0.9,-2 -2,-2z" />
++</vector>
+Index: app/src/main/res/drawable/round_from_top.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<shape xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:shape=\"rectangle\">\r\n    <solid android:color=\"@color/YellowColo\" />\r\n    <corners\r\n        android:topRightRadius=\"@dimen/_15sdp\"\r\n        android:topLeftRadius=\"@dimen/_15sdp\" />\r\n</shape>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/round_from_top.xml	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/res/drawable/round_from_top.xml	(date 1626350658427)
+@@ -3,6 +3,6 @@
+     android:shape="rectangle">
+     <solid android:color="@color/YellowColo" />
+     <corners
+-        android:topRightRadius="@dimen/_15sdp"
+-        android:topLeftRadius="@dimen/_15sdp" />
++        android:topRightRadius="@dimen/_25sdp"
++        android:topLeftRadius="@dimen/_25sdp" />
+ </shape>
+\ No newline at end of file
+Index: app/src/main/java/com/digidoctor/android/adapters/labadapter/CartAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.digidoctor.android.adapters.labadapter;\r\n\r\nimport android.app.Activity;\r\nimport android.app.AlertDialog;\r\nimport android.content.DialogInterface;\r\nimport android.util.Log;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport com.digidoctor.android.databinding.CarListLabViewLayoutBinding;\r\nimport com.digidoctor.android.databinding.TestNameViewBinding;\r\nimport com.digidoctor.android.model.labmodel.CartModel;\r\nimport com.digidoctor.android.utility.App;\r\nimport com.digidoctor.android.utility.AppUtils;\r\nimport com.digidoctor.android.utility.Cart;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartVH> {\r\n    private static final String TAG = \"CartAdapter\";\r\n    List<CartModel> cartModelList;\r\n    Cart cart;\r\n    InnerTestListAdapter innerTestListAdapter;\r\n    Activity activity;\r\n\r\n    public CartAdapter(List<CartModel> cartModelList, Cart cart, Activity activity) {\r\n        this.cartModelList = cartModelList;\r\n        this.cart = cart;\r\n        this.activity = activity;\r\n\r\n    }\r\n\r\n    @NonNull\r\n    @Override\r\n    public CartVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {\r\n        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());\r\n        CarListLabViewLayoutBinding binding = CarListLabViewLayoutBinding.inflate(layoutInflater, parent, false);\r\n        return new CartVH(binding);\r\n    }\r\n\r\n    @Override\r\n    public void onBindViewHolder(@NonNull CartVH holder, int position) {\r\n        CartModel cartModel = cartModelList.get(position);\r\n\r\n        holder.binding.setCartModel(cartModel);\r\n\r\n        holder.binding.btnDeleteCartItem.setOnClickListener(v -> {\r\n            new AlertDialog.Builder(activity).setMessage(\"Delete from cart??\")\r\n                    .setPositiveButton(\"Yes\", (dialog, which) -> {\r\n                        dialog.dismiss();\r\n                        cart.deleteItemFromCart(cartModel.getCartId());\r\n                    }).setNegativeButton(\"No\", (dialog, which) -> dialog.dismiss()).show();\r\n\r\n        });\r\n\r\n        try {\r\n            List<CartModel.Test> test = cartModel.getPackageTestList();\r\n            innerTestListAdapter = new InnerTestListAdapter(test);\r\n            holder.binding.recTest.setAdapter(innerTestListAdapter);\r\n            innerTestListAdapter.notifyDataSetChanged();\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n            Log.d(TAG, \"onBindViewHolder: \" + e.getLocalizedMessage());\r\n        }\r\n\r\n    }\r\n\r\n    @Override\r\n    public int getItemCount() {\r\n        if (null == cartModelList)\r\n            cartModelList = new ArrayList<>();\r\n        return cartModelList.size();\r\n    }\r\n\r\n    public static class CartVH extends RecyclerView.ViewHolder {\r\n        CarListLabViewLayoutBinding binding;\r\n\r\n        public CartVH(@NonNull CarListLabViewLayoutBinding binding) {\r\n            super(binding.getRoot());\r\n            this.binding = binding;\r\n        }\r\n    }\r\n\r\n    private static class InnerTestListAdapter extends RecyclerView.Adapter<InnerTestListAdapter.InnerVH> {\r\n        List<CartModel.Test> test;\r\n\r\n        public InnerTestListAdapter(List<CartModel.Test> test) {\r\n            this.test = test;\r\n        }\r\n\r\n        @NonNull\r\n        @Override\r\n        public InnerTestListAdapter.InnerVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {\r\n            LayoutInflater inflater = LayoutInflater.from(parent.getContext());\r\n            TestNameViewBinding binding = TestNameViewBinding.inflate(inflater, parent, false);\r\n            return new InnerVH(binding);\r\n        }\r\n\r\n        @Override\r\n        public void onBindViewHolder(@NonNull InnerTestListAdapter.InnerVH holder, int position) {\r\n\r\n            holder.binding.setTest(test.get(position));\r\n            holder.binding.getRoot().setOnClickListener(v -> {\r\n                // Toast.makeText(App.context, test.get(position).getId(), Toast.LENGTH_SHORT).show();\r\n            });\r\n        }\r\n\r\n        @Override\r\n        public int getItemCount() {\r\n            if (null == test)\r\n                test = new ArrayList<>();\r\n            return test.size();\r\n        }\r\n\r\n        public static class InnerVH extends RecyclerView.ViewHolder {\r\n            TestNameViewBinding binding;\r\n\r\n            public InnerVH(@NonNull TestNameViewBinding binding) {\r\n                super(binding.getRoot());\r\n                this.binding = binding;\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/digidoctor/android/adapters/labadapter/CartAdapter.java	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/java/com/digidoctor/android/adapters/labadapter/CartAdapter.java	(date 1626344262539)
+@@ -1,22 +1,15 @@
+ package com.digidoctor.android.adapters.labadapter;
+ 
+-import android.app.Activity;
+-import android.app.AlertDialog;
+-import android.content.DialogInterface;
+-import android.util.Log;
+ import android.view.LayoutInflater;
+-import android.view.View;
+ import android.view.ViewGroup;
+-import android.widget.Toast;
+ 
+ import androidx.annotation.NonNull;
+ import androidx.recyclerview.widget.RecyclerView;
+ 
+ import com.digidoctor.android.databinding.CarListLabViewLayoutBinding;
+ import com.digidoctor.android.databinding.TestNameViewBinding;
++import com.digidoctor.android.interfaces.AdapterInterface;
+ import com.digidoctor.android.model.labmodel.CartModel;
+-import com.digidoctor.android.utility.App;
+-import com.digidoctor.android.utility.AppUtils;
+ import com.digidoctor.android.utility.Cart;
+ 
+ import java.util.ArrayList;
+@@ -27,12 +20,13 @@
+     List<CartModel> cartModelList;
+     Cart cart;
+     InnerTestListAdapter innerTestListAdapter;
+-    Activity activity;
++    AdapterInterface adapterInterface;
+ 
+-    public CartAdapter(List<CartModel> cartModelList, Cart cart, Activity activity) {
++    public CartAdapter(List<CartModel> cartModelList, Cart cart, AdapterInterface adapterInterface) {
+         this.cartModelList = cartModelList;
+         this.cart = cart;
+-        this.activity = activity;
++        this.adapterInterface = adapterInterface;
++
+ 
+     }
+ 
+@@ -41,6 +35,7 @@
+     public CartVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+         CarListLabViewLayoutBinding binding = CarListLabViewLayoutBinding.inflate(layoutInflater, parent, false);
++        binding.setAdapterInterface(adapterInterface);
+         return new CartVH(binding);
+     }
+ 
+@@ -50,15 +45,6 @@
+ 
+         holder.binding.setCartModel(cartModel);
+ 
+-        holder.binding.btnDeleteCartItem.setOnClickListener(v -> {
+-            new AlertDialog.Builder(activity).setMessage("Delete from cart??")
+-                    .setPositiveButton("Yes", (dialog, which) -> {
+-                        dialog.dismiss();
+-                        cart.deleteItemFromCart(cartModel.getCartId());
+-                    }).setNegativeButton("No", (dialog, which) -> dialog.dismiss()).show();
+-
+-        });
+-
+         try {
+             List<CartModel.Test> test = cartModel.getPackageTestList();
+             innerTestListAdapter = new InnerTestListAdapter(test);
+@@ -66,7 +52,6 @@
+             innerTestListAdapter.notifyDataSetChanged();
+         } catch (Exception e) {
+             e.printStackTrace();
+-            Log.d(TAG, "onBindViewHolder: " + e.getLocalizedMessage());
+         }
+ 
+     }
+Index: app/src/main/res/layout/fragment_sub_specialist.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:shimmer=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@color/BackgroundColor\"\r\n    android:orientation=\"vertical\"\r\n    tools:context=\"com.digidoctor.android.view.fragments.digiDoctorFragments.SubSpecialistFragment\">\r\n\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:background=\"@drawable/bottom_round\"\r\n        android:orientation=\"vertical\"\r\n        android:paddingLeft=\"10dp\"\r\n        android:paddingTop=\"@dimen/_20sdp\"\r\n        android:paddingRight=\"10dp\"\r\n        android:paddingBottom=\"@dimen/_20sdp\">\r\n\r\n\r\n        <EditText\r\n            android:id=\"@+id/editTextTextSearchDocBySpeciality\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"20dp\"\r\n            android:layout_marginEnd=\"15dp\"\r\n            android:background=\"@drawable/round_for_search\"\r\n            android:backgroundTint=\"@android:color/white\"\r\n            android:drawableEnd=\"@drawable/magnifier\"\r\n            android:drawablePadding=\"10dp\"\r\n            android:drawableTint=\"@color/colorPrimary\"\r\n            android:ems=\"10\"\r\n            android:hint=\"@string/search_doctor\"\r\n            android:imeOptions=\"actionSearch\"\r\n            android:inputType=\"textPersonName\"\r\n            android:paddingLeft=\"20dp\"\r\n            android:paddingTop=\"10dp\"\r\n            android:paddingRight=\"20dp\"\r\n            android:paddingBottom=\"10dp\"\r\n            android:singleLine=\"true\"\r\n            android:textColorHint=\"#A2B3B8\"\r\n            android:textSize=\"14sp\" />\r\n\r\n\r\n    </LinearLayout>\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/subSpecialityRec\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:visibility=\"gone\"\r\n        app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n        tools:listitem=\"@layout/sub_speciality_view\" />\r\n\r\n\r\n    <com.facebook.shimmer.ShimmerFrameLayout\r\n        android:id=\"@+id/shimmerHOmeScreen\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:visibility=\"visible\"\r\n        shimmer:duration=\"700\">\r\n\r\n        <!--  <androidx.recyclerview.widget.RecyclerView\r\n              android:id=\"@+id/shimmerSubSpeciality\"\r\n              android:layout_width=\"match_parent\"\r\n              android:layout_height=\"match_parent\"\r\n              android:loadCustomShimmerAdapter=\"@layout/shimmer_doctor_view\"\r\n              android:padding=\"@dimen/_10sdp\"\r\n              android:visibility=\"visible\"\r\n              app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n              tools:listitem=\"@layout/shimmer_doctor_view\" />-->\r\n    </com.facebook.shimmer.ShimmerFrameLayout>\r\n\r\n\r\n    <RelativeLayout\r\n        android:id=\"@+id/rlNoDocFound\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:gravity=\"center_vertical\"\r\n        android:visibility=\"gone\">\r\n\r\n        <ImageView\r\n            android:id=\"@+id/imageView\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"241dp\"\r\n            android:contentDescription=\"TODO\"\r\n            android:src=\"@drawable/no_doc_image\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/textView3\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_below=\"@+id/imageView\"\r\n            android:layout_centerHorizontal=\"true\"\r\n            android:layout_marginTop=\"58dp\"\r\n            android:fontFamily=\"@font/poppins_bold\"\r\n            android:text=\"@string/sorry\"\r\n            android:textColor=\"#262E3F\"\r\n            android:textSize=\"17sp\"\r\n            android:textStyle=\"bold\"\r\n            android:visibility=\"gone\" />\r\n\r\n        <TextView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_below=\"@+id/textView3\"\r\n            android:layout_centerHorizontal=\"true\"\r\n            android:layout_marginTop=\"25dp\"\r\n            android:fontFamily=\"@font/poppins_medium\"\r\n            android:text=\"@string/no_doctors_found\"\r\n            android:textColor=\"#262E3F\"\r\n            android:textSize=\"17sp\" />\r\n    </RelativeLayout>\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_sub_specialist.xml	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/res/layout/fragment_sub_specialist.xml	(date 1626349272698)
+@@ -63,15 +63,6 @@
+         android:visibility="visible"
+         shimmer:duration="700">
+ 
+-        <!--  <androidx.recyclerview.widget.RecyclerView
+-              android:id="@+id/shimmerSubSpeciality"
+-              android:layout_width="match_parent"
+-              android:layout_height="match_parent"
+-              android:loadCustomShimmerAdapter="@layout/shimmer_doctor_view"
+-              android:padding="@dimen/_10sdp"
+-              android:visibility="visible"
+-              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+-              tools:listitem="@layout/shimmer_doctor_view" />-->
+     </com.facebook.shimmer.ShimmerFrameLayout>
+ 
+ 
+Index: .idea/runConfigurations.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"RunConfigurationProducerService\">\r\n    <option name=\"ignoredProducers\">\r\n      <set>\r\n        <option value=\"com.android.tools.idea.compose.preview.runconfiguration.ComposePreviewRunConfigurationProducer\" />\r\n        <option value=\"org.jetbrains.plugins.gradle.execution.test.runner.AllInPackageGradleConfigurationProducer\" />\r\n        <option value=\"org.jetbrains.plugins.gradle.execution.test.runner.TestClassGradleConfigurationProducer\" />\r\n        <option value=\"org.jetbrains.plugins.gradle.execution.test.runner.TestMethodGradleConfigurationProducer\" />\r\n      </set>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/runConfigurations.xml	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ .idea/runConfigurations.xml	(date 1626349430270)
+@@ -3,7 +3,6 @@
+   <component name="RunConfigurationProducerService">
+     <option name="ignoredProducers">
+       <set>
+-        <option value="com.android.tools.idea.compose.preview.runconfiguration.ComposePreviewRunConfigurationProducer" />
+         <option value="org.jetbrains.plugins.gradle.execution.test.runner.AllInPackageGradleConfigurationProducer" />
+         <option value="org.jetbrains.plugins.gradle.execution.test.runner.TestClassGradleConfigurationProducer" />
+         <option value="org.jetbrains.plugins.gradle.execution.test.runner.TestMethodGradleConfigurationProducer" />
+Index: app/src/main/res/layout/car_list_lab_view_layout.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<layout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <data>\r\n\r\n        <variable\r\n            name=\"cartModel\"\r\n            type=\"com.digidoctor.android.model.labmodel.CartModel\" />\r\n    </data>\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:padding=\"@dimen/_5sdp\">\r\n\r\n\r\n        <androidx.constraintlayout.widget.ConstraintLayout\r\n            android:id=\"@+id/first\"\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:background=\"@drawable/cartview_round_layout\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\">\r\n\r\n            <TextView\r\n                android:id=\"@+id/TVbestprice\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginStart=\"12dp\"\r\n                android:layout_marginEnd=\"12dp\"\r\n                android:fontFamily=\"@font/poppins_semibold\"\r\n                android:text=\"@{cartModel.name}\"\r\n                android:textColor=\"#2B3344\"\r\n                android:textSize=\"@dimen/_13sdp\"\r\n                android:textStyle=\"bold\"\r\n                app:layout_constraintBottom_toBottomOf=\"@+id/IVbestprice\"\r\n                app:layout_constraintEnd_toStartOf=\"@+id/btnDeleteCartItem\"\r\n                app:layout_constraintStart_toEndOf=\"@+id/IVbestprice\"\r\n                app:layout_constraintTop_toTopOf=\"parent\"\r\n                app:layout_constraintVertical_bias=\"0.633\"\r\n                app:layout_constraintVertical_chainStyle=\"packed\" />\r\n\r\n            <ImageView\r\n                android:id=\"@+id/IVbestprice\"\r\n                android:layout_width=\"40dp\"\r\n                android:layout_height=\"40dp\"\r\n                android:layout_marginStart=\"9dp\"\r\n                android:layout_marginTop=\"11dp\"\r\n                android:contentDescription=\"TODO\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toTopOf=\"parent\"\r\n                app:srcCompat=\"@drawable/labcartlistimage\" />\r\n\r\n            <ImageView\r\n                android:id=\"@+id/btnDeleteCartItem\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginEnd=\"16dp\"\r\n                android:background=\"?attr/selectableItemBackground\"\r\n                android:clickable=\"true\"\r\n                android:contentDescription=\"@string/todo\"\r\n                android:focusable=\"true\"\r\n                android:padding=\"@dimen/_10sdp\"\r\n                app:layout_constraintBottom_toBottomOf=\"@+id/TVbestprice\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintTop_toTopOf=\"@+id/TVbestprice\"\r\n                app:srcCompat=\"@drawable/ic_trash\" />\r\n\r\n            <androidx.recyclerview.widget.RecyclerView\r\n                android:id=\"@+id/recTest\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:orientation=\"vertical\"\r\n                app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"@+id/TVbestprice\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/textView195\"\r\n                tools:listitem=\"@layout/test_name_view\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/textView195\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:drawablePadding=\"@dimen/_10sdp\"\r\n                android:fontFamily=\"@font/poppins_medium\"\r\n                android:text=\"@{`₹`+cartModel.price}\"\r\n                android:textColor=\"@android:color/black\"\r\n                android:textSize=\"20sp\"\r\n                app:layout_constraintStart_toStartOf=\"@+id/TVbestprice\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/TVbestprice\" />\r\n        </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n</layout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/car_list_lab_view_layout.xml	(revision 890f6b3e722cdee07b2e0a1b522f0a92ca8cd92c)
++++ app/src/main/res/layout/car_list_lab_view_layout.xml	(date 1626344252787)
+@@ -5,6 +5,9 @@
+ 
+     <data>
+ 
++        <variable
++            name="adapterInterface"
++            type="com.digidoctor.android.interfaces.AdapterInterface" />
+         <variable
+             name="cartModel"
+             type="com.digidoctor.android.model.labmodel.CartModel" />
+@@ -55,6 +58,7 @@
+                 app:srcCompat="@drawable/labcartlistimage" />
+ 
+             <ImageView
++                android:onClick="@{()->adapterInterface.onItemClicked(cartModel)}"
+                 android:id="@+id/btnDeleteCartItem"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+Index: app/src/main/res/drawable/magnifier.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/magnifier.xml	(date 1626349991365)
++++ app/src/main/res/drawable/magnifier.xml	(date 1626349991365)
+@@ -0,0 +1,12 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="15.179dp"
++    android:height="15.179dp"
++    android:viewportWidth="15.179"
++    android:viewportHeight="15.179">
++  <path
++      android:pathData="M10.512,1.801A6.159,6.159 0,0 0,1.8 10.511a6.04,6.04 45,0 0,7.434 0.926,0.259 0.259,0 0,1 0.309,0.036L12.686,14.616a1.435,1.435 0,0 0,2.055 0.22l0.1,-0.1a1.435,1.435 45,0 0,-0.22 -2.055L11.48,9.55a0.263,0.263 0,0 1,-0.042 -0.315A6.04,6.04 0,0 0,10.512 1.801ZM9.374,9.379a4.551,4.551 0,1 1,0 -6.436A4.556,4.556 135,0 1,9.374 9.379Z"
++      android:fillColor="#0a586c"/>
++  <path
++      android:pathData="M5.822,9.013a0.644,0.644 0,0 1,-0.894 0.592A4.054,4.054 0,0 1,2.777 4.298a0.643,0.643 0,1 1,1.185 0.5A2.766,2.766 0,0 0,5.43 8.42,0.643 0.643,0 0,1 5.822,9.013Z"
++      android:fillColor="#0a586c"/>
++</vector>
