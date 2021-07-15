@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".view.fragments.lab.AppointmentbookedFragmentDialog">
+
+
+    <ImageView
+        android:id="@+id/imageView91"
+        android:layout_width="175dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/bookedappointment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView258"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Your lab test is booked successfully!"
+        android:textColor="#262E3F"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView91" />
+
+    <TextView
+        android:id="@+id/textView259"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="our member will be come at 20th july 07:00 pm. He will call your before reach your door setup."
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/textView258"
+        app:layout_constraintStart_toStartOf="@+id/textView258"
+        app:layout_constraintTop_toBottomOf="@+id/textView258" />
+
+    <Button
+        android:id="@+id/tvAddManually"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/round_for_search"
+        android:backgroundTint="@color/colorPrimary"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center_horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Agree"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvAddManually2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/textView259"
+        app:layout_constraintTop_toBottomOf="@+id/textView259" />
+
+    <Button
+        android:id="@+id/tvAddManually2"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/round_button"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center_horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Cancel"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAddManually"
+        app:layout_constraintEnd_toEndOf="@+id/textView259"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvAddManually"
+        app:layout_constraintTop_toTopOf="@+id/tvAddManually" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

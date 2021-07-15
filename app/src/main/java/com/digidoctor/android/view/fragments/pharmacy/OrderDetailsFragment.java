@@ -137,7 +137,7 @@ public class OrderDetailsFragment extends Fragment {
                     fragmentOrderDetailsBinding.textView118.setText("Cancelled");
                     fragmentOrderDetailsBinding.textView118.setTextColor(Color.RED);
                     fragmentOrderDetailsBinding.view.setBackgroundColor(Color.RED);
-                   fragmentOrderDetailsBinding.imageView48.setBackgroundResource(R.drawable.ic_baseline_check_circle_24);
+                    fragmentOrderDetailsBinding.imageView48.setBackgroundResource(R.drawable.ic_baseline_check_circle_24);
                     fragmentOrderDetailsBinding.textView119.setText(getOrderStatus.getCancelledDate());
                     fragmentOrderDetailsBinding.textView120.setVisibility(View.GONE);
                     fragmentOrderDetailsBinding.textView122.setVisibility(View.GONE);
@@ -202,7 +202,7 @@ public class OrderDetailsFragment extends Fragment {
                             }
                         })).setNegativeButton("No", (dialogInterface, i) -> {
 
-                        }).show();
+                }).show();
 
             }
 
@@ -225,8 +225,14 @@ public class OrderDetailsFragment extends Fragment {
             save.setOnClickListener(view121 -> {
                 String rating = String.valueOf(star.getRating());
                 String re = review.getText().toString().trim();
-                final Map<String, String> map = new HashMap<>();
 
+                if (rating.isEmpty() && re.isEmpty()) {
+                    Toast.makeText(requireActivity(), "Please rate first", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                final Map<String, String> map = new HashMap<>();
                 map.put("pinfo", productinfocode);
                 map.put("rating", rating);
                 map.put("review", re);

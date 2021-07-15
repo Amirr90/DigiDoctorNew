@@ -3,6 +3,7 @@ package com.digidoctor.android.adapters.pharmacy;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -50,9 +51,9 @@ public class CartDetailsAdapter extends RecyclerView.Adapter<CartDetailsAdapter.
         Glide.with(activity).load(gc.getProductImage()).placeholder(R.drawable.box_two).
                 thumbnail(0.5f).into(holder.cartViewBinding.imageView5);
 
-        holder.cartViewBinding.elegantNumberButton.setNumber(gc.getQuantity());
+        holder.cartViewBinding.textView263.setText(gc.getQuantity());
 
-        holder.cartViewBinding.elegantNumberButton.setRange(0, 5);
+        // holder.cartViewBinding.elegantNumberButton.setRange(0, 5);
 
 
         holder.cartViewBinding.TVcartremove.setOnClickListener(view -> {
@@ -61,42 +62,83 @@ public class CartDetailsAdapter extends RecyclerView.Adapter<CartDetailsAdapter.
                     .setMessage("Are you sure want to remove " + productName + " from cart?")
                     .setPositiveButton("Yes", (dialogInterface, i) -> {
 
-                        productInterface.onDeleteItemClick(gc);
-                        notifyItemRemoved(position);
-                        notifyDataSetChanged();
+                                productInterface.onDeleteItemClick(gc);
+                                notifyItemRemoved(position);
+                                notifyDataSetChanged();
 
-                    }
+                            }
                     ).setNegativeButton("No", (dialogInterface, i) -> {
 
-                    }).show();
+            }).show();
 
 
         });
 
-        holder.cartViewBinding.elegantNumberButton.setOnValueChangeListener((view, oldValue, newValue) -> {
 
-
-            if (newValue == 5) {
-                Toast.makeText(activity, "you have reached with maximum limit", Toast.LENGTH_SHORT).show();
+        holder.cartViewBinding.textView262.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int count = Integer.parseInt(String.valueOf(holder.cartViewBinding.textView263.getText()));
+                if (count == 5) {
+                    Toast.makeText(activity, "you have reached with maximum limit", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                count++;
+                holder.cartViewBinding.textView263.setText(String.valueOf(count));
+                productInterface.onCartItemUpdate(gc, count);
             }
-
-            if (newValue == 0) {
-                new AlertDialog.Builder(activity)
-                        .setMessage("Product Will be removed from your cart.")
-                        .setPositiveButton("Yes", (dialogInterface, i) -> {
-                            productInterface.onDeleteItemClick(gc);
-                            //  getcart.remove(position);
-                            notifyItemRemoved(position);
-                            notifyDataSetChanged();
-                        }).setNegativeButton("No", (dialogInterface, i) -> holder.cartViewBinding.elegantNumberButton.setNumber(gc.getQuantity())).show();
-
-
-            } else {
-
-                productInterface.onCartItemUpdate(gc, newValue);
-            }
-
         });
+
+        holder.cartViewBinding.textView261.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int count = Integer.parseInt(String.valueOf(holder.cartViewBinding.textView263.getText()));
+
+                if (count == 1) {
+                    holder.cartViewBinding.textView263.setText("1");
+
+                } else {
+                    count -= 1;
+                    holder.cartViewBinding.textView263.setText("" + count);
+                    productInterface.onCartItemUpdate(gc, count);
+                }
+
+
+
+
+//                int count = Integer.parseInt(String.valueOf(holder.cartViewBinding.textView263.getText()));
+//                count++;
+//                holder.cartViewBinding.textView263.setText(String.valueOf(count));
+//
+//                productInterface.onCartItemUpdate(gc, count);
+            }
+        });
+
+//        holder.cartViewBinding.elegantNumberButton.setOnValueChangeListener((view, oldValue, newValue) -> {
+//
+//
+//            if (newValue == 5) {
+//                Toast.makeText(activity, "you have reached with maximum limit", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            if (newValue == 0) {
+//                new AlertDialog.Builder(activity)
+//                        .setMessage("Product Will be removed from your cart.")
+//                        .setPositiveButton("Yes", (dialogInterface, i) -> {
+//                            productInterface.onDeleteItemClick(gc);
+//                            //  getcart.remove(position);
+//                            notifyItemRemoved(position);
+//                            notifyDataSetChanged();
+//                        }).setNegativeButton("No", (dialogInterface, i) -> holder.cartViewBinding.elegantNumberButton.setNumber(gc.getQuantity())).show();
+//
+//
+//            } else {
+//
+//                productInterface.onCartItemUpdate(gc, newValue);
+//            }
+//
+//        });
 
     }
 
