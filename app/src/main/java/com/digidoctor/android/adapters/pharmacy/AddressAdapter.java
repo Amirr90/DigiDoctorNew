@@ -45,6 +45,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressA
     public AddressAdapter.AddressAdapterVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         AddressviewBinding addressviewBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.addressview, parent, false);
+
+
         return new AddressAdapterVH(addressviewBinding);
 
     }
@@ -53,7 +55,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressA
     public void onBindViewHolder(@NonNull final AddressAdapter.AddressAdapterVH holder, final int position) {
 
 
-        final getaddressModel.getaddressDetails addAdressModel = getadd.get(position);
+        getaddressModel.getaddressDetails addAdressModel = getadd.get(position);
         holder.addressviewBinding.textView28.setText(addAdressModel.getName());
 
 
@@ -61,10 +63,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressA
         holder.addressviewBinding.textView30.setText(addAdressModel.getMobileNo());
 
 
+        Log.d("TAG", "onBindViewHolder: " + addAdressModel.getIsDefault());
         if (addAdressModel.getIsDefault().equals("true")) {
             holder.addressviewBinding.textView132.setVisibility(View.VISIBLE);
         }
-
+        if (addAdressModel.getIsDefault().equals("false")) {
+            holder.addressviewBinding.textView132.setVisibility(View.GONE);
+        }
 
         holder.addressviewBinding.cardView.setOnClickListener(view -> {
 
@@ -82,7 +87,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressA
             }
 
             addAddressModel1.setAddressId(addAdressModel.getAddressId());
-            addAddressModel1.setMemberId("221261");
+            addAddressModel1.setMemberId(String.valueOf(utils.getPrimaryUser(activity).getMemberId()));
             addAddressModel1.setName(addAdressModel.getName());
             addAddressModel1.setHouseNo(addAdressModel.getHouseNo());
             addAddressModel1.setMobileno(addAdressModel.getMobileNo());
@@ -100,7 +105,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressA
                 @Override
                 public void onSuccess(List<?> o) {
                     AppUtils.hideDialog();
-
                     notifyDataSetChanged();
 
                 }
@@ -118,8 +122,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressA
                 }
             });
 
-            Toast.makeText(activity, "Address has been set Default", Toast.LENGTH_SHORT).show();
 
+            Toast.makeText(activity, "Address has been set Default", Toast.LENGTH_SHORT).show();
             PatientDashboard.getInstance().navigate(R.id.orderSummaryFragment);
             AppUtils.hideDialog();
 
@@ -132,6 +136,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressA
                     .setPositiveButton("Yes", (dialogInterface, i) -> {
                         deleteaddress(addAdressModel);
                         getadd.remove(position);
+                        Log.d("TAG", "onBindViewHolderDelete: " + getadd);
                         notifyDataSetChanged();
                     }).setNegativeButton("No", (dialogInterface, i) -> {
 
@@ -175,6 +180,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressA
             public void onSuccess(List<?> o) {
                 AppUtils.hideDialog();
                 Toast.makeText(activity, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                Log.d("TAG", "onSuccessDelete: " + getadd);
                 notifyDataSetChanged();
 
 
@@ -216,6 +222,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressA
 
             super(itemView.getRoot());
             addressviewBinding = itemView;
+
 
         }
     }

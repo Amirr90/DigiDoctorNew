@@ -140,18 +140,21 @@ public class OnlinePharmacyFragment extends Fragment {
             public void onSuccess(List<?> o) {
                 List<ShopBycategoryModel> models = (List<ShopBycategoryModel>) o;
                 List<ShopBycategoryModel.CategoryModel> categoryModel = models.get(0).getCategoryList();
+                categoryModels.clear();
                 categoryModels.addAll(categoryModel);
                 adapter.notifyDataSetChanged();
 
 
                 Log.d(TAG, "popularProductsList: " + models.get(0).getPopularProductsList().toString());
                 List<ShopBycategoryModel.PopularProductList> popularProductLists = models.get(0).getPopularProductsList();
+                popoularmodel.clear();
                 popoularmodel.addAll(popularProductLists);
                 adapter1.notifyDataSetChanged();
 
 
                 Log.d(TAG, "searchProductList: " + models.get(0).getTopSearchproductLists().toString());
                 List<ShopBycategoryModel.TopSearchproductList> topSearchproductLists1 = models.get(0).getTopSearchproductLists();
+                topSearchproductLists.clear();
                 topSearchproductLists.addAll(topSearchproductLists1);
                 adapter2.notifyDataSetChanged();
 

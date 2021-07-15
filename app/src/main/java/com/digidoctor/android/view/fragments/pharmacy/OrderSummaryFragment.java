@@ -43,7 +43,7 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
     AddressAdapter addressAdapter;
 
     String AddressId = null;
-    List<getaddressModel.getaddressDetails> addAdressModels = new ArrayList<>();
+    List<getaddressModel.getaddressDetails> addAdressModels;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -54,6 +54,8 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
         final List<CartDetailsResponse.GetCartDetails.GetPriceDetails> gp = new ArrayList<>();
 
 
+        Log.d("TAG", "onViewCreatedAddress: " + addAdressModels);
+
         fragmentOrderSummaryBinding.cart.setVisibility(View.GONE);
         cartDetailsAdapter = new CartDetailsAdapter(getCartDetails, requireActivity(), this);
 
@@ -63,8 +65,9 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
 
         fragmentOrderSummaryBinding.cart.setAdapter(cartDetailsAdapter);
 
+        addAdressModels = new ArrayList<>();
         getaddress();
-        addAdressModels.clear();
+
 
         ApiUtils.getCartDetails(requireActivity(), new ApiCallbackInterface() {
             @Override
@@ -103,9 +106,7 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
 
         fragmentOrderSummaryBinding.button5.setOnClickListener(view12 -> {
 
-            if (addAdressModels.isEmpty()) {
-                Toast.makeText(requireActivity(), "Kindly add Address First!", Toast.LENGTH_SHORT).show();
-            } else {
+            if (addAdressModels != null && !addAdressModels.isEmpty()) {
                 hideSoftKeyboard(PatientDashboard.getInstance());
                 new AlertDialog.Builder(requireActivity())
                         .setMessage("Product Price ₹")
@@ -115,6 +116,8 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
                                     Orderplaced();
                                 })
                         .setNegativeButton("Pay Online", (dialog, id) -> dialog.cancel()).show();
+            } else {
+                Toast.makeText(requireActivity(), "Kindly add Address First!", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -147,6 +150,7 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
 //
                         }
                     }
+                    addressAdapter.notifyDataSetChanged();
                 }
 
 
@@ -176,7 +180,12 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
 
     private void Orderplaced() {
 
-        AddressId = addAdressModels.get(0).getAddressId();
+        if (addAdressModels.get(0).getAddressId() != null) {
+            AddressId = addAdressModels.get(0).getAddressId();
+        } else {
+            Toast.makeText(requireActivity(), "Kindly Add Address First", Toast.LENGTH_SHORT).show();
+        }
+
         ApiUtils.orderPlaced(AddressId, requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
@@ -210,7 +219,6 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentOrderSummaryBinding = FragmentOrderSummaryBinding.inflate(getLayoutInflater());
-
         return fragmentOrderSummaryBinding.getRoot();
 
 

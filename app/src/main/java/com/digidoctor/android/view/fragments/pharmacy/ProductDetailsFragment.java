@@ -217,8 +217,10 @@ public class ProductDetailsFragment extends Fragment {
             public void onSuccess(List<?> o) {
                 List<ProductDetailModelResponse.ProductDetailsList> models = (List<ProductDetailModelResponse.ProductDetailsList>) o;
                 Log.d(TAG, "onSuccess: " + models.get(0).getProductDetails());
-                AllProductModels.addAll(models.get(0).getProductDetails());
+                if(models.get(0).getProductDetails()!=null) {
 
+                    AllProductModels.addAll(models.get(0).getProductDetails());
+                }
                 if (!AllProductModels.isEmpty() && !models.isEmpty()) {
                     setProduct(AllProductModels.get(0));
                     updateProduct(models);

@@ -156,7 +156,7 @@
                     android:layout_marginStart="10dp"
                     android:drawableLeft="@drawable/rupee"
                     android:drawablePadding="5dp"
-                    android:gravity="center_vertical"
+
                     android:text="50 off"
                     android:textColor="#7DCE64"
                     android:textSize="12sp"

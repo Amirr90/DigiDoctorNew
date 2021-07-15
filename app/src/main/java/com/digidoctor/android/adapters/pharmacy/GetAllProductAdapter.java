@@ -70,6 +70,10 @@ public class GetAllProductAdapter extends RecyclerView.Adapter<GetAllProductAdap
         holder.allproductviewBinding.textView55.setText("\u20B9" + getAllProductModel.getMrp());
         holder.allproductviewBinding.textView7.setText(String.valueOf(getAllProductModel.getOfferedPrice()));
 
+        int discount = getAllProductModel.getMrp() - getAllProductModel.getOfferedPrice();
+
+        holder.allproductviewBinding.textView56.setText(String.valueOf(discount + " off"));
+
 //        holder.allproductviewBinding.imageView4.setAnimation(AnimationUtils.loadAnimation(activity, R.anim.fade_transition_anim));
 //
 //        holder.allproductviewBinding.ck.setAnimation(AnimationUtils.loadAnimation(activity, R.anim.fade_transition_anim));
