@@ -36,6 +36,7 @@ import com.digidoctor.android.model.PrescriptionDtTableModel;
 import com.digidoctor.android.model.PrescriptionModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.utility.ApiUtils;
+import com.digidoctor.android.utility.App;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.view.activity.PatientDashboard;
 import com.digidoctor.android.viewHolder.PatientViewModel;
@@ -343,13 +344,14 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
 
 
     private void addMedicineData() {
+
         dtTableModel.setMedicineName(addPrescriptionManuallyBinding.tcAutoMedicine.getText().toString());
         dtTableModel.setFrequencyName(addPrescriptionManuallyBinding.etFrequency.getText().toString().trim());
         dtTableModel.setDays(addPrescriptionManuallyBinding.etDays.getText().toString().trim());
 
 
         if (!adapter.addItems(dtTableModel))
-            Toast.makeText(requireActivity(), "Medicine already added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(App.context, "Medicine already added", Toast.LENGTH_SHORT).show();
         else {
             dtTableModel = new PrescriptionDtTableModel();
             setMedicineFieldsEmpty();
@@ -420,13 +422,13 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
             @Override
             public void onError(String s) {
                 hideDialog();
-                Toast.makeText(requireActivity(), s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(App.context, s, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailed(Throwable throwable) {
                 hideDialog();
-                Toast.makeText(requireActivity(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(App.context, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -471,28 +473,35 @@ public class AddPrescriptionManuallyFragment extends Fragment implements OnClick
             medicineData.add(medicineDetailModel.getMedicineName());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>
-                (requireActivity(), R.layout.inflate_auto_complete_text, medicineData);
+                (App.context, R.layout.inflate_auto_complete_text, medicineData);
 
         addPrescriptionManuallyBinding.tcAutoMedicine.setThreshold(1);
         addPrescriptionManuallyBinding.tcAutoMedicine.setAdapter(adapter);
 
         addPrescriptionManuallyBinding.tcAutoMedicine.setOnItemClickListener((adapterView, view, position, l) -> {
+
             AppUtils.showRequestDialog(requireActivity());
             Object item = adapterView.getItemAtPosition(position);
 
             hideSoftKeyboard(requireActivity());
             for (MedicineModel.MedicineDetailModel medicineDetailModel : medicineList) {
                 if (medicineDetailModel.getMedicineName().equalsIgnoreCase(item.toString())) {
-                    addPrescriptionManuallyBinding.etFrequency.setText(medicineDetailModel.getFrequencyName());
 
-                    //Adding Medicine Details
-                    dtTableModel.setMedicineName(medicineDetailModel.getMedicineName());
-                    dtTableModel.setMedicineId(medicineDetailModel.getId());
-                    dtTableModel.setFrequencyId(medicineDetailModel.getFrequencyId());
-                    dtTableModel.setDosageFormId(medicineDetailModel.getDosageId());
-                    dtTableModel.setDoseUnitId(medicineDetailModel.getDoseUnitId());
-                    dtTableModel.setStrength(medicineDetailModel.getStrength());
+                    if (medicineDetailModel.getDosageId().equals(dtTableModel.getDosageFormId())) {
+                        addPrescriptionManuallyBinding.tcAutoMedicine.setText("");
+                        Toast.makeText(App.context, "Medicine Already added!", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
 
+                        addPrescriptionManuallyBinding.etFrequency.setText(medicineDetailModel.getFrequencyName());
+                        //Adding Medicine Details
+                        dtTableModel.setMedicineName(medicineDetailModel.getMedicineName());
+                        dtTableModel.setMedicineId(medicineDetailModel.getId());
+                        dtTableModel.setFrequencyId(medicineDetailModel.getFrequencyId());
+                        dtTableModel.setDosageFormId(medicineDetailModel.getDosageId());
+                        dtTableModel.setDoseUnitId(medicineDetailModel.getDoseUnitId());
+                        dtTableModel.setStrength(medicineDetailModel.getStrength());
+                    }
 
                     AppUtils.hideDialog();
                 }

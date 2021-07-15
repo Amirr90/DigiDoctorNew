@@ -262,7 +262,7 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="16dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/order_with_prescriptions"
+                        android:text="Order with Prescriptions"
                         android:textColor="#FFFFFF"
                         android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"

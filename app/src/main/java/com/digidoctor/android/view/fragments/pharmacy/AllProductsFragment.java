@@ -25,6 +25,7 @@ import com.digidoctor.android.model.pharmacyModel.PharmacyModel;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.utils;
+import com.google.android.gms.common.data.DataHolder;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -43,7 +44,6 @@ public class AllProductsFragment extends Fragment {
     GetAllProductAdapter getAllProductAdapter;
     String CategoryID = null;
     int selectedItem = 0;
-    private final List<GetAllProductResponse.GetProduct> contactListFiltered = new ArrayList<>();
 
 
     @Override
@@ -52,7 +52,7 @@ public class AllProductsFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
 
-        getAllProductAdapter = new GetAllProductAdapter(AllProductModels, contactListFiltered, requireActivity());
+        getAllProductAdapter = new GetAllProductAdapter(AllProductModels, requireActivity());
 
         fragmentAllProductlistBinding.allproductrec.setAdapter(getAllProductAdapter);
 
@@ -69,7 +69,6 @@ public class AllProductsFragment extends Fragment {
             pharmacyModel.setCategoryId(CategoryID);
         }
         pharmacyModel.setMemberId(String.valueOf(getPrimaryUser(requireActivity()).getMemberId()));
-        AllProductModels.clear();
         ApiUtils.getallpro(requireActivity(), pharmacyModel, new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
@@ -101,6 +100,7 @@ public class AllProductsFragment extends Fragment {
 
         fragmentAllProductlistBinding.button2.setOnClickListener(view1 -> dialogeSort());
 
+
         fragmentAllProductlistBinding.editTextTextSearchSpeciality.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -110,19 +110,33 @@ public class AllProductsFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence != null && charSequence.length() > 1) {
-                    fragmentAllProductlistBinding.progressBar3.setVisibility(View.VISIBLE);
-                    getAllProductAdapter.getFilter().filter(charSequence);
-                    getAllProductAdapter.notifyDataSetChanged();
-
+//                    fragmentAllProductlistBinding.progressBar3.setVisibility(View.GONE);
+//                    getAllProductAdapter.getFilter().filter(charSequence);
+                    filter(charSequence.toString());
                 }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                getAllProductAdapter.getFilter().filter(editable);
-                getAllProductAdapter.notifyDataSetChanged();
+                filter(editable.toString());
+
             }
         });
+
+
+    }
+
+    private void filter(String toString) {
+        List<GetAllProductResponse.GetProduct> temp = new ArrayList();
+        for (GetAllProductResponse.GetProduct d : AllProductModels) {
+            //or use .equal(text) with you want equal match
+            //use .toLowerCase() for better matches
+            if (d.getProductName().contains(toString)) {
+                temp.add(d);
+            }
+        }
+        //update recyclerview
+        getAllProductAdapter.updateList(temp);
 
     }
 
@@ -139,7 +153,7 @@ public class AllProductsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 
 
@@ -157,14 +171,14 @@ public class AllProductsFragment extends Fragment {
                     selectedItem = selectedPosition;
                     switch (selectedPosition) {
                         case 0: {
-                            Collections.sort(AllProductModels, (getProduct, t1) -> String.valueOf(getProduct.getMrp()).compareTo(String.valueOf(t1.getMrp())));
+                            Collections.sort(AllProductModels, (getProduct, t1) -> String.valueOf(getProduct.getOfferedPrice()).compareTo(String.valueOf(t1.getOfferedPrice())));
                             Toast.makeText(requireActivity(), "Showing Product Price High to Low", Toast.LENGTH_SHORT).show();
                             getAllProductAdapter.notifyDataSetChanged();
 
                         }
                         break;
                         case 1: {
-                            Collections.sort(AllProductModels, (getProduct, t1) -> String.valueOf(getProduct.getMrp()).compareTo(String.valueOf(t1.getMrp())));
+                            Collections.sort(AllProductModels, (getProduct, t1) -> String.valueOf(getProduct.getOfferedPrice()).compareTo(String.valueOf(t1.getOfferedPrice())));
                             getAllProductAdapter.notifyDataSetChanged();
                             Toast.makeText(requireActivity(), "Showing Product Price Low to High", Toast.LENGTH_SHORT).show();
                         }

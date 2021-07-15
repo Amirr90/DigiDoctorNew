@@ -59,7 +59,7 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
     String amountToPay;
     FragmentReviewOrderLabBinding binding;
     NavController navController;
-    public static Payment payment;
+    public static Payment labPayment;
     LabOrderModel labOrderModel;
     Cart cart;
 
@@ -89,7 +89,7 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
         if (getArguments() == null)
             return;
 
-        payment = new Payment(requireActivity());
+        labPayment = new Payment(requireActivity());
         labOrderModel = new LabOrderModel();
 
         date = getArguments().getString("date");
@@ -136,7 +136,7 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
                     utils.setString("txid", tId, requireActivity());
                     Log.d(TAG, "onSuccess: Trx Id" + models.get(0));
                     labOrderModel.setTrancationNo(tId);
-                    payment.startPayment(labOrderModel.getPaymentMode());
+                    labPayment.startPayment(labOrderModel.getPaymentMode());
                 }
 
 
@@ -162,10 +162,10 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
 
         User user = getUserForBooking(requireActivity());
 
-        payment.setEmail(user.getEmailId());
-        payment.setMobileNumber(user.getMobileNo());
-        payment.setTxId(String.valueOf(System.currentTimeMillis()));
-        payment.setName(getArguments() == null ? user.getName() : name);
+        labPayment.setEmail(user.getEmailId());
+        labPayment.setMobileNumber(user.getMobileNo());
+        labPayment.setTxId(String.valueOf(System.currentTimeMillis()));
+        labPayment.setName(getArguments() == null ? user.getName() : name);
 
         if (null != getArguments()) {
 
@@ -179,9 +179,9 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
             labOrderModel.setCouponCode("");
             labOrderModel.setUniqueNo("0");
             labOrderModel.setDtPaymentTable("");
-            payment.setMemberId(labOrderModel.getMemberId());
-            payment.setLabModel(labOrderModel);
-            payment.setLabInterface(this);
+            labPayment.setMemberId(labOrderModel.getMemberId());
+            labPayment.setLabModel(labOrderModel);
+            labPayment.setLabInterface(this);
         }
 
     }
@@ -268,7 +268,7 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
             binding.setCartModel(cartModel);
             amountToPay = cartModel.getPrice();
             pathologyID = cartModel.getPathalogyId();
-            payment.setAmount(amountToPay);
+            labPayment.setAmount(amountToPay);
 
         }
 

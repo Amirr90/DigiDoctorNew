@@ -60,7 +60,7 @@ public class GetPlacedOrderFragment extends Fragment {
                 getplacedorders.clear();
 
                 getplacedorders.addAll(models);
-                Collections.reverse(getplacedorders);
+              //  Collections.reverse(getplacedorders);
                 getPlacedOrderAdapter.notifyDataSetChanged();
             }
 

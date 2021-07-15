@@ -28,6 +28,7 @@ import com.digidoctor.android.model.pharmacyModel.GetAllProductResponse;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.activity.PatientDashboard;
+import com.google.android.gms.common.data.DataHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,14 +39,14 @@ public class GetAllProductAdapter extends RecyclerView.Adapter<GetAllProductAdap
     String infocode, wishliststatus;
     private int lastPosition = -1;
     Activity activity;
-    private final List<GetAllProductResponse.GetProduct> getall;
-    private List<GetAllProductResponse.GetProduct> contactListFiltered;
+    private List<GetAllProductResponse.GetProduct> getall;
+    private List<GetAllProductResponse.GetProduct> exampleListFull;
     private Context ctx;
 
-    public GetAllProductAdapter(List<GetAllProductResponse.GetProduct> getall, List<GetAllProductResponse.GetProduct> contactListFiltered, Activity activity) {
+    public GetAllProductAdapter(List<GetAllProductResponse.GetProduct> getall, Activity activity) {
         this.getall = getall;
         this.activity = activity;
-        this.contactListFiltered = contactListFiltered;
+
 
     }
 
@@ -63,7 +64,7 @@ public class GetAllProductAdapter extends RecyclerView.Adapter<GetAllProductAdap
     @Override
     public void onBindViewHolder(@NonNull final GetAllProductVH holder, int position) {
 
-        final GetAllProductResponse.GetProduct getAllProductModel = getall.get(position);
+        GetAllProductResponse.GetProduct getAllProductModel = getall.get(position);
         holder.allproductviewBinding.PName.setText(getAllProductModel.getProductName());
         holder.allproductviewBinding.textView6.setText(getAllProductModel.getShortDescription());
         holder.allproductviewBinding.textView55.setText("\u20B9" + getAllProductModel.getMrp());
@@ -135,6 +136,7 @@ public class GetAllProductAdapter extends RecyclerView.Adapter<GetAllProductAdap
 
     }
 
+
     public void addtoWishList(AddtoWishlist addtoWishlist, String wishlistStatus) {
 
         addtoWishlist.setIsWhislist(wishlistStatus);
@@ -201,41 +203,44 @@ public class GetAllProductAdapter extends RecyclerView.Adapter<GetAllProductAdap
         return getall.size();
     }
 
+
     public Filter getFilter() {
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
-                String charString = charSequence.toString();
-                if (charString.isEmpty()) {
-                    contactListFiltered = getall;
+                String character = charSequence.toString();
+                if (character.isEmpty()) {
+                    getall = exampleListFull;
                 } else {
                     List<GetAllProductResponse.GetProduct> filteredList = new ArrayList<>();
-                    for (GetAllProductResponse.GetProduct row : getall) {
-
-                        // name match condition. this might differ depending on your requirement
-                        // here we are looking for name or phone number match
-                        if (row.getProductName().toLowerCase().contains(charString.toLowerCase()) || row.getProductName().contains(charSequence)) {
-                            filteredList.add(row);
+                    for (GetAllProductResponse.GetProduct item : exampleListFull) {
+                        if (item.getProductName().toLowerCase().contains(character.toLowerCase())) {
+                            filteredList.add(item);
                         }
                     }
-
-                    contactListFiltered = filteredList;
+                    getall = filteredList;
                 }
+                FilterResults results = new FilterResults();
+                results.values = getall;
+                return results;
 
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = contactListFiltered;
-                return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                contactListFiltered = (ArrayList<GetAllProductResponse.GetProduct>) filterResults.values;
-
-                // refresh the list with filtered data
+                getall = (ArrayList<GetAllProductResponse.GetProduct>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
+
     }
+
+    public void updateList(List<GetAllProductResponse.GetProduct> temp) {
+        getall = temp;
+        notifyDataSetChanged();
+
+    }
+
 
     public static class GetAllProductVH extends RecyclerView.ViewHolder {
         AllproductviewBinding allproductviewBinding;

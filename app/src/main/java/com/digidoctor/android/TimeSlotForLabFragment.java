@@ -136,51 +136,55 @@ public class TimeSlotForLabFragment extends Fragment {
 
 
             String pinCode = address.getPincode();
-            String date = AppUtils.parseDate(dateSend, "yyyy-MM-dd", "yyyy/MM/dd");
-            LabSlotModel labSlotModel = new LabSlotModel(pinCode, date, pathologyId);
-            ApiUtils.getLabTimeSlots(labSlotModel, new ApiCallbackInterface() {
-                @Override
-                public void onSuccess(List<?> o) {
-                    AppUtils.hideDialog();
-                    timeSlotsModelList.clear();
-                    List<LabSlotModel> labSlotModels = (List<LabSlotModel>) o;
-                    if (null != labSlotModels && !labSlotModels.isEmpty()) {
-                        timeSlotsModelList.addAll(labSlotModels);
+            if (pinCode.length() < 6) {
+                Toast.makeText(App.context, "There is no slot as per your pincode.Kindly check your pincode", Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                String date = AppUtils.parseDate(dateSend, "yyyy-MM-dd", "yyyy/MM/dd");
+                LabSlotModel labSlotModel = new LabSlotModel(pinCode, date, pathologyId);
+                ApiUtils.getLabTimeSlots(labSlotModel, new ApiCallbackInterface() {
+                    @Override
+                    public void onSuccess(List<?> o) {
+                        AppUtils.hideDialog();
+                        timeSlotsModelList.clear();
+                        List<LabSlotModel> labSlotModels = (List<LabSlotModel>) o;
+                        if (null != labSlotModels && !labSlotModels.isEmpty()) {
+                            timeSlotsModelList.addAll(labSlotModels);
 
-                    } else {
-                        // Toasty.error(App.context, getString(R.string.slot_not_available) + " for pinCode " + pinCode, Toast.LENGTH_LONG, true).show();
+                        } else {
+                            // Toasty.error(App.context, getString(R.string.slot_not_available) + " for pinCode " + pinCode, Toast.LENGTH_LONG, true).show();
+                        }
+
+                        slotAdapter.notifyDataSetChanged();
+
                     }
 
-                    slotAdapter.notifyDataSetChanged();
+                    @Override
+                    public void onError(String s) {
+                        AppUtils.hideDialog();
+                        timeSlotsModelList.clear();
+                        AppUtils.hideDialog();
+                        slotAdapter.notifyDataSetChanged();
 
-                }
+                    }
 
-                @Override
-                public void onError(String s) {
-                    AppUtils.hideDialog();
-                    timeSlotsModelList.clear();
-                    AppUtils.hideDialog();
-                    Toast.makeText(App.context, s, Toast.LENGTH_SHORT).show();
-                    slotAdapter.notifyDataSetChanged();
-
-                }
-
-                @Override
-                public void onFailed(Throwable throwable) {
-                    AppUtils.hideDialog();
-                    timeSlotsModelList.clear();
-                    AppUtils.hideDialog();
-                    Toast.makeText(App.context, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                    slotAdapter.notifyDataSetChanged();
+                    @Override
+                    public void onFailed(Throwable throwable) {
+                        AppUtils.hideDialog();
+                        timeSlotsModelList.clear();
+                        AppUtils.hideDialog();
+                        Log.d(TAG, "onFailed: " + throwable.getLocalizedMessage());
+                        Toast.makeText(App.context, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        slotAdapter.notifyDataSetChanged();
 
 
-                }
-            });
+                    }
+                });
+            }
         } else {
             navController.navigate(R.id.addressFragment);
 
         }
-
 
     }
 

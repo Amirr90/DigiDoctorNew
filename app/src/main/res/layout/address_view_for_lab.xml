@@ -86,7 +86,7 @@
                 android:layout_width="265dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="@{address.addressId}"
+                android:text="@{address.houseNo+' '+ address.area+ ' ' + address.pincode}"
                 android:textColor="#2B3344"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView8"

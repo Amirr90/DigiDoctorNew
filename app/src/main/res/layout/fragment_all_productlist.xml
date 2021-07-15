@@ -113,6 +113,7 @@
                     android:background="@drawable/round_for_search"
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:text="Filter"
                     android:textAlignment="inherit"
                     android:textColor="#FFFFFF"

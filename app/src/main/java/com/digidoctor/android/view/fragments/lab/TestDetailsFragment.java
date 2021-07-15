@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.digidoctor.android.databinding.FragmentTestDetailsBinding;
 import com.digidoctor.android.databinding.TestincludelayoutviewBinding;
 import com.digidoctor.android.model.PackageModel;
+import com.digidoctor.android.utility.App;
 import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.viewHolder.LabViewModel;
 
@@ -63,14 +64,15 @@ public class TestDetailsFragment extends Fragment {
         fragmentTestDetailsBinding.recTestList.setAdapter(testListAdapter);
 
 
-        AppUtils.showRequestDialog(requireActivity());
         //init ViewModel
         labViewModel = new ViewModelProvider(this).get(LabViewModel.class);
         labViewModel.getPackageData(packageId).observe(getViewLifecycleOwner(), packageDetail -> {
-            AppUtils.hideDialog();
+
+            AppUtils.showRequestDialog(requireActivity());
             if (null == packageDetail)
                 Toast.makeText(requireActivity(), "No data found !!", Toast.LENGTH_SHORT).show();
             else {
+                AppUtils.hideDialog();
                 fragmentTestDetailsBinding.setPackages(packageDetail);
                 detailsList.clear();
                 detailsList.addAll(packageDetail.getGroupDetails());

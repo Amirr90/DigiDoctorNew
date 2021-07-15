@@ -97,6 +97,9 @@ public class ProductDetailsFragment extends Fragment {
         productId = String.valueOf(getArguments().getInt("productID"));
         memberId = String.valueOf(getArguments().getInt("member"));
 
+
+        fragmentProductDetailsBinding.recyclerView2.setHasFixedSize(true);
+
         SizeId = String.valueOf(getArguments().getInt("Sizeid"));
 
         productDetaillAdapter = new ProductDetaillAdapter(requireActivity());

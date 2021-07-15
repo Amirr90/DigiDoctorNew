@@ -91,8 +91,9 @@ public class FragmentCartListLab extends Fragment implements CartInterface {
     @Override
     public void onCartItemDeleted(Object obj) {
         AppUtils.hideDialog();
-        Toast.makeText(requireActivity(), "Item Deleted Successfully !!", Toast.LENGTH_SHORT).show();
         cart.getCart();
+        Toast.makeText(requireActivity(), "Item Deleted Successfully !!", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -102,10 +103,12 @@ public class FragmentCartListLab extends Fragment implements CartInterface {
         List<CartModel> cartModelList = (List<CartModel>) obj;
         if (null != cartModelList && !cartModelList.isEmpty()) {
             this.cartModelList.addAll(cartModelList);
-        } else
+            adapter.notifyDataSetChanged();
+        } else {
             binding.btnContinueToLab.setVisibility(View.GONE);
-            Toast.makeText(requireActivity(), "Cart Is empty !!", Toast.LENGTH_SHORT).show();
-        adapter.notifyDataSetChanged();
+           // Toast.makeText(requireActivity(), "Cart Is empty !!", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     @Override

@@ -68,7 +68,7 @@ import static com.digidoctor.android.utility.utils.getPrimaryUser;
 import static com.digidoctor.android.view.fragments.digiDoctorFragments.BookAppointmentFragment.bookAppointment;
 import static com.digidoctor.android.view.fragments.digiDoctorFragments.PatientDashboardFragment.dashboard2Binding;
 import static com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment.REQUEST_ENABLE_BT;
-import static com.digidoctor.android.view.fragments.lab.FragmentReviewOrderLab.payment;
+import static com.digidoctor.android.view.fragments.lab.FragmentReviewOrderLab.labPayment;
 
 public class PatientDashboard extends AppCompatActivity implements PaymentResultWithDataListener, NavigationInterface, PayUCheckoutProListener {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 101;
@@ -435,11 +435,11 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         if (null != bookAppointment)
             bookAppointment.startBookingAppointment(paymentData.getPaymentId());
 
-        if (null != payment)
+        if (null != labPayment)
             try {
-                payment.paymentSuccess(paymentData);
+                labPayment.paymentSuccess(paymentData);
             } catch (Exception e) {
-                payment.paymentFailed(e.getLocalizedMessage());
+                labPayment.paymentFailed(e.getLocalizedMessage());
             }
 
         Log.d(TAG, "onPaymentSuccessData: " + paymentData.getData());
@@ -448,7 +448,11 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     @Override
     public void onPaymentError(int i, String s, PaymentData paymentData) {
         Log.d(TAG, "onPaymentError: " + s);
-        Toast.makeText(instance, R.string.failed_to_book, Toast.LENGTH_SHORT).show();
+        if (null != bookAppointment) {
+            showfailedmessages("Failed to Book Appointment!");
+        } else if (null != labPayment) {
+            showfailedmessages("Failed to Book Lab test!");
+        }
     }
 
 
@@ -544,7 +548,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         } else if (navModel.getId() == 7) {
             //init for wallet Screen
             if (isProfileFilled())
-                navController.navigate(R.id.labOrdersFragment);
+                navController.navigate(R.id.getPlacedOrderFragment);
             else navController.navigate(R.id.profileFragment);
         } else if (navModel.getId() == 11) {
             if (isProfileFilled())
@@ -591,12 +595,25 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     @Override
     public void onPaymentFailure(@NotNull Object response) {
         Toast.makeText(instance, R.string.failed_to_book, Toast.LENGTH_SHORT).show();
+        if (null != bookAppointment) {
+            showfailedmessages("Failed to Book Appointment!");
+        } else if (null != labPayment) {
+            showfailedmessages("Failed to Book Lab test!");
+        }
     }
 
     @Override
     public void onPaymentCancel(boolean b) {
         Log.d(TAG, "onPaymentCancel: " + b);
-        Toast.makeText(instance, R.string.failed_to_book, Toast.LENGTH_SHORT).show();
+        if (null != bookAppointment) {
+            showfailedmessages("Failed to Book Appointment!");
+        } else if (null != labPayment) {
+            showfailedmessages("Failed to Book Lab test!");
+        }
+    }
+
+    private void showfailedmessages(String s) {
+        Toast.makeText(instance, "" + s, Toast.LENGTH_SHORT).show();
     }
 
     @Override

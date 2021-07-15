@@ -137,7 +137,7 @@ public class OrderDetailsFragment extends Fragment {
                     fragmentOrderDetailsBinding.textView118.setText("Cancelled");
                     fragmentOrderDetailsBinding.textView118.setTextColor(Color.RED);
                     fragmentOrderDetailsBinding.view.setBackgroundColor(Color.RED);
-                    fragmentOrderDetailsBinding.imageView48.setBackgroundResource(R.drawable.ic_baseline_check_circle_24);
+                   fragmentOrderDetailsBinding.imageView48.setBackgroundResource(R.drawable.ic_baseline_check_circle_24);
                     fragmentOrderDetailsBinding.textView119.setText(getOrderStatus.getCancelledDate());
                     fragmentOrderDetailsBinding.textView120.setVisibility(View.GONE);
                     fragmentOrderDetailsBinding.textView122.setVisibility(View.GONE);
