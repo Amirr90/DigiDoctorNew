@@ -897,6 +897,20 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_lab_Home_Fragment_to_investigationFragment"
+            app:destination="@id/investigationFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_lab_Home_Fragment_to_addInvestigationFragment2"
+            app:destination="@id/addInvestigationFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/health_Checkup_Categories_Fragment"
@@ -1194,5 +1208,16 @@
         android:name="com.digidoctor.android.WalletFragment"
         android:label="DigiDoctor Wallet"
         tools:layout="@layout/fragment_wallet" />
+    <fragment
+        android:id="@+id/noInternetFragment"
+        android:name="com.digidoctor.android.NoInternetFragment"
+        android:label="fragment_no_internet"
+        tools:layout="@layout/fragment_no_internet">
+        <deepLink
+            android:id="@+id/deepLink2"
+            android:autoVerify="true"
+            app:action="ACTION_VIEW"
+            app:uri="https://www.noInternetLayout.com" />
+    </fragment>
 
 </navigation>

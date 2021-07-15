@@ -67,6 +67,7 @@ public class AppointmentsFragment extends Fragment implements OnClickListener {
             adapter.submitList(appointmentModels);
             AppUtils.hideDialog();
             appointmentBinding.noAppointmentGroup.setVisibility(appointmentModels.isEmpty() ? View.VISIBLE : View.GONE);
+            appointmentBinding.recAppointment.setVisibility(appointmentModels.isEmpty() ? View.GONE : View.VISIBLE);
             appointmentBinding.noAppointmentGroup.setAnimation(appointmentModels.isEmpty() ? fadeIn(requireActivity()) : fadeOut(requireActivity()));
         });
 
@@ -81,14 +82,7 @@ public class AppointmentsFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onItemClick(Object object) {
-
         AppointmentModel appointmentModel = (AppointmentModel) object;
-     /*   Log.d(TAG, "onItemClick: " + appointmentModel.toString());
-        String model = getJSONFromModel(appointmentModel);
-        Bundle bundle = new Bundle();
-        bundle.putString("model", model);
-        navController.navigate(R.id.action_appointmentsFragment_to_appointmentDetailFragment, bundle);*/
-
         AppointmentsFragmentDirections.ActionAppointmentsFragmentToAppointmentDetailFragment action =
                 AppointmentsFragmentDirections.actionAppointmentsFragmentToAppointmentDetailFragment();
         action.setAppointmentId(appointmentModel.getAppointmentId());

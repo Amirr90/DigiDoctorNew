@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.ShimmerAdapter;
@@ -37,6 +39,7 @@ public class SpecialitiesFragment extends Fragment {
     PatientViewModel viewModel;
     String specialityName;
     List<SpecialityModel> allSpecialityData;
+    NavController navController;
 
 
     @Override
@@ -51,12 +54,19 @@ public class SpecialitiesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
+        navController = Navigation.findNavController(view);
+        if (!utils.isNetworkConnected(requireActivity()))
+            navController.navigateUp();
+
+
         specialityAdapter = new SpecialityAdapter(requireActivity());
         specialitiesBinding.specRec.setAdapter(specialityAdapter);
         //set ShimmerAdapter
         specialitiesBinding.recShimmerSpeciality.setAdapter(new ShimmerAdapter(R.layout.speciality_shimmer_view));
 
         viewModel = new ViewModelProvider(requireActivity()).get(PatientViewModel.class);
+
+
 
 
         getSpecialityData(specialityName);
@@ -88,6 +98,7 @@ public class SpecialitiesFragment extends Fragment {
             }
         });
 
+
     }
 
     private void filterSpeciality(CharSequence charSequence) {
@@ -115,6 +126,7 @@ public class SpecialitiesFragment extends Fragment {
                 specialityAdapter.submitList(specialityModels);
                 allSpecialityData = specialityModels;
                 specialitiesBinding.recShimmerSpeciality.setVisibility(specialityModels.isEmpty() ? View.VISIBLE : View.GONE);
+                specialitiesBinding.constraintLayout18.setVisibility(specialityModels.isEmpty() ? View.GONE : View.VISIBLE);
                 specialitiesBinding.specRec.setVisibility(specialityModels.isEmpty() ? View.GONE : View.VISIBLE);
             } else PatientDashboard.getInstance().onSupportNavigateUp();
 

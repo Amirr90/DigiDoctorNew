@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -39,6 +40,7 @@
                 android:padding="@dimen/_10sdp">
 
                 <ImageView
+                    app:tint="@color/colorPrimary"
                     android:id="@+id/imageView20"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
@@ -124,7 +126,8 @@
                         android:layout_height="15dp"
                         android:layout_centerVertical="true"
                         app:srcCompat="@drawable/group"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="TODO"
+                        app:tint="@color/colorPrimary" />
 
                     <TextView
                         android:id="@+id/textView79"
@@ -147,6 +150,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        app:tint="@color/colorPrimary"
                         android:layout_marginTop="-5dp"
                         android:id="@+id/ivGraduated"
                         android:layout_width="15dp"
@@ -175,6 +179,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        app:tint="@color/colorPrimary"
                         android:layout_marginTop="-5dp"
                         android:id="@+id/ivLocationPin"
                         android:layout_width="15dp"
@@ -205,44 +210,56 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/GreyColo" />
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp">
 
+
+                    <TextView
+                        android:id="@+id/textView83"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/consulation_fee"
+                        android:textColor="#262E3F"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <ImageView
                         android:id="@+id/imageView30"
                         android:layout_width="9dp"
-                        android:layout_height="15dp"
+                        android:layout_height="0dp"
                         android:layout_gravity="center_vertical"
-                        app:srcCompat="@drawable/rupee_indian"
-                        android:contentDescription="TODO" />
+                        android:layout_marginStart="24dp"
+                        android:contentDescription="TODO"
+                        app:layout_constraintStart_toEndOf="@+id/textView83"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/rupee_indian" />
 
                     <TextView
                         android:id="@+id/textView82"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/poppins_bold"
                         android:text="@{String.valueOf(doctor.drFee)}"
                         android:textColor="#262E3F"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView30"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/textView83"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="5dp"
-                        android:fontFamily="@font/poppins"
-                        android:text="@string/consulation_fee"
-                        android:textColor="#262E3F"
-                        android:textSize="15sp" />
-                </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
                     android:layout_width="match_parent"

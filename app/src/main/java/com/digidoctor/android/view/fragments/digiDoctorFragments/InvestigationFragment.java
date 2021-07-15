@@ -66,17 +66,24 @@ public class InvestigationFragment extends Fragment implements OnClickListener {
         AppUtils.showRequestDialog(requireActivity());
         User user = new User();
         user.setMemberId(utils.getPrimaryUser(requireActivity()).getId());
+
         viewModel.getInvestigationData(user).observe(getViewLifecycleOwner(), investigationModels -> {
 
+            investigationBinding.noInvestigationLay.setVisibility(investigationModels.isEmpty() ? View.VISIBLE : View.GONE);
+            investigationBinding.recInvestigation.setVisibility(investigationModels.isEmpty() ? View.GONE : View.VISIBLE);
 
             submitList.clear();
-            if (!investigationModels.isEmpty()) {
-                submitList.addAll(investigationModels);
-                setVisibilityForNoPrescription(false);
-            } else setVisibilityForNoPrescription(true);
-
+            submitList.addAll(investigationModels);
             adapter.notifyDataSetChanged();
             AppUtils.hideDialog();
+
+
+            /*if (!investigationModels.isEmpty()) {
+                submitList.addAll(investigationModels);
+                setVisibilityForNoPrescription(false);
+            } else setVisibilityForNoPrescription(true);*/
+
+
         });
 
         investigationBinding.tvAddManually.setOnClickListener(view1 -> navController.navigate(R.id.action_investigationFragment_to_addInvestigationFragment));

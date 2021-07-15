@@ -6,6 +6,9 @@
     <data>
 
         <variable
+            name="adapterInterface"
+            type="com.digidoctor.android.interfaces.AdapterInterface" />
+        <variable
             name="homeModel"
             type="com.digidoctor.android.adapters.labadapter.LabHomeGridAdapter.GridModel" />
     </data>
@@ -18,7 +21,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/first"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/cartview_round_layout"
             android:padding="@dimen/_10sdp"
@@ -27,7 +30,7 @@
 
             <TextView
                 android:id="@+id/TVbestprice"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="10dp"

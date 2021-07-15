@@ -517,6 +517,12 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        navController.handleDeepLink(intent);
+    }
+
+    @Override
     public void onNavigationItemClicked(Object obj) {
         mainBinding.drawerLayout.close();
         NavModel navModel = (NavModel) obj;
@@ -530,7 +536,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             else navController.navigate(R.id.profileFragment);
         } else if (navModel.getId() == 3) {
             if (isProfileFilled())
-                navController.navigate(R.id.investigationFragment);
+                navController.navigate(R.id.videoCallHistoryFragment);
             else navController.navigate(R.id.profileFragment);
         } else if (navModel.getId() == 4) {
             if (isProfileFilled())
@@ -541,12 +547,10 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 navController.navigate(R.id.addMemberFragment);
             else navController.navigate(R.id.profileFragment);
         } else if (navModel.getId() == 6) {
-            //init for video Cal Screen
             if (isProfileFilled())
-                navController.navigate(R.id.videoCallHistoryFragment);
+                navController.navigate(R.id.lab_Home_Fragment);
             else navController.navigate(R.id.profileFragment);
         } else if (navModel.getId() == 7) {
-            //init for wallet Screen
             if (isProfileFilled())
                 navController.navigate(R.id.getPlacedOrderFragment);
             else navController.navigate(R.id.profileFragment);

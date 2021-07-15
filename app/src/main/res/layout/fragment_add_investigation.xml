@@ -75,6 +75,8 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
+                        android:textColor="@color/white"
+                        android:drawableTint="@color/white"
                         android:id="@+id/editTextTextPersonName3"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
@@ -82,6 +84,8 @@
                         android:layout_marginEnd="8dp"
                         android:background="@drawable/rectangle_outline_gray"
                         android:drawableStart="@drawable/hospital"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:fontFamily="@font/poppins_semibold"
                         android:drawablePadding="@dimen/_10sdp"
                         android:ems="10"
                         android:hint="@string/pathology_hospital_name"
@@ -98,6 +102,7 @@
 
 
                     <EditText
+                        android:drawableTint="@color/colorPrimary"
                         android:id="@+id/etDiagnose"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
@@ -108,6 +113,7 @@
                         android:drawablePadding="@dimen/_10sdp"
                         android:ems="10"
                         android:gravity="top"
+                        android:fontFamily="@font/poppins"
                         android:hint="@string/receipt_no"
                         android:inputType="textMultiLine"
                         android:maxLength="40"
@@ -121,6 +127,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
 
                     <TextView
+                        android:drawableTint="@color/colorPrimary"
                         android:id="@+id/tvDateTime"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
@@ -173,6 +180,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <AutoCompleteTextView
+                        android:drawableTint="@color/colorPrimary"
                         android:id="@+id/tcAutoMedicine"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
@@ -195,6 +203,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView41" />
 
                     <AutoCompleteTextView
+                        android:drawableTint="@color/colorPrimary"
                         android:id="@+id/etUnit"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"

@@ -11,6 +11,11 @@ public class LabDashBoardmodel {
     List<PackageModel> packageDetails;
     List<BannerText> bannerText;
     List<LabModel> pathalogyDetails;
+    Integer cartCount;
+
+    public Integer getCartCount() {
+        return cartCount;
+    }
 
     public List<CategoryModel> getCategoryDetails() {
         return categoryDetails;
@@ -27,19 +32,20 @@ public class LabDashBoardmodel {
     public List<SliderImage> getSliderImage() {
         return sliderImage;
     }
+
     public List<BannerText> getBannerText() {
         return bannerText;
     }
+
     public List<LabModel> getPathalogyDetails() {
         return pathalogyDetails;
     }
 
 
-
-
     public static class SliderImage {
 
         String sliderImage;
+
         @Override
         public String toString() {
             return "SliderImage{" +

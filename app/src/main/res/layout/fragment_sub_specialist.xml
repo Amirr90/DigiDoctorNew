@@ -31,6 +31,7 @@
             android:backgroundTint="@android:color/white"
             android:drawableEnd="@drawable/magnifier"
             android:drawablePadding="10dp"
+            android:drawableTint="@color/colorPrimary"
             android:ems="10"
             android:hint="@string/search_doctor"
             android:imeOptions="actionSearch"
@@ -62,15 +63,15 @@
         android:visibility="visible"
         shimmer:duration="700">
 
-      <!--  <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/shimmerSubSpeciality"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:loadCustomShimmerAdapter="@layout/shimmer_doctor_view"
-            android:padding="@dimen/_10sdp"
-            android:visibility="visible"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/shimmer_doctor_view" />-->
+        <!--  <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/shimmerSubSpeciality"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:loadCustomShimmerAdapter="@layout/shimmer_doctor_view"
+              android:padding="@dimen/_10sdp"
+              android:visibility="visible"
+              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+              tools:listitem="@layout/shimmer_doctor_view" />-->
     </com.facebook.shimmer.ShimmerFrameLayout>
 
 

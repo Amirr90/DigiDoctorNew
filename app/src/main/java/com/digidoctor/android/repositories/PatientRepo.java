@@ -584,7 +584,6 @@ public class PatientRepo {
     }
 
     private void loadLabDashboardData(Dashboard dashboard) {
-        showRequestDialog(PatientDashboard.getInstance());
         Response.getDashboardResponse(ApiUtils.getLabDashboard(dashboard), new ApiInterface() {
             @Override
             public void onSuccess(Object obj) {

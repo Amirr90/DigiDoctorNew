@@ -477,7 +477,6 @@ public class BookAppointment extends Credentials {
     }
 
     private void startPayUBizPayment() {
-        Log.d(TAG, "initPayUBizPayment: ");
         initPayUPayment(bookAppointmentInterface);
 
     }
@@ -491,7 +490,7 @@ public class BookAppointment extends Credentials {
         // checkout.setKeyID("rzp_test_dUtqKgNQUPcSDE");
 
         bookAppointment.setTrxId(tId);
-        String image = "https://digidoctor.in/assets/images/logonew.png";
+        String image = "https://digidoctor.in/assets/img/logo.png";
 
         int amount = Integer.parseInt(getDrFee()) * 100;
         try {
@@ -506,13 +505,13 @@ public class BookAppointment extends Credentials {
             options.put("prefill.contact", getMobileNo());
             checkout.open(activity, options);
         } catch (Exception e) {
-            Log.e(TAG, "Error in starting Razorpay Checkout", e);
+            Log.d(TAG, "Error in starting Razorpay Checkout", e);
         }
     }
 
 
     @Override
-    public String toString() {
+    public @NotNull String toString() {
         return "{" +
                 "payMode=" + payMode +
                 ", userMobileNo='" + userMobileNo + '\'' +

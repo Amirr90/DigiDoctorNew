@@ -15,8 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
 
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.labadapter.CategoryAdapter;
@@ -30,6 +28,7 @@ import com.digidoctor.android.interfaces.PackagesInterface;
 import com.digidoctor.android.model.LabModel;
 import com.digidoctor.android.model.PackageModel;
 import com.digidoctor.android.model.labmodel.BannerText;
+import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.model.labmodel.CategoryModel;
 import com.digidoctor.android.model.labmodel.LabDashBoardmodel;
 import com.digidoctor.android.utility.Cart;
@@ -96,22 +95,29 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
         labTestHomeBinding.recLab.setAdapter(labsAdapter);
 
         labTestHomeBinding.tvViewAllPackages.setOnClickListener(v -> navController.navigate(R.id.action_lab_Home_Fragment_to_test_Package_Fragment));
-
         viewModel.getLabDashboardModel("10", "20").observe(getViewLifecycleOwner(), labDashBoardmodel -> {
 
-
             labTestHomeBinding.contentconstrainet.setVisibility(null == labDashBoardmodel ? View.GONE : View.VISIBLE);
+            labTestHomeBinding.loadingView.setVisibility(null == labDashBoardmodel ? View.VISIBLE : View.GONE);
             labTestHomeBinding.contentconstrainet.setAnimation(fadeIn(requireActivity()));
+            if (null == labDashBoardmodel)
+                return;
+
+            updateCartBadge(labDashBoardmodel.getCartCount());
             //packages
             List<PackageModel> packageDetails = labDashBoardmodel.getPackageDetails();
-            if (null != packageDetails && !packageDetails.isEmpty())
+            if (null != packageDetails && !packageDetails.isEmpty()) {
                 packagesAdapter.submitList(packageDetails);
+                labTestHomeBinding.tvViewAllPackages.setVisibility(packagesAdapter.getItemCount() > 2 ? View.VISIBLE : View.GONE);
+            }
 
 
             //category
             List<CategoryModel> categoryModels = labDashBoardmodel.getCategoryDetails();
-            if (null != categoryModels && !categoryModels.isEmpty())
+            if (null != categoryModels && !categoryModels.isEmpty()) {
                 categoryAdapter.submitList(categoryModels);
+                labTestHomeBinding.textView153.setVisibility(categoryAdapter.getItemCount() > 2 ? View.VISIBLE : View.GONE);
+            }
 
 
             List<BannerText> bannerTextList = labDashBoardmodel.getBannerText();
@@ -120,8 +126,10 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
 
             //Labs
             List<LabModel> labModels = labDashBoardmodel.getPathalogyDetails();
-            if (null != labModels && !labModels.isEmpty())
+            if (null != labModels && !labModels.isEmpty()) {
                 labsAdapter.submitList(labModels);
+                labTestHomeBinding.textView158.setVisibility(labsAdapter.getItemCount() > 2 ? View.VISIBLE : View.GONE);
+            }
 
 
             //Banner
@@ -136,7 +144,14 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
 
 
         //setting HomeGrid Adapter
-        labTestHomeBinding.recyclerView9.setAdapter(new LabHomeGridAdapter());
+        labTestHomeBinding.recyclerView9.setAdapter(new LabHomeGridAdapter(o -> {
+            int position = (int) o;
+            if (position == 2) {
+                navController.navigate(R.id.action_lab_Home_Fragment_to_investigationFragment);
+            } else if (position == 3) {
+                navController.navigate(R.id.action_lab_Home_Fragment_to_addInvestigationFragment2);
+            }
+        }));
 
 
         //setting Listener to tvViewAll Category
@@ -149,16 +164,12 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
         labTestHomeBinding.ivSearchLabIcon.setOnClickListener(v -> navController.navigate(R.id.action_lab_Home_Fragment_to_searchLabsAndTestFragment));
 
         //on Cart Icon Click
-        labTestHomeBinding.imageView76.setOnClickListener(v -> navController.navigate(R.id.action_lab_Home_Fragment_to_fragmentCartListLab2));
+        labTestHomeBinding.ivLabCart.setOnClickListener(v -> navController.navigate(R.id.action_lab_Home_Fragment_to_fragmentCartListLab2));
 
         //onBack Arrow Click
         labTestHomeBinding.ivBack.setOnClickListener(v -> navController.navigateUp());
 
     }
-
-   /* public void onNavigateUp(Lab_Home_FragmentDirections.ActionLabHomeFragmentToTestDetailsFRagment id) {
-        navController.navigate(id);
-    }*/
 
 
     private void setBannerData(List<BannerText> bannerTextList) {
@@ -189,9 +200,6 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
     @Override
     public void onItemClicked(Object obj) {
         String packageId = (String) obj;
-        //cart.addItemToCart("", packageId);
-//        Lab_Home_FragmentDirections.ActionLabHomeFragmentToTestDetailsFRagment action = Lab_Home_FragmentDirections.actionLabHomeFragmentToTestDetailsFRagment();
-//        action.setPackageId(packageId);
         Bundle args = new Bundle();
         args.putString("packageID", packageId);
         navController.navigate(R.id.action_lab_Home_Fragment_to_testDetailsFRagment, args);
@@ -205,19 +213,27 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
     @Override
     public void onCartItemAdded(Object obj) {
         Toast.makeText(requireActivity(), "Added successfully !!", Toast.LENGTH_SHORT).show();
+        List<CartModel> cartModels = (List<CartModel>) obj;
+        updateCartBadge(cartModels.size());
+    }
+
+    private void updateCartBadge(int badgeCount) {
+        labTestHomeBinding.tvCartBadge.setText(String.valueOf(badgeCount));
     }
 
     @Override
     public void onCartItemDeleted(Object obj) {
-        Toast.makeText(requireActivity(), "removed successfully !!", Toast.LENGTH_SHORT).show();
+
+        List<CartModel> cartModels = (List<CartModel>) obj;
+        updateCartBadge(cartModels.size());
+        Toast.makeText(requireActivity(), "Removed successfully !!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void cartItem(Object obj) {
+        List<CartModel> cartModels = (List<CartModel>) obj;
+        updateCartBadge(cartModels.size());
         navController.navigate(R.id.action_lab_Home_Fragment_to_fragmentCartListLab);
     }
 
-    public CartInterface getCartInterface() {
-        return this;
-    }
 }

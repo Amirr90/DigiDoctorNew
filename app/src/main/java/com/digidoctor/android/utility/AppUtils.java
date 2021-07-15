@@ -653,7 +653,7 @@ public class AppUtils {
     public static String getTimeFormat(long currentTimeMillis, String outFormat) {
         try {
 
-            Timestamp ts = new Timestamp(System.currentTimeMillis());
+            Timestamp ts = new Timestamp(currentTimeMillis);
             Date date = ts;
             System.out.println(date);
 
