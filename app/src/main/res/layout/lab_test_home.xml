@@ -11,7 +11,7 @@
         android:id="@+id/rootconstraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/lab_bg"
         tools:context=".view.fragments.lab.Lab_Home_Fragment">
 
 
@@ -50,7 +50,7 @@
             android:id="@+id/contentconstrainet"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible">
+            android:visibility="gone">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -182,223 +182,269 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recBannerSlider"
-                    android:layout_width="0dp"
-                    android:layout_height="140dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="8dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/searchbarlayout"
-                    tools:listitem="@layout/bannerview" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recBannerSlider"
-                    app:spanCount="2"
-                    tools:itemCount="4"
-                    tools:listitem="@layout/lab_home_view2" />
-
-                <TextView
-                    android:id="@+id/TVaffordable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="@string/affordable_health_package"
-                    android:textColor="#2B3344"
-                    android:textSize="@dimen/_16sdp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/recyclerView9"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerView9" />
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/healthPackageRecyclerview"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="2dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toTopOf="@+id/checkupcategorieslayout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/TVaffordable"
-                    tools:ignore="RtlSymmetry"
-                    tools:listitem="@layout/healthpackagelayout" />
-
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/checkupcategorieslayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/healthPackageRecyclerview">
+                    app:layout_constraintTop_toBottomOf="@+id/searchbarlayout">
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recBannerSlider"
+                        android:layout_width="0dp"
+                        android:layout_height="140dp"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="14dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/bannerview" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="14dp"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recBannerSlider"
+                        app:spanCount="2"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/lab_home_view2" />
 
                     <TextView
-                        android:id="@+id/textView152"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/TVaffordable"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="13dp"
-                        android:layout_marginTop="17dp"
+                        android:layout_marginTop="16dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="Health Checkup Categories"
+                        android:text="@string/affordable_health_package"
                         android:textColor="#2B3344"
                         android:textSize="@dimen/_16sdp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView153"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:drawablePadding="@dimen/_5sdp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:padding="@dimen/_10sdp"
-                        android:text="@string/view_all"
-                        android:textColor="#3F4E6E"
-                        app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_16"
-                        app:drawableTint="@color/colorPrimary"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView152"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView152" />
+                        app:layout_constraintEnd_toStartOf="@+id/tvViewAllPackages"
+                        app:layout_constraintStart_toStartOf="@+id/recyclerView9"
+                        app:layout_constraintTop_toBottomOf="@+id/recyclerView9" />
 
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recCategory"
+                        android:id="@+id/healthPackageRecyclerview"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
+                        android:layout_marginEnd="14dp"
                         android:orientation="horizontal"
-                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingStart="2dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/checkupcategorieslayout"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView152"
-                        tools:listitem="@layout/health_checkup_category_lab_layout" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="@dimen/_13sdp"
-                    android:layout_marginEnd="15dp"
-                    android:backgroundTint="#F24F84"
-                    android:visibility="gone"
-                    app:cardCornerRadius="@dimen/_10sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/checkupcategorieslayout">
+                        app:layout_constraintTop_toBottomOf="@+id/TVaffordable"
+                        tools:ignore="RtlSymmetry"
+                        tools:listitem="@layout/healthpackagelayout" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/bannerCall"
+                        android:id="@+id/checkupcategorieslayout"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="visible">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:background="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/healthPackageRecyclerview">
+
 
                         <TextView
-                            android:id="@+id/textView155"
+                            android:id="@+id/textView152"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="17dp"
                             android:fontFamily="@font/poppins_semibold"
-                            android:text="Book on call"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16sp"
+                            android:text="Health Checkup Categories"
+                            android:textColor="#2B3344"
+                            android:textSize="@dimen/_16sdp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/textView156"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:layout_marginEnd="5dp"
-                            android:fontFamily="@font/poppins"
-                            android:textColor="#FFFFFF"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/textView155"
-                            app:layout_constraintTop_toBottomOf="@+id/textView155" />
-
-                        <TextView
-                            android:id="@+id/button14"
+                            android:id="@+id/textView153"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp"
-                            android:layout_marginBottom="14dp"
-                            android:background="@drawable/button"
+                            android:layout_marginEnd="8dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:fontFamily="@font/poppins_semibold"
                             android:padding="@dimen/_10sdp"
-                            android:text="Missed Call"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_10sdp"
+                            android:text="@string/view_all"
+                            android:textColor="#3F4E6E"
+                            app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_16"
+                            app:drawableTint="@color/colorPrimary"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView152"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView152" />
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recCategory"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:orientation="horizontal"
+                            android:paddingStart="@dimen/_5sdp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/textView156"
-                            app:layout_constraintTop_toBottomOf="@+id/textView156" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView152"
+                            tools:listitem="@layout/health_checkup_category_lab_layout" />
+
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.cardview.widget.CardView>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/partenerlabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp"
-                    android:background="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/checkupcategorieslayout">
-
-
-                    <TextView
-                        android:id="@+id/textView157"
-                        android:layout_width="wrap_content"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="Certified Partner Labs"
-                        android:textColor="#2B3344"
-                        android:textSize="@dimen/_16sdp"
-                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/_13sdp"
+                        android:backgroundTint="#F24F84"
+                        android:visibility="gone"
+                        app:cardCornerRadius="@dimen/_10sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/checkupcategorieslayout">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/bannerCall"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/textView155"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:text="Book on call"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView156"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="5dp"
+                                android:fontFamily="@font/poppins"
+                                android:textColor="#FFFFFF"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="@+id/textView155"
+                                app:layout_constraintTop_toBottomOf="@+id/textView155" />
+
+                            <TextView
+                                android:id="@+id/button14"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="14dp"
+                                android:layout_marginBottom="14dp"
+                                android:background="@drawable/button"
+                                android:padding="@dimen/_10sdp"
+                                android:text="Missed Call"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_10sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="@+id/textView156"
+                                app:layout_constraintTop_toBottomOf="@+id/textView156" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/partenerlabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:background="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/checkupcategorieslayout">
+
+
+                        <TextView
+                            android:id="@+id/textView157"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Certified Partner Labs"
+                            android:textColor="#2B3344"
+                            android:textSize="@dimen/_16sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView158"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:focusable="true"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/view_all"
+                            android:textColor="#3F4E6E"
+                            app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_16"
+                            app:drawableTint="@color/colorPrimary"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView157"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView157" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recLab"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="horizontal"
+                            android:paddingStart="@dimen/_5sdp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView157"
+                            tools:listitem="@layout/certified_lab_view" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:id="@+id/textView158"
+                        android:id="@+id/tvViewAllPackages"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
@@ -406,49 +452,15 @@
                         android:clickable="true"
                         android:drawablePadding="@dimen/_5sdp"
                         android:focusable="true"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:padding="@dimen/_5sdp"
+                        android:padding="@dimen/_10sdp"
                         android:text="@string/view_all"
                         android:textColor="#3F4E6E"
                         app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_16"
                         app:drawableTint="@color/colorPrimary"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView157"
+                        app:layout_constraintBottom_toBottomOf="@+id/TVaffordable"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView157" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recLab"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal"
-                        android:paddingStart="@dimen/_5sdp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView157"
-                        tools:listitem="@layout/certified_lab_view" />
+                        app:layout_constraintTop_toTopOf="@+id/TVaffordable" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:id="@+id/tvViewAllPackages"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:drawablePadding="@dimen/_5sdp"
-                    android:focusable="true"
-                    android:padding="@dimen/_10sdp"
-                    android:text="@string/view_all"
-                    android:textColor="#3F4E6E"
-                    app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_16"
-                    app:drawableTint="@color/colorPrimary"
-                    app:layout_constraintBottom_toBottomOf="@+id/TVaffordable"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/TVaffordable" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

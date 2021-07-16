@@ -6,6 +6,9 @@
     <data>
 
         <variable
+            name="adapterInterface"
+            type="com.digidoctor.android.interfaces.AdapterInterface" />
+        <variable
             name="cartModel"
             type="com.digidoctor.android.model.labmodel.CartModel" />
     </data>
@@ -55,6 +58,7 @@
                 app:srcCompat="@drawable/labcartlistimage" />
 
             <ImageView
+                android:onClick="@{()->adapterInterface.onItemClicked(cartModel)}"
                 android:id="@+id/btnDeleteCartItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

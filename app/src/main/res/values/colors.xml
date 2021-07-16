@@ -40,6 +40,7 @@
 
 
     <color name="color_grey">#F2F6FE</color>
+    <color name="lab_bg">#F2F6FE</color>
 
 
 </resources>

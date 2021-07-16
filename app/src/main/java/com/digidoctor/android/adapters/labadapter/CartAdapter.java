@@ -1,22 +1,15 @@
 package com.digidoctor.android.adapters.labadapter;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digidoctor.android.databinding.CarListLabViewLayoutBinding;
 import com.digidoctor.android.databinding.TestNameViewBinding;
+import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.model.labmodel.CartModel;
-import com.digidoctor.android.utility.App;
-import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.Cart;
 
 import java.util.ArrayList;
@@ -27,12 +20,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartVH> {
     List<CartModel> cartModelList;
     Cart cart;
     InnerTestListAdapter innerTestListAdapter;
-    Activity activity;
+    AdapterInterface adapterInterface;
 
-    public CartAdapter(List<CartModel> cartModelList, Cart cart, Activity activity) {
+    public CartAdapter(List<CartModel> cartModelList, Cart cart, AdapterInterface adapterInterface) {
         this.cartModelList = cartModelList;
         this.cart = cart;
-        this.activity = activity;
+        this.adapterInterface = adapterInterface;
+
 
     }
 
@@ -41,6 +35,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartVH> {
     public CartVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         CarListLabViewLayoutBinding binding = CarListLabViewLayoutBinding.inflate(layoutInflater, parent, false);
+        binding.setAdapterInterface(adapterInterface);
         return new CartVH(binding);
     }
 
@@ -50,15 +45,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartVH> {
 
         holder.binding.setCartModel(cartModel);
 
-        holder.binding.btnDeleteCartItem.setOnClickListener(v -> {
-            new AlertDialog.Builder(activity).setMessage("Delete from cart??")
-                    .setPositiveButton("Yes", (dialog, which) -> {
-                        dialog.dismiss();
-                        cart.deleteItemFromCart(cartModel.getCartId());
-                    }).setNegativeButton("No", (dialog, which) -> dialog.dismiss()).show();
-
-        });
-
         try {
             List<CartModel.Test> test = cartModel.getPackageTestList();
             innerTestListAdapter = new InnerTestListAdapter(test);
@@ -66,7 +52,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartVH> {
             innerTestListAdapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d(TAG, "onBindViewHolder: " + e.getLocalizedMessage());
         }
 
     }

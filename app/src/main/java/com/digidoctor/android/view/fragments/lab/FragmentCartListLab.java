@@ -1,8 +1,8 @@
 package com.digidoctor.android.view.fragments.lab;
 
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +18,7 @@ import androidx.navigation.Navigation;
 import com.digidoctor.android.R;
 import com.digidoctor.android.adapters.labadapter.CartAdapter;
 import com.digidoctor.android.databinding.FragmentCartListLabBinding;
+import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.interfaces.CartInterface;
 import com.digidoctor.android.model.labmodel.CartModel;
 import com.digidoctor.android.utility.AppUtils;
@@ -30,7 +31,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class FragmentCartListLab extends Fragment implements CartInterface {
+public class FragmentCartListLab extends Fragment implements CartInterface, AdapterInterface {
     private static final String TAG = "FragmentCartListLab";
 
 
@@ -39,6 +40,7 @@ public class FragmentCartListLab extends Fragment implements CartInterface {
     Cart cart;
     CartAdapter adapter;
     List<CartModel> cartModelList;
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -55,6 +57,9 @@ public class FragmentCartListLab extends Fragment implements CartInterface {
         navController = Navigation.findNavController(view);
 
 
+        //init ProgressDialog
+        progressDialog = new ProgressDialog(requireContext());
+
         //init Cart Interface & Class
         cart = new Cart(requireActivity(), this);
         cart.getCart();
@@ -62,7 +67,7 @@ public class FragmentCartListLab extends Fragment implements CartInterface {
 
         //init Adapter
         cartModelList = new ArrayList<>();
-        adapter = new CartAdapter(cartModelList, cart, requireActivity());
+        adapter = new CartAdapter(cartModelList, cart, this);
 
         //init Recyclerview
         binding.recCart.setAdapter(adapter);
@@ -80,12 +85,16 @@ public class FragmentCartListLab extends Fragment implements CartInterface {
 
     @Override
     public void onFailed(String msg) {
-        Log.d(TAG, "onFailed: " + msg);
+        binding.mainCartViewGroup.setVisibility(View.GONE);
+        binding.textView251.setText("Unable to get cart Data");
+        binding.progressBar11.setVisibility(View.GONE);
     }
 
     @Override
     public void onCartItemAdded(Object obj) {
-        Log.d(TAG, "onCartItemAdded: ");
+        if (null != progressDialog && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 
     @Override
@@ -94,31 +103,51 @@ public class FragmentCartListLab extends Fragment implements CartInterface {
         cart.getCart();
         Toast.makeText(requireActivity(), "Item Deleted Successfully !!", Toast.LENGTH_SHORT).show();
 
+        if (null != progressDialog && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+
+        List<CartModel> cartModels = (List<CartModel>) obj;
+        if (cartModels.isEmpty()) {
+            binding.mainCartViewGroup.setVisibility(View.GONE);
+            binding.groupLoadingLay.setVisibility(View.VISIBLE);
+            binding.textView251.setText("No Item in cart");
+            binding.progressBar11.setVisibility(View.GONE);
+        }
+
+
     }
 
     @Override
     public void cartItem(Object obj) {
         this.cartModelList.clear();
-        Log.d(TAG, "cartItem: " + obj);
+
         List<CartModel> cartModelList = (List<CartModel>) obj;
+
         if (null != cartModelList && !cartModelList.isEmpty()) {
             this.cartModelList.addAll(cartModelList);
             adapter.notifyDataSetChanged();
+            binding.mainCartViewGroup.setVisibility(View.VISIBLE);
+            binding.groupLoadingLay.setVisibility(View.GONE);
         } else {
-            binding.btnContinueToLab.setVisibility(View.GONE);
-           // Toast.makeText(requireActivity(), "Cart Is empty !!", Toast.LENGTH_SHORT).show();
+            binding.mainCartViewGroup.setVisibility(View.GONE);
+            binding.textView251.setText("No Item in cart");
+            binding.progressBar11.setVisibility(View.GONE);
+            // Toast.makeText(requireActivity(), "Cart Is empty !!", Toast.LENGTH_SHORT).show();
 
         }
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onItemClicked(Object o) {
+        CartModel cartModel = (CartModel) o;
+        new AlertDialog.Builder(requireActivity()).setMessage("Delete from cart??")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    dialog.dismiss();
+                    progressDialog.setMessage("Deleting cart item");
+                    progressDialog.show();
+                    cart.deleteItemFromCart(cartModel.getCartId());
+                }).setNegativeButton("No", (dialog, which) -> dialog.dismiss()).show();
 
-        if (requireActivity().RESULT_OK == resultCode) {
-            if (data != null) {
-                Log.d(TAG, "onActivityResult: " + data);
-            }
-        }
     }
 }
