@@ -355,6 +355,10 @@ public interface Api {
     @POST("validateCoupon")
     Call<CoupnemodelRes> coupnevalidation(@Body CouponModel couponModel);
 
+    @POST("removeCoupon")
+    Call<RemoveCouponResponse> removeCoupon(@Body CouponModel model);
+
+
 
     @POST("updateAddress")
     Call<getaddressModel> updateaddress(@Body AddAddressModel pharmacyModel);
@@ -419,6 +423,7 @@ public interface Api {
 
     @POST("cartCount")
     Call<Cartresponse> getlabcartcount(@Body CartModel model);
+
 
 
     //SymptomCheckerApis

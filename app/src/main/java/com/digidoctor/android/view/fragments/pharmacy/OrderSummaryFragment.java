@@ -45,6 +45,8 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
     String AddressId = null;
     List<getaddressModel.getaddressDetails> addAdressModels;
 
+    String coupoApplied = null;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -56,14 +58,19 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
 
         Log.d("TAG", "onViewCreatedAddress: " + addAdressModels);
 
+        if (getArguments() != null && getArguments().getString("CouponCode") != null) {
+            coupoApplied = getArguments().getString("CouponCode");
+
+            Log.d("TAG", "onViewCreated: " + coupoApplied);
+        }
+
         fragmentOrderSummaryBinding.cart.setVisibility(View.GONE);
         cartDetailsAdapter = new CartDetailsAdapter(getCartDetails, requireActivity(), this);
 
         priceDetailsAdapter = new PriceDetailsAdapter(gp, requireActivity());
-
         addressAdapter = new AddressAdapter(addAdressModels, requireActivity());
-
         fragmentOrderSummaryBinding.cart.setAdapter(cartDetailsAdapter);
+
 
         addAdressModels = new ArrayList<>();
         getaddress();
@@ -105,8 +112,14 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
 
 
         fragmentOrderSummaryBinding.button5.setOnClickListener(view12 -> {
+            int position = 0;
+            for (int i = 0; i < addAdressModels.size(); i++) {
+                if (addAdressModels.get(i).getIsDefault().equals("true")) {
+                    position = 1;
 
-            if (addAdressModels != null && !addAdressModels.isEmpty()) {
+                }
+            }
+            if (position == 1) {
                 hideSoftKeyboard(PatientDashboard.getInstance());
                 new AlertDialog.Builder(requireActivity())
                         .setMessage("Product Price ₹")
@@ -118,6 +131,7 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
                         .setNegativeButton("Pay Online", (dialog, id) -> dialog.cancel()).show();
             } else {
                 Toast.makeText(requireActivity(), "Kindly add Address First!", Toast.LENGTH_SHORT).show();
+
             }
 
 
@@ -139,6 +153,13 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
                 addAdressModels.clear();
                 addAdressModels.addAll(models);
 
+                for (int i = 0; i < addAdressModels.size(); i++) {
+                    if (addAdressModels.get(i).getIsDefault().equals("true")) {
+                        fragmentOrderSummaryBinding.cardView.setVisibility(View.VISIBLE);
+                    }
+
+                }
+
 
                 if (!models.isEmpty()) {
                     for (int a = 0; a < models.size(); a++) {
@@ -156,9 +177,7 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
 
                 addressAdapter.notifyDataSetChanged();
 
-                if (models != null) {
-                    fragmentOrderSummaryBinding.cardView.setVisibility(View.VISIBLE);
-                }
+
             }
 
             @Override
@@ -186,7 +205,7 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
             Toast.makeText(requireActivity(), "Kindly Add Address First", Toast.LENGTH_SHORT).show();
         }
 
-        ApiUtils.orderPlaced(AddressId, requireActivity(), new ApiCallbackInterface() {
+        ApiUtils.orderPlaced(AddressId, coupoApplied, requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
                 AppUtils.hideDialog();
@@ -217,7 +236,8 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup
+            container, @Nullable Bundle savedInstanceState) {
         fragmentOrderSummaryBinding = FragmentOrderSummaryBinding.inflate(getLayoutInflater());
         return fragmentOrderSummaryBinding.getRoot();
 

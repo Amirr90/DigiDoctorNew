@@ -1,5 +1,6 @@
 package com.digidoctor.android.view.fragments.pharmacy;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -49,6 +50,8 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
 
     String couponCode = null;
 
+    String applied_coupon_discount = null;
+
 
     @Nullable
     @Override
@@ -81,9 +84,34 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
         gp.clear();
         updateCartData();
 
-        fragmentCartListBinding.checkout.setOnClickListener(view1 -> navController.navigate(R.id.action_cart_Details_Fragment_to_orderSummaryFragment));
 
-        fragmentCartListBinding.textView106.setOnClickListener(view12 -> navController.navigate(R.id.action_cart_Details_Fragment_to_allCoupneFragment));
+        fragmentCartListBinding.checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+
+                Bundle bundle = new Bundle();
+                bundle.putString("CouponCode", fragmentCartListBinding.editTextTextPersonName2.getText().toString());
+                navController.navigate(R.id.action_cart_Details_Fragment_to_orderSummaryFragment, bundle);
+            }
+        });
+
+        fragmentCartListBinding.textView106.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view12) {
+
+                if (fragmentCartListBinding.textView106.getText().equals("View all Coupons")) {
+                    navController.navigate(R.id.action_cart_Details_Fragment_to_allCoupneFragment);
+                } else if
+                (fragmentCartListBinding.textView106.getText().equals("Remove Coupon")) {
+                    removedCoupon();
+                    updateCartData();
+                    fragmentCartListBinding.textView106.setText("View all Coupons");
+                    fragmentCartListBinding.editTextTextPersonName2.setText("");
+
+
+                }
+            }
+        });
 
         fragmentCartListBinding.button7.setOnClickListener(view13 -> navController.navigate(R.id.action_cart_Details_Fragment_to_allProductsFragment));
         fragmentCartListBinding.btnValidateCoupon.setOnClickListener(view14 -> {
@@ -102,9 +130,36 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
 
     }
 
+    private void removedCoupon() {
+
+        CouponModel couponModel = new CouponModel(String.valueOf(utils.getPrimaryUser(requireActivity()).getMemberId()), couponCode, String.valueOf(gp.get(0).getTotalAmount()));
+
+        ApiUtils.removecoupon(couponModel, new ApiCallbackInterface() {
+            @Override
+            public void onSuccess(List<?> o) {
+                Toast.makeText(requireActivity(), "Coupon Removed", Toast.LENGTH_SHORT).show();
+                fragmentCartListBinding.textView106.setText("View all Coupons");
+                fragmentCartListBinding.editTextTextPersonName2.setText("");
+
+            }
+
+            @Override
+            public void onError(String s) {
+
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+
+            }
+        });
+
+    }
+
     private void setCoupon(String couponCode) {
         fragmentCartListBinding.editTextTextPersonName2.setText(couponCode);
     }
+
 
     private void validateCoupon(String code) {
         AppUtils.showRequestDialog(requireActivity());
@@ -117,6 +172,8 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
             @Override
             public void onSuccess(List<?> o) {
                 AppUtils.hideDialog();
+                fragmentCartListBinding.textView106.setText("Remove Coupon");
+                fragmentCartListBinding.textView106.setTextColor(Color.parseColor("#EDA537"));
                 updateCartData();
             }
 
@@ -124,6 +181,8 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
             public void onError(String s) {
                 AppUtils.hideDialog();
                 Toast.makeText(requireActivity(), "" + s, Toast.LENGTH_SHORT).show();
+
+                fragmentCartListBinding.editTextTextPersonName2.setText("");
             }
 
             @Override
@@ -133,6 +192,7 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
             }
         });
     }
+
 
     private void updateCartData() {
 
@@ -150,7 +210,6 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
 
                 if (getCartDetails.isEmpty() || models.get(0).getProductDetails().isEmpty())
                     //Show No product in cart layout
-
                     fragmentCartListBinding.cartLay.setVisibility(View.GONE);
                 sp = models.get(0).getProductDetails();
                 gp.clear();
@@ -164,6 +223,7 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
                 if (!models.get(0).getPriceDetails().isEmpty()) {
                     CartDetailsResponse.GetCartDetails.GetPriceDetails price = models.get(0).getPriceDetails().get(0);
                     updatePriceDetails(price);
+
 
                 }
 
@@ -210,16 +270,12 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
                     for (CartDetailsResponse.GetCartDetails items : getProductDetails) {
                         getCartDetails.clear();
                         getCartDetails.add(items);
-
+                        removedCoupon();
                     }
                     cartDetailsAdapter.notifyDataSetChanged();
-
-
                     if (cartDetails.get(0).getPriceDetails() != null)
                         gp.clear();
                     gp.addAll(cartDetails.get(0).getPriceDetails());
-
-
                     if (!cartDetails.get(0).getProductDetails().isEmpty())
                         updatePriceDetails(cartDetails.get(0).getPriceDetails().get(0));
                 }
@@ -260,6 +316,14 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
         if (getPriceDetails.getTotalProducts().equals("0"))
             return;
 
+
+        if (getPriceDetails.getCouponCode() != null && !getPriceDetails.getCouponCode().isEmpty()) {
+            fragmentCartListBinding.editTextTextPersonName2.setText(getPriceDetails.getCouponCode());
+            fragmentCartListBinding.textView106.setText("Remove Coupon");
+            fragmentCartListBinding.textView106.setTextColor(Color.parseColor("#EDA537"));
+        } else if (getPriceDetails.getCouponCode().isEmpty()) {
+            fragmentCartListBinding.textView106.setText("View all Coupons");
+        }
 
         fragmentCartListBinding.cartLay.setVisibility(getPriceDetails.getTotalProducts().equals("0.") || getPriceDetails.getTotalProducts().equals("0") ? View.GONE : View.VISIBLE);
 
@@ -308,7 +372,6 @@ public class Cart_Details_Fragment extends Fragment implements ProductInterface 
     public void onResume() {
         super.onResume();
         AppUtils.hideDialog();
-        updateCartData();
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 }
