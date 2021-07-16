@@ -105,8 +105,6 @@ public class CartDetailsAdapter extends RecyclerView.Adapter<CartDetailsAdapter.
                 }
 
 
-
-
 //                int count = Integer.parseInt(String.valueOf(holder.cartViewBinding.textView263.getText()));
 //                count++;
 //                holder.cartViewBinding.textView263.setText(String.valueOf(count));
