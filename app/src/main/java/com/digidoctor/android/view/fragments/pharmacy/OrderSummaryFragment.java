@@ -199,8 +199,14 @@ public class OrderSummaryFragment extends Fragment implements ProductInterface {
 
     private void Orderplaced() {
 
+
         if (addAdressModels.get(0).getAddressId() != null) {
-            AddressId = addAdressModels.get(0).getAddressId();
+            for (int i = 0; i < addAdressModels.size(); i++) {
+                if (addAdressModels.get(i).getIsDefault().equals("true")) {
+                    AddressId = addAdressModels.get(i).getAddressId();
+                }
+            }
+
         } else {
             Toast.makeText(requireActivity(), "Kindly Add Address First", Toast.LENGTH_SHORT).show();
         }
