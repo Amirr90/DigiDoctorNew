@@ -1,38 +1,17 @@
 package com.digidoctor.android.utility;
 
 import android.app.Activity;
-import android.util.Log;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-
-import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.interfaces.LabOrderInterface;
-import com.digidoctor.android.model.ResponseModel;
 import com.digidoctor.android.model.labmodel.LabOrderModel;
-import com.digidoctor.android.view.fragments.lab.FragmentReviewOrderLab;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import timber.log.Timber;
-
-import static com.digidoctor.android.utility.utils.APPOINTMENT_DATE;
-import static com.digidoctor.android.utility.utils.APPOINTMENT_TIME;
-import static com.digidoctor.android.utility.utils.KEY_AMOUNT;
-import static com.digidoctor.android.utility.utils.KEY_APPOINTMENT_ID;
-import static com.digidoctor.android.utility.utils.KEY_DOC_ID;
-import static com.digidoctor.android.utility.utils.KEY_IS_ERA_USER;
-import static com.digidoctor.android.utility.utils.KEY_PATIENT_NAME;
-import static com.digidoctor.android.utility.utils.KEY_REVISIT;
-import static com.digidoctor.android.utility.utils.MEMBER_ID;
-import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 
 public class Payment extends PaymentModel {
     private static final String TAG = "Payment";
@@ -93,12 +72,11 @@ public class Payment extends PaymentModel {
             options.put("prefill.contact", getMobileNumber());
             checkout.open(activity, options);
         } catch (Exception e) {
-            Log.e(TAG, "Error in starting Razorpay Checkout", e);
+
         }
     }
 
     public void paymentSuccess(PaymentData paymentData) throws JSONException {
-        Log.d(TAG, "paymentSuccess: " + paymentData.getData().toString());
         Timber.d("paymentSuccess: %s", paymentData.getData().toString());
         String dtTableData = "[{\"paymentStatus\":\"success\",\"bankRefNo\":\"" + paymentData.getData().getString("razorpay_payment_id") + "\",\"paymentAmount\":\"" + amount + "\",\"transactionNo\":\"" + paymentData.getPaymentId() + "\",\"isErauser\":" + paymentData.getUserContact() + "}]";
 
@@ -110,6 +88,7 @@ public class Payment extends PaymentModel {
     public void paymentFailed(String msg) {
         AppUtils.hideDialog();
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+        anInterface.onFailed(msg);
     }
 
 }

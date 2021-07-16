@@ -54,19 +54,31 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
 
+            <TextView
+                android:id="@+id/tvWalletText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_8sdp"
+                android:fontFamily="@font/poppins"
+                android:text="Use Wallet Amount"
+                app:drawableStartCompat="@drawable/ic_baseline_calendar_today_243"
+                app:layout_constraintBottom_toBottomOf="@+id/checkBox4"
+                app:layout_constraintStart_toStartOf="@+id/textView185"
+                app:layout_constraintTop_toTopOf="@+id/checkBox4" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="13dp"
                 android:background="@drawable/cartview_round_layout"
                 android:paddingBottom="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView185">
+                app:layout_constraintTop_toBottomOf="@+id/checkBox4">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recCartItem"
@@ -74,11 +86,51 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_10sdp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:itemCount="3"
                     tools:listitem="@layout/review_order_cart_view" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/walletAmountLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recCartItem">
+
+
+                    <TextView
+                        android:id="@+id/tvWalletAppliedText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="11dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Wallet Amount Added"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/tvWalletAppliedAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:drawablePadding="5dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="UnknownIdInLayout" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
                     android:id="@+id/view9"
@@ -90,7 +142,7 @@
                     android:background="@color/greyLight"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recCartItem" />
+                    app:layout_constraintTop_toBottomOf="@+id/walletAmountLay" />
 
                 <TextView
                     android:id="@+id/textView192"
@@ -107,8 +159,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/view9" />
 
                 <TextView
-                    android:textColor="#2B3344"
-                    android:textStyle="bold"
                     android:id="@+id/tvTotalCartPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -116,7 +166,9 @@
                     android:drawablePadding="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/total"
+                    android:textColor="#2B3344"
                     android:textSize="14sp"
+                    android:textStyle="bold"
                     app:drawableStartCompat="@drawable/rupee"
                     app:layout_constraintBottom_toBottomOf="@+id/textView192"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -184,13 +236,15 @@
                 <View
                     android:id="@+id/view5"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_1sdp"
+                    android:layout_height="0.8dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="13dp"
                     android:layout_marginEnd="12dp"
+                    android:background="#707070"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView172" />
+
 
                 <ImageView
                     android:id="@+id/imageView60"
@@ -206,29 +260,20 @@
                     android:id="@+id/textView173"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="15dp"
+                    android:drawableStart="@drawable/ic_baseline_calendar_today_243"
+                    android:drawablePadding="@dimen/_8sdp"
                     android:fontFamily="@font/poppins"
                     android:text="@string/appointment_date"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView61"
-                    app:layout_constraintStart_toEndOf="@+id/imageView61"
-                    app:layout_constraintTop_toTopOf="@+id/imageView61" />
-
-                <ImageView
-                    android:id="@+id/imageView61"
-                    android:layout_width="16dp"
-                    android:layout_height="17dp"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="10dp"
-                    android:contentDescription="@string/todo"
-                    android:src="@drawable/calender"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/view5"
                     app:layout_constraintTop_toBottomOf="@+id/view5" />
 
                 <TextView
                     android:id="@+id/tvAppointmentDateTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="11dp"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginBottom="15dp"
                     android:text="@string/_29_sep_2020_timing_12_00"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -288,11 +333,21 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:backgroundTint="#EDA537"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout15"
                 app:layout_constraintHorizontal_bias="0.6"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout15"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout15" />
+
+            <CheckBox
+                android:id="@+id/checkBox4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:includeFontPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView185" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

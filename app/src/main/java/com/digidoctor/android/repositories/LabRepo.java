@@ -1,6 +1,5 @@
 package com.digidoctor.android.repositories;
 
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
@@ -15,7 +14,6 @@ import com.digidoctor.android.model.labmodel.PackagesRes;
 import com.digidoctor.android.model.labmodel.SearchRes;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.App;
-import com.digidoctor.android.utility.AppUtils;
 
 import java.util.List;
 
@@ -145,6 +143,30 @@ public class LabRepo {
             public void onFailed(Throwable throwable) {
                 Toast.makeText(App.context, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
+        });
+    }
+
+    public MutableLiveData<String> walletMutable;
+
+    public MutableLiveData<String> getWalletAmount() {
+        if (null == walletMutable)
+            walletMutable = new MutableLiveData<>();
+        loadWalletAmount();
+        return walletMutable;
+    }
+
+    private void loadWalletAmount() {
+        ApiUtils.loadWalletAmount(new ApiUtils.WalletInterface() {
+            @Override
+            public void onSuccess(Object obj) {
+                walletMutable.setValue((String) obj);
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(App.context, msg, Toast.LENGTH_SHORT).show();
+            }
+
         });
     }
 }

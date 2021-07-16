@@ -307,6 +307,38 @@ public class ApiUtils {
         apiCallbackInterface.onSuccess(models);
     }
 
+    public static void loadWalletAmount(WalletInterface apiCallbackInterface) {
+        apiCallbackInterface.onSuccess(AppUtils.WALLET_DEMO_AMOUNT);
+       /* try {
+
+            final Api api = URLUtils.getAPIServiceForPatient();
+            Call<GetAppointmentSlotsRes> getAppointmentSlotsResCall = api.walletAmount();
+            getAppointmentSlotsResCall.enqueue(new Callback<GetAppointmentSlotsRes>() {
+                @Override
+                public void onResponse(@NotNull Call<GetAppointmentSlotsRes> call, @NotNull Response<GetAppointmentSlotsRes> response) {
+                    if (response.code() == 200 && null != response.body()) {
+                        if (response.body().getResponseCode() == 1) {
+                            apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                        } else apiCallbackInterface.onError(response.body().getResponseMessage());
+                    } else apiCallbackInterface.onError(response.message());
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<GetAppointmentSlotsRes> call, @NotNull Throwable t) {
+                    apiCallbackInterface.onError(t.getLocalizedMessage());
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+    }
+
+    public interface WalletInterface {
+        public void onSuccess(Object obj);
+
+        public void onFailed(String msg);
+    }
 
     public interface SpecialityInterface {
         void onSuccess(Object obj);

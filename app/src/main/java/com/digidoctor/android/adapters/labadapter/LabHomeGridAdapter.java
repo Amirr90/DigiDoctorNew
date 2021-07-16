@@ -25,8 +25,8 @@ public class LabHomeGridAdapter extends RecyclerView.Adapter<LabHomeGridAdapter.
         List<GridModel> strings = new ArrayList<>();
         strings.add(new GridModel("Best Price", "Guaranteed", R.drawable.first));
         strings.add(new GridModel("Home", "Sample", R.drawable.ic_home_sample));
-        strings.add(new GridModel("View", "Reports", R.drawable.ic_view_reports));
-        strings.add(new GridModel("Add", "Reports", R.drawable.investigation));
+        strings.add(new GridModel("View", "Reports", R.drawable.ic_view_investigation));
+        strings.add(new GridModel("Add", "Reports", R.drawable.ic_add_investigation ));
         return strings;
     }
 

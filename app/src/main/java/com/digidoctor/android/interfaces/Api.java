@@ -501,6 +501,8 @@ public interface Api {
 
     @POST("getMenuForApp")
     Call<MenuResponse> getMenuForApp();
+
+    Call<GetAppointmentSlotsRes> walletAmount();
 }
 
 
