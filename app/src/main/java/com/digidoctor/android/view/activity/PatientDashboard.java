@@ -359,7 +359,11 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
 
     private void checkForUpdate() {
-        new GoogleChecker("com.digidoctor.android", PatientDashboard.this, true, "en");
+        try {
+            new GoogleChecker("com.digidoctor.android", PatientDashboard.this, true, "en");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -429,9 +433,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     @Override
     public void onPaymentSuccess(String status, PaymentData paymentData) {
         Toast.makeText(this, this.getString(R.string.transaction_successful), Toast.LENGTH_LONG).show();
-
-        Log.d(TAG, "onPaymentSuccess: " + status);
-
         if (null != bookAppointment)
             bookAppointment.startBookingAppointment(paymentData.getPaymentId());
 
@@ -442,15 +443,14 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 labPayment.paymentFailed(e.getLocalizedMessage());
             }
 
-        Log.d(TAG, "onPaymentSuccessData: " + paymentData.getData());
     }
 
     @Override
     public void onPaymentError(int i, String s, PaymentData paymentData) {
-        Log.d(TAG, "onPaymentError: " + s);
         if (null != bookAppointment) {
             showfailedmessages("Failed to Book Appointment!");
         } else if (null != labPayment) {
+            labPayment.paymentFailed("Failed to Book Lab test!");
             showfailedmessages("Failed to Book Lab test!");
         }
     }
@@ -608,11 +608,10 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
 
     @Override
     public void onPaymentCancel(boolean b) {
-        Log.d(TAG, "onPaymentCancel: " + b);
         if (null != bookAppointment) {
             showfailedmessages("Failed to Book Appointment!");
         } else if (null != labPayment) {
-            showfailedmessages("Failed to Book Lab test!");
+            showfailedmessages("Payment cancel !!");
         }
     }
 
@@ -623,7 +622,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     @Override
     public void onError(@NotNull ErrorResponse errorResponse) {
         String errorMessage = errorResponse.getErrorMessage();
-        Log.d(TAG, "onError: " + errorMessage);
         Toast.makeText(instance, R.string.failed_to_book, Toast.LENGTH_SHORT).show();
     }
 

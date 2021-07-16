@@ -31,6 +31,8 @@ import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.Cart;
 import com.digidoctor.android.utility.Payment;
 import com.digidoctor.android.utility.utils;
+import com.digidoctor.android.wallet.Wallet;
+import com.digidoctor.android.wallet.WalletInterface;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -52,7 +54,7 @@ import static com.digidoctor.android.utility.utils.MOBILE_NUMBER;
 import static com.digidoctor.android.utility.utils.getUserForBooking;
 
 
-public class FragmentReviewOrderLab extends Fragment implements LabOrderInterface, CartInterface {
+public class FragmentReviewOrderLab extends Fragment implements LabOrderInterface, CartInterface, WalletInterface {
     private static final String TAG = "FragmentReviewOrderLab";
 
 
@@ -70,6 +72,8 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
     CartItemViewAdapter adapter;
 
     String date, time, memberId;
+
+    String amountToAddForLabFromWallet = "100";
 
 
     @Override
@@ -99,7 +103,6 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
         name = getArguments().getString("name");
 
 
-
         binding.btnContinue.setOnClickListener(v -> {
             AppUtils.showRequestDialog(requireActivity());
             setLabOrderModel();
@@ -108,6 +111,30 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
 
             }
         });
+
+        Wallet wallet = new Wallet(requireActivity(), this);
+        wallet.fetchWalletAmount();
+
+
+        binding.checkBox4.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                wallet.addWalletAmountForLab(amountToAddForLabFromWallet);
+                binding.tvWalletAppliedAmount.setText(AppUtils.getCurrencyFormat(amountToAddForLabFromWallet));
+                amountToPay = String.valueOf(Integer.parseInt(amountToPay) - Integer.parseInt(amountToAddForLabFromWallet));
+            } else {
+                wallet.cancelToAddWalletAmount(amountToAddForLabFromWallet);
+                amountToPay = String.valueOf(Integer.parseInt(amountToPay) + Integer.parseInt(amountToAddForLabFromWallet));
+            }
+            updateCartAmount(amountToPay);
+            binding.walletAmountLay.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+        });
+
+    }
+
+    private void updateCartAmount(String amountToPay) {
+        binding.tvTotalCartPrice.setText(AppUtils.getCurrencyFormat(amountToPay));
+        binding.btnContinue.setText(String.format("Pay %s", AppUtils.getCurrencyFormat(amountToPay)));
+        labPayment.setAmount(amountToPay);
     }
 
     private void getTrxNumber() {
@@ -129,12 +156,10 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
         ApiUtils.getTransactionNo(map, requireActivity(), new ApiCallbackInterface() {
             @Override
             public void onSuccess(List<?> o) {
-
                 List<ResponseModel.HashModel> models = (List<ResponseModel.HashModel>) o;
                 if (null != models) {
                     String tId = models.get(0).getTaxId();
                     utils.setString("txid", tId, requireActivity());
-                    Log.d(TAG, "onSuccess: Trx Id" + models.get(0));
                     labOrderModel.setTrancationNo(tId);
                     labPayment.startPayment(labOrderModel.getPaymentMode());
                 }
@@ -196,6 +221,7 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
     @Override
     public void onFailed(Object obj) {
         Toast.makeText(requireActivity(), "Failed to place Order !! " + (String) obj, Toast.LENGTH_SHORT).show();
+        navController.navigateUp();
     }
 
     @Override
@@ -249,10 +275,7 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
         cartModelList = new ArrayList<>();
         adapter = new CartItemViewAdapter(cartModelList);
         binding.recCartItem.setAdapter(adapter);
-
-
         this.cartModelList.clear();
-        Log.d(TAG, "cartItem: " + obj);
         List<CartModel> cartModelList = (List<CartModel>) obj;
         if (null != cartModelList && !cartModelList.isEmpty()) {
             this.cartModelList.addAll(cartModelList);
@@ -262,15 +285,29 @@ public class FragmentReviewOrderLab extends Fragment implements LabOrderInterfac
 
         if (cartModelList.size() > 0) {
             CartModel cartModel = cartModelList.get(0);
-            if (null != cartModel.getCartAmount() && !cartModel.getCartAmount().isEmpty())
-                binding.tvTotalCartPrice.setText(cartModel.getCartAmount().get(0).getTotalAmount().toString());
-            binding.tvAppointmentDateTime.setText(AppUtils.parseDate(date, "EEE, MMM d", "yyyy/MM/dd") + ", " + time);
+            if (null != cartModel.getCartAmount() && !cartModel.getCartAmount().isEmpty()) {
+                binding.tvTotalCartPrice.setText(AppUtils.getCurrencyFormat(cartModel.getCartAmount().get(0).getTotalAmount().toString()));
+                binding.btnContinue.setText(String.format("Pay %s", AppUtils.getCurrencyFormat(cartModel.getCartAmount().get(0).getTotalAmount().toString())));
+            }
+            binding.tvAppointmentDateTime.setText(String.format("%s, %s", AppUtils.parseDate(date, "EEE, MMM d", "yyyy/MM/dd"), time));
             binding.setCartModel(cartModel);
-            amountToPay = cartModel.getPrice();
+            amountToPay = String.valueOf((int) Float.parseFloat(cartModel.getPrice()));
             pathologyID = cartModel.getPathalogyId();
             labPayment.setAmount(amountToPay);
 
         }
 
+    }
+
+    @Override
+    public void onAmountFetched(Object obj) {
+        binding.tvWalletText.setText(String.format("Use Wallet Amount %s", obj));
+
+    }
+
+    @Override
+    public void onAmountUpdate(Object msg) {
+        binding.tvWalletText.setText(String.format("Use Wallet Amount %s", msg));
+        binding.tvWalletAppliedAmount.setText(amountToAddForLabFromWallet);
     }
 }

@@ -58,7 +58,6 @@ public class Test_Package_Fragment extends Fragment implements CartInterface, Pa
         //init Adapter
         adapter = new HealthPackageListAdapter(cart,this);
 
-
         //init RecyclerView
         testPackagesFragmentBinding.testrecyclerview.setAdapter(adapter);
 

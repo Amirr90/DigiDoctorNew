@@ -81,6 +81,7 @@ public class AppUtils {
     public static final String NOTIFICATION_TYPE_VIDEO_CALL = "1";
     public static final String UID = "uid";
     public static final String CALL_ALL = "All";
+    public static final String WALLET_DEMO_AMOUNT = "500";
     private static final String TAG = "AppUtils";
     private static final String USERS = "Users";
     public static Toast mToast;
