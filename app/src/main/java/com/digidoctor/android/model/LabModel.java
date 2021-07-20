@@ -1,11 +1,14 @@
 package com.digidoctor.android.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
 import java.util.Objects;
 
-public class LabModel {
+public class LabModel implements Parcelable {
     Integer pathalogyId;
     String pathologyName;
     String address;
@@ -18,6 +21,37 @@ public class LabModel {
     String logo;
     String stateName;
     String cityName;
+
+    protected LabModel(Parcel in) {
+        if (in.readByte() == 0) {
+            pathalogyId = null;
+        } else {
+            pathalogyId = in.readInt();
+        }
+        pathologyName = in.readString();
+        address = in.readString();
+        contactNo = in.readString();
+        workingHrsFrom = in.readString();
+        workingHrsTo = in.readString();
+        pincode = in.readString();
+        latitude = in.readString();
+        longitude = in.readString();
+        logo = in.readString();
+        stateName = in.readString();
+        cityName = in.readString();
+    }
+
+    public static final Creator<LabModel> CREATOR = new Creator<LabModel>() {
+        @Override
+        public LabModel createFromParcel(Parcel in) {
+            return new LabModel(in);
+        }
+
+        @Override
+        public LabModel[] newArray(int size) {
+            return new LabModel[size];
+        }
+    };
 
     public Integer getPathalogyId() {
         return pathalogyId;
@@ -103,4 +137,30 @@ public class LabModel {
             return oldItem.equals(newItem);
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (pathalogyId == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(pathalogyId);
+        }
+        dest.writeString(pathologyName);
+        dest.writeString(address);
+        dest.writeString(contactNo);
+        dest.writeString(workingHrsFrom);
+        dest.writeString(workingHrsTo);
+        dest.writeString(pincode);
+        dest.writeString(latitude);
+        dest.writeString(longitude);
+        dest.writeString(logo);
+        dest.writeString(stateName);
+        dest.writeString(cityName);
+    }
 }

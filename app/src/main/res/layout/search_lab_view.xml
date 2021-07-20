@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -29,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:drawablePadding="@dimen/dimen_10dp"
+            android:drawableTint="@color/colorPrimary"
             android:fontFamily="@font/poppins_medium"
             android:text="@{details.name}"
             android:textColor="#262E3F"

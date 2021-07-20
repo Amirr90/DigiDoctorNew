@@ -116,7 +116,7 @@ public class SplashScreen extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             String token = utils.getString(fcmToken, SplashScreen.this);
-                            AppUtils.setUserToFirebaseDatabase(user, token);
+                            AppUtils.setUserToFirebaseDatabase( token);
                         } else {
                             Timber.d(task.getException(), "signInAnonymously:failure");
                             Toast.makeText(SplashScreen.this, "Authentication failed.",
@@ -124,7 +124,7 @@ public class SplashScreen extends AppCompatActivity {
                         }
                     });
         else {
-            Timber.d("updateUI: %s", mAuth.getCurrentUser().getUid());
+            Timber.tag(TAG).d("updateUI: %s", mAuth.getCurrentUser().getUid());
             FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
                 String newToken = instanceIdResult.getToken();
                 AppUtils.updateTokenToDatabase(newToken);

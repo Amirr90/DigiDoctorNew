@@ -81,4 +81,5 @@
     <string name="emergency_chat_24_7">Emergency Chat 24*7</string>
     <string name="special_character_not_allowed">Special character not allowed !!</string>
     <string name="view_era_s_investigation_report">View Era\'s Investigation Report</string>
+    <string name="order_summary">Order Summary</string>
 </resources>

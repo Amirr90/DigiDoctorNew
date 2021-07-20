@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/colorAccent" />
-    <corners android:radius="20sp" />
-</shape>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:color="@color/green"
+    tools:targetApi="lollipop">
+    <item>
+        <shape>
+            <solid android:color="@color/colorPrimary" />
+            <corners android:radius="@dimen/_500sdp" />
+        </shape>
+    </item>
+</ripple>

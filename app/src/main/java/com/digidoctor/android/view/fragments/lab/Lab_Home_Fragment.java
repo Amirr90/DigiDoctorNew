@@ -91,7 +91,7 @@ public class Lab_Home_Fragment extends Fragment implements PackagesInterface, Ca
         labTestHomeBinding.recCategory.setAdapter(categoryAdapter);
 
         //LabsAdapter
-        labsAdapter = new LabsAdapter();
+        labsAdapter = new LabsAdapter(obj -> navController.navigate(R.id.action_lab_Home_Fragment_to_fragmentLabDetails));
         labTestHomeBinding.recLab.setAdapter(labsAdapter);
 
         labTestHomeBinding.tvViewAllPackages.setOnClickListener(v -> navController.navigate(R.id.action_lab_Home_Fragment_to_test_Package_Fragment));

@@ -260,6 +260,12 @@ public class utils {
             return pref.getString(key, "");
         } else return null;
 
+    } public static String getString(String key, Context activity) {
+        if (activity != null) {
+            SharedPreferences pref = activity.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+            return pref.getString(key, "");
+        } else return null;
+
     }
 
     public static boolean getBoolean(String key, Activity activity) {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -12,22 +11,22 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/_10sdp">
+        android:layout_height="wrap_content">
 
 
         <TextView
-            android:gravity="center"
             android:id="@+id/textView100"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawablePadding="3dp"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Sakina Bano"
+            android:gravity="center"
+            android:text="Dr Vibha Singh"
             android:textColor="#2B3344"
-            android:textSize="13sp"
-            app:drawableLeftCompat="@drawable/ic_baseline_account_circle_24"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,10 +34,10 @@
             android:id="@+id/textView101"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
             android:gravity="center"
             android:text="18 feb 2021"
             android:textColor="#2B3344"
-            android:fontFamily="@font/poppins_medium"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView100"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,9 +50,13 @@
             android:id="@+id/textView103"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Nice Products"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:fontFamily="@font/rubik_light"
+            android:text="Godrej Protekt Masterchef's is a handwash unlike any other. It does not contain harmful chemical and is naturally derived."
+            android:textColor="#23384D"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@+id/view8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView206"
             app:layout_constraintTop_toBottomOf="@+id/textView206" />
@@ -71,11 +74,11 @@
             app:layout_constraintTop_toBottomOf="@+id/textView103" />
 
         <TextView
-            android:fontFamily="@font/poppins_medium"
             android:id="@+id/textView105"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_medium"
             android:text="Report"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/textView103"
@@ -108,22 +111,19 @@
             android:id="@+id/view8"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="14dp"
             android:background="#E5E5E5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView105"
-            app:layout_constraintStart_toStartOf="@+id/imageView17"
-            app:layout_constraintTop_toBottomOf="@+id/textView104" />
+            app:layout_constraintStart_toStartOf="@+id/imageView17" />
 
         <TextView
             android:id="@+id/textView206"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/cart_add_value_button"
             android:backgroundTint="#39B54A"
-            android:drawableRight="@drawable/ic_baseline_star_24"
             android:drawablePadding="@dimen/dimen_5dp"
             android:gravity="center"
             android:paddingStart="@dimen/_8sdp"
@@ -132,7 +132,8 @@
             android:paddingBottom="2dp"
             android:text="0.0"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textSize="10sp"
+            app:drawableRightCompat="@drawable/ic_baseline_star_24"
             app:layout_constraintStart_toStartOf="@+id/textView100"
             app:layout_constraintTop_toBottomOf="@+id/textView100" />
     </androidx.constraintlayout.widget.ConstraintLayout>

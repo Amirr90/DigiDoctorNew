@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -22,92 +21,80 @@
             android:id="@+id/layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/cartview_round_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:backgroundTint="#F2F6FE"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
 
 
             <TextView
                 android:id="@+id/textView161"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="@{packageDetails.packageName}"
+                android:text="@{packageDetails.packageName,default=`Thyroid Stimulating Hormone`}"
                 android:textColor="#262E3F"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView162"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="1dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="2dp"
                 android:text="@{`includes `+packageDetails.noOfTests+` Tests`}"
                 android:textColor="#3F4E6E"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/textView161"
                 app:layout_constraintTop_toBottomOf="@+id/textView161" />
+
 
             <TextView
                 android:id="@+id/textView163"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:drawableLeft="@drawable/rupee"
-                android:drawablePadding="5dp"
+                android:layout_marginStart="4dp"
                 android:background="@drawable/strikethrough"
-                android:fontFamily="@font/poppins_medium"
-                android:text="@{``+packageDetails.packagePrice}"
-                android:textColor="#3F4E6E"
-                android:textSize="@dimen/_15sdp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView162"
-                app:layout_constraintTop_toBottomOf="@+id/textView162" />
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/poppins"
+                android:text="@{``+packageDetails.packagePrice,default=`2,049`}"
+                android:textColor="#707070"
+                android:textSize="14sp"
+                app:drawableStartCompat="@drawable/ic_rupee_indian"
+                app:layout_constraintBottom_toBottomOf="@+id/textView265"
+                app:layout_constraintStart_toEndOf="@+id/textView265"
+                app:layout_constraintTop_toTopOf="@+id/textView265" />
 
             <TextView
-                android:id="@+id/textView150"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="10dp"
-                android:text="@{packageDetails.discountPerc +`% Off` }"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@{``+packageDetails.packagePrice,default=`76% off`}"
                 android:textColor="#7DCE64"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView163"
+                app:layout_constraintEnd_toStartOf="@+id/btnAddToCartPackages"
                 app:layout_constraintStart_toEndOf="@+id/textView163"
                 app:layout_constraintTop_toTopOf="@+id/textView163" />
 
             <TextView
-                android:id="@+id/textView151"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/rupee"
-                android:drawablePadding="5dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@{packageDetails.mrp}"
-                android:textColor="#2B3344"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView163"
-                app:layout_constraintTop_toBottomOf="@+id/textView163"
-                tools:ignore="UseCompatTextViewDrawableXml" />
-
-
-            <TextView
                 android:id="@+id/btnAddToCartPackages"
                 android:layout_width="82dp"
-                android:layout_height="28dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="13dp"
+                android:layout_marginBottom="13dp"
                 android:background="@drawable/button"
                 android:gravity="center_vertical|center"
                 android:text="@{packageDetails.cartStatus.equals(`0`)?utils.ADD_TO_CART:utils.GO_TO_CART}"
@@ -116,7 +103,23 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_11sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView162" />
+
+            <TextView
+                android:id="@+id/textView265"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="6dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="210.00"
+                android:textColor="#2B3344"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_rupee_indian"
+                app:layout_constraintBottom_toBottomOf="@+id/btnAddToCartPackages"
+                app:layout_constraintStart_toStartOf="@+id/textView162"
+                app:layout_constraintTop_toTopOf="@+id/btnAddToCartPackages" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

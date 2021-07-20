@@ -300,7 +300,6 @@ public class ProfileFragment extends Fragment implements MyDialogInterface {
     }
 
     private void registerUser() {
-
         AppUtils.showRequestDialog(requireActivity());
         registration.setProfilePhotoPath(imagePath);
         patientRegistration(registration, requireActivity(), new ApiCallbackInterface() {

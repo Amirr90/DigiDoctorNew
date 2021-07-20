@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,7 +23,6 @@ import com.digidoctor.android.adapters.labadapter.Address;
 import com.digidoctor.android.adapters.labadapter.LabAddressAdapter;
 import com.digidoctor.android.adapters.labadapter.LabTimeSlotAdapter;
 import com.digidoctor.android.databinding.FragmentTimeSlotForLabBinding;
-import com.digidoctor.android.interfaces.AdapterInterface;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.model.CalendarModel;
 import com.digidoctor.android.model.User;
@@ -137,7 +138,7 @@ public class TimeSlotForLabFragment extends Fragment {
 
             String pinCode = address.getPincode();
             if (pinCode.length() < 6) {
-                Toast.makeText(App.context, "There is no slot as per your pincode.Kindly check your pincode", Toast.LENGTH_SHORT).show();
+                Toast.makeText(App.context, "There is no slot as per your pin code. Kindly check your pin code", Toast.LENGTH_SHORT).show();
                 return;
             } else {
                 String date = AppUtils.parseDate(dateSend, "yyyy-MM-dd", "yyyy/MM/dd");
@@ -204,6 +205,34 @@ public class TimeSlotForLabFragment extends Fragment {
 
                 dataset.add(ADD_MEMBER);
                 binding.spinnerSelectMember.attachDataSource(dataset);
+
+
+                String[] genderList = new String[users.size()];
+                for (int a = 0; a < userList.size(); a++) {
+                    genderList[a] = userList.get(a).getName();
+                }
+                ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(requireActivity(), R.layout.dropdown_item, genderList);
+                binding.editTextTextSelectMember.setAdapter(genderAdapter);
+                binding.editTextTextSelectMember.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                        String item = (String) parent.getItemAtPosition(position);
+                        Toast.makeText(App.context, item, Toast.LENGTH_SHORT).show();
+                        if (item.equalsIgnoreCase(ADD_MEMBER)) {
+                            //navigate to addNew member!!
+                            navController.navigate(R.id.action_timeSlotForLabFragment_to_addMemberFragment);
+                        } else {
+                            memberId = String.valueOf(userList.get(position).getMemberId());
+                            Log.d(TAG, "setAllMembersToSpinner: " + memberId);
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
             }
         });
 
@@ -217,6 +246,8 @@ public class TimeSlotForLabFragment extends Fragment {
                 Log.d(TAG, "setAllMembersToSpinner: " + memberId);
             }
         });
+
+
     }
 
     public void getAllAddress(String date) {

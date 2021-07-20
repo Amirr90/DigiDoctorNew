@@ -911,6 +911,13 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_lab_Home_Fragment_to_fragmentLabDetails"
+            app:destination="@id/fragmentLabDetails"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/health_Checkup_Categories_Fragment"
@@ -1219,5 +1226,10 @@
             app:action="ACTION_VIEW"
             app:uri="https://www.noInternetLayout.com" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentLabDetails"
+        android:name="com.digidoctor.android.view.fragments.lab.FragmentLabDetails"
+        android:label="Lab Details"
+        tools:layout="@layout/fragment_lab_details" />
 
 </navigation>

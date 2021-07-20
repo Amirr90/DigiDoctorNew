@@ -26,10 +26,9 @@ import com.digidoctor.android.R;
 import com.digidoctor.android.model.DashboardModel1;
 import com.digidoctor.android.model.DoctorModel;
 import com.digidoctor.android.model.LanguageModel;
-import com.digidoctor.android.model.NavModel;
+import com.digidoctor.android.model.User;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
@@ -57,6 +56,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
+import static com.digidoctor.android.utility.utils.fcmToken;
 
 public class AppUtils {
     public static final String CALL_STATUS = "callStatus";
@@ -141,28 +141,6 @@ public class AppUtils {
         }
     }
 
-    public static List<NavModel> getNavData(Activity activity) {
-        List<NavModel> navModels = new ArrayList<>();
-       /* navModels.add(new NavModel(activity.getString(R.string.appointment), R.drawable.appointments));
-        navModels.add(new NavModel(activity.getString(R.string.prescription_history), R.drawable.prescription));
-        navModels.add(new NavModel(activity.getString(R.string.investigation_history), R.drawable.investigation));
-        navModels.add(new NavModel(activity.getString(R.string.vitals_hitory), R.drawable.investigation));
-        navModels.add(new NavModel(activity.getString(R.string.add_family_member), R.drawable.family_members));
-        navModels.add(new NavModel(activity.getString(R.string.lab_tests), R.drawable.lab_test_icon));
-        navModels.add(new NavModel(activity.getString(R.string.orders), R.drawable.order));
-        navModels.add(new NavModel(activity.getString(R.string.notifications), R.drawable.notification));
-        navModels.add(new NavModel(activity.getString(R.string.settings), R.drawable.settings));
-        navModels.add(new NavModel(activity.getString(R.string.about_us), R.drawable.aboutus));
-        navModels.add(new NavModel(activity.getString(R.string.medicine_reminder), R.drawable.ic_baseline_alarm_24));
-        navModels.add(new NavModel(activity.getString(R.string.change_language), R.drawable.language_icon));
-        navModels.add(new NavModel(activity.getString(R.string.share_app), R.drawable.language_icon));
-        navModels.add(new NavModel(activity.getString(R.string.symptom_tracker), R.drawable.symptom_tracker_image));
-        navModels.add(new NavModel(activity.getString(R.string.lab_order), R.drawable.symptom_tracker_image));
-        navModels.add(new NavModel(activity.getString(R.string.home_isolation_request), R.drawable.symptom_tracker_image));
-
-        navModels.add(new NavModel(activity.getString(R.string.logout), R.drawable.logout));*/
-        return navModels;
-    }
 
     public static List<DashboardModel1> getDashboardList(Activity activity) {
         List<DashboardModel1> dashboardModel1s = new ArrayList<>();
@@ -607,30 +585,48 @@ public class AppUtils {
     }
 
     public static void updateTokenToDatabase(String token) {
+        User user = utils.getPrimaryUser();
         Map<String, Object> map = new HashMap<>();
         map.put("token", token);
         if (null != FirebaseAuth.getInstance().getCurrentUser()) {
             map.put("uid", FirebaseAuth.getInstance().getCurrentUser().getUid());
             FirebaseFirestore firestore = FirebaseFirestore.getInstance();
             firestore.collection(AppUtils.USERS)
-                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .document(String.valueOf(user.getMemberId()))
                     .update(map);
         }
     }
 
-    public static void setUserToFirebaseDatabase(FirebaseUser user, String token) {
+    public static void setUserToFirebaseDatabase(String token) {
+        User user = utils.getPrimaryUser();
         Map<String, Object> map = new HashMap<>();
         map.put("token", token);
-        map.put("uid", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        map.put("online", true);
+        map.put("timestamp", System.currentTimeMillis());
+        map.put("uid", user.getUserLoginId());
+        map.put("loginType", AppUtils.PATIENT);
+        map.put("firebaseUid", FirebaseAuth.getInstance().getCurrentUser().getUid());
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection(AppUtils.USERS)
-                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .document(String.valueOf(user.getMemberId()))
                 .set(map);
 
     }
 
     public static FirebaseFirestore getFirestoreReference() {
         return FirebaseFirestore.getInstance();
+    }
+
+
+    public static void updateOnlineStatus(boolean status) {
+        User user = utils.getPrimaryUser();
+        getFirestoreReference().collection(AppUtils.USERS)
+                .document(String.valueOf(user.getMemberId()))
+                .update("online", status).addOnFailureListener(e -> {
+
+            String token = utils.getString(fcmToken, App.context);
+            setUserToFirebaseDatabase(token);
+        });
     }
 
     public void downloadPdf(FragmentActivity fragmentActivity) {

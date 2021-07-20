@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.digidoctor.android.databinding.FragmentLabDetailsBinding;
-
+import com.digidoctor.android.utility.AppUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +21,7 @@ public class FragmentLabDetails extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentLabDetailsBinding.inflate(getLayoutInflater());
         return binding.getRoot();
@@ -30,5 +30,11 @@ public class FragmentLabDetails extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AppUtils.showToolbar(requireActivity());
     }
 }

@@ -36,8 +36,8 @@ import com.digidoctor.android.interfaces.NavigationInterface;
 import com.digidoctor.android.model.NavModel;
 import com.digidoctor.android.model.User;
 import com.digidoctor.android.newVideoCall.LocalNotification;
+import com.digidoctor.android.utility.AppUtils;
 import com.digidoctor.android.utility.GetAddressIntentService;
-import com.digidoctor.android.utility.WakefulBroadcasterReceiver;
 import com.digidoctor.android.utility.utils;
 import com.digidoctor.android.view.fragments.digiDoctorFragments.SearchBluetoothDeviceFragment;
 import com.digidoctor.android.viewHolder.PatientViewModel;
@@ -253,36 +253,6 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
     }
 
 
-    private void hideFavouriteIcon() {
-        searchItem.setVisible(false);
-        cartItem.setVisible(true);
-        favouriteItem.setVisible(false);
-    }
-
-    private void hideAllItem() {
-        searchItem.setVisible(false);
-        cartItem.setVisible(false);
-        favouriteItem.setVisible(false);
-    }
-
-    private void showNotification() {
-       /* String type = getIntent().getStringExtra("type");
-        if (type.equalsIgnoreCase("4")) {
-
-        } else {
-
-        }*/
-        Intent myIntent = new Intent(this, WakefulBroadcasterReceiver.class);
-        myIntent.setAction("myReceiver");
-        myIntent.putExtra("roomName", getIntent().getStringExtra("roomName"));
-        myIntent.putExtra("accessToken", getIntent().getStringExtra("twillioAccessToken"));
-        myIntent.putExtra("message", getIntent().getStringExtra("msg"));
-        myIntent.putExtra("title", getIntent().getStringExtra("title"));
-        myIntent.putExtra("profilePhotoPath", getIntent().getStringExtra("profilePhotoPath"));
-        myIntent.putExtra("doctorName", getIntent().getStringExtra("doctorName"));
-        sendBroadcast(myIntent);
-    }
-
     private void registerBroadcast() {
         //Create Intent Filter here
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -347,7 +317,7 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
             }
         });
 
-        checkForUpdate();
+        //checkForUpdate();
 
         if (getIntent().hasExtra("action")) {
             if (getIntent().getStringExtra("action").equalsIgnoreCase("callHistory")) {
@@ -355,6 +325,8 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
                 LocalNotification.hideMissedCallNotification(this);
             }
         }
+
+        AppUtils.updateOnlineStatus(true);
     }
 
 
@@ -594,6 +566,12 @@ public class PatientDashboard extends AppCompatActivity implements PaymentResult
         HashMap<String, Object> result = (HashMap<String, Object>) o;
         String merchantResponse = (String) result.get(PayUCheckoutProConstants.CP_MERCHANT_RESPONSE);
         bookAppointment.startBookingAppointment(merchantResponse);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        AppUtils.updateOnlineStatus(false);
     }
 
     @Override

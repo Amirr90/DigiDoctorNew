@@ -30,6 +30,7 @@
             android:background="@drawable/round_for_search"
             android:backgroundTint="@android:color/white"
             android:drawableEnd="@drawable/magnifier"
+            android:drawableTint="@color/colorPrimary"
             android:drawablePadding="10dp"
             android:ems="10"
             android:hint="@string/search_lab"
@@ -66,5 +67,6 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout15"
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/search_lab_view" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
