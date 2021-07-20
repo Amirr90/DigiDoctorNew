@@ -1,8 +1,11 @@
 package com.digidoctor.android.view.fragments.pharmacy;
 
 import android.content.pm.ActivityInfo;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +18,17 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.anirudh.locationfetch.EasyLocationFetch;
+import com.anirudh.locationfetch.GeoLocationModel;
 import com.digidoctor.android.databinding.FragmentAddressFragmentBinding;
 import com.digidoctor.android.interfaces.ApiCallbackInterface;
 import com.digidoctor.android.utility.ApiUtils;
 import com.digidoctor.android.utility.AppUtils;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -31,6 +38,9 @@ public class AddressFragment extends Fragment {
     FragmentAddressFragmentBinding fragmentAddressFragmentBinding;
     String from = null;
     String Full_name, House, Mobile, City, ZipCode, area, State, locality, isDefault, setIsSundayOpen, setIsSaturdayOpen, setAddressType;
+    List<Address> addresses;
+    GeoLocationModel geoLocationModel;
+    Geocoder geocoder;
 
     @Nullable
     @Override
@@ -50,6 +60,9 @@ public class AddressFragment extends Fragment {
         navController = Navigation.findNavController(view);
         AppUtils.hideDialog();
 
+        geoLocationModel = new EasyLocationFetch(requireActivity()).getLocationData();
+        geocoder = new Geocoder(requireActivity(), Locale.getDefault());
+
 
         fragmentAddressFragmentBinding.btnUpdateProfile.setOnClickListener(view1 -> {
 
@@ -60,6 +73,25 @@ public class AddressFragment extends Fragment {
 
             }
 
+        });
+
+
+        fragmentAddressFragmentBinding.currentlocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    addresses = geocoder.getFromLocation(geoLocationModel.getLattitude(), geoLocationModel.getLongitude(), 1);
+                    Log.d("TAG", "onClick: " + addresses.get(0));
+                    fragmentAddressFragmentBinding.EditTextPin.setText(addresses.get(0).getPostalCode());
+                    fragmentAddressFragmentBinding.EditTextcity.setText(addresses.get(0).getLocality());
+                    fragmentAddressFragmentBinding.EditTextState.setText(addresses.get(0).getAdminArea());
+                    fragmentAddressFragmentBinding.area.setText(addresses.get(0).getAddressLine(0));
+                    fragmentAddressFragmentBinding.EditTextLocality.setText(addresses.get(0).getLocality());
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         });
     }
 
@@ -162,6 +194,7 @@ public class AddressFragment extends Fragment {
         }
 
     }
+
     @Override
     public void onResume() {
         super.onResume();

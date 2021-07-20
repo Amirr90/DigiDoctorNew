@@ -16,6 +16,7 @@ import com.digidoctor.android.interfaces.CartInterface;
 import com.digidoctor.android.interfaces.EraInvestigationApiInterface;
 import com.digidoctor.android.interfaces.LabOrderInterface;
 import com.digidoctor.android.interfaces.NewApiInterface;
+import com.digidoctor.android.interfaces.RemoveCouponResponse;
 import com.digidoctor.android.model.AddInvestigationModel;
 import com.digidoctor.android.model.AppointmentDetailsRes;
 import com.digidoctor.android.model.AppointmentModel;
@@ -1871,15 +1872,15 @@ public class ApiUtils {
     }
 
 
-    public static void orderPlaced(String addressId, final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
+    public static void orderPlaced(String couponCode, String addressId, final Activity activity, final ApiCallbackInterface apiCallbackInterface) {
         AppUtils.showRequestDialog(activity);
         OrderPlaceModel orderPlaceModel = new OrderPlaceModel();
         orderPlaceModel.setMemberId(String.valueOf(getPrimaryUser(activity).getMemberId()));
         //   addToCartModel.setUniqueNo(map.get("uniqueNo"));
-        orderPlaceModel.setAddressId(addressId);
+        orderPlaceModel.setAddressId(couponCode);
         orderPlaceModel.setTrancationNo("0");
         orderPlaceModel.setPaymentMode("COD");
-        orderPlaceModel.setCouponCode("0");
+        orderPlaceModel.setCouponCode(addressId);
         orderPlaceModel.setUniqueNo("0");
 
         Api iRestInterfaces = URLUtils.getPharmacyApisRef();
@@ -2003,6 +2004,36 @@ public class ApiUtils {
         });
 
     }
+
+
+    public static void removecoupon(final CouponModel couponModel, final ApiCallbackInterface apiCallbackInterface) {
+
+        Api iRestInterfaces = URLUtils.getPharmacyApisRef();
+        Call<RemoveCouponResponse> call = iRestInterfaces.removeCoupon(couponModel);
+        call.enqueue(new Callback<RemoveCouponResponse>() {
+            @Override
+            public void onResponse(Call<RemoveCouponResponse> call, Response<RemoveCouponResponse> response) {
+
+                if (response.code() == 200 && response.body() != null) {
+                    if (response.body().getResponseCode() == 1) {
+                        apiCallbackInterface.onSuccess(response.body().getResponseValue());
+                    } else {
+                        apiCallbackInterface.onError(response.body().getResponseMessage());
+                    }
+                } else apiCallbackInterface.onError(String.valueOf(response.code()));
+
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<RemoveCouponResponse> call, Throwable t) {
+                AppUtils.hideDialog();
+                apiCallbackInterface.onFailed(t);
+            }
+        });
+
+    }
+
 
     public static void update_Address(AddAddressModel addAddressModel, Activity activity, final ApiCallbackInterface apiCallbackInterface) {
         AppUtils.showRequestDialog(activity);

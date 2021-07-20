@@ -399,7 +399,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:background="?attr/selectableItemBackground"
-                        android:text="TextView"
+                        android:text=""
                         android:textColor="#0A586C"
                         android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="@+id/imageView10"
